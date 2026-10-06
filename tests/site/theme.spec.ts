@@ -17,6 +17,8 @@ test("changing a menu and a slider updates the code, and Share restores it", asy
 test("leaving the Theme page puts the site's own cuts back", async ({ page }) => {
   await page.goto("/theme?dialog=fade&pace=2")
   expect(await page.evaluate(() => document.documentElement.getAttribute("data-kf-dialog"))).toBe("fade")
+  // On phones the nav links sit behind the menu toggle.
+  if (!(await page.getByRole("link", { name: "Docs" }).first().isVisible())) await page.getByRole("button", { name: "Toggle Menu" }).click()
   await page.getByRole("link", { name: "Docs" }).first().click()
   await expect(page).toHaveURL(/\/docs/)
   await expect.poll(() => page.evaluate(() => document.documentElement.getAttribute("data-kf-dialog"))).toBe("rack-focus")
