@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test"
 
-import { expect, meta, takeEvents, test } from "./kit"
+import { expect, meta, ownErrors, takeEvents, test } from "./kit"
 
 type Tuned = {
   comp: string
@@ -68,7 +68,7 @@ for (const t of TUNED) {
     else await page.mouse.move(2, 2)
     await page.waitForTimeout(500)
     // The examples link to pages of shadcn's own site; Next.js prefetches them and they 404 here (on stock too).
-    expect(errors.filter((e) => !e.startsWith("Failed to load resource: the server responded with a status of 404"))).toEqual([])
+    expect(ownErrors(errors).filter((e) => !e.startsWith("Failed to load resource: the server responded with a status of 404"))).toEqual([])
   })
 }
 

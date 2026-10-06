@@ -26,9 +26,11 @@ function probes() {
   window.__kfGhosts = []
   const tracked = new WeakSet<Animation>()
   let nextId = 0
-  const track = (el: Element) => {
+  const track = (el: Element, eventName?: string) => {
+    let seenEventName = false
     for (const a of el.getAnimations()) {
       const name = (a as CSSAnimation).animationName
+      if (name && name === eventName) seenEventName = true
       if (!name || tracked.has(a)) continue
       tracked.add(a)
       const id = nextId++
@@ -36,8 +38,11 @@ function probes() {
       record("start")
       a.finished.then(() => record("end"), () => record("cancel"))
     }
+    // A short animation can start and finish inside one long frame; by the time its animationstart
+    // arrives it is no longer listed by getAnimations(), so record the start from the event itself.
+    if (eventName && !seenEventName) window.__kfAnim.push({ type: "start", name: eventName, slot: el.getAttribute("data-slot"), id: nextId++ })
   }
-  document.addEventListener("animationstart", (e) => track(e.target as Element), true)
+  document.addEventListener("animationstart", (e) => track(e.target as Element, (e as AnimationEvent).animationName), true)
   new MutationObserver((records) => {
     for (const r of records) {
       if (r.type === "attributes" && r.target instanceof Element && r.target.hasAttribute("data-slot")) track(r.target)
@@ -45,7 +50,7 @@ function probes() {
         if (!(n instanceof HTMLElement)) continue
         if (n.hasAttribute("data-kf-ghost")) window.__kfGhosts.push({ slot: n.getAttribute("data-slot"), aria: n.getAttribute("aria-hidden"), inert: n.inert })
         if (n.hasAttribute("data-slot")) track(n)
-        n.querySelectorAll("[data-slot]").forEach(track)
+        n.querySelectorAll("[data-slot]").forEach((el) => track(el))
       }
     }
   }).observe(document, { subtree: true, childList: true, attributes: true, attributeFilter: ["data-state", "data-open", "data-closed"] })
@@ -145,6 +150,10 @@ export const startedOn = (page: Page, slot: string) =>
     return [...new Set(names)]
   }, slot)
 
+/** Names of animations on a `slot` part that were cancelled (removed or restarted before they finished). */
+export const cancelledOn = (page: Page, slot: string) =>
+  page.evaluate((s) => window.__kfAnim.filter((a) => a.type === "cancel" && a.slot === s).map((a) => a.name), slot)
+
 /** The computed transform of `selector` at the very first instant of its CSS animation `name` (null if it isn't running). */
 export const startTransform = (page: Page, selector: string, name: string) =>
   page.evaluate(([s, n]) => {
@@ -156,12 +165,19 @@ export const startTransform = (page: Page, selector: string, name: string) =>
     anim.pause()
     anim.currentTime = 0
     const tf = getComputedStyle(el).transform
+    ;(window as unknown as { __kfStartOpacity: number }).__kfStartOpacity = Number(getComputedStyle(el).opacity)
     // Put it back exactly: play() on a finished animation would replay it from the start.
     anim.currentTime = t
     if (wasFinished) anim.finish()
     else anim.play()
     return tf
   }, [selector, name] as [string, string])
+
+/** The opacity read by the last startTransform call (at the animation's first instant). */
+export const startOpacity = (page: Page) => page.evaluate(() => (window as unknown as { __kfStartOpacity: number }).__kfStartOpacity)
+
+/** Console errors that come from our app (an example's external image logging cookie warnings doesn't count). */
+export const ownErrors = (errors: string[]) => errors.filter((e) => !/https?:\/\/(?!localhost)/.test(e))
 
 /** Centre of the first element matching `selector`, and the --kf-dx/--kf-dy the engine wrote on it. */
 export const centre = (page: Page, selector: string) =>

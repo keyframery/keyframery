@@ -18,12 +18,23 @@ export function offsetBetween(from: RectLike, to: RectLike) {
   return { dx: round(a.x - b.x), dy: round(a.y - b.y) }
 }
 
-/** The element's box with its animations suspended (an enter animation's first frame is transformed). */
+/**
+ * The element's resting box: an enter animation's first frame is transformed, so measure with every
+ * animation seeked to its end, then put each one back exactly. Nothing is cancelled or restarted, so the
+ * libraries that watch these animations (Radix Presence, Base UI's finished promises) never notice.
+ */
 export function restingRect(el: HTMLElement): DOMRect {
-  const prev = el.style.animation
-  el.style.animation = "none"
+  const saved = el.getAnimations().map((a) => ({ a, t: a.currentTime, state: a.playState }))
+  for (const { a } of saved) {
+    a.pause()
+    a.currentTime = Number(a.effect?.getComputedTiming().endTime ?? 0)
+  }
   const rect = el.getBoundingClientRect()
-  el.style.animation = prev
+  for (const { a, t, state } of saved) {
+    a.currentTime = t ?? 0
+    if (state === "finished") a.finish()
+    else if (state !== "paused") a.play()
+  }
   return rect
 }
 

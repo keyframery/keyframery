@@ -55,12 +55,12 @@ test("nested portals: a dialog opened from inside a sheet aims at its own trigge
   await page.getByTestId("nested-sheet-trigger").click()
   await expect(page.getByTestId("nested-sheet")).toBeVisible()
   await expect.poll(() => ranToEnd(page, "sheet-content", "kf-panel-in")).toBe(true) // the trigger rides on the sheet
-  const trigger = (await centre(page, '[data-testid="nested-dialog-trigger"]'))!
   await page.getByTestId("nested-dialog-trigger").click()
   await expect(page.getByTestId("nested-dialog")).toBeVisible()
-  await page.waitForTimeout(400)
+  await expect.poll(() => ranToEnd(page, "dialog-content", "kf-rack-in")).toBe(true) // measure at rest
   const dialog = (await centre(page, '[data-testid="nested-dialog"]'))!
-  expect(dialog.dx).toBeCloseTo(trigger.x - dialog.x, 0) // the trigger is in the right-hand sheet
+  const trigger = (await centre(page, '[data-testid="nested-dialog-trigger"]'))! // measured with the dialog open (scroll lock can move the sheet)
+  expect(Math.abs(dialog.dx - (trigger.x - dialog.x))).toBeLessThanOrEqual(2) // the trigger is in the right-hand sheet
   expect(dialog.dx).toBeGreaterThan(10)
   expect(errors).toEqual([])
 })

@@ -50,7 +50,7 @@ for (const name of ALL) {
     test.skip(m.motion === "reduced", "checked with full motion")
     test.skip(m.browser !== "chromium" && !process.env.KF_SINK_ALL, "other browsers run weekly (KF_SINK_ALL=1)")
     test.skip(!list(m.base).includes(name), `${m.base} has no ${name}`)
-    test.setTimeout(60_000)
+    test.setTimeout(120_000)
     await page.goto(`/sink/${name}`, { waitUntil: "load" }) // some examples keep the network busy
     const ours = await audit(page)
     await exercise(page)

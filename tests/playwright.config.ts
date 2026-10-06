@@ -15,7 +15,7 @@ const motions = (process.env.KF_MOTION ? [process.env.KF_MOTION] : ["full", "red
 export default defineConfig({
   testDir: "e2e",
   fullyParallel: true,
-  workers: process.env.CI ? 4 : 6,
+  workers: 4, // more contends for the CPU with the four fixture servers and flakes timing checks
   retries: process.env.CI ? 1 : 0,
   reporter: [["list"], ["html", { open: "never", outputFolder: "../.reports/e2e" }]],
   use: { trace: "retain-on-failure" },
