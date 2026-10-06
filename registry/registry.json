@@ -122,6 +122,27 @@
           "target": "lib/keyframery/load.ts"
         }
       ]
+    },
+    {
+      "name": "list-cut",
+      "type": "registry:component",
+      "title": "ListCut",
+      "description": "Lists that change without jumping: arrivals, departures and reorders, keyed by id.",
+      "registryDependencies": [
+        "@keyframery/cuts"
+      ],
+      "files": [
+        {
+          "path": "components/keyframery/list-cut.tsx",
+          "type": "registry:component",
+          "target": "components/keyframery/list-cut.tsx"
+        },
+        {
+          "path": "lib/keyframery/list.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/list.ts"
+        }
+      ]
     }
   ]
 }
