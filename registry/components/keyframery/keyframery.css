@@ -18,3 +18,78 @@
   --kf-hold: 300ms;
   --kf-cap: 1000s;
 }
+
+
+/* ---------- Dialog, alert dialog, command: rack focus ---------- */
+
+:is(
+    :where(html[data-kf][data-kf-dialog="rack-focus"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="rack-focus"]
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-rack-in min(calc(340ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="rack-focus"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="rack-focus"]
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-rack-out min(calc(220ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="rack-focus"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="rack-focus"]
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-veil-in min(calc(340ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="rack-focus"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="rack-focus"]
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-veil-out min(calc(220ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+}
+
+@keyframes kf-rack-in {
+  from {
+    opacity: 0;
+    transform: translate(calc(var(--kf-dx, 0px) * var(--kf-travel)), calc(var(--kf-dy, 0px) * var(--kf-travel))) scale(var(--kf-depth));
+    filter: blur(var(--kf-blur));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes kf-rack-out {
+  from {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(calc(var(--kf-dx, 0px) * var(--kf-travel)), calc(var(--kf-dy, 0px) * var(--kf-travel))) scale(var(--kf-depth));
+    filter: blur(calc(var(--kf-blur) * 0.75));
+  }
+}
+
+@keyframes kf-veil-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes kf-veil-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
