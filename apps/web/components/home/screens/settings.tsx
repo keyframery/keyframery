@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Switch } from "@/components/ui/switch"
 
-import { Screen } from "../wall"
+import { Screen } from "../screen"
 
 export function Settings({ className }: { className?: string }) {
   return (
