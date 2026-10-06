@@ -18,12 +18,14 @@ export const test = base.extend<{ errors: string[] }>({
   },
   errors: async ({ page }, use) => {
     const errors: string[] = []
+    // WebKit reports a Next.js prefetch (?_rsc=) cancelled by leaving the page as an "access control" error.
+    const cancelledPrefetch = (text: string) => /_rsc=/.test(text) && /access control checks/.test(text)
     page.on("console", (m) => {
-      // WebKit logs a prefetch (?_rsc=) that a navigation cancels as an "access control" error; that's noise.
-      const cancelledPrefetch = /_rsc=.*access control checks/.test(m.text())
-      if (m.type() === "error" && !cancelledPrefetch && !/https?:\/\/(?!localhost)/.test(m.text())) errors.push(m.text())
+      if (m.type() === "error" && !cancelledPrefetch(m.text()) && !/https?:\/\/(?!localhost)/.test(m.text())) errors.push(m.text())
     })
-    page.on("pageerror", (e) => errors.push(String(e)))
+    page.on("pageerror", (e) => {
+      if (!cancelledPrefetch(String(e))) errors.push(String(e))
+    })
     await use(errors)
   },
 })
