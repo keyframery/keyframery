@@ -8,7 +8,7 @@ export function OneLine() {
         Remove the line and you&apos;re back to stock shadcn.
       </p>
       </div>
-      <pre className="min-w-0 overflow-x-auto rounded-lg border bg-card p-4 font-mono text-[13px] leading-6">
+      <pre tabIndex={0} className="min-w-0 overflow-x-auto rounded-lg border bg-card p-4 font-mono text-[13px] leading-6">
         <code>
           <span className="text-muted-foreground">{"// app/layout.tsx\n"}</span>
           {'import { Cuts } from "@/components/keyframery/cuts"\n\n'}

@@ -64,7 +64,7 @@ export function Dashboard({ className }: { className?: string }) {
             </div>
           </div>
           <LoadCut loading={loading} skeleton={<div className="mt-4 h-24 rounded-md bg-muted" />}>
-            <div className="mt-4 flex h-24 items-end gap-1.5" aria-label="Visitors per day">
+            <div className="mt-4 flex h-24 items-end gap-1.5" role="img" aria-label="Visitors per day">
               {shown.bars.map((h, i) => (
                 <span key={i} className="flex-1 rounded-sm bg-foreground/80" style={{ height: `${h}%` }} />
               ))}

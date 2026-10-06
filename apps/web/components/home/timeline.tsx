@@ -5,6 +5,7 @@
  * its duration, under a running playhead. The switch, slow-mo and Director live in its header.
  */
 
+import { track } from "@vercel/analytics"
 import * as React from "react"
 
 import { useCutsControl } from "@/app/cuts-control"
@@ -107,14 +108,20 @@ export function Timeline({ director, onDirector }: { director: boolean; onDirect
             aria-checked={enabled}
             aria-label="Keyframery cuts"
             data-testid="cuts-switch"
-            onClick={() => setEnabled(!enabled)}
+            onClick={() => {
+              track("cuts_switch", { on: !enabled })
+              setEnabled(!enabled)
+            }}
             className="relative h-5 w-9 rounded-full bg-muted outline-none ring-ring/50 transition-colors focus-visible:ring-3 aria-checked:bg-foreground"
           >
             <span className={cn("absolute top-0.5 left-0.5 size-4 rounded-full bg-background shadow-sm transition-transform", enabled && "translate-x-4")} />
           </button>
           <span className={cn(enabled ? "text-foreground" : "text-muted-foreground")}>Keyframery</span>
         </label>
-        <button type="button" data-testid="slowmo" aria-pressed={pace === 4} onClick={() => setPace(pace === 4 ? undefined : 4)} className="rounded-md px-2 py-1 text-muted-foreground hover:bg-muted aria-pressed:bg-muted aria-pressed:text-foreground">
+        <button type="button" data-testid="slowmo" aria-pressed={pace === 4} onClick={() => {
+            track("slowmo", { on: pace !== 4 })
+            setPace(pace === 4 ? undefined : 4)
+          }} className="rounded-md px-2 py-1 text-muted-foreground hover:bg-muted aria-pressed:bg-muted aria-pressed:text-foreground">
           Slow-mo
         </button>
         <button type="button" data-testid="director" aria-pressed={director} onClick={() => onDirector(!director)} className="rounded-md px-2 py-1 text-muted-foreground hover:bg-muted aria-pressed:bg-muted aria-pressed:text-foreground">

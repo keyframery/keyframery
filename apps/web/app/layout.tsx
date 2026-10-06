@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://keyframery.com"),
   title: { default: "Keyframery: film cuts for shadcn/ui", template: "%s | Keyframery" },
   description: "Your UI is full of jump cuts. Keyframery gives every shadcn dialog, sheet, tab and toast a real cut, with one line.",
+  openGraph: { type: "website", siteName: "Keyframery", url: "https://keyframery.com" },
+  twitter: { card: "summary_large_image" },
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {

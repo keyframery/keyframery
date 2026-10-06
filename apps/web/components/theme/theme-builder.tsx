@@ -103,7 +103,7 @@ export function ThemeBuilder() {
       <div className="grid content-start gap-4 max-lg:order-first lg:sticky lg:top-20">
         <ThemePreview />
         <div className="rounded-xl border bg-card">
-          <pre className="overflow-x-auto p-4 font-mono text-[13px] leading-6">
+          <pre tabIndex={0} className="overflow-x-auto p-4 font-mono text-[13px] leading-6">
             <code data-testid="theme-jsx">{code.jsx}</code>
             {code.css && (
               <>
