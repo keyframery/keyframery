@@ -32,9 +32,10 @@ const pressAndRead = (page: Page, testId: string, source: string, target: string
 
 function expectGrowsFrom(read: Awaited<ReturnType<typeof pressAndRead>>) {
   expect(read).not.toBeNull()
-  const m = read!.transform!.match(/translate\(([-\d.]+)px, ([-\d.]+)px\) scale\(([-\d.]+), ([-\d.]+)\)/)!
+  // WebKit and Firefox write translate(228px) when y is 0; Chromium writes translate(228px, 0px)
+  const m = read!.transform!.match(/translate\(([-\d.e]+)px(?:,\s*([-\d.e]+)px)?\)\s*scale\(([-\d.e]+)(?:,\s*([-\d.e]+))?\)/)!
   expect(Math.abs(Number(m[1]) - read!.expected.dx)).toBeLessThanOrEqual(2)
-  expect(Math.abs(Number(m[2]) - read!.expected.dy)).toBeLessThanOrEqual(2)
+  expect(Math.abs(Number(m[2] ?? 0) - read!.expected.dy)).toBeLessThanOrEqual(2)
   expect(Math.abs(Number(m[3]) - read!.expected.sx)).toBeLessThanOrEqual(0.02)
 }
 

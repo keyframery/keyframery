@@ -74,11 +74,13 @@ function morph(from: Shot, to: HTMLElement) {
     ],
     { duration: ms, easing: SETTLE },
   )
-  // …while a copy of the small one grows into the big one's box and fades out above it
+  // …while a copy of the small one grows into the big one's box above it. It is gone by 40% of the
+  // way, before its scaled-up content would read as a blurry duplicate.
   playGhost(
     from.snap,
     [
       { transformOrigin: "0 0", transform: "none", opacity: 1 },
+      { opacity: 0, offset: 0.4 },
       { transformOrigin: "0 0", transform: `translate(${-dx}px, ${-dy}px) scale(${1 / sx}, ${1 / sy})`, opacity: 0 },
     ],
     { duration: ms * 0.7, easing: SETTLE },
