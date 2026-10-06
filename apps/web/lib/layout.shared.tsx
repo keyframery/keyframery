@@ -7,7 +7,10 @@ export function baseOptions(): BaseLayoutProps {
     nav: {
       title: <span className="text-[15px] font-semibold tracking-tight">Keyframery</span>,
     },
-    links: [{ text: "Docs", url: "/docs" }],
+    links: [
+      { text: "Docs", url: "/docs" },
+      { text: "Pro", url: "/pro" },
+    ],
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
   }
 }
