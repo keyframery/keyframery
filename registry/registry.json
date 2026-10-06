@@ -143,6 +143,22 @@
           "target": "lib/keyframery/list.ts"
         }
       ]
+    },
+    {
+      "name": "match-cut",
+      "type": "registry:component",
+      "title": "MatchCut",
+      "description": "A thing opens into its bigger self (card \u2192 detail), on the same page or across a route change.",
+      "registryDependencies": [
+        "@keyframery/cuts"
+      ],
+      "files": [
+        {
+          "path": "components/keyframery/match-cut.tsx",
+          "type": "registry:component",
+          "target": "components/keyframery/match-cut.tsx"
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,6 @@
 import { ListDemo } from "@/components/kf-fixture/demos/list-demo"
 import { LoadDemo } from "@/components/kf-fixture/demos/load-demo"
+import { MatchDemo } from "@/components/kf-fixture/demos/match-demo"
 import { ValueDemo } from "@/components/kf-fixture/demos/value-demo"
 
 export default function Page() {
@@ -9,6 +10,7 @@ export default function Page() {
       <ValueDemo />
       <LoadDemo />
       <ListDemo />
+      <MatchDemo />
     </main>
   )
 }
