@@ -5,6 +5,8 @@
 import { useSearchParams } from "next/navigation"
 import * as React from "react"
 
+import { useCutsControl } from "@/app/cuts-control"
+
 import { Director } from "./director"
 import { Timeline } from "./timeline"
 import { Wall } from "./wall"
@@ -17,6 +19,15 @@ function IdleDirector({ active, onActiveChange }: { active: boolean; onActiveCha
 
 export function HomeStage() {
   const [director, setDirector] = React.useState(false)
+  // The switch and slow-mo only exist here; the rest of the site gets its normal cuts back on the way out.
+  const { setEnabled, setPace } = useCutsControl()
+  React.useEffect(
+    () => () => {
+      setEnabled(true)
+      setPace(undefined)
+    },
+    [setEnabled, setPace],
+  )
   return (
     <>
       <Wall />

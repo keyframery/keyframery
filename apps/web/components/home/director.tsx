@@ -38,9 +38,10 @@ export function Director({ active, onActiveChange, idleMs = 4000 }: { active: bo
     running.current = active
   }, [active])
 
-  // Start by itself after `idleMs` without input, while the wall is in view (never under reduced motion).
+  // Start by itself after `idleMs` without input, while the wall is in view. Never under reduced motion, and
+  // not on phones, where the wall is one long column and the loop would scroll the page far from the reader.
   React.useEffect(() => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !matchMedia("(min-width: 768px)").matches) return
     const wall = document.querySelector('[data-testid="wall"]')
     let inView = true
     const io = wall ? new IntersectionObserver(([e]) => (inView = e.isIntersecting), { threshold: 0.25 }) : null

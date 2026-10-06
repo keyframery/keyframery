@@ -23,3 +23,15 @@ test("Director never starts by itself under reduced motion", async ({ browser })
   await expect(page.getByTestId("director")).toHaveAttribute("aria-pressed", "false")
   await ctx.close()
 })
+
+test("on a phone, Director waits for its button instead of scrolling the page by itself", async ({ page }, info) => {
+  test.skip(info.project.name !== "phone", "phone layout only")
+  await page.goto("/?director=fast")
+  // Park the viewport inside the wall, where the desktop idle trigger would fire.
+  await page.evaluate(() => {
+    const wall = document.querySelector('[data-testid="wall"]')!.getBoundingClientRect()
+    window.scrollTo(0, wall.top + scrollY + 200)
+  })
+  await page.waitForTimeout(1500) // longer than the 500 ms test idle: asserting that nothing starts
+  await expect(page.getByTestId("director")).toHaveAttribute("aria-pressed", "false")
+})

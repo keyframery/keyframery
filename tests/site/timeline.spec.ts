@@ -32,3 +32,15 @@ test("the timecode runs", async ({ page }) => {
   expect(await page.getByTestId("timecode").textContent()).not.toBe(a)
   expect(a).toMatch(/^\d\d:\d\d:\d\d:\d\d$/)
 })
+
+test("leaving the home page gives the rest of the site its normal cuts back", async ({ page }) => {
+  await page.goto("/")
+  await page.getByTestId("cuts-switch").click()
+  await page.getByTestId("slowmo").click()
+  expect(await page.evaluate(() => document.documentElement.hasAttribute("data-kf"))).toBe(false)
+  if (!(await page.getByRole("link", { name: "Docs" }).first().isVisible())) await page.getByRole("button", { name: "Toggle Menu" }).click()
+  await page.getByRole("link", { name: "Docs" }).first().click()
+  await expect(page).toHaveURL(/\/docs/)
+  await expect.poll(() => page.evaluate(() => document.documentElement.hasAttribute("data-kf"))).toBe(true)
+  expect(await page.evaluate(() => document.documentElement.style.getPropertyValue("--kf-pace"))).toBe("")
+})

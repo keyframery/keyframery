@@ -28,12 +28,20 @@ export function LoadCut({ loading, skeleton, children, hold, minShow = 400, pace
   const ref = React.useRef<HTMLDivElement>(null)
   const [phase, setPhase] = React.useState<LoadPhase>(loading ? "waiting" : "content")
   const go = React.useCallback((e: LoadEvent) => setPhase((p) => nextLoadPhase(p, e)), [])
-  const hadContent = React.useRef(!loading)
   const shownAt = React.useRef(0)
   const lastHeight = React.useRef<number | null>(null)
   const lastPhase = React.useRef<LoadPhase>(phase)
 
-  React.useEffect(() => go(loading ? "loading" : "loaded"), [loading, go])
+  // `loading` drives the phase. Adjusted during render, as React recommends for state that follows a prop,
+  // so there is no extra commit with a stale phase.
+  const [seenLoading, setSeenLoading] = React.useState(loading)
+  if (seenLoading !== loading) {
+    setSeenLoading(loading)
+    setPhase((p) => nextLoadPhase(p, loading ? "loading" : "loaded"))
+  }
+  // Once the content has been on screen, a new load keeps it visible during the hold instead of a blank space.
+  const [hadContent, setHadContent] = React.useState(!loading)
+  if (phase === "content" && !hadContent) setHadContent(true)
 
   React.useEffect(() => {
     if (phase !== "waiting") return
@@ -56,7 +64,6 @@ export function LoadCut({ loading, skeleton, children, hold, minShow = 400, pace
     const from = lastHeight.current
     const to = el.getBoundingClientRect().height
     lastHeight.current = to
-    if (phase === "content") hadContent.current = true
     if (was === phase) return
     const off = optedOut(el) || reducedMotion()
     if (phase === "skeleton") {
@@ -85,19 +92,20 @@ export function LoadCut({ loading, skeleton, children, hold, minShow = 400, pace
     return () => clearTimeout(t)
   }, [phase, go])
 
+  const style = pace ? ({ "--kf-pace": pace } as React.CSSProperties) : undefined
   const props = {
     ref,
     "data-slot": "load-cut",
     "data-cut": cut === "none" ? "none" : undefined,
     "aria-busy": loading || undefined,
     className,
-    style: pace ? ({ "--kf-pace": pace } as React.CSSProperties) : undefined,
+    style,
   }
   if (phase === "content") return <div {...props}>{children}</div>
   if (phase === "waiting") {
     return (
       <div {...props}>
-        {hadContent.current ? (
+        {hadContent ? (
           children
         ) : (
           <div aria-hidden="true" style={{ visibility: "hidden" }}>
@@ -109,7 +117,7 @@ export function LoadCut({ loading, skeleton, children, hold, minShow = 400, pace
   }
   if (phase === "skeleton") return <div {...props}>{skeleton}</div>
   return (
-    <div {...props} style={{ ...props.style, position: "relative" }}>
+    <div {...props} style={{ ...style, position: "relative" }}>
       <div data-kf-load="skeleton" aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
         {skeleton}
       </div>
