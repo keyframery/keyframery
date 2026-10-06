@@ -26,7 +26,7 @@ export default function Page() {
         </div>
       </div>
       <section aria-labelledby="pro-screens">
-        <h2 id="pro-screens" className="text-lg font-semibold tracking-tight">What's in it</h2>
+        <h2 id="pro-screens" className="text-lg font-semibold tracking-tight">What&apos;s in it</h2>
         <dl className="mt-4 divide-y border-y">
           {SCREENS.map((s) => (
             <div key={s.name} className="grid gap-1 py-3.5 sm:grid-cols-[8rem_1fr] sm:gap-4">

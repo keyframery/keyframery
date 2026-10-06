@@ -13,17 +13,28 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const press = (el: Element | null) => el?.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "mouse", isPrimary: true }))
 
+const REDUCED = "(prefers-reduced-motion: reduce)"
+const onMotionChange = (notify: () => void) => {
+  const query = matchMedia(REDUCED)
+  query.addEventListener("change", notify)
+  return () => query.removeEventListener("change", notify)
+}
+
+/** True when the visitor asked for less motion (false on the server). */
+function useReducedMotion() {
+  return React.useSyncExternalStore(onMotionChange, () => matchMedia(REDUCED).matches, () => false)
+}
+
 /** Runs `step` every `ms` while the element is on screen; under reduced motion it waits for Play. */
 function useLoop(ms: number, step: () => void) {
   const ref = React.useRef<HTMLDivElement>(null)
-  const [still, setStill] = React.useState(false)
+  const still = useReducedMotion()
   const saved = React.useRef(step)
-  saved.current = step
+  React.useLayoutEffect(() => {
+    saved.current = step
+  })
   React.useEffect(() => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setStill(true)
-      return
-    }
+    if (still) return
     let timer = 0
     const io = new IntersectionObserver(([e]) => {
       clearInterval(timer)
@@ -34,7 +45,7 @@ function useLoop(ms: number, step: () => void) {
       clearInterval(timer)
       io.disconnect()
     }
-  }, [ms])
+  }, [ms, still])
   return { ref, still, playOnce: () => saved.current() }
 }
 

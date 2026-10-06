@@ -33,9 +33,10 @@ function setInputValue(input: HTMLInputElement, value: string) {
 
 export function Director({ active, onActiveChange, idleMs = 4000 }: { active: boolean; onActiveChange: (on: boolean) => void; idleMs?: number }) {
   const cursor = React.useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = React.useState(false)
   const running = React.useRef(active)
-  running.current = active
+  React.useEffect(() => {
+    running.current = active
+  }, [active])
 
   // Start by itself after `idleMs` without input, while the wall is in view (never under reduced motion).
   React.useEffect(() => {
@@ -67,14 +68,10 @@ export function Director({ active, onActiveChange, idleMs = 4000 }: { active: bo
 
   // Play the script while active.
   React.useEffect(() => {
-    if (!active) {
-      setVisible(false)
-      return
-    }
+    if (!active) return
     let cancelled = false
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
     const run = async () => {
-      setVisible(true)
       for (let i = 0; !cancelled; i = (i + 1) % SCRIPT.length) {
         const step = SCRIPT[i]
         if (step.key) {
@@ -116,12 +113,11 @@ export function Director({ active, onActiveChange, idleMs = 4000 }: { active: bo
     run()
     return () => {
       cancelled = true
-      setVisible(false)
     }
   }, [active])
 
   return (
-    <div ref={cursor} aria-hidden="true" data-testid="director-cursor" hidden={!visible} className="pointer-events-none fixed top-0 left-0 z-[70]" style={{ translate: "50vw 50vh" }}>
+    <div ref={cursor} aria-hidden="true" data-testid="director-cursor" hidden={!active} className="pointer-events-none fixed top-0 left-0 z-[70]" style={{ translate: "50vw 50vh" }}>
       <svg width="22" height="22" viewBox="0 0 22 22" className="drop-shadow-[0_2px_4px_rgba(22,24,29,0.3)]">
         <path d="M3 2 L3 17 L7.5 13 L10.5 20 L13 19 L10 12 L16 12 Z" fill="var(--foreground)" stroke="var(--background)" strokeWidth="1.5" strokeLinejoin="round" />
       </svg>
