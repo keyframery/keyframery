@@ -3,7 +3,7 @@ import { expect, test as base, type Browser, type Page, type TestInfo } from "@p
 export type Meta = { base: "base" | "radix"; stock: string; motion: "full" | "reduced"; browser: string }
 export type Frame = { t: number; on: boolean; names: string[]; durs: number[]; op: number; tf: string; tr: string; aria: string | null; inert: boolean }
 export type CutEvent = { cut: string; component: string; phase: "enter" | "exit"; ms: number }
-export type AnimEvent = { type: "end" | "cancel"; name: string; slot: string | null }
+export type AnimEvent = { type: "start" | "end" | "cancel"; name: string; slot: string | null }
 
 declare global {
   interface Window {
@@ -27,7 +27,8 @@ function probes() {
       const ev = e as AnimationEvent
       const el = ev.target as Element
       const anim = el.getAnimations().find((a) => (a as CSSAnimation).animationName === ev.animationName)
-      const record = (type: "end" | "cancel") => window.__kfAnim.push({ type, name: ev.animationName, slot: el.getAttribute("data-slot") })
+      const record = (type: AnimEvent["type"]) => window.__kfAnim.push({ type, name: ev.animationName, slot: el.getAttribute("data-slot") })
+      record("start")
       anim?.finished.then(() => record("end"), () => record("cancel"))
     },
     true,
@@ -108,6 +109,14 @@ export const takeEvents = (page: Page) => page.evaluate(() => window.__kfEvents.
 /** True when the CSS animation `name` on a `slot` part ran to its end (an exit the library didn't cut short). */
 export const ranToEnd = (page: Page, slot: string, name: string) =>
   page.evaluate(([s, n]) => window.__kfAnim.some((a) => a.type === "end" && a.slot === s && a.name === n), [slot, name] as [string, string])
+
+/** Names of the CSS animations that started on a `slot` part since the last call (exact; no frame sampling). */
+export const startedOn = (page: Page, slot: string) =>
+  page.evaluate((s) => {
+    const names = window.__kfAnim.filter((a) => a.type === "start" && a.slot === s).map((a) => a.name)
+    window.__kfAnim = window.__kfAnim.filter((a) => !(a.type === "start" && a.slot === s))
+    return [...new Set(names)]
+  }, slot)
 
 /** The computed transform of `selector` at the very first instant of its CSS animation `name` (null if it isn't running). */
 export const startTransform = (page: Page, selector: string, name: string) =>

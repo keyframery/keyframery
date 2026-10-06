@@ -196,3 +196,162 @@
 :where(html[data-kf][data-kf-sinking]) body {
   background-color: color-mix(in oklab, var(--background) 80%, black);
 }
+
+
+/* ---------- Dialog menu: punch-in and fade ---------- */
+
+:is(
+    :where(html[data-kf][data-kf-dialog="punch-in"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="punch-in"]
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-punch-in min(calc(260ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="punch-in"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="punch-in"]
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-punch-out min(calc(160ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="fade"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="fade"]
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-fade-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="fade"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="fade"]
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-fade-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="punch-in"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="punch-in"]
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-veil-in min(calc(260ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="punch-in"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="punch-in"]
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-veil-out min(calc(160ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="fade"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="fade"]
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-dialog="fade"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="fade"]
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-veil-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+}
+
+@keyframes kf-punch-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes kf-punch-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes kf-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes kf-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* ---------- Sheet menu: fade ---------- */
+
+:is(
+    :where(html[data-kf][data-kf-sheet="fade"]) [data-slot="sheet-content"]:not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) [data-slot="sheet-content"][data-cut="fade"]
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-panel-fade-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-sheet="fade"]) [data-slot="sheet-content"]:not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) [data-slot="sheet-content"][data-cut="fade"]
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-panel-fade-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-sheet="fade"]) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) [data-slot="sheet-overlay"][data-cut="fade"]
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+}
+
+:is(
+    :where(html[data-kf][data-kf-sheet="fade"]) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) [data-slot="sheet-overlay"][data-cut="fade"]
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-veil-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+}
+
+@keyframes kf-panel-fade-in {
+  from {
+    opacity: 0;
+    transform: none;
+    translate: none;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    translate: none;
+  }
+}
+
+@keyframes kf-panel-fade-out {
+  from {
+    opacity: 1;
+    transform: none;
+    translate: none;
+  }
+  to {
+    opacity: 0;
+    transform: none;
+    translate: none;
+  }
+}
