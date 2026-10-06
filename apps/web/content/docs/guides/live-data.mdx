@@ -1,0 +1,32 @@
+---
+title: Live data
+description: Websockets, polling and server pushes, with lists that don't jump and numbers people notice.
+---
+
+Live data changes without anyone pressing anything, so the cuts that need a press step aside on their own.
+
+## Lists
+
+Wrap the list in [ListCut](/docs/helpers/list-cut) and key items by their server id:
+
+```tsx
+<ListCut as="ol">
+  {events.map((e) => (
+    <ListCut.Item key={e.id} id={e.id} as="li">{e.title}</ListCut.Item>
+  ))}
+</ListCut>
+```
+
+- Items that arrive from the server rise in, because nobody pressed anything in the last 800 ms.
+- Items you add yourself fly from the button you pressed, even if the server echoes them back later, as long as the id is stable.
+- Reorders from the server glide.
+
+Don't give an optimistic item a temporary id that changes when the server answers. ListCut would see one item removed and another added. Generate the id on the client and send it to the server.
+
+## Numbers
+
+Use [ValueCut](/docs/helpers/value-cut) for counters that tick. Add `announce` only for values someone is waiting on, like an order status. A ticking counter read aloud every second is noise.
+
+## Toasts
+
+A toast fired from a websocket message has no press, so it plays the library's own entrance instead of flying from a button.

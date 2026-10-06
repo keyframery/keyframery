@@ -1,0 +1,49 @@
+---
+title: Detail pages on their own route
+description: Match a card on one route to its detail page on another, in the Next.js App Router.
+---
+
+[MatchCut](/docs/helpers/match-cut) works across a client-side route change, because it only needs the same `id` to leave and arrive within a second.
+
+```tsx title="app/orders/page.tsx"
+import Link from "next/link"
+
+import { MatchCut } from "@/components/keyframery/match-cut"
+
+export default async function Orders() {
+  const orders = await getOrders()
+  return (
+    <ul className="grid gap-2">
+      {orders.map((o) => (
+        <li key={o.id}>
+          <MatchCut id={`order-${o.id}`}>
+            <Link href={`/orders/${o.id}`} className="block rounded-xl border p-3">{o.customer}</Link>
+          </MatchCut>
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+```tsx title="app/orders/[id]/page.tsx"
+import { MatchCut } from "@/components/keyframery/match-cut"
+
+export default async function Order({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const order = await getOrder(id)
+  return (
+    <MatchCut id={`order-${order.id}`} className="rounded-2xl border p-6">
+      <OrderDetail order={order} />
+    </MatchCut>
+  )
+}
+```
+
+`MatchCut` is a client component, and the pages around it can stay server components.
+
+## Things to know
+
+- **Navigate on the client.** A `<Link>` or `router.push` keeps the page alive, so the match can play. A full page load starts fresh and plays nothing.
+- **Back works too.** Going back mounts the card again with the same `id`, so the detail shrinks into it.
+- **Slow routes.** If the detail page takes longer than a second to render, there's nothing left to match, and it simply appears. Add a `loading.tsx` that renders the same `MatchCut` with a skeleton inside, so the match plays at once and the content dissolves in.

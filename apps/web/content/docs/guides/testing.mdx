@@ -1,0 +1,44 @@
+---
+title: Turning motion off in tests
+description: Keep end-to-end tests fast and steady, or assert that a cut actually played.
+---
+
+## Turn Keyframery off
+
+The simplest way is `enabled={false}` while testing:
+
+```tsx title="app/layout.tsx"
+<Cuts enabled={process.env.NEXT_PUBLIC_E2E !== "1"} />
+```
+
+Then every component plays shadcn's own motion, exactly as before you added Keyframery.
+
+## Or test with reduced motion
+
+Playwright can ask for reduced motion, and then every cut is a fade of about 150 ms:
+
+```ts title="playwright.config.ts"
+export default defineConfig({
+  use: { reducedMotion: "reduce" },
+})
+```
+
+Wait for the state you expect, such as a dialog being visible, never for a fixed time.
+
+## Assert that a cut played
+
+Listen to `keyframery:cut` in the page:
+
+```ts
+await page.addInitScript(() => {
+  window.__cuts = []
+  document.addEventListener("keyframery:cut", (e) => window.__cuts.push(e.detail))
+})
+
+await page.getByRole("button", { name: "Edit profile" }).click()
+await expect.poll(() => page.evaluate(() => window.__cuts.map((c) => c.cut))).toContain("rack-focus")
+```
+
+## Unit tests
+
+In jsdom or happy-dom, there are no real animations. Keyframery's parts catch the error and step aside, so components render and behave as stock shadcn. You don't need to mock anything.

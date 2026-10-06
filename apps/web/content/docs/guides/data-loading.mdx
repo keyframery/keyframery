@@ -1,0 +1,42 @@
+---
+title: Data loading
+description: Use LoadCut and ValueCut with React Query, SWR or plain fetch, so loading never makes the page jump.
+---
+
+There are two moments to cover: the first load, when a skeleton becomes content, and every refetch after it, when values change in place.
+
+## First load: LoadCut
+
+Pass the library's loading flag straight to `loading`:
+
+```tsx
+import { useQuery } from "@tanstack/react-query"
+
+import { LoadCut } from "@/components/keyframery/load-cut"
+import { Skeleton } from "@/components/ui/skeleton"
+
+export function Revenue() {
+  const { data, isPending } = useQuery({ queryKey: ["revenue"], queryFn: fetchRevenue })
+  return (
+    <LoadCut loading={isPending} skeleton={<Skeleton className="h-40" />}>
+      {data && <RevenueChart data={data} />}
+    </LoadCut>
+  )
+}
+```
+
+With SWR, use `isLoading`. With `fetch` in an effect, use your own `loading` state.
+
+Make the skeleton roughly the size of the content. LoadCut morphs the height between them, but the closer they are, the calmer the change.
+
+## Refetches: ValueCut
+
+After the first load, don't show the skeleton again for a refetch. Keep the old values on screen and let them change in place:
+
+```tsx
+<ValueCut value={data.total} format={{ style: "currency", currency: "USD" }} />
+```
+
+## Changing a filter
+
+When a filter changes and the old content no longer applies (a different date range, say), set `loading` while the new data loads. If it comes back within 300 ms, the skeleton never shows. The [dashboard on the home page](/) does exactly this.

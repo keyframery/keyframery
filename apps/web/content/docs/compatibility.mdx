@@ -1,0 +1,87 @@
+---
+title: Compatibility
+description: How each of shadcn's 63 components works with Keyframery, and the versions it's tested with.
+---
+
+Every shadcn component works with `<Cuts />` mounted: no errors, and focus and accessibility intact. The components where a screen changes get a cut. The rest are left alone on purpose, because motion there would be noise.
+
+| Component | With Keyframery | Why |
+|---|---|---|
+| dialog | cut: rack focus | opens on top of the page |
+| alert-dialog | cut: rack focus | opens on top of the page |
+| command | cut: rack focus | its dialog opens on top |
+| sheet | cut: slide-sink | opens on top of the page |
+| drawer | cut: slide-sink | opens on top of the page |
+| tabs | cut: J-cut | switches to a neighbour |
+| sonner | cut: cut on action | a result of what you pressed |
+| toast | cut: cut on action | a result of what you pressed |
+| popover | tuned | already opens from its trigger |
+| dropdown-menu | tuned | already opens from its trigger |
+| context-menu | tuned | already opens from the pointer |
+| menubar | tuned | already opens from its trigger |
+| select | tuned | already opens from its trigger |
+| combobox | tuned | already opens from its trigger |
+| hover-card | tuned | already opens from its trigger |
+| tooltip | tuned | already opens from its trigger |
+| navigation-menu | tuned | already opens from its trigger |
+| accordion | tuned | already expands in place |
+| collapsible | tuned | already expands in place |
+| card | helper: MatchCut | opens into its detail |
+| table | helper: ListCut | rows are added, removed and moved |
+| item | helper: ListCut | rows are added, removed and moved |
+| message | helper: ListCut | messages arrive |
+| bubble | helper: ListCut | messages arrive |
+| message-scroller | helper: ListCut | messages arrive |
+| badge | helper: ValueCut | its count changes |
+| skeleton | helper: LoadCut | becomes content |
+| calendar | planned | months switch like tabs |
+| carousel | planned | slides switch like tabs |
+| questionnaire | planned | steps switch like tabs |
+| pagination | planned | pages switch like tabs |
+| attachment | planned | files are added and removed |
+| alert | planned | dismissing it should fold it away |
+| field | planned | errors should arrive with a cut |
+| empty | planned | the empty state arrives |
+| sidebar | planned | labels collapse and expand |
+| aspect-ratio | no cut | static |
+| avatar | no cut | static |
+| breadcrumb | no cut | static |
+| button | no cut | the press is the action, not a change of picture |
+| button-group | no cut | static |
+| checkbox | no cut | its own check is enough |
+| direction | no cut | not visual |
+| form | no cut | not visual |
+| input | no cut | typing isn't a change of picture |
+| input-group | no cut | static |
+| input-otp | no cut | typing isn't a change of picture |
+| kbd | no cut | static |
+| label | no cut | static |
+| marker | no cut | static |
+| native-select | no cut | the browser draws it |
+| progress | no cut | it already animates its value |
+| radio-group | no cut | its own dot is enough |
+| resizable | no cut | follows your pointer |
+| scroll-area | no cut | follows your scroll |
+| separator | no cut | static |
+| slider | no cut | follows your pointer |
+| spinner | no cut | already animates |
+| switch | no cut | its own thumb is enough |
+| textarea | no cut | typing isn't a change of picture |
+| toggle | no cut | its own state is enough |
+| toggle-group | no cut | its own state is enough |
+| chart | no cut | Recharts animates itself |
+
+## Tested versions
+
+| Package | Versions |
+|---|---|
+| shadcn CLI | 4.21.3 |
+| @base-ui/react | 1.8 |
+| radix-ui | 1.7 |
+| sonner | 2.0.8 |
+| vaul | 1.1.2 |
+| cmdk | 1.1.1 |
+| Next.js | 16.3 |
+| React | 19.3 |
+| Tailwind CSS | 4 |
+| Browsers | Chromium, WebKit (Safari) and Firefox, current stable |

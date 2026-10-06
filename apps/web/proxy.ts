@@ -10,9 +10,14 @@ const { rewrite: rewriteSuffix } = rewritePath(
   `${docsRoute}{/*path}.md`,
   `${docsContentRoute}{/*path}/content.md`,
 );
+// the docs advertise .mdx (e.g. /docs/helpers/list-cut.mdx); .md keeps working too
+const { rewrite: rewriteMdx } = rewritePath(
+  `${docsRoute}{/*path}.mdx`,
+  `${docsContentRoute}{/*path}/content.md`,
+);
 
 export default function proxy(request: NextRequest) {
-  const result = rewriteSuffix(request.nextUrl.pathname);
+  const result = rewriteMdx(request.nextUrl.pathname) || rewriteSuffix(request.nextUrl.pathname);
   if (result) {
     return NextResponse.rewrite(new URL(result, request.nextUrl));
   }

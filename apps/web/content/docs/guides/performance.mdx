@@ -1,0 +1,31 @@
+---
+title: Performance
+description: What Keyframery runs, what it costs, and the one variable to change on slow devices.
+---
+
+## What runs
+
+- **One** `MutationObserver` that watches for shadcn parts appearing and changing state
+- **Two** listeners in the capture phase, `pointerdown` and `keydown`, that remember the last press
+- Animations of `transform`, `opacity` and `filter` only, which the browser runs off the main thread where it can
+- Ghosts, the copies of leaving elements, which are removed as soon as their animation ends or is cancelled
+
+Nothing runs while nothing changes.
+
+## Size
+
+The layer is about 7 KB gzipped once your bundler minifies it: `cuts.tsx`, its stylesheet and the engine. Each helper adds about 1.5–2.5 KB.
+
+## Lists
+
+ListCut measures its items once per render, in a layout effect. Only items in or near the viewport animate, so a list of thousands stays fast. Key items by a stable id, and avoid re-rendering the whole list on every keystroke elsewhere on the page.
+
+## Slow devices
+
+Blur is the most expensive part of a rack focus. If you target low-end phones, turn it off:
+
+```css
+:root {
+  --kf-blur: 0px;
+}
+```
