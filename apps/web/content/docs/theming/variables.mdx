@@ -1,0 +1,39 @@
+---
+title: Variables
+description: Seven CSS variables tune every cut, the way shadcn's colour variables tune every component.
+---
+
+| Variable | Default | What it does |
+|---|---|---|
+| `--kf-pace` | `1` | multiplies every duration (2 is half speed) |
+| `--kf-ease` | `cubic-bezier(0.22, 1, 0.36, 1)` | easing for entrances |
+| `--kf-ease-exit` | `cubic-bezier(0.5, 0, 0.75, 0)` | easing for exits |
+| `--kf-travel` | `0.35` | how far toward the opener a rack focus starts (0 starts from the centre) |
+| `--kf-blur` | `8px` | the blur a rack focus starts from |
+| `--kf-depth` | `0.94` | the scale a rack focus starts from |
+| `--kf-hold` | `300ms` | how long LoadCut waits before showing a skeleton |
+
+## Set them for the whole app
+
+Put them in your global stylesheet:
+
+```css title="app/globals.css"
+:root {
+  --kf-pace: 1.2;
+  --kf-blur: 4px;
+}
+```
+
+Keyframery declares its defaults with zero specificity, so your `:root` always wins, wherever it sits in the file.
+
+## Set them for a section
+
+Variables cascade, so set them on any element:
+
+```tsx
+<section style={{ "--kf-pace": 1.5 } as React.CSSProperties}>…</section>
+```
+
+Dialogs and menus opened from inside the section use its values too. See [Exits and portals](/docs/concepts/exits-and-portals).
+
+The [Theme page](/theme) builds these values for you, with a live preview.

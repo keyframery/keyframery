@@ -1,0 +1,21 @@
+---
+title: Base UI vs Radix
+description: Keyframery works the same on both shadcn bases. Here is what differs underneath.
+---
+
+shadcn/ui ships each component on two bases: Base UI and Radix. Both name their parts with the same `data-slot` attributes, such as `dialog-content` and `tabs-trigger`. Keyframery finds parts by those names, so the same `<Cuts />` works on either base. Every cut is tested on both, in Chromium, WebKit and Firefox.
+
+## What differs
+
+| | Base UI | Radix |
+|---|---|---|
+| Open state on parts | `data-open` / `data-closed` | `data-state="open"` / `"closed"` |
+| Exit animations | the popup stays mounted until its exit ends | `Presence` keeps it mounted until its exit ends |
+| Drawer | `drawer-popup`, Base UI's own drawer | `drawer-content`, built on Vaul |
+| Toast | Base UI `Toast`, plus sonner | sonner |
+
+Keyframery reads both forms of the open state, waits for the exit like the library does, and handles both drawers and both toasts.
+
+## What you write is the same
+
+Menus, variables and attributes are identical on both bases. A project can even switch base later without touching its Keyframery setup.

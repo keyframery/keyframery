@@ -1,0 +1,17 @@
+---
+title: The six kinds of change
+description: A screen can only change in six ways. Keyframery has one cut for each.
+---
+
+Every change on a screen is one of six kinds. Film editing has a cut for each that makes the change easy to follow. See them playing on [the Cuts page](/cuts).
+
+| Kind of change | Example | Cut | Where it comes from |
+|---|---|---|---|
+| Something opens on top | a dialog, a sheet, a menu, a toast | rack focus, slide-sink, cut on action | `<Cuts />`, automatic |
+| You switch to a neighbour | a tab | J-cut, whip | `<Cuts />`, automatic |
+| A thing opens into its bigger self | a card becomes its detail page | match cut | [MatchCut](/docs/helpers/match-cut) |
+| A list changes | a message is sent, a row is archived | cut on action, L-cut, glide | [ListCut](/docs/helpers/list-cut) |
+| A value changes in place | a price, a count, a status | punch-in | [ValueCut](/docs/helpers/value-cut) |
+| A placeholder becomes real | a skeleton turns into a chart | dissolve | [LoadCut](/docs/helpers/load-cut) |
+
+The first two need no code, because shadcn already has the parts and Keyframery finds them. The other four are changes shadcn has no component for, so each one is a small component you wrap around your own markup.

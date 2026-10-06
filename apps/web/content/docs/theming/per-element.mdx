@@ -1,0 +1,37 @@
+---
+title: Per-element attributes
+description: Choose a cut, a pace or no motion at all for one element or a whole section.
+---
+
+| Attribute | Put it on | Effect |
+|---|---|---|
+| `data-cut="<cut>"` | a shadcn part, e.g. `<DialogContent data-cut="fade">` | use that cut here |
+| `data-cut="none"` | a part, or any ancestor like `<section>` | stock shadcn motion inside |
+| `data-cut-pace="1.5"` | a part or any ancestor | sets `--kf-pace` there |
+| `data-cut-origin="center"` | a dialog's content | open from the centre, not from the button |
+
+```tsx
+<DialogContent data-cut="punch-in">…</DialogContent>
+
+<section data-cut="none">
+  {/* everything in here, including the dialogs it opens, uses shadcn's own motion */}
+</section>
+
+<Tabs data-cut="whip">…</Tabs>
+```
+
+## Precedence
+
+From weakest to strongest:
+
+1. Keyframery's default cut
+2. the `<Cuts>` prop for that group
+3. the element's own `data-cut`
+
+These are written as selectors that exclude each other, so specificity never decides and the order of your stylesheets doesn't matter.
+
+A **named** cut, such as `data-cut="fade"`, applies only to the element it's written on. Only `data-cut="none"` reaches the elements inside, including portaled ones. See [Exits and portals](/docs/concepts/exits-and-portals).
+
+## On tabs and helpers
+
+For tabs, put `data-cut` on the `Tabs` root. The helpers take a `cut` prop instead, for example `<ListCut cut="none">`, and they also respect `data-cut="none"` and `data-cut-pace` on their ancestors.

@@ -1,13 +1,28 @@
 ---
-title: Hello World
-description: Your first document
+title: Introduction
+description: Keyframery gives shadcn/ui the cuts a film editor would make. One line, and your components stay yours.
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+Open a shadcn dialog and it pops into the middle of the screen. Switch a tab and the panel swaps in a single frame. Add an item to a list and it appears from nowhere. In film, a cut where the subject suddenly jumps to a new place is a jump cut. It's jarring, and it makes you look around for what changed.
 
-## What is Next?
+Keyframery replaces those jumps with real editing cuts. A dialog grows out of the button that opened it. A tab panel follows the tab a beat later. A sent message flies from the Send button into the thread.
 
-<Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.dev" />
-</Cards>
+<Preview>
+  <DialogDemo />
+</Preview>
+
+## What you get
+
+- **`<Cuts />`**, one component for your root layout. It finds shadcn's own parts by their `data-slot` names and gives dialogs, alert dialogs, the command menu, sheets, drawers, tabs and toasts their cuts. Eleven more, such as popover, the menus, select and tooltip, are retimed to match.
+- **Four helpers** for changes shadcn has no component for: [MatchCut](/docs/helpers/match-cut), [ListCut](/docs/helpers/list-cut), [ValueCut](/docs/helpers/value-cut) and [LoadCut](/docs/helpers/load-cut).
+- **Motion theming.** Seven CSS variables and a few attributes let you tune motion the way you tune colour.
+
+## What it doesn't do
+
+It doesn't wrap, fork or replace your components, and nothing in `components/ui` changes. Remove `<Cuts />` and you have stock shadcn again.
+
+Like the rest of shadcn, it's code you own. The CLI copies it into your project.
+
+## Next
+
+[Install Keyframery](/docs/installation), then read [the six kinds of change](/docs/concepts/six-kinds) to see which cut handles what.

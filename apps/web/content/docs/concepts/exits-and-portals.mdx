@@ -1,0 +1,23 @@
+---
+title: Exits and portals
+description: How closing animations finish, and how settings reach dialogs that render at the end of the page.
+---
+
+## Exits
+
+Base UI and Radix both keep a closing part mounted until its exit animation ends. Keyframery uses this: its exit keyframes replace the stock ones and hold the last frame, so the part stays invisible until the library removes it. Nothing is removed early, and nothing flashes back.
+
+A rack focus closes back into the element that opened it, even if that element has scrolled since.
+
+## Portals
+
+Dialogs, sheets, menus and toasts render in a portal at the end of `<body>`, outside the section they were opened from. So when you open one, Keyframery copies the opener's settings onto it:
+
+1. If the opener is inside `data-cut="none"`, the portaled part gets `data-cut="none"` too, unless it has its own `data-cut`.
+2. The opener's `data-cut-pace` and computed `--kf-*` values are copied over.
+
+So `<section data-cut-pace="1.5">` slows down the dialogs opened from inside it, even though they render somewhere else.
+
+Named cuts are never copied, because a tabs cut means nothing to a dialog.
+
+If code opens a dialog without a press, from a timer for example, the page's own settings apply and a rack focus starts from the centre.

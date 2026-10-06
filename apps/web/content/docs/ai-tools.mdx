@@ -1,0 +1,23 @@
+---
+title: llms.txt for AI tools
+description: Give Cursor, Claude Code or any coding assistant Keyframery's docs as plain text.
+---
+
+The docs are published as plain text for AI tools:
+
+| URL | What it has |
+|---|---|
+| [`/llms.txt`](/llms.txt) | an index of every page, with one line each |
+| [`/llms-full.txt`](/llms-full.txt) | every page in full, in one file |
+| any docs page + `.mdx` | that page as Markdown, for example [`/docs/helpers/list-cut.mdx`](/docs/helpers/list-cut.mdx) |
+
+## Use it in your editor
+
+Paste `https://keyframery.com/llms-full.txt` into the chat when you ask for a change that involves motion, or add a line to your project rules:
+
+```md title="AGENTS.md"
+This project uses Keyframery for motion (https://keyframery.com/llms-full.txt).
+Use ListCut for lists that change, ValueCut for numbers and statuses that change,
+LoadCut for skeletons, and MatchCut for a card that opens into a detail view.
+Don't hand-write enter or exit animations for shadcn components.
+```

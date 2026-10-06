@@ -1,0 +1,122 @@
+---
+title: Installation
+description: Add Keyframery to a Next.js, Vite or React Router app that already uses shadcn/ui.
+---
+
+You need a project with shadcn/ui set up, so `components.json` exists. Either base works: Base UI or Radix.
+
+<Steps>
+<Step>
+
+### Add the registry
+
+Add Keyframery's registry to `components.json`:
+
+```json title="components.json"
+{
+  "registries": {
+    "@keyframery": "https://keyframery.com/r/{name}.json"
+  }
+}
+```
+
+</Step>
+<Step>
+
+### Install the layer
+
+```bash
+npx shadcn add @keyframery/cuts
+```
+
+This copies `components/keyframery/cuts.tsx`, its stylesheet, and the engine in `lib/keyframery/` into your project.
+
+</Step>
+<Step>
+
+### Render `<Cuts />` once, at the root
+
+<Tabs items={["Next.js", "Vite", "React Router"]}>
+<Tab value="Next.js">
+
+```tsx title="app/layout.tsx"
+import { Cuts } from "@/components/keyframery/cuts"
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <Cuts />
+      </body>
+    </html>
+  )
+}
+```
+
+</Tab>
+<Tab value="Vite">
+
+```tsx title="src/main.tsx"
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
+
+import { Cuts } from "@/components/keyframery/cuts"
+
+import App from "./App"
+import "./index.css"
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+    <Cuts />
+  </StrictMode>,
+)
+```
+
+</Tab>
+<Tab value="React Router">
+
+```tsx title="app/root.tsx"
+import { Outlet } from "react-router"
+
+import { Cuts } from "@/components/keyframery/cuts"
+
+export default function App() {
+  return (
+    <>
+      <Outlet />
+      <Cuts />
+    </>
+  )
+}
+```
+
+</Tab>
+</Tabs>
+
+</Step>
+</Steps>
+
+If you'd rather not edit `components.json`, install by URL instead:
+
+```bash
+npx shadcn add https://keyframery.com/r/cuts.json
+```
+
+## Add the helpers you need
+
+```bash
+npx shadcn add @keyframery/match-cut @keyframery/list-cut
+npx shadcn add @keyframery/value-cut @keyframery/load-cut
+```
+
+Each helper brings `@keyframery/cuts` with it if it isn't installed yet.
+
+## Check that it works
+
+Open any dialog in your app. It should grow out of the button you pressed. If it still pops into the middle:
+
+- Make sure `<Cuts />` is rendered once, in the root layout or entry file.
+- Check that `<html>` has a `data-kf` attribute. `<Cuts />` sets it while it runs.
+- Check that your dialog's content element has `data-slot="dialog-content"`. Components added by shadcn CLI 3 and later have it; older copies don't. Run `npx shadcn add dialog` again to update yours.

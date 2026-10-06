@@ -1,0 +1,40 @@
+---
+title: "<Cuts> props"
+description: Pick a cut for each component group, set the pace, or turn Keyframery off.
+---
+
+```tsx
+<Cuts dialog="punch-in" sheet="slide" drawer="slide-sink" tabs="whip" toast="cut-on-action" pace={1.2} />
+```
+
+<TypeTable
+  type={{
+    dialog: { description: "The cut for dialog, alert dialog and command.", type: '"rack-focus" | "punch-in" | "fade" | "none"', default: '"rack-focus"' },
+    sheet: { description: "The cut for sheet.", type: '"slide-sink" | "slide" | "fade" | "none"', default: '"slide-sink"' },
+    drawer: { description: "The cut for drawer. Its own swipe motion is always kept.", type: '"slide-sink" | "none"', default: '"slide-sink"' },
+    tabs: { description: "The cut for tabs.", type: '"j-cut" | "whip" | "fade" | "none"', default: '"j-cut"' },
+    toast: { description: "The cut for sonner and Base UI toasts.", type: '"cut-on-action" | "none"', default: '"cut-on-action"' },
+    pace: { description: "Multiplies every duration. Sets --kf-pace on <html>, so it beats your CSS.", type: "number", default: "1" },
+    enabled: { description: "false plays shadcn's own motion everywhere.", type: "boolean", default: "true" },
+  }}
+/>
+
+`none` always means "leave the library's own motion alone". It's the jump cut Keyframery exists to fix, kept as an option for when you want it.
+
+## What each cut does
+
+Durations are multiplied by `--kf-pace`.
+
+| Cut | Opening | Closing |
+|---|---|---|
+| `rack-focus` | starts 35% of the way toward the button that opened it, at 0.94 scale and 8px blur, then sharpens in place over 340 ms while the backdrop fades in | returns toward the button over 220 ms |
+| `punch-in` | from the centre: scale 0.85, past 1.02, to 1, over 260 ms | scales to 0.96 and fades over 160 ms |
+| `fade` | opacity only, 200 ms | 150 ms |
+| `slide-sink` | the panel travels in from its edge over 460 ms, while the page behind scales to 0.975, dims slightly and rounds its corners | 260 ms, and the page returns |
+| `slide` | like `slide-sink`, without the page stepping back | same |
+| `j-cut` | the tab pill whips to the new tab, the old panel leaves, and the new one enters 70 ms later while the frame's height morphs | |
+| `whip` | no lead, 160 ms, with a 4px motion blur on both panels | |
+| tabs `fade` | a 180 ms crossfade with the height morph | |
+| `cut-on-action` | the toast flies from the element you pressed, from 0.4 scale and a 6px blur, over 480 ms | the library's own exit |
+
+The eleven [tuned components](/docs/components/tuned) have no menu. They follow the variables.

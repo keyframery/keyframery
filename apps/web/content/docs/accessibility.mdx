@@ -1,0 +1,29 @@
+---
+title: Reduced motion and accessibility
+description: What Keyframery does when someone asks for less motion, and why it never gets in the way of focus or screen readers.
+---
+
+## Reduced motion
+
+When the system setting `prefers-reduced-motion: reduce` is on, every cut becomes a short fade:
+
+- nothing moves, scales or blurs
+- fades last between about 120 and 160 ms
+- the page doesn't sink behind sheets and drawers
+- no ghosts, and no toasts flying from the button you pressed
+- [ValueCut](/docs/helpers/value-cut) swaps the value instantly
+- [LoadCut](/docs/helpers/load-cut) still waits before showing a skeleton, so it doesn't flash, then fades
+
+You don't need to do anything for this. It's on for everyone who asks their system for less motion.
+
+To check it, open Chrome DevTools, then **Rendering**, then **Emulate CSS media feature prefers-reduced-motion**.
+
+## Focus and keyboard
+
+Keyframery never moves focus and never adds focusable elements. Opening, closing and focus trapping stay with Base UI or Radix, exactly as in stock shadcn. Keyboard presses count as the start of a cut just like clicks, so a dialog opened with Enter grows from the focused button.
+
+## Screen readers
+
+- Ghosts, the copies Keyframery animates when something leaves, are `aria-hidden` and ignore the pointer.
+- ValueCut's rolling digits are `aria-hidden`. A visually hidden copy always holds the current value. Add `announce` to read changes out with `aria-live="polite"`.
+- LoadCut sets `aria-busy` while loading.

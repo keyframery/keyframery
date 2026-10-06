@@ -1,0 +1,26 @@
+{
+  "title": "Docs",
+  "root": true,
+  "pages": [
+    "---Get started---",
+    "index",
+    "installation",
+    "base-ui-vs-radix",
+    "add-cuts",
+    "accessibility",
+    "ai-tools",
+    "---Concepts---",
+    "...concepts",
+    "---Motion theming---",
+    "...theming",
+    "---Components---",
+    "...components",
+    "---Helpers---",
+    "...helpers",
+    "---Guides---",
+    "...guides",
+    "---Reference---",
+    "compatibility",
+    "changelog"
+  ]
+}

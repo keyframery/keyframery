@@ -1,0 +1,47 @@
+---
+title: Adding <Cuts />
+description: What the one line does, where it goes, and how to turn it off.
+---
+
+```tsx
+<Cuts />
+```
+
+Render it once, near the root. It renders nothing itself. On mount it:
+
+1. sets `data-kf` on `<html>`, which switches on the cut stylesheet
+2. starts watching the page for shadcn parts appearing and changing state
+3. starts remembering what you last pressed (pointer or key), so a cut knows where it started
+
+It's safe with server rendering: on the server it renders nothing, and the page looks exactly like stock shadcn until it mounts.
+
+## Choosing cuts
+
+Every component group has a menu of cuts. The first option is the default:
+
+```tsx
+<Cuts dialog="punch-in" sheet="slide" tabs="whip" pace={1.2} />
+```
+
+See [`<Cuts>` props](/docs/theming/cuts-props) for every menu, and [per-element attributes](/docs/theming/per-element) to choose a cut for one element.
+
+## Turning it off
+
+```tsx
+<Cuts enabled={false} />
+```
+
+With `enabled={false}`, every component plays shadcn's own motion. The switch on the home page of this site does exactly this.
+
+## Listening to cuts
+
+Every cut fires a `keyframery:cut` event on `document`:
+
+```ts
+document.addEventListener("keyframery:cut", (e) => {
+  const { cut, component, phase, ms } = (e as CustomEvent).detail
+  // e.g. { cut: "rack-focus", component: "dialog", phase: "enter", ms: 340 }
+})
+```
+
+The timeline on the home page is built on this event. It's also handy in tests, as the [testing guide](/docs/guides/testing) shows.
