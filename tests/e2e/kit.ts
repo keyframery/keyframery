@@ -109,6 +109,21 @@ export const takeEvents = (page: Page) => page.evaluate(() => window.__kfEvents.
 export const ranToEnd = (page: Page, slot: string, name: string) =>
   page.evaluate(([s, n]) => window.__kfAnim.some((a) => a.type === "end" && a.slot === s && a.name === n), [slot, name] as [string, string])
 
+/** The computed transform of `selector` at the very first instant of its CSS animation `name` (null if it isn't running). */
+export const startTransform = (page: Page, selector: string, name: string) =>
+  page.evaluate(([s, n]) => {
+    const el = document.querySelector(s)
+    const anim = el?.getAnimations().find((a) => (a as CSSAnimation).animationName === n)
+    if (!el || !anim) return null
+    const t = anim.currentTime
+    anim.pause()
+    anim.currentTime = 0
+    const tf = getComputedStyle(el).transform
+    anim.currentTime = t
+    anim.play()
+    return tf
+  }, [selector, name] as [string, string])
+
 /** Centre of the first element matching `selector`, and the --kf-dx/--kf-dy the engine wrote on it. */
 export const centre = (page: Page, selector: string) =>
   page.evaluate((s) => {

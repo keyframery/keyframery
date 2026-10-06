@@ -93,3 +93,106 @@
     opacity: 0;
   }
 }
+
+
+/* ---------- Sheet: travels in from its own edge ---------- */
+
+/* Base UI sheets use CSS transitions, which would beat our keyframes; turn them off wherever we animate. */
+:is(
+    :where(html[data-kf]:not([data-kf-sheet="none"])) :is([data-slot="sheet-content"], [data-slot="sheet-overlay"]):not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) :is([data-slot="sheet-content"], [data-slot="sheet-overlay"])[data-cut]:not([data-cut="none"])
+  ) {
+  transition: none;
+}
+
+:where(html[data-kf]) [data-slot="sheet-content"] {
+  --kf-sx: 100%;
+  --kf-sy: 0px;
+}
+:where(html[data-kf]) [data-slot="sheet-content"][data-side="left"] {
+  --kf-sx: -100%;
+}
+:where(html[data-kf]) [data-slot="sheet-content"][data-side="top"] {
+  --kf-sx: 0px;
+  --kf-sy: -100%;
+}
+:where(html[data-kf]) [data-slot="sheet-content"][data-side="bottom"] {
+  --kf-sx: 0px;
+  --kf-sy: 100%;
+}
+
+:is(
+    :where(html[data-kf]:is([data-kf-sheet="slide-sink"], [data-kf-sheet="slide"])) [data-slot="sheet-content"]:not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) [data-slot="sheet-content"]:is([data-cut="slide-sink"], [data-cut="slide"])
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-panel-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+:is(
+    :where(html[data-kf]:is([data-kf-sheet="slide-sink"], [data-kf-sheet="slide"])) [data-slot="sheet-content"]:not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) [data-slot="sheet-content"]:is([data-cut="slide-sink"], [data-cut="slide"])
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-panel-out min(calc(260ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
+}
+
+:is(
+    :where(html[data-kf]:is([data-kf-sheet="slide-sink"], [data-kf-sheet="slide"])) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) [data-slot="sheet-overlay"]:is([data-cut="slide-sink"], [data-cut="slide"])
+  ):is([data-state="open"], [data-open]:not([data-open="false"])) {
+  animation: kf-veil-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+}
+
+:is(
+    :where(html[data-kf]:is([data-kf-sheet="slide-sink"], [data-kf-sheet="slide"])) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
+    :where(html[data-kf]) [data-slot="sheet-overlay"]:is([data-cut="slide-sink"], [data-cut="slide"])
+  ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation: kf-veil-out min(calc(260ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+}
+
+/* translate: none cancels Base UI's starting/ending-style translate so the two don't stack */
+@keyframes kf-panel-in {
+  from {
+    transform: translate(var(--kf-sx), var(--kf-sy));
+    translate: none;
+    opacity: 1;
+  }
+  to {
+    transform: none;
+    translate: none;
+    opacity: 1;
+  }
+}
+
+@keyframes kf-panel-out {
+  from {
+    transform: none;
+    translate: none;
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--kf-sx), var(--kf-sy));
+    translate: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- Sink: the page steps back while a sheet or drawer is up ---------- */
+
+:where(html[data-kf]) [data-kf-sink] {
+  transform-origin: 50% 0;
+  transition:
+    scale min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1),
+    filter min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1),
+    border-radius min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+:where(html[data-kf]) [data-kf-sink="on"] {
+  scale: 0.975;
+  filter: brightness(0.94);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+:where(html[data-kf][data-kf-sinking]) body {
+  background-color: color-mix(in oklab, var(--background) 80%, black);
+}

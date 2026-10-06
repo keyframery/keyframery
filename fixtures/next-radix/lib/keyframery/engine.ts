@@ -1,4 +1,5 @@
 import { overlayAdapter } from "./adapters/overlay"
+import { panelAdapter } from "./adapters/panel"
 import { parsePace } from "./motion"
 import { observe, type Adapter } from "./observe"
 import { createPressTracker, type PressTracker } from "./press"
@@ -19,7 +20,7 @@ export const DEFAULT_MENUS: Required<Menus> = {
 }
 
 /** Every adapter the engine runs. Each cut group adds its factory here. */
-export const ADAPTER_FACTORIES: Array<(press: PressTracker) => Adapter> = [overlayAdapter]
+export const ADAPTER_FACTORIES: Array<(press: PressTracker) => Adapter> = [overlayAdapter, panelAdapter]
 
 let refs = 0
 let stopEngine: (() => void) | null = null

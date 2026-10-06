@@ -58,6 +58,11 @@
           "path": "lib/keyframery/adapters/overlay.ts",
           "type": "registry:lib",
           "target": "lib/keyframery/adapters/overlay.ts"
+        },
+        {
+          "path": "lib/keyframery/adapters/panel.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/panel.ts"
         }
       ]
     }
