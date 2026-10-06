@@ -12,10 +12,11 @@ export function snapshot(el: Element): Snapshot {
 
 /**
  * Places the ghost over the element's last box, plays `keyframes`, and always removes it afterwards.
- * With a `host` (an ancestor of the leaving element) the ghost lives inside it, absolutely positioned,
+ * With `place.host` (an ancestor of the leaving element) the ghost lives inside it, absolutely positioned,
  * so it stays in the same stacking context: tabs inside a dialog keep their ghost above the dialog.
  */
-export function playGhost(snap: Snapshot, keyframes: Keyframe[], options: KeyframeAnimationOptions, host?: HTMLElement): Animation {
+export function playGhost(snap: Snapshot, keyframes: Keyframe[], options: KeyframeAnimationOptions, place: { host?: HTMLElement; z?: number } = {}): Animation {
+  const host = place.host
   const g = snap.clone
   let left = snap.rect.left
   let top = snap.rect.top
@@ -37,7 +38,7 @@ export function playGhost(snap: Snapshot, keyframes: Keyframe[], options: Keyfra
     margin: "0",
     boxSizing: "border-box",
     pointerEvents: "none",
-    zIndex: "1",
+    zIndex: String(place.z ?? 1),
   })
   g.hidden = false
   g.setAttribute("aria-hidden", "true")

@@ -5,7 +5,7 @@ import { toastAdapter } from "./adapters/toast"
 import { tunedAdapter } from "./adapters/tuned"
 import { parsePace } from "./motion"
 import { observe, type Adapter } from "./observe"
-import { createPressTracker, type PressTracker } from "./press"
+import { createPressTracker, type Press, type PressTracker } from "./press"
 
 export type DialogCut = "rack-focus" | "punch-in" | "fade" | "none"
 export type SheetCut = "slide-sink" | "slide" | "fade" | "none"
@@ -26,6 +26,7 @@ export const DEFAULT_MENUS: Required<Menus> = {
 export const ADAPTER_FACTORIES: Array<(press: PressTracker) => Adapter> = [overlayAdapter, panelAdapter, tabsAdapter, toastAdapter, tunedAdapter]
 
 let refs = 0
+let activePress: PressTracker | null = null
 let stopEngine: (() => void) | null = null
 
 function applyPace(el: HTMLElement) {
@@ -43,10 +44,12 @@ const paceAdapter: Adapter = {
 
 function install(): () => void {
   const press = createPressTracker(document)
+  activePress = press
   const adapters = [paceAdapter, ...ADAPTER_FACTORIES.map((make) => make(press))]
   const disconnect = observe(document.body, adapters)
   adapters.forEach((a) => a.init?.())
   return () => {
+    activePress = null
     disconnect()
     adapters.forEach((a) => a.dispose?.())
     press.dispose()
@@ -88,4 +91,9 @@ export function setEnabled(on: boolean): void {
 export function setPace(pace: number | undefined): void {
   if (pace === undefined) document.documentElement.style.removeProperty("--kf-pace")
   else document.documentElement.style.setProperty("--kf-pace", String(parsePace(String(pace))))
+}
+
+/** The last press, for helpers that cut from what the user pressed. Null when no <Cuts /> is running. */
+export function lastPress(maxAgeMs?: number): Press | null {
+  return activePress?.last(maxAgeMs) ?? null
 }

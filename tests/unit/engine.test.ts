@@ -63,3 +63,16 @@ it("applies data-cut-pace that was already in the page before start", () => {
   expect(s.style.getPropertyValue("--kf-pace")).toBe("2")
   stop()
 })
+
+
+it("lastPress is null until the engine runs, then reports the last press", async () => {
+  const { lastPress } = await import("../../registry/lib/keyframery/engine")
+  expect(lastPress()).toBeNull()
+  const stop = start()
+  const b = document.createElement("button")
+  document.body.append(b)
+  b.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }))
+  expect(lastPress()?.el).toBe(b)
+  stop()
+  expect(lastPress()).toBeNull()
+})
