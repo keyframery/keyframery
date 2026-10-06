@@ -125,11 +125,14 @@ export const startTransform = (page: Page, selector: string, name: string) =>
     const anim = el?.getAnimations().find((a) => (a as CSSAnimation).animationName === n)
     if (!el || !anim) return null
     const t = anim.currentTime
+    const wasFinished = anim.playState === "finished"
     anim.pause()
     anim.currentTime = 0
     const tf = getComputedStyle(el).transform
+    // Put it back exactly: play() on a finished animation would replay it from the start.
     anim.currentTime = t
-    anim.play()
+    if (wasFinished) anim.finish()
+    else anim.play()
     return tf
   }, [selector, name] as [string, string])
 

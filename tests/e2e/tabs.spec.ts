@@ -26,7 +26,8 @@ const morphEnds = (page: Page) =>
     anim.currentTime = end - 1
     const finish = Math.round(below.getBoundingClientRect().top)
     anim.currentTime = t
-    anim.play()
+    if (t !== null && Number(t) >= end) anim.finish()
+    else anim.play()
     return { start, finish }
   })
 

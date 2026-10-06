@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test"
 
-import { activeId, animNames, centre, expect, firstOn, onStock, ranToEnd, sample, takeEvents, test } from "./kit"
+import { activeId, animNames, centre, expect, firstOn, meta, onStock, ranToEnd, sample, startTransform, takeEvents, test } from "./kit"
 
 type Case = { name: string; trigger: string; slot: string; content: string; component: string; close: (p: Page) => Promise<void> }
 
@@ -12,7 +12,8 @@ const CASES: Case[] = [
 
 for (const c of CASES) {
   test.describe(c.name, () => {
-    test("rack focus: grows from the opener and plays its whole exit", async ({ page, errors }) => {
+    test("rack focus: grows from the opener and plays its whole exit", async ({ page, errors }, info) => {
+      const reduced = meta(info).motion === "reduced"
       await page.goto("/")
       const trigger = (await centre(page, `[data-testid="${c.trigger}"]`))!
       const open = await sample(page, c.content, 600, () => page.getByTestId(c.trigger).click())
@@ -20,6 +21,12 @@ for (const c of CASES) {
       expect(firstOn(open)!.op).toBeLessThan(0.9)
       await expect(page.locator(c.content)).toBeVisible()
       await page.waitForTimeout(400)
+      // At its first instant: scaled down and pulled toward the trigger, or (reduced motion) not moved at all.
+      const start = await startTransform(page, c.content, "kf-rack-in")
+      if (reduced) expect(start).toBe("none")
+      else expect(start).toMatch(/^matrix\(0\.94, 0, 0, 0\.94, /)
+      const durs = await page.evaluate((s) => document.querySelector(s)!.getAnimations().map((a) => Number(a.effect?.getTiming().duration)), c.content)
+      expect(Math.max(...durs)).toBeLessThanOrEqual(reduced ? 120 : 340)
       // The engine aims the cut from the dialog's resting centre to the trigger's centre.
       const content = (await centre(page, c.content))!
       expect(content.dx).toBeCloseTo(trigger.x - content.x, 0)

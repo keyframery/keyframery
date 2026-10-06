@@ -425,3 +425,76 @@
     overflow: clip;
   }
 }
+
+
+/* ---------- Reduced motion: same selectors; the cuts become short fades with no movement ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  :where(:root) {
+    --kf-cap: 120ms;
+  }
+
+  @keyframes kf-rack-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes kf-rack-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes kf-punch-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes kf-punch-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes kf-panel-in {
+    from { opacity: 0; transform: none; translate: none; }
+    to { opacity: 1; transform: none; translate: none; }
+  }
+  @keyframes kf-panel-out {
+    from { opacity: 1; transform: none; translate: none; }
+    to { opacity: 0; transform: none; translate: none; }
+  }
+  @keyframes kf-grow {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes kf-shrink {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  /* The tuned components' own keyframes move (zoom, slide); under reduced motion they fade instead. */
+  :where(html[data-kf])
+    :is(
+      [data-slot="popover-content"], [data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"],
+      [data-slot="context-menu-content"], [data-slot="context-menu-sub-content"], [data-slot="menubar-content"],
+      [data-slot="menubar-sub-content"], [data-slot="select-content"], [data-slot="combobox-content"],
+      [data-slot="hover-card-content"], [data-slot="tooltip-content"], [data-slot="navigation-menu-content"],
+      [data-slot="navigation-menu-viewport"], [data-slot="accordion-content"]
+    ):not([data-cut="none"], [data-cut="none"] *):is([data-state="open"], [data-state="delayed-open"], [data-state="instant-open"], [data-open]:not([data-open="false"])) {
+    animation-name: kf-fade-in;
+    transition-property: opacity;
+  }
+
+  :where(html[data-kf])
+    :is(
+      [data-slot="popover-content"], [data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"],
+      [data-slot="context-menu-content"], [data-slot="context-menu-sub-content"], [data-slot="menubar-content"],
+      [data-slot="menubar-sub-content"], [data-slot="select-content"], [data-slot="combobox-content"],
+      [data-slot="hover-card-content"], [data-slot="tooltip-content"], [data-slot="navigation-menu-content"],
+      [data-slot="navigation-menu-viewport"], [data-slot="accordion-content"]
+    ):not([data-cut="none"], [data-cut="none"] *):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+    animation-name: kf-fade-out;
+    transition-property: opacity;
+  }
+
+  :where(html[data-kf]) [data-kf-sink="on"] {
+    scale: 1;
+    filter: none;
+    border-radius: 0;
+  }
+}
