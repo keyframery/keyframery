@@ -355,3 +355,73 @@
     translate: none;
   }
 }
+
+
+/* ---------- Tuned: the libraries' own keyframes, retimed to the film's pace ---------- */
+
+:where(html[data-kf])
+  :is(
+    [data-slot="popover-content"],
+    [data-slot="dropdown-menu-content"],
+    [data-slot="dropdown-menu-sub-content"],
+    [data-slot="context-menu-content"],
+    [data-slot="context-menu-sub-content"],
+    [data-slot="menubar-content"],
+    [data-slot="menubar-sub-content"],
+    [data-slot="select-content"],
+    [data-slot="combobox-content"],
+    [data-slot="hover-card-content"],
+    [data-slot="tooltip-content"],
+    [data-slot="navigation-menu-content"],
+    [data-slot="navigation-menu-viewport"],
+    [data-slot="accordion-content"]
+  ):not([data-cut="none"], [data-cut="none"] *):is(
+    [data-state="open"],
+    [data-state="delayed-open"],
+    [data-state="instant-open"],
+    [data-open]:not([data-open="false"]),
+    [data-state="closed"],
+    [data-closed]:not([data-closed="false"])
+  ) {
+  animation-duration: min(calc(180ms * var(--kf-pace)), var(--kf-cap));
+  animation-timing-function: var(--kf-ease);
+  transition-duration: min(calc(180ms * var(--kf-pace)), var(--kf-cap));
+  transition-timing-function: var(--kf-ease);
+}
+
+/* Collapsible ships with no motion at all, which is a jump cut. It gets the accordion's height cut. */
+:where(html[data-kf]) [data-slot="collapsible-content"]:not([data-cut="none"], [data-cut="none"] *, [data-kf-static]):is(
+    [data-state="open"],
+    [data-open]:not([data-open="false"])
+  ) {
+  animation: kf-grow min(calc(180ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease);
+}
+
+:where(html[data-kf]) [data-slot="collapsible-content"]:not([data-cut="none"], [data-cut="none"] *):is(
+    [data-state="closed"],
+    [data-closed]:not([data-closed="false"])
+  ) {
+  animation: kf-shrink min(calc(180ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) forwards;
+}
+
+@keyframes kf-grow {
+  from {
+    height: 0;
+    overflow: clip;
+  }
+  to {
+    height: var(--radix-collapsible-content-height, var(--collapsible-panel-height, auto));
+    overflow: clip;
+  }
+}
+
+@keyframes kf-shrink {
+  from {
+    height: var(--radix-collapsible-content-height, var(--collapsible-panel-height, auto));
+    overflow: clip;
+  }
+  to {
+    height: 0;
+    overflow: clip;
+  }
+}

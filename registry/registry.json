@@ -73,6 +73,11 @@
           "path": "lib/keyframery/adapters/toast.ts",
           "type": "registry:lib",
           "target": "lib/keyframery/adapters/toast.ts"
+        },
+        {
+          "path": "lib/keyframery/adapters/tuned.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/tuned.ts"
         }
       ]
     }
