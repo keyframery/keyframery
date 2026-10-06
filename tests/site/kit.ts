@@ -6,6 +6,14 @@ export const test = base.extend<{ errors: string[] }>({
       ;(window as unknown as { __cuts: unknown[] }).__cuts = []
       document.addEventListener("keyframery:cut", (e) => (window as unknown as { __cuts: unknown[] }).__cuts.push((e as CustomEvent).detail))
     })
+    // Pages are server-rendered, so a button can be visible before React hydrates it. Every goto waits for
+    // <Cuts /> to mount (html[data-kf]), which happens during hydration.
+    const goto = page.goto.bind(page)
+    page.goto = async (url, options) => {
+      const res = await goto(url, options)
+      await page.locator("html[data-kf]").waitFor({ state: "attached", timeout: 10_000 }).catch(() => {})
+      return res
+    }
     await use(page)
   },
   errors: async ({ page }, use) => {
