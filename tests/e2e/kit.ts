@@ -178,7 +178,7 @@ export const takeGhosts = (page: Page) => page.evaluate(() => window.__kfGhosts.
 export const leftovers = (page: Page) => page.evaluate(() => document.querySelectorAll("[data-kf-ghost],[data-kf-pill]").length)
 
 /** Runs `fn` on the same path of the stock twin (no Keyframery), same browser and motion setting. */
-export async function onStock<T>(browser: Browser, info: TestInfo, path: string, fn: (page: Page) => Promise<T>) {
+export async function onStock<T>(browser: Browser, info: TestInfo, path: string, fn: (page: Page) => Promise<T>, opts: { waitUntil?: "load" | "networkidle" } = {}) {
   const m = meta(info)
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, reducedMotion: m.motion === "reduced" ? "reduce" : "no-preference" })
   const page = await ctx.newPage()
@@ -188,7 +188,7 @@ export async function onStock<T>(browser: Browser, info: TestInfo, path: string,
   })
   page.on("pageerror", (e) => errors.push(String(e)))
   await page.addInitScript(probes)
-  await page.goto(m.stock + path, { waitUntil: "networkidle" })
+  await page.goto(m.stock + path, { waitUntil: opts.waitUntil ?? "networkidle" })
   await page.waitForSelector("html[data-fixture-ready]", { state: "attached" })
   try {
     return { value: await fn(page), errors }
