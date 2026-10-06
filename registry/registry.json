@@ -101,6 +101,27 @@
           "target": "lib/keyframery/value.ts"
         }
       ]
+    },
+    {
+      "name": "load-cut",
+      "type": "registry:component",
+      "title": "LoadCut",
+      "description": "A placeholder becomes real without a jump; fast data never flashes a skeleton.",
+      "registryDependencies": [
+        "@keyframery/cuts"
+      ],
+      "files": [
+        {
+          "path": "components/keyframery/load-cut.tsx",
+          "type": "registry:component",
+          "target": "components/keyframery/load-cut.tsx"
+        },
+        {
+          "path": "lib/keyframery/load.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/load.ts"
+        }
+      ]
     }
   ]
 }
