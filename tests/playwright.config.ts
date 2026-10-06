@@ -13,7 +13,8 @@ const browsers = process.env.KF_BROWSERS?.split(",")
 const motions = (process.env.KF_MOTION ? [process.env.KF_MOTION] : ["full", "reduced"]) as ("full" | "reduced")[]
 
 export default defineConfig({
-  testDir: "e2e",
+  testDir: ".",
+  testMatch: process.env.KF_FRAMES ? "frames/**/*.spec.ts" : "e2e/**/*.spec.ts",
   fullyParallel: true,
   workers: 4, // more contends for the CPU with the four fixture servers and flakes timing checks
   retries: process.env.CI ? 1 : 0,
