@@ -1,0 +1,16 @@
+{
+  "name": "keyframery",
+  "private": true,
+  "packageManager": "pnpm@10.30.0",
+  "scripts": {
+    "registry:build": "pnpm -C registry build && node registry/scripts/check.mjs",
+    "registry:serve": "node registry/scripts/serve.mjs",
+    "fixtures:create": "node fixtures/create.mjs",
+    "fixtures:sync": "node fixtures/sync.mjs",
+    "fixtures:build": "node fixtures/build.mjs",
+    "refresh": "pnpm registry:build && pnpm fixtures:sync && node fixtures/build.mjs --cuts-only",
+    "typecheck": "pnpm -C registry typecheck",
+    "test:unit": "pnpm -C tests unit",
+    "test:e2e": "pnpm -C tests e2e"
+  }
+}

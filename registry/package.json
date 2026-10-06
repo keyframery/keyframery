@@ -1,0 +1,15 @@
+{
+  "name": "@keyframery/registry",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "shadcn build registry.json -o ../dist/r",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "react": "19.3.0",
+    "shadcn": "4.21.3",
+    "typescript": "^5.9.3"
+  }
+}

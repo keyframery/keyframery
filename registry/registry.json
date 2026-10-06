@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "keyframery",
+  "homepage": "https://keyframery.com",
+  "items": [
+    {
+      "name": "cuts",
+      "type": "registry:component",
+      "title": "Cuts",
+      "description": "Film cuts for shadcn. Add <Cuts /> once to your root layout.",
+      "files": [
+        { "path": "components/keyframery/cuts.tsx", "type": "registry:component", "target": "components/keyframery/cuts.tsx" },
+        { "path": "components/keyframery/keyframery.css", "type": "registry:file", "target": "components/keyframery/keyframery.css" },
+        { "path": "lib/keyframery/engine.ts", "type": "registry:lib", "target": "lib/keyframery/engine.ts" },
+        { "path": "lib/keyframery/state.ts", "type": "registry:lib", "target": "lib/keyframery/state.ts" },
+        { "path": "lib/keyframery/motion.ts", "type": "registry:lib", "target": "lib/keyframery/motion.ts" },
+        { "path": "lib/keyframery/press.ts", "type": "registry:lib", "target": "lib/keyframery/press.ts" },
+        { "path": "lib/keyframery/aim.ts", "type": "registry:lib", "target": "lib/keyframery/aim.ts" },
+        { "path": "lib/keyframery/ghost.ts", "type": "registry:lib", "target": "lib/keyframery/ghost.ts" },
+        { "path": "lib/keyframery/observe.ts", "type": "registry:lib", "target": "lib/keyframery/observe.ts" }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,17 @@
 node_modules/
 .next/
 .DS_Store
+dist/
+.reports/
+test-results/
+playwright-report/
+fixtures/next-base-stock/
+fixtures/next-radix-stock/
+fixtures/*/node_modules/
+fixtures/*/.next/
 
 # Throwaway feasibility spike, never committed
 spike/
+
+# Plan execution scratch (ledger, briefs)
+.superpowers/

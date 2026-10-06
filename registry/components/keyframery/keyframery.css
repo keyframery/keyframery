@@ -1,0 +1,20 @@
+/*
+ * Keyframery v0: film cuts for shadcn. https://keyframery.com
+ *
+ * - Unlayered on purpose: it beats Tailwind's @layer utilities, where shadcn's animate-in classes live.
+ * - Everything is scoped under html[data-kf], which <Cuts /> sets while enabled.
+ * - The menu choice lives on <html> (data-kf-dialog="punch-in"); an element's own data-cut beats it.
+ *   The two selector forms exclude each other, so specificity never decides.
+ * - "Open" matches Radix (data-state) and Base UI (data-open); "closed" likewise.
+ */
+
+:where(:root) {
+  --kf-pace: 1;
+  --kf-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --kf-ease-exit: cubic-bezier(0.5, 0, 0.75, 0);
+  --kf-travel: 0.35;
+  --kf-blur: 8px;
+  --kf-depth: 0.94;
+  --kf-hold: 300ms;
+  --kf-cap: 1000s;
+}
