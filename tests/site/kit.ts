@@ -19,7 +19,9 @@ export const test = base.extend<{ errors: string[] }>({
   errors: async ({ page }, use) => {
     const errors: string[] = []
     page.on("console", (m) => {
-      if (m.type() === "error" && !/https?:\/\/(?!localhost)/.test(m.text())) errors.push(m.text())
+      // WebKit logs a prefetch (?_rsc=) that a navigation cancels as an "access control" error; that's noise.
+      const cancelledPrefetch = /_rsc=.*access control checks/.test(m.text())
+      if (m.type() === "error" && !cancelledPrefetch && !/https?:\/\/(?!localhost)/.test(m.text())) errors.push(m.text())
     })
     page.on("pageerror", (e) => errors.push(String(e)))
     await use(errors)
