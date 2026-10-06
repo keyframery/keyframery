@@ -15,3 +15,10 @@ spike/
 
 # Plan execution scratch (ledger, briefs)
 .superpowers/
+
+# keyframery.com: synced from registry/ and dist/r at build time
+apps/web/components/keyframery/
+apps/web/lib/keyframery/
+apps/web/public/r/
+apps/web/.data/
+apps/web/.source/
