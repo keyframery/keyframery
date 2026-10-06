@@ -80,6 +80,27 @@
           "target": "lib/keyframery/adapters/tuned.ts"
         }
       ]
+    },
+    {
+      "name": "value-cut",
+      "type": "registry:component",
+      "title": "ValueCut",
+      "description": "A value that changes in place (a price, a count, a status) punches in.",
+      "registryDependencies": [
+        "@keyframery/cuts"
+      ],
+      "files": [
+        {
+          "path": "components/keyframery/value-cut.tsx",
+          "type": "registry:component",
+          "target": "components/keyframery/value-cut.tsx"
+        },
+        {
+          "path": "lib/keyframery/value.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/value.ts"
+        }
+      ]
     }
   ]
 }
