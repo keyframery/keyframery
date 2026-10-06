@@ -53,7 +53,7 @@ test("j-cut: the old panel leaves on a ghost, the new one follows, nothing below
     expect(ghosts).toHaveLength(0)
     expect(morph).toBeNull()
   } else {
-    expect(ghosts).toEqual([{ slot: "tabs-content-ghost", aria: "true", inert: true }])
+    expect(ghosts).toEqual([{ slot: "tabs-content-ghost", aria: "true", inert: true, host: "tabs" }])
     expect(morph, "the frame's height should animate").not.toBeNull()
     expect(morph!.start).toBe(before) // the text below starts exactly where it was…
   }
@@ -87,6 +87,7 @@ test("rapid switching ends on the right panel and leaves nothing behind", async 
   await expect.poll(() => leftovers(page)).toBe(0)
   expect(await shown(page)).toBe("Overview")
   expect(await page.evaluate(() => (document.querySelector('[data-testid="tabs"] [data-slot="tabs-list"]') as HTMLElement).style.position)).toBe("")
+  expect(await page.evaluate(() => (document.querySelector('[data-testid="tabs"]') as HTMLElement).style.position)).toBe("")
   expect(errors).toEqual([])
 })
 
@@ -98,4 +99,17 @@ test("focus after a tab click matches stock", async ({ page, browser }, info) =>
   }
   await page.goto("/")
   expect(await run(page)).toBe((await onStock(browser, info, "/", run)).value)
+})
+
+test("tabs inside a dialog keep their exit ghost inside the dialog, above its content", async ({ page, errors }, info) => {
+  test.skip(meta(info).motion === "reduced", "reduced motion has no ghost")
+  await page.goto("/cases")
+  await page.getByTestId("tabs-dialog-trigger").click()
+  await expect(page.getByTestId("tabs-dialog")).toBeVisible()
+  await page.waitForTimeout(400)
+  await takeGhosts(page)
+  await page.getByTestId("dlg-tab-b").click()
+  await expect.poll(() => takeGhosts(page)).toEqual([{ slot: "tabs-content-ghost", aria: "true", inert: true, host: "tabs" }])
+  await expect.poll(() => leftovers(page)).toBe(0)
+  expect(errors).toEqual([])
 })

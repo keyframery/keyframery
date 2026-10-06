@@ -69,6 +69,17 @@ export function Cases() {
         <TwoTabs id="whip" data-cut="whip" />
       </section>
 
+      <section>
+        <Dialog>
+          {T(DialogTrigger, <Button variant="outline" data-testid="tabs-dialog-trigger">Dialog with tabs</Button>)}
+          <DialogContent data-testid="tabs-dialog">
+            <DialogTitle>Settings</DialogTitle>
+            <DialogDescription>Tabs inside a dialog.</DialogDescription>
+            <TwoTabs id="dlg" />
+          </DialogContent>
+        </Dialog>
+      </section>
+
       <section className="flex flex-wrap gap-3">
         <Sheet>
           {T(SheetTrigger, <Button variant="outline" data-testid="nested-sheet-trigger">Sheet with more inside</Button>)}

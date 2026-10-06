@@ -3,14 +3,14 @@ import { expect, test as base, type Browser, type Page, type TestInfo } from "@p
 export type Meta = { base: "base" | "radix"; stock: string; motion: "full" | "reduced"; browser: string }
 export type Frame = { t: number; on: boolean; names: string[]; durs: number[]; op: number; tf: string; tr: string; aria: string | null; inert: boolean }
 export type CutEvent = { cut: string; component: string; phase: "enter" | "exit"; ms: number }
-export type AnimEvent = { type: "start" | "end" | "cancel"; name: string; slot: string | null; id: number }
+export type AnimEvent = { type: "start" | "end" | "cancel"; name: string; slot: string | null; id: number; ms?: number; props?: string[] }
 
 declare global {
   interface Window {
     __kfSample(selector: string, ms: number): Promise<Frame[]>
     __kfEvents: CutEvent[]
     __kfAnim: AnimEvent[]
-    __kfGhosts: { slot: string | null; aria: string | null; inert: boolean }[]
+    __kfGhosts: { slot: string | null; aria: string | null; inert: boolean; host: string | null }[]
   }
 }
 
@@ -35,7 +35,10 @@ function probes() {
       tracked.add(a)
       const id = nextId++
       const record = (type: AnimEvent["type"]) => window.__kfAnim.push({ type, name, slot: el.getAttribute("data-slot"), id })
-      record("start")
+      // the start record also keeps its duration and what its first keyframe animates
+      const first = (a.effect as KeyframeEffect | null)?.getKeyframes()[0] ?? {}
+      const props = Object.keys(first).filter((k) => !["offset", "easing", "composite", "computedOffset"].includes(k))
+      window.__kfAnim.push({ type: "start", name, slot: el.getAttribute("data-slot"), id, ms: Number(a.effect?.getTiming().duration), props })
       a.finished.then(() => record("end"), () => record("cancel"))
     }
     // A short animation can start and finish inside one long frame; by the time its animationstart
@@ -48,7 +51,8 @@ function probes() {
       if (r.type === "attributes" && r.target instanceof Element && r.target.hasAttribute("data-slot")) track(r.target)
       for (const n of r.addedNodes) {
         if (!(n instanceof HTMLElement)) continue
-        if (n.hasAttribute("data-kf-ghost")) window.__kfGhosts.push({ slot: n.getAttribute("data-slot"), aria: n.getAttribute("aria-hidden"), inert: n.inert })
+        if (n.hasAttribute("data-kf-ghost"))
+          window.__kfGhosts.push({ slot: n.getAttribute("data-slot"), aria: n.getAttribute("aria-hidden"), inert: n.inert, host: n.parentElement?.getAttribute("data-slot") ?? n.parentElement?.tagName.toLowerCase() ?? null })
         if (n.hasAttribute("data-slot")) track(n)
         n.querySelectorAll("[data-slot]").forEach((el) => track(el))
       }
@@ -150,6 +154,10 @@ export const startedOn = (page: Page, slot: string) =>
     return [...new Set(names)]
   }, slot)
 
+/** The start record of animation `name` on a `slot` part: its duration and the properties its first keyframe sets. */
+export const startRecord = (page: Page, slot: string, name: string) =>
+  page.evaluate(([s, n]) => window.__kfAnim.find((a) => a.type === "start" && a.slot === s && a.name === n && a.ms !== undefined) ?? null, [slot, name] as [string, string])
+
 /** Names of animations on a `slot` part that were cancelled (removed or restarted before they finished). */
 export const cancelledOn = (page: Page, slot: string) =>
   page.evaluate((s) => window.__kfAnim.filter((a) => a.type === "cancel" && a.slot === s).map((a) => a.name), slot)
@@ -178,6 +186,13 @@ export const startOpacity = (page: Page) => page.evaluate(() => (window as unkno
 
 /** Console errors that come from our app (an example's external image logging cookie warnings doesn't count). */
 export const ownErrors = (errors: string[]) => errors.filter((e) => !/https?:\/\/(?!localhost)/.test(e))
+
+/** Computed filter and transform of the first element matching `selector`. */
+export const settled = (page: Page, selector: string) =>
+  page.evaluate((s) => {
+    const cs = getComputedStyle(document.querySelector(s)!)
+    return { filter: cs.filter, transform: cs.transform }
+  }, selector)
 
 /** Centre of the first element matching `selector`, and the --kf-dx/--kf-dy the engine wrote on it. */
 export const centre = (page: Page, selector: string) =>

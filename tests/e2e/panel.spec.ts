@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test"
 
-import { activeId, animNames, expect, meta, onStock, ranToEnd, sample, startedOn, startTransform, takeEvents, test, translation } from "./kit"
+import { activeId, animNames, expect, meta, onStock, ranToEnd, sample, settled, startedOn, startTransform, takeEvents, test, translation } from "./kit"
 
 const SHEET = '[data-slot="sheet-content"]'
 const sinkState = (page: Page) =>
@@ -28,7 +28,8 @@ for (const side of [
       else expect(y).toBeGreaterThan(50)
     }
     expect(await sinkState(page)).toEqual(reduced ? { on: [], html: false } : { on: ["main"], html: true })
-    await page.waitForTimeout(500)
+    await expect.poll(() => ranToEnd(page, "sheet-content", "kf-panel-in")).toBe(true)
+    expect(await settled(page, SHEET)).toEqual({ filter: "none", transform: "none" }) // no leftover containing block
     await page.keyboard.press("Escape")
     await expect(page.locator(SHEET)).toHaveCount(0)
     expect(await ranToEnd(page, "sheet-content", "kf-panel-out")).toBe(true)

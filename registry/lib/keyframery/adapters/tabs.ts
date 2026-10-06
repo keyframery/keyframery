@@ -139,6 +139,7 @@ export function tabsAdapter(press: PressTracker): Adapter {
           { opacity: 0, translate: shift(-dir * travel), filter: blur },
         ],
         { duration: ghostMs, easing: "cubic-bezier(0.4, 0, 1, 1)" },
+        root as HTMLElement,
       )
     }
 

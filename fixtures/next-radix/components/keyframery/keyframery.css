@@ -6,6 +6,9 @@
  * - The menu choice lives on <html> (data-kf-dialog="punch-in"); an element's own data-cut beats it.
  *   The two selector forms exclude each other, so specificity never decides.
  * - "Open" matches Radix (data-state) and Base UI (data-open); "closed" likewise.
+ * - Entrances fill backwards only: once in, the part is back to its own styles (a held transform or
+ *   filter, even at zero, would make it a containing block for its fixed-position children).
+ *   Exits fill both, so the part stays invisible until the library removes it.
  */
 
 :where(:root) {
@@ -26,7 +29,7 @@
     :where(html[data-kf][data-kf-dialog="rack-focus"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="rack-focus"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-rack-in min(calc(340ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) both;
+  animation: kf-rack-in min(calc(340ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
@@ -40,7 +43,7 @@
     :where(html[data-kf][data-kf-dialog="rack-focus"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="rack-focus"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(340ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+  animation: kf-veil-in min(calc(340ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
 }
 
 :is(
@@ -125,7 +128,7 @@
     :where(html[data-kf]:is([data-kf-sheet="slide-sink"], [data-kf-sheet="slide"])) [data-slot="sheet-content"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-content"]:is([data-cut="slide-sink"], [data-cut="slide"])
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-panel-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation: kf-panel-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1) backwards;
 }
 
 :is(
@@ -139,7 +142,7 @@
     :where(html[data-kf]:is([data-kf-sheet="slide-sink"], [data-kf-sheet="slide"])) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-overlay"]:is([data-cut="slide-sink"], [data-cut="slide"])
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+  animation: kf-veil-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
 }
 
 :is(
@@ -204,7 +207,7 @@
     :where(html[data-kf][data-kf-dialog="punch-in"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="punch-in"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-punch-in min(calc(260ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) both;
+  animation: kf-punch-in min(calc(260ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
@@ -218,7 +221,7 @@
     :where(html[data-kf][data-kf-dialog="fade"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="fade"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-fade-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) both;
+  animation: kf-fade-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
@@ -232,7 +235,7 @@
     :where(html[data-kf][data-kf-dialog="punch-in"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="punch-in"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(260ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+  animation: kf-veil-in min(calc(260ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
 }
 
 :is(
@@ -246,7 +249,7 @@
     :where(html[data-kf][data-kf-dialog="fade"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="fade"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
 }
 
 :is(
@@ -306,7 +309,7 @@
     :where(html[data-kf][data-kf-sheet="fade"]) [data-slot="sheet-content"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-content"][data-cut="fade"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-panel-fade-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) both;
+  animation: kf-panel-fade-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
@@ -320,7 +323,7 @@
     :where(html[data-kf][data-kf-sheet="fade"]) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-overlay"][data-cut="fade"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) ease-out both;
+  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
 }
 
 :is(
