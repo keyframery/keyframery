@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test"
 
-import { activeId, expect, leftovers, meta, onStock, sample, takeEvents, test } from "./kit"
+import { activeId, expect, leftovers, meta, onStock, takeEvents, takeGhosts, test } from "./kit"
 
 const shown = (page: Page) =>
   page.evaluate(
@@ -11,9 +11,22 @@ const shown = (page: Page) =>
   )
 const belowTop = (page: Page) => page.evaluate(() => Math.round(document.querySelector('[data-testid="below-tabs"]')!.getBoundingClientRect().top))
 
-/** Freezes the tabs frame's height animation at its start and end and reports where the text below sits. */
-const morphEnds = (page: Page) =>
-  page.evaluate(() => {
+/**
+ * Presses a tab from inside the page and, as soon as the cut has been set up, freezes the tabs frame's
+ * height animation at its start and end to see where the text below sits. Doing both in one page turn
+ * keeps the check independent of how slow the machine is.
+ */
+const pressAndMorph = (page: Page, testId: string) =>
+  page.evaluate(async (id) => {
+    const tab = document.querySelector(`[data-testid="${id}"]`) as HTMLElement
+    const opts = { bubbles: true, cancelable: true, button: 0 }
+    tab.focus() // a real mousedown focuses the tab
+    tab.dispatchEvent(new PointerEvent("pointerdown", { ...opts, pointerType: "mouse", isPrimary: true }))
+    tab.dispatchEvent(new MouseEvent("mousedown", opts)) // Radix activates tabs on mousedown
+    tab.dispatchEvent(new PointerEvent("pointerup", { ...opts, pointerType: "mouse", isPrimary: true }))
+    tab.dispatchEvent(new MouseEvent("mouseup", opts))
+    tab.click() // Base UI activates on click
+    await new Promise((r) => setTimeout(r, 0)) // let the observer set the cut up
     const root = document.querySelector('[data-testid="tabs"]')!
     const below = document.querySelector('[data-testid="below-tabs"]')!
     const anim = root.getAnimations().find((a) => (a.effect as KeyframeEffect).getKeyframes().some((k) => "height" in k))
@@ -26,24 +39,21 @@ const morphEnds = (page: Page) =>
     anim.currentTime = end - 1
     const finish = Math.round(below.getBoundingClientRect().top)
     anim.currentTime = t
-    if (t !== null && Number(t) >= end) anim.finish()
-    else anim.play()
+    anim.play()
     return { start, finish }
-  })
+  }, testId)
 
 test("j-cut: the old panel leaves on a ghost, the new one follows, nothing below jumps", async ({ page, errors }, info) => {
   const reduced = meta(info).motion === "reduced"
   await page.goto("/")
   const before = await belowTop(page)
-  const ghost = await sample(page, '[data-slot="tabs-content-ghost"]', 120, () => page.getByTestId("tab-analytics").click())
-  const morph = await morphEnds(page)
+  const morph = await pressAndMorph(page, "tab-analytics")
+  const ghosts = await takeGhosts(page)
   if (reduced) {
-    expect(ghost.filter((f) => f.on)).toHaveLength(0)
+    expect(ghosts).toHaveLength(0)
     expect(morph).toBeNull()
   } else {
-    const seen = ghost.filter((f) => f.on)
-    expect(seen.length).toBeGreaterThan(0)
-    expect(seen.every((f) => f.aria === "true" && f.inert)).toBe(true)
+    expect(ghosts).toEqual([{ slot: "tabs-content-ghost", aria: "true", inert: true }])
     expect(morph, "the frame's height should animate").not.toBeNull()
     expect(morph!.start).toBe(before) // the text below starts exactly where it was…
   }

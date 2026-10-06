@@ -1,6 +1,7 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
+import { useEffect } from "react"
 
 import { Cuts, type CutsProps } from "@/components/keyframery/cuts"
 
@@ -9,6 +10,7 @@ export function KfCuts() {
   const q = useSearchParams()
   const get = (key: string) => q.get(key) ?? undefined
   const pace = q.get("pace")
+  useEffect(() => document.documentElement.setAttribute("data-fixture-ready", ""), []) // tests wait for hydration
   return (
     <>
       <Cuts

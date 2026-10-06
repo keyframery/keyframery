@@ -3,13 +3,14 @@ import { expect, test as base, type Browser, type Page, type TestInfo } from "@p
 export type Meta = { base: "base" | "radix"; stock: string; motion: "full" | "reduced"; browser: string }
 export type Frame = { t: number; on: boolean; names: string[]; durs: number[]; op: number; tf: string; tr: string; aria: string | null; inert: boolean }
 export type CutEvent = { cut: string; component: string; phase: "enter" | "exit"; ms: number }
-export type AnimEvent = { type: "start" | "end" | "cancel"; name: string; slot: string | null }
+export type AnimEvent = { type: "start" | "end" | "cancel"; name: string; slot: string | null; id: number }
 
 declare global {
   interface Window {
     __kfSample(selector: string, ms: number): Promise<Frame[]>
     __kfEvents: CutEvent[]
     __kfAnim: AnimEvent[]
+    __kfGhosts: { slot: string | null; aria: string | null; inert: boolean }[]
   }
 }
 
@@ -18,21 +19,36 @@ function probes() {
   window.__kfEvents = []
   window.__kfAnim = []
   document.addEventListener("keyframery:cut", (e) => window.__kfEvents.push((e as CustomEvent).detail))
-  // Track every CSS animation from its start: its `finished` promise resolves if it plays to the end,
-  // and rejects if the element is removed first. (Base UI removes a part in the same frame its exit
-  // finishes, before animationend is delivered, so the event alone can't tell.)
-  document.addEventListener(
-    "animationstart",
-    (e) => {
-      const ev = e as AnimationEvent
-      const el = ev.target as Element
-      const anim = el.getAnimations().find((a) => (a as CSSAnimation).animationName === ev.animationName)
-      const record = (type: AnimEvent["type"]) => window.__kfAnim.push({ type, name: ev.animationName, slot: el.getAttribute("data-slot") })
+  // Track every CSS animation from the moment it exists: its `finished` promise resolves if it plays to
+  // the end and rejects if the element is removed first. Animations are picked up both when the browser
+  // reports animationstart and as soon as a part's state attribute changes. Under load one frame can
+  // outlast a whole 120 ms exit, and Base UI removes the part before the start/end events are delivered.
+  window.__kfGhosts = []
+  const tracked = new WeakSet<Animation>()
+  let nextId = 0
+  const track = (el: Element) => {
+    for (const a of el.getAnimations()) {
+      const name = (a as CSSAnimation).animationName
+      if (!name || tracked.has(a)) continue
+      tracked.add(a)
+      const id = nextId++
+      const record = (type: AnimEvent["type"]) => window.__kfAnim.push({ type, name, slot: el.getAttribute("data-slot"), id })
       record("start")
-      anim?.finished.then(() => record("end"), () => record("cancel"))
-    },
-    true,
-  )
+      a.finished.then(() => record("end"), () => record("cancel"))
+    }
+  }
+  document.addEventListener("animationstart", (e) => track(e.target as Element), true)
+  new MutationObserver((records) => {
+    for (const r of records) {
+      if (r.type === "attributes" && r.target instanceof Element && r.target.hasAttribute("data-slot")) track(r.target)
+      for (const n of r.addedNodes) {
+        if (!(n instanceof HTMLElement)) continue
+        if (n.hasAttribute("data-kf-ghost")) window.__kfGhosts.push({ slot: n.getAttribute("data-slot"), aria: n.getAttribute("aria-hidden"), inert: n.inert })
+        if (n.hasAttribute("data-slot")) track(n)
+        n.querySelectorAll("[data-slot]").forEach(track)
+      }
+    }
+  }).observe(document, { subtree: true, childList: true, attributes: true, attributeFilter: ["data-state", "data-open", "data-closed"] })
   window.__kfSample = (selector, ms) =>
     new Promise((resolve) => {
       const frames: Frame[] = []
@@ -67,7 +83,11 @@ export const test = base.extend<{ errors: string[] }>({
     await page.addInitScript(probes)
     // Wait for hydration: pressing keys before the libraries attach their listeners makes flaky runs.
     const goto = page.goto.bind(page)
-    page.goto = (url, options) => goto(url, { waitUntil: "networkidle", ...options })
+    page.goto = async (url, options) => {
+      const res = await goto(url, { waitUntil: "networkidle", ...options })
+      await page.waitForSelector("html[data-fixture-ready]", { state: "attached" })
+      return res
+    }
     await use(page)
   },
   errors: async ({ page }, use) => {
@@ -110,10 +130,17 @@ export const takeEvents = (page: Page) => page.evaluate(() => window.__kfEvents.
 export const ranToEnd = (page: Page, slot: string, name: string) =>
   page.evaluate(([s, n]) => window.__kfAnim.some((a) => a.type === "end" && a.slot === s && a.name === n), [slot, name] as [string, string])
 
-/** Names of the CSS animations that started on a `slot` part since the last call (exact; no frame sampling). */
+/**
+ * Names of the CSS animations that ran on a `slot` part since the last call (exact; no frame sampling).
+ * An animation cancelled before it ever ran (a rule that matched for an instant, before the engine carried
+ * a section's data-cut="none" over) never reached the screen, so it doesn't count.
+ */
 export const startedOn = (page: Page, slot: string) =>
   page.evaluate((s) => {
-    const names = window.__kfAnim.filter((a) => a.type === "start" && a.slot === s).map((a) => a.name)
+    const cancelledEarly = new Set(
+      window.__kfAnim.filter((a) => a.type === "cancel" && !window.__kfAnim.some((b) => b.id === a.id && b.type === "end")).map((a) => a.id),
+    )
+    const names = window.__kfAnim.filter((a) => a.type === "start" && a.slot === s && !cancelledEarly.has(a.id)).map((a) => a.name)
     window.__kfAnim = window.__kfAnim.filter((a) => !(a.type === "start" && a.slot === s))
     return [...new Set(names)]
   }, slot)
@@ -146,6 +173,8 @@ export const centre = (page: Page, selector: string) =>
   }, selector)
 export const activeId = (page: Page) =>
   page.evaluate(() => document.activeElement?.getAttribute("data-testid") ?? document.activeElement?.tagName.toLowerCase() ?? null)
+/** Ghosts inserted since the last call, as they were at insertion. */
+export const takeGhosts = (page: Page) => page.evaluate(() => window.__kfGhosts.splice(0))
 export const leftovers = (page: Page) => page.evaluate(() => document.querySelectorAll("[data-kf-ghost],[data-kf-pill]").length)
 
 /** Runs `fn` on the same path of the stock twin (no Keyframery), same browser and motion setting. */
@@ -160,6 +189,7 @@ export async function onStock<T>(browser: Browser, info: TestInfo, path: string,
   page.on("pageerror", (e) => errors.push(String(e)))
   await page.addInitScript(probes)
   await page.goto(m.stock + path, { waitUntil: "networkidle" })
+  await page.waitForSelector("html[data-fixture-ready]", { state: "attached" })
   try {
     return { value: await fn(page), errors }
   } finally {

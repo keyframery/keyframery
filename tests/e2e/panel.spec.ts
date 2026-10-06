@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test"
 
-import { activeId, animNames, expect, meta, onStock, ranToEnd, sample, startTransform, takeEvents, test, translation } from "./kit"
+import { activeId, animNames, expect, meta, onStock, ranToEnd, sample, startedOn, startTransform, takeEvents, test, translation } from "./kit"
 
 const SHEET = '[data-slot="sheet-content"]'
 const sinkState = (page: Page) =>
@@ -16,8 +16,9 @@ for (const side of [
   test(`sheet (${side.axis}): travels from its edge while the page steps back, then both return`, async ({ page, errors }, info) => {
     const reduced = meta(info).motion === "reduced"
     await page.goto("/")
-    const open = await sample(page, SHEET, 150, () => page.getByTestId(side.trigger).click())
-    expect(animNames(open)).toContain("kf-panel-in")
+    await page.getByTestId(side.trigger).click()
+    await expect(page.locator(SHEET)).toBeVisible()
+    expect(await startedOn(page, "sheet-content")).toContain("kf-panel-in")
     const tf = await startTransform(page, SHEET, "kf-panel-in")
     if (tf !== null) {
       // still running: at its first instant the panel sits one full panel-width (or height) outside its edge
