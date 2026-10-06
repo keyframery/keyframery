@@ -63,6 +63,11 @@
           "path": "lib/keyframery/adapters/panel.ts",
           "type": "registry:lib",
           "target": "lib/keyframery/adapters/panel.ts"
+        },
+        {
+          "path": "lib/keyframery/adapters/tabs.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/tabs.ts"
         }
       ]
     }
