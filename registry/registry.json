@@ -68,6 +68,11 @@
           "path": "lib/keyframery/adapters/tabs.ts",
           "type": "registry:lib",
           "target": "lib/keyframery/adapters/tabs.ts"
+        },
+        {
+          "path": "lib/keyframery/adapters/toast.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/toast.ts"
         }
       ]
     }
