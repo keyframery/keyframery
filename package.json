@@ -11,6 +11,8 @@
     "refresh": "pnpm registry:build && pnpm fixtures:sync && node fixtures/build.mjs",
     "typecheck": "pnpm -C registry typecheck",
     "test:unit": "pnpm -C tests unit",
-    "test:e2e": "pnpm -C tests e2e"
+    "test:e2e": "pnpm -C tests e2e",
+    "check:vite": "node fixtures/vite-check.mjs",
+    "check:monorepo": "node fixtures/monorepo-check.mjs"
   }
 }
