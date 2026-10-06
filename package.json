@@ -8,7 +8,7 @@
     "fixtures:create": "node fixtures/create.mjs",
     "fixtures:sync": "node fixtures/sync.mjs",
     "fixtures:build": "node fixtures/build.mjs",
-    "refresh": "pnpm registry:build && pnpm fixtures:sync && node fixtures/build.mjs --cuts-only",
+    "refresh": "pnpm registry:build && pnpm fixtures:sync && node fixtures/build.mjs",
     "typecheck": "pnpm -C registry typecheck",
     "test:unit": "pnpm -C tests unit",
     "test:e2e": "pnpm -C tests e2e"
