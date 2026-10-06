@@ -1,0 +1,34 @@
+---
+title: Command
+description: The command menu opens with the dialog's cut.
+---
+
+<Preview>
+  <CommandDemo />
+</Preview>
+
+## What it fixes
+
+`CommandDialog` is a dialog, so it gets the same rack focus: it grows out of the button you pressed, or from the centre when you open it with a shortcut. The search on this site runs on it. Press ⌘K to try it.
+
+## Install
+
+```bash
+npx shadcn add command
+```
+
+## Choose a cut
+
+The command menu follows the `dialog` menu:
+
+```tsx
+<Cuts dialog="punch-in" />
+```
+
+<TypeTable
+  type={{
+    'dialog (on <Cuts>)': { description: "The cut for dialogs, alert dialogs and the command menu.", type: '"rack-focus" | "punch-in" | "fade" | "none"', default: '"rack-focus"' },
+  }}
+/>
+
+A keyboard shortcut counts as a press only when a focused element receives it. A global ⌘K listener has no opener, so the menu opens from the centre.

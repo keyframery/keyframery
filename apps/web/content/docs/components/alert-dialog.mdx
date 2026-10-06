@@ -1,0 +1,37 @@
+---
+title: Alert Dialog
+description: Alert dialogs share the dialog's cut, so a confirmation grows out of the button that asked for it.
+---
+
+<Preview>
+  <AlertDialogDemo />
+</Preview>
+
+## What it fixes
+
+A confirmation should read as the answer to the button you pressed. With Keyframery, an alert dialog grows out of the Delete button and closes back into it, so you never lose track of what you're confirming.
+
+## Install
+
+```bash
+npx shadcn add alert-dialog
+```
+
+Nothing else, as long as `<Cuts />` is in your layout.
+
+## Choose a cut
+
+Alert dialogs follow the `dialog` menu:
+
+```tsx
+<Cuts dialog="punch-in" />
+<AlertDialogContent data-cut="fade" />
+```
+
+<TypeTable
+  type={{
+    'dialog (on <Cuts>)': { description: "The cut for dialogs, alert dialogs and the command menu.", type: '"rack-focus" | "punch-in" | "fade" | "none"', default: '"rack-focus"' },
+    'data-cut (on AlertDialogContent)': { description: "The cut for this alert dialog.", type: '"rack-focus" | "punch-in" | "fade" | "none"' },
+    'data-cut-origin (on AlertDialogContent)': { description: "center starts from the middle.", type: '"center"' },
+  }}
+/>

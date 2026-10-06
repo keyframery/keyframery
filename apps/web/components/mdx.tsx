@@ -5,6 +5,7 @@ import defaultMdxComponents from "fumadocs-ui/mdx"
 import type { MDXComponents } from "mdx/types"
 
 import { AlertDialogDemo, CommandDemo, DialogDemo, DrawerDemo, SheetDemo, TabsDemo, ToastDemo, TunedDemo } from "@/components/docs/demos/components"
+import { ListCutDemo, LoadCutDemo, MatchCutDemo, ValueCutDemo } from "@/components/docs/demos/helpers"
 import { Preview } from "@/components/docs/preview"
 import { Tab, Tabs } from "@/components/docs/tabs"
 
@@ -26,6 +27,10 @@ export function getMDXComponents(components?: MDXComponents) {
     ToastDemo,
     CommandDemo,
     TunedDemo,
+    MatchCutDemo,
+    ListCutDemo,
+    ValueCutDemo,
+    LoadCutDemo,
     ...components,
   } satisfies MDXComponents
 }

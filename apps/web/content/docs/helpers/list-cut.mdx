@@ -1,0 +1,67 @@
+---
+title: ListCut
+description: Items that are added fly in from the button that added them, removed ones fold away, and moved ones glide.
+---
+
+<Preview>
+  <ListCutDemo />
+</Preview>
+
+## What it fixes
+
+In a stock list, an added item appears from nowhere, a deleted one vanishes and everything below jumps up, and a reorder teleports every row. ListCut compares each item's position by `id` between renders:
+
+- **Added**, right after a press outside the list: the item flies from what you pressed. That's a cut on action, so the Send button becomes the message.
+- **Added**, with no recent press: it rises 8px and fades in.
+- **Removed**: a copy folds away at its old place, and the items below slide up 60 ms later. That's an L-cut.
+- **Moved**: it glides to its new place over 320 ms.
+
+## Install
+
+```bash
+npx shadcn add @keyframery/list-cut
+```
+
+## Usage
+
+```tsx
+import { ListCut } from "@/components/keyframery/list-cut"
+
+<ListCut as="ul" className="space-y-2">
+  {messages.map((m) => (
+    <ListCut.Item key={m.id} id={m.id} as="li">
+      {m.text}
+    </ListCut.Item>
+  ))}
+</ListCut>
+```
+
+Use a stable `id` for each item, the same one you use as `key`. ListCut works with any data source, because it only compares ids between renders.
+
+For a table, render `ListCut as="tbody"` with `ListCut.Item as="tr"`. A removed row folds inside a one-row table that keeps your column widths.
+
+## API
+
+<TypeTable
+  type={{
+    as: { description: "The list element.", type: "React.ElementType", default: '"div"' },
+    pace: { description: "Duration multiplier for this list.", type: "number" },
+    cut: { description: "none renders changes without motion.", type: '"none"' },
+  }}
+/>
+
+`ListCut.Item`:
+
+<TypeTable
+  type={{
+    id: { description: "The item's stable id.", type: "string | number", required: true },
+    as: { description: "The item element.", type: "React.ElementType", default: '"div"' },
+  }}
+/>
+
+Both pass any other props, such as `className` or `aria-label`, to their element.
+
+## Good to know
+
+- The first render never animates.
+- Only items in or near the viewport animate, so long lists stay fast.

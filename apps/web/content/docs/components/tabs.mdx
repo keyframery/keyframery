@@ -1,0 +1,41 @@
+---
+title: Tabs
+description: The tab pill leads and the new panel follows a beat later, like sound leading picture in a J-cut.
+---
+
+<Preview>
+  <TabsDemo />
+</Preview>
+
+## What it fixes
+
+Stock tabs swap their panel in a single frame, and the frame snaps to the new height. With the J-cut, the active pill whips across first, the old panel leaves, and the new panel enters 70 ms later. Meanwhile the frame's height morphs smoothly. Your eye follows the pill, and the panel arrives where you're already looking.
+
+## Install
+
+```bash
+npx shadcn add tabs
+```
+
+## Choose a cut
+
+Put `data-cut` on the `Tabs` root:
+
+```tsx
+<Cuts tabs="whip" />
+<Tabs data-cut="fade" defaultValue="account">…</Tabs>
+```
+
+<TypeTable
+  type={{
+    'tabs (on <Cuts>)': { description: "The cut for every tabs component.", type: '"j-cut" | "whip" | "fade" | "none"', default: '"j-cut"' },
+    'data-cut (on Tabs)': { description: "The cut for this tabs component.", type: '"j-cut" | "whip" | "fade" | "none"' },
+    'data-cut-pace (on Tabs)': { description: "Duration multiplier.", type: "number" },
+  }}
+/>
+
+| Cut | What plays |
+|---|---|
+| `j-cut` | the pill whips over (200 ms), the old panel leaves (180 ms), the new panel enters 70 ms later (300 ms), and the height morphs (320 ms) |
+| `whip` | no lead, 160 ms, with a 4px motion blur on both panels and the height morph |
+| `fade` | a 180 ms crossfade and the height morph |

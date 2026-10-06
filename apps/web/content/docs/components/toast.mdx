@@ -1,0 +1,36 @@
+---
+title: Toast and Sonner
+description: A toast flies out of the button you pressed, so you see which action it's about.
+---
+
+<Preview>
+  <ToastDemo />
+</Preview>
+
+## What it fixes
+
+A stock toast slides in from the corner, far from the button that caused it. With cut on action, it starts at the button, small and slightly blurred, and flies to its place. You see which action the toast is about without reading it.
+
+If nothing was pressed in the last second, as with a toast from a websocket message, the library's own entrance plays.
+
+It works with sonner on both bases, and with Base UI's own `Toast`.
+
+## Install
+
+```bash
+npx shadcn add sonner
+```
+
+## Choose a cut
+
+```tsx
+<Cuts toast="none" />
+```
+
+<TypeTable
+  type={{
+    'toast (on <Cuts>)': { description: "The cut for sonner and Base UI toasts.", type: '"cut-on-action" | "none"', default: '"cut-on-action"' },
+  }}
+/>
+
+The flight takes 480 ms × pace, from 0.4 scale and a 6px blur. The toast's exit is the library's own.

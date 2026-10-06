@@ -1,0 +1,55 @@
+---
+title: MatchCut
+description: A card grows into its detail view, on the same page or on another route, and shrinks back when you return.
+---
+
+<Preview>
+  <MatchCutDemo />
+</Preview>
+
+## What it fixes
+
+When a card opens into its detail page, a stock app replaces one screen with the other. MatchCut connects them: the detail grows from the card's box, and the card's image fades out above it. Going back shrinks the detail into the card. Film calls this a match cut, where a shape in one shot becomes the same shape in the next.
+
+## Install
+
+```bash
+npx shadcn add @keyframery/match-cut
+```
+
+## Usage
+
+Give the small version and the big version the same `id`:
+
+```tsx
+import { MatchCut } from "@/components/keyframery/match-cut"
+
+// app/orders/page.tsx
+<MatchCut id={`order-${order.id}`}>
+  <OrderCard order={order} />
+</MatchCut>
+
+// app/orders/[id]/page.tsx
+<MatchCut id={`order-${order.id}`}>
+  <OrderDetail order={order} />
+</MatchCut>
+```
+
+When a MatchCut mounts within a second of another one with the same `id` leaving, it grows out of it. This works for a conditional render on one page and for a client-side route change. See [Detail pages on their own route](/docs/guides/detail-routes).
+
+## API
+
+<TypeTable
+  type={{
+    id: { description: "The same id on the small and the big version.", type: "string", required: true },
+    as: { description: "The element to render.", type: "React.ElementType", default: '"div"' },
+    pace: { description: "Duration multiplier for this match.", type: "number" },
+    cut: { description: "none renders without matching.", type: '"match-cut" | "none"', default: '"match-cut"' },
+    className: { description: "Classes for the element.", type: "string" },
+    style: { description: "Styles for the element.", type: "React.CSSProperties" },
+  }}
+/>
+
+## How it plays
+
+The new element animates from the old box to its own: translate, scale and border radius over 420 ms. Meanwhile a copy of the old one scales with it and fades out by 40% of the way. If the old and new element sit at the same spot on the page, nothing plays.

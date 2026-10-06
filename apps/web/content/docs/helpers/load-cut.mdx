@@ -1,0 +1,48 @@
+---
+title: LoadCut
+description: The skeleton dissolves into the content in the same space, and never flashes when the data is fast.
+---
+
+<Preview>
+  <LoadCutDemo />
+</Preview>
+
+## What it fixes
+
+A stock skeleton blinks on for a moment even when the data is fast, then snaps to content of a different height, and the page jumps. LoadCut fixes both:
+
+- **Fast data:** it waits `--kf-hold` (300 ms) before showing the skeleton. During the wait, the skeleton's space is reserved but invisible, so nothing jumps. If the data arrives in time, you never see the skeleton.
+- **Slow data:** once shown, the skeleton stays at least 400 ms, so it never flashes. Then it dissolves into the content over 240 ms while the height morphs from the skeleton's to the content's.
+
+## Install
+
+```bash
+npx shadcn add @keyframery/load-cut
+```
+
+## Usage
+
+```tsx
+import { LoadCut } from "@/components/keyframery/load-cut"
+import { Skeleton } from "@/components/ui/skeleton"
+
+<LoadCut loading={isLoading} skeleton={<Skeleton className="h-32" />}>
+  <RevenueChart data={data} />
+</LoadCut>
+```
+
+## API
+
+<TypeTable
+  type={{
+    loading: { description: "true while the data is loading.", type: "boolean", required: true },
+    skeleton: { description: "What to show while loading.", type: "React.ReactNode", required: true },
+    hold: { description: "How long to wait before showing the skeleton, in ms.", type: "number", default: "--kf-hold (300)" },
+    minShow: { description: "Once shown, the skeleton stays at least this long, in ms.", type: "number", default: "400" },
+    pace: { description: "Duration multiplier.", type: "number" },
+    cut: { description: "none swaps the skeleton and content without the dissolve.", type: '"dissolve" | "none"', default: '"dissolve"' },
+    className: { description: "Classes for the wrapper.", type: "string" },
+  }}
+/>
+
+LoadCut sets `aria-busy` while loading.

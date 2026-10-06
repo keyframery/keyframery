@@ -1,0 +1,34 @@
+---
+title: Drawer
+description: The page steps back behind the drawer. Its swipe stays exactly as it was.
+---
+
+<Preview>
+  <DrawerDemo />
+</Preview>
+
+## What it fixes
+
+Drawers already have good motion: they follow your finger. What they're missing is depth. With `slide-sink`, the page behind steps back as the drawer rises, the way iOS sheets do. The drawer's own swipe and spring are never touched.
+
+It works with both drawers: Base UI's and the Radix base's Vaul drawer.
+
+## Install
+
+```bash
+npx shadcn add drawer
+```
+
+## Choose a cut
+
+```tsx
+// keep the page still behind drawers
+<Cuts drawer="none" />
+```
+
+<TypeTable
+  type={{
+    'drawer (on <Cuts>)': { description: "Whether the page steps back behind drawers.", type: '"slide-sink" | "none"', default: '"slide-sink"' },
+    'data-cut (on the drawer content)': { description: "none keeps the page still for this drawer.", type: '"slide-sink" | "none"' },
+  }}
+/>

@@ -1,0 +1,41 @@
+---
+title: Sheet
+description: The sheet slides in from its edge while the page steps back behind it.
+---
+
+<Preview>
+  <SheetDemo />
+</Preview>
+
+## What it fixes
+
+A stock sheet slides over a page that doesn't react, so the two look flat against each other. With `slide-sink`, the page behind scales to 0.975, dims slightly and rounds its corners while the sheet arrives. Now the sheet reads as on top. When it closes, the page comes forward again.
+
+The part of the page that steps back is the top-level element in `<body>` that holds the button you pressed. A sheet opened from inside another sheet doesn't sink the page twice.
+
+## Install
+
+```bash
+npx shadcn add sheet
+```
+
+## Choose a cut
+
+```tsx
+<Cuts sheet="slide" />
+<SheetContent data-cut="fade" />
+```
+
+<TypeTable
+  type={{
+    'sheet (on <Cuts>)': { description: "The cut for every sheet.", type: '"slide-sink" | "slide" | "fade" | "none"', default: '"slide-sink"' },
+    'data-cut (on SheetContent)': { description: "The cut for this sheet.", type: '"slide-sink" | "slide" | "fade" | "none"' },
+    'data-cut-pace': { description: "Duration multiplier.", type: "number" },
+  }}
+/>
+
+| Cut | Opening | Closing |
+|---|---|---|
+| `slide-sink` | from its edge over 460 ms, and the page steps back | 260 ms, and the page returns |
+| `slide` | the same, without the page stepping back | same |
+| `fade` | opacity only, 200 ms | 150 ms |

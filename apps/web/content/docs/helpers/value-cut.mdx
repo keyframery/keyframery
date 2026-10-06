@@ -1,0 +1,44 @@
+---
+title: ValueCut
+description: Only the digits that changed roll, and the value gives a small punch so the eye catches it.
+---
+
+<Preview>
+  <ValueCutDemo />
+</Preview>
+
+## What it fixes
+
+When a stock number changes, it just changes, and nobody notices. ValueCut rolls only the digits that changed, in the direction of the change. Meanwhile the whole value punches in: it scales to 1.06 and back over 300 ms. Text values, like a status, crossfade with a 6px slide.
+
+## Install
+
+```bash
+npx shadcn add @keyframery/value-cut
+```
+
+## Usage
+
+```tsx
+import { ValueCut } from "@/components/keyframery/value-cut"
+
+<ValueCut value={visitors} format={{ notation: "compact" }} />
+<ValueCut value={price} format={{ style: "currency", currency: "USD" }} locale="en-US" />
+<ValueCut value={order.status} announce />
+```
+
+## API
+
+<TypeTable
+  type={{
+    value: { description: "The number or text to show.", type: "number | string", required: true },
+    format: { description: "Intl.NumberFormat options, for numbers.", type: "Intl.NumberFormatOptions" },
+    locale: { description: "The locale for number formatting.", type: "string", default: "the browser's" },
+    announce: { description: "Read changes out to screen readers (aria-live=\"polite\").", type: "boolean", default: "false" },
+    pace: { description: "Duration multiplier.", type: "number" },
+    cut: { description: "none swaps the value instantly.", type: '"punch-in" | "none"', default: '"punch-in"' },
+    className: { description: "Classes for the wrapper span.", type: "string" },
+  }}
+/>
+
+Numbers use tabular figures, so the digits don't shift sideways. The first render never animates, and with reduced motion the value swaps instantly.

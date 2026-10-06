@@ -1,0 +1,32 @@
+---
+title: Tuned components
+description: Eleven components that already move well. Keyframery only gives them its pace and easing.
+---
+
+<Preview>
+  <TunedDemo />
+</Preview>
+
+These components already open from their trigger in stock shadcn. Keyframery doesn't replace their motion. It retimes their own keyframes to 180 ms × pace with `--kf-ease`, so they move at the same pace as everything else, and it makes sure closing returns to the trigger.
+
+| Component | | |
+|---|---|---|
+| popover | dropdown-menu | context-menu |
+| menubar | select | combobox |
+| hover-card | tooltip | navigation-menu |
+| accordion | collapsible | |
+
+## Install
+
+Nothing beyond `<Cuts />`.
+
+## Options
+
+They have no menu, and they follow the [variables](/docs/theming/variables).
+
+<TypeTable
+  type={{
+    'data-cut="none"': { description: "Stock timing for this element or everything inside it.", type: '"none"' },
+    'data-cut-pace': { description: "Duration multiplier.", type: "number" },
+  }}
+/>
