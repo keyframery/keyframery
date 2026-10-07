@@ -20,6 +20,9 @@ test("llms.txt lists the docs and every page has a Markdown version", async ({ r
   const md = await request.get("/docs/helpers/list-cut.mdx")
   expect(md.ok()).toBe(true)
   expect(await md.text()).toContain("ListCut.Item")
+  const fullText = await full.text()
+  expect(fullText).not.toMatch(/<Preview|<TypeTable|<Steps>|&#x22;/)
+  expect(await (await request.get("/docs/helpers/list-cut.mdx")).text()).toContain("| `id` | `string \\| number` | required | The item's stable id. |")
 })
 
 test("⌘K searches the docs and opens a result", async ({ page }, info) => {
