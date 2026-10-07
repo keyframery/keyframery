@@ -1,0 +1,12 @@
+{
+  "name": "keyframery",
+  "description": "Keyframery for Claude Code: animations for shadcn/ui apps.",
+  "owner": { "name": "Briyan Hingrajiya", "email": "briyan@keyframery.com" },
+  "plugins": [
+    {
+      "name": "keyframery",
+      "source": "./plugins/keyframery",
+      "description": "Teaches Claude to add Keyframery's animations to shadcn/ui apps and connects the Keyframery MCP server."
+    }
+  ]
+}
