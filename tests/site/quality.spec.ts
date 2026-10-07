@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright"
 
 import { expect, noHorizontalScroll, test } from "./kit"
 
-const PAGES = ["/", "/cuts", "/theme", "/pro", "/docs", "/docs/installation", "/docs/components/dialog", "/docs/helpers/list-cut", "/docs/compatibility"]
+const PAGES = ["/", "/cuts", "/theme", "/pro", "/privacy", "/terms", "/docs", "/docs/installation", "/docs/components/dialog", "/docs/helpers/list-cut", "/docs/compatibility", "/docs/ai-tools"]
 
 for (const path of PAGES) {
   test(`${path}: no errors, no horizontal scroll, no serious accessibility problems`, async ({ page, errors }) => {
