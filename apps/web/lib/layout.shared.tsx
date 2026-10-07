@@ -1,11 +1,18 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared"
 
+import { LogoMark } from "@/components/site/logo"
+
 import { gitConfig } from "./shared"
 
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      title: <span className="text-[15px] font-semibold tracking-tight">Keyframery</span>,
+      title: (
+        <span className="inline-flex items-center gap-2 text-[15px] font-semibold tracking-tight">
+          <LogoMark className="size-[18px]" />
+          Keyframery
+        </span>
+      ),
     },
     links: [
       { text: "Docs", url: "/docs" },
