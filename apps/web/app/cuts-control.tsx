@@ -1,6 +1,6 @@
 "use client"
 
-/* The site's one <Cuts />. The home switch, slow-mo and the Theme page change it through this context. */
+/* The site's one <Cuts />. The Theme page changes its cuts and pace through this context. */
 
 import * as React from "react"
 

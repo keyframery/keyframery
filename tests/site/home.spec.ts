@@ -53,6 +53,7 @@ test("Chat: a sent message flies from Send, and a reply rises in", async ({ page
 test("the install section and the FAQ tell Claude Code users about the plugin", async ({ page }) => {
   await page.goto("/")
   await expect(page.getByText("/plugin install keyframery@keyframery").first()).toBeVisible()
+  await expect(page.getByText('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"').first()).toBeVisible()
   await page.getByRole("button", { name: "Does it work with Claude Code and other AI tools?" }).click()
   await expect(page.getByText("keyframery.com/mcp", { exact: false }).first()).toBeVisible()
 })

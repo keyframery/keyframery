@@ -24,5 +24,7 @@ describe("kinds", () => {
     expect(md).toContain("<Cuts />")
     for (const h of ["MatchCut", "ListCut", "ValueCut", "LoadCut"]) expect(md).toContain(h)
     expect(md).toContain("https://keyframery.com/docs/helpers/list-cut")
+    // A fresh project doesn't know @keyframery until it is registered once.
+    expect(md).toContain('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"')
   })
 })

@@ -10,9 +10,11 @@ async function ready(page: Page) {
   await page.locator('[data-testid="hero-stage"][data-ready]').waitFor({ state: "attached" })
 }
 
-/** Pauses the self-playing demo, so the test's own clicks are the only ones. */
+/** Takes over from the self-playing demo, the way a tap or click on the stage does. */
 async function takeOver(page: Page) {
-  await page.getByTestId("hero-stage").dispatchEvent("pointerdown")
+  const stage = page.getByTestId("hero-stage")
+  await stage.dispatchEvent("pointerdown")
+  await stage.dispatchEvent("click")
 }
 
 async function center(l: Locator) {
@@ -23,9 +25,11 @@ async function center(l: Locator) {
 test("the first line says what Keyframery is, and the install command is right there", async ({ page }) => {
   await page.goto("/")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Add one line. Your shadcn/ui app animates.")
-  await expect(page.getByText("npx shadcn add @keyframery/cuts").first()).toBeVisible()
+  // The command has to work in a fresh project, before @keyframery is registered there.
+  const hero = page.locator('section[aria-labelledby="hero-title"]')
+  await expect(hero.getByText("npx shadcn add https://keyframery.com/r/cuts.json")).toBeVisible()
   // "Copied" shows for 1.6 s. Under load the runner can miss that window, so the page records the label change.
-  const copy = page.getByRole("button", { name: "Copy the install command" }).first()
+  const copy = hero.getByRole("button", { name: "Copy the install command" })
   await copy.evaluate((el) => {
     const w = window as unknown as { __labels: string[] }
     w.__labels = []
@@ -112,4 +116,66 @@ test("on a phone one side shows at a time, with a switch between them", async ({
   await sw.getByRole("button", { name: "With Keyframery" }).click()
   await expect(kf(page)).toBeVisible()
   await expect(stock(page)).toBeHidden()
+})
+
+test("a touch that turns into a scroll doesn't stop the demo", async ({ page }, info) => {
+  test.skip(info.project.name !== "phone", "touch")
+  await page.goto("/")
+  await ready(page)
+  const cursor = kf(page).getByTestId("hero-cursor")
+  await expect(cursor).toBeVisible({ timeout: 4000 })
+  // A finger landing on the stage fires pointerdown whether it ends as a tap or a scroll.
+  await page.getByTestId("hero-stage").dispatchEvent("pointerdown", { pointerType: "touch", isPrimary: true })
+  await page.waitForTimeout(1200)
+  await expect(cursor).toBeVisible()
+  await expect(page.getByRole("button", { name: "Pause demo" })).toBeVisible()
+})
+
+test("on a phone, taking over keeps the copy the visitor is looking at", async ({ page }, info) => {
+  test.skip(info.project.name !== "phone", "phone layout only")
+  await page.goto("/")
+  await ready(page)
+  const withKf = page.getByRole("group", { name: "Compare" }).getByRole("button", { name: "With Keyframery" })
+  await expect(withKf).toHaveAttribute("aria-pressed", "true")
+  // Seats go 3 → 4 on the demo's invite and back to 3 on its remove; take over in the wait after the remove.
+  const seats = (n: number) => page.locator('[data-side="kf"] .sr-only').filter({ hasText: new RegExp(`^${n}$`) })
+  await expect(seats(4)).toHaveCount(1, { timeout: 15000 })
+  await expect(seats(3)).toHaveCount(1, { timeout: 15000 })
+  await takeOver(page)
+  await page.waitForTimeout(2500)
+  await expect(withKf).toHaveAttribute("aria-pressed", "true")
+})
+
+test("the demo has a pause button that keeps focus, and keyboard focus in the stage pauses it", async ({ page, request }, info) => {
+  test.skip(info.project.name === "phone", "desktop layout")
+  // The same button is in the server HTML, so it doesn't flash in after hydration.
+  expect(await (await request.get("/")).text()).toContain("Pause demo")
+  await page.goto("/")
+  await ready(page)
+  const cursor = kf(page).getByTestId("hero-cursor")
+  await expect(cursor).toBeVisible({ timeout: 4000 })
+  const toggle = page.getByRole("button", { name: "Pause demo" })
+  await toggle.focus()
+  await page.keyboard.press("Enter")
+  await expect(cursor).toBeHidden()
+  await expect(page.getByRole("button", { name: "Play demo" })).toBeFocused()
+  await page.keyboard.press("Enter")
+  await expect(cursor).toBeVisible({ timeout: 4000 })
+  await expect(page.getByRole("button", { name: "Pause demo" })).toBeFocused()
+  // Moving keyboard focus into the stage hands it to the visitor.
+  await kf(page).getByRole("button", { name: "Invite", exact: true }).focus()
+  await expect(cursor).toBeHidden()
+  await expect(page.getByRole("button", { name: "Play demo" })).toBeVisible()
+})
+
+test("the invite dialog keeps the email it showed while it closes", async ({ page }, info) => {
+  test.skip(info.project.name === "phone", "desktop layout")
+  await page.goto("/?demo=off")
+  await ready(page)
+  await kf(page).getByRole("button", { name: "Invite", exact: true }).click()
+  const input = page.locator('[data-side="kf"] [data-slot="dialog-content"] input')
+  await expect(input).toHaveValue("maya@acme.com")
+  await kf(page).getByRole("button", { name: "Send invite" }).click()
+  // Read it as the dialog starts closing: it must not switch to the next person's email mid-exit.
+  expect(await input.inputValue()).toBe("maya@acme.com")
 })

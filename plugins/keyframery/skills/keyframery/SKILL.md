@@ -20,15 +20,14 @@ The `keyframery` MCP server (connected by this plugin) has the details:
 
 ## 2. Install
 
+Register Keyframery once per project, then install the layer:
+
 ```bash
+npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"
 npx shadcn add @keyframery/cuts
 ```
 
-If the CLI says it doesn't know `@keyframery`, install by URL instead:
-
-```bash
-npx shadcn add https://keyframery.com/r/cuts.json
-```
+The first command adds `"@keyframery": "https://keyframery.com/r/{name}.json"` under `registries` in `components.json` (you can also add that line by hand). Skip it only if that entry is already there. Without it the CLI answers `Unknown registry "@keyframery"`, for the helpers too, because they depend on `@keyframery/cuts`. Keep the quotes: some shells expand `{name}` otherwise.
 
 This copies `components/keyframery/cuts.tsx`, its stylesheet and the engine in `lib/keyframery/`. It has no npm dependencies.
 

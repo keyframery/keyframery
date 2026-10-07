@@ -3,7 +3,8 @@
 /*
  * The hero: the same Team app twice. The left copy sits under data-cut="none", so it moves exactly like
  * stock shadcn; the right one has Keyframery. While it is on screen and nobody has touched it, a cursor
- * clicks through both copies at once. The first press or key inside it hands control to the visitor.
+ * clicks through both copies at once. A click, key or keyboard focus inside it hands control to the visitor
+ * (not a touch that turns into a scroll), and the Pause/Play button below it stops and restarts it.
  * ?demo=off keeps the cursor from starting by itself (the tests use it).
  */
 
@@ -28,10 +29,13 @@ const subscribeMotion = (notify: () => void) => {
 }
 const noSubscribe = () => () => {}
 
-/** May the demo start by itself? Not under reduced motion, and not with ?demo=off. */
+/**
+ * May the demo start by itself? Not under reduced motion, and not with ?demo=off. The server assumes yes, so
+ * the Pause button is in the server HTML for most visitors instead of appearing after hydration.
+ */
 function useAutoplayAllowed() {
-  const reduced = React.useSyncExternalStore(subscribeMotion, () => matchMedia("(prefers-reduced-motion: reduce)").matches, () => true)
-  const off = React.useSyncExternalStore(noSubscribe, () => new URLSearchParams(location.search).get("demo") === "off", () => true)
+  const reduced = React.useSyncExternalStore(subscribeMotion, () => matchMedia("(prefers-reduced-motion: reduce)").matches, () => false)
+  const off = React.useSyncExternalStore(noSubscribe, () => new URLSearchParams(location.search).get("demo") === "off", () => false)
   return !reduced && !off
 }
 
@@ -92,17 +96,15 @@ export function BeforeAfter() {
     return () => io.disconnect()
   }, [])
 
-  // A visitor's press or key inside the stage takes over. A press on the stock copy is also pressed on the
-  // Keyframery copy's twin, so its cut starts from its own button. This listens in the capture phase on the
-  // stage, which runs after <Cuts /> has recorded the real press on document, and before the click that follows.
+  // A press on the stock copy is also pressed on the Keyframery copy's twin, so its cut starts from its own
+  // button. This listens in the capture phase on the stage, which runs after <Cuts /> has recorded the real
+  // press on document, and before the click that follows. A press alone doesn't take over: on a phone it may
+  // turn into a scroll. A click, a key or keyboard focus inside the stage does.
   React.useEffect(() => {
     const el = stage.current
     if (!el) return
-    const onInput = (e: Event) => {
+    const mirror = (e: Event) => {
       if (own.current) return
-      if (!tookOver.current) track("hero_take_over")
-      tookOver.current = true
-      setChoice(false)
       if (e instanceof KeyboardEvent && e.key !== "Enter" && e.key !== " ") return
       const hero = e.target instanceof Element ? e.target.closest("[data-hero]") : null
       if (!hero || !stockRoot.current?.contains(hero)) return
@@ -110,12 +112,24 @@ export function BeforeAfter() {
       press(kfRoot.current?.querySelector(`[data-hero="${hero.getAttribute("data-hero")}"]`))
       own.current = false
     }
-    el.addEventListener("pointerdown", onInput, true)
-    el.addEventListener("keydown", onInput, true)
+    const takeOver = () => {
+      if (own.current) return
+      if (!tookOver.current) track("hero_take_over")
+      tookOver.current = true
+      setChoice(false)
+    }
+    el.addEventListener("pointerdown", mirror, true)
+    el.addEventListener("keydown", mirror, true)
+    el.addEventListener("click", takeOver, true)
+    el.addEventListener("keydown", takeOver, true)
+    el.addEventListener("focusin", takeOver, true)
     el.setAttribute("data-ready", "") // hydrated and listening (the tests wait for it)
     return () => {
-      el.removeEventListener("pointerdown", onInput, true)
-      el.removeEventListener("keydown", onInput, true)
+      el.removeEventListener("pointerdown", mirror, true)
+      el.removeEventListener("keydown", mirror, true)
+      el.removeEventListener("click", takeOver, true)
+      el.removeEventListener("keydown", takeOver, true)
+      el.removeEventListener("focusin", takeOver, true)
       el.removeAttribute("data-ready")
     }
   }, [])
@@ -151,6 +165,7 @@ export function BeforeAfter() {
         if (step.target.startsWith("remove-")) sawActivity.current = false
         step.act(actions)
         await sleep(step.wait)
+        if (cancelled) return
         if (step.target.startsWith("remove-") && !picked.current && matchMedia("(max-width: 767px)").matches) setShown((s) => (s === "kf" ? "stock" : "kf"))
       }
     }
@@ -205,11 +220,10 @@ export function BeforeAfter() {
         <p>
           Same app, same clicks. Only one of them has <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code> in its layout.
         </p>
-        {!allowed && (
-          <Button variant="outline" size="sm" onClick={() => setChoice(true)}>
-            Play the demo
-          </Button>
-        )}
+        {/* One button for both states, so focus stays on it; the same label renders on the server for most visitors. */}
+        <Button variant="outline" size="sm" onClick={() => setChoice(!allowed)}>
+          {allowed ? "Pause demo" : "Play demo"}
+        </Button>
       </div>
     </div>
   )

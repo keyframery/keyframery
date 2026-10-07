@@ -31,6 +31,12 @@ export const test = base.extend<{ errors: string[] }>({
 })
 export { expect }
 
-/** True when the page is no wider than the viewport. */
-export const noHorizontalScroll = (page: Page) => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)
+/**
+ * True when the page is no wider than the viewport it was opened with. On a phone the browser widens its layout
+ * viewport (innerWidth) to fit content that is too wide and zooms out, so compare with the configured width.
+ */
+export const noHorizontalScroll = async (page: Page) => {
+  const width = page.viewportSize()?.width ?? 0
+  return page.evaluate((w) => document.documentElement.scrollWidth <= w + 1, width)
+}
 export const takeCuts = (page: Page) => page.evaluate(() => (window as unknown as { __cuts: { cut: string; component: string }[] }).__cuts.splice(0))

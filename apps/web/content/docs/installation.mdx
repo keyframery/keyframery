@@ -10,7 +10,13 @@ You need a project with shadcn/ui set up, so `components.json` exists. Either ba
 
 ### Add the registry
 
-Add Keyframery's registry to `components.json`:
+Register Keyframery's registry in `components.json`, once:
+
+```bash
+npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"
+```
+
+Or add it by hand:
 
 ```json title="components.json"
 {
@@ -98,11 +104,13 @@ export default function App() {
 </Step>
 </Steps>
 
-If you'd rather not edit `components.json`, install by URL instead:
+To try the layer without registering first, install it by URL:
 
 ```bash
 npx shadcn add https://keyframery.com/r/cuts.json
 ```
+
+This works for `cuts` only. The helpers depend on `@keyframery/cuts`, so they need the registry.
 
 ## Add the helpers you need
 

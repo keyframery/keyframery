@@ -22,6 +22,9 @@ test("llms.txt lists the docs and every page has a Markdown version", async ({ r
   expect(await md.text()).toContain("ListCut.Item")
   const fullText = await full.text()
   expect(fullText).not.toMatch(/<Preview|<TypeTable|<Steps>|&#x22;/)
+  // No instructions that describe the old home page (its switch and timeline are gone).
+  expect(fullText).not.toMatch(/timeline on the home page|switch on the home page/)
+  expect(await (await request.get("/docs/installation.mdx")).text()).toContain('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"')
   expect(await (await request.get("/docs/helpers/list-cut.mdx")).text()).toContain("| `id` | `string \\| number` | required | The item's stable id. |")
 })
 

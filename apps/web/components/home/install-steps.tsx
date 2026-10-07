@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { InstallCommand } from "@/components/site/install-command"
+import { REGISTER } from "@/lib/kinds"
 
 function Step({ n, children }: { n: number; children: React.ReactNode }) {
   return (
@@ -32,14 +33,17 @@ export function InstallSteps() {
         <ol className="grid min-w-0 gap-10">
           <li className="min-w-0">
             <Step n={1}>Add it with the shadcn CLI</Step>
-            <InstallCommand className="mt-4 sm:w-full" command="npx shadcn add @keyframery/cuts" />
+            {/* minmax(0, 1fr): a grid column otherwise grows to the longest command and widens the page on phones. */}
+            <div className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-2">
+              <InstallCommand className="sm:w-full" command={REGISTER} />
+              <InstallCommand className="sm:w-full" command="npx shadcn add @keyframery/cuts" />
+            </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              It copies <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, its stylesheet and a small engine into your project: about 7 KB
-              gzipped, with no extra dependencies. If the CLI doesn&apos;t know <code className="font-mono text-[13px]">@keyframery</code> yet, install by URL:
+              The first line registers Keyframery in your <code className="font-mono text-[13px] text-foreground">components.json</code>, once. After that every
+              helper installs by name, like <code className="font-mono text-[13px] text-foreground">npx shadcn add @keyframery/list-cut</code>. The second copies{" "}
+              <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, its stylesheet and a small engine into your project: about 7 KB gzipped, with
+              no extra dependencies.
             </p>
-            <pre tabIndex={0} className="mt-2 overflow-x-auto rounded-md border bg-card px-3 py-2 font-mono text-[13px] text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
-              npx shadcn add https://keyframery.com/r/cuts.json
-            </pre>
           </li>
           <li className="min-w-0">
             <Step n={2}>

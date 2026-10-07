@@ -55,6 +55,11 @@ function InviteDialog({ demo, side, sendRef }: { demo: TeamDemo; side: Side; sen
   const settled = useSettledClosed(open, content)
   const id = React.useId()
   const phase = open ? { "data-open": "" } : { "data-closed": "" }
+  // Keep the email shown while open: after Send, `next` is already the following person, and the dialog
+  // mustn't switch to their email while it plays its exit.
+  const [held, setHeld] = React.useState(next?.email ?? "")
+  if (open && (next?.email ?? "") !== held) setHeld(next?.email ?? "")
+  const email = open ? (next?.email ?? "") : held
   // Same classes as shadcn's DialogOverlay / DialogContent, so the stock side moves exactly like stock shadcn.
   // fill-mode-forwards only keeps the last exit frame until we hide the part; it changes nothing you can see.
   return (
@@ -93,7 +98,7 @@ function InviteDialog({ demo, side, sendRef }: { demo: TeamDemo; side: Side; sen
             They&apos;ll get an email with a link to join Acme.
           </p>
         </div>
-        <Input aria-label="Email" value={next?.email ?? ""} readOnly />
+        <Input aria-label="Email" value={email} readOnly />
         <div className="flex justify-end gap-2">
           <Button variant="outline" size="sm" data-hero="cancel" onClick={() => actions.cancel(side)}>
             Cancel

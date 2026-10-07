@@ -4,15 +4,14 @@
 import type { McpServer } from "@modelcontextprotocol/server"
 import { z } from "zod"
 
-import { kindsMarkdown } from "./kinds"
+import { kindsMarkdown, REGISTER } from "./kinds"
 import { docsSearch } from "./search"
 import { docsLlms, source } from "./source"
 import { DEFAULTS, EASES, encode, EXIT_EASES, GROUPS, toCode, VARS, type Group, type ThemeSettings, type Var } from "./theme-url"
 
 export const SITE = "https://keyframery.com"
 
-export const INSTRUCTIONS =
-  "Keyframery gives shadcn/ui apps film-style motion. One <Cuts /> in the root layout animates dialogs, sheets, drawers, tabs, toasts and menus; four helpers (MatchCut, ListCut, ValueCut, LoadCut) cover the changes shadcn has no component for. Call list_kinds before choosing a helper. Install with the shadcn CLI: npx shadcn add @keyframery/cuts. Use get_doc for exact APIs, search_docs when you don't know the page, and make_theme to tune speed and easing."
+export const INSTRUCTIONS = `Keyframery gives shadcn/ui apps film-style motion. One <Cuts /> in the root layout animates dialogs, sheets, drawers, tabs, toasts and menus; four helpers (MatchCut, ListCut, ValueCut, LoadCut) cover the changes shadcn has no component for. Call list_kinds before choosing a helper. Install with the shadcn CLI: first register Keyframery once per project with ${REGISTER}, then run npx shadcn add @keyframery/cuts. Use get_doc for exact APIs, search_docs when you don't know the page, and make_theme to tune speed and easing.`
 
 const READ_ONLY = { readOnlyHint: true, openWorldHint: false }
 
@@ -132,7 +131,7 @@ export function registerKeyframeryTools(server: McpServer): void {
       title: "Read a Keyframery docs page",
       description: "Returns one Keyframery docs page as Markdown, with its usage examples and prop tables.",
       inputSchema: z.object({
-        path: z.string().trim().min(1).max(300).describe('A docs path such as "installation" or "helpers/list-cut", "index" for the overview, or a keyframery.com docs URL.'),
+        path: z.string().trim().max(300).describe('A docs path such as "installation" or "helpers/list-cut", "index" or an empty string for the overview, or a keyframery.com docs URL.'),
       }),
       annotations: READ_ONLY,
     },

@@ -20,6 +20,7 @@ test("the server names itself, explains Keyframery and offers exactly four read-
   const client = await connect()
   expect(client.getServerVersion()?.name).toBe("keyframery")
   expect(client.getInstructions()).toContain("list_kinds")
+  expect(client.getInstructions()).toContain('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"')
   const { tools } = await client.listTools()
   expect(tools.map((t) => t.name).sort()).toEqual(["get_doc", "list_kinds", "make_theme", "search_docs"])
   for (const t of tools) expect(t.annotations?.readOnlyHint).toBe(true)
@@ -56,7 +57,7 @@ test("get_doc accepts every way of naming a page, and lists the valid paths for 
     expect(textOf(r), path).toContain("npx shadcn add @keyframery/cuts")
     expect(textOf(r), path).not.toContain("<Steps>")
   }
-  expect(textOf(await call(client, "get_doc", { path: "index" }))).toContain("# Introduction")
+  for (const path of ["index", "", "   "]) expect(textOf(await call(client, "get_doc", { path })), JSON.stringify(path)).toContain("# Introduction")
   const wrong = await call(client, "get_doc", { path: "helpers/nope" })
   expect(wrong.isError).toBe(true)
   expect(textOf(wrong)).toContain("helpers/list-cut")
@@ -75,6 +76,15 @@ test("make_theme returns the <Cuts /> line, the CSS and a Theme page link, and r
   expect(plain).toContain("No CSS needed")
   const bad = await call(client, "make_theme", { pace: 9 })
   expect(bad.isError).toBe(true)
+  await client.close()
+})
+
+test("a 2026-07-28 client can use the tools but can't hold a listen stream open", async () => {
+  const client = new Client({ name: "keyframery-tests", version: "1.0.0" }, { versionNegotiation: { mode: { pin: "2026-07-28" } } })
+  await client.connect(new StreamableHTTPClientTransport(new URL("http://localhost:4500/mcp")))
+  expect(textOf(await call(client, "list_kinds"))).toContain("<Cuts />")
+  // The tools never change, so a listen stream would only hold a serverless function open.
+  await expect(client.listen({ toolsListChanged: true })).rejects.toThrow()
   await client.close()
 })
 

@@ -31,7 +31,7 @@ See [`<Cuts>` props](/docs/theming/cuts-props) for every menu, and [per-element 
 <Cuts enabled={false} />
 ```
 
-With `enabled={false}`, every component plays shadcn's own motion. The switch on the home page of this site does exactly this.
+With `enabled={false}`, every component plays shadcn's own motion. To compare one area of a page instead, put `data-cut="none"` on it: the left copy of the demo on the home page does exactly this.
 
 ## Listening to cuts
 
@@ -44,4 +44,4 @@ document.addEventListener("keyframery:cut", (e) => {
 })
 ```
 
-The timeline on the home page is built on this event. It's also handy in tests, as the [testing guide](/docs/guides/testing) shows.
+It's handy for analytics and in tests, as the [testing guide](/docs/guides/testing) shows.

@@ -1,6 +1,12 @@
 /* The six kinds of change and the cut for each: what the MCP list_kinds tool serves. Snippets are copied from
    the helper docs; tests check every docs path exists. No imports, so unit tests load it directly. */
 
+/** Registers @keyframery in a project's components.json, once. Until then the CLI answers `Unknown registry "@keyframery"`. */
+export const REGISTER = 'npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"'
+
+/** Installs the layer in a fresh project without registering first (helpers need REGISTER: they depend on @keyframery/cuts). */
+export const INSTALL_BY_URL = "npx shadcn add https://keyframery.com/r/cuts.json"
+
 export type Kind = {
   kind: string
   example: string
@@ -101,6 +107,8 @@ export function kindsMarkdown(site = "https://keyframery.com"): string {
     "# The six kinds of change",
     "",
     "Every change on a screen is one of these six. The first two are automatic once <Cuts /> is in the root layout. The other four take one helper each. Never hand-write enter or exit animations for shadcn components, and don't animate static ones (buttons, inputs, labels).",
+    "",
+    `Register Keyframery once per project before installing anything: \`${REGISTER}\`. After that, every install command below works.`,
     "",
     ...parts.flatMap((p) => [p, ""]),
   ].join("\n")
