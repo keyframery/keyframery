@@ -15,8 +15,8 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://keyframery.com"),
-  title: { default: "Keyframery: film cuts for shadcn/ui", template: "%s | Keyframery" },
-  description: "Your UI is full of jump cuts. Keyframery gives every shadcn dialog, sheet, tab and toast a real cut, with one line.",
+  title: { default: "Keyframery: animations for shadcn/ui, in one line", template: "%s | Keyframery" },
+  description: "Add one line and your shadcn/ui app animates: dialogs grow from the button you clicked, tabs slide, and lists, numbers and loading states move instead of jumping. Your components don't change.",
   openGraph: { type: "website", siteName: "Keyframery", url: "https://keyframery.com" },
   twitter: { card: "summary_large_image" },
 }

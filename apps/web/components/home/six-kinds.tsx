@@ -1,30 +1,93 @@
 import Link from "next/link"
 
+import { CutOnActionLoop, DissolveLoop, JCutLoop, MatchCutLoop, PunchInLoop, RackFocusLoop } from "@/components/cuts/loops"
+
 const KINDS = [
-  { cut: "Rack focus", kind: "Something opens on top", where: "Dialog, alert dialog, command, sheet, menus, toast", href: "/cuts#rack-focus" },
-  { cut: "J-cut and whip", kind: "You switch to a neighbour", where: "Tabs", href: "/cuts#j-cut" },
-  { cut: "Match cut", kind: "A thing opens into its bigger self", where: "MatchCut: a card becomes its page", href: "/cuts#match-cut" },
-  { cut: "Cut on action", kind: "A list changes", where: "ListCut: messages, inboxes, kanban, tables", href: "/cuts#cut-on-action" },
-  { cut: "Punch-in", kind: "A value changes in place", where: "ValueCut: prices, counts, statuses", href: "/cuts#punch-in" },
-  { cut: "Dissolve", kind: "A placeholder becomes real", where: "LoadCut: skeleton to content", href: "/cuts#dissolve" },
+  {
+    title: "Dialogs open from their button",
+    body: "Dialogs and the command palette grow out of the button you clicked and go back into it. Sheets slide in while the page steps back. Toasts fly from the button that made them.",
+    how: "Automatic",
+    docs: "/docs/components/dialog",
+    name: "Dialog",
+    Loop: RackFocusLoop,
+  },
+  {
+    title: "Tabs slide instead of snapping",
+    body: "The indicator moves first and the new panel follows a beat later, while the height eases to fit.",
+    how: "Automatic",
+    docs: "/docs/components/tabs",
+    name: "Tabs",
+    Loop: JCutLoop,
+  },
+  {
+    title: "A card opens into its page",
+    body: "The card grows into its detail view, on the same page or on a new route, and shrinks back when you return.",
+    how: "<MatchCut>",
+    docs: "/docs/helpers/match-cut",
+    name: "MatchCut",
+    Loop: MatchCutLoop,
+  },
+  {
+    title: "New items come from where they started",
+    body: "A sent message flies out of the Send button. Removed rows fold away. Reordered rows glide to their new place.",
+    how: "<ListCut>",
+    docs: "/docs/helpers/list-cut",
+    name: "ListCut",
+    Loop: CutOnActionLoop,
+  },
+  {
+    title: "Numbers roll to their new value",
+    body: "Prices, counts and totals change digit by digit instead of flickering.",
+    how: "<ValueCut>",
+    docs: "/docs/helpers/value-cut",
+    name: "ValueCut",
+    Loop: PunchInLoop,
+  },
+  {
+    title: "Loading states settle in",
+    body: "Skeletons dissolve into the real content. If the data arrives within 300 ms, no skeleton shows at all.",
+    how: "<LoadCut>",
+    docs: "/docs/helpers/load-cut",
+    name: "LoadCut",
+    Loop: DissolveLoop,
+  },
 ]
 
 export function SixKinds() {
   return (
-    <section className="mx-auto w-full max-w-[1200px] px-4 py-14">
-      <h2 className="text-[28px] font-semibold tracking-[-0.02em]">A screen changes in six ways</h2>
-      <p className="mt-3 max-w-[60ch] text-muted-foreground">Keyframery has one cut for each. The first two happen inside shadcn and need no code. The other four are a component each.</p>
-      <dl className="mt-8 divide-y border-y">
-        {KINDS.map((k) => (
-          <div key={k.cut} className="grid gap-1 py-4 md:grid-cols-[1fr_1.4fr_1.6fr] md:items-baseline md:gap-6">
-            <dt className="text-lg font-semibold tracking-tight">
-              <Link href={k.href} className="underline-offset-4 hover:underline">{k.cut}</Link>
-            </dt>
-            <dd>{k.kind}</dd>
-            <dd className="text-muted-foreground">{k.where}</dd>
-          </div>
+    <section aria-labelledby="kinds-title" className="mx-auto w-full max-w-[1200px] px-4 pt-24 md:pt-36">
+      <div className="max-w-[640px]">
+        <h2 id="kinds-title" className="text-[30px] leading-[1.1] font-semibold tracking-[-0.025em] text-balance md:text-[38px]">
+          Every way a screen changes, animated
+        </h2>
+        <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
+          A screen can only change in six ways. The first two are automatic once <code className="font-mono text-[15px] text-foreground">{"<Cuts />"}</code> is in
+          your layout. The other four take one small component each.
+        </p>
+      </div>
+      <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        {KINDS.map(({ title, body, how, docs, name, Loop }) => (
+          <article key={title} className="flex flex-col bg-background">
+            <div className="border-b bg-stage">
+              <Loop bare />
+            </div>
+            <div className="flex flex-1 flex-col p-5 md:p-6">
+              <h3 className="text-[17px] leading-snug font-semibold tracking-tight">{title}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{body}</p>
+              <div className="mt-auto flex items-center justify-between gap-3 pt-5 text-sm">
+                {how === "Automatic" ? (
+                  <span className="text-muted-foreground">Automatic with {"<Cuts />"}</span>
+                ) : (
+                  <code className="rounded-md border bg-card px-1.5 py-0.5 font-mono text-[13px]">{how}</code>
+                )}
+                <Link href={docs} aria-label={`${name} docs`} className="font-medium underline-offset-4 hover:underline">
+                  Docs
+                </Link>
+              </div>
+            </div>
+          </article>
         ))}
-      </dl>
+      </div>
     </section>
   )
 }

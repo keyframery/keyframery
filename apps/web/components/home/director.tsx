@@ -44,13 +44,24 @@ export function Director({ active, onActiveChange, idleMs = 4000 }: { active: bo
     if (matchMedia("(prefers-reduced-motion: reduce)").matches || !matchMedia("(min-width: 768px)").matches) return
     const wall = document.querySelector('[data-testid="wall"]')
     let inView = true
-    const io = wall ? new IntersectionObserver(([e]) => (inView = e.isIntersecting), { threshold: 0.25 }) : null
-    if (wall && io) io.observe(wall)
     let timer = 0
     const arm = () => {
       clearTimeout(timer)
       timer = window.setTimeout(() => inView && onActiveChange(true), idleMs)
     }
+    // The wall sits far down the page, so the first idle timer usually fires before it is in view. Arriving
+    // at the wall starts a fresh idle wait.
+    const io = wall
+      ? new IntersectionObserver(
+          ([e]) => {
+            const arrived = e.isIntersecting && !inView
+            inView = e.isIntersecting
+            if (arrived && !running.current) arm()
+          },
+          { threshold: 0.25 },
+        )
+      : null
+    if (wall && io) io.observe(wall)
     const stop = (e: Event) => {
       if (!e.isTrusted) return // our own synthetic clicks don't count
       if (running.current) track("director_stop")
@@ -85,10 +96,9 @@ export function Director({ active, onActiveChange, idleMs = 4000 }: { active: bo
           await sleep(200)
           continue
         }
-        // Keep the target clear of the header and the docked timeline, so the click can be seen.
-        const barTop = document.querySelector('[aria-label="Cut timeline"]')?.getBoundingClientRect().top ?? innerHeight
+        // Keep the target clear of the header and the bottom edge, so the click can be seen.
         const box = el.getBoundingClientRect()
-        const below = box.bottom - (barTop - 24)
+        const below = box.bottom - (innerHeight - 24)
         const above = 72 - box.top
         if (below > 0 || above > 0) {
           window.scrollBy({ top: below > 0 ? below : -above, behavior: "smooth" })

@@ -24,9 +24,17 @@ test("an incomplete email gets a specific message", async ({ page }) => {
   await expect(page.getByRole("status")).toContainText("doesn't look complete")
 })
 
-test("the home page ends with the six kinds, the pace sample and the waitlist", async ({ page }) => {
+test("the home page runs from the demo to the six kinds, install, the wall, speed, questions and the waitlist", async ({ page }) => {
   await page.goto("/")
-  await expect(page.getByRole("heading", { name: "A screen changes in six ways" })).toBeVisible()
-  await expect(page.getByRole("heading", { name: "Theme motion the way you theme colour" })).toBeVisible()
+  // Section headings only (ids ending in -title), not the dialog titles inside the demo screens.
+  const order = await page.locator('main h2[id$="-title"]').allTextContents()
+  expect(order).toEqual([
+    "Every way a screen changes, animated",
+    "Install in two steps",
+    "Try it on real screens",
+    "Set the speed like you set colours",
+    "Questions",
+    "Start with one line",
+  ])
   await expect(page.getByRole("button", { name: "Join the waitlist" })).toBeVisible()
 })

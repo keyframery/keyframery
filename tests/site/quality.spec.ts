@@ -26,11 +26,14 @@ test("the site has metadata, a sitemap, robots and an Open Graph image", async (
 
 test("the wall's controls are reachable with the keyboard", async ({ page, browserName }, info) => {
   test.skip(info.project.name === "phone", "keyboard")
-  await page.goto("/")
-  await page.getByTestId("cuts-switch").focus()
+  await page.goto("/?demo=off")
+  await page.getByTestId("wall-stock").focus()
   await page.keyboard.press("Space")
-  await expect(page.getByTestId("cuts-switch")).toHaveAttribute("aria-checked", "false")
+  await expect(page.getByTestId("wall-stock")).toHaveAttribute("aria-pressed", "true")
   // Safari on macOS only tabs to buttons with Option+Tab (unless "Press Tab to highlight each item" is on).
-  await page.keyboard.press(browserName === "webkit" && process.platform === "darwin" ? "Alt+Tab" : "Tab")
+  const tab = browserName === "webkit" && process.platform === "darwin" ? "Alt+Tab" : "Tab"
+  await page.keyboard.press(tab)
+  await expect(page.getByTestId("wall-kf")).toBeFocused()
+  await page.keyboard.press(tab)
   await expect(page.getByTestId("slowmo")).toBeFocused()
 })

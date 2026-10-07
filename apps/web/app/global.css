@@ -34,7 +34,10 @@
   --sidebar-accent-foreground: #16181d;
   --sidebar-border: #e4e6eb;
   --sidebar-ring: #9aa0ad;
-  --playhead: #e5484d;
+  /* Cobalt marks "Keyframery is on". It appears nowhere else. */
+  --cut: #2447f5;
+  --stage: #f4f5f7;
+  --stage-line: rgb(22 24 29 / 0.05);
 }
 
 .dark {
@@ -64,7 +67,9 @@
   --sidebar-accent-foreground: #ececee;
   --sidebar-border: #2a2c31;
   --sidebar-ring: #5b6170;
-  --playhead: #ff6369;
+  --cut: #8098ff;
+  --stage: #131417;
+  --stage-line: rgb(236 236 238 / 0.05);
 }
 
 @theme inline {
@@ -88,7 +93,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-playhead: var(--playhead);
+  --color-cut: var(--cut);
+  --color-stage: var(--stage);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -113,6 +119,16 @@
   html {
     scrollbar-gutter: stable;
   }
+}
+
+/* The hero's stage: a quiet 24px grid behind the two app windows. */
+.stage-grid {
+  background-color: var(--stage);
+  background-image:
+    linear-gradient(to right, var(--stage-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--stage-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
 }
 
 html > body[data-scroll-locked] {

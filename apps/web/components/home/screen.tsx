@@ -8,7 +8,7 @@ export function Screen({ name, title, className, children }: { name: string; tit
           <span className="size-2 rounded-full bg-border" />
           <span className="size-2 rounded-full bg-border" />
         </span>
-        <h2 className="text-[13px] font-medium">{title}</h2>
+        <h3 className="text-[13px] font-medium">{title}</h3>
       </header>
       <div className="flex min-h-0 flex-1 flex-col p-4">{children}</div>
     </section>

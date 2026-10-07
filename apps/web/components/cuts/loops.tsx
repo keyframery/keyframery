@@ -49,9 +49,11 @@ function useLoop(ms: number, step: () => void) {
   return { ref, still, playOnce: () => saved.current() }
 }
 
-function Frame({ label, still, playOnce, children, loopRef }: { label: string; still: boolean; playOnce: () => void; children: React.ReactNode; loopRef: React.Ref<HTMLDivElement> }) {
+type LoopProps = { /** No card of its own: for a cell inside a larger frame (the home page grid). */ bare?: boolean }
+
+function Frame({ label, still, playOnce, children, loopRef, bare }: { label: string; still: boolean; playOnce: () => void; children: React.ReactNode; loopRef: React.Ref<HTMLDivElement> } & LoopProps) {
   return (
-    <div ref={loopRef} className="relative grid min-h-56 place-items-center overflow-hidden rounded-xl border bg-card p-6">
+    <div ref={loopRef} className={bare ? "relative grid h-52 place-items-center overflow-hidden p-6" : "relative grid min-h-56 place-items-center overflow-hidden rounded-xl border bg-card p-6"}>
       {children}
       {still && (
         <Button variant="outline" size="sm" className="absolute right-3 bottom-3" aria-label={`Play the ${label} loop`} onClick={playOnce}>
@@ -62,7 +64,7 @@ function Frame({ label, still, playOnce, children, loopRef }: { label: string; s
   )
 }
 
-export function RackFocusLoop() {
+export function RackFocusLoop({ bare }: LoopProps = {}) {
   const [open, setOpen] = React.useState(false)
   const trigger = React.useRef<HTMLButtonElement>(null)
   const loop = useLoop(1800, () => {
@@ -70,7 +72,7 @@ export function RackFocusLoop() {
     setOpen((o) => !o)
   })
   return (
-    <Frame label="rack focus" {...loop} loopRef={loop.ref}>
+    <Frame label="rack focus" {...loop} loopRef={loop.ref} bare={bare}>
       <div className="relative grid h-40 w-full max-w-sm place-items-center">
         <button ref={trigger} type="button" tabIndex={-1} className="absolute top-0 left-0 rounded-md border px-2.5 py-1 text-sm">Edit profile</button>
         <div data-slot="dialog-content" {...(open ? { "data-open": "" } : { "data-closed": "" })} className={`w-64 rounded-xl border bg-popover p-4 text-sm shadow-lg ${open ? "" : "opacity-0"}`} aria-hidden="true">
@@ -82,7 +84,7 @@ export function RackFocusLoop() {
   )
 }
 
-export function JCutLoop() {
+export function JCutLoop({ bare }: LoopProps = {}) {
   const [tab, setTab] = React.useState("a")
   const host = React.useRef<HTMLDivElement>(null)
   const loop = useLoop(1600, () => {
@@ -91,7 +93,7 @@ export function JCutLoop() {
     setTab(next)
   })
   return (
-    <Frame label="J-cut" {...loop} loopRef={loop.ref}>
+    <Frame label="J-cut" {...loop} loopRef={loop.ref} bare={bare}>
       <div ref={host} className="w-full max-w-sm">
         <Tabs value={tab} onValueChange={(v) => setTab(String(v))}>
           <TabsList>
@@ -106,11 +108,11 @@ export function JCutLoop() {
   )
 }
 
-export function MatchCutLoop() {
+export function MatchCutLoop({ bare }: LoopProps = {}) {
   const [big, setBig] = React.useState(false)
   const loop = useLoop(2000, () => setBig((b) => !b))
   return (
-    <Frame label="match cut" {...loop} loopRef={loop.ref}>
+    <Frame label="match cut" {...loop} loopRef={loop.ref} bare={bare}>
       {big ? (
         <MatchCut key="big" id="cuts-page-order" className="w-full max-w-sm rounded-2xl border bg-background p-6">
           <p className="font-medium">Order #1044</p>
@@ -124,7 +126,7 @@ export function MatchCutLoop() {
   )
 }
 
-export function CutOnActionLoop() {
+export function CutOnActionLoop({ bare }: LoopProps = {}) {
   const [items, setItems] = React.useState([1, 2])
   const add = React.useRef<HTMLButtonElement>(null)
   const next = React.useRef(3)
@@ -137,7 +139,7 @@ export function CutOnActionLoop() {
     setItems((xs) => [...xs, next.current++])
   })
   return (
-    <Frame label="cut on action" {...loop} loopRef={loop.ref}>
+    <Frame label="cut on action" {...loop} loopRef={loop.ref} bare={bare}>
       <div className="grid w-full max-w-sm gap-2">
         <ListCut as="ul" className="grid gap-1.5">
           {items.map((n) => (
@@ -150,24 +152,24 @@ export function CutOnActionLoop() {
   )
 }
 
-export function PunchInLoop() {
+export function PunchInLoop({ bare }: LoopProps = {}) {
   const [n, setN] = React.useState(1284)
   const loop = useLoop(1200, () => setN((v) => v + Math.ceil(Math.random() * 9)))
   return (
-    <Frame label="punch-in" {...loop} loopRef={loop.ref}>
+    <Frame label="punch-in" {...loop} loopRef={loop.ref} bare={bare}>
       <p className="text-5xl font-semibold tracking-tight"><ValueCut value={n} locale="en-US" /></p>
     </Frame>
   )
 }
 
-export function DissolveLoop() {
+export function DissolveLoop({ bare }: LoopProps = {}) {
   const [loading, setLoading] = React.useState(false)
   const loop = useLoop(2200, () => {
     setLoading(true)
     setTimeout(() => setLoading(false), 900)
   })
   return (
-    <Frame label="dissolve" {...loop} loopRef={loop.ref}>
+    <Frame label="dissolve" {...loop} loopRef={loop.ref} bare={bare}>
       <div className="w-full max-w-sm">
         <LoadCut loading={loading} skeleton={<div className="h-20 rounded-md bg-muted" />}>
           <div className="rounded-md border p-3 text-sm">Report ready. 3 charts, 12 rows.<div className="mt-2 h-14 rounded bg-muted/60" /></div>

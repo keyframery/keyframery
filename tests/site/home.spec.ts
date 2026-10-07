@@ -1,11 +1,27 @@
 import { expect, takeCuts, test } from "./kit"
 
-test("the hero says what Keyframery is and how to install it", async ({ page }) => {
+test("the six kinds of change play live, plain words first, each linked to its docs", async ({ page }) => {
   await page.goto("/")
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Your UI is full of jump cuts.")
-  await expect(page.getByText("npx shadcn add @keyframery/cuts")).toBeVisible()
-  await page.getByRole("button", { name: "Copy the install command" }).click()
-  await expect(page.getByRole("button", { name: "Copied" })).toBeVisible()
+  const grid = page.getByRole("region", { name: "Every way a screen changes, animated" })
+  for (const title of [
+    "Dialogs open from their button",
+    "Tabs slide instead of snapping",
+    "A card opens into its page",
+    "New items come from where they started",
+    "Numbers roll to their new value",
+    "Loading states settle in",
+  ])
+    await expect(grid.getByRole("heading", { name: title })).toBeVisible()
+  await expect(grid.getByRole("link", { name: "MatchCut docs" })).toHaveAttribute("href", "/docs/helpers/match-cut")
+})
+
+test("the FAQ answers open and close", async ({ page }) => {
+  await page.goto("/")
+  const q = page.getByRole("button", { name: "Does it change my components?" })
+  await q.click()
+  await expect(page.getByText("Nothing in components/ui is edited.")).toBeVisible()
+  await q.click()
+  await expect(page.getByText("Nothing in components/ui is edited.")).toBeHidden()
 })
 
 test("Settings: the dialog grows from its button; the sheet steps the page back; saving toasts", async ({ page }) => {
