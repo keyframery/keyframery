@@ -24,8 +24,15 @@ test("the first line says what Keyframery is, and the install command is right t
   await page.goto("/")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Add one line. Your shadcn/ui app animates.")
   await expect(page.getByText("npx shadcn add @keyframery/cuts").first()).toBeVisible()
-  await page.getByRole("button", { name: "Copy the install command" }).first().click()
-  await expect(page.getByRole("button", { name: "Copied" }).first()).toBeVisible()
+  // "Copied" shows for 1.6 s. Under load the runner can miss that window, so the page records the label change.
+  const copy = page.getByRole("button", { name: "Copy the install command" }).first()
+  await copy.evaluate((el) => {
+    const w = window as unknown as { __labels: string[] }
+    w.__labels = []
+    new MutationObserver(() => w.__labels.push(el.getAttribute("aria-label") ?? "")).observe(el, { attributes: true, attributeFilter: ["aria-label"] })
+  })
+  await copy.click()
+  await expect.poll(() => page.evaluate(() => (window as unknown as { __labels: string[] }).__labels)).toContain("Copied")
 })
 
 test("the hero shows the same app twice: stock shadcn, and shadcn with Keyframery", async ({ page }) => {

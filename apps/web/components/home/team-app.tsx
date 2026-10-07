@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 
+import { initialSettle, isHidden, nextSettle } from "./settle"
 import { SEATS, type Side, type Tab, type TeamDemo } from "./team-demo"
 
 const initials = (name: string) =>
@@ -26,28 +27,25 @@ const initials = (name: string) =>
     .map((part) => part[0])
     .join("")
 
-/** True once a closed part has finished its exit animation, so it can stop taking clicks and hide. */
+/** True once a closed part has finished its exit animation, so it can stop taking clicks and hide (see settle.ts). */
 function useSettledClosed(open: boolean, ref: React.RefObject<HTMLElement | null>) {
-  const [settled, setSettled] = React.useState(!open)
-  const [seenOpen, setSeenOpen] = React.useState(open)
-  if (seenOpen !== open) {
-    setSeenOpen(open)
-    if (open) setSettled(false)
-  }
+  const [state, setState] = React.useState(() => initialSettle(open))
+  // Follow `open` during render, as React recommends for state that tracks a prop.
+  if (state.open !== open) setState(nextSettle(state, open ? "open" : "close"))
   React.useEffect(() => {
     if (open) return
     const el = ref.current
-    const done = (e?: AnimationEvent) => {
-      if (!e || e.target === el) setSettled(true)
+    const ended = (e?: AnimationEvent) => {
+      if (!e || e.target === el) setState((s) => nextSettle(s, "ended"))
     }
-    const t = setTimeout(done, 600)
-    el?.addEventListener("animationend", done)
+    const t = setTimeout(ended, 600)
+    el?.addEventListener("animationend", ended)
     return () => {
       clearTimeout(t)
-      el?.removeEventListener("animationend", done)
+      el?.removeEventListener("animationend", ended)
     }
   }, [open, ref])
-  return settled
+  return isHidden(state)
 }
 
 function InviteDialog({ demo, side, sendRef }: { demo: TeamDemo; side: Side; sendRef: React.Ref<HTMLButtonElement> }) {
