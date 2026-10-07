@@ -1,9 +1,55 @@
 ---
-title: llms.txt for AI tools
-description: Give Cursor, Claude Code or any coding assistant Keyframery's docs as plain text.
+title: AI tools
+description: Use Keyframery from Claude Code, Claude, Cursor or any MCP client, or give your assistant the docs as plain text.
 ---
 
-The docs are published as plain text for AI tools:
+Keyframery works with AI coding tools in three ways. Pick the one your tool supports.
+
+## Claude Code plugin
+
+The plugin teaches Claude when to use each cut and connects it to the Keyframery MCP server. In Claude Code, run:
+
+```bash
+/plugin marketplace add keyframery/keyframery
+/plugin install keyframery@keyframery
+```
+
+Then ask for what you want, for example "add Keyframery to this app" or "animate the inbox list".
+
+## MCP server
+
+The server is at `https://keyframery.com/mcp`. It is read-only, needs no account, and never sees your code.
+
+| Tool | What it does |
+|---|---|
+| `list_kinds` | The six kinds of change, with the cut, install command and snippet for each |
+| `search_docs` | Searches the docs and returns matching pages |
+| `get_doc` | Returns one docs page as Markdown, such as `helpers/list-cut` |
+| `make_theme` | Builds the `<Cuts />` line and CSS for a chosen speed, easing or cut |
+
+**Claude Code** without the plugin:
+
+```bash
+claude mcp add --transport http keyframery https://keyframery.com/mcp
+```
+
+**Claude** on the web or desktop: open Settings, then Connectors, add a custom connector, and paste `https://keyframery.com/mcp`.
+
+**Cursor**, in `.cursor/mcp.json`:
+
+```json title=".cursor/mcp.json"
+{
+  "mcpServers": {
+    "keyframery": { "url": "https://keyframery.com/mcp" }
+  }
+}
+```
+
+A client that only runs local servers can reach it through `npx -y mcp-remote https://keyframery.com/mcp`.
+
+## llms.txt
+
+The docs are also published as plain text:
 
 | URL | What it has |
 |---|---|
@@ -11,9 +57,7 @@ The docs are published as plain text for AI tools:
 | [`/llms-full.txt`](/llms-full.txt) | every page in full, in one file |
 | any docs page + `.mdx` | that page as Markdown, for example [`/docs/helpers/list-cut.mdx`](/docs/helpers/list-cut.mdx) |
 
-## Use it in your editor
-
-Paste `https://keyframery.com/llms-full.txt` into the chat when you ask for a change that involves motion, or add a line to your project rules:
+Paste `https://keyframery.com/llms-full.txt` into a chat, or add a line to your project rules:
 
 ```md title="AGENTS.md"
 This project uses Keyframery for motion (https://keyframery.com/llms-full.txt).

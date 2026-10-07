@@ -61,6 +61,20 @@ const QUESTIONS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
+    q: "Does it work with Claude Code and other AI tools?",
+    a: (
+      <>
+        Yes. The Keyframery plugin for Claude Code teaches Claude which cut fits each change and connects it to our MCP server at keyframery.com/mcp, which
+        any MCP client can use. Run <code className={code}>/plugin marketplace add keyframery/keyframery</code>, then{" "}
+        <code className={code}>/plugin install keyframery@keyframery</code>.{" "}
+        <Link href="/docs/ai-tools" className="text-foreground underline underline-offset-4">
+          More on AI tools
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
     q: "Is it free?",
     a: "Yes. It is MIT licensed, and the CLI copies the code into your project, so it is yours to change. Pro, a set of ready-made app screens built on every cut, comes later.",
   },

@@ -49,3 +49,10 @@ test("Chat: a sent message flies from Send, and a reply rises in", async ({ page
   const cuts = (await takeCuts(page)).filter((c) => c.component === "list").map((c) => c.cut)
   expect(cuts).toEqual(expect.arrayContaining(["cut-on-action", "rise"]))
 })
+
+test("the install section and the FAQ tell Claude Code users about the plugin", async ({ page }) => {
+  await page.goto("/")
+  await expect(page.getByText("/plugin install keyframery@keyframery").first()).toBeVisible()
+  await page.getByRole("button", { name: "Does it work with Claude Code and other AI tools?" }).click()
+  await expect(page.getByText("keyframery.com/mcp", { exact: false }).first()).toBeVisible()
+})

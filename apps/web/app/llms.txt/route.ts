@@ -4,7 +4,7 @@ export const revalidate = false;
 
 const HEADER = `# Keyframery
 
-> Film cuts for shadcn/ui. One <Cuts /> line gives dialogs, sheets, tabs and toasts real cuts; MatchCut, ListCut, ValueCut and LoadCut cover the rest. Full docs in one file: https://keyframery.com/llms-full.txt`;
+> Animations for shadcn/ui. One <Cuts /> line gives dialogs, sheets, tabs and toasts real cuts; MatchCut, ListCut, ValueCut and LoadCut cover the rest. Full docs in one file: https://keyframery.com/llms-full.txt. MCP server: https://keyframery.com/mcp`;
 
 export async function GET() {
   // Fumadocs titles the index after the docs root ("# Docs"); name the product instead.

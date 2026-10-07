@@ -28,45 +28,60 @@ export function InstallSteps() {
           Read the installation guide
         </Link>
       </div>
-      <ol className="grid min-w-0 gap-10">
-        <li className="min-w-0">
-          <Step n={1}>Add it with the shadcn CLI</Step>
-          <InstallCommand className="mt-4 sm:w-full" command="npx shadcn add @keyframery/cuts" />
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            It copies <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, its stylesheet and a small engine into your project: about 7 KB
-            gzipped, with no extra dependencies. If the CLI doesn&apos;t know <code className="font-mono text-[13px]">@keyframery</code> yet, install by URL:
-          </p>
-          <pre tabIndex={0} className="mt-2 overflow-x-auto rounded-md border bg-card px-3 py-2 font-mono text-[13px] text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
-            npx shadcn add https://keyframery.com/r/cuts.json
-          </pre>
-        </li>
-        <li className="min-w-0">
-          <Step n={2}>
-            <span>
-              Render <code className="font-mono text-[15px]">{"<Cuts />"}</code> once, in your root layout
-            </span>
-          </Step>
-          <div className="mt-4 overflow-hidden rounded-xl border bg-card shadow-xs">
-            <p className="border-b px-4 py-2 font-mono text-xs text-muted-foreground">app/layout.tsx</p>
-            <pre tabIndex={0} className="overflow-x-auto py-3 font-mono text-[13px] leading-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
-              <code className="block w-max min-w-full">
-                <span className="block px-4">{'import { Cuts } from "@/components/keyframery/cuts"'}</span>
-                <span className="block px-4">{" "}</span>
-                <span className="block px-4">{"export default function RootLayout({ children }) {"}</span>
-                <span className="block px-4">{"  return ("}</span>
-                <span className="block px-4">{'    <html lang="en">'}</span>
-                <span className="block px-4">{"      <body>"}</span>
-                <span className="block px-4">{"        {children}"}</span>
-                <span className="block border-l-2 border-cut bg-cut/[0.07] pr-4 pl-[14px] font-medium">{"        <Cuts />"}</span>
-                <span className="block px-4">{"      </body>"}</span>
-                <span className="block px-4">{"    </html>"}</span>
-                <span className="block px-4">{"  )"}</span>
-                <span className="block px-4">{"}"}</span>
-              </code>
+      <div className="grid min-w-0 gap-10">
+        <ol className="grid min-w-0 gap-10">
+          <li className="min-w-0">
+            <Step n={1}>Add it with the shadcn CLI</Step>
+            <InstallCommand className="mt-4 sm:w-full" command="npx shadcn add @keyframery/cuts" />
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              It copies <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, its stylesheet and a small engine into your project: about 7 KB
+              gzipped, with no extra dependencies. If the CLI doesn&apos;t know <code className="font-mono text-[13px]">@keyframery</code> yet, install by URL:
+            </p>
+            <pre tabIndex={0} className="mt-2 overflow-x-auto rounded-md border bg-card px-3 py-2 font-mono text-[13px] text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+              npx shadcn add https://keyframery.com/r/cuts.json
             </pre>
-          </div>
-        </li>
-      </ol>
+          </li>
+          <li className="min-w-0">
+            <Step n={2}>
+              <span>
+                Render <code className="font-mono text-[15px]">{"<Cuts />"}</code> once, in your root layout
+              </span>
+            </Step>
+            <div className="mt-4 overflow-hidden rounded-xl border bg-card shadow-xs">
+              <p className="border-b px-4 py-2 font-mono text-xs text-muted-foreground">app/layout.tsx</p>
+              <pre tabIndex={0} className="overflow-x-auto py-3 font-mono text-[13px] leading-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+                <code className="block w-max min-w-full">
+                  <span className="block px-4">{'import { Cuts } from "@/components/keyframery/cuts"'}</span>
+                  <span className="block px-4">{" "}</span>
+                  <span className="block px-4">{"export default function RootLayout({ children }) {"}</span>
+                  <span className="block px-4">{"  return ("}</span>
+                  <span className="block px-4">{'    <html lang="en">'}</span>
+                  <span className="block px-4">{"      <body>"}</span>
+                  <span className="block px-4">{"        {children}"}</span>
+                  <span className="block border-l-2 border-cut bg-cut/[0.07] pr-4 pl-[14px] font-medium">{"        <Cuts />"}</span>
+                  <span className="block px-4">{"      </body>"}</span>
+                  <span className="block px-4">{"    </html>"}</span>
+                  <span className="block px-4">{"  )"}</span>
+                  <span className="block px-4">{"}"}</span>
+                </code>
+              </pre>
+            </div>
+          </li>
+        </ol>
+        <div className="min-w-0 rounded-xl border bg-card p-5 shadow-xs">
+          <p className="text-[15px] font-medium">Using Claude Code?</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            Add the plugin and ask Claude to animate your app. It knows which cut fits each change, and reads the docs through the{" "}
+            <Link href="/docs/ai-tools" className="font-medium text-foreground underline underline-offset-4">
+              Keyframery MCP server
+            </Link>
+            .
+          </p>
+          <pre tabIndex={0} className="mt-3 overflow-x-auto rounded-md border bg-background px-3 py-2 font-mono text-[13px] leading-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+            {"/plugin marketplace add keyframery/keyframery\n/plugin install keyframery@keyframery"}
+          </pre>
+        </div>
+      </div>
     </section>
   )
 }
