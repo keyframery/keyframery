@@ -13,10 +13,10 @@ test("the site is set in Geist, with Geist Mono for code", async ({ page }) => {
   expect(families.code).toMatch(/Geist Mono/)
 })
 
-test("the hero announces the Claude Code plugin, states the facts, and links GitHub", async ({ page }) => {
+test("the hero names Claude Code first without leaving other agents out, states the facts, and links GitHub", async ({ page }) => {
   await page.goto("/")
   const h = hero(page)
-  await expect(h.getByRole("link", { name: /Keyframery for Claude Code/ })).toHaveAttribute("href", "/docs/ai-tools")
+  await expect(h.getByRole("link", { name: /Works with Claude Code, Codex, Cursor and more/ })).toHaveAttribute("href", "/docs/ai-tools")
   const facts = h.getByRole("list", { name: "Facts" })
   for (const fact of ["7 KB gzipped", "0 dependencies", "Base UI and Radix", "MIT licensed"]) await expect(facts).toContainText(fact)
   await expect(h.getByRole("link", { name: "GitHub" })).toHaveAttribute("href", "https://github.com/keyframery/keyframery")

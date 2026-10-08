@@ -4,7 +4,7 @@ Motion for shadcn/ui. Render one `<Cuts />` in your root layout, and your dialog
 
 - Website and docs: https://keyframery.com
 - Quick start: https://keyframery.com/docs/installation
-- Use with Claude Code and other AI tools: https://keyframery.com/docs/ai-tools
+- Use with Claude Code, Codex, Cursor and other coding agents: https://keyframery.com/docs/ai-tools
 
 ## Quick start
 
@@ -43,20 +43,22 @@ Open a dialog: it grows out of the button you pressed. It works with Base UI and
 | [`ValueCut`](https://keyframery.com/docs/helpers/value-cut) | numbers and statuses that change | `npx shadcn add @keyframery/value-cut` |
 | [`LoadCut`](https://keyframery.com/docs/helpers/load-cut) | skeletons that turn into content | `npx shadcn add @keyframery/load-cut` |
 
-## Use with Claude Code
+## Use with your coding agent
 
-The plugin teaches Claude which animation fits each change, and connects the Keyframery MCP server:
+In Claude Code, the plugin teaches Claude which animation fits each change, and connects the Keyframery MCP server:
 
 ```bash
 /plugin marketplace add keyframery/keyframery
 /plugin install keyframery@keyframery
 ```
 
-Or add only the MCP server, in Claude Code, Claude, Cursor or any MCP client. It is read-only and needs no account:
+Every other agent connects to the MCP server at `https://keyframery.com/mcp`. It is read-only and needs no account. For example, in Codex:
 
 ```bash
-claude mcp add --transport http keyframery https://keyframery.com/mcp
+codex mcp add keyframery --url https://keyframery.com/mcp
 ```
+
+Setup for Claude, Cursor, VS Code, Gemini CLI and any other MCP client: https://keyframery.com/docs/ai-tools
 
 The docs are also plain text for any assistant: https://keyframery.com/llms-full.txt
 

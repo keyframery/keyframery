@@ -50,10 +50,12 @@ test("Chat: a sent message flies from Send, and a reply rises in", async ({ page
   expect(cuts).toEqual(expect.arrayContaining(["cut-on-action", "rise"]))
 })
 
-test("the install section and the FAQ tell Claude Code users about the plugin", async ({ page }) => {
+test("the install section and the FAQ tell coding-agent users about the plugin and the MCP server", async ({ page }) => {
   await page.goto("/")
   await expect(page.getByText("/plugin install keyframery@keyframery").first()).toBeVisible()
   await expect(page.getByText('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"').first()).toBeVisible()
-  await page.getByRole("button", { name: "Does it work with Claude Code and other AI tools?" }).click()
-  await expect(page.getByText("keyframery.com/mcp", { exact: false }).first()).toBeVisible()
+  await page.getByRole("button", { name: "Does it work with AI coding agents?" }).click()
+  const answer = page.getByRole("region", { name: "Does it work with AI coding agents?" })
+  await expect(answer).toContainText("keyframery.com/mcp")
+  await expect(answer).toContainText("Codex")
 })

@@ -62,12 +62,12 @@ const QUESTIONS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
-    q: "Does it work with Claude Code and other AI tools?",
+    q: "Does it work with AI coding agents?",
     a: (
       <>
-        Yes. The Keyframery plugin for Claude Code teaches Claude which cut fits each change and connects it to our MCP server at keyframery.com/mcp, which
-        any MCP client can use. Run <code className={code}>/plugin marketplace add keyframery/keyframery</code>, then{" "}
-        <code className={code}>/plugin install keyframery@keyframery</code>.{" "}
+        Yes. Claude Code gets a plugin: it teaches Claude which cut fits each change. Run{" "}
+        <code className={code}>/plugin marketplace add keyframery/keyframery</code>, then <code className={code}>/plugin install keyframery@keyframery</code>.
+        Codex, Cursor, VS Code, Gemini CLI and any other MCP client can use our MCP server at keyframery.com/mcp.{" "}
         <Link href="/docs/ai-tools" className="text-foreground underline underline-offset-4">
           More on AI tools
         </Link>

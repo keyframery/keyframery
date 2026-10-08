@@ -1,9 +1,9 @@
 ---
 title: Use with AI tools
-description: Use Keyframery from Claude Code, Claude, Cursor or any MCP client, or give your assistant the docs as plain text.
+description: Use Keyframery from Claude Code, Codex, Cursor, VS Code, Gemini CLI or any MCP client, or give your assistant the docs as plain text.
 ---
 
-Keyframery works with AI coding tools in three ways. Pick the one your tool supports.
+Keyframery works with any coding agent. Claude Code gets the most: a plugin. Every other agent connects to the same MCP server, and any assistant can read the docs as plain text.
 
 ## Claude Code plugin
 
@@ -27,15 +27,34 @@ The server is at `https://keyframery.com/mcp`. It is read-only, needs no account
 | `get_doc` | Returns one docs page as Markdown, such as `helpers/list-cut` |
 | `make_theme` | Builds the `<Cuts />` line and CSS for a chosen speed, easing or cut |
 
-**Claude Code** without the plugin:
+### Claude Code
+
+Without the plugin:
 
 ```bash
 claude mcp add --transport http keyframery https://keyframery.com/mcp
 ```
 
-**Claude** on the web or desktop: open Settings, then Connectors, add a custom connector, and paste `https://keyframery.com/mcp`.
+### Claude
 
-**Cursor**, in `.cursor/mcp.json`:
+On the web or desktop: open Settings, then Connectors, add a custom connector, and paste `https://keyframery.com/mcp`.
+
+### Codex
+
+The Codex CLI and the IDE extension share one setting:
+
+```bash
+codex mcp add keyframery --url https://keyframery.com/mcp
+```
+
+Or add it to the config file yourself:
+
+```toml title="~/.codex/config.toml"
+[mcp_servers.keyframery]
+url = "https://keyframery.com/mcp"
+```
+
+### Cursor
 
 ```json title=".cursor/mcp.json"
 {
@@ -45,7 +64,25 @@ claude mcp add --transport http keyframery https://keyframery.com/mcp
 }
 ```
 
-A client that only runs local servers can reach it through `npx -y mcp-remote https://keyframery.com/mcp`.
+### VS Code (GitHub Copilot)
+
+```json title=".vscode/mcp.json"
+{
+  "servers": {
+    "keyframery": { "type": "http", "url": "https://keyframery.com/mcp" }
+  }
+}
+```
+
+### Gemini CLI
+
+```bash
+gemini mcp add --scope user --transport http keyframery https://keyframery.com/mcp
+```
+
+### Any other MCP client
+
+Add a streamable HTTP server with the address `https://keyframery.com/mcp`. A client that only runs local servers can reach it through `npx -y mcp-remote https://keyframery.com/mcp`.
 
 ## llms.txt
 
@@ -57,7 +94,7 @@ The docs are also published as plain text:
 | [`/llms-full.txt`](/llms-full.txt) | every page in full, in one file |
 | any docs page + `.mdx` | that page as Markdown, for example [`/docs/helpers/list-cut.mdx`](/docs/helpers/list-cut.mdx) |
 
-Paste `https://keyframery.com/llms-full.txt` into a chat, or add a line to your project rules:
+Paste `https://keyframery.com/llms-full.txt` into a chat, or add a line to your project rules. Codex and most other agents read `AGENTS.md`; Claude Code reads `CLAUDE.md`.
 
 ```md title="AGENTS.md"
 This project uses Keyframery for motion (https://keyframery.com/llms-full.txt).

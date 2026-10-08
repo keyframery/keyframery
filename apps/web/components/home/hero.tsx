@@ -19,7 +19,7 @@ export function Hero() {
           className="inline-flex max-w-full items-center gap-2 rounded-full border bg-card py-1 pr-3.5 pl-1 text-[13px] shadow-xs outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50"
         >
           <span className="rounded-full bg-foreground px-2 py-0.5 text-xs font-medium text-background">New</span>
-          <span className="truncate">Keyframery for Claude Code: MCP server and plugin</span>
+          <span className="truncate">Works with Claude Code, Codex, Cursor and more</span>
         </Link>
         <h1 id="hero-title" className="mt-7 text-[40px] leading-[1.03] font-semibold tracking-[-0.04em] text-balance sm:text-[52px] md:text-[68px]">
           Add one line. <span className="md:block">Your shadcn/ui app animates.</span>
