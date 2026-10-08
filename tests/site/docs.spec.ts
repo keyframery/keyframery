@@ -17,8 +17,8 @@ test("a preview set to Stock gets no Keyframery motion, even in its portaled dia
   await expect.poll(async () => (await takeCuts(page)).some((c) => c.component === "dialog")).toBe(true)
 })
 
-test("every Get started, Concepts and Motion theming page renders", async ({ page, errors }) => {
-  for (const slug of ["", "installation", "base-ui-vs-radix", "add-cuts", "accessibility", "ai-tools", "concepts/six-kinds", "concepts/how-it-works", "concepts/exits-and-portals", "theming/variables", "theming/cuts-props", "theming/per-element"]) {
+test("every Get started, Customize and Reference page renders", async ({ page, errors }) => {
+  for (const slug of ["", "installation", "ai-tools", "automatic", "customize", "how-it-works", "accessibility", "base-ui-vs-radix", "compatibility", "changelog"]) {
     const res = await page.goto(`/docs/${slug}`)
     expect(res?.status(), slug).toBe(200)
     await expect(page.locator("h1").first()).toBeVisible()

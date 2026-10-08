@@ -1,28 +1,29 @@
 ---
 title: Introduction
-description: Keyframery gives shadcn/ui the cuts a film editor would make. One line, and your components stay yours.
+description: Keyframery adds animations to shadcn/ui with one line. Your components don't change.
 ---
 
-Open a shadcn dialog and it pops into the middle of the screen. Switch a tab and the panel swaps in a single frame. Add an item to a list and it appears from nowhere. In film, a cut where the subject suddenly jumps to a new place is a jump cut. It's jarring, and it makes you look around for what changed.
-
-Keyframery replaces those jumps with real editing cuts. A dialog grows out of the button that opened it. A tab panel follows the tab a beat later. A sent message flies from the Send button into the thread.
+Keyframery adds animations to the shadcn/ui components you already have. Render one `<Cuts />` in your root layout, and your dialogs, sheets, tabs and toasts start moving from the button you pressed, and back into it.
 
 <Preview>
   <DialogDemo />
 </Preview>
 
+Switch the preview to **Stock** to see shadcn's own motion, then back to **Keyframery**.
+
 ## What you get
 
-- **`<Cuts />`**, one component for your root layout. It finds shadcn's own parts by their `data-slot` names and gives dialogs, alert dialogs, the command menu, sheets, drawers, tabs and toasts their cuts. Eleven more, such as popover, the menus, select and tooltip, are retimed to match.
-- **Four helpers** for changes shadcn has no component for: [MatchCut](/docs/helpers/match-cut), [ListCut](/docs/helpers/list-cut), [ValueCut](/docs/helpers/value-cut) and [LoadCut](/docs/helpers/load-cut).
-- **Motion theming.** Seven CSS variables and a few attributes let you tune motion the way you tune colour.
+- **Motion with no code changes.** Dialogs, alert dialogs, sheets, drawers, tabs, toasts, the command menu and eleven more components animate as soon as `<Cuts />` is in your layout. Nothing in `components/ui` changes. See [what's automatic](/docs/automatic).
+- **Four small components** for the changes shadcn has no component for: [cards that open into a page](/docs/helpers/match-cut), [lists](/docs/helpers/list-cut), [numbers and statuses](/docs/helpers/value-cut) and [loading states](/docs/helpers/load-cut).
+- **Control like colours.** Speed, easing and the cut each component uses are CSS variables and props. See [Customize](/docs/customize).
 
-## What it doesn't do
+Like the rest of shadcn, it's code you own: the CLI copies it into your project. Remove `<Cuts />` and you have stock shadcn again.
 
-It doesn't wrap, fork or replace your components, and nothing in `components/ui` changes. Remove `<Cuts />` and you have stock shadcn again.
+## Start here
 
-Like the rest of shadcn, it's code you own. The CLI copies it into your project.
+1. [Quick start](/docs/installation): three steps, about two minutes.
+2. Using Claude Code or another AI tool? See [Use with AI tools](/docs/ai-tools).
 
-## Next
+## Why "cuts"?
 
-[Install Keyframery](/docs/installation), then read [the six kinds of change](/docs/concepts/six-kinds) to see which cut handles what.
+In film, a cut is how one shot becomes the next. A jump cut, where something suddenly appears in a new place, is jarring, and most interface changes are jump cuts. Keyframery replaces them with the cuts an editor would choose. [See each one](/cuts).

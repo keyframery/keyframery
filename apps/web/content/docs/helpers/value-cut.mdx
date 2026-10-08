@@ -1,15 +1,13 @@
 ---
-title: ValueCut
-description: Only the digits that changed roll, and the value gives a small punch so the eye catches it.
+title: Numbers and statuses
+description: "ValueCut: only the digits that changed roll, and the value gives a small punch so the eye catches it."
 ---
 
 <Preview>
   <ValueCutDemo />
 </Preview>
 
-## What it fixes
-
-When a stock number changes, it just changes, and nobody notices. ValueCut rolls only the digits that changed, in the direction of the change. Meanwhile the whole value punches in: it scales to 1.06 and back over 300 ms. Text values, like a status, crossfade with a 6px slide.
+When a stock number changes, it just changes, and nobody notices. `ValueCut` rolls only the digits that changed, in the direction of the change, and gives the value a small punch. Text, like an order status, crossfades instead.
 
 ## Install
 
@@ -17,7 +15,11 @@ When a stock number changes, it just changes, and nobody notices. ValueCut rolls
 npx shadcn add @keyframery/value-cut
 ```
 
-## Usage
+If your project doesn't know `@keyframery` yet, do the [Quick start](/docs/installation) first.
+
+## Use
+
+Put `ValueCut` where the value is rendered:
 
 ```tsx
 import { ValueCut } from "@/components/keyframery/value-cut"
@@ -27,7 +29,11 @@ import { ValueCut } from "@/components/keyframery/value-cut"
 <ValueCut value={order.status} announce />
 ```
 
-## API
+## You should see
+
+When the value changes, only the digits that changed roll up or down, and the whole value briefly grows and settles. A status crossfades with a small slide.
+
+## Options
 
 <TypeTable
   type={{
@@ -41,4 +47,10 @@ import { ValueCut } from "@/components/keyframery/value-cut"
   }}
 />
 
-Numbers use tabular figures, so the digits don't shift sideways. The first render never animates, and with reduced motion the value swaps instantly.
+## Good to know
+
+- Numbers use tabular figures, so the digits don't shift sideways.
+- The punch scales the value to 1.06 and back over 300 ms. Text crossfades with a 6px slide.
+- The first render never animates, and with reduced motion the value swaps instantly.
+
+In film, a quick push toward the subject is a **punch-in**.

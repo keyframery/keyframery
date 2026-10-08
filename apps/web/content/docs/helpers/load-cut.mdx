@@ -1,18 +1,13 @@
 ---
-title: LoadCut
-description: The skeleton dissolves into the content in the same space, and never flashes when the data is fast.
+title: Loading states
+description: "LoadCut: the skeleton dissolves into the content in the same space, and never flashes when the data is fast."
 ---
 
 <Preview>
   <LoadCutDemo />
 </Preview>
 
-## What it fixes
-
-A stock skeleton blinks on for a moment even when the data is fast, then snaps to content of a different height, and the page jumps. LoadCut fixes both:
-
-- **Fast data:** it waits `--kf-hold` (300 ms) before showing the skeleton. During the wait, the skeleton's space is reserved but invisible, so nothing jumps. If the data arrives in time, you never see the skeleton.
-- **Slow data:** once shown, the skeleton stays at least 400 ms, so it never flashes. Then it dissolves into the content over 240 ms while the height morphs from the skeleton's to the content's.
+A stock skeleton blinks on for a moment even when the data is fast, then snaps to content of a different height, and the page jumps. `LoadCut` fixes both.
 
 ## Install
 
@@ -20,7 +15,11 @@ A stock skeleton blinks on for a moment even when the data is fast, then snaps t
 npx shadcn add @keyframery/load-cut
 ```
 
-## Usage
+If your project doesn't know `@keyframery` yet, do the [Quick start](/docs/installation) first.
+
+## Use
+
+Wrap the content, and pass your loading flag and skeleton:
 
 ```tsx
 import { LoadCut } from "@/components/keyframery/load-cut"
@@ -31,7 +30,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 </LoadCut>
 ```
 
-## API
+## You should see
+
+- **Fast data:** no skeleton at all. The content just appears, and nothing on the page jumps.
+- **Slow data:** the skeleton shows, then dissolves into the content while the height eases from one to the other.
+
+## Options
 
 <TypeTable
   type={{
@@ -45,4 +49,10 @@ import { Skeleton } from "@/components/ui/skeleton"
   }}
 />
 
-LoadCut sets `aria-busy` while loading.
+## Good to know
+
+- LoadCut waits `--kf-hold` (300 ms) before it shows the skeleton. During the wait the space is reserved but empty, so nothing jumps.
+- Once shown, the skeleton stays at least 400 ms, so it never flashes, then dissolves over 240 ms.
+- LoadCut sets `aria-busy` while loading.
+
+In film, one shot fading into the next is a **dissolve**.

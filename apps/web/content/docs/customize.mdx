@@ -1,0 +1,133 @@
+---
+title: Speed, easing and cuts
+description: Tune Keyframery like you tune colours. CSS variables set speed and easing, <Cuts> props pick each component's cut, and attributes change one element.
+---
+
+There are three levels. Use the first one that does what you need.
+
+| You want to | Use |
+|---|---|
+| change speed or easing everywhere, or in one section | [CSS variables](#css-variables) |
+| pick a different cut for dialogs, sheets, tabs or toasts | [`<Cuts>` props](#cuts-props) |
+| change one element, or turn motion off in one area | [attributes](#one-element-or-one-area) |
+
+The [Theme page](/theme) builds the variables and props for you, with a live preview.
+
+## CSS variables
+
+| Variable | Default | What it does |
+|---|---|---|
+| `--kf-pace` | `1` | multiplies every duration (2 is half speed) |
+| `--kf-ease` | `cubic-bezier(0.22, 1, 0.36, 1)` | easing for entrances |
+| `--kf-ease-exit` | `cubic-bezier(0.5, 0, 0.75, 0)` | easing for exits |
+| `--kf-travel` | `0.35` | how far toward the opener a dialog starts (0 starts from the centre) |
+| `--kf-blur` | `8px` | the blur a dialog starts from |
+| `--kf-depth` | `0.94` | the scale a dialog starts from |
+| `--kf-hold` | `300ms` | how long [LoadCut](/docs/helpers/load-cut) waits before showing a skeleton |
+
+For the whole app, put them in your global stylesheet:
+
+```css title="app/globals.css"
+:root {
+  --kf-pace: 1.2;
+  --kf-blur: 4px;
+}
+```
+
+Keyframery declares its defaults with zero specificity, so your `:root` always wins, wherever it sits in the file.
+
+For one section, set them on any element. They cascade, and dialogs and menus opened from inside the section use them too:
+
+```tsx
+<section style={{ "--kf-pace": 1.5 } as React.CSSProperties}>…</section>
+```
+
+## `<Cuts>` props [#cuts-props]
+
+```tsx
+<Cuts dialog="punch-in" sheet="slide" tabs="whip" pace={1.2} />
+```
+
+<TypeTable
+  type={{
+    dialog: { description: "The cut for dialog, alert dialog and command.", type: '"rack-focus" | "punch-in" | "fade" | "none"', default: '"rack-focus"' },
+    sheet: { description: "The cut for sheet.", type: '"slide-sink" | "slide" | "fade" | "none"', default: '"slide-sink"' },
+    drawer: { description: "The cut for drawer. Its own swipe motion is always kept.", type: '"slide-sink" | "none"', default: '"slide-sink"' },
+    tabs: { description: "The cut for tabs.", type: '"j-cut" | "whip" | "fade" | "none"', default: '"j-cut"' },
+    toast: { description: "The cut for sonner and Base UI toasts.", type: '"cut-on-action" | "none"', default: '"cut-on-action"' },
+    pace: { description: "Multiplies every duration. Sets --kf-pace on <html>, so it beats your CSS.", type: "number", default: "1" },
+    enabled: { description: "false plays shadcn's own motion everywhere.", type: "boolean", default: "true" },
+  }}
+/>
+
+`none` means "leave the library's own motion alone".
+
+### What each cut does
+
+Durations are multiplied by `--kf-pace`.
+
+| Cut | Opening | Closing |
+|---|---|---|
+| `rack-focus` | starts 35% of the way toward the button that opened it, at 0.94 scale and 8px blur, then sharpens in place over 340 ms while the backdrop fades in | returns toward the button over 220 ms |
+| `punch-in` | from the centre: scale 0.85, past 1.02, to 1, over 260 ms | scales to 0.96 and fades over 160 ms |
+| `fade` | opacity only, 200 ms | 150 ms |
+| `slide-sink` | the panel travels in from its edge over 460 ms, while the page behind scales to 0.975, dims slightly and rounds its corners | 260 ms, and the page returns |
+| `slide` | like `slide-sink`, without the page stepping back | same |
+| `j-cut` | the tab pill whips to the new tab, the old panel leaves, and the new one enters 70 ms later while the frame's height morphs | |
+| `whip` | no lead, 160 ms, with a 4px motion blur on both panels | |
+| tabs `fade` | a 180 ms crossfade with the height morph | |
+| `cut-on-action` | the toast flies from the element you pressed, from 0.4 scale and a 6px blur, over 480 ms | the library's own exit |
+
+The eleven [tuned components](/docs/components/tuned) have no menu. They follow the variables.
+
+## One element or one area
+
+| Attribute | Put it on | Effect |
+|---|---|---|
+| `data-cut="<cut>"` | a shadcn part, for example `<DialogContent data-cut="fade">` | use that cut here |
+| `data-cut="none"` | a part, or any ancestor like `<section>` | stock shadcn motion inside |
+| `data-cut-pace="1.5"` | a part or any ancestor | sets `--kf-pace` there |
+| `data-cut-origin="center"` | a dialog's content | open from the centre, not from the button |
+
+```tsx
+<DialogContent data-cut="punch-in">…</DialogContent>
+
+<section data-cut="none">
+  {/* everything in here, including the dialogs it opens, uses shadcn's own motion */}
+</section>
+
+<Tabs data-cut="whip">…</Tabs>
+```
+
+For tabs, put `data-cut` on the `Tabs` root. The four components under **Animate your app** take a `cut` prop instead, for example `<ListCut cut="none">`, and they also respect `data-cut="none"` and `data-cut-pace` on their ancestors.
+
+### Which setting wins
+
+From weakest to strongest:
+
+1. Keyframery's default cut
+2. the `<Cuts>` prop for that group
+3. the element's own `data-cut`
+
+The order of your stylesheets doesn't matter. A named cut, such as `data-cut="fade"`, applies only to the element it's written on. Only `data-cut="none"` reaches the elements inside, including dialogs that render in a portal. See [Portals](/docs/how-it-works#portals).
+
+## Turn it off
+
+```tsx
+<Cuts enabled={false} />
+```
+
+Every component plays shadcn's own motion. To turn it off in one area only, put `data-cut="none"` on it.
+
+## Listen to cuts
+
+Every cut fires a `keyframery:cut` event on `document`:
+
+```ts
+document.addEventListener("keyframery:cut", (e) => {
+  const { cut, component, phase, ms } = (e as CustomEvent).detail
+  // e.g. { cut: "rack-focus", component: "dialog", phase: "enter", ms: 340 }
+})
+```
+
+It's handy for analytics and in tests. See [Turning motion off in tests](/docs/guides/testing).

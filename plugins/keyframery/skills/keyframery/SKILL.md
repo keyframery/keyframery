@@ -9,7 +9,7 @@ Keyframery gives shadcn/ui apps the transitions a film editor would make. One `<
 
 The `keyframery` MCP server (connected by this plugin) has the details:
 - `list_kinds`: the six kinds of change, with the cut, install command and snippet for each. Call it before choosing a helper.
-- `get_doc`: any docs page as Markdown, for example `installation`, `helpers/list-cut`, `theming/variables`.
+- `get_doc`: any docs page as Markdown, for example `installation`, `helpers/list-cut`, `customize`.
 - `search_docs`: find the right page when you don't know it.
 - `make_theme`: the `<Cuts />` line and CSS for a chosen speed, easing or cut.
 

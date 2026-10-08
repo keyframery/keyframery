@@ -1,15 +1,13 @@
 ---
-title: MatchCut
-description: A card grows into its detail view, on the same page or on another route, and shrinks back when you return.
+title: Cards that open into a page
+description: "MatchCut: a card grows into its detail view, on the same page or on another route, and shrinks back when you return."
 ---
 
 <Preview>
   <MatchCutDemo />
 </Preview>
 
-## What it fixes
-
-When a card opens into its detail page, a stock app replaces one screen with the other. MatchCut connects them: the detail grows from the card's box, and the card's image fades out above it. Going back shrinks the detail into the card. Film calls this a match cut, where a shape in one shot becomes the same shape in the next.
+When a card opens into its detail view, a stock app swaps one screen for the other. With `MatchCut`, the detail grows out of the card, and going back shrinks it into the card again.
 
 ## Install
 
@@ -17,9 +15,11 @@ When a card opens into its detail page, a stock app replaces one screen with the
 npx shadcn add @keyframery/match-cut
 ```
 
-## Usage
+If your project doesn't know `@keyframery` yet, do the [Quick start](/docs/installation) first.
 
-Give the small version and the big version the same `id`:
+## Use
+
+Wrap the small version and the big version in `MatchCut`, with the same `id`:
 
 ```tsx
 import { MatchCut } from "@/components/keyframery/match-cut"
@@ -35,9 +35,13 @@ import { MatchCut } from "@/components/keyframery/match-cut"
 </MatchCut>
 ```
 
-When a MatchCut mounts within a second of another one with the same `id` leaving, it grows out of it. This works for a conditional render on one page and for a client-side route change. See [Detail pages on their own route](/docs/guides/detail-routes).
+It works for a conditional render on one page and for a client-side route change. See [Detail pages on their own route](/docs/guides/detail-routes).
 
-## API
+## You should see
+
+Click a card: the detail grows out of the card's box, while a copy of the card fades out above it. Go back: the detail shrinks into the card.
+
+## Options
 
 <TypeTable
   type={{
@@ -50,6 +54,10 @@ When a MatchCut mounts within a second of another one with the same `id` leaving
   }}
 />
 
-## How it plays
+## Good to know
 
-The new element animates from the old box to its own: translate, scale and border radius over 420 ms. Meanwhile a copy of the old one scales with it and fades out by 40% of the way. If the old and new element sit at the same spot on the page, nothing plays.
+- A MatchCut that mounts within a second of another one with the same `id` leaving grows out of it.
+- The new element animates from the old box to its own over 420 ms: position, scale and corner radius. The copy of the old one fades out by 40% of the way.
+- If the old and the new element sit at the same spot on the page, nothing plays.
+
+In film, this is a **match cut**: a shape in one shot becomes the same shape in the next.

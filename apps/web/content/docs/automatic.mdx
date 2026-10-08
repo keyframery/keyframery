@@ -1,0 +1,62 @@
+---
+title: What's automatic
+description: Once <Cuts /> is in your layout, these shadcn components move without any change to your code.
+---
+
+With `<Cuts />` in your root layout, Keyframery finds shadcn's own parts on the page and animates them. You don't import anything, and nothing in `components/ui` changes.
+
+## Dialogs, alert dialogs and the command menu
+
+A dialog grows out of the button that opened it, and closes back into it. Alert dialogs and the command menu do the same.
+
+<Preview>
+  <DialogDemo />
+</Preview>
+
+Reference: [Dialog](/docs/components/dialog), [Alert dialog](/docs/components/alert-dialog), [Command](/docs/components/command).
+
+## Sheets and drawers
+
+A sheet slides in from its edge while the page steps back behind it. A drawer keeps its own swipe, and the page steps back the same way.
+
+<Preview>
+  <SheetDemo />
+</Preview>
+
+Reference: [Sheet](/docs/components/sheet), [Drawer](/docs/components/drawer).
+
+## Tabs
+
+The tab indicator moves first and the new panel follows a beat later, while the height eases to fit.
+
+<Preview>
+  <TabsDemo />
+</Preview>
+
+Reference: [Tabs](/docs/components/tabs).
+
+## Toasts
+
+A toast flies out of the button you pressed, so you can see which action it's about. It works with Sonner and Base UI toasts, and you call `toast()` as usual.
+
+<Preview>
+  <ToastDemo />
+</Preview>
+
+Reference: [Toast and Sonner](/docs/components/toast).
+
+## Menus, popovers and the rest
+
+Popover, dropdown menu, context menu, menubar, select, combobox, hover card, tooltip, navigation menu, accordion and collapsible already open from their trigger. Keyframery gives them the same speed and easing as everything else.
+
+<Preview>
+  <TunedDemo />
+</Preview>
+
+Reference: [Tuned components](/docs/components/tuned).
+
+## What stays still
+
+Buttons, inputs, checkboxes and other controls that don't change the picture stay as they are. Motion there would only be noise.
+
+To animate lists, numbers, loading states or a card that opens into a page, use the four small components under **Animate your app** in the sidebar.

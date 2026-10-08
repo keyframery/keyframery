@@ -1,0 +1,54 @@
+---
+title: How it works
+description: The six kinds of change Keyframery covers, what <Cuts /> does in your page, and how closing animations and portals are handled.
+---
+
+## The six kinds of change
+
+Every change on a screen is one of six kinds, and Keyframery has one cut for each. See them playing on [the Cuts page](/cuts).
+
+| Kind of change | Example | Cut | Where it comes from |
+|---|---|---|---|
+| Something opens on top | a dialog, a sheet, a menu, a toast | rack focus, slide-sink, cut on action | `<Cuts />`, automatic |
+| You switch to a neighbour | a tab | J-cut, whip | `<Cuts />`, automatic |
+| A thing opens into its bigger self | a card becomes its detail page | match cut | [MatchCut](/docs/helpers/match-cut) |
+| A list changes | a message is sent, a row is archived | cut on action, L-cut, glide | [ListCut](/docs/helpers/list-cut) |
+| A value changes in place | a price, a count, a status | punch-in | [ValueCut](/docs/helpers/value-cut) |
+| A placeholder becomes real | a skeleton turns into a chart | dissolve | [LoadCut](/docs/helpers/load-cut) |
+
+The first two need no code, because shadcn already has the parts and Keyframery finds them. The other four are changes shadcn has no component for, so each one is a small component you wrap around your own markup.
+
+## What the layer does
+
+`<Cuts />` renders nothing and never changes your components' props. When it mounts:
+
+1. It sets `data-kf` on `<html>`, which switches on the cut stylesheet.
+2. **It remembers presses.** A listener in the capture phase records the element you last pressed with a pointer or key, with its box and the time. That's where the next cut starts: a dialog grows from it, and a toast flies from it.
+3. **It watches for parts.** One `MutationObserver` notices when a shadcn part appears or changes state, by its `data-slot` name and its open state (`data-open` on Base UI, `data-state` on Radix).
+4. **It plays the cut.**
+   - *CSS cuts*, for dialogs, sheets and the eleven tuned components: a stylesheet, active only under `html[data-kf]`, replaces the library's keyframes. For a rack focus, Keyframery measures the opener and the dialog and writes the distance as `--kf-dx` and `--kf-dy`, so the dialog starts out toward the button.
+   - *JS cuts*, for tabs, toasts and the page sinking behind a sheet: these use the Web Animations API, because they animate things the library doesn't, like the tab pill, the old panel leaving and the toast's flight path.
+5. **It reads your settings at play time.** Every cut reads the `--kf-*` variables from the element it animates, so a variable set on a section applies to everything in it. Then it fires a `keyframery:cut` event.
+
+It's safe with server rendering: on the server it renders nothing, and the page looks exactly like stock shadcn until it mounts.
+
+### When something goes wrong
+
+Each part catches its own errors and falls back to doing nothing, so the library's stock motion plays and nothing else breaks. When `<Cuts />` unmounts, the page is stock shadcn again.
+
+## Exits
+
+Base UI and Radix both keep a closing part mounted until its exit animation ends. Keyframery's exit keyframes replace the stock ones and hold the last frame, so the part stays invisible until the library removes it. Nothing is removed early, and nothing flashes back.
+
+A rack focus closes back into the element that opened it, even if that element has scrolled since.
+
+## Portals
+
+Dialogs, sheets, menus and toasts render in a portal at the end of `<body>`, outside the section they were opened from. So when you open one, Keyframery copies the opener's settings onto it:
+
+1. If the opener is inside `data-cut="none"`, the portaled part gets `data-cut="none"` too, unless it has its own `data-cut`.
+2. The opener's `data-cut-pace` and its `--kf-*` values are copied over.
+
+So `<section data-cut-pace="1.5">` slows down the dialogs opened from inside it, even though they render somewhere else. Named cuts are never copied, because a tabs cut means nothing to a dialog.
+
+If code opens a dialog without a press, from a timer for example, the page's own settings apply and a rack focus starts from the centre.

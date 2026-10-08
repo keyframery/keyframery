@@ -1,0 +1,90 @@
+import { expect, test } from "./kit"
+
+// Fumadocs puts a "Copy Anchor Link" button inside every heading.
+const headingText = (t: string) => t.replace(/Copy Anchor Link$/, "").trim()
+
+// The docs sidebar, in plain words: what people want to do, not how the library is built.
+const SIDEBAR: [group: string, items: string[]][] = [
+  ["Get started", ["Introduction", "Quick start", "Use with AI tools"]],
+  ["Animate your app", ["What's automatic", "Cards that open into a page", "Lists", "Numbers and statuses", "Loading states"]],
+  ["Customize", ["Speed, easing and cuts"]],
+  ["Guides", ["Detail pages on their own route", "Loading data after a click", "Live data", "Turning motion off in tests", "Performance"]],
+  ["Reference", ["How it works", "Reduced motion and accessibility", "Base UI vs Radix", "Compatibility", "Changelog"]],
+]
+
+test.beforeEach(({}, info) => test.skip(info.project.name === "phone", "the sidebar is a drawer on phones"))
+
+test("the sidebar is grouped by what you want to do, in plain words", async ({ page }) => {
+  await page.goto("/docs")
+  const sidebar = page.locator("#nd-sidebar")
+  const groups = await sidebar.locator("p").allTextContents()
+  expect(groups.map((g) => g.trim()).filter((g) => SIDEBAR.some(([name]) => name === g))).toEqual(SIDEBAR.map(([name]) => name))
+  for (const [, items] of SIDEBAR) for (const item of items) await expect(sidebar.getByRole("link", { name: item, exact: true }), item).toHaveCount(1)
+  // Component pages stay, as reference, in one folder.
+  await expect(sidebar.getByText("Components", { exact: true })).toBeVisible()
+})
+
+test("Quick start is three steps, each ending in what you should see", async ({ page }) => {
+  await page.goto("/docs/installation")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Quick start")
+  const steps = page.locator("article h3")
+  await expect(steps).toHaveText([/Register Keyframery and install it/, /Render <Cuts \/> once/, /Open a dialog/])
+  expect(await page.getByText("You should see", { exact: false }).count()).toBeGreaterThanOrEqual(3)
+})
+
+test("every Animate page follows one template: Install, Use, You should see, Options", async ({ page }) => {
+  for (const slug of ["helpers/match-cut", "helpers/list-cut", "helpers/value-cut", "helpers/load-cut"]) {
+    await page.goto(`/docs/${slug}`)
+    await expect(page.locator("[data-preview]").first(), slug).toBeVisible()
+    const h2 = (await page.locator("article h2").allTextContents()).map(headingText)
+    expect(h2.slice(0, 4), slug).toEqual(["Install", "Use", "You should see", "Options"])
+  }
+})
+
+test("What's automatic shows each automatic component with a demo and a link to its reference", async ({ page }) => {
+  await page.goto("/docs/automatic")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("What's automatic")
+  expect(await page.locator("[data-preview]").count()).toBeGreaterThanOrEqual(5)
+  for (const ref of ["dialog", "sheet", "drawer", "tabs", "toast", "command", "tuned"]) await expect(page.locator(`article a[href="/docs/components/${ref}"]`).first(), ref).toBeVisible()
+})
+
+test("Customize puts the variables, the <Cuts> props and per-element control on one page", async ({ page }) => {
+  await page.goto("/docs/customize")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Speed, easing and cuts")
+  for (const text of ["--kf-pace", '<Cuts dialog="punch-in"', 'data-cut="none"', "keyframery:cut"]) await expect(page.getByText(text).first(), text).toBeVisible()
+})
+
+test("How it works holds the six kinds, the layer, exits and portals", async ({ page }) => {
+  await page.goto("/docs/how-it-works")
+  const h2 = (await page.locator("article h2").allTextContents()).map(headingText)
+  expect(h2).toEqual(expect.arrayContaining(["The six kinds of change", "What the layer does", "Exits", "Portals"]))
+})
+
+test("the old page addresses redirect to where their content went", async ({ request }) => {
+  for (const [from, to] of [
+    ["/docs/add-cuts", "/docs/customize"],
+    ["/docs/theming/variables", "/docs/customize"],
+    ["/docs/theming/cuts-props", "/docs/customize"],
+    ["/docs/theming/per-element", "/docs/customize"],
+    ["/docs/concepts/six-kinds", "/docs/how-it-works"],
+    ["/docs/concepts/how-it-works", "/docs/how-it-works"],
+    ["/docs/concepts/exits-and-portals", "/docs/how-it-works"],
+  ]) {
+    const res = await request.get(from, { maxRedirects: 0 })
+    expect(res.status(), from).toBe(308)
+    expect(res.headers()["location"], from).toBe(to)
+  }
+})
+
+test("no docs page links to a docs page that doesn't exist", async ({ page, request }) => {
+  const sitemap = await (await request.get("/sitemap.xml")).text()
+  const pages = [...sitemap.matchAll(/<loc>https:\/\/keyframery\.com(\/docs[^<]*)<\/loc>/g)].map((m) => m[1])
+  expect(pages.length).toBeGreaterThan(15)
+  const links = new Set<string>()
+  for (const path of pages) {
+    await page.goto(path)
+    for (const href of await page.locator('article a[href^="/docs"]').evaluateAll((as) => as.map((a) => a.getAttribute("href")!)))
+      links.add(href.split("#")[0])
+  }
+  for (const href of links) expect((await request.get(href)).status(), href).toBe(200)
+})

@@ -1,20 +1,13 @@
 ---
-title: ListCut
-description: Items that are added fly in from the button that added them, removed ones fold away, and moved ones glide.
+title: Lists
+description: "ListCut: new items fly in from the button that added them, removed ones fold away, and moved ones glide."
 ---
 
 <Preview>
   <ListCutDemo />
 </Preview>
 
-## What it fixes
-
-In a stock list, an added item appears from nowhere, a deleted one vanishes and everything below jumps up, and a reorder teleports every row. ListCut compares each item's position by `id` between renders:
-
-- **Added**, right after a press outside the list: the item flies from what you pressed. That's a cut on action, so the Send button becomes the message.
-- **Added**, with no recent press: it rises 8px and fades in.
-- **Removed**: a copy folds away at its old place, and the items below slide up 60 ms later. That's an L-cut.
-- **Moved**: it glides to its new place over 320 ms.
+In a stock list, a new item appears from nowhere, a deleted one vanishes and everything below jumps up, and a reorder teleports every row. `ListCut` gives each of those changes a motion you can follow.
 
 ## Install
 
@@ -22,7 +15,11 @@ In a stock list, an added item appears from nowhere, a deleted one vanishes and 
 npx shadcn add @keyframery/list-cut
 ```
 
-## Usage
+If your project doesn't know `@keyframery` yet, do the [Quick start](/docs/installation) first.
+
+## Use
+
+Replace your list and its items with `ListCut` and `ListCut.Item`, and give each item the same `id` you use as its `key`:
 
 ```tsx
 import { ListCut } from "@/components/keyframery/list-cut"
@@ -36,11 +33,16 @@ import { ListCut } from "@/components/keyframery/list-cut"
 </ListCut>
 ```
 
-Use a stable `id` for each item, the same one you use as `key`. ListCut works with any data source, because it only compares ids between renders.
+It works with any data source, because it only compares ids between renders. For a table, use `ListCut as="tbody"` with `ListCut.Item as="tr"`.
 
-For a table, render `ListCut as="tbody"` with `ListCut.Item as="tr"`. A removed row folds inside a one-row table that keeps your column widths.
+## You should see
 
-## API
+- **Add an item** with a button: it flies out of that button into its place.
+- **Add an item** with no button involved, for example from the server: it rises in.
+- **Remove an item:** it folds away, and the items below slide up a moment later.
+- **Reorder:** every item glides to its new place.
+
+## Options
 
 <TypeTable
   type={{
@@ -65,3 +67,7 @@ Both pass any other props, such as `className` or `aria-label`, to their element
 
 - The first render never animates.
 - Only items in or near the viewport animate, so long lists stay fast.
+- Timing: an added item flies in over 480 ms; a removed one folds away and the items below follow 60 ms later; a moved one glides over 320 ms.
+- A removed table row folds inside a one-row table that keeps your column widths.
+
+In film, a new item flying from the button is a **cut on action**, and a removed item leaving before the rest move up is an **L-cut**.
