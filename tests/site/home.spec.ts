@@ -21,7 +21,8 @@ test("the FAQ answers open and close", async ({ page }) => {
   await q.click()
   await expect(page.getByText("Nothing in components/ui is edited.")).toBeVisible()
   await q.click()
-  await expect(page.getByText("Nothing in components/ui is edited.")).toBeHidden()
+  // The closed panel collapses to 0 px. Its text stays in the HTML for crawlers (and WebKit still gives it a box), so check the panel.
+  await expect(page.locator('[data-slot="accordion-content"]').filter({ hasText: "Nothing in components/ui is edited." })).toBeHidden()
 })
 
 test("Settings: the dialog grows from its button; the sheet steps the page back; saving toasts", async ({ page }) => {

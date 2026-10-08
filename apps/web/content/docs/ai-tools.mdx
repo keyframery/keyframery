@@ -1,6 +1,14 @@
 ---
 title: Use with AI tools
-description: Use Keyframery from Claude Code, Codex, Cursor, VS Code, Gemini CLI or any MCP client, or give your assistant the docs as plain text.
+seoTitle: "Animations with Claude Code, Codex and Cursor"
+description: "Add shadcn/ui animations from your coding agent: a Claude Code plugin, and an MCP server for Codex, Cursor, VS Code, Gemini CLI and any MCP client."
+faq:
+  - q: "Can Claude Code add animations to my app?"
+    a: "Yes. Install the plugin with `/plugin marketplace add keyframery/keyframery` and `/plugin install keyframery@keyframery`, then ask Claude to animate your app. It knows which cut fits each change and reads the docs through the MCP server."
+  - q: "Does the MCP server see my code?"
+    a: "No. It is read-only and needs no account. It receives only what your tool sends it, such as a search query or a docs path, and never reads your code."
+  - q: "Which coding agents does it work with?"
+    a: "Any MCP client. This page has the setup for Claude Code, Claude, Codex, Cursor, VS Code (GitHub Copilot) and Gemini CLI, and the docs are also plain text at keyframery.com/llms-full.txt."
 ---
 
 Keyframery works with any coding agent. Claude Code gets the most: a plugin. Every other agent connects to the same MCP server, and any assistant can read the docs as plain text.

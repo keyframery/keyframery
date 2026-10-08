@@ -1,6 +1,7 @@
 ---
 title: Base UI vs Radix
-description: Keyframery works the same on both shadcn bases. Here is what differs underneath.
+seoTitle: "shadcn/ui animations on Base UI vs Radix"
+description: "Keyframery animates shadcn/ui the same way on Base UI and Radix. What differs underneath: open-state attributes, exit handling, drawers and toasts."
 ---
 
 shadcn/ui ships each component on two bases: Base UI and Radix. Both name their parts with the same `data-slot` attributes, such as `dialog-content` and `tabs-trigger`. Keyframery finds parts by those names, so the same `<Cuts />` works on either base. Every cut is tested on both, in Chromium, WebKit and Firefox.

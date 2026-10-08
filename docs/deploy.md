@@ -17,6 +17,7 @@ There is no CI and no deploy on push: the repo is deliberately not connected to 
    vercel deploy --prod --yes --cwd ../kf-deploy
    ```
 4. Check the live site: key pages, `/r/cuts.json`, `/mcp`, and a screenshot.
+5. Run `pnpm indexnow`, which tells Bing (and other IndexNow engines) about every page in the live sitemap. It should print `200` or `202`.
 
 ## 1. Vercel project
 

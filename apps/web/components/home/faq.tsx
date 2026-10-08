@@ -2,10 +2,12 @@ import Link from "next/link"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { PRO_ENABLED } from "@/lib/pro"
+import { faqData, JsonLd } from "@/lib/seo"
 
 const code = "font-mono text-[13px] text-foreground"
 
-const QUESTIONS: { q: string; a: React.ReactNode }[] = [
+/** `text` is the plain answer for the FAQ structured data; a string answer is its own text. */
+const QUESTIONS: ({ q: string; a: string } | { q: string; a: React.ReactNode; text: string })[] = [
   {
     q: "Does it change my components?",
     a: (
@@ -14,6 +16,11 @@ const QUESTIONS: { q: string; a: React.ReactNode }[] = [
         with CSS. Nothing in components/ui is edited. Remove the line and you have stock shadcn again.
       </>
     ),
+    text: "No. <Cuts /> finds shadcn's own parts by their data-slot names and adds the motion with CSS. Nothing in components/ui is edited. Remove the line and you have stock shadcn again.",
+  },
+  {
+    q: "Does shadcn/ui use Framer Motion?",
+    a: "No. shadcn/ui animates with CSS classes from tw-animate-css (tailwindcss-animate in older projects) on its Radix or Base UI parts. Keyframery keeps that approach: it adds its motion with CSS and the Web Animations API, so it doesn't need Motion (formerly Framer Motion) or any other dependency.",
   },
   {
     q: "Does it work with Base UI and Radix?",
@@ -25,7 +32,7 @@ const QUESTIONS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "What about people who turn animations off?",
-    a: "When the system asks for reduced motion, every cut becomes a short fade of 120 ms or less.",
+    a: "When the system asks for reduced motion, every cut becomes a short fade of about 120 to 160 ms: nothing moves, scales or blurs.",
   },
   {
     q: "How big is it?",
@@ -35,6 +42,7 @@ const QUESTIONS: { q: string; a: React.ReactNode }[] = [
         2.6 KB.
       </>
     ),
+    text: "About 7 KB gzipped for <Cuts /> and its stylesheet, with no extra dependencies. Each of the four helpers adds 1.5 to 2.6 KB.",
   },
   {
     q: "Does it work with my own components?",
@@ -60,6 +68,7 @@ const QUESTIONS: { q: string; a: React.ReactNode }[] = [
         .
       </>
     ),
+    text: "Anything that uses shadcn's data-slot names gets its cuts automatically. For changes shadcn has no component for, wrap your markup in one of the four helpers: MatchCut, ListCut, ValueCut or LoadCut.",
   },
   {
     q: "Does it work with AI coding agents?",
@@ -74,6 +83,7 @@ const QUESTIONS: { q: string; a: React.ReactNode }[] = [
         .
       </>
     ),
+    text: "Yes. Claude Code gets a plugin: it teaches Claude which cut fits each change. Run /plugin marketplace add keyframery/keyframery, then /plugin install keyframery@keyframery. Codex, Cursor, VS Code, Gemini CLI and any other MCP client can use the MCP server at keyframery.com/mcp.",
   },
   {
     q: "Is it free?",
@@ -91,6 +101,7 @@ const QUESTIONS: { q: string; a: React.ReactNode }[] = [
         .
       </>
     ),
+    text: "In film, a cut is how one shot becomes the next. A jump cut, where the subject suddenly jumps to a new place, is jarring, and most interface changes are jump cuts. Keyframery uses the cuts an editor would choose instead: match cuts, J-cuts, rack focus.",
   },
 ]
 
@@ -100,7 +111,9 @@ export function Faq() {
       <h2 id="faq-title" className="text-[30px] leading-[1.1] font-semibold tracking-[-0.025em] md:text-[38px]">
         Questions
       </h2>
-      <Accordion className="border-t">
+      <JsonLd data={faqData(QUESTIONS.map((item) => ({ q: item.q, text: "text" in item ? item.text : item.a })))} />
+      {/* hiddenUntilFound keeps closed answers in the HTML, so crawlers and find-in-page can read them. */}
+      <Accordion className="border-t" hiddenUntilFound>
         {QUESTIONS.map(({ q, a }) => (
           <AccordionItem key={q} value={q}>
             <AccordionTrigger className="py-4 text-[16px]">{q}</AccordionTrigger>

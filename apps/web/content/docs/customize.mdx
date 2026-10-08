@@ -1,6 +1,14 @@
 ---
 title: Speed, easing and cuts
-description: Tune Keyframery like you tune colours. CSS variables set speed and easing, <Cuts> props pick each component's cut, and attributes change one element.
+seoTitle: "Customize shadcn/ui animation speed and easing"
+description: "Tune shadcn/ui animations like colours: CSS variables set speed and easing, <Cuts> props pick each component's cut, and attributes change one element."
+faq:
+  - q: "How do I slow down or speed up every animation?"
+    a: "Set `--kf-pace` in your global CSS, for example `:root { --kf-pace: 1.2; }`. It multiplies every duration, so 2 is half speed. `<Cuts pace={1.2} />` does the same."
+  - q: "How do I turn the animation off for one dialog?"
+    a: "Add `data-cut=\"none\"` to its `DialogContent`, and that dialog keeps shadcn's own motion. On a section, `data-cut=\"none\"` covers everything inside it, including the dialogs it opens."
+  - q: "Can a dialog open from the centre instead of the button?"
+    a: "Yes. Add `data-cut-origin=\"center\"` to one dialog's content, or use `<Cuts dialog=\"punch-in\" />` for every dialog."
 ---
 
 There are three levels. Use the first one that does what you need.

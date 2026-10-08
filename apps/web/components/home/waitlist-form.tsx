@@ -1,6 +1,5 @@
 "use client"
 
-import { track } from "@vercel/analytics"
 import * as React from "react"
 
 import { joinWaitlist, type WaitlistState } from "@/app/(home)/actions"
@@ -10,9 +9,6 @@ import { Label } from "@/components/ui/label"
 
 export function WaitlistForm({ source }: { source: string }) {
   const [state, action, pending] = React.useActionState<WaitlistState, FormData>(joinWaitlist, { status: "idle", message: "" })
-  React.useEffect(() => {
-    if (state.status === "ok") track("waitlist", { source })
-  }, [state, source])
   return (
     <form action={action} className="grid max-w-md gap-2">
       <Label htmlFor={`email-${source}`}>Email</Label>

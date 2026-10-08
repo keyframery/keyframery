@@ -2,8 +2,13 @@ import type { Metadata } from "next"
 
 import { Policy, PolicySection } from "@/components/site/policy"
 import { PRO_ENABLED } from "@/lib/pro"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = { title: "Privacy", description: "What keyframery.com collects, and what it doesn't." }
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy",
+  description: "What keyframery.com and its MCP server collect, and what they don't: no cookies, no tracking across sites, and no selling of data.",
+  path: "/privacy",
+})
 
 export default function Page() {
   return (
@@ -17,8 +22,8 @@ export default function Page() {
             </li>
           )}
           <li>
-            <b>Anonymous usage.</b> Vercel Web Analytics counts page views and a few button presses, such as the Keyframery switch. It uses no cookies and
-            doesn&apos;t identify you.
+            <b>Anonymous usage.</b> Cloudflare Web Analytics counts page views and visits, and how fast pages load. It uses no cookies and doesn&apos;t
+            identify you.
           </li>
           <li>
             <b>Request logs.</b> Vercel, which hosts the site, keeps standard request logs, such as IP address and browser, for a short time to run and

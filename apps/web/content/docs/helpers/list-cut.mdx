@@ -1,6 +1,15 @@
 ---
 title: Lists
-description: "ListCut: new items fly in from the button that added them, removed ones fold away, and moved ones glide."
+seoTitle: "React list animations for shadcn/ui"
+heading: "List animations"
+description: "Animate React lists with ListCut: new items fly in from the button that added them, removed ones fold away, and reordered ones glide. Built for shadcn/ui."
+faq:
+  - q: "How do I animate adding and removing items in a React list?"
+    a: "Wrap the list in `ListCut` and each item in `ListCut.Item` with the same `id` you use as its `key`. Added items fly in from the button that added them, removed ones fold away, and moved ones glide."
+  - q: "Does ListCut work with tables?"
+    a: "Yes. Use `ListCut as=\"tbody\"` with `ListCut.Item as=\"tr\"`. A removed row folds inside a one-row table that keeps your column widths."
+  - q: "Does it work with data from the server?"
+    a: "Yes. ListCut only compares ids between renders, so any data source works. Items that arrive while nothing was pressed rise in."
 ---
 
 <Preview>

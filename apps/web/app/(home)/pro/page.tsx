@@ -3,8 +3,13 @@ import { notFound } from "next/navigation"
 
 import { WaitlistForm } from "@/components/home/waitlist-form"
 import { PRO_ENABLED } from "@/lib/pro"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = { title: "Pro", description: "Keyframery Pro: ready-made screens and templates built on the cuts. Join the waitlist." }
+export const metadata: Metadata = pageMetadata({
+  title: "Pro",
+  description: "Keyframery Pro: ready-made app screens and page templates built on every cut. Join the waitlist and get one email when it opens.",
+  path: "/pro",
+})
 
 const SCREENS = [
   { name: "Dashboard", what: "Tabs, live stats and a date range that loads without a jump" },

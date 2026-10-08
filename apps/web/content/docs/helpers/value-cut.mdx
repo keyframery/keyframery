@@ -1,6 +1,15 @@
 ---
 title: Numbers and statuses
-description: "ValueCut: only the digits that changed roll, and the value gives a small punch so the eye catches it."
+seoTitle: "Animated numbers in React: rolling digits"
+heading: "Animated numbers and statuses"
+description: "Animate numbers in React with ValueCut: only the digits that changed roll, in the direction of the change, and statuses crossfade. Built for shadcn/ui."
+faq:
+  - q: "How do I animate a number counter in React?"
+    a: "Render the number with `<ValueCut value={count} />`. When it changes, only the digits that changed roll, in the direction of the change."
+  - q: "Can it format currency and compact numbers?"
+    a: "Yes. Pass `Intl.NumberFormat` options, for example `format={{ style: \"currency\", currency: \"USD\" }}` with `locale=\"en-US\"`, or `format={{ notation: \"compact\" }}`."
+  - q: "Do screen readers hear the change?"
+    a: "With `announce`, yes: ValueCut reads changes out politely through `aria-live`."
 ---
 
 <Preview>

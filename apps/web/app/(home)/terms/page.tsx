@@ -2,8 +2,13 @@ import type { Metadata } from "next"
 
 import { Policy, PolicySection } from "@/components/site/policy"
 import { PRO_ENABLED } from "@/lib/pro"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = { title: "Terms", description: "The terms for keyframery.com, the MCP server and the code." }
+export const metadata: Metadata = pageMetadata({
+  title: "Terms",
+  description: "The terms for keyframery.com, the Keyframery MCP server and the MIT-licensed code: what is provided as is, fair use, and how changes are announced.",
+  path: "/terms",
+})
 
 export default function Page() {
   return (

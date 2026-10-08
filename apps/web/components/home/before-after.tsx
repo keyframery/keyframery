@@ -8,7 +8,6 @@
  * ?demo=off keeps the cursor from starting by itself (the tests use it).
  */
 
-import { track } from "@vercel/analytics"
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
@@ -114,7 +113,6 @@ export function BeforeAfter() {
     }
     const takeOver = () => {
       if (own.current) return
-      if (!tookOver.current) track("hero_take_over")
       tookOver.current = true
       setChoice(false)
     }

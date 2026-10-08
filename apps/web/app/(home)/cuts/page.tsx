@@ -2,8 +2,13 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import { CutOnActionLoop, DissolveLoop, JCutLoop, MatchCutLoop, PunchInLoop, RackFocusLoop } from "@/components/cuts/loops"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = { title: "Cuts", description: "The six ways a screen changes, and the film cut Keyframery uses for each." }
+export const metadata: Metadata = pageMetadata({
+  title: "UI transition patterns: the six cuts",
+  description: "The six ways a screen can change, and the film cut Keyframery uses for each: rack focus, J-cut, match cut, cut on action, punch-in and dissolve.",
+  path: "/cuts",
+})
 
 const ROWS = [
   { id: "rack-focus", cut: "Rack focus", kind: "Something opens on top", film: "The camera pulls focus from the background to the subject.", ui: "A dialog grows out of the button that opened it while the page behind softens. Closing reverses it back into the button. Sheets slide in from their edge and the page steps back.", docs: "/docs/components/dialog", Loop: RackFocusLoop },
@@ -17,7 +22,7 @@ const ROWS = [
 export default function Page() {
   return (
     <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-16">
-      <h1 className="text-[44px] leading-[1.05] font-semibold tracking-[-0.03em]">The cuts</h1>
+      <h1 className="text-[44px] leading-[1.05] font-semibold tracking-[-0.03em]">Six cuts for every screen change</h1>
       <p className="mt-4 max-w-[60ch] text-lg text-muted-foreground">A screen can only change in six ways. Each one has a cut from film editing that makes the change easy to follow.</p>
       <div className="mt-12 grid gap-16">
         {ROWS.map(({ id, cut, kind, film, ui, docs, Loop }) => (

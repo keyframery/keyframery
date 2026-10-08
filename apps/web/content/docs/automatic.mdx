@@ -1,6 +1,12 @@
 ---
 title: What's automatic
-description: Once <Cuts /> is in your layout, these shadcn components move without any change to your code.
+seoTitle: "Animate shadcn/ui dialogs, sheets and tabs"
+description: "With <Cuts /> in your layout, shadcn/ui dialogs, sheets, drawers, tabs, toasts and menus animate on their own, with no changes to components/ui."
+faq:
+  - q: "Do I need to change my shadcn components?"
+    a: "No. `<Cuts />` finds shadcn's own parts by their `data-slot` names and animates them. Nothing in `components/ui` changes."
+  - q: "Which shadcn/ui components animate automatically?"
+    a: "Dialog, alert dialog, command, sheet, drawer, tabs and toasts get their own cuts. Popover, dropdown menu, context menu, menubar, select, combobox, hover card, tooltip, navigation menu, accordion and collapsible keep their motion and get Keyframery's speed and easing."
 ---
 
 With `<Cuts />` in your root layout, Keyframery finds shadcn's own parts on the page and animates them. You don't import anything, and nothing in `components/ui` changes.

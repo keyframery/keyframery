@@ -14,7 +14,10 @@ test("llms.txt points AI tools at the MCP server", async ({ request }) => {
 
 test("the AI tools page sets up the MCP server in each major coding agent, Claude Code first", async ({ page }) => {
   await page.goto("/docs/ai-tools")
-  const tools = (await page.locator("article h3").allTextContents()).map((t) => t.replace(/Copy Anchor Link$/, "").trim())
+  // The page's own questions, at the end, are h3s too; the tool sections are the ones before them.
+  const tools = (await page.locator("article h3").evaluateAll((hs) => hs.filter((h) => !h.closest('section[aria-labelledby="questions"]')).map((h) => h.textContent ?? ""))).map((t) =>
+    t.replace(/Copy Anchor Link$/, "").trim(),
+  )
   expect(tools).toEqual(["Claude Code", "Claude", "Codex", "Cursor", "VS Code (GitHub Copilot)", "Gemini CLI", "Any other MCP client"])
   for (const text of [
     "codex mcp add keyframery --url https://keyframery.com/mcp",

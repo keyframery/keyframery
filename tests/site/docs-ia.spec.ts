@@ -27,7 +27,7 @@ test("the sidebar is grouped by what you want to do, in plain words", async ({ p
 test("Quick start is three steps, each ending in what you should see", async ({ page }) => {
   await page.goto("/docs/installation")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Quick start")
-  const steps = page.locator("article h3")
+  const steps = page.locator("article .fd-steps h3")
   await expect(steps).toHaveText([/Register Keyframery and install it/, /Render <Cuts \/> once/, /Open a dialog/])
   expect(await page.getByText("You should see", { exact: false }).count()).toBeGreaterThanOrEqual(3)
 })

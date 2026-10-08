@@ -1,6 +1,12 @@
 ---
 title: Cards that open into a page
-description: "MatchCut: a card grows into its detail view, on the same page or on another route, and shrinks back when you return."
+seoTitle: "Shared element transitions in React"
+description: "Shared element transitions in React with MatchCut: a card grows into its detail view, on the same page or a new route, and shrinks back when you return."
+faq:
+  - q: "What is a shared element transition?"
+    a: "It's when one element on screen becomes another, such as a card growing into its detail view. MatchCut does it in React: give the small and the big version the same `id`."
+  - q: "Does it work across Next.js routes?"
+    a: "Yes. It works for a conditional render on one page and for a client-side route change in the Next.js App Router. Going back shrinks the detail into the card again."
 ---
 
 <Preview>

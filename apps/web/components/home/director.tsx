@@ -5,7 +5,6 @@
  * plays the screens, clicking real buttons so real cuts play. Any real input stops it. Off under reduced motion.
  */
 
-import { track } from "@vercel/analytics"
 import * as React from "react"
 
 type Step = { target?: string; type?: string; key?: string; wait: number }
@@ -64,7 +63,6 @@ export function Director({ active, onActiveChange, idleMs = 4000 }: { active: bo
     if (wall && io) io.observe(wall)
     const stop = (e: Event) => {
       if (!e.isTrusted) return // our own synthetic clicks don't count
-      if (running.current) track("director_stop")
       onActiveChange(false)
       arm()
     }

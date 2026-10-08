@@ -1,6 +1,14 @@
 ---
 title: Quick start
-description: Add Keyframery to a shadcn/ui app in three steps. Next.js, Vite and React Router all work.
+seoTitle: "Install shadcn/ui animations in three steps"
+description: "Add animations to a shadcn/ui app in three steps: register Keyframery, install <Cuts />, render it once. Works with Next.js, Vite and React Router."
+faq:
+  - q: "Do I need Framer Motion or another animation library?"
+    a: "No. Keyframery adds motion with CSS and the Web Animations API. The CLI copies `<Cuts />`, its stylesheet and a small engine into your project, and adds no npm packages."
+  - q: "Why does the CLI say Unknown registry \"@keyframery\"?"
+    a: "Your project hasn't registered Keyframery yet. Run `npx shadcn registry add \"@keyframery=https://keyframery.com/r/{name}.json\"` once, then install again."
+  - q: "Does it work with Vite and React Router?"
+    a: "Yes. Render `<Cuts />` once in `src/main.tsx` for Vite or `app/root.tsx` for React Router, the same way as in a Next.js root layout."
 ---
 
 You need a project with shadcn/ui set up, so `components.json` exists. Base UI and Radix both work.

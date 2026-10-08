@@ -1,6 +1,12 @@
 ---
 title: How it works
-description: The six kinds of change Keyframery covers, what <Cuts /> does in your page, and how closing animations and portals are handled.
+seoTitle: "How Keyframery animates shadcn/ui"
+description: "How one <Cuts /> line animates shadcn/ui: the six kinds of interface change, how enter and exit animations play, and how portaled dialogs keep settings."
+faq:
+  - q: "Does Keyframery work with server rendering?"
+    a: "Yes. On the server `<Cuts />` renders nothing, so the page looks exactly like stock shadcn until it mounts."
+  - q: "What happens if something goes wrong?"
+    a: "Each part catches its own errors and falls back to doing nothing, so the library's stock motion plays and nothing else breaks."
 ---
 
 ## The six kinds of change

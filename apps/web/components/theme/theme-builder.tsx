@@ -1,6 +1,5 @@
 "use client"
 
-import { track } from "@vercel/analytics"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import * as React from "react"
 
@@ -47,7 +46,6 @@ export function ThemeBuilder() {
   const copy = async (what: "code" | "link") => {
     const text = what === "code" ? [code.jsx, code.css].filter(Boolean).join("\n\n") : `${location.origin}${pathname}${encode(s) ? `?${encode(s)}` : ""}`
     await navigator.clipboard?.writeText(text).catch(() => {})
-    track(what === "code" ? "theme_copy" : "theme_share")
     setCopied(what)
     setTimeout(() => setCopied(""), 1600)
   }

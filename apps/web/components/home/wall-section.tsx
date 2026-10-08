@@ -2,7 +2,6 @@
 
 /* "Try it on real screens": the wall, with its own switch, slow-mo and Director. None of them reach past the wall. */
 
-import { track } from "@vercel/analytics"
 import { useSearchParams } from "next/navigation"
 import * as React from "react"
 
@@ -26,7 +25,6 @@ export function WallSection() {
   const [director, setDirector] = React.useState(false)
   const pick = (next: boolean) => {
     if (next === stock) return
-    track("cuts_switch", { on: !next })
     setStock(next)
   }
   return (
@@ -54,7 +52,6 @@ export function WallSection() {
             data-testid="slowmo"
             aria-pressed={slow}
             onClick={() => {
-              track("slowmo", { on: !slow })
               setSlow(!slow)
             }}
             className={cn(control, "border border-transparent aria-pressed:border-border aria-pressed:bg-card aria-pressed:text-foreground")}

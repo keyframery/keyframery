@@ -21,7 +21,8 @@ export function Tabs({ items, children }: { items: string[]; children: React.Rea
 
 export function Tab({ value, children }: { value: string; children: React.ReactNode }) {
   return (
-    <TabsContent value={value} className="prose mt-2 max-w-none dark:prose-invert [&>figure]:my-0">
+    // keepMounted: every tab's content is in the HTML, so search engines and AI crawlers read all of it, not just the first tab.
+    <TabsContent value={value} keepMounted className="prose mt-2 max-w-none dark:prose-invert [&>figure]:my-0">
       {children}
     </TabsContent>
   )

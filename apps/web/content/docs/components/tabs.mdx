@@ -1,6 +1,13 @@
 ---
 title: Tabs
-description: The tab pill leads and the new panel follows a beat later, like sound leading picture in a J-cut.
+seoTitle: "Animated shadcn/ui Tabs: sliding indicator"
+heading: "Tabs animation"
+description: "Animate shadcn/ui Tabs: the indicator slides to the new tab, the panel follows a beat later and the height eases to fit. Works on Base UI and Radix."
+faq:
+  - q: "How do I animate the shadcn/ui tabs indicator?"
+    a: "Render `<Cuts />` once. The tab indicator then slides to the new tab, the new panel follows a beat later, and the height eases to fit. Your `Tabs` don't change."
+  - q: "Can the tabs switch faster?"
+    a: "Yes. `<Cuts tabs=\"whip\" />` switches in 160 ms with a short motion blur, or put `data-cut=\"whip\"` on one `Tabs` root."
 ---
 
 <Preview>

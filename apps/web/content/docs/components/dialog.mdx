@@ -1,6 +1,15 @@
 ---
 title: Dialog
-description: The dialog grows out of the button that opened it, and closes back into it.
+seoTitle: "shadcn/ui Dialog animation: open and close"
+heading: "Dialog animation"
+description: "Animate the shadcn/ui Dialog: it grows out of the button that opened it and closes back into it. Works on Base UI and Radix, with no code changes."
+faq:
+  - q: "Why doesn't my shadcn dialog animate from the button?"
+    a: "Check that `<Cuts />` is rendered once in your root layout, and that your `DialogContent` has `data-slot=\"dialog-content\"`. Components added by shadcn CLI 3 and later have it; run `npx shadcn add dialog` to update an older copy."
+  - q: "How do I disable the animation on one shadcn dialog?"
+    a: "Add `data-cut=\"none\"` to its `DialogContent` to keep shadcn's own motion there. For no motion at all, also remove the `animate-in` and `animate-out` classes from `DialogContent` in your `components/ui`."
+  - q: "Does it work on Base UI and Radix?"
+    a: "Yes. Keyframery reads `data-open` on Base UI and `data-state` on Radix, and every cut is tested on both in Chromium, Firefox and WebKit."
 ---
 
 <Preview>

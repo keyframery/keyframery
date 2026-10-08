@@ -11,7 +11,7 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
   if (!page) notFound();
 
   return generateOGImage({
-    title: page.data.title,
+    title: page.data.heading ?? page.data.title,
     description: page.data.description,
     site: appName,
   });

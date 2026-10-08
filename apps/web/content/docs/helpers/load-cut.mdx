@@ -1,6 +1,13 @@
 ---
 title: Loading states
-description: "LoadCut: the skeleton dissolves into the content in the same space, and never flashes when the data is fast."
+seoTitle: "Skeleton loading to content without jumps"
+heading: "Skeleton to content transitions"
+description: "Animate loading states in React with LoadCut: the skeleton dissolves into the content in the same space, and never flashes when the data is fast."
+faq:
+  - q: "How do I stop a skeleton from flashing when data loads fast?"
+    a: "Wrap the content in `LoadCut`. It waits 300 ms before showing the skeleton, so fast data never shows one, and once shown the skeleton stays at least 400 ms."
+  - q: "Does it prevent layout shift?"
+    a: "Yes. While it waits, LoadCut reserves the space, and the height eases from the skeleton to the content instead of jumping."
 ---
 
 <Preview>

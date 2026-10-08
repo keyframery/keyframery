@@ -19,6 +19,7 @@
     "site:start": "pnpm -C apps/web start -p 4500",
     "test:site": "pnpm -C tests exec playwright test -c playwright.site.config.ts",
     "check": "sh scripts/check.sh",
-    "check:site": "sh scripts/check.sh site"
+    "check:site": "sh scripts/check.sh site",
+    "indexnow": "node scripts/indexnow.mjs"
   }
 }
