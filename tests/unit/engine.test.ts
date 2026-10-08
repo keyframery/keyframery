@@ -1,6 +1,6 @@
 import { afterEach, expect, it } from "vitest"
 
-import { applyMenus, setEnabled, setPace, start } from "../../registry/lib/keyframery/engine"
+import { applyMenus, setEnabled, setPace, setResponses, start } from "../../registry/lib/keyframery/engine"
 
 const tick = () => new Promise((r) => setTimeout(r, 0))
 const html = document.documentElement
@@ -75,4 +75,53 @@ it("lastPress is null until the engine runs, then reports the last press", async
   expect(lastPress()?.el).toBe(b)
   stop()
   expect(lastPress()).toBeNull()
+})
+
+it("setResponses turns every response off with one attribute, and back on", () => {
+  setResponses("none")
+  expect(html.getAttribute("data-kf-responses")).toBe("none")
+  setResponses("on")
+  expect(html.hasAttribute("data-kf-responses")).toBe(false)
+  setResponses("none")
+  setResponses(undefined)
+  expect(html.hasAttribute("data-kf-responses")).toBe(false)
+})
+
+it("marks a checkbox only when its state flips, never for one that loads checked", async () => {
+  setEnabled(true)
+  const loaded = document.createElement("button")
+  loaded.setAttribute("data-slot", "checkbox")
+  loaded.setAttribute("data-checked", "")
+  const box = document.createElement("button")
+  box.setAttribute("data-slot", "checkbox")
+  box.setAttribute("data-unchecked", "")
+  document.body.append(loaded, box)
+  const stop = start()
+  await tick()
+  expect(loaded.hasAttribute("data-kf-toggled")).toBe(false)
+
+  box.removeAttribute("data-unchecked")
+  box.setAttribute("data-checked", "")
+  await tick()
+  expect(box.getAttribute("data-kf-toggled")).toBe("on")
+
+  // Radix reports the same flip through data-state.
+  const radix = document.createElement("button")
+  radix.setAttribute("data-slot", "radio-group-item")
+  radix.setAttribute("data-state", "unchecked")
+  document.body.append(radix)
+  await tick()
+  radix.setAttribute("data-state", "checked")
+  await tick()
+  expect(radix.getAttribute("data-kf-toggled")).toBe("on")
+
+  // With responses off, a flip leaves no mark.
+  setResponses("none")
+  loaded.removeAttribute("data-checked")
+  loaded.setAttribute("data-unchecked", "")
+  await tick()
+  expect(loaded.hasAttribute("data-kf-toggled")).toBe(false)
+  setResponses(undefined)
+  stop()
+  setEnabled(false)
 })

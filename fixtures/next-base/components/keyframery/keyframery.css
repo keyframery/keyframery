@@ -446,6 +446,126 @@
 }
 
 
+/* ---------- Responses: how a control answers the user's own press, tick or drag ---------- */
+/*
+ * Cuts animate a change of picture; responses confirm an input on the control itself. Timings follow
+ * IBM Carbon's micro-interaction durations: 70 ms to press in, 110-150 ms for small state changes,
+ * 240 ms for a value bar. <Cuts responses="none" /> turns them all off; data-cut="none" opts a part out.
+ * Where stock shadcn already responds (the button's 1px press nudge, the slider thumb's ring, the switch
+ * thumb's slide, the progress bar's width), these retime or complete it and never stack a second effect.
+ */
+
+/* Toggle: the tick draws itself and the radio dot grows from its centre. The engine marks a control
+   (data-kf-toggled) only when its state flips, so controls that load already checked don't redraw. */
+:where(html[data-kf]:not([data-kf-responses="none"]))
+  :is([data-slot="checkbox"], [data-slot="questionnaire-choice"])[data-kf-toggled="on"]:not([data-cut="none"], [data-cut="none"] *)
+  svg :is(path, polyline, line) {
+  stroke-dasharray: 30;
+  animation: kf-draw min(calc(150ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
+}
+
+:where(html[data-kf]:not([data-kf-responses="none"]))
+  :is(
+    [data-slot="radio-group-item"][data-kf-toggled="on"] [data-slot="radio-group-indicator"] > *,
+    [data-slot="questionnaire-choice"][data-kf-toggled="on"] [data-slot="questionnaire-choice-indicator-dot"]
+  ):not([data-cut="none"], [data-cut="none"] *) {
+  animation: kf-dot-in min(calc(150ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
+}
+
+/* A choice card (a field label holding a checkbox or radio) changes colour instead of jumping. */
+:where(html[data-kf]:not([data-kf-responses="none"])) [data-slot="field-label"]:not([data-cut="none"], [data-cut="none"] *) {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: min(calc(150ms * var(--kf-pace)), var(--kf-cap));
+  transition-timing-function: var(--kf-ease);
+}
+
+@keyframes kf-draw {
+  from {
+    stroke-dashoffset: 30;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes kf-dot-in {
+  from {
+    transform: scale(0); /* composes after the dot's own centring translate */
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Press: compact controls dip while held, quicker in than out. Full-width rows (sidebar items, menu
+     items) don't scale; they get Highlight instead. */
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    :is(
+      [data-slot="button"], [data-slot="toggle"], [data-slot="toggle-group-item"], [data-slot="pagination-link"],
+      [data-slot="carousel-previous"], [data-slot="carousel-next"], [data-slot="dialog-close"], [data-slot="sheet-close"],
+      [data-slot="alert-dialog-action"], [data-slot="alert-dialog-cancel"], [data-slot="attachment-action"],
+      [data-slot="combobox-chip-remove"], [data-slot="sidebar-trigger"]
+    ):not([data-cut="none"], [data-cut="none"] *):active {
+    scale: 0.97;
+    transition-duration: calc(70ms * var(--kf-pace));
+  }
+
+  /* Switch: the thumb travels on the theme's curve and stretches toward where it's going while held. */
+  :where(html[data-kf]:not([data-kf-responses="none"])) [data-slot="switch-thumb"]:not([data-cut="none"] *) {
+    transition-duration: calc(150ms * var(--kf-pace));
+    transition-timing-function: var(--kf-ease);
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="switch"]:not([data-cut="none"], [data-cut="none"] *):active
+    > [data-slot="switch-thumb"] {
+    scale: 1.18 1;
+    transform-origin: left center;
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="switch"]:is([data-checked]:not([data-checked="false"]), [data-state="checked"]):not([data-cut="none"], [data-cut="none"] *):active
+    > [data-slot="switch-thumb"] {
+    transform-origin: right center;
+  }
+
+  /* Drag: the slider thumb grows while it's held and settles on release. */
+  :where(html[data-kf]:not([data-kf-responses="none"])) [data-slot="slider-thumb"]:not([data-cut="none"] *) {
+    transition:
+      color var(--default-transition-duration, 150ms) var(--default-transition-timing-function, cubic-bezier(0.4, 0, 0.2, 1)),
+      box-shadow var(--default-transition-duration, 150ms) var(--default-transition-timing-function, cubic-bezier(0.4, 0, 0.2, 1)),
+      scale calc(150ms * var(--kf-pace)) var(--kf-ease);
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="slider"]:is([data-dragging], :active):not([data-cut="none"], [data-cut="none"] *)
+    [data-slot="slider-thumb"] {
+    scale: 1.25;
+    transition:
+      color var(--default-transition-duration, 150ms) var(--default-transition-timing-function, cubic-bezier(0.4, 0, 0.2, 1)),
+      box-shadow var(--default-transition-duration, 150ms) var(--default-transition-timing-function, cubic-bezier(0.4, 0, 0.2, 1)),
+      scale calc(110ms * var(--kf-pace)) var(--kf-ease);
+  }
+
+  /* Drag: a resize handle thickens and takes the focus colour while it's being dragged. A box-shadow, not
+     a scale, so the grip inside it keeps its shape. */
+  :where(html[data-kf]:not([data-kf-responses="none"])) [data-slot="resizable-handle"]:not([data-cut="none"] *) {
+    transition:
+      background-color calc(150ms * var(--kf-pace)) var(--kf-ease),
+      box-shadow calc(150ms * var(--kf-pace)) var(--kf-ease);
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="resizable-handle"][data-separator="active"]:not([data-cut="none"], [data-cut="none"] *) {
+    background-color: var(--ring);
+    box-shadow: 0 0 0 1px var(--ring);
+  }
+
+  /* Fill: a progress bar eases to its new value on the theme's curve. */
+  :where(html[data-kf]:not([data-kf-responses="none"])) [data-slot="progress-indicator"]:not([data-cut="none"] *) {
+    transition-duration: calc(240ms * var(--kf-pace));
+    transition-timing-function: var(--kf-ease);
+  }
+}
+
 /* ---------- Reduced motion: same selectors; the cuts become short fades with no movement ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -515,5 +635,13 @@
     scale: 1;
     filter: none;
     border-radius: 0;
+  }
+  /* Responses: the tick and the radio dot fade in; nothing draws or grows. */
+  @keyframes kf-draw {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes kf-dot-in {
+    from { opacity: 0; }
   }
 }

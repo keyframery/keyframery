@@ -4,6 +4,7 @@ import { overlayAdapter } from "./adapters/overlay"
 import { panelAdapter } from "./adapters/panel"
 import { tabsAdapter } from "./adapters/tabs"
 import { toastAdapter } from "./adapters/toast"
+import { toggleAdapter } from "./adapters/toggle"
 import { tunedAdapter } from "./adapters/tuned"
 import { parsePace } from "./motion"
 import { observe, type Adapter } from "./observe"
@@ -25,7 +26,7 @@ export const DEFAULT_MENUS: Required<Menus> = {
 }
 
 /** Every adapter the engine runs. Each cut group adds its factory here. */
-export const ADAPTER_FACTORIES: Array<(press: PressTracker) => Adapter> = [overlayAdapter, panelAdapter, tabsAdapter, toastAdapter, tunedAdapter]
+export const ADAPTER_FACTORIES: Array<(press: PressTracker) => Adapter> = [overlayAdapter, panelAdapter, tabsAdapter, toastAdapter, tunedAdapter, toggleAdapter]
 
 let refs = 0
 let activePress: PressTracker | null = null
@@ -88,6 +89,14 @@ function stripUndefined(menus: Menus): Menus {
 export function setEnabled(on: boolean): void {
   if (on) document.documentElement.setAttribute("data-kf", "")
   else document.documentElement.removeAttribute("data-kf")
+}
+
+/** "none" turns off every response (press, toggle, drag, fill); cuts keep playing. */
+export type Responses = "on" | "none"
+
+export function setResponses(responses: Responses | undefined): void {
+  if (responses === "none") document.documentElement.setAttribute("data-kf-responses", "none")
+  else document.documentElement.removeAttribute("data-kf-responses")
 }
 
 export function setPace(pace: number | undefined): void {

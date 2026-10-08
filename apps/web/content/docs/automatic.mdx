@@ -6,7 +6,7 @@ faq:
   - q: "Do I need to change my shadcn components?"
     a: "No. `<Cuts />` finds shadcn's own parts by their `data-slot` names and animates them. Nothing in `components/ui` changes."
   - q: "Which shadcn/ui components animate automatically?"
-    a: "Dialog, alert dialog, command, sheet, drawer, tabs and toasts get their own cuts. Popover, dropdown menu, context menu, menubar, select, combobox, hover card, tooltip, navigation menu, accordion and collapsible keep their motion and get Keyframery's speed and easing."
+    a: "Dialog, alert dialog, command, sheet, drawer, tabs and toasts get their own cuts. Popover, dropdown menu, context menu, menubar, select, combobox, hover card, tooltip, navigation menu, accordion and collapsible keep their motion and get Keyframery's speed and easing. Buttons, toggles, checkboxes, radios, switches, sliders, resize handles and progress bars respond to presses, ticks and drags."
 ---
 
 With `<Cuts />` in your root layout, Keyframery finds shadcn's own parts on the page and animates them. You don't import anything, and nothing in `components/ui` changes.
@@ -61,8 +61,19 @@ Popover, dropdown menu, context menu, menubar, select, combobox, hover card, too
 
 Reference: [Tuned components](/docs/components/tuned).
 
+## Buttons, checkboxes, switches and sliders
+
+Controls you press, tick or drag answer on the control itself. These are responses, not cuts:
+
+- **Press:** buttons, toggles, pagination links and carousel arrows dip while pressed, quicker in than out.
+- **Toggle:** a checkbox's tick draws itself, a radio dot grows from its centre, a switch thumb travels on your curve and stretches while held, and choice cards change colour instead of jumping.
+- **Drag:** a slider thumb grows while you drag it, and a resize handle thickens.
+- **Fill:** a progress bar eases to its new value.
+
+Controls that load already checked don't redraw, and keyboard steps (a slider's arrow keys) stay instant. `<Cuts responses="none" />` turns every response off and keeps the cuts.
+
 ## What stays still
 
-Buttons, inputs, checkboxes and other controls that don't change the picture stay as they are. Motion there would only be noise.
+Labels, separators, keyboard shortcuts and other parts that never change stay as they are. Motion there would only be noise.
 
 To animate lists, numbers, skeleton loading, whole-content states or a card that opens into a page, use the five helpers under **Animate your app** in the sidebar. The [theme builder](/theme) lets you preview the automatic components and helpers together.

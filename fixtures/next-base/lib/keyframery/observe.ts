@@ -12,7 +12,7 @@ export type Adapter = {
   dispose?(): void
 }
 
-export const WATCHED_ATTRIBUTES = ["data-state", "data-open", "data-closed", "hidden", "data-active", "aria-selected", "data-cut", "data-cut-pace"]
+export const WATCHED_ATTRIBUTES = ["data-state", "data-open", "data-closed", "hidden", "data-active", "aria-selected", "data-cut", "data-cut-pace", "data-checked", "data-unchecked"]
 
 const inGhost = (n: Element) => n.closest("[data-kf-ghost]") !== null
 

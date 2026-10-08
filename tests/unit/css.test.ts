@@ -27,7 +27,8 @@ it("menu rules exclude elements with their own data-cut, so the two forms never 
 it("every rule that moves something is scoped under html[data-kf]", () => {
   const rules = css.split("}").map((r) => r.trim()).filter((r) => /(^|[\s;{])(animation|animation-name|transition|scale):/.test(r))
   expect(rules.length).toBeGreaterThan(10)
-  for (const r of rules) expect(r.split("{")[0]).toContain("html[data-kf")
+  // The selector is the part right before the declarations; an @media wrapper in front of it isn't one.
+  for (const r of rules) expect(r.split("{").at(-2)).toContain("html[data-kf")
 })
 
 it("every authored CSS entrance and exit uses its corresponding theme curve", () => {
