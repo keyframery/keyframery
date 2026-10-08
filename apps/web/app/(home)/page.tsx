@@ -10,7 +10,7 @@ import { JsonLd, pageMetadata, projectData } from "@/lib/seo"
 const description =
   "Add one line and your shadcn/ui app animates: dialogs grow from the button you clicked, tabs slide, and lists and loading states move. Open source, 7 KB."
 
-export const metadata = pageMetadata({ absolute: "Keyframery: the shadcn/ui animation library, in one line", description, path: "/" })
+export const metadata = pageMetadata({ absolute: "Keyframery: the shadcn/ui animation library, in one line", description, path: "/", markdown: "/index.md" })
 
 export default function Page() {
   return (

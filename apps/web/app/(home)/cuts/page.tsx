@@ -8,6 +8,7 @@ export const metadata: Metadata = pageMetadata({
   title: "UI transition patterns: the six cuts",
   description: "The six ways a screen can change, and the film cut Keyframery uses for each: rack focus, J-cut, match cut, cut on action, punch-in and dissolve.",
   path: "/cuts",
+  markdown: "/cuts.md",
 })
 
 const ROWS = [

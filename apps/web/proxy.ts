@@ -16,6 +16,9 @@ const { rewrite: rewriteMdx } = rewritePath(
   `${docsContentRoute}{/*path}/content.md`,
 );
 
+/** Pages outside the docs that also have a Markdown version (app/<name>.md/route.ts). */
+const PAGE_MARKDOWN: Record<string, string> = { '/': '/index.md', '/cuts': '/cuts.md', '/theme': '/theme.md' };
+
 export default function proxy(request: NextRequest) {
   const result = rewriteMdx(request.nextUrl.pathname) || rewriteSuffix(request.nextUrl.pathname);
   if (result) {
@@ -23,7 +26,7 @@ export default function proxy(request: NextRequest) {
   }
 
   if (isMarkdownPreferred(request)) {
-    const result = rewriteDocs(request.nextUrl.pathname);
+    const result = PAGE_MARKDOWN[request.nextUrl.pathname] ?? rewriteDocs(request.nextUrl.pathname);
 
     if (result) {
       return NextResponse.rewrite(new URL(result, request.nextUrl), {

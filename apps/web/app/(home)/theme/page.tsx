@@ -8,6 +8,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Motion theme builder for shadcn/ui",
   description: "Build a motion theme for shadcn/ui: pick a cut for each component, tune pace, easing, travel and blur, see it live, and copy the code.",
   path: "/theme",
+  markdown: "/theme.md",
 })
 
 export default function Page() {

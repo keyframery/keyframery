@@ -20,13 +20,28 @@ const SITE_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: "Ke
  * Title, description, canonical URL and social tags for one page. A page's openGraph replaces the layout's whole,
  * so it is built complete here, image included. `title` gets " | Keyframery" from the layout's template; `absolute` doesn't.
  */
-export function pageMetadata({ title, absolute, description, path, image }: { title?: string; absolute?: string; description: string; path: string; image?: string }): Metadata {
+export function pageMetadata({
+  title,
+  absolute,
+  description,
+  path,
+  image,
+  markdown,
+}: {
+  title?: string
+  absolute?: string
+  description: string
+  path: string
+  image?: string
+  /** This page as Markdown, for AI agents. */
+  markdown?: string
+}): Metadata {
   const shown = absolute ?? `${title} | ${SITE_NAME}`
   const images = { images: image ? { url: image, width: 1200, height: 630, alt: shown } : SITE_IMAGE }
   return {
     title: absolute ? { absolute } : title,
     description,
-    alternates: { canonical: url(path) },
+    alternates: { canonical: url(path), ...(markdown ? { types: { "text/markdown": url(markdown) } } : {}) },
     openGraph: { type: "website", siteName: SITE_NAME, url: url(path), title: shown, description, ...images },
     twitter: { card: "summary_large_image", title: shown, description, ...images },
   }
