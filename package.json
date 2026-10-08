@@ -17,6 +17,8 @@
     "site:sync": "pnpm registry:build && pnpm -C apps/web sync",
     "site:build": "pnpm registry:build && pnpm -C apps/web build",
     "site:start": "pnpm -C apps/web start -p 4500",
-    "test:site": "pnpm -C tests exec playwright test -c playwright.site.config.ts"
+    "test:site": "pnpm -C tests exec playwright test -c playwright.site.config.ts",
+    "check": "sh scripts/check.sh",
+    "check:site": "sh scripts/check.sh site"
   }
 }

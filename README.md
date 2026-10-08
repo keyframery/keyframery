@@ -79,7 +79,10 @@ pnpm site:build              # build keyframery.com
 pnpm site:start              # serve it on http://localhost:4500
 pnpm test:site               # site tests (desktop browsers + phone)
 pnpm -C apps/web dev         # work on the site with hot reload
+pnpm check                   # every check, before a deploy (pnpm check:site skips the layer's browser tests)
 ```
+
+There is no CI: every deploy runs `pnpm check` on the deploying machine first.
 
 ## License
 

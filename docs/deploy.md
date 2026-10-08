@@ -2,7 +2,21 @@
 
 Deployed to https://keyframery.com on 8 October 2026: Vercel project `keyframery` (team briyanpatels-projects), DNS at GoDaddy (`A @ 216.198.79.1`, `CNAME www` to Vercel, email records unchanged), Web Analytics on.
 
-Pro and its waitlist are switched off (`PRO_ENABLED` in `apps/web/lib/pro.ts`), so the Neon database (section 2) is only needed when Pro is switched back on. Still open: connecting the GitHub repo to the Vercel project so pushes deploy, and the shadcn registry-index PR (section 4).
+Pro and its waitlist are switched off (`PRO_ENABLED` in `apps/web/lib/pro.ts`), so the Neon database (section 2) is only needed when Pro is switched back on. Still open: the shadcn registry-index PR (section 4).
+
+## How a deploy happens
+
+There is no CI and no deploy on push: the repo is deliberately not connected to Vercel.
+1. Run `pnpm check` and read the result: types, lint, unit tests, the site build, the site tests and the layer's browser tests.
+   `pnpm check:site` skips the layer's browser tests; use it only when nothing in `registry/` changed.
+2. Only if every check passed: commit and push to `main`.
+3. Deploy that exact commit from a clean checkout:
+   ```bash
+   git worktree add --detach ../kf-deploy main
+   vercel link --yes --project keyframery --cwd ../kf-deploy
+   vercel deploy --prod --yes --cwd ../kf-deploy
+   ```
+4. Check the live site: key pages, `/r/cuts.json`, `/mcp`, and a screenshot.
 
 ## 1. Vercel project
 
