@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { PRO_ENABLED } from "@/lib/pro"
 
 const code = "font-mono text-[13px] text-foreground"
 
@@ -76,7 +77,7 @@ const QUESTIONS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "Is it free?",
-    a: "Yes. It is MIT licensed, and the CLI copies the code into your project, so it is yours to change. Pro, a set of ready-made app screens built on every cut, comes later.",
+    a: `Yes. It is MIT licensed, and the CLI copies the code into your project, so it is yours to change.${PRO_ENABLED ? " Pro, a set of ready-made app screens built on every cut, comes later." : ""}`,
   },
   {
     q: "Why is it called a cut?",

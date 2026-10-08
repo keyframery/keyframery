@@ -3,6 +3,7 @@ import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared"
 import { GitHubIcon } from "@/components/site/github-icon"
 import { LogoMark } from "@/components/site/logo"
 
+import { PRO_ENABLED } from "./pro"
 import { gitConfig } from "./shared"
 
 export function baseOptions(): BaseLayoutProps {
@@ -19,7 +20,7 @@ export function baseOptions(): BaseLayoutProps {
       { text: "Docs", url: "/docs" },
       { text: "Cuts", url: "/cuts" },
       { text: "Theme", url: "/theme" },
-      { text: "Pro", url: "/pro" },
+      ...(PRO_ENABLED ? [{ text: "Pro", url: "/pro" }] : []),
       // Fumadocs' own githubUrl icon is an <svg role="img"> with no title, which fails axe; this one is decorative.
       {
         type: "icon",

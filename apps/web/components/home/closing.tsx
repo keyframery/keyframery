@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import { InstallCommand } from "@/components/site/install-command"
 import { INSTALL_BY_URL } from "@/lib/kinds"
+import { PRO_ENABLED } from "@/lib/pro"
 
 import { WaitlistForm } from "./waitlist-form"
 
@@ -25,15 +26,17 @@ export function Closing() {
           </Link>
         </div>
       </div>
-      <div className="mt-12 grid gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-start md:gap-16">
-        <div>
-          <p className="text-[17px] font-semibold tracking-tight">Pro is coming</p>
-          <p className="mt-2 max-w-[46ch] text-[15px] leading-relaxed text-muted-foreground">
-            Ready-made app screens and page templates built on every cut. We&apos;ll email you once, on launch day.
-          </p>
+      {PRO_ENABLED && (
+        <div className="mt-12 grid gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-start md:gap-16">
+          <div>
+            <p className="text-[17px] font-semibold tracking-tight">Pro is coming</p>
+            <p className="mt-2 max-w-[46ch] text-[15px] leading-relaxed text-muted-foreground">
+              Ready-made app screens and page templates built on every cut. We&apos;ll email you once, on launch day.
+            </p>
+          </div>
+          <WaitlistForm source="home" />
         </div>
-        <WaitlistForm source="home" />
-      </div>
+      )}
     </section>
   )
 }

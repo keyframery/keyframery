@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { Policy, PolicySection } from "@/components/site/policy"
+import { PRO_ENABLED } from "@/lib/pro"
 
 export const metadata: Metadata = { title: "Terms", description: "The terms for keyframery.com, the MCP server and the code." }
 
@@ -18,9 +19,11 @@ export default function Page() {
       <PolicySection title="Fair use">
         <p>Don&apos;t overload, aggressively scrape or try to break the site or the MCP server.</p>
       </PolicySection>
-      <PolicySection title="Pro">
-        <p>When Pro launches, it will come with its own terms.</p>
-      </PolicySection>
+      {PRO_ENABLED && (
+        <PolicySection title="Pro">
+          <p>When Pro launches, it will come with its own terms.</p>
+        </PolicySection>
+      )}
       <PolicySection title="Changes">
         <p>If these terms change, we&apos;ll update this page and its date.</p>
       </PolicySection>

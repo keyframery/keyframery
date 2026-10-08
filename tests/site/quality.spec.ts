@@ -1,8 +1,10 @@
 import AxeBuilder from "@axe-core/playwright"
 
+import { PRO_ENABLED } from "../../apps/web/lib/pro"
+
 import { expect, noHorizontalScroll, test } from "./kit"
 
-const PAGES = ["/", "/cuts", "/theme", "/pro", "/privacy", "/terms", "/docs", "/docs/installation", "/docs/components/dialog", "/docs/helpers/list-cut", "/docs/compatibility", "/docs/ai-tools"]
+const PAGES = ["/", "/cuts", "/theme", ...(PRO_ENABLED ? ["/pro"] : []), "/privacy", "/terms", "/docs", "/docs/installation", "/docs/components/dialog", "/docs/helpers/list-cut", "/docs/compatibility", "/docs/ai-tools"]
 
 for (const path of PAGES) {
   test(`${path}: no errors, no horizontal scroll, no serious accessibility problems`, async ({ page, errors }) => {

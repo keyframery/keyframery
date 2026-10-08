@@ -1,3 +1,5 @@
+import { PRO_ENABLED } from "../../apps/web/lib/pro"
+
 import { expect, test } from "./kit"
 
 test("the footer credits the maker and links contact, privacy and terms", async ({ page }) => {
@@ -16,7 +18,8 @@ test("the footer credits the maker and links contact, privacy and terms", async 
 test("privacy says what is collected, and both pages are in the sitemap", async ({ page, request }) => {
   await page.goto("/privacy")
   await expect(page.getByText("Vercel Web Analytics")).toBeVisible()
-  await expect(page.getByText("waitlist", { exact: false }).first()).toBeVisible()
+  // The waitlist is the only personal data, and only while Pro is switched on.
+  await expect(page.getByText("waitlist", { exact: false })).toHaveCount(PRO_ENABLED ? 2 : 0)
   const map = await (await request.get("/sitemap.xml")).text()
   expect(map).toContain("https://keyframery.com/privacy")
   expect(map).toContain("https://keyframery.com/terms")

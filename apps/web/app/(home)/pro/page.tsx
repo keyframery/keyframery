@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
+import { notFound } from "next/navigation"
 
 import { WaitlistForm } from "@/components/home/waitlist-form"
+import { PRO_ENABLED } from "@/lib/pro"
 
 export const metadata: Metadata = { title: "Pro", description: "Keyframery Pro: ready-made screens and templates built on the cuts. Join the waitlist." }
 
@@ -13,6 +15,7 @@ const SCREENS = [
 ]
 
 export default function Page() {
+  if (!PRO_ENABLED) notFound()
   return (
     <main className="mx-auto grid w-full max-w-[1200px] flex-1 gap-12 px-4 py-20 md:grid-cols-[1fr_1fr] md:gap-16">
       <div>

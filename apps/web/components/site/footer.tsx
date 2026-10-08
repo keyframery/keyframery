@@ -1,9 +1,11 @@
 import Link from "next/link"
 
+import { PRO_ENABLED } from "@/lib/pro"
+
 import { LogoMark } from "./logo"
 
 const GROUPS: { title: string; links: [label: string, href: string][] }[] = [
-  { title: "Product", links: [["Docs", "/docs"], ["Cuts", "/cuts"], ["Theme", "/theme"], ["Pro", "/pro"]] },
+  { title: "Product", links: [["Docs", "/docs"], ["Cuts", "/cuts"], ["Theme", "/theme"], ...(PRO_ENABLED ? [["Pro", "/pro"] as [string, string]] : [])] },
   { title: "Developers", links: [["AI tools", "/docs/ai-tools"], ["GitHub", "https://github.com/keyframery/keyframery"], ["llms.txt", "/llms.txt"]] },
   { title: "Company", links: [["briyan@keyframery.com", "mailto:briyan@keyframery.com"], ["Privacy", "/privacy"], ["Terms", "/terms"]] },
 ]
