@@ -2,7 +2,7 @@
 
 Deployed to https://keyframery.com on 8 October 2026: Vercel project `keyframery` (team briyanpatels-projects), DNS at GoDaddy (`A @ 216.198.79.1`, `CNAME www` to Vercel, email records unchanged), Web Analytics on.
 
-Still open: the Neon database for the Pro waitlist (section 2), connecting the GitHub repo to the Vercel project so pushes deploy, and the shadcn registry-index PR (section 4).
+Pro and its waitlist are switched off (`PRO_ENABLED` in `apps/web/lib/pro.ts`), so the Neon database (section 2) is only needed when Pro is switched back on. Still open: connecting the GitHub repo to the Vercel project so pushes deploy, and the shadcn registry-index PR (section 4).
 
 ## 1. Vercel project
 
