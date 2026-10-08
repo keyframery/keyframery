@@ -9,7 +9,7 @@ const SIDEBAR: [group: string, items: string[]][] = [
   ["Animate your app", ["What's automatic", "Cards that open into a page", "Lists", "Numbers and statuses", "Loading states"]],
   ["Customize", ["Speed, easing and cuts"]],
   ["Guides", ["Animations not working", "Detail pages on their own route", "Loading data after a click", "Live data", "Turning motion off in tests", "Performance"]],
-  ["Reference", ["How it works", "Reduced motion and accessibility", "Base UI vs Radix", "Compatibility", "Changelog"]],
+  ["Reference", ["How it works", "Compared with other libraries", "Reduced motion and accessibility", "Base UI vs Radix", "Compatibility", "Changelog"]],
 ]
 
 test.beforeEach(({}, info) => test.skip(info.project.name === "phone", "the sidebar is a drawer on phones"))
@@ -107,5 +107,16 @@ test("the troubleshooting guide names each cause of broken shadcn/ui animations 
     ]),
   )
   for (const fix of ['@import "tw-animate-css";', '@import "shadcn/tailwind.css";', "@source"]) await expect(page.getByText(fix).first(), fix).toBeVisible()
+})
+
+test("the comparison page sets Keyframery beside Motion, Animate UI, Magic UI and tw-animate-css, fairly", async ({ page }) => {
+  await page.goto("/docs/compare")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Keyframery vs Motion, Animate UI, Magic UI and tw-animate-css")
+  const table = page.locator("article table").first()
+  for (const name of ["Keyframery", "Motion", "Animate UI", "Magic UI", "tw-animate-css"]) await expect(table.locator("th", { hasText: name }).first(), name).toBeVisible()
+  // Licences as each project states them, not assumed.
+  await expect(table).toContainText("MIT + Commons Clause")
+  const sections = (await page.locator("article h2").allTextContents()).map(headingText)
+  expect(sections).toEqual(expect.arrayContaining(["At a glance", "Can I use them together?"]))
 })
 

@@ -1,0 +1,51 @@
+---
+title: Compared with other libraries
+seoTitle: "Keyframery vs Motion, Animate UI and Magic UI"
+heading: "Keyframery vs Motion, Animate UI, Magic UI and tw-animate-css"
+description: "How Keyframery compares with Motion, Animate UI, Magic UI and tw-animate-css: what each is for, what it adds to a shadcn/ui app, and when to use which."
+faq:
+  - q: "Does Keyframery use Framer Motion?"
+    a: "No. Keyframery has no dependencies: it animates with CSS and the Web Animations API, in about 7 KB gzipped."
+  - q: "Is Keyframery an alternative to Magic UI or Animate UI?"
+    a: "Not exactly. Magic UI and Animate UI give you new animated components to add. Keyframery animates the shadcn/ui components you already have. Many apps use both."
+  - q: "Can I use Keyframery with Motion?"
+    a: "Yes. Keyframery leaves your own Motion animations alone. If one shadcn part already has its own Motion animation, add `data-cut=\"none\"` to it, so only one of them animates it."
+---
+
+They solve different problems, so the right choice depends on what you want to change. tw-animate-css gives shadcn/ui its default fades. Motion is a library for writing your own animations. Animate UI and Magic UI give you new components that are already animated. Keyframery animates the shadcn/ui components you already have, with one line, and works alongside any of the others.
+
+## At a glance
+
+| | Keyframery | Motion | Animate UI | Magic UI | tw-animate-css |
+|---|---|---|---|---|---|
+| What it is | Motion for the shadcn/ui components you already have | An animation library for React and JavaScript | Animated components you install | Animated components and effects you add | Tailwind CSS animation classes |
+| How you use it | Render `<Cuts />` once; wrap lists, numbers, skeletons and cards in four small components | Write the animation yourself, with `motion` components and props | Install each component with the shadcn CLI | Install or copy each component | Classes such as `animate-in` and `fade-in-0` |
+| Your existing components | Unchanged | You add the animation to them | Replaced by its own versions | Unchanged; you add new ones | Already use it |
+| Dependencies | None | The `motion` package | Motion | Motion | None (CSS only) |
+| License | MIT | MIT | MIT + Commons Clause | MIT | MIT |
+
+Each project's description, license and dependencies are as stated in its own repository on 8 October 2026.
+
+## When to use Keyframery
+
+When you want the app you already have to move well, without rewriting it: dialogs that grow from the button you pressed, sheets that slide in while the page steps back, tabs that slide, toasts from the button that made them, and lists, numbers, loading states and cards that change without jumping. It's one consistent set of motion across the whole app, tuned with [a few CSS variables](/docs/customize).
+
+## When to use Motion
+
+When you need animation that you design yourself: gestures and dragging, scroll-linked effects, springs, SVG, or a one-off sequence for a landing page. Keyframery doesn't try to replace a general animation library. It covers the everyday changes in an app, so you don't have to write them.
+
+## When to use Animate UI or Magic UI
+
+When you want new, eye-catching components: animated backgrounds, text effects, marquees or special buttons, often for marketing pages. They add components rather than change the ones you have. Check each project's license for your use: Magic UI is MIT, and Animate UI is MIT with the Commons Clause added.
+
+## About tw-animate-css
+
+It's probably already in your project: shadcn/ui uses its classes for the default fades and zooms. For the components Keyframery covers, its cuts take over from those classes while `<Cuts />` is in your layout. Everything else keeps its tw-animate-css animation. If shadcn's own animations don't work at all, see [Animations not working](/docs/guides/animations-not-working).
+
+## Can I use them together?
+
+Yes. Keyframery only animates shadcn/ui's own parts, which it finds by their `data-slot` names, and the elements you wrap in its four components.
+
+- Components from Animate UI or Magic UI keep their own animation.
+- Motion code you write is left alone.
+- If a shadcn part already has a Motion animation of its own, add `data-cut="none"` to it, so they don't both animate it. See [Customize](/docs/customize#one-element-or-one-area).

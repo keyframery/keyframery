@@ -5,6 +5,8 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  // The stylesheet goes inside the HTML, so the first paint doesn't wait for it to download alongside the scripts.
+  experimental: { inlineCss: true },
   // Pages merged in the docs revamp: their old addresses lead to where the content went.
   async redirects() {
     return [
