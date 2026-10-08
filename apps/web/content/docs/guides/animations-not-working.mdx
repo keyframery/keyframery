@@ -1,0 +1,139 @@
+---
+title: Animations not working
+seoTitle: "shadcn/ui animations not working? Every fix"
+heading: "shadcn/ui animations not working"
+description: "Why shadcn/ui animations stop working, and the fix for each cause: a missing tw-animate-css or shadcn/tailwind.css import, Tailwind v3, monorepos and exits."
+faq:
+  - q: "Why is my shadcn dialog not animating?"
+    a: "Usually one of two lines is missing from `globals.css`: `@import \"tw-animate-css\";` or `@import \"shadcn/tailwind.css\";`. On Radix, a missing `shadcn/tailwind.css` is the most common cause, because without it the `data-open:` classes don't match Radix's `data-state` attribute."
+  - q: "Do I need tailwindcss-animate or tw-animate-css?"
+    a: "On Tailwind v4, tw-animate-css: shadcn deprecated tailwindcss-animate in favour of it. A Tailwind v3 project keeps using tailwindcss-animate as a plugin in `tailwind.config.js`."
+  - q: "Why doesn't the closing animation play?"
+    a: "The dialog is probably removed from the page the moment it closes. Keep `<Dialog>` rendered and control it with `open` and `onOpenChange`, so its content stays mounted until the closing animation ends."
+---
+
+Most of the time, shadcn/ui animations stop working because a line is missing from your global stylesheet. Check that first. The other causes below are rarer, and each one has a one-step fix.
+
+## Check this first
+
+A project set up with a current shadcn CLI starts its stylesheet with these three lines:
+
+```css title="app/globals.css"
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+```
+
+If one is missing, add it. In most projects that's the whole fix.
+
+| What you see | The likely cause |
+|---|---|
+| Nothing opens or closes with any motion | [tw-animate-css isn't imported](#tw-animate-css-isnt-imported) |
+| Base UI components animate but Radix ones don't, or accordions open with a jump | [shadcn/tailwind.css isn't imported](#shadcntailwindcss-isnt-imported) |
+| An older project on Tailwind v3, nothing animates | [A Tailwind v3 project](#a-tailwind-v3-project) |
+| Components from a shared package or monorepo don't animate | [Your components live in another package](#your-components-live-in-another-package) |
+| Opening animates, closing doesn't | [The closing animation is cut short](#the-closing-animation-is-cut-short) |
+| It seems to work, but you can barely see it | [It is animating, just quickly](#it-is-animating-just-quickly) |
+
+## tw-animate-css isn't imported
+
+shadcn components animate with classes like `animate-in`, `fade-in-0` and `zoom-in-95`. They come from the tw-animate-css package, and without its import they do nothing.
+
+1. Install it:
+
+```bash
+npm install tw-animate-css
+```
+
+2. Import it in your global stylesheet, under `@import "tailwindcss";`:
+
+```css title="app/globals.css"
+@import "tw-animate-css";
+```
+
+**You should see** dialogs fade and zoom in again.
+
+If your project still has `@plugin "tailwindcss-animate";`, replace it with the import above. shadcn deprecated tailwindcss-animate in favour of tw-animate-css for Tailwind v4.
+
+## shadcn/tailwind.css isn't imported
+
+Components from a current shadcn CLI use `data-open:` and `data-closed:` classes, for example `data-open:animate-in data-closed:animate-out`. The `shadcn/tailwind.css` file defines what those mean: they match Base UI's `data-open` attribute and Radix's `data-state="open"`. It also defines the `accordion-down` and `accordion-up` animations.
+
+Without it, Tailwind's own `data-open:` matches only the `data-open` attribute. Base UI components still animate, but Radix ones don't, and accordions and collapsibles jump open.
+
+1. Make sure the shadcn package is installed. The CLI adds it when it sets up a project:
+
+```bash
+npm install shadcn
+```
+
+2. Import its stylesheet, under the tw-animate-css import:
+
+```css title="app/globals.css"
+@import "shadcn/tailwind.css";
+```
+
+**You should see** Radix dialogs animate, and accordions ease open.
+
+This often happens when components from a newer CLI are added to a project whose `globals.css` came from an older one.
+
+## A Tailwind v3 project
+
+shadcn says Tailwind v3 projects keep working, and components you add to them stay in their v3 form. Those components animate with classes like `data-[state=open]:animate-in`, which come from the tailwindcss-animate plugin:
+
+```js title="tailwind.config.js"
+module.exports = {
+  // …
+  plugins: [require("tailwindcss-animate")],
+}
+```
+
+Also check `content` in the same file. Tailwind v3 only generates the classes it finds in those paths, so components outside them get no animation classes at all.
+
+When you move the project to Tailwind v4, switch to tw-animate-css as described above.
+
+## Your components live in another package
+
+Tailwind v4 finds the classes you use by scanning your project, but it doesn't look inside other packages, such as `packages/ui` in a monorepo. Their animation classes are never generated.
+
+Point Tailwind at them with `@source`, using a path relative to the stylesheet:
+
+```css title="apps/web/app/globals.css"
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@source "../../../packages/ui/src";
+```
+
+**You should see** the shared components animate like the ones in your app.
+
+## The closing animation is cut short
+
+Radix and Base UI both keep a dialog's content on the page until its closing animation ends. That only works if the dialog itself stays rendered. If you render it conditionally, React removes it the moment it closes:
+
+```tsx
+// The closing animation never plays
+{open && (
+  <Dialog open onOpenChange={setOpen}>
+    …
+  </Dialog>
+)}
+
+// It plays
+<Dialog open={open} onOpenChange={setOpen}>
+  …
+</Dialog>
+```
+
+The same applies to sheets, popovers and every other part that opens and closes.
+
+## It is animating, just quickly
+
+Current shadcn dialogs animate in 100 ms (`duration-100`), which is easy to miss. Raise it on one component to check that it works, for example `duration-300` on `DialogContent`.
+
+If animations are near-instant on your machine only, check your system's "Reduce motion" setting. Many CSS resets shorten every animation when it's on.
+
+## Animate more than fades
+
+Once the stylesheet is right, shadcn's own motion is a short fade and zoom. Keyframery replaces it with motion that follows the action: dialogs grow out of the button you pressed, tabs slide, and toasts fly from where you clicked. It takes one line, `<Cuts />`, and no changes to your components. See the [Quick start](/docs/installation).

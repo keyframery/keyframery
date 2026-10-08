@@ -8,7 +8,7 @@ const SIDEBAR: [group: string, items: string[]][] = [
   ["Get started", ["Introduction", "Quick start", "Use with AI tools"]],
   ["Animate your app", ["What's automatic", "Cards that open into a page", "Lists", "Numbers and statuses", "Loading states"]],
   ["Customize", ["Speed, easing and cuts"]],
-  ["Guides", ["Detail pages on their own route", "Loading data after a click", "Live data", "Turning motion off in tests", "Performance"]],
+  ["Guides", ["Animations not working", "Detail pages on their own route", "Loading data after a click", "Live data", "Turning motion off in tests", "Performance"]],
   ["Reference", ["How it works", "Reduced motion and accessibility", "Base UI vs Radix", "Compatibility", "Changelog"]],
 ]
 
@@ -91,3 +91,21 @@ test("no docs page links to a docs page that doesn't exist", async ({ page, requ
   }
   for (const href of links) expect((await request.get(href)).status(), href).toBe(200)
 })
+
+test("the troubleshooting guide names each cause of broken shadcn/ui animations and its exact fix", async ({ page }) => {
+  await page.goto("/docs/guides/animations-not-working")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("shadcn/ui animations not working")
+  const causes = (await page.locator("article h2").allTextContents()).map(headingText)
+  expect(causes).toEqual(
+    expect.arrayContaining([
+      "tw-animate-css isn't imported",
+      "shadcn/tailwind.css isn't imported",
+      "A Tailwind v3 project",
+      "Your components live in another package",
+      "The closing animation is cut short",
+      "It is animating, just quickly",
+    ]),
+  )
+  for (const fix of ['@import "tw-animate-css";', '@import "shadcn/tailwind.css";', "@source"]) await expect(page.getByText(fix).first(), fix).toBeVisible()
+})
+
