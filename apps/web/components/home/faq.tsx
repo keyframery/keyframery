@@ -9,6 +9,10 @@ const code = "font-mono text-[13px] text-foreground"
 /** `text` is the plain answer for the FAQ structured data; a string answer is its own text. */
 const QUESTIONS: ({ q: string; a: string } | { q: string; a: React.ReactNode; text: string })[] = [
   {
+    q: "Which shadcn components does it cover?",
+    a: "All 63. Dialogs, sheets, drawers, tabs and toasts get cuts; menus, popovers and accordions follow your timing; buttons, checkboxes, switches, sliders, the sidebar and the calendar respond to presses, ticks and drags; lists, numbers, loading and empty states use five small helpers; labels and separators stay still on purpose. Each has its own docs page.",
+  },
+  {
     q: "Does it change my components?",
     a: (
       <>
@@ -38,11 +42,11 @@ const QUESTIONS: ({ q: string; a: string } | { q: string; a: React.ReactNode; te
     q: "How big is it?",
     a: (
       <>
-        About 7 KB gzipped for <code className={code}>{"<Cuts />"}</code> and its stylesheet, with no extra dependencies. Each of the five helpers adds about 1 KB
+        About 12 KB gzipped for <code className={code}>{"<Cuts />"}</code> and its stylesheet, with no extra dependencies. Each of the five helpers adds about 1 KB
         more.
       </>
     ),
-    text: "About 7 KB gzipped for <Cuts /> and its stylesheet, with no extra dependencies. Each of the five helpers adds about 1 KB more.",
+    text: "About 12 KB gzipped for <Cuts /> and its stylesheet, with no extra dependencies. Each of the five helpers adds about 1 KB more.",
   },
   {
     q: "Does it work with my own components?",

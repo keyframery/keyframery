@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-Open a dialog: it grows out of the button you pressed. It works with Base UI and Radix, in Next.js, Vite and React Router, at about 7 KB gzipped with no dependencies. Like the rest of shadcn, the CLI copies the code into your project, so you own it.
+Open a dialog: it grows out of the button you pressed. It works with Base UI and Radix, in Next.js, Vite and React Router, at about 12 KB gzipped with no dependencies. Like the rest of shadcn, the CLI copies the code into your project, so you own it.
 
 ## Reusable motion themes
 

@@ -54,6 +54,7 @@ import { Toggle } from "@/components/ui/toggle"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
+import { AlertDialogDemo, CommandDemo, DialogDemo, DrawerDemo, SheetDemo, TabsDemo, ToastDemo } from "./components"
 import { ListCutDemo, LoadCutDemo, MatchCutDemo, StateCutDemo, ValueCutDemo } from "./helpers"
 
 const FRAMEWORKS = ["Next.js", "Remix", "Astro", "Vite", "React Router"]
@@ -637,6 +638,14 @@ function TooltipDemo() {
 }
 
 const DEMOS: Record<string, () => React.ReactNode> = {
+  // The hand-written pages' demos, so the home page explorer can show every component that moves.
+  "alert-dialog": AlertDialogDemo,
+  command: CommandDemo,
+  dialog: DialogDemo,
+  drawer: DrawerDemo,
+  sheet: SheetDemo,
+  tabs: TabsDemo,
+  toast: ToastDemo,
   accordion: AccordionDemo,
   alert: AlertDemo,
   attachment: AttachmentDemo,

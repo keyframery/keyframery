@@ -33,6 +33,7 @@ test("the home page runs from the demo to the seven kinds, install, the wall, mo
   // Section headings only (ids ending in -title), not the dialog titles inside the demo screens.
   const order = await page.locator('main h2[id$="-title"]').allTextContents()
   expect(order).toEqual([
+    "All 63 shadcn components, covered",
     "Seven kinds of change, one cut each",
     "Install in two steps",
     "Try it on real screens",

@@ -79,7 +79,7 @@ export async function InstallSteps() {
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               The first line registers Keyframery in your <code className="font-mono text-[13px] text-foreground">components.json</code>, once. After that every
               helper installs by name, like <code className="font-mono text-[13px] text-foreground">npx shadcn add @keyframery/list-cut</code>. The second copies{" "}
-              <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, its stylesheet and a small engine into your project: about 7 KB gzipped, with
+              <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, its stylesheet and a small engine into your project: about 12 KB gzipped, with
               no extra dependencies.
             </p>
           </li>

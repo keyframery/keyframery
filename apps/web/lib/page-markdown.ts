@@ -12,7 +12,7 @@ export function homeMarkdown(): string {
     "",
     `${TAGLINE} Add one line and a shadcn/ui app animates: dialogs grow from the button you clicked, tabs slide, and lists, numbers, loading and empty states move instead of jumping. The components themselves don't change. A motion theme (Quiet, Crisp, Expressive or your own) sets the feel for the whole app.`,
     "",
-    "- About 7 KB gzipped, no dependencies.",
+    "- About 12 KB gzipped for every component, no dependencies.",
     "- Works with Base UI and Radix, in Next.js, Vite and React Router.",
     "- MIT licensed. The shadcn CLI copies the code into the project.",
     "- Profiles, local saves, share links, JSON import/export and installation handoff are free. No account is required.",

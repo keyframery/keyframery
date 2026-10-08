@@ -18,7 +18,7 @@ test("the hero names Claude Code first without leaving other agents out, states 
   const h = hero(page)
   await expect(h.getByRole("link", { name: /Works with Claude Code, Codex, Cursor and more/ })).toHaveAttribute("href", "/docs/ai-tools")
   const facts = h.getByRole("list", { name: "Facts" })
-  for (const fact of ["7 KB gzipped", "0 dependencies", "Base UI and Radix", "MIT licensed"]) await expect(facts).toContainText(fact)
+  for (const fact of ["63 components", "12 KB gzipped", "0 dependencies", "Base UI and Radix"]) await expect(facts).toContainText(fact)
   await expect(h.getByRole("link", { name: "GitHub" })).toHaveAttribute("href", "https://github.com/keyframery/keyframery")
 })
 

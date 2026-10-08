@@ -55,16 +55,16 @@ export function Hero() {
         </div>
         <ul aria-label="Facts" className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-1.5 text-sm text-muted-foreground">
           <li>
-            <b className="font-semibold text-foreground tabular-nums">7 KB</b> gzipped
+            <b className="font-semibold text-foreground tabular-nums">63</b> components
+          </li>
+          <li>
+            <b className="font-semibold text-foreground tabular-nums">12 KB</b> gzipped
           </li>
           <li>
             <b className="font-semibold text-foreground tabular-nums">0</b> dependencies
           </li>
           <li>
             <b className="font-semibold text-foreground">Base UI</b> and <b className="font-semibold text-foreground">Radix</b>
-          </li>
-          <li>
-            <b className="font-semibold text-foreground">MIT</b> licensed
           </li>
         </ul>
       </div>
