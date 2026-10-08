@@ -5,7 +5,8 @@ export type Adapter = {
   match: string
   /** Runs once at start, for markup that was already in the page. */
   init?(): void
-  added?(el: HTMLElement): void
+  /** `root` is the node that was inserted: the element itself, or an ancestor inserted with it. */
+  added?(el: HTMLElement, root: Element): void
   changed?(el: HTMLElement, attribute: string): void
   removed?(el: HTMLElement): void
   /** Runs once after every mutation batch. */
@@ -40,7 +41,7 @@ export function observe(root: HTMLElement, adapters: Adapter[]): () => void {
       if (r.type === "childList") {
         r.addedNodes.forEach((n) => {
           if (!(n instanceof Element) || inGhost(n)) return
-          for (const a of adapters) if (a.added) eachMatch(n, a.match, (el) => safely(() => a.added!(el)))
+          for (const a of adapters) if (a.added) eachMatch(n, a.match, (el) => safely(() => a.added!(el, n)))
         })
         r.removedNodes.forEach((n) => {
           if (!(n instanceof Element) || n.hasAttribute("data-kf-ghost")) return

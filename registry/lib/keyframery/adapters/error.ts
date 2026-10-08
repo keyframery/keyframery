@@ -11,7 +11,7 @@ const INVALID = '[aria-invalid="true"],[data-invalid="true"]'
 const MESSAGE = '[data-slot="field-error"]'
 // Shake the box people see: an input inside a group shakes the whole group.
 const BOX = '[data-slot="input-group"],[data-slot="input-otp"],[data-slot="native-select-wrapper"]'
-const SHAKE: Keyframe[] = [
+export const SHAKE: Keyframe[] = [
   { translate: "0 0" },
   { translate: "-3px 0", offset: 0.2 },
   { translate: "3px 0", offset: 0.45 },

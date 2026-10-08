@@ -100,6 +100,21 @@
           "target": "lib/keyframery/adapters/arrival.ts"
         },
         {
+          "path": "lib/keyframery/adapters/appear.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/appear.ts"
+        },
+        {
+          "path": "lib/keyframery/adapters/calendar.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/calendar.ts"
+        },
+        {
+          "path": "lib/keyframery/adapters/steps.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/steps.ts"
+        },
+        {
           "path": "lib/keyframery/icon.ts",
           "type": "registry:lib",
           "target": "lib/keyframery/icon.ts"
