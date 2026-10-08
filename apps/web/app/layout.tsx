@@ -5,6 +5,7 @@ import Script from "next/script"
 
 import { CutsControl } from "@/app/cuts-control"
 import { SearchDialog } from "@/components/site/search-dialog"
+import { WebMcp } from "@/components/site/web-mcp"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { JsonLd, SITE, siteData } from "@/lib/seo"
@@ -36,6 +37,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
         <JsonLd data={siteData()} />
+        {/* The agent discovery catalog (ARD); React moves this link into <head>. */}
+        <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
+        <WebMcp />
         <RootProvider search={{ SearchDialog }}>
           <TooltipProvider>
             <CutsControl>{children}</CutsControl>

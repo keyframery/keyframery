@@ -14,7 +14,18 @@ const config = {
   // the two versions have different ETags under max-age=0, and HTTPS keeps other shared caches out.
   async headers() {
     const vary = [{ key: 'Vary', value: 'rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept' }];
-    return ['/', '/cuts', '/theme', '/docs', '/docs/:path*'].map((source) => ({ source, headers: vary }));
+    // The home page points agents at its machine-readable files (RFC 8288 Link headers, RFC 9727 api-catalog).
+    const link = [
+      '</.well-known/api-catalog>; rel="api-catalog"',
+      '</docs>; rel="service-doc"',
+      '</.well-known/mcp/server-card.json>; rel="service-desc"; type="application/json"',
+      '</llms.txt>; rel="describedby"; type="text/plain"',
+      '</index.md>; rel="alternate"; type="text/markdown"',
+    ].join(', ');
+    return [
+      ...['/', '/cuts', '/theme', '/docs', '/docs/:path*'].map((source) => ({ source, headers: vary })),
+      { source: '/', headers: [{ key: 'Link', value: link }] },
+    ];
   },
   async redirects() {
     return [

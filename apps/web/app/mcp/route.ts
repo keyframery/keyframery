@@ -1,10 +1,10 @@
 import { createMcpHandler } from "mcp-handler"
 
-import { INSTRUCTIONS, registerKeyframeryTools } from "@/lib/mcp"
+import { INSTRUCTIONS, registerKeyframeryTools, SERVER_INFO } from "@/lib/mcp"
 
 /** The Keyframery MCP server: https://keyframery.com/mcp (stateless Streamable HTTP). */
 const handler = createMcpHandler(registerKeyframeryTools, {
-  serverInfo: { name: "keyframery", version: "0.1.0" },
+  serverInfo: SERVER_INFO,
   instructions: INSTRUCTIONS,
   // The tools never change, so a subscriptions/listen stream would only hold a function open on Vercel.
   maxSubscriptions: 0,

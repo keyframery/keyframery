@@ -11,6 +11,9 @@ import { DEFAULTS, EASES, encode, EXIT_EASES, GROUPS, toCode, VARS, type Group, 
 
 export const SITE = "https://keyframery.com"
 
+/** How the server introduces itself; the server card (/.well-known/mcp/server-card.json) says the same. */
+export const SERVER_INFO = { name: "keyframery", version: "0.1.0" }
+
 export const INSTRUCTIONS = `Keyframery gives shadcn/ui apps film-style motion. One <Cuts /> in the root layout animates dialogs, sheets, drawers, tabs, toasts and menus; four helpers (MatchCut, ListCut, ValueCut, LoadCut) cover the changes shadcn has no component for. Call list_kinds before choosing a helper. Install with the shadcn CLI: first register Keyframery once per project with ${REGISTER}, then run npx shadcn add @keyframery/cuts. Use get_doc for exact APIs, search_docs when you don't know the page, and make_theme to tune speed and easing.`
 
 const READ_ONLY = { readOnlyHint: true, openWorldHint: false }

@@ -7,7 +7,7 @@ description: Use when adding animation, motion or transitions to a React app bui
 
 Keyframery gives shadcn/ui apps the transitions a film editor would make. One `<Cuts />` in the root layout animates shadcn's own dialogs, sheets, drawers, tabs, toasts and menus without editing them. Four helpers cover the changes shadcn has no component for. The code is copied into the project by the shadcn CLI, like the rest of shadcn.
 
-The `keyframery` MCP server (connected by this plugin) has the details:
+The `keyframery` MCP server at https://keyframery.com/mcp (the Claude Code plugin connects it) has the details:
 - `list_kinds`: the six kinds of change, with the cut, install command and snippet for each. Call it before choosing a helper.
 - `get_doc`: any docs page as Markdown, for example `installation`, `helpers/list-cut`, `customize`.
 - `search_docs`: find the right page when you don't know it.

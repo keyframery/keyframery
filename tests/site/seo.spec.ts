@@ -90,9 +90,10 @@ test("structured data describes the project, the maker, the FAQ and each docs pa
   expect(crumbs.itemListElement.map((c) => c.item ?? c.name)).toEqual([BASE, `${BASE}/docs`, `${BASE}/docs/helpers/list-cut`])
 })
 
-test("robots.txt lets every crawler in, AI ones included, and keeps them out of the API", async ({ request }) => {
+test("robots.txt lets every crawler in, AI ones included, says AI may use the content, and keeps crawlers out of the API", async ({ request }) => {
   const robots = await (await request.get("/robots.txt")).text()
-  expect(robots).toMatch(/User-Agent: \*\nAllow: \/\nDisallow: \/api\/\nDisallow: \/mcp/)
+  // Content Signals (contentsignals.org): search, quoting in AI answers and training are all welcome. Inside the * group.
+  expect(robots).toMatch(/User-Agent: \*\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: \/\nDisallow: \/api\/\nDisallow: \/mcp/)
   expect(robots).toContain(`Sitemap: ${BASE}/sitemap.xml`)
   // One group for everyone: no crawler, GPTBot or ClaudeBot included, gets its own rules.
   expect(robots.match(/User-Agent:/g)).toHaveLength(1)
