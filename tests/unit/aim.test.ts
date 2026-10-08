@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest"
 import { aimAt, carrySettings, mirrorCut, offsetBetween } from "../../registry/lib/keyframery/aim"
 import type { Press } from "../../registry/lib/keyframery/press"
 
-const press = (el: Element): Press => ({ el, rect: el.getBoundingClientRect(), t: 0 })
+const press = (el: Element): Press => ({ el, rect: el.getBoundingClientRect(), t: 0, kind: "pointer" })
 
 it("offsetBetween points from the target's centre to the opener's centre", () => {
   expect(offsetBetween({ left: 0, top: 0, width: 100, height: 40 }, { left: 400, top: 300, width: 200, height: 100 })).toEqual({ dx: -450, dy: -330 })

@@ -559,6 +559,29 @@
     box-shadow: 0 0 0 1px var(--ring);
   }
 
+  /* Sidebar: the width follows the theme's curve, and the labels leave before it closes and arrive after
+     it opens, the way a J-cut lets the next scene's sound lead. Labels are matched by structure (a span in a
+     menu item's button or link) because a collapsible item's trigger takes over the button's data-slot. */
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="sidebar"]:not([data-cut="none"], [data-cut="none"] *)
+    :is([data-slot="sidebar-container"], [data-slot="sidebar-gap"]) {
+    transition-duration: calc(240ms * var(--kf-pace));
+    transition-timing-function: var(--kf-ease);
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="sidebar"]:not([data-cut="none"], [data-cut="none"] *)
+    :is([data-slot="sidebar-menu-item"], [data-slot="sidebar-menu-sub-item"]) > :is(button, a) > span {
+    transition: opacity calc(150ms * var(--kf-pace)) var(--kf-ease) calc(120ms * var(--kf-pace));
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="sidebar"][data-collapsible="icon"]:not([data-cut="none"], [data-cut="none"] *)
+    :is([data-slot="sidebar-menu-item"], [data-slot="sidebar-menu-sub-item"]) > :is(button, a) > span {
+    opacity: 0;
+    transition: opacity calc(80ms * var(--kf-pace)) var(--kf-ease-exit);
+  }
+
   /* Fill: a progress bar eases to its new value on the theme's curve. */
   :where(html[data-kf]:not([data-kf-responses="none"])) [data-slot="progress-indicator"]:not([data-cut="none"] *) {
     transition-duration: calc(240ms * var(--kf-pace));

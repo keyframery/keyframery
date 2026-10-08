@@ -83,6 +83,16 @@
           "path": "lib/keyframery/adapters/toggle.ts",
           "type": "registry:lib",
           "target": "lib/keyframery/adapters/toggle.ts"
+        },
+        {
+          "path": "lib/keyframery/adapters/highlight.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/highlight.ts"
+        },
+        {
+          "path": "lib/keyframery/adapters/error.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/error.ts"
         }
       ]
     },

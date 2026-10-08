@@ -35,15 +35,15 @@ Every shadcn component works with `<Cuts />` mounted: no errors, and focus and a
 | message-scroller | helper: ListCut | messages arrive |
 | badge | helper: ValueCut | its count changes |
 | skeleton | helper: LoadCut | becomes content |
-| calendar | planned | months switch like tabs |
+| calendar | response: highlight | the selected day glides to the day you click; months switching like tabs is planned |
 | carousel | response: press | the arrows dip while pressed; the slides keep Embla's own motion |
 | questionnaire | response: toggle | the tick draws and the dot grows; steps switching like tabs is planned |
-| pagination | response: press | links dip while pressed; the current page gliding is planned |
+| pagination | response: press, highlight | links dip while pressed; the current page glides to the one you click |
 | attachment | planned | files are added and removed |
 | alert | planned | dismissing it should fold it away |
-| field | response: toggle | choice cards change colour instead of jumping; errors arriving with a cut is planned |
+| field | response: toggle, error | choice cards change colour; an error message rises in |
 | empty | helper: StateCut | appears in place of content |
-| sidebar | planned | the active item glides and labels follow the collapse |
+| sidebar | response: highlight | the active item glides; the width follows your curve and labels leave before it closes |
 | aspect-ratio | no cut | static |
 | avatar | no cut | static |
 | breadcrumb | no cut | static |
@@ -52,13 +52,13 @@ Every shadcn component works with `<Cuts />` mounted: no errors, and focus and a
 | checkbox | response: toggle | the tick draws itself |
 | direction | no cut | not visual |
 | form | no cut | not visual |
-| input | planned | an error arriving after submit gets a short shake |
-| input-group | planned | an error arriving after submit gets a short shake |
-| input-otp | planned | the active slot glides; errors get a short shake |
+| input | response: error | turning invalid after a submit gives one short shake; never while typing |
+| input-group | response: error | the whole group shakes once when its input turns invalid after a submit |
+| input-otp | response: error | typing stays instant; an invalid code shakes once |
 | kbd | no cut | static |
 | label | no cut | static |
 | marker | no cut | static |
-| native-select | planned | the browser draws its popup; errors get a short shake |
+| native-select | response: error | the browser draws its popup; an invalid choice shakes once |
 | progress | response: fill | eases to its value on your curve |
 | radio-group | response: toggle | the dot grows on the item you pick |
 | resizable | response: drag | the handle thickens while you drag it |
@@ -67,9 +67,9 @@ Every shadcn component works with `<Cuts />` mounted: no errors, and focus and a
 | slider | response: drag | the thumb grows while you drag it; arrow keys stay instant |
 | spinner | no cut | already animates |
 | switch | response: toggle | the thumb travels on your curve and stretches while held |
-| textarea | planned | an error arriving after submit gets a short shake |
+| textarea | response: error | turning invalid after a submit gives one short shake; never while typing |
 | toggle | response: press | dips while pressed |
-| toggle-group | response: press | items dip while pressed; the selection gliding is planned |
+| toggle-group | response: press, highlight | items dip while pressed; a single choice glides to the item you click |
 | chart | no cut | Recharts animates itself |
 
 ## Tested versions

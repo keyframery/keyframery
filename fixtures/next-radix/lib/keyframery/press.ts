@@ -1,4 +1,4 @@
-export type Press = { el: Element; rect: DOMRect; t: number }
+export type Press = { el: Element; rect: DOMRect; t: number; kind: "pointer" | "key"; key?: string }
 
 export type PressTracker = {
   /** The last press, if it happened within `maxAgeMs`. */
@@ -20,7 +20,8 @@ export function createPressTracker(doc: Document = document): PressTracker {
     if (!target) return
     if (e instanceof KeyboardEvent && !KEYS.has(e.key)) return
     const el = target.closest(PRESSABLE) ?? target
-    const press: Press = { el, rect: el.getBoundingClientRect(), t: performance.now() }
+    const kind = e instanceof KeyboardEvent ? "key" : "pointer"
+    const press: Press = { el, rect: el.getBoundingClientRect(), t: performance.now(), kind, key: e instanceof KeyboardEvent ? e.key : undefined }
     last = press
     subs.forEach((fn) => fn(press, target))
   }

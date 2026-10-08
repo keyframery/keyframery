@@ -1,5 +1,7 @@
 /** Starts and stops the layer. Reference-counted: several <Cuts /> (or React StrictMode) are safe. */
 
+import { errorAdapter } from "./adapters/error"
+import { highlightAdapter } from "./adapters/highlight"
 import { overlayAdapter } from "./adapters/overlay"
 import { panelAdapter } from "./adapters/panel"
 import { tabsAdapter } from "./adapters/tabs"
@@ -26,7 +28,7 @@ export const DEFAULT_MENUS: Required<Menus> = {
 }
 
 /** Every adapter the engine runs. Each cut group adds its factory here. */
-export const ADAPTER_FACTORIES: Array<(press: PressTracker) => Adapter> = [overlayAdapter, panelAdapter, tabsAdapter, toastAdapter, tunedAdapter, toggleAdapter]
+export const ADAPTER_FACTORIES: Array<(press: PressTracker) => Adapter> = [overlayAdapter, panelAdapter, tabsAdapter, toastAdapter, tunedAdapter, toggleAdapter, highlightAdapter, errorAdapter]
 
 let refs = 0
 let activePress: PressTracker | null = null
