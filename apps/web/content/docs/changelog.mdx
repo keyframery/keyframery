@@ -4,7 +4,9 @@ seoTitle: "Changelog: releases and tested versions"
 description: "Every Keyframery release and what changed in it, with the shadcn/ui bases and browsers each release was tested on."
 ---
 
-## Unreleased
+## 0.2.0 (9 October 2026)
+
+Every shadcn component: all 63 now have a defined motion, or a written reason to stay still, and each has its own docs page.
 
 - Responses: buttons dip while pressed, ticks draw themselves, radio dots grow, switch thumbs stretch, slider thumbs and resize handles grow while dragged, and progress bars ease to their value. `<Cuts responses="none" />` turns them off
 - Highlight: the selection glides in toggle groups, pagination, the sidebar and the calendar (instant from the keyboard); the sidebar's width follows the theme curve and its labels leave first
@@ -12,8 +14,9 @@ description: "Every Keyframery release and what changed in it, with the shadcn/u
 - Icons: ticks in menus, command and combobox draw themselves; the accordion chevron turns; a close ✕ turns and arrows nudge while pressed; toast and alert dialog icons play as they arrive
 - Arrivals: alerts, combobox chips and attachments ease in when shown on their own (not as part of a new page); avatar photos dissolve in; a finished upload punches and a failed one shakes
 - Calendar months and questionnaire steps slide in from the side you went toward; keyboard month changes stay instant
-- Icon moves (`npx shadcn add @keyframery/icon-moves`): about 50 lucide icons play their own move when pressed; other outline icons redraw, filled ones punch
-
+- Icon moves (`npx shadcn add @keyframery/icon-moves`): about 60 lucide icons play their own move when pressed; other outline icons redraw, filled ones punch
+- Docs: a page for every component (what moves, when, how fast, how to turn it off) and a coverage table; the home page has an explorer for all 63
+- Size: `<Cuts />` is now about 12 KB gzipped (it was 7 KB), for every component
 - Quiet, Crisp and Expressive motion profiles with a complete workflow preview
 - Local theme saves, validated version-1 JSON import/export, share links and full installation and agent handoff
 - Shared entrance and exit easing across the engine and helpers
