@@ -8,24 +8,24 @@ Every shadcn component works with `<Cuts />` mounted: no errors, and focus and a
 
 | Component | With Keyframery | Why |
 |---|---|---|
-| dialog | cut: rack focus | opens on top of the page |
-| alert-dialog | cut: rack focus | opens on top of the page |
-| command | cut: rack focus | its dialog opens on top |
+| dialog | cut: rack focus | opens on top of the page; its ✕ turns while pressed |
+| alert-dialog | cut: rack focus | opens on top of the page; its icon redraws as it arrives |
+| command | cut: rack focus | its dialog opens on top; ticks draw themselves; the keyboard highlight stays instant |
 | sheet | cut: slide-sink | opens on top of the page |
 | drawer | cut: slide-sink | opens on top of the page |
 | tabs | cut: J-cut | switches to a neighbour |
-| sonner | cut: cut on action | a result of what you pressed |
-| toast | cut: cut on action | a result of what you pressed |
+| sonner | cut: cut on action | a result of what you pressed; its status icon plays as it lands |
+| toast | cut: cut on action | a result of what you pressed; its status icon plays as it lands |
 | popover | tuned | already opens from its trigger |
-| dropdown-menu | tuned | already opens from its trigger |
-| context-menu | tuned | already opens from the pointer |
-| menubar | tuned | already opens from its trigger |
+| dropdown-menu | tuned | opens from its trigger; checkbox and radio ticks draw themselves |
+| context-menu | tuned | opens from the pointer; checkbox and radio ticks draw themselves |
+| menubar | tuned | opens from its trigger; checkbox and radio ticks draw themselves |
 | select | tuned | already opens from its trigger |
-| combobox | tuned | already opens from its trigger |
+| combobox | tuned | opens from its trigger; its chevron turns; ticks draw themselves |
 | hover-card | tuned | already opens from its trigger |
 | tooltip | tuned | already opens from its trigger |
 | navigation-menu | tuned | already opens from its trigger |
-| accordion | tuned | already expands in place |
+| accordion | tuned | expands in place; its chevron turns instead of being swapped |
 | collapsible | tuned | already expands in place |
 | card | helper: MatchCut | opens into its detail |
 | table | helper: ListCut | rows are added, removed and moved |

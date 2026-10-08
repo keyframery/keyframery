@@ -13,6 +13,7 @@
     "./helpers/value-cut",
     "./helpers/load-cut",
     "./helpers/state-cut",
+    "./helpers/icon-moves",
     "---Customize---",
     "customize",
     "motion-themes",

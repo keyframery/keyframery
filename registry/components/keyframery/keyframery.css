@@ -458,7 +458,11 @@
 /* Toggle: the tick draws itself and the radio dot grows from its centre. The engine marks a control
    (data-kf-toggled) only when its state flips, so controls that load already checked don't redraw. */
 :where(html[data-kf]:not([data-kf-responses="none"]))
-  :is([data-slot="checkbox"], [data-slot="questionnaire-choice"])[data-kf-toggled="on"]:not([data-cut="none"], [data-cut="none"] *)
+  :is(
+    [data-slot="checkbox"], [data-slot="questionnaire-choice"], [data-slot="command-item"], [data-slot="combobox-item"],
+    [data-slot="dropdown-menu-checkbox-item"], [data-slot="dropdown-menu-radio-item"], [data-slot="context-menu-checkbox-item"],
+    [data-slot="context-menu-radio-item"], [data-slot="menubar-checkbox-item"], [data-slot="menubar-radio-item"]
+  )[data-kf-toggled="on"]:not([data-cut="none"], [data-cut="none"] *)
   svg :is(path, polyline, line) {
   stroke-dasharray: 30;
   animation: kf-draw min(calc(150ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
@@ -502,10 +506,80 @@
       [data-slot="button"], [data-slot="toggle"], [data-slot="toggle-group-item"], [data-slot="pagination-link"],
       [data-slot="carousel-previous"], [data-slot="carousel-next"], [data-slot="dialog-close"], [data-slot="sheet-close"],
       [data-slot="alert-dialog-action"], [data-slot="alert-dialog-cancel"], [data-slot="attachment-action"],
-      [data-slot="combobox-chip-remove"], [data-slot="sidebar-trigger"]
+      [data-slot="combobox-chip-remove"], [data-slot="sidebar-trigger"], [data-slot="message-scroller-button"],
+      [data-slot="calendar"] :is(.rdp-button_previous, .rdp-button_next)
     ):not([data-cut="none"], [data-cut="none"] *):active {
     scale: 0.97;
     transition-duration: calc(70ms * var(--kf-pace));
+  }
+
+  /* State icons. The accordion's chevron turns instead of being swapped for an up chevron. An item that
+     loads open shows the turned chevron at once: an icon coming out of display:none has nothing to turn from. */
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="accordion-trigger"]:not([data-cut="none"], [data-cut="none"] *)
+    > [data-slot="accordion-trigger-icon"]:has(+ [data-slot="accordion-trigger-icon"]) {
+    display: block;
+    transition: rotate calc(200ms * var(--kf-pace)) var(--kf-ease);
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="accordion-trigger"][aria-expanded="true"]:not([data-cut="none"], [data-cut="none"] *)
+    > [data-slot="accordion-trigger-icon"]:has(+ [data-slot="accordion-trigger-icon"]) {
+    rotate: 180deg;
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="accordion-trigger"]:not([data-cut="none"], [data-cut="none"] *)
+    > [data-slot="accordion-trigger-icon"] + [data-slot="accordion-trigger-icon"] {
+    display: none;
+  }
+
+  /* A combobox's chevron turns while its list is open. */
+  :where(html[data-kf]:not([data-kf-responses="none"])) [data-slot="combobox-trigger"]:not([data-cut="none"], [data-cut="none"] *) > svg {
+    transition: rotate calc(200ms * var(--kf-pace)) var(--kf-ease);
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="combobox-trigger"]:is([data-popup-open], [aria-expanded="true"]):not([data-cut="none"], [data-cut="none"] *)
+    > svg {
+    rotate: 180deg;
+  }
+
+  /* A close ✕ turns a quarter while pressed; arrows nudge toward where they go. */
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    :is(
+      [data-slot="dialog-close"], [data-slot="sheet-close"], [data-slot="toast-close"], [data-slot="combobox-chip-remove"],
+      [data-slot="combobox-clear"], [data-slot="carousel-previous"], [data-slot="carousel-next"], [data-slot="pagination-link"],
+      [data-slot="message-scroller-button"], [data-slot="calendar"] :is(.rdp-button_previous, .rdp-button_next)
+    ):not([data-cut="none"], [data-cut="none"] *)
+    > svg {
+    transition:
+      rotate calc(150ms * var(--kf-pace)) var(--kf-ease),
+      translate calc(150ms * var(--kf-pace)) var(--kf-ease);
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    :is([data-slot="dialog-close"], [data-slot="sheet-close"], [data-slot="toast-close"], [data-slot="combobox-chip-remove"], [data-slot="combobox-clear"]):not([data-cut="none"], [data-cut="none"] *):active
+    > svg {
+    rotate: 90deg;
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    :is([data-slot="carousel-previous"], [data-slot="pagination-link"][aria-label*="previous" i], [data-slot="calendar"] .rdp-button_previous):not([data-cut="none"], [data-cut="none"] *):active
+    > svg {
+    translate: -2px 0;
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    :is([data-slot="carousel-next"], [data-slot="pagination-link"][aria-label*="next" i], [data-slot="calendar"] .rdp-button_next):not([data-cut="none"], [data-cut="none"] *):active
+    > svg {
+    translate: 2px 0;
+  }
+
+  :where(html[data-kf]:not([data-kf-responses="none"]))
+    [data-slot="message-scroller-button"]:not([data-direction="start"], [data-cut="none"], [data-cut="none"] *):active
+    > svg {
+    translate: 0 2px;
   }
 
   /* Switch: the thumb travels on the theme's curve and stretches toward where it's going while held. */

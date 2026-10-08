@@ -1,0 +1,60 @@
+---
+title: Icon moves
+seoTitle: "Animated lucide icons for shadcn/ui"
+heading: "Icon moves"
+description: "When a button, menu item or sidebar item is pressed, its lucide icon plays its own move: a gear turns, a bell rings, a lid lifts. No icon swap, no new imports."
+faq:
+  - q: "Do I have to replace my icons with animated ones?"
+    a: "No. Keyframery reads the class lucide already puts on each icon, such as lucide-settings, and plays that icon's move. Your icons and imports stay as they are."
+  - q: "Why don't icons move on hover?"
+    a: "People hover hundreds of times a day, and motion that often turns into noise. Moves play when a control is pressed. Pass on=\"hover\" to IconMoves if you want them on hover too."
+---
+
+<Preview>
+  <IconMovesDemo />
+</Preview>
+
+Press a button, a menu item or a sidebar item, and its icon plays a move that matches its picture: a gear turns, a bell rings, a trash can's lid lifts, a download arrow drops into its tray. Keyframery reads the class lucide already renders on each icon, so the icons stay the ones you wrote.
+
+## Install
+
+```bash
+npx shadcn add @keyframery/icon-moves
+```
+
+Register `@keyframery` with the [Quick start](/docs/installation) first. It needs `<Cuts />` in your root layout.
+
+## Use
+
+Render it once, next to `<Cuts />`:
+
+```tsx
+import { Cuts } from "@/components/keyframery/cuts"
+import { IconMoves } from "@/components/keyframery/icon-moves"
+
+<body>
+  {children}
+  <Cuts />
+  <IconMoves />
+</body>
+```
+
+## You should see
+
+Press any shadcn button that has a lucide icon. The icon plays once, then rests. A gear turns a third of the way, a bell rings, a heart beats, a refresh arrow turns. An outline icon without a move of its own redraws its strokes, and a filled icon gives a small punch.
+
+## Options
+
+<TypeTable
+  type={{
+    on: { description: 'When moves play. "press": when the control is pressed, by pointer, Enter or Space. "hover": also when the pointer arrives on it.', type: '"press" | "hover"', default: '"press"' },
+  }}
+/>
+
+## Good to know
+
+- **Where moves play:** buttons, toggles, toggle group items, tabs, menu items (dropdown, context menu, menubar), command items, navigation menu links and sidebar items.
+- **What it leaves alone:** chevrons, carets, grips and spinners. Chevrons already turn through `<Cuts />`, and a spinner has its own motion.
+- **About 50 icons have their own move,** including house, inbox, chart, folder, users, bell, settings, search, calendar, file, message, sparkles, mail, send, trash, plus, x, check, copy, download, upload, refresh, heart, star, bookmark, share, log in and out, pencil, eye, lock, archive, filter, layout, list, map pin, globe, link, info, help, cart, package, zap, moon, sun, sliders, arrows, ellipsis, play, pause, volume, mic, camera, phone, clock, bot, terminal, code, layers, tag, gift, rocket and thumbs up.
+- **Other icon sets** (Tabler, Hugeicons, Phosphor) redraw if they're outline icons and punch if they're filled.
+- **Reduced motion** turns every move off. `<Cuts responses="none" />` and `data-cut="none"` do too.

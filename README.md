@@ -63,6 +63,8 @@ import { StateCut } from "@/components/keyframery/state-cut"
 
 StateCut transitions whole views. LoadCut manages skeleton delay and minimum display time; ValueCut animates small values. All respect reduced motion and support opting out.
 
+**Icon moves** (`npx shadcn add @keyframery/icon-moves`, then `<IconMoves />` next to `<Cuts />`): when a button, menu item or sidebar item is pressed, its lucide icon plays its own move. Your icons stay the ones you wrote.
+
 ## Use with your coding agent
 
 In Claude Code, the plugin teaches Claude which animation fits each change, and connects the Keyframery MCP server:

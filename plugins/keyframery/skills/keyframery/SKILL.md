@@ -77,6 +77,7 @@ Rules:
 - Start from Quiet, Crisp or Expressive in `make_theme` with `profile: "quiet"`, `"crisp"` or `"expressive"`. Individual options override that preset. Apply the generated props and CSS; there is no runtime `profile` prop on `<Cuts />`.
 - Per component: `<Cuts dialog="punch-in" tabs="whip" toast="none" pace={1.2} />`.
 - Buttons, checkboxes, radios, switches, sliders, resize handles and progress bars already respond to presses, ticks and drags through `<Cuts />`; don't add your own press or check animations. `<Cuts responses="none" />` turns those off and keeps the cuts.
+- Optional: `npx shadcn add @keyframery/icon-moves`, then render `<IconMoves />` next to `<Cuts />`. Pressed icons play their own move (a gear turns, a bell rings) with the lucide icons already in the app; don't swap icons for animated copies.
 - App-wide or per section: `--kf-pace`, `--kf-ease` and `--kf-ease-exit` coordinate motion; `--kf-travel`, `--kf-blur` and `--kf-depth` shape rack-focus dialogs specifically; `--kf-hold` controls LoadCut's skeleton delay. `make_theme` writes the corresponding CSS.
 - Per element: `data-cut="none"` turns cuts off for an element and everything inside it. `data-cut-pace="2"` slows one section.
 - Reduced motion removes Keyframery's movement, scale and blur in favor of short fades or instant swaps. The drawer's native swipe behavior is preserved.

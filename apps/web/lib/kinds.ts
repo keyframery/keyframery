@@ -145,6 +145,8 @@ export function agentPrompt(site = "https://keyframery.com"): string {
     "4. Find changes outside the automatic components and wrap them:",
     ...helpers,
     "",
+    "Optional: npx shadcn add @keyframery/icon-moves, then render <IconMoves /> next to <Cuts /> so pressed lucide icons play their own move.",
+    "",
     "Use StateCut for whole-content state switches, LoadCut for delayed skeleton loading, and ValueCut for a small changing value. Keep <Cuts /> mounted. Respect reduced motion and avoid duplicating an animation Keyframery already handles.",
     "",
     `All docs as plain text: ${site}/llms-full.txt`,

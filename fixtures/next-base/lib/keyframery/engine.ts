@@ -1,3 +1,4 @@
+import { arrivalAdapter } from "./adapters/arrival"
 import { errorAdapter } from "./adapters/error"
 import { highlightAdapter } from "./adapters/highlight"
 import { overlayAdapter } from "./adapters/overlay"
@@ -26,7 +27,7 @@ export const DEFAULT_MENUS: Required<Menus> = {
 }
 
 /** Every adapter the engine runs. Each cut group adds its factory here. */
-export const ADAPTER_FACTORIES: Array<(press: PressTracker) => Adapter> = [overlayAdapter, panelAdapter, tabsAdapter, toastAdapter, tunedAdapter, toggleAdapter, highlightAdapter, errorAdapter]
+export const ADAPTER_FACTORIES: Array<(press: PressTracker) => Adapter> = [overlayAdapter, panelAdapter, tabsAdapter, toastAdapter, tunedAdapter, toggleAdapter, highlightAdapter, errorAdapter, arrivalAdapter]
 
 let refs = 0
 let activePress: PressTracker | null = null

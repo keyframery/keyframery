@@ -93,6 +93,16 @@
           "path": "lib/keyframery/adapters/error.ts",
           "type": "registry:lib",
           "target": "lib/keyframery/adapters/error.ts"
+        },
+        {
+          "path": "lib/keyframery/adapters/arrival.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/adapters/arrival.ts"
+        },
+        {
+          "path": "lib/keyframery/icon.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/icon.ts"
         }
       ]
     },
@@ -172,6 +182,27 @@
           "path": "components/keyframery/state-cut.tsx",
           "type": "registry:component",
           "target": "components/keyframery/state-cut.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-moves",
+      "type": "registry:component",
+      "title": "IconMoves",
+      "description": "When a control with an icon is pressed, its icon plays its own move: a gear turns, a bell rings, a lid lifts. Works with the lucide icons already in your app.",
+      "registryDependencies": [
+        "@keyframery/cuts"
+      ],
+      "files": [
+        {
+          "path": "components/keyframery/icon-moves.tsx",
+          "type": "registry:component",
+          "target": "components/keyframery/icon-moves.tsx"
+        },
+        {
+          "path": "lib/keyframery/moves.ts",
+          "type": "registry:lib",
+          "target": "lib/keyframery/moves.ts"
         }
       ]
     },

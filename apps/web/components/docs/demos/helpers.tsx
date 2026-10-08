@@ -8,6 +8,7 @@ import { MatchCut } from "@/components/keyframery/match-cut"
 import { StateCut } from "@/components/keyframery/state-cut"
 import { ValueCut } from "@/components/keyframery/value-cut"
 import { Button } from "@/components/ui/button"
+import { Bell, Calendar, Copy, CreditCard, Download, Heart, Mail, RefreshCw, Search, Send, Settings, Trash2 } from "lucide-react"
 
 export function MatchCutDemo() {
   const [open, setOpen] = React.useState(false)
@@ -130,6 +131,38 @@ export function StateCutDemo() {
         <Button size="sm" variant="outline" onClick={() => setState("ready")}>Show messages</Button>
         <Button size="sm" variant="outline" onClick={() => setState("error")}>Show error</Button>
       </div>
+    </div>
+  )
+}
+
+const MOVE_DEMO = [
+  { label: "Settings", Icon: Settings },
+  { label: "Notify", Icon: Bell },
+  { label: "Delete", Icon: Trash2 },
+  { label: "Download", Icon: Download },
+  { label: "Send", Icon: Send },
+  { label: "Like", Icon: Heart },
+  { label: "Refresh", Icon: RefreshCw },
+  { label: "Search", Icon: Search },
+  { label: "Mail", Icon: Mail },
+  { label: "Schedule", Icon: Calendar },
+  { label: "Copy", Icon: Copy },
+  { label: "Billing", Icon: CreditCard },
+]
+
+/** Plain shadcn buttons with lucide icons: <IconMoves /> on this site makes each icon play when pressed. */
+export function IconMovesDemo() {
+  return (
+    <div className="grid w-full max-w-lg gap-3">
+      <div className="flex flex-wrap justify-center gap-2">
+        {MOVE_DEMO.map(({ label, Icon }) => (
+          <Button key={label} size="sm" variant="outline">
+            <Icon />
+            {label}
+          </Button>
+        ))}
+      </div>
+      <p className="text-center text-xs text-muted-foreground">Press a button. Billing&apos;s card icon has no move of its own, so it redraws.</p>
     </div>
   )
 }

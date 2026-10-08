@@ -5,6 +5,7 @@
 import * as React from "react"
 
 import { Cuts } from "@/components/keyframery/cuts"
+import { IconMoves } from "@/components/keyframery/icon-moves"
 import type { Menus } from "@/lib/keyframery/engine"
 
 type Control = {
@@ -33,6 +34,7 @@ export function CutsControl({ children }: { children: React.ReactNode }) {
     <CutsContext.Provider value={value}>
       {children}
       <Cuts {...menus} pace={pace} enabled={enabled} />
+      <IconMoves />
     </CutsContext.Provider>
   )
 }

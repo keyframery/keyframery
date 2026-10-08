@@ -6,7 +6,7 @@ const headingText = (t: string) => t.replace(/Copy Anchor Link$/, "").trim()
 // The docs sidebar, in plain words: what people want to do, not how the library is built.
 const SIDEBAR: [group: string, items: string[]][] = [
   ["Get started", ["Introduction", "Quick start", "Use with AI tools"]],
-  ["Animate your app", ["What's automatic", "Cards that open into a page", "Lists", "Numbers and statuses", "Loading states", "Whole-content states"]],
+  ["Animate your app", ["What's automatic", "Cards that open into a page", "Lists", "Numbers and statuses", "Loading states", "Whole-content states", "Icon moves"]],
   ["Customize", ["Speed, easing and cuts", "Motion themes"]],
   ["Guides", ["Animations not working", "Detail pages on their own route", "Loading data after a click", "Live data", "Turning motion off in tests", "Performance"]],
   ["Reference", ["How it works", "Compared with other libraries", "Reduced motion and accessibility", "Base UI vs Radix", "Compatibility", "Changelog"]],
@@ -33,7 +33,7 @@ test("Quick start is three steps, each ending in what you should see", async ({ 
 })
 
 test("every Animate page follows one template: Install, Use, You should see, Options", async ({ page }) => {
-  for (const slug of ["helpers/match-cut", "helpers/list-cut", "helpers/value-cut", "helpers/load-cut", "helpers/state-cut"]) {
+  for (const slug of ["helpers/match-cut", "helpers/list-cut", "helpers/value-cut", "helpers/load-cut", "helpers/state-cut", "helpers/icon-moves"]) {
     await page.goto(`/docs/${slug}`)
     await expect(page.locator("[data-preview]").first(), slug).toBeVisible()
     const h2 = (await page.locator("article h2").allTextContents()).map(headingText)
