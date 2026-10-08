@@ -9,6 +9,7 @@
 import * as React from "react"
 
 import { agentPrompt } from "@/lib/kinds"
+import { rankResults } from "./search-dialog"
 
 type Tool = {
   name: string
@@ -17,7 +18,7 @@ type Tool = {
   execute: (input: Record<string, unknown>) => Promise<unknown>
 }
 type ModelContext = { registerTool: (tool: Tool, options?: { signal?: AbortSignal }) => unknown }
-type SearchResult = { url: string; type: string; content: string }
+type SearchResult = { id: string; url: string; type: "page" | "heading" | "text"; content: string }
 
 const TOOLS: Tool[] = [
   {
@@ -27,7 +28,7 @@ const TOOLS: Tool[] = [
     async execute({ query }) {
       const res = await fetch(`/api/search?query=${encodeURIComponent(String(query ?? ""))}`)
       const results = (await res.json()) as SearchResult[]
-      return results.slice(0, 10).map(({ url, type, content }) => ({ path: url, type, text: content }))
+      return rankResults(results, String(query ?? "")).slice(0, 10).map(({ url, type, content }) => ({ path: url, type, text: content }))
     },
   },
   {

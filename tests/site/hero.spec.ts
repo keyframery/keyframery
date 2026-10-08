@@ -24,11 +24,14 @@ async function center(l: Locator) {
   return { x: b.x + b.width / 2, y: b.y + b.height / 2 }
 }
 
-test("the first line says what Keyframery is, and the install command is right there", async ({ page }) => {
+test("the first line says what Keyframery is, and the install command is right there", async ({ page }, info) => {
   await page.goto("/")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Add one line. Your shadcn/ui app animates.")
   // The command has to work in a fresh project, before @keyframery is registered there.
   const hero = page.locator('section[aria-labelledby="hero-title"]')
+  await expect(hero.getByRole("link", { name: "Get started" })).toHaveAttribute("href", "/docs/installation")
+  // Phones skip the theme sentence, so the demo stays inside its autoplay threshold.
+  if (info.project.name !== "phone") await expect(hero.getByRole("link", { name: "motion theme" })).toHaveAttribute("href", "/theme")
   await expect(hero.getByText("npx shadcn add https://keyframery.com/r/cuts.json")).toBeVisible()
   // "Copied" shows for 1.6 s. Under load the runner can miss that window, so the page records the label change.
   const copy = hero.getByRole("button", { name: "Copy the install command" })
@@ -210,6 +213,6 @@ test("the install section offers the same button next to the Claude Code plugin"
 test("every address in the agent prompt works", async ({ request }) => {
   const paths = [...agentPrompt().matchAll(/https:\/\/keyframery\.com(\/[^\s)"]*)/g)].map((m) => m[1]).filter((p) => p !== "/mcp" && !p.includes("{name}"))
   expect(paths.length).toBeGreaterThanOrEqual(5)
-  for (const name of ["cuts", "match-cut", "list-cut", "value-cut", "load-cut"]) paths.push(`/r/${name}.json`)
+  for (const name of ["cuts", "match-cut", "list-cut", "value-cut", "load-cut", "state-cut"]) paths.push(`/r/${name}.json`)
   for (const p of paths) expect((await request.get(p)).status(), p).toBe(200)
 })

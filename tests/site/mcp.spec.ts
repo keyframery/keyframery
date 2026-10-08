@@ -1,6 +1,7 @@
 import { Client, StreamableHTTPClientTransport } from "@modelcontextprotocol/client"
 
 import { KINDS } from "../../apps/web/lib/kinds"
+import { decode, PROFILES, serializeTheme, themeAgentPrompt, toCode, toInstall } from "../../apps/web/lib/theme-url"
 import { expect, test } from "./kit"
 
 // The server doesn't depend on the browser: run it once, in the chromium project.
@@ -27,12 +28,13 @@ test("the server names itself, explains Keyframery and offers exactly four read-
   await client.close()
 })
 
-test("list_kinds names <Cuts />, the four helpers and links their docs", async () => {
+test("list_kinds names <Cuts />, the five helpers and links their docs", async () => {
   const client = await connect()
   const md = textOf(await call(client, "list_kinds"))
   expect(md).toContain("<Cuts />")
-  for (const h of ["MatchCut", "ListCut", "ValueCut", "LoadCut"]) expect(md).toContain(h)
+  for (const h of ["MatchCut", "ListCut", "ValueCut", "LoadCut", "StateCut"]) expect(md).toContain(h)
   expect(md).toContain("https://keyframery.com/docs/helpers/list-cut")
+  expect(md).toContain("https://keyframery.com/docs/helpers/state-cut")
   await client.close()
 })
 
@@ -76,6 +78,32 @@ test("make_theme returns the <Cuts /> line, the CSS and a Theme page link, and r
   expect(plain).toContain("No CSS needed")
   const bad = await call(client, "make_theme", { pace: 9 })
   expect(bad.isError).toBe(true)
+  await client.close()
+})
+
+test("make_theme applies a complete profile before overrides and uses the same reusable handoff as the builder", async () => {
+  const client = await connect()
+  for (const profile of ["quiet", "crisp", "expressive"] as const) {
+    const preset = PROFILES[profile].settings
+    const response = await call(client, "make_theme", { profile })
+    expect(response.isError).toBeFalsy()
+    const text = textOf(response)
+    expect(text).toContain(toInstall(preset))
+    expect(text).toContain(themeAgentPrompt(preset))
+    expect(text).toContain(serializeTheme(preset, PROFILES[profile].label))
+    const preview = text.match(/Open it in the Theme page: https:\/\/keyframery\.com\/theme(?:\?([^\n]*))?/)
+    expect(preview).not.toBeNull()
+    expect(decode(preview?.[1] ?? "")).toEqual(preset)
+  }
+  const changed = { menus: { ...PROFILES.quiet.settings.menus, dialog: "rack-focus" }, vars: { ...PROFILES.quiet.settings.vars, pace: 1.5, blur: 4 } }
+  const overrides = textOf(await call(client, "make_theme", { profile: "quiet", dialog: "rack-focus", pace: 1.5, blur: 4 }))
+  expect(overrides).toContain(toCode(changed).jsx)
+  expect(overrides).toContain(toCode(changed).css)
+  expect(overrides).toContain(toInstall(changed))
+  expect(PROFILES.quiet.settings.vars.pace).toBe(0.9)
+  for (const input of [{ profile: "loud" }, { ease: "toString" }, { profile: "crisp", unknown: true }]) {
+    expect((await call(client, "make_theme", input)).isError).toBe(true)
+  }
   await client.close()
 })
 

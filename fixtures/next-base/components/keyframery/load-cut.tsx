@@ -5,7 +5,7 @@
 import * as React from "react"
 
 import { nextLoadPhase, parseHold, type LoadEvent, type LoadPhase } from "@/lib/keyframery/load"
-import { emitCut, reducedMotion, scaled } from "@/lib/keyframery/motion"
+import { easingOf, emitCut, reducedMotion, scaled } from "@/lib/keyframery/motion"
 import { optedOut } from "@/lib/keyframery/state"
 
 export type LoadCutProps = {
@@ -22,7 +22,6 @@ export type LoadCutProps = {
   className?: string
 }
 
-const SETTLE = "cubic-bezier(0.22, 1, 0.36, 1)"
 
 export function LoadCut({ loading, skeleton, children, hold, minShow = 400, pace, cut, className }: LoadCutProps) {
   const ref = React.useRef<HTMLDivElement>(null)
@@ -68,7 +67,7 @@ export function LoadCut({ loading, skeleton, children, hold, minShow = 400, pace
     const off = optedOut(el) || reducedMotion()
     if (phase === "skeleton") {
       shownAt.current = performance.now()
-      if (!off) el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: scaled(120, el) })
+      if (!off) el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: scaled(120, el), easing: easingOf(el) })
       return
     }
     const resized = (phase === "settling" || (phase === "content" && was === "waiting")) && from !== null && Math.abs(to - from) > 1
@@ -78,14 +77,14 @@ export function LoadCut({ loading, skeleton, children, hold, minShow = 400, pace
           { height: `${from}px`, overflow: "clip" },
           { height: `${to}px`, overflow: "clip" },
         ],
-        { duration: scaled(240, el), easing: SETTLE },
+        { duration: scaled(240, el), easing: easingOf(el) },
       )
     }
     if (phase !== "settling") return
     const ms = off ? 0 : scaled(240, el)
     if (!off) {
-      el.querySelector('[data-kf-load="skeleton"]')?.animate([{ opacity: 1 }, { opacity: 0 }], { duration: ms, fill: "forwards" })
-      el.querySelector('[data-kf-load="content"]')?.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ms })
+      el.querySelector('[data-kf-load="skeleton"]')?.animate([{ opacity: 1 }, { opacity: 0 }], { duration: ms, easing: easingOf(el, "exit"), fill: "forwards" })
+      el.querySelector('[data-kf-load="content"]')?.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ms, easing: easingOf(el) })
       emitCut({ cut: "dissolve", component: "load", phase: "enter", ms: Math.round(ms) })
     }
     const t = setTimeout(() => go("settled"), ms)

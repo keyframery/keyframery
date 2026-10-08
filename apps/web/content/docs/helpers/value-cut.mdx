@@ -58,6 +58,8 @@ When the value changes, only the digits that changed roll up or down, and the wh
 
 ## Good to know
 
+Use [StateCut](/docs/helpers/state-cut) when an entire content region changes state. ValueCut is for the value itself, such as a total or a short status label.
+
 - Numbers use tabular figures, so the digits don't shift sideways.
 - The punch scales the value to 1.06 and back over 300 ms. Text crossfades with a 6px slide.
 - The first render never animates, and with reduced motion the value swaps instantly.

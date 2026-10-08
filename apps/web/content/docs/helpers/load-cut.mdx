@@ -58,6 +58,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 ## Good to know
 
+For empty, error, success or other whole-content switches without skeleton timing, use [StateCut](/docs/helpers/state-cut). For a changing count or short status label, use [ValueCut](/docs/helpers/value-cut).
+
 - LoadCut waits `--kf-hold` (300 ms) before it shows the skeleton. During the wait the space is reserved but empty, so nothing jumps.
 - Once shown, the skeleton stays at least 400 ms, so it never flashes, then dissolves over 240 ms.
 - LoadCut sets `aria-busy` while loading.

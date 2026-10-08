@@ -1,0 +1,74 @@
+---
+title: Whole-content states
+seoTitle: "React empty, error and success state animations"
+heading: "Whole-content state transitions"
+description: "StateCut fades or slides between empty, error, success and other content states, while easing the container height. Use it with your own React markup."
+faq:
+  - q: "When should I use StateCut instead of LoadCut?"
+    a: "Use StateCut when a whole view changes state, such as a form becoming a confirmation. Use LoadCut when loading needs a skeleton with a delay and minimum display time."
+  - q: "Does StateCut respect reduced motion?"
+    a: "Yes. With reduced motion, StateCut uses opacity only, without sliding or animating the container height."
+---
+
+<Preview>
+  <StateCutDemo />
+</Preview>
+
+An empty inbox becomes a list, a form becomes a confirmation, or an error is replaced by content. `StateCut` connects the old and new view with a fade or a short slide, and eases between their heights.
+
+## Install
+
+```bash
+npx shadcn add @keyframery/state-cut
+```
+
+Register `@keyframery` with the [Quick start](/docs/installation) first. The helper installs the layer as a dependency; keep one `<Cuts />` mounted in your root layout to enable motion.
+
+## Use
+
+Change `state` when the view should transition. Keep the wrapper mounted and render your current content inside it:
+
+```tsx
+import { StateCut } from "@/components/keyframery/state-cut"
+
+<StateCut state={status} cut="fade">
+  {status === "success" ? <Confirmation /> : <OrderForm />}
+</StateCut>
+```
+
+The first render does not animate. Updating content without changing `state` does not start a new transition. Use a stable string or number that represents the view, rather than a random value on each render. A new `state` remounts the content boundary, so keep drafts or other data you need to retain in a parent component.
+
+## You should see
+
+The new content fades or slides into place while the container eases to its height. Try **Show messages**, **Show error**, and **Try again** in the preview. Only the current view is interactive.
+
+## Options
+
+<TypeTable
+  type={{
+    state: { description: "The view's identity. Change it to transition to new content.", type: "string | number", required: true },
+    children: { description: "The current view's content. May be empty.", type: "React.ReactNode" },
+    cut: { description: "Fade, slide, or swap immediately with none.", type: '"fade" | "slide" | "none"', default: '"fade"' },
+    pace: { description: "Duration multiplier. Otherwise follows --kf-pace.", type: "number" },
+    className: { description: "Classes for the wrapper div.", type: "string" },
+  }}
+/>
+
+## Choose the right helper
+
+| What changes | Use |
+|---|---|
+| the whole content of a region: empty, error, success or another view | `StateCut` |
+| a skeleton becomes loaded content, with a delay and minimum display time | [LoadCut](/docs/helpers/load-cut) |
+| a number, badge or short status label | [ValueCut](/docs/helpers/value-cut) |
+| items are added, removed or reordered in a list | [ListCut](/docs/helpers/list-cut) |
+
+`StateCut` does not fetch data or decide when to show a skeleton. Those decisions stay in your app.
+
+## Good to know
+
+- It follows your theme's pace, entrance easing and exit easing, including scoped CSS variables.
+- `cut="none"`, an ancestor with `data-cut="none"`, or a disabled layer swaps content without Keyframery motion.
+- An outgoing snapshot is hidden from assistive technology, inert and ignored by the pointer. Only the current React content remains interactive. Interrupted transitions cancel their old animations and snapshots.
+- Reduced motion uses a short fade, without slide or height motion.
+- StateCut does not move focus or announce the new view. Keep state controls outside the changing region, and add your app's own accessible status announcement or focus handling when the workflow needs it.

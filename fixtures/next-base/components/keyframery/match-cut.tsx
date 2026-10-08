@@ -5,7 +5,7 @@
 import * as React from "react"
 
 import { playGhost, snapshot, type Snapshot } from "@/lib/keyframery/ghost"
-import { emitCut, reducedMotion, scaled } from "@/lib/keyframery/motion"
+import { easingOf, emitCut, reducedMotion, scaled, type CutPhase } from "@/lib/keyframery/motion"
 import { optedOut } from "@/lib/keyframery/state"
 
 /** A MatchCut's box when it was seen, plus where the page was scrolled then. */
@@ -15,7 +15,6 @@ type Shot = { snap: Snapshot; radius: string; t: number; scrollX: number; scroll
 const departed = new Map<string, Shot>()
 /** MatchCuts on screen, by id. */
 const onScreen = new Map<string, Set<HTMLElement>>()
-const SETTLE = "cubic-bezier(0.22, 1, 0.36, 1)"
 
 const shotOf = (el: HTMLElement): Shot => ({ snap: snapshot(el), radius: getComputedStyle(el).borderRadius, t: performance.now(), scrollX: window.scrollX, scrollY: window.scrollY })
 
@@ -44,7 +43,7 @@ function leavingShot(el: HTMLElement): Shot | null {
   return { snap: { clone: snapshot(el).clone, rect: seen.rect }, radius: seen.radius, t: performance.now(), scrollX: seen.scrollX, scrollY: seen.scrollY }
 }
 
-function morph(from: Shot, to: HTMLElement) {
+function morph(from: Shot, to: HTMLElement, phase: CutPhase = "enter") {
   if (optedOut(to)) return
   const a = from.snap.rect
   const b = to.getBoundingClientRect()
@@ -57,11 +56,13 @@ function morph(from: Shot, to: HTMLElement) {
   const same = Math.abs(a.left + sx0 - b.left) < 1 && Math.abs(a.top + sy0 - b.top) < 1 && Math.abs(a.width - b.width) < 1 && Math.abs(a.height - b.height) < 1
   if (same) return
   if (reducedMotion()) {
-    to.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120 })
+    to.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120, easing: easingOf(to, phase) })
     emitCut({ cut: "match-cut", component: "match", phase: "enter", ms: 120 })
     return
   }
   const ms = scaled(420, to)
+  // The incoming surface and its snapshot share the theme curve for a coherent morph.
+  const easing = easingOf(to, phase)
   const dx = a.left - b.left
   const dy = a.top - b.top
   const sx = a.width / b.width
@@ -72,7 +73,7 @@ function morph(from: Shot, to: HTMLElement) {
       { transformOrigin: "0 0", transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`, borderRadius: from.radius, opacity: 0.5 },
       { transformOrigin: "0 0", transform: "none", borderRadius: getComputedStyle(to).borderRadius, opacity: 1 },
     ],
-    { duration: ms, easing: SETTLE },
+    { duration: ms, easing },
   )
   // …while a copy of the small one grows into the big one's box above it. It is gone by 40% of the
   // way, before its scaled-up content would read as a blurry duplicate.
@@ -83,7 +84,7 @@ function morph(from: Shot, to: HTMLElement) {
       { opacity: 0, offset: 0.4 },
       { transformOrigin: "0 0", transform: `translate(${-dx}px, ${-dy}px) scale(${1 / sx}, ${1 / sy})`, opacity: 0 },
     ],
-    { duration: ms * 0.7, easing: SETTLE },
+    { duration: ms * 0.7, easing },
     { z: 60 },
   )
   emitCut({ cut: "match-cut", component: "match", phase: "enter", ms: Math.round(ms) })
@@ -123,7 +124,7 @@ export function MatchCut({ id, as: Tag = "div", children, pace, cut, style, ...r
       if (!shot) return
       const back = [...peers].find((p) => p.isConnected)
       if (back) {
-        morph(shot, back) // the big one closed while the small one is still there: cut back to it
+        morph(shot, back, "exit") // the big one closed while the small one is still there: cut back to it
         return
       }
       departed.set(id, shot)

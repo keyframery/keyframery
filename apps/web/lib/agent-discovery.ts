@@ -17,7 +17,7 @@ const SKILL_PATH = "/.well-known/agent-skills/keyframery/SKILL.md"
 export const serverCard = () => ({
   serverInfo: SERVER_INFO,
   description:
-    "Keyframery's docs for AI tools: the six kinds of change and the cut for each, any docs page as Markdown, docs search, and motion themes for shadcn/ui. Read-only, no account.",
+    "Keyframery's docs for AI tools: the seven kinds of change and the cut for each, any docs page as Markdown, docs search, and motion themes for shadcn/ui. Read-only, no account.",
   url: MCP,
   transport: { type: "streamable-http" },
   capabilities: { tools: true },
@@ -51,7 +51,7 @@ export const skillsIndex = () => ({
     {
       name: "keyframery",
       type: "skill-md",
-      description: "Add Keyframery's animations to a shadcn/ui app: install it, render <Cuts />, and pick the right cut for each kind of change.",
+      description: "Add Keyframery's animations to a shadcn/ui app: install it, render <Cuts />, pick a motion theme, and pick the right cut for each kind of change.",
       url: SKILL_PATH,
       digest: `sha256:${createHash("sha256").update(skillFile()).digest("hex")}`,
     },
@@ -68,7 +68,7 @@ export const aiCatalog = () => ({
       displayName: "Keyframery MCP server",
       type: "application/mcp-server-card+json",
       url: SERVER_CARD,
-      representativeQueries: ["how do I animate a shadcn dialog", "which component animates a React list", "make a motion theme for shadcn/ui"],
+      representativeQueries: ["how do I animate a shadcn dialog", "animate loading and error content with StateCut", "make a Quiet motion theme for shadcn/ui"],
     },
     {
       identifier: "urn:air:keyframery.com:skill:keyframery",

@@ -2,6 +2,8 @@ import Link from "next/link"
 
 import { CutOnActionLoop, DissolveLoop, JCutLoop, MatchCutLoop, PunchInLoop, RackFocusLoop } from "@/components/cuts/loops"
 
+import { StateCutLoop } from "./state-cut-loop"
+
 const KINDS = [
   {
     title: "Dialogs open from their button",
@@ -51,6 +53,14 @@ const KINDS = [
     name: "LoadCut",
     Loop: DissolveLoop,
   },
+  {
+    title: "Content changes keep their context",
+    body: "Empty, success and error content fade or slide into place, while the container eases to its new height.",
+    how: "<StateCut>",
+    docs: "/docs/helpers/state-cut",
+    name: "StateCut",
+    Loop: StateCutLoop,
+  },
 ]
 
 export function SixKinds() {
@@ -58,17 +68,17 @@ export function SixKinds() {
     <section aria-labelledby="kinds-title" className="mx-auto w-full max-w-[1200px] px-4 pt-24 md:pt-36">
       <div className="max-w-[640px]">
         <h2 id="kinds-title" className="text-[30px] leading-[1.1] font-semibold tracking-[-0.025em] text-balance md:text-[38px]">
-          Every way a screen changes, animated
+          Seven kinds of change, one cut each
         </h2>
         <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
-          A screen can only change in six ways. The first two are automatic once <code className="font-mono text-[15px] text-foreground">{"<Cuts />"}</code> is in
-          your layout. The other four take one small component each.
+          The first two are automatic once <code className="font-mono text-[15px] text-foreground">{"<Cuts />"}</code> is in your layout. The other five
+          take one small component each, and all seven follow your motion theme.
         </p>
       </div>
-      {/* A bento: the two automatic kinds take the wide top row, the four helpers share the row below. */}
-      <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-12">
+      {/* The two automatic groups take the wide top row; the five helpers share the row below. */}
+      <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-10">
         {KINDS.map(({ title, body, how, docs, name, Loop }) => (
-          <article key={title} className={`flex flex-col bg-background ${how === "Automatic" ? "lg:col-span-6" : "lg:col-span-3"}`}>
+          <article key={title} className={`flex flex-col bg-background ${how === "Automatic" ? "lg:col-span-5" : "lg:col-span-2"}`}>
             <div className="border-b bg-stage">
               <Loop bare />
             </div>

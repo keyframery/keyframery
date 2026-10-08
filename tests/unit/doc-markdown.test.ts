@@ -10,6 +10,7 @@ const SAMPLE = [
   "</Preview>",
   "",
   "<DialogDemo />",
+  "<StateCutDemo />",
   "",
   "<Steps>",
   "  <Step>",

@@ -99,7 +99,7 @@ export async function InstallSteps() {
           <p className="text-[15px] font-medium">Using a coding agent?</p>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
             Copy a short prompt for Claude Code, Cursor or any other agent. It installs Keyframery, renders{" "}
-            <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, and wraps the lists, numbers, skeletons and cards in your app.
+            <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, and adds helpers for the lists, numbers, loading, cards and content states in your app.
           </p>
           <AgentPromptButton className="mt-3 w-full sm:w-auto" />
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground">

@@ -2,11 +2,12 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import { CutOnActionLoop, DissolveLoop, JCutLoop, MatchCutLoop, PunchInLoop, RackFocusLoop } from "@/components/cuts/loops"
+import { StateCutLoop } from "@/components/home/state-cut-loop"
 import { pageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
-  title: "UI transition patterns: the six cuts",
-  description: "The six ways a screen can change, and the film cut Keyframery uses for each: rack focus, J-cut, match cut, cut on action, punch-in and dissolve.",
+  title: "UI transition patterns: the seven cuts",
+  description: "Seven kinds of interface change, and the film cut Keyframery uses for each: rack focus, J-cut, match cut, cut on action, punch-in, dissolve, fade and slide.",
   path: "/cuts",
   markdown: "/cuts.md",
 })
@@ -18,13 +19,14 @@ const ROWS = [
   { id: "cut-on-action", cut: "Cut on action", kind: "A list changes", film: "The cut happens mid-movement, so the motion carries across it.", ui: "A sent message flies from the Send button into the thread. A deleted row folds away first, then the rest glide up.", docs: "/docs/helpers/list-cut", Loop: CutOnActionLoop },
   { id: "punch-in", cut: "Punch-in", kind: "A value changes in place", film: "A quick push in on the same shot, for emphasis.", ui: "Only the digits that changed roll, and the number gives a small punch so the eye catches it.", docs: "/docs/helpers/value-cut", Loop: PunchInLoop },
   { id: "dissolve", cut: "Dissolve", kind: "A placeholder becomes real", film: "One shot fades into the next.", ui: "The skeleton fades into the content in the same space. If the data arrives within 300 ms, the skeleton never shows.", docs: "/docs/helpers/load-cut", Loop: DissolveLoop },
+  { id: "state-cut", cut: "Fade and slide", kind: "A whole view changes state", film: "A transition connects one scene to the next.", ui: "An empty region becomes content, a form becomes a confirmation, or an error clears. StateCut connects the whole view and eases its height, while only the current content stays interactive.", docs: "/docs/helpers/state-cut", Loop: StateCutLoop },
 ]
 
 export default function Page() {
   return (
     <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-16">
-      <h1 className="text-[44px] leading-[1.05] font-semibold tracking-[-0.03em]">Six cuts for every screen change</h1>
-      <p className="mt-4 max-w-[60ch] text-lg text-muted-foreground">A screen can only change in six ways. Each one has a cut from film editing that makes the change easy to follow.</p>
+      <h1 className="text-[44px] leading-[1.05] font-semibold tracking-[-0.03em]">Seven cuts, one for each kind of change</h1>
+      <p className="mt-4 max-w-[60ch] text-lg text-muted-foreground">Each kind of change on a screen has a cut from film editing that makes it easy to follow. Try them together in the <Link href="/theme" className="underline underline-offset-4">motion theme builder</Link>.</p>
       <div className="mt-12 grid gap-16">
         {ROWS.map(({ id, cut, kind, film, ui, docs, Loop }) => (
           <section key={id} id={id} className="grid scroll-mt-24 gap-6 md:grid-cols-[1fr_1.2fr] md:items-center">

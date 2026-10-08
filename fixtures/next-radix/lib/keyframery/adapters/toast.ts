@@ -1,5 +1,5 @@
 import { centerOf } from "../aim"
-import { DURATIONS, emitCut, reducedMotion, scaled } from "../motion"
+import { DURATIONS, easingOf, emitCut, reducedMotion, scaled } from "../motion"
 import type { Adapter } from "../observe"
 import type { PressTracker } from "../press"
 import { optedOut } from "../state"
@@ -25,7 +25,7 @@ export function toastAdapter(press: PressTracker): Adapter {
           { translate: `${from.x - to.x}px ${from.y - to.y}px`, scale: "0.4", filter: "blur(6px)" },
           { translate: "0 0", scale: "1", filter: "blur(0)" },
         ],
-        { duration: ms, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+        { duration: ms, easing: easingOf(el) },
       )
       emitCut({ cut: "cut-on-action", component: el.hasAttribute("data-sonner-toast") ? "sonner" : "toast", phase: "enter", ms: Math.round(ms) })
     },

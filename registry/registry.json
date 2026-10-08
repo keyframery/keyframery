@@ -145,6 +145,22 @@
       ]
     },
     {
+      "name": "state-cut",
+      "type": "registry:component",
+      "title": "StateCut",
+      "description": "Whole-content state changes settle with a fade or slide and a smooth container height.",
+      "registryDependencies": [
+        "@keyframery/cuts"
+      ],
+      "files": [
+        {
+          "path": "components/keyframery/state-cut.tsx",
+          "type": "registry:component",
+          "target": "components/keyframery/state-cut.tsx"
+        }
+      ]
+    },
+    {
       "name": "match-cut",
       "type": "registry:component",
       "title": "MatchCut",

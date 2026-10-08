@@ -1,7 +1,7 @@
 ---
 title: Performance
 seoTitle: "Animation performance and bundle size"
-description: "What Keyframery runs in the browser, what it costs (about 7 KB gzipped, no dependencies), and the one variable to change on slow devices."
+description: "What Keyframery runs in the browser, how to check its bundled size, and the variable to change on slow devices."
 ---
 
 ## What runs
@@ -15,7 +15,7 @@ Nothing runs while nothing changes.
 
 ## Size
 
-The layer is about 7 KB gzipped once your bundler minifies it: `cuts.tsx`, its stylesheet and the engine. Each helper adds about 1.5–2.5 KB.
+The CLI copies `cuts.tsx`, its stylesheet and the engine into your project, without adding an animation package dependency. Install only the helpers you use. Exact bundled size depends on your framework and bundler; measure the production build in your app rather than treating source-file size as the shipped cost.
 
 ## Lists
 

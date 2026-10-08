@@ -7,7 +7,7 @@ import * as React from "react"
 import { centerOf } from "@/lib/keyframery/aim"
 import { lastPress } from "@/lib/keyframery/engine"
 import { diffIds, type ListKey } from "@/lib/keyframery/list"
-import { emitCut, reducedMotion, scaled } from "@/lib/keyframery/motion"
+import { easingOf, emitCut, reducedMotion, scaled } from "@/lib/keyframery/motion"
 import { optedOut } from "@/lib/keyframery/state"
 
 type Seen = { el: HTMLElement; rect: DOMRect; cells?: number[] }
@@ -15,7 +15,6 @@ type Before = { origin: DOMRect | null; items: Map<ListKey, Seen> }
 type Registry = Map<ListKey, HTMLElement>
 
 const RegistryContext = React.createContext<Registry | null>(null)
-const SETTLE = "cubic-bezier(0.22, 1, 0.36, 1)"
 const gliding = new WeakMap<Element, Animation>()
 
 /**
@@ -96,7 +95,7 @@ function leave(list: HTMLElement, seen: Seen, shift: { x: number; y: number }, m
         { opacity: 1, scale: "1" },
         { opacity: 0, scale: "0.97" },
       ],
-      { duration: ms, easing: "cubic-bezier(0.4, 0, 1, 1)", fill: "forwards" },
+      { duration: ms, easing: easingOf(seen.el, "exit", "cubic-bezier(0.4, 0, 1, 1)"), fill: "forwards" },
     )
     .finished.then(done, done)
 }
@@ -130,7 +129,7 @@ function play(list: HTMLElement | null, { origin, items: before }: Before, items
             { translate: `${dx}px ${dy}px` },
             { translate: "0 0" },
           ],
-          { duration: ms(320), delay: lead, easing: SETTLE, fill: "backwards" },
+          { duration: ms(320), delay: lead, easing: easingOf(el), fill: "backwards" },
         ),
       )
       glided++
@@ -144,7 +143,7 @@ function play(list: HTMLElement | null, { origin, items: before }: Before, items
     const r = after.get(id)!
     if (!near(r)) continue
     if (reduced) {
-      el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120 })
+      el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120, easing: easingOf(el) })
     } else if (from) {
       const f = centerOf(from.el.isConnected ? from.el.getBoundingClientRect() : from.rect)
       const c = centerOf(r)
@@ -153,7 +152,7 @@ function play(list: HTMLElement | null, { origin, items: before }: Before, items
           { translate: `${f.x - c.x}px ${f.y - c.y}px`, scale: "0.9", opacity: 0 },
           { translate: "0 0", scale: "1", opacity: 1 },
         ],
-        { duration: ms(380), easing: SETTLE },
+        { duration: ms(380), easing: easingOf(el) },
       )
     } else {
       el.animate(
@@ -161,7 +160,7 @@ function play(list: HTMLElement | null, { origin, items: before }: Before, items
           { translate: "0 8px", opacity: 0 },
           { translate: "0 0", opacity: 1 },
         ],
-        { duration: ms(260), easing: SETTLE },
+        { duration: ms(260), easing: easingOf(el) },
       )
     }
   }

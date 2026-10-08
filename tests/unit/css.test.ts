@@ -29,3 +29,17 @@ it("every rule that moves something is scoped under html[data-kf]", () => {
   expect(rules.length).toBeGreaterThan(10)
   for (const r of rules) expect(r.split("{")[0]).toContain("html[data-kf")
 })
+
+it("every authored CSS entrance and exit uses its corresponding theme curve", () => {
+  const animations = [...css.matchAll(/animation:\s*(kf-[\w-]+)([^;]+);/g)]
+  expect(animations.length).toBeGreaterThan(10)
+  for (const [, name, timing] of animations) {
+    const phase = name.endsWith("-out") || name === "kf-shrink" ? "exit" : "enter"
+    expect(timing, name).toContain(phase === "exit" ? "var(--kf-ease-exit)" : "var(--kf-ease)")
+  }
+})
+
+it("the sinking page uses the entrance curve on opening and exit curve on closing", () => {
+  expect(css).toMatch(/\[data-kf-sink\][\s\S]*?transition:[\s\S]*?var\(--kf-ease\)/)
+  expect(css).toMatch(/\[data-kf-sink="off"\][\s\S]*?transition-timing-function:\s*var\(--kf-ease-exit\)/)
+})

@@ -28,15 +28,15 @@ test("an incomplete email gets a specific message", async ({ page }) => {
   await expect(page.getByRole("status")).toContainText("doesn't look complete")
 })
 
-test("the home page runs from the demo to the six kinds, install, the wall, speed, questions and the close", async ({ page }) => {
+test("the home page runs from the demo to the seven kinds, install, the wall, motion themes, questions and the close", async ({ page }) => {
   await page.goto("/")
   // Section headings only (ids ending in -title), not the dialog titles inside the demo screens.
   const order = await page.locator('main h2[id$="-title"]').allTextContents()
   expect(order).toEqual([
-    "Every way a screen changes, animated",
+    "Seven kinds of change, one cut each",
     "Install in two steps",
     "Try it on real screens",
-    "Set the speed like you set colours",
+    "One app. Three motion feels.",
     "Questions",
     "Start with one line",
   ])

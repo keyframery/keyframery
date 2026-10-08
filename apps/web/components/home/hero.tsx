@@ -27,7 +27,17 @@ export function Hero() {
         <p className="mt-6 max-w-[60ch] text-[17px] leading-relaxed text-pretty text-muted-foreground md:text-lg">
           <span className="md:block">Dialogs grow from the button you clicked. Tabs slide instead of snapping.</span>{" "}
           <span className="md:block">Lists, numbers and loading states move instead of jumping.</span>{" "}
-          <span className="md:block">Your components don&apos;t change.</span>
+          {/* Phones keep the original length: a longer paragraph pushes the demo below its autoplay threshold. */}
+          <span className="md:block">
+            <span className="hidden sm:inline">
+              Pick a{" "}
+              <Link href="/theme" className="text-foreground underline underline-offset-4">
+                motion theme
+              </Link>
+              .{" "}
+            </span>
+            Your components don&apos;t change.
+          </span>
         </p>
         <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
           <InstallCommand command={INSTALL_BY_URL} />

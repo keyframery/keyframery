@@ -5,7 +5,7 @@ heading: "Keyframery vs Motion, Animate UI, Magic UI and tw-animate-css"
 description: "How Keyframery compares with Motion, Animate UI, Magic UI and tw-animate-css: what each is for, what it adds to a shadcn/ui app, and when to use which."
 faq:
   - q: "Does Keyframery use Framer Motion?"
-    a: "No. Keyframery has no dependencies: it animates with CSS and the Web Animations API, in about 7 KB gzipped."
+    a: "No. Keyframery adds no animation package dependencies: it uses CSS and the Web Animations API."
   - q: "Is Keyframery an alternative to Magic UI or Animate UI?"
     a: "Not exactly. Magic UI and Animate UI give you new animated components to add. Keyframery animates the shadcn/ui components you already have. Many apps use both."
   - q: "Can I use Keyframery with Motion?"
@@ -18,8 +18,8 @@ They solve different problems, so the right choice depends on what you want to c
 
 | | Keyframery | Motion | Animate UI | Magic UI | tw-animate-css |
 |---|---|---|---|---|---|
-| What it is | Motion for the shadcn/ui components you already have | An animation library for React and JavaScript | Animated components you install | Animated components and effects you add | Tailwind CSS animation classes |
-| How you use it | Render `<Cuts />` once; wrap lists, numbers, skeletons and cards in four small components | Write the animation yourself, with `motion` components and props | Install each component with the shadcn CLI | Install or copy each component | Classes such as `animate-in` and `fade-in-0` |
+| What it is | Motion for the shadcn/ui components you already have | An animation library for React and JavaScript | Animated components and primitives you install | Animated components and effects you add | Tailwind CSS animation classes |
+| How you use it | Choose a theme, render `<Cuts />` once, and use five focused helpers for changes in your own markup | Write the animation yourself, with `motion` components and props | Install each component or primitive with the shadcn CLI | Install or copy each component | Classes such as `animate-in` and `fade-in-0` |
 | Your existing components | Unchanged | You add the animation to them | Replaced by its own versions | Unchanged; you add new ones | Already use it |
 | Dependencies | None | The `motion` package | Motion | Motion | None (CSS only) |
 | License | MIT | MIT | MIT + Commons Clause | MIT | MIT |
@@ -28,7 +28,7 @@ Each project's description, license and dependencies are as stated in its own re
 
 ## When to use Keyframery
 
-When you want the app you already have to move well, without rewriting it: dialogs that grow from the button you pressed, sheets that slide in while the page steps back, tabs that slide, toasts from the button that made them, and lists, numbers, loading states and cards that change without jumping. It's one consistent set of motion across the whole app, tuned with [a few CSS variables](/docs/customize).
+When you want the app you already have to move well, without rewriting it: dialogs that grow from the button you pressed, sheets that slide in while the page steps back, tabs that slide, toasts from the button that made them, and lists, numbers, loading states, cards and whole views that change without jumping. It's one consistent motion theme across the whole app: start from Quiet, Crisp or Expressive in the [theme builder](/theme). You can tune the result with [CSS variables and props](/docs/customize).
 
 ## When to use Motion
 
@@ -36,7 +36,7 @@ When you need animation that you design yourself: gestures and dragging, scroll-
 
 ## When to use Animate UI or Magic UI
 
-When you want new, eye-catching components: animated backgrounds, text effects, marquees or special buttons, often for marketing pages. They add components rather than change the ones you have. Check each project's license for your use: Magic UI is MIT, and Animate UI is MIT with the Commons Clause added.
+When you want animated components, primitives or visual effects to build with. Animate UI includes interactive UI components and unstyled primitives; Magic UI includes visual effects often used on marketing pages. Keyframery's focus is applying reusable motion to existing supported shadcn parts. Check each project's current license for your use.
 
 ## About tw-animate-css
 
@@ -44,7 +44,7 @@ It's probably already in your project: shadcn/ui uses its classes for the defaul
 
 ## Can I use them together?
 
-Yes. Keyframery only animates shadcn/ui's own parts, which it finds by their `data-slot` names, and the elements you wrap in its four components.
+Yes. Keyframery animates its supported shadcn/ui parts, which it finds by their `data-slot` names, and elements you wrap in its five helpers.
 
 - Components from Animate UI or Magic UI keep their own animation.
 - Motion code you write is left alone.

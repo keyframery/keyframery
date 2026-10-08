@@ -6,8 +6,8 @@ const headingText = (t: string) => t.replace(/Copy Anchor Link$/, "").trim()
 // The docs sidebar, in plain words: what people want to do, not how the library is built.
 const SIDEBAR: [group: string, items: string[]][] = [
   ["Get started", ["Introduction", "Quick start", "Use with AI tools"]],
-  ["Animate your app", ["What's automatic", "Cards that open into a page", "Lists", "Numbers and statuses", "Loading states"]],
-  ["Customize", ["Speed, easing and cuts"]],
+  ["Animate your app", ["What's automatic", "Cards that open into a page", "Lists", "Numbers and statuses", "Loading states", "Whole-content states"]],
+  ["Customize", ["Speed, easing and cuts", "Motion themes"]],
   ["Guides", ["Animations not working", "Detail pages on their own route", "Loading data after a click", "Live data", "Turning motion off in tests", "Performance"]],
   ["Reference", ["How it works", "Compared with other libraries", "Reduced motion and accessibility", "Base UI vs Radix", "Compatibility", "Changelog"]],
 ]
@@ -33,7 +33,7 @@ test("Quick start is three steps, each ending in what you should see", async ({ 
 })
 
 test("every Animate page follows one template: Install, Use, You should see, Options", async ({ page }) => {
-  for (const slug of ["helpers/match-cut", "helpers/list-cut", "helpers/value-cut", "helpers/load-cut"]) {
+  for (const slug of ["helpers/match-cut", "helpers/list-cut", "helpers/value-cut", "helpers/load-cut", "helpers/state-cut"]) {
     await page.goto(`/docs/${slug}`)
     await expect(page.locator("[data-preview]").first(), slug).toBeVisible()
     const h2 = (await page.locator("article h2").allTextContents()).map(headingText)
@@ -54,10 +54,10 @@ test("Customize puts the variables, the <Cuts> props and per-element control on 
   for (const text of ["--kf-pace", '<Cuts dialog="punch-in"', 'data-cut="none"', "keyframery:cut"]) await expect(page.getByText(text).first(), text).toBeVisible()
 })
 
-test("How it works holds the six kinds, the layer, exits and portals", async ({ page }) => {
+test("How it works holds the seven kinds, the layer, exits and portals", async ({ page }) => {
   await page.goto("/docs/how-it-works")
   const h2 = (await page.locator("article h2").allTextContents()).map(headingText)
-  expect(h2).toEqual(expect.arrayContaining(["The six kinds of change", "What the layer does", "Exits", "Portals"]))
+  expect(h2).toEqual(expect.arrayContaining(["The seven kinds of change", "What the layer does", "Exits", "Portals"]))
 })
 
 test("the old page addresses redirect to where their content went", async ({ request }) => {
@@ -119,4 +119,3 @@ test("the comparison page sets Keyframery beside Motion, Animate UI, Magic UI an
   const sections = (await page.locator("article h2").allTextContents()).map(headingText)
   expect(sections).toEqual(expect.arrayContaining(["At a glance", "Can I use them together?"]))
 })
-

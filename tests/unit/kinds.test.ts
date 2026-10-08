@@ -9,10 +9,10 @@ import { agentPrompt, KINDS, kindsMarkdown, REGISTER } from "../../apps/web/lib/
 const docs = path.resolve(process.cwd(), "../apps/web/content/docs")
 
 describe("kinds", () => {
-  it("has the six kinds: two automatic, four with one helper each", () => {
-    expect(KINDS).toHaveLength(6)
+  it("has the seven kinds: two automatic, five with one helper each", () => {
+    expect(KINDS).toHaveLength(7)
     expect(KINDS.filter((k) => k.helper === null)).toHaveLength(2)
-    expect(KINDS.map((k) => k.helper).filter(Boolean)).toEqual(["MatchCut", "ListCut", "ValueCut", "LoadCut"])
+    expect(KINDS.map((k) => k.helper).filter(Boolean)).toEqual(["MatchCut", "ListCut", "ValueCut", "LoadCut", "StateCut"])
   })
 
   it("points every kind at a docs page that exists", () => {
@@ -22,7 +22,9 @@ describe("kinds", () => {
   it("renders Markdown that names <Cuts />, every helper and absolute docs links", () => {
     const md = kindsMarkdown()
     expect(md).toContain("<Cuts />")
-    for (const h of ["MatchCut", "ListCut", "ValueCut", "LoadCut"]) expect(md).toContain(h)
+    for (const h of ["MatchCut", "ListCut", "ValueCut", "LoadCut", "StateCut"]) expect(md).toContain(h)
+    expect(md).toContain("The seven kinds of change")
+    expect(md).not.toContain("Every change on a screen")
     expect(md).toContain("https://keyframery.com/docs/helpers/list-cut")
     // A fresh project doesn't know @keyframery until it is registered once.
     expect(md).toContain('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"')
@@ -41,6 +43,8 @@ describe("kinds", () => {
     }
     expect(prompt).toContain("https://keyframery.com/llms-full.txt")
     expect(prompt).toContain("https://keyframery.com/mcp")
+    expect(prompt).toContain("Quiet, Crisp or Expressive")
+    expect(prompt).toContain("StateCut for whole-content state switches")
     // Plain text: it is pasted into a chat box, so no Markdown fences and no trailing whitespace.
     expect(prompt).not.toContain("```")
     expect(prompt).toBe(prompt.trim())

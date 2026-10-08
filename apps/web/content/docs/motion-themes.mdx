@@ -1,0 +1,56 @@
+---
+title: Motion themes
+seoTitle: "Motion themes for shadcn/ui"
+description: "Choose a Quiet, Crisp or Expressive motion profile, preview real app interactions, and reuse its configuration across supported shadcn components and helpers."
+---
+
+A motion theme combines component cuts, speed and easing into one reusable configuration. Start with a profile, try a complete workflow, then apply the generated settings to your existing app.
+
+## Start with a profile
+
+Open the [theme builder](/theme) and choose **Quiet**, **Crisp** or **Expressive**. Each profile is a starting point you can customize. It changes actual cuts and variables, rather than only changing the preview's appearance.
+
+The profiles are builder presets. There is no `profile` prop to add to `<Cuts />`; the builder generates the `<Cuts>` props and CSS that implement your selection.
+
+## Try the workflow
+
+Create a record, save it, see the list and total update, and open its details. The preview combines supported automatic shadcn components with MatchCut, ListCut, ValueCut, LoadCut and StateCut. It follows your system's reduced-motion preference.
+
+The theme does not animate arbitrary React components automatically. See [What's automatic](/docs/automatic) for the supported shadcn parts, and use a helper for the relevant changes in your own markup.
+
+## Tune only what matters
+
+- **Pace** multiplies motion durations. A larger number means slower motion.
+- **Entrance and exit easing** coordinate the engine and helpers.
+- **Component cuts** choose how dialogs, sheets, drawers, tabs and toasts move.
+- **Travel, blur and depth** shape rack-focus dialogs. They are not universal intensity controls for every cut.
+- **Skeleton delay** controls when LoadCut starts showing a placeholder.
+
+The drawer's native swipe behavior is preserved. Choosing `none` for an automatic component keeps its library motion; it does not remove that library's animations.
+
+## Reuse a theme
+
+Use the builder to:
+
+- save a named theme locally in this browser, load it later or remove it;
+- share the theme through a URL;
+- download a version-1 JSON file and import it in another browser;
+- copy installation instructions, the `<Cuts />` configuration and CSS;
+- copy a prompt with the same settings for your coding agent.
+
+Local saves stay on the current browser and device. Export a JSON file if you want a portable copy. Imports validate the version, fields, supported cuts, easing choices and numeric ranges before applying settings. Existing theme query links continue to work.
+
+## Apply it to your app
+
+1. Follow the generated registry registration and install commands.
+2. Import `Cuts` from your copied source and mount one configured `<Cuts />` in the root layout.
+3. Put the generated `:root` variables in your global stylesheet.
+4. Install and wrap the helpers where your app needs them. They follow the inherited theme settings.
+
+You own the copied source. Profiles, local saves, import/export and installation handoff are free and require no account.
+
+## Use a coding agent
+
+The read-only MCP server's `make_theme` tool accepts `profile: "quiet"`, `"crisp"` or `"expressive"`, plus individual overrides. For example, ask your agent to start from Crisp and use fading tabs. The tool returns the matching configuration and setup instructions; it does not edit your project itself.
+
+See [Use with AI tools](/docs/ai-tools) for connection instructions and [Speed, easing and cuts](/docs/customize) for the full setting reference.

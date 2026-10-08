@@ -1,10 +1,10 @@
 ---
 title: Introduction
 seoTitle: "Docs: animate your shadcn/ui app in one line"
-description: "Keyframery animates the shadcn/ui components you already have: dialogs, sheets, tabs, toasts, lists and numbers. One line, about 7 KB, no dependencies."
+description: "Keyframery animates the shadcn/ui components you already have: dialogs, sheets, tabs, toasts, lists, numbers and states. One line, about 7 KB, no dependencies."
 ---
 
-Keyframery adds animations to the shadcn/ui components you already have. Render one `<Cuts />` in your root layout, and your dialogs, sheets, tabs and toasts start moving from the button you pressed, and back into it.
+Keyframery adds animations to the shadcn/ui components you already have. Render one `<Cuts />` in your root layout, and your dialogs, sheets, tabs and toasts start moving from the button you pressed, and back into it. Pick a motion theme in the [theme builder](/theme) to set the feel for the whole app.
 
 <Preview>
   <DialogDemo />
@@ -15,8 +15,8 @@ Switch the preview to **Stock** to see shadcn's own motion, then back to **Keyfr
 ## What you get
 
 - **Motion with no code changes.** Dialogs, alert dialogs, sheets, drawers, tabs, toasts, the command menu and eleven more components animate as soon as `<Cuts />` is in your layout. Nothing in `components/ui` changes. See [what's automatic](/docs/automatic).
-- **Four small components** for the changes shadcn has no component for: [cards that open into a page](/docs/helpers/match-cut), [lists](/docs/helpers/list-cut), [numbers and statuses](/docs/helpers/value-cut) and [loading states](/docs/helpers/load-cut).
-- **Control like colours.** Speed, easing and the cut each component uses are CSS variables and props. See [Customize](/docs/customize).
+- **Five focused helpers** for changes in your own markup: [cards that open into a page](/docs/helpers/match-cut), [lists](/docs/helpers/list-cut), [numbers and statuses](/docs/helpers/value-cut), [skeleton loading](/docs/helpers/load-cut) and [whole-content states](/docs/helpers/state-cut).
+- **One reusable theme.** Choose a profile, tune cuts and shared settings, save locally, or import and export a JSON configuration. See [Motion themes](/docs/motion-themes).
 
 Like the rest of shadcn, it's code you own: the CLI copies it into your project. Remove `<Cuts />` and you have stock shadcn again.
 
@@ -24,7 +24,8 @@ Like the rest of shadcn, it's code you own: the CLI copies it into your project.
 
 1. [Quick start](/docs/installation): three steps, about two minutes.
 2. Using Claude Code or another AI tool? See [Use with AI tools](/docs/ai-tools).
-3. Choosing between animation libraries? See [how Keyframery compares](/docs/compare) with Motion, Animate UI, Magic UI and tw-animate-css.
+3. [Motion themes](/docs/motion-themes): preview, save and apply a complete configuration.
+4. Choosing between animation libraries? See [how Keyframery compares](/docs/compare) with Motion, Animate UI, Magic UI and tw-animate-css.
 
 ## Why "cuts"?
 

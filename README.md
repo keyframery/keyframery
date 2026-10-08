@@ -1,9 +1,10 @@
 # Keyframery
 
-Motion for shadcn/ui. Render one `<Cuts />` in your root layout, and your dialogs, sheets, tabs and toasts start moving from the button you pressed, and back into it. Four small components cover the changes shadcn has no component for: lists, numbers, loading states and cards that open into a page. Your components don't change.
+Motion for shadcn/ui. Render one `<Cuts />` in your root layout, and your dialogs, sheets, tabs and toasts start moving from the button you pressed, and back into it. Five small components cover the changes shadcn has no component for: lists, numbers, loading states, cards that open into a page, and views that change state. Pick a motion theme (Quiet, Crisp, Expressive or your own) for the whole app. Your components don't change.
 
 - Website and docs: https://keyframery.com
 - Quick start: https://keyframery.com/docs/installation
+- Motion theme builder: https://keyframery.com/theme
 - Use with Claude Code, Codex, Cursor and other coding agents: https://keyframery.com/docs/ai-tools
 
 ## Quick start
@@ -34,7 +35,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 Open a dialog: it grows out of the button you pressed. It works with Base UI and Radix, in Next.js, Vite and React Router, at about 7 KB gzipped with no dependencies. Like the rest of shadcn, the CLI copies the code into your project, so you own it.
 
-## The four components
+## Reusable motion themes
+
+Start from Quiet, Crisp or Expressive in the [builder](https://keyframery.com/theme), then tune component cuts, pace and entrance/exit easing. Preview a complete app workflow before copying installation instructions, configured JSX and CSS. Save themes locally, share a link, or import/export a validated version-1 JSON file. No account is required and all these features are free.
+
+Profiles generate props and CSS; `Cuts` does not have a `profile` prop. Shared pace and easing also apply to the helpers. Rack-focus travel, blur and depth affect rack-focus dialogs specifically, and native drawer gestures stay with the UI library.
+
+## The five helpers
 
 | Component | For | Install |
 |---|---|---|
@@ -42,6 +49,19 @@ Open a dialog: it grows out of the button you pressed. It works with Base UI and
 | [`ListCut`](https://keyframery.com/docs/helpers/list-cut) | lists that gain, lose or reorder items | `npx shadcn add @keyframery/list-cut` |
 | [`ValueCut`](https://keyframery.com/docs/helpers/value-cut) | numbers and statuses that change | `npx shadcn add @keyframery/value-cut` |
 | [`LoadCut`](https://keyframery.com/docs/helpers/load-cut) | skeletons that turn into content | `npx shadcn add @keyframery/load-cut` |
+| [`StateCut`](https://keyframery.com/docs/helpers/state-cut) | empty, error, success and other whole-content states | `npx shadcn add @keyframery/state-cut` |
+
+Keep one root `<Cuts />` mounted to enable helper motion. For example:
+
+```tsx
+import { StateCut } from "@/components/keyframery/state-cut"
+
+<StateCut state={status} cut="fade">
+  {status === "success" ? <Confirmation /> : <OrderForm />}
+</StateCut>
+```
+
+StateCut transitions whole views. LoadCut manages skeleton delay and minimum display time; ValueCut animates small values. All respect reduced motion and support opting out.
 
 ## Use with your coding agent
 

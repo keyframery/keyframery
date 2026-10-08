@@ -28,11 +28,11 @@ test("a row of logos says what Keyframery works with", async ({ page }) => {
   for (const name of ["shadcn/ui", "Base UI", "Radix", "Next.js", "Vite", "React Router"]) await expect(logos).toContainText(name)
 })
 
-test("the six kinds are a bento: the two automatic kinds are wider than the four helpers", async ({ page }, info) => {
+test("the automatic groups are wider than the five helper tiles", async ({ page }, info) => {
   test.skip(info.project.name === "phone", "one column on phones")
   await page.goto("/")
-  const tiles = page.getByRole("region", { name: "Every way a screen changes, animated" }).locator("article")
-  await expect(tiles).toHaveCount(6)
+  const tiles = page.getByRole("region", { name: "Seven kinds of change, one cut each" }).locator("article")
+  await expect(tiles).toHaveCount(7)
   const widths = await tiles.evaluateAll((els) => els.map((el) => Math.round(el.getBoundingClientRect().width)))
   expect(Math.min(widths[0], widths[1])).toBeGreaterThan(Math.max(...widths.slice(2)) * 1.4)
 })

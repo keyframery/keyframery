@@ -30,10 +30,12 @@ The server is at `https://keyframery.com/mcp`. It is read-only, needs no account
 
 | Tool | What it does |
 |---|---|
-| `list_kinds` | The six kinds of change, with the cut, install command and snippet for each |
+| `list_kinds` | The seven kinds of change, with the cut, install command and snippet for each |
 | `search_docs` | Searches the docs and returns matching pages |
 | `get_doc` | Returns one docs page as Markdown, such as `helpers/list-cut` |
-| `make_theme` | Builds the `<Cuts />` line and CSS for a chosen speed, easing or cut |
+| `make_theme` | Starts from Quiet, Crisp or Expressive plus overrides, and returns `<Cuts />`, CSS and installation handoff |
+
+Choose a profile in the [theme builder](/theme) and copy its agent prompt to carry the exact theme into your project. An agent can also call `make_theme` with `profile: "crisp"` and individual settings such as `tabs: "fade"`. The tool generates instructions; it does not edit your project.
 
 ### Claude Code
 
@@ -107,6 +109,8 @@ Paste `https://keyframery.com/llms-full.txt` into a chat, or add a line to your 
 ```md title="AGENTS.md"
 This project uses Keyframery for motion (https://keyframery.com/llms-full.txt).
 Use ListCut for lists that change, ValueCut for numbers and statuses that change,
-LoadCut for skeletons, and MatchCut for a card that opens into a detail view.
-Don't hand-write enter or exit animations for shadcn components.
+LoadCut for skeletons, StateCut for whole-content state switches,
+and MatchCut for a card that opens into a detail view. Keep one root <Cuts />.
+Use the chosen motion theme's Cuts props and CSS variables.
+Avoid duplicating animations on supported parts already handled by Keyframery.
 ```

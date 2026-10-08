@@ -1,7 +1,7 @@
 ---
 title: How it works
 seoTitle: "How Keyframery animates shadcn/ui"
-description: "How one <Cuts /> line animates shadcn/ui: the six kinds of interface change, how enter and exit animations play, and how portaled dialogs keep settings."
+description: "How one <Cuts /> line animates shadcn/ui: the seven kinds of interface change, how enter and exit animations play, and how portaled dialogs keep settings."
 faq:
   - q: "Does Keyframery work with server rendering?"
     a: "Yes. On the server `<Cuts />` renders nothing, so the page looks exactly like stock shadcn until it mounts."
@@ -9,9 +9,9 @@ faq:
     a: "Each part catches its own errors and falls back to doing nothing, so the library's stock motion plays and nothing else breaks."
 ---
 
-## The six kinds of change
+## The seven kinds of change
 
-Every change on a screen is one of six kinds, and Keyframery has one cut for each. See them playing on [the Cuts page](/cuts).
+Keyframery has one cut for each of these seven kinds of change. See them playing on [the Cuts page](/cuts), or try them together in the [theme builder](/theme).
 
 | Kind of change | Example | Cut | Where it comes from |
 |---|---|---|---|
@@ -21,8 +21,9 @@ Every change on a screen is one of six kinds, and Keyframery has one cut for eac
 | A list changes | a message is sent, a row is archived | cut on action, L-cut, glide | [ListCut](/docs/helpers/list-cut) |
 | A value changes in place | a price, a count, a status | punch-in | [ValueCut](/docs/helpers/value-cut) |
 | A placeholder becomes real | a skeleton turns into a chart | dissolve | [LoadCut](/docs/helpers/load-cut) |
+| A whole view changes state | an empty inbox becomes a list, a form becomes a confirmation | fade, slide | [StateCut](/docs/helpers/state-cut) |
 
-The first two need no code, because shadcn already has the parts and Keyframery finds them. The other four are changes shadcn has no component for, so each one is a small component you wrap around your own markup.
+The first two need no code, because shadcn already has the parts and Keyframery finds them. The other five are changes shadcn has no component for, so each one is a small component you wrap around your own markup. All follow the same root `<Cuts />` layer and shared motion settings.
 
 ## What the layer does
 

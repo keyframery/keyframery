@@ -13,10 +13,10 @@ const QUESTIONS: ({ q: string; a: string } | { q: string; a: React.ReactNode; te
     a: (
       <>
         No. <code className={code}>{"<Cuts />"}</code> finds shadcn&apos;s own parts by their <code className={code}>data-slot</code> names and adds the motion
-        with CSS. Nothing in components/ui is edited. Remove the line and you have stock shadcn again.
+        with CSS and the Web Animations API. Nothing in components/ui is edited. Remove the line and you have stock shadcn again.
       </>
     ),
-    text: "No. <Cuts /> finds shadcn's own parts by their data-slot names and adds the motion with CSS. Nothing in components/ui is edited. Remove the line and you have stock shadcn again.",
+    text: "No. <Cuts /> finds shadcn's own parts by their data-slot names and adds the motion with CSS and the Web Animations API. Nothing in components/ui is edited. Remove the line and you have stock shadcn again.",
   },
   {
     q: "Does shadcn/ui use Framer Motion?",
@@ -38,18 +38,18 @@ const QUESTIONS: ({ q: string; a: string } | { q: string; a: React.ReactNode; te
     q: "How big is it?",
     a: (
       <>
-        About 7 KB gzipped for <code className={code}>{"<Cuts />"}</code> and its stylesheet, with no extra dependencies. Each of the four helpers adds 1.5 to
-        2.6 KB.
+        About 7 KB gzipped for <code className={code}>{"<Cuts />"}</code> and its stylesheet, with no extra dependencies. Each of the five helpers adds about 1 KB
+        more.
       </>
     ),
-    text: "About 7 KB gzipped for <Cuts /> and its stylesheet, with no extra dependencies. Each of the four helpers adds 1.5 to 2.6 KB.",
+    text: "About 7 KB gzipped for <Cuts /> and its stylesheet, with no extra dependencies. Each of the five helpers adds about 1 KB more.",
   },
   {
     q: "Does it work with my own components?",
     a: (
       <>
         Anything that uses shadcn&apos;s <code className={code}>data-slot</code> names gets its cuts automatically. For changes shadcn has no component for, wrap
-        your markup in one of the four helpers:{" "}
+        your markup in one of the five helpers:{" "}
         <Link href="/docs/helpers/match-cut" className="text-foreground underline underline-offset-4">
           MatchCut
         </Link>
@@ -60,15 +60,30 @@ const QUESTIONS: ({ q: string; a: string } | { q: string; a: React.ReactNode; te
         ,{" "}
         <Link href="/docs/helpers/value-cut" className="text-foreground underline underline-offset-4">
           ValueCut
-        </Link>{" "}
-        or{" "}
+        </Link>
+        ,{" "}
         <Link href="/docs/helpers/load-cut" className="text-foreground underline underline-offset-4">
           LoadCut
+        </Link>
+        {" "}or{" "}
+        <Link href="/docs/helpers/state-cut" className="text-foreground underline underline-offset-4">
+          StateCut
         </Link>
         .
       </>
     ),
-    text: "Anything that uses shadcn's data-slot names gets its cuts automatically. For changes shadcn has no component for, wrap your markup in one of the four helpers: MatchCut, ListCut, ValueCut or LoadCut.",
+    text: "Anything that uses shadcn's data-slot names gets its cuts automatically. For changes shadcn has no component for, wrap your markup in one of the five helpers: MatchCut, ListCut, ValueCut, LoadCut or StateCut.",
+  },
+  {
+    q: "Can I reuse a motion theme across projects?",
+    a: (
+      <>
+        Yes. Start with Quiet, Crisp or Expressive in the{" "}
+        <Link href="/theme" className="text-foreground underline underline-offset-4">theme builder</Link>, customize it, and export a theme file.
+        Import that file in another project or share its preview link. The generated setup includes your cuts and CSS variables.
+      </>
+    ),
+    text: "Yes. Start with Quiet, Crisp or Expressive in the theme builder, customize it, and export a theme file. Import that file in another project or share its preview link. The generated setup includes your cuts and CSS variables.",
   },
   {
     q: "Does it work with AI coding agents?",

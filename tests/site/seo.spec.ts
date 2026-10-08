@@ -77,7 +77,7 @@ test("structured data describes the project, the maker, the FAQ and each docs pa
   for (const t of ["Organization", "WebSite", "SoftwareSourceCode", "FAQPage"]) expect(types, t).toContain(t)
   const code = home.find((n) => n["@type"] === "SoftwareSourceCode")!
   expect(code.codeRepository).toBe("https://github.com/keyframery/keyframery")
-  const faq = home.find((n) => n["@type"] === "FAQPage") as { mainEntity: { name: string; acceptedAnswer: { text: string } }[] }
+  const faq = home.find((n) => n["@type"] === "FAQPage") as { "@type": "FAQPage"; mainEntity: { name: string; acceptedAnswer: { text: string } }[] }
   const questions = await page.locator('section[aria-labelledby="faq-title"] h3').allTextContents()
   expect(faq.mainEntity.map((q) => q.name)).toEqual(questions.map((q) => q.trim()))
   for (const q of faq.mainEntity) expect(q.acceptedAnswer.text.length, q.name).toBeGreaterThan(20)
@@ -86,7 +86,7 @@ test("structured data describes the project, the maker, the FAQ and each docs pa
   const doc = await structuredData(page)
   const article = doc.find((n) => n["@type"] === "TechArticle")!
   expect(article.url).toBe(`${BASE}/docs/helpers/list-cut`)
-  const crumbs = doc.find((n) => n["@type"] === "BreadcrumbList") as { itemListElement: { position: number; name: string; item?: string }[] }
+  const crumbs = doc.find((n) => n["@type"] === "BreadcrumbList") as { "@type": "BreadcrumbList"; itemListElement: { position: number; name: string; item?: string }[] }
   expect(crumbs.itemListElement.map((c) => c.item ?? c.name)).toEqual([BASE, `${BASE}/docs`, `${BASE}/docs/helpers/list-cut`])
 })
 
@@ -138,7 +138,7 @@ async function crawlerText(request: import("@playwright/test").APIRequestContext
 test("the home page's FAQ answers are in the HTML, not only behind a click", async ({ page, request }) => {
   const html = await crawlerText(request, "/")
   await page.goto("/")
-  const faq = (await structuredData(page)).find((n) => n["@type"] === "FAQPage") as { mainEntity: { name: string; acceptedAnswer: { text: string } }[] }
+  const faq = (await structuredData(page)).find((n) => n["@type"] === "FAQPage") as { "@type": "FAQPage"; mainEntity: { name: string; acceptedAnswer: { text: string } }[] }
   // Each answer's opening words, as written on the page.
   for (const q of faq.mainEntity) expect(html, q.name).toContain(squash(q.acceptedAnswer.text).slice(0, 40))
 })
@@ -154,7 +154,7 @@ test("docs pages answer their own questions on the page and in structured data",
   await expect(section.getByRole("heading", { level: 2, name: "Questions" })).toBeVisible()
   const questions = (await section.locator("h3").allTextContents()).map((q) => q.trim())
   expect(questions.length).toBeGreaterThanOrEqual(2)
-  const faq = (await structuredData(page)).find((n) => n["@type"] === "FAQPage") as { mainEntity: { name: string }[] }
+  const faq = (await structuredData(page)).find((n) => n["@type"] === "FAQPage") as { "@type": "FAQPage"; mainEntity: { name: string }[] }
   expect(faq.mainEntity.map((q) => q.name)).toEqual(questions)
   // The same questions reach AI tools through the page's Markdown.
   expect(await (await page.request.get("/docs/helpers/list-cut.mdx")).text()).toContain(`### ${questions[0]}`)

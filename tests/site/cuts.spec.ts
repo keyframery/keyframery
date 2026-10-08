@@ -1,10 +1,19 @@
 import { expect, takeCuts, test } from "./kit"
 
-test("all six kinds are on the page, and their loops play real cuts", async ({ page }) => {
+test("all seven kinds are on the page, and their loops play real cuts", async ({ page }) => {
   await page.goto("/cuts")
-  for (const id of ["rack-focus", "j-cut", "match-cut", "cut-on-action", "punch-in", "dissolve"]) await expect(page.locator(`#${id}`)).toBeVisible()
+  for (const id of ["rack-focus", "j-cut", "match-cut", "cut-on-action", "punch-in", "dissolve", "state-cut"]) await expect(page.locator(`#${id}`)).toBeVisible()
   await page.locator("#punch-in").scrollIntoViewIfNeeded()
   await expect.poll(async () => (await takeCuts(page)).length, { timeout: 8000 }).toBeGreaterThan(0)
+})
+
+test("the StateCut example links to its API and can change content", async ({ page }) => {
+  await page.goto("/cuts")
+  const section = page.locator("#state-cut")
+  await section.scrollIntoViewIfNeeded()
+  await expect(section.getByRole("link", { name: "Read the docs" })).toHaveAttribute("href", "/docs/helpers/state-cut")
+  await section.getByRole("button", { name: "Change status" }).click()
+  await expect.poll(async () => (await takeCuts(page)).some((c) => c.component === "state"), { timeout: 8000 }).toBe(true)
 })
 
 test("under reduced motion the loops wait for Play", async ({ browser }) => {

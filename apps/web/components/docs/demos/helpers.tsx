@@ -5,6 +5,7 @@ import * as React from "react"
 import { ListCut } from "@/components/keyframery/list-cut"
 import { LoadCut } from "@/components/keyframery/load-cut"
 import { MatchCut } from "@/components/keyframery/match-cut"
+import { StateCut } from "@/components/keyframery/state-cut"
 import { ValueCut } from "@/components/keyframery/value-cut"
 import { Button } from "@/components/ui/button"
 
@@ -91,6 +92,43 @@ export function LoadCutDemo() {
       <div className="flex gap-2">
         <Button size="sm" onClick={() => load(1200)}>Load slowly</Button>
         <Button size="sm" variant="outline" onClick={() => load(150)}>Load fast</Button>
+      </div>
+    </div>
+  )
+}
+
+export function StateCutDemo() {
+  const [state, setState] = React.useState<"empty" | "ready" | "error">("empty")
+  return (
+    <div className="grid w-full max-w-sm gap-3">
+      <StateCut state={state} cut="slide" className="rounded-xl border bg-background">
+        <div className="p-5">
+          {state === "empty" ? (
+            <>
+              <p className="text-sm font-medium">Your inbox is clear</p>
+              <p className="mt-1 text-sm text-muted-foreground">New messages will appear here.</p>
+            </>
+          ) : state === "error" ? (
+            <>
+              <p className="text-sm font-medium">Couldn’t load your inbox</p>
+              <p className="mt-1 text-sm text-muted-foreground">Try again when you’re ready.</p>
+              <Button size="sm" variant="outline" className="mt-3" onClick={() => setState("ready")}>Try again</Button>
+            </>
+          ) : (
+            <>
+              <p className="text-sm font-medium">Two new messages</p>
+              <ul className="mt-3 grid gap-2 text-sm text-muted-foreground">
+                <li>Priya: The release notes are ready.</li>
+                <li>Alex: Can you review the new flow?</li>
+              </ul>
+            </>
+          )}
+        </div>
+      </StateCut>
+      <div className="flex flex-wrap gap-2" aria-label="Inbox state">
+        <Button size="sm" variant="outline" onClick={() => setState("empty")}>Empty inbox</Button>
+        <Button size="sm" variant="outline" onClick={() => setState("ready")}>Show messages</Button>
+        <Button size="sm" variant="outline" onClick={() => setState("error")}>Show error</Button>
       </div>
     </div>
   )

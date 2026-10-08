@@ -1,8 +1,8 @@
 import { expect, takeCuts, test } from "./kit"
 
-test("the six kinds of change play live, plain words first, each linked to its docs", async ({ page }) => {
+test("the automatic groups and five helpers play live, each linked to its docs", async ({ page }) => {
   await page.goto("/")
-  const grid = page.getByRole("region", { name: "Every way a screen changes, animated" })
+  const grid = page.getByRole("region", { name: "Seven kinds of change, one cut each" })
   for (const title of [
     "Dialogs open from their button",
     "Tabs slide instead of snapping",
@@ -10,9 +10,11 @@ test("the six kinds of change play live, plain words first, each linked to its d
     "New items come from where they started",
     "Numbers roll to their new value",
     "Loading states settle in",
+    "Content changes keep their context",
   ])
     await expect(grid.getByRole("heading", { name: title })).toBeVisible()
   await expect(grid.getByRole("link", { name: "MatchCut docs" })).toHaveAttribute("href", "/docs/helpers/match-cut")
+  await expect(grid.getByRole("link", { name: "StateCut docs" })).toHaveAttribute("href", "/docs/helpers/state-cut")
 })
 
 test("the FAQ answers open and close", async ({ page }) => {

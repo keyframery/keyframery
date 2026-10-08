@@ -2,13 +2,13 @@ import { Closing } from "@/components/home/closing"
 import { Faq } from "@/components/home/faq"
 import { Hero } from "@/components/home/hero"
 import { InstallSteps } from "@/components/home/install-steps"
-import { PaceSample } from "@/components/home/pace-sample"
+import { MotionProfiles } from "@/components/home/motion-profiles"
 import { SixKinds } from "@/components/home/six-kinds"
 import { WallSection } from "@/components/home/wall-section"
 import { JsonLd, pageMetadata, projectData } from "@/lib/seo"
 
 const description =
-  "Add one line and your shadcn/ui app animates: dialogs grow from the button you clicked, tabs slide, and lists and loading states move. Open source, 7 KB."
+  "Add one line and your shadcn/ui app animates: dialogs grow from their button, tabs slide, lists and loading states move. Pick a motion theme. Open source, 7 KB."
 
 export const metadata = pageMetadata({ absolute: "Keyframery: the shadcn/ui animation library, in one line", description, path: "/", markdown: "/index.md" })
 
@@ -20,7 +20,7 @@ export default function Page() {
       <SixKinds />
       <InstallSteps />
       <WallSection />
-      <PaceSample />
+      <MotionProfiles />
       <Faq />
       <Closing />
     </main>

@@ -1,17 +1,17 @@
 ---
 name: keyframery
-description: Use when adding animation, motion or transitions to a React app built with shadcn/ui (dialogs, sheets, drawers, tabs, toasts, menus, lists, numbers, loading states), or when the user mentions Keyframery, <Cuts />, MatchCut, ListCut, ValueCut or LoadCut. Installs Keyframery with the shadcn CLI and picks the right cut for each kind of change.
+description: Use when adding animation, motion themes or transitions to a React app built with shadcn/ui (dialogs, sheets, drawers, tabs, toasts, menus, lists, numbers, loading and whole-content states), or when the user mentions Keyframery, <Cuts />, MatchCut, ListCut, ValueCut, LoadCut or StateCut. Installs copied source with the shadcn CLI and applies a reusable motion theme.
 ---
 
 # Keyframery
 
-Keyframery gives shadcn/ui apps the transitions a film editor would make. One `<Cuts />` in the root layout animates shadcn's own dialogs, sheets, drawers, tabs, toasts and menus without editing them. Four helpers cover the changes shadcn has no component for. The code is copied into the project by the shadcn CLI, like the rest of shadcn.
+Keyframery gives shadcn/ui apps the transitions a film editor would make. One `<Cuts />` in the root layout animates shadcn's own dialogs, sheets, drawers, tabs, toasts and menus without editing them. Five helpers cover the changes shadcn has no component for. A motion theme (Quiet, Crisp, Expressive or custom) sets pace, easing and cuts for the whole app. The code is copied into the project by the shadcn CLI, like the rest of shadcn.
 
 The `keyframery` MCP server at https://keyframery.com/mcp (the Claude Code plugin connects it) has the details:
-- `list_kinds`: the six kinds of change, with the cut, install command and snippet for each. Call it before choosing a helper.
+- `list_kinds`: the seven kinds of change, with the cut, install command and snippet for each. Call it before choosing a helper.
 - `get_doc`: any docs page as Markdown, for example `installation`, `helpers/list-cut`, `customize`.
 - `search_docs`: find the right page when you don't know it.
-- `make_theme`: the `<Cuts />` line and CSS for a chosen speed, easing or cut.
+- `make_theme`: Quiet, Crisp or Expressive plus optional overrides, with the matching `<Cuts />`, CSS and installation handoff. It generates instructions and never edits the project itself.
 
 ## 1. Check the project
 
@@ -62,19 +62,24 @@ Render it once. It renders nothing itself and is safe with server rendering.
 | A list changes: messages, inbox rows, kanban cards, table rows | `<ListCut>` with `<ListCut.Item id>` (`npx shadcn add @keyframery/list-cut`) |
 | A number, price, count or status changes in place | `<ValueCut value>` (`npx shadcn add @keyframery/value-cut`) |
 | A skeleton turns into real content | `<LoadCut loading skeleton>` (`npx shadcn add @keyframery/load-cut`) |
+| A whole region switches between empty, error, success or other views | `<StateCut state>` (`npx shadcn add @keyframery/state-cut`) |
 
 Rules:
-- Never hand-write enter or exit animations, `tw-animate` classes or Framer Motion wrappers for shadcn components. `<Cuts />` already handles them.
+- Avoid adding a second enter or exit animation to a supported part that `<Cuts />` already handles. Leave existing unrelated motion alone.
 - Don't animate static components: buttons, inputs, labels, badges that don't change.
 - Use the same stable `id` you use as the React `key` for ListCut items and MatchCut pairs.
 - Call `get_doc` for a helper's exact props before writing it.
+- Keep one root `<Cuts />` mounted for helper motion too. Do not assume arbitrary React components receive automatic animation.
+- StateCut animates whole-content changes; LoadCut handles skeleton timing; ValueCut handles a small number or status. Do not substitute one for another merely because all can show loading or status text.
 
 ## 6. Tune it
 
+- Start from Quiet, Crisp or Expressive in `make_theme` with `profile: "quiet"`, `"crisp"` or `"expressive"`. Individual options override that preset. Apply the generated props and CSS; there is no runtime `profile` prop on `<Cuts />`.
 - Per component: `<Cuts dialog="punch-in" tabs="whip" toast="none" pace={1.2} />`.
-- App-wide or per section: the `--kf-*` variables in `globals.css`, such as `--kf-pace`, `--kf-ease`, `--kf-travel`, `--kf-blur`, `--kf-depth`, `--kf-hold`. `make_theme` writes both for you.
+- App-wide or per section: `--kf-pace`, `--kf-ease` and `--kf-ease-exit` coordinate motion; `--kf-travel`, `--kf-blur` and `--kf-depth` shape rack-focus dialogs specifically; `--kf-hold` controls LoadCut's skeleton delay. `make_theme` writes the corresponding CSS.
 - Per element: `data-cut="none"` turns cuts off for an element and everything inside it. `data-cut-pace="2"` slows one section.
-- Reduced motion is handled: every cut becomes a short fade.
+- Reduced motion removes Keyframery's movement, scale and blur in favor of short fades or instant swaps. The drawer's native swipe behavior is preserved.
+- The builder at https://keyframery.com/theme supports local named saves, share links and validated version-1 JSON import/export, all free with no account. Its copied agent prompt carries the exact theme.
 
 ## 7. Add cuts to an existing app
 
@@ -84,7 +89,8 @@ When asked to "add animations" or "make the app feel smoother":
 3. Look for numbers or statuses that update (totals, counters, prices, order status), and wrap them in `ValueCut`.
 4. Look for `isLoading ? <Skeleton /> : …` patterns, and replace them with `LoadCut`.
 5. Look for cards or rows that link to a detail view, and pair them with `MatchCut`.
-6. Tell the user what you changed and where, one line per place.
+6. Look for whole-content empty, error or success branches, and wrap the region in `StateCut`. Keep the wrapper mounted and change its string or number `state` only when the view identity changes. The default cut is `fade`; `slide` and `none` are also available. Keep state controls outside the changing region and preserve the app's focus and announcement behavior.
+7. Apply the chosen motion theme's settings and tell the user what changed and where.
 
 ## Pitfalls
 

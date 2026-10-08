@@ -19,7 +19,7 @@ There are three levels. Use the first one that does what you need.
 | pick a different cut for dialogs, sheets, tabs or toasts | [`<Cuts>` props](#cuts-props) |
 | change one element, or turn motion off in one area | [attributes](#one-element-or-one-area) |
 
-The [Theme page](/theme) builds the variables and props for you, with a live preview.
+The [theme builder](/theme) starts with Quiet, Crisp or Expressive, then builds the variables and props for you with a live workflow preview. See [Motion themes](/docs/motion-themes) for saving, sharing, import/export and installation handoff.
 
 ## CSS variables
 
@@ -28,9 +28,9 @@ The [Theme page](/theme) builds the variables and props for you, with a live pre
 | `--kf-pace` | `1` | multiplies every duration (2 is half speed) |
 | `--kf-ease` | `cubic-bezier(0.22, 1, 0.36, 1)` | easing for entrances |
 | `--kf-ease-exit` | `cubic-bezier(0.5, 0, 0.75, 0)` | easing for exits |
-| `--kf-travel` | `0.35` | how far toward the opener a dialog starts (0 starts from the centre) |
-| `--kf-blur` | `8px` | the blur a dialog starts from |
-| `--kf-depth` | `0.94` | the scale a dialog starts from |
+| `--kf-travel` | `0.35` | how far toward the opener a rack-focus dialog starts (0 starts from the centre) |
+| `--kf-blur` | `8px` | the blur a rack-focus dialog starts from |
+| `--kf-depth` | `0.94` | the scale a rack-focus dialog starts from |
 | `--kf-hold` | `300ms` | how long [LoadCut](/docs/helpers/load-cut) waits before showing a skeleton |
 
 For the whole app, put them in your global stylesheet:
@@ -43,6 +43,8 @@ For the whole app, put them in your global stylesheet:
 ```
 
 Keyframery declares its defaults with zero specificity, so your `:root` always wins, wherever it sits in the file.
+
+Pace and easing apply across the engine and helpers. Travel, blur and depth apply to rack-focus dialogs; they do not change the geometry of punch-in, tabs, sheets or helper cuts. The drawer keeps its native swipe motion.
 
 For one section, set them on any element. They cascade, and dialogs and menus opened from inside the section use them too:
 
@@ -107,7 +109,7 @@ The eleven [tuned components](/docs/components/tuned) have no menu. They follow 
 <Tabs data-cut="whip">…</Tabs>
 ```
 
-For tabs, put `data-cut` on the `Tabs` root. The four components under **Animate your app** take a `cut` prop instead, for example `<ListCut cut="none">`, and they also respect `data-cut="none"` and `data-cut-pace` on their ancestors.
+For tabs, put `data-cut` on the `Tabs` root. The five helpers under **Animate your app** take a `cut` prop instead, for example `<ListCut cut="none">`, and they also respect `data-cut="none"` and `data-cut-pace` on their ancestors. Keep one `<Cuts />` mounted for helper motion too.
 
 ### Which setting wins
 

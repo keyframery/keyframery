@@ -1,22 +1,23 @@
 ---
 title: Reduced motion and accessibility
 seoTitle: "Reduced motion and accessible animations"
-description: "How Keyframery respects prefers-reduced-motion: every cut becomes a short fade, and motion never gets in the way of focus or screen readers."
+description: "How Keyframery respects prefers-reduced-motion, keeps outgoing snapshots hidden and inert, and leaves focus and announcements under your app's control."
 faq:
   - q: "Does Keyframery respect prefers-reduced-motion?"
-    a: "Yes. When the system asks for reduced motion, every cut becomes a short fade of about 120 to 160 ms: nothing moves, scales or blurs."
+    a: "Yes. Keyframery removes its movement, scale and blur effects, using short fades or instant swaps. Native drawer swipe behavior is preserved."
 ---
 
 ## Reduced motion
 
-When the system setting `prefers-reduced-motion: reduce` is on, every cut becomes a short fade:
+When the system setting `prefers-reduced-motion: reduce` is on, Keyframery uses short fades or instant swaps:
 
 - nothing moves, scales or blurs
 - fades last between about 120 and 160 ms
 - the page doesn't sink behind sheets and drawers
-- no ghosts, and no toasts flying from the button you pressed
+- no toasts flying from the button you pressed
 - [ValueCut](/docs/helpers/value-cut) swaps the value instantly
 - [LoadCut](/docs/helpers/load-cut) still waits before showing a skeleton, so it doesn't flash, then fades
+- [StateCut](/docs/helpers/state-cut) uses opacity only, without slide or height motion
 
 You don't need to do anything for this. It's on for everyone who asks their system for less motion.
 
@@ -31,3 +32,4 @@ Keyframery never moves focus and never adds focusable elements. Opening, closing
 - Ghosts, the copies Keyframery animates when something leaves, are `aria-hidden` and ignore the pointer.
 - ValueCut's rolling digits are `aria-hidden`. A visually hidden copy always holds the current value. Add `announce` to read changes out with `aria-live="polite"`.
 - LoadCut sets `aria-busy` while loading.
+- StateCut's outgoing snapshot is `aria-hidden` and inert, so it cannot duplicate interactive or screen-reader content. StateCut does not move focus or announce its new view; add the appropriate focus handling or status announcement for your app's workflow.

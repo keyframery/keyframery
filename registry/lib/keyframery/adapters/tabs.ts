@@ -1,7 +1,7 @@
 /** Tabs: the old panel leaves on a ghost, the tab pill whips across, the new panel follows, the frame resizes smoothly. */
 
 import { playGhost, snapshot, type Snapshot } from "../ghost"
-import { emitCut, reducedMotion, scaled } from "../motion"
+import { easingOf, emitCut, reducedMotion, scaled } from "../motion"
 import type { Adapter } from "../observe"
 import type { PressTracker } from "../press"
 import { isActive, optedOut } from "../state"
@@ -16,7 +16,6 @@ type Snap = { panel: Element | null; ghost: Snapshot | null; height: number; fro
 
 const own = (root: Element, selector: string) => Array.from(root.querySelectorAll(selector)).filter((n) => n.closest(ROOT) === root)
 const visible = (el: Element) => !(el as HTMLElement).hidden && el.getClientRects().length > 0
-const SETTLE = "cubic-bezier(0.22, 1, 0.36, 1)"
 
 export function tabsCutOf(root: Element): TabsCut | "none" {
   if (optedOut(root)) return "none"
@@ -71,6 +70,7 @@ function whip(to: Element, fromRect: DOMRect, vertical: boolean, ms: number) {
         { translate: at(0.12), scale: vertical ? "1 1.08" : "1.08 1", offset: 0.7 },
         { translate: "0 0", scale: "1 1" },
       ],
+      // The stretch keyframe at 0.7 is timed for this accelerate-then-settle curve; it is the whip, so the theme curve doesn't replace it.
       { duration: ms, easing: "cubic-bezier(0.65, 0, 0.35, 1)" },
     )
     .finished.then(done, done)
@@ -119,7 +119,7 @@ export function tabsAdapter(press: PressTracker): Adapter {
 
     if (reducedMotion()) {
       const ms = scaled(120, root)
-      panel?.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ms })
+      panel?.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ms, easing: easingOf(panel) })
       emitCut({ cut, component: "tabs", phase: "enter", ms: Math.round(ms) })
       return
     }
@@ -138,7 +138,7 @@ export function tabsAdapter(press: PressTracker): Adapter {
           { opacity: 1, translate: "0 0", filter: "blur(0)" },
           { opacity: 0, translate: shift(-dir * travel), filter: blur },
         ],
-        { duration: ghostMs, easing: "cubic-bezier(0.4, 0, 1, 1)" },
+        { duration: ghostMs, easing: easingOf(root, "exit", "cubic-bezier(0.4, 0, 1, 1)") },
         { host: root as HTMLElement },
       )
     }
@@ -155,7 +155,7 @@ export function tabsAdapter(press: PressTracker): Adapter {
             { height: `${snap.height}px`, overflow: "clip" },
             { height: `${height}px`, overflow: "clip" },
           ],
-          { duration: scaled(320, root), easing: SETTLE },
+          { duration: scaled(320, root), easing: easingOf(root) },
         ),
       )
     }
@@ -165,7 +165,7 @@ export function tabsAdapter(press: PressTracker): Adapter {
         { opacity: 0, translate: shift(dir * travel), filter: cut === "whip" ? "blur(4px)" : "blur(0)" },
         { opacity: 1, translate: "0 0", filter: "blur(0)" },
       ],
-      { duration: enterMs, delay: lead, easing: SETTLE, fill: "backwards" },
+      { duration: enterMs, delay: lead, easing: easingOf(panel), fill: "backwards" },
     )
     emitCut({ cut, component: "tabs", phase: "enter", ms: Math.round(enterMs + lead) })
   }

@@ -7,14 +7,14 @@ import { z } from "zod"
 import { kindsMarkdown, REGISTER } from "./kinds"
 import { docsSearch } from "./search"
 import { docsLlms, source } from "./source"
-import { DEFAULTS, EASES, encode, EXIT_EASES, GROUPS, toCode, VARS, type Group, type ThemeSettings, type Var } from "./theme-url"
+import { DEFAULTS, EASES, encode, EXIT_EASES, GROUPS, PROFILES, serializeTheme, themeAgentPrompt, toCode, toInstall, VARS, type Group, type ThemeSettings, type Var } from "./theme-url"
 
 export const SITE = "https://keyframery.com"
 
 /** How the server introduces itself; the server card (/.well-known/mcp/server-card.json) says the same. */
 export const SERVER_INFO = { name: "keyframery", version: "0.1.0" }
 
-export const INSTRUCTIONS = `Keyframery gives shadcn/ui apps film-style motion. One <Cuts /> in the root layout animates dialogs, sheets, drawers, tabs, toasts and menus; four helpers (MatchCut, ListCut, ValueCut, LoadCut) cover the changes shadcn has no component for. Call list_kinds before choosing a helper. Install with the shadcn CLI: first register Keyframery once per project with ${REGISTER}, then run npx shadcn add @keyframery/cuts. Use get_doc for exact APIs, search_docs when you don't know the page, and make_theme to tune speed and easing.`
+export const INSTRUCTIONS = `Keyframery gives shadcn/ui apps film-style motion. One <Cuts /> in the root layout animates dialogs, sheets, drawers, tabs, toasts and menus; five helpers (MatchCut, ListCut, ValueCut, LoadCut, StateCut) cover the changes shadcn has no component for. Call list_kinds before choosing a helper. Install with the shadcn CLI: first register Keyframery once per project with ${REGISTER}, then run npx shadcn add @keyframery/cuts. Use get_doc for exact APIs, search_docs when you don't know the page, and make_theme to start from a Quiet, Crisp or Expressive motion theme and tune speed, easing and cuts. All tools are read-only.`
 
 const READ_ONLY = { readOnlyHint: true, openWorldHint: false }
 
@@ -63,10 +63,11 @@ const range = (v: "pace" | "travel" | "blur" | "depth" | "hold", what: string) =
 const keysOf = (o: Record<string, unknown>) => Object.keys(o) as [string, ...string[]]
 
 const themeInput = z.object({
+  profile: z.enum(["quiet", "crisp", "expressive"]).optional().describe("A complete motion profile to start from. Explicit settings override this profile; otherwise start from Keyframery defaults."),
   pace: range("pace", "Duration multiplier for every cut; 1 is the default"),
-  travel: range("travel", "How far a cut travels toward the element that opened it"),
+  travel: range("travel", "How far a rack-focus dialog travels toward the element that opened it"),
   blur: range("blur", "Blur at the start of a rack focus, in px"),
-  depth: range("depth", "The scale a dialog starts from"),
+  depth: range("depth", "The scale a rack-focus dialog starts from"),
   hold: range("hold", "Milliseconds LoadCut waits before it shows a skeleton"),
   ease: z.enum(keysOf(EASES)).optional().describe("Entrance easing preset."),
   easeExit: z.enum(keysOf(EXIT_EASES)).optional().describe("Exit easing preset."),
@@ -75,10 +76,11 @@ const themeInput = z.object({
   drawer: z.enum(GROUPS.drawer).optional().describe("Whether the page steps back behind drawers."),
   tabs: z.enum(GROUPS.tabs).optional().describe("The cut for tabs."),
   toast: z.enum(GROUPS.toast).optional().describe("The cut for toasts."),
-})
+}).strict()
 
 function makeTheme(input: z.infer<typeof themeInput>): Result {
-  const s: ThemeSettings = { menus: { ...DEFAULTS.menus }, vars: { ...DEFAULTS.vars } }
+  const base = input.profile ? PROFILES[input.profile].settings : DEFAULTS
+  const s: ThemeSettings = { menus: { ...base.menus }, vars: { ...base.vars } }
   for (const g of Object.keys(GROUPS) as Group[]) {
     const pick = input[g]
     if (pick) s.menus[g] = pick
@@ -100,6 +102,17 @@ function makeTheme(input: z.infer<typeof themeInput>): Result {
       ...(css ? ["Add this to globals.css. It can also go on any section to scope it there:", "", "```css", css, "```"] : ["No CSS needed: everything else is at its default."]),
       "",
       `Open it in the Theme page: ${SITE}/theme${query ? `?${query}` : ""}`,
+      "",
+      "## Complete installation",
+      toInstall(s),
+      "",
+      "## Reusable theme file",
+      "```json",
+      serializeTheme(s, input.profile ? PROFILES[input.profile].label : undefined),
+      "```",
+      "",
+      "## Coding-agent handoff",
+      themeAgentPrompt(s),
     ].join("\n"),
   )
 }
@@ -108,9 +121,9 @@ export function registerKeyframeryTools(server: McpServer): void {
   server.registerTool(
     "list_kinds",
     {
-      title: "List the six kinds of change",
+      title: "List the seven kinds of change",
       description:
-        "The six ways a screen can change and the Keyframery cut for each: whether it is automatic with <Cuts /> or needs a helper (MatchCut, ListCut, ValueCut, LoadCut), with install commands, usage snippets and docs links. Call this before choosing a helper.",
+        "The seven kinds of change on a screen and the Keyframery cut for each: whether it is automatic with <Cuts /> or needs a helper (MatchCut, ListCut, ValueCut, LoadCut, StateCut), with install commands, usage snippets and docs links. Call this before choosing a helper.",
       annotations: READ_ONLY,
     },
     async () => reply(kindsMarkdown(SITE)),
@@ -145,7 +158,7 @@ export function registerKeyframeryTools(server: McpServer): void {
     {
       title: "Make a Keyframery motion theme",
       description:
-        "Builds the <Cuts /> line and the globals.css block for chosen speed, easing and cuts, plus a link that opens the same theme on the Theme page. Every input is optional; leave out what should stay at its default.",
+        "Starts from Quiet, Crisp, Expressive or the defaults, then applies explicit speed, easing and cut overrides. Returns the <Cuts /> line, CSS, preview link, complete installation instructions, versioned JSON and a coding-agent handoff. Every input is optional. Never edits the app.",
       inputSchema: themeInput,
       annotations: READ_ONLY,
     },

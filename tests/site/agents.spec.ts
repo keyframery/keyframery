@@ -135,6 +135,7 @@ test("WebMCP: an in-browser agent gets read-only tools to search the docs and re
   await expect.poll(() => page.evaluate(() => Object.keys((window as unknown as { __tools: object }).__tools).sort())).toEqual(["get_install_steps", "read_page", "search_docs"])
   const found = await page.evaluate(() => (window as unknown as { __tools: Record<string, { execute: (i: unknown) => Promise<unknown> }> }).__tools.search_docs.execute({ query: "list" }))
   expect(JSON.stringify(found)).toContain("/docs/helpers/list-cut")
+  expect((found as { path: string }[])[0].path).toBe("/docs/helpers/list-cut")
   const md = await page.evaluate(() => (window as unknown as { __tools: Record<string, { execute: (i: unknown) => Promise<unknown> }> }).__tools.read_page.execute({ path: "/docs/installation" }))
   expect(JSON.stringify(md)).toContain("# Quick start")
 })

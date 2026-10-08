@@ -1,4 +1,4 @@
-/* The six kinds of change and the cut for each: what the MCP list_kinds tool serves. Snippets are copied from
+/* The seven kinds of change and the cut for each: what the MCP list_kinds tool serves. Snippets are copied from
    the helper docs; tests check every docs path exists. No imports, so unit tests load it directly. */
 
 /** Registers @keyframery in a project's components.json, once. Until then the CLI answers `Unknown registry "@keyframery"`. */
@@ -85,6 +85,17 @@ export const KINDS: Kind[] = [
       'import { LoadCut } from "@/components/keyframery/load-cut"\nimport { Skeleton } from "@/components/ui/skeleton"\n\n<LoadCut loading={isLoading} skeleton={<Skeleton className="h-32" />}>\n  <RevenueChart data={data} />\n</LoadCut>',
     docs: "helpers/load-cut",
   },
+  {
+    kind: "A whole view changes state",
+    example: "an empty inbox becomes a list, a form becomes a confirmation, an error becomes content",
+    cut: "fade or slide between whole-content states, while the container height eases",
+    helper: "StateCut",
+    covers: "empty, error, success and other whole-content states",
+    install: "npx shadcn add @keyframery/state-cut",
+    snippet:
+      'import { StateCut } from "@/components/keyframery/state-cut"\n\n<StateCut state={status} cut="fade">\n  {status === "success" ? <Confirmation /> : <OrderForm />}\n</StateCut>',
+    docs: "helpers/state-cut",
+  },
 ]
 
 export function kindsMarkdown(site = "https://keyframery.com"): string {
@@ -104,9 +115,9 @@ export function kindsMarkdown(site = "https://keyframery.com"): string {
     ].join("\n"),
   )
   return [
-    "# The six kinds of change",
+    "# The seven kinds of change",
     "",
-    "Every change on a screen is one of these six. The first two are automatic once <Cuts /> is in the root layout. The other four take one helper each. Never hand-write enter or exit animations for shadcn components, and don't animate static ones (buttons, inputs, labels).",
+    "Keyframery has one cut for each of these seven kinds of change. The first two are automatic once <Cuts /> is in the root layout. The other five take one helper each, around your own markup; keep <Cuts /> mounted for them too. Avoid adding a second enter or exit animation to a part Keyframery already animates, and leave static controls alone.",
     "",
     `Register Keyframery once per project before installing anything: \`${REGISTER}\`. After that, every install command below works.`,
     "",
@@ -118,7 +129,7 @@ export function kindsMarkdown(site = "https://keyframery.com"): string {
 export function agentPrompt(site = "https://keyframery.com"): string {
   const helpers = KINDS.filter((k) => k.helper).map((k) => `- ${k.covers}: ${k.helper}. Install: ${k.install}. Docs: ${site}/docs/${k.docs}.mdx`)
   return [
-    "Add Keyframery to this project. It gives shadcn/ui components motion without changing them.",
+    "Add Keyframery to this project. It gives shadcn/ui components motion without changing them, and a motion theme sets the feel for the whole app.",
     "",
     "1. Register Keyframery once, then install the layer:",
     `   ${REGISTER}`,
@@ -128,10 +139,13 @@ export function agentPrompt(site = "https://keyframery.com"): string {
     '   import { Cuts } from "@/components/keyframery/cuts"',
     "   Dialogs, alert dialogs, sheets, drawers, tabs, toasts and the command menu now animate on their own. Don't edit components/ui.",
     "",
-    "3. Find the changes shadcn has no component for, and wrap them:",
+    `3. Choose Quiet, Crisp or Expressive: ${site}/theme`,
+    "   Apply its generated <Cuts /> props and CSS variables. The MCP make_theme tool accepts a profile plus optional overrides. Keep the existing UI components.",
+    "",
+    "4. Find changes outside the automatic components and wrap them:",
     ...helpers,
     "",
-    "Don't hand-write enter or exit animations for shadcn components, and don't animate static ones like buttons and inputs.",
+    "Use StateCut for whole-content state switches, LoadCut for delayed skeleton loading, and ValueCut for a small changing value. Keep <Cuts /> mounted. Respect reduced motion and avoid duplicating an animation Keyframery already handles.",
     "",
     `All docs as plain text: ${site}/llms-full.txt`,
     `MCP server, if you can add one: ${site}/mcp`,

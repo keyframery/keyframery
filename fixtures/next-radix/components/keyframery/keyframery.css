@@ -43,14 +43,14 @@
     :where(html[data-kf][data-kf-dialog="rack-focus"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="rack-focus"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(340ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
+  animation: kf-veil-in min(calc(340ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
     :where(html[data-kf][data-kf-dialog="rack-focus"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="rack-focus"]
   ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
-  animation: kf-veil-out min(calc(220ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+  animation: kf-veil-out min(calc(220ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
 }
 
 @keyframes kf-rack-in {
@@ -128,7 +128,7 @@
     :where(html[data-kf]:is([data-kf-sheet="slide-sink"], [data-kf-sheet="slide"])) [data-slot="sheet-content"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-content"]:is([data-cut="slide-sink"], [data-cut="slide"])
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-panel-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1) backwards;
+  animation: kf-panel-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
@@ -142,14 +142,14 @@
     :where(html[data-kf]:is([data-kf-sheet="slide-sink"], [data-kf-sheet="slide"])) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-overlay"]:is([data-cut="slide-sink"], [data-cut="slide"])
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
+  animation: kf-veil-in min(calc(460ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
     :where(html[data-kf]:is([data-kf-sheet="slide-sink"], [data-kf-sheet="slide"])) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-overlay"]:is([data-cut="slide-sink"], [data-cut="slide"])
   ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
-  animation: kf-veil-out min(calc(260ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+  animation: kf-veil-out min(calc(260ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
 }
 
 /* translate: none cancels Base UI's starting/ending-style translate so the two don't stack */
@@ -184,9 +184,13 @@
 :where(html[data-kf]) [data-kf-sink] {
   transform-origin: 50% 0;
   transition:
-    scale min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1),
-    filter min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1),
-    border-radius min(calc(460ms * var(--kf-pace)), var(--kf-cap)) cubic-bezier(0.32, 0.72, 0, 1);
+    scale min(calc(460ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease),
+    filter min(calc(460ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease),
+    border-radius min(calc(460ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease);
+}
+
+:where(html[data-kf]) [data-kf-sink="off"] {
+  transition-timing-function: var(--kf-ease-exit);
 }
 
 :where(html[data-kf]) [data-kf-sink="on"] {
@@ -228,35 +232,35 @@
     :where(html[data-kf][data-kf-dialog="fade"]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-content"], [data-slot="alert-dialog-content"])[data-cut="fade"]
   ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
-  animation: kf-fade-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+  animation: kf-fade-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
 }
 
 :is(
     :where(html[data-kf][data-kf-dialog="punch-in"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="punch-in"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(260ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
+  animation: kf-veil-in min(calc(260ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
     :where(html[data-kf][data-kf-dialog="punch-in"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="punch-in"]
   ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
-  animation: kf-veil-out min(calc(160ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+  animation: kf-veil-out min(calc(160ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
 }
 
 :is(
     :where(html[data-kf][data-kf-dialog="fade"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="fade"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
+  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
     :where(html[data-kf][data-kf-dialog="fade"]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"]):not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) :is([data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"])[data-cut="fade"]
   ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
-  animation: kf-veil-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+  animation: kf-veil-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
 }
 
 @keyframes kf-punch-in {
@@ -316,21 +320,21 @@
     :where(html[data-kf][data-kf-sheet="fade"]) [data-slot="sheet-content"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-content"][data-cut="fade"]
   ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
-  animation: kf-panel-fade-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+  animation: kf-panel-fade-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
 }
 
 :is(
     :where(html[data-kf][data-kf-sheet="fade"]) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-overlay"][data-cut="fade"]
   ):is([data-state="open"], [data-open]:not([data-open="false"])) {
-  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) ease-out backwards;
+  animation: kf-veil-in min(calc(200ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) backwards;
 }
 
 :is(
     :where(html[data-kf][data-kf-sheet="fade"]) [data-slot="sheet-overlay"]:not([data-cut], [data-cut="none"] *),
     :where(html[data-kf]) [data-slot="sheet-overlay"][data-cut="fade"]
   ):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
-  animation: kf-veil-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) ease-in both;
+  animation: kf-veil-out min(calc(150ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) both;
 }
 
 @keyframes kf-panel-fade-in {
@@ -392,6 +396,18 @@
   transition-timing-function: var(--kf-ease);
 }
 
+:where(html[data-kf])
+  :is(
+    [data-slot="popover-content"], [data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"],
+    [data-slot="context-menu-content"], [data-slot="context-menu-sub-content"], [data-slot="menubar-content"],
+    [data-slot="menubar-sub-content"], [data-slot="select-content"], [data-slot="combobox-content"],
+    [data-slot="hover-card-content"], [data-slot="tooltip-content"], [data-slot="navigation-menu-content"],
+    [data-slot="navigation-menu-viewport"], [data-slot="accordion-content"]
+  ):not([data-cut="none"], [data-cut="none"] *):is([data-state="closed"], [data-closed]:not([data-closed="false"])) {
+  animation-timing-function: var(--kf-ease-exit);
+  transition-timing-function: var(--kf-ease-exit);
+}
+
 /* Collapsible ships with no motion at all, which is a jump cut. It gets the accordion's height cut. */
 :where(html[data-kf]) [data-slot="collapsible-content"]:not([data-cut="none"], [data-cut="none"] *, [data-kf-static]):is(
     [data-state="open"],
@@ -404,7 +420,7 @@
     [data-state="closed"],
     [data-closed]:not([data-closed="false"])
   ) {
-  animation: kf-shrink min(calc(180ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease) forwards;
+  animation: kf-shrink min(calc(180ms * var(--kf-pace)), var(--kf-cap)) var(--kf-ease-exit) forwards;
 }
 
 @keyframes kf-grow {

@@ -4,7 +4,7 @@
 
 import * as React from "react"
 
-import { emitCut, reducedMotion, scaled } from "@/lib/keyframery/motion"
+import { easingOf, emitCut, reducedMotion, scaled } from "@/lib/keyframery/motion"
 import { optedOut } from "@/lib/keyframery/state"
 import { changedUnits, formatValue, previousUnit, unitsOf } from "@/lib/keyframery/value"
 
@@ -22,7 +22,6 @@ export type ValueCutProps = {
   className?: string
 }
 
-const SETTLE = "cubic-bezier(0.22, 1, 0.36, 1)"
 
 export function ValueCut({ value, format, locale, announce, pace, cut, className }: ValueCutProps) {
   const text = formatValue(value, locale, format)
@@ -41,6 +40,8 @@ export function ValueCut({ value, format, locale, announce, pace, cut, className
     const up = numeric ? (value as number) >= (prev.value as number) : true
     const travel = numeric ? "100%" : "6px"
     const ms = scaled(300, row)
+    const enterEase = easingOf(row)
+    const exitEase = easingOf(row, "exit", "cubic-bezier(0.4, 0, 1, 1)")
     const changed = changedUnits(prev.units, units)
     row.querySelectorAll<HTMLElement>(":scope > [data-kf-cell]").forEach((cell, i) => {
       if (!changed[i]) return
@@ -49,7 +50,7 @@ export function ValueCut({ value, format, locale, announce, pace, cut, className
           { translate: `0 ${up ? travel : `-${travel}`}`, opacity: 0 },
           { translate: "0 0", opacity: 1 },
         ],
-        { duration: ms, easing: SETTLE },
+        { duration: ms, easing: enterEase },
       )
       const old = previousUnit(prev.units, units, i)
       if (old === undefined) return
@@ -66,11 +67,12 @@ export function ValueCut({ value, format, locale, announce, pace, cut, className
             { translate: "0 0", opacity: 1 },
             { translate: `0 ${up ? `-${travel}` : travel}`, opacity: 0 },
           ],
-          { duration: ms * 0.8, easing: "cubic-bezier(0.4, 0, 1, 1)", fill: "forwards" },
+          { duration: ms * 0.8, easing: exitEase, fill: "forwards" },
         )
         .finished.then(done, done)
     })
-    if (Math.abs(width - prev.width) > 0.5) row.animate([{ width: `${prev.width}px` }, { width: `${width}px` }], { duration: ms, easing: SETTLE })
+    if (Math.abs(width - prev.width) > 0.5) row.animate([{ width: `${prev.width}px` }, { width: `${width}px` }], { duration: ms, easing: enterEase })
+    // The punch peaks at 0.35 with this curve; the theme's steeper entrance curves would make it an instant pop.
     row.animate([{ scale: "1" }, { scale: "1.06", offset: 0.35 }, { scale: "1" }], { duration: ms, easing: "ease-out" })
     emitCut({ cut: "punch-in", component: "value", phase: "enter", ms: Math.round(ms) })
   }, [text]) // eslint-disable-line react-hooks/exhaustive-deps
