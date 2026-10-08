@@ -1,15 +1,26 @@
 import Link from "next/link"
 
+import { GitHubIcon } from "@/components/site/github-icon"
 import { InstallCommand } from "@/components/site/install-command"
 import { INSTALL_BY_URL } from "@/lib/kinds"
 
 import { BeforeAfter } from "./before-after"
+import { WORKS_WITH } from "./logos"
+
+const action = "inline-flex h-11 items-center gap-2 rounded-lg px-5 text-sm font-medium outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
 
 export function Hero() {
   return (
     <section aria-labelledby="hero-title">
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-4 pt-14 text-center md:pt-20">
-        <h1 id="hero-title" className="text-[40px] leading-[1.04] font-semibold tracking-[-0.035em] text-balance sm:text-[52px] md:text-[68px]">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-4 pt-12 text-center md:pt-16">
+        <Link
+          href="/docs/ai-tools"
+          className="inline-flex max-w-full items-center gap-2 rounded-full border bg-card py-1 pr-3.5 pl-1 text-[13px] shadow-xs outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          <span className="rounded-full bg-foreground px-2 py-0.5 text-xs font-medium text-background">New</span>
+          <span className="truncate">Keyframery for Claude Code: MCP server and plugin</span>
+        </Link>
+        <h1 id="hero-title" className="mt-7 text-[40px] leading-[1.03] font-semibold tracking-[-0.04em] text-balance sm:text-[52px] md:text-[68px]">
           Add one line. <span className="md:block">Your shadcn/ui app animates.</span>
         </h1>
         <p className="mt-6 max-w-[60ch] text-[17px] leading-relaxed text-pretty text-muted-foreground md:text-lg">
@@ -19,16 +30,45 @@ export function Hero() {
         </p>
         <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
           <InstallCommand command={INSTALL_BY_URL} />
-          <Link
-            href="/docs/installation"
-            className="inline-flex h-11 items-center rounded-lg bg-foreground px-5 text-sm font-medium text-background outline-none hover:bg-foreground/85 focus-visible:ring-3 focus-visible:ring-ring/50"
-          >
-            Get started
-          </Link>
+          <div className="flex gap-3">
+            <Link href="/docs/installation" className={`${action} bg-foreground text-background hover:bg-foreground/85`}>
+              Get started
+            </Link>
+            <a href="https://github.com/keyframery/keyframery" className={`${action} border bg-card shadow-xs hover:bg-muted`}>
+              <GitHubIcon className="size-4" />
+              GitHub
+            </a>
+          </div>
         </div>
-        <p className="mt-5 text-sm text-muted-foreground">Works with Base UI and Radix, in Next.js, Vite and React Router.</p>
+        <ul aria-label="Facts" className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-1.5 text-sm text-muted-foreground">
+          <li>
+            <b className="font-semibold text-foreground tabular-nums">7 KB</b> gzipped
+          </li>
+          <li>
+            <b className="font-semibold text-foreground tabular-nums">0</b> dependencies
+          </li>
+          <li>
+            <b className="font-semibold text-foreground">Base UI</b> and <b className="font-semibold text-foreground">Radix</b>
+          </li>
+          <li>
+            <b className="font-semibold text-foreground">MIT</b> licensed
+          </li>
+        </ul>
       </div>
       <BeforeAfter />
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-4 px-4 pt-12 md:flex-row md:justify-center md:gap-8">
+        <p className="text-sm text-muted-foreground">Works with</p>
+        <ul aria-label="Works with" className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-sm font-medium text-foreground/80">
+          {WORKS_WITH.map((tool) => (
+            <li key={tool.name} className="inline-flex items-center gap-2">
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-[18px] fill-current">
+                <path d={tool.path} />
+              </svg>
+              {tool.name}
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

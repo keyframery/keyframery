@@ -138,7 +138,7 @@ export function TeamApp({ side, demo, cursorRef, cursorShown }: { side: Side; de
   }, [state.dialogOpen, state.focus, side])
 
   return (
-    <div data-window="" className="relative overflow-hidden rounded-xl border bg-card text-left shadow-[0_1px_0_rgb(22_24_29/0.04),0_16px_40px_-20px_rgb(22_24_29/0.22)]">
+    <div data-window="" className="relative overflow-hidden rounded-xl border bg-card text-left shadow-[0_1px_0_rgb(22_24_29/0.04),0_2px_6px_-2px_rgb(22_24_29/0.06),0_28px_56px_-24px_rgb(22_24_29/0.32)]">
       <div className="flex items-center gap-2 border-b px-3 py-2">
         <span aria-hidden="true" className="flex gap-1">
           <span className="size-2 rounded-full bg-border" />

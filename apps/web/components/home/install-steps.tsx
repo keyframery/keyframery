@@ -1,3 +1,4 @@
+import { highlight } from "fumadocs-core/highlight"
 import Link from "next/link"
 
 import { InstallCommand } from "@/components/site/install-command"
@@ -14,7 +15,43 @@ function Step({ n, children }: { n: number; children: React.ReactNode }) {
   )
 }
 
-export function InstallSteps() {
+const LAYOUT = `import { Cuts } from "@/components/keyframery/cuts"
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <Cuts />
+      </body>
+    </html>
+  )
+}`
+const CUTS_LINE = 8
+
+export async function InstallSteps() {
+  // Shiki at build time (GitHub themes, like the docs); the <Cuts /> line gets the cobalt mark.
+  const snippet = await highlight(LAYOUT, {
+    lang: "tsx",
+    // The high-contrast GitHub themes: the plain ones colour some tokens (parameters) below 4.5:1.
+    themes: { light: "github-light-high-contrast", dark: "github-dark-high-contrast" },
+    transformers: [
+      {
+        line(node, line) {
+          if (line === CUTS_LINE) this.addClassToHast(node, "highlighted")
+        },
+      },
+    ],
+    components: {
+      pre: (props) => (
+        <pre
+          {...props}
+          tabIndex={0}
+          className={`${props.className ?? ""} kf-snippet overflow-x-auto py-3 font-mono text-[13px] leading-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50`}
+        />
+      ),
+    },
+  })
   return (
     <section aria-labelledby="install-title" className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 pt-24 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16 md:pt-36">
       <div>
@@ -52,24 +89,9 @@ export function InstallSteps() {
               </span>
             </Step>
             <div className="mt-4 overflow-hidden rounded-xl border bg-card shadow-xs">
-              <p className="border-b px-4 py-2 font-mono text-xs text-muted-foreground">app/layout.tsx</p>
-              <pre tabIndex={0} className="overflow-x-auto py-3 font-mono text-[13px] leading-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
-                <code className="block w-max min-w-full">
-                  <span className="block px-4">{'import { Cuts } from "@/components/keyframery/cuts"'}</span>
-                  <span className="block px-4">{" "}</span>
-                  <span className="block px-4">{"export default function RootLayout({ children }) {"}</span>
-                  <span className="block px-4">{"  return ("}</span>
-                  <span className="block px-4">{'    <html lang="en">'}</span>
-                  <span className="block px-4">{"      <body>"}</span>
-                  <span className="block px-4">{"        {children}"}</span>
-                  <span className="block border-l-2 border-cut bg-cut/[0.07] pr-4 pl-[14px] font-medium">{"        <Cuts />"}</span>
-                  <span className="block px-4">{"      </body>"}</span>
-                  <span className="block px-4">{"    </html>"}</span>
-                  <span className="block px-4">{"  )"}</span>
-                  <span className="block px-4">{"}"}</span>
-                </code>
-              </pre>
-            </div>
+            <p className="border-b px-4 py-2 font-mono text-xs text-muted-foreground">app/layout.tsx</p>
+            {snippet}
+          </div>
           </li>
         </ol>
         <div className="min-w-0 rounded-xl border bg-card p-5 shadow-xs">

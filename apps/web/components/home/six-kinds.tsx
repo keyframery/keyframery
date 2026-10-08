@@ -65,9 +65,10 @@ export function SixKinds() {
           your layout. The other four take one small component each.
         </p>
       </div>
-      <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-3">
+      {/* A bento: the two automatic kinds take the wide top row, the four helpers share the row below. */}
+      <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-12">
         {KINDS.map(({ title, body, how, docs, name, Loop }) => (
-          <article key={title} className="flex flex-col bg-background">
+          <article key={title} className={`flex flex-col bg-background ${how === "Automatic" ? "lg:col-span-6" : "lg:col-span-3"}`}>
             <div className="border-b bg-stage">
               <Loop bare />
             </div>

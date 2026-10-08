@@ -1,7 +1,7 @@
 import { Analytics } from "@vercel/analytics/next"
 import { RootProvider } from "fumadocs-ui/provider/next"
 import type { Metadata } from "next"
-import { Geist_Mono, Schibsted_Grotesk } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
 
 import { CutsControl } from "@/app/cuts-control"
 import { SearchDialog } from "@/components/site/search-dialog"
@@ -10,7 +10,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 
 import "./global.css"
 
-const sans = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-schibsted" })
+const sans = Geist({ subsets: ["latin"], variable: "--font-geist" })
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
