@@ -113,3 +113,27 @@ export function kindsMarkdown(site = "https://keyframery.com"): string {
     ...parts.flatMap((p) => [p, ""]),
   ].join("\n")
 }
+
+/** What "Copy for your coding agent" puts on the clipboard: plain text an agent can follow in a project with shadcn/ui. */
+export function agentPrompt(site = "https://keyframery.com"): string {
+  const helpers = KINDS.filter((k) => k.helper).map((k) => `- ${k.covers}: ${k.helper}. Install: ${k.install}. Docs: ${site}/docs/${k.docs}.mdx`)
+  return [
+    "Add Keyframery to this project. It gives shadcn/ui components motion without changing them.",
+    "",
+    "1. Register Keyframery once, then install the layer:",
+    `   ${REGISTER}`,
+    "   npx shadcn add @keyframery/cuts",
+    "",
+    "2. Render <Cuts /> once, after the app's content, in the root layout (app/layout.tsx in Next.js, src/main.tsx in Vite, app/root.tsx in React Router):",
+    '   import { Cuts } from "@/components/keyframery/cuts"',
+    "   Dialogs, alert dialogs, sheets, drawers, tabs, toasts and the command menu now animate on their own. Don't edit components/ui.",
+    "",
+    "3. Find the changes shadcn has no component for, and wrap them:",
+    ...helpers,
+    "",
+    "Don't hand-write enter or exit animations for shadcn components, and don't animate static ones like buttons and inputs.",
+    "",
+    `All docs as plain text: ${site}/llms-full.txt`,
+    `MCP server, if you can add one: ${site}/mcp`,
+  ].join("\n")
+}

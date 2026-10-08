@@ -3,7 +3,7 @@ import path from "node:path"
 
 import { describe, expect, it } from "vitest"
 
-import { KINDS, kindsMarkdown } from "../../apps/web/lib/kinds"
+import { agentPrompt, KINDS, kindsMarkdown, REGISTER } from "../../apps/web/lib/kinds"
 
 // Resolved from the tests package, like css.test.ts: under happy-dom, URL is happy-dom's, which fs doesn't accept.
 const docs = path.resolve(process.cwd(), "../apps/web/content/docs")
@@ -26,5 +26,23 @@ describe("kinds", () => {
     expect(md).toContain("https://keyframery.com/docs/helpers/list-cut")
     // A fresh project doesn't know @keyframery until it is registered once.
     expect(md).toContain('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"')
+  })
+
+  it("writes a prompt a coding agent can follow from an empty start", () => {
+    const prompt = agentPrompt()
+    expect(prompt).toContain(REGISTER)
+    expect(prompt).toContain("npx shadcn add @keyframery/cuts")
+    expect(prompt).toContain('import { Cuts } from "@/components/keyframery/cuts"')
+    expect(prompt).toContain("<Cuts />")
+    for (const k of KINDS.filter((k) => k.helper)) {
+      expect(prompt).toContain(k.helper!)
+      expect(prompt).toContain(k.install)
+      expect(prompt).toContain(`https://keyframery.com/docs/${k.docs}.mdx`)
+    }
+    expect(prompt).toContain("https://keyframery.com/llms-full.txt")
+    expect(prompt).toContain("https://keyframery.com/mcp")
+    // Plain text: it is pasted into a chat box, so no Markdown fences and no trailing whitespace.
+    expect(prompt).not.toContain("```")
+    expect(prompt).toBe(prompt.trim())
   })
 })

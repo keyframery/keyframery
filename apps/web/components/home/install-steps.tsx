@@ -1,6 +1,7 @@
 import { highlight } from "fumadocs-core/highlight"
 import Link from "next/link"
 
+import { AgentPromptButton } from "@/components/site/agent-prompt-button"
 import { InstallCommand } from "@/components/site/install-command"
 import { REGISTER } from "@/lib/kinds"
 
@@ -95,13 +96,18 @@ export async function InstallSteps() {
           </li>
         </ol>
         <div className="min-w-0 rounded-xl border bg-card p-5 shadow-xs">
-          <p className="text-[15px] font-medium">Using Claude Code?</p>
+          <p className="text-[15px] font-medium">Using a coding agent?</p>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-            Add the plugin and ask Claude to animate your app. It knows which cut fits each change, and reads the docs through the{" "}
+            Copy a short prompt for Claude Code, Cursor or any other agent. It installs Keyframery, renders{" "}
+            <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, and wraps the lists, numbers, skeletons and cards in your app.
+          </p>
+          <AgentPromptButton className="mt-3 w-full sm:w-auto" />
+          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+            In Claude Code, the plugin does the same, and reads the docs through the{" "}
             <Link href="/docs/ai-tools" className="font-medium text-foreground underline underline-offset-4">
               Keyframery MCP server
             </Link>
-            .
+            :
           </p>
           <pre tabIndex={0} className="mt-3 overflow-x-auto rounded-md border bg-background px-3 py-2 font-mono text-[13px] leading-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
             {"/plugin marketplace add keyframery/keyframery\n/plugin install keyframery@keyframery"}

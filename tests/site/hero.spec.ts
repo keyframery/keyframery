@@ -1,6 +1,8 @@
 import type { Locator, Page } from "@playwright/test"
 
-import { expect, takeCuts, test } from "./kit"
+import { agentPrompt } from "../../apps/web/lib/kinds"
+
+import { expect, noHorizontalScroll, takeCuts, test } from "./kit"
 
 const stock = (page: Page) => page.getByRole("region", { name: "shadcn/ui as it ships" })
 const kf = (page: Page) => page.getByRole("region", { name: "shadcn/ui with Keyframery" })
@@ -178,4 +180,36 @@ test("the invite dialog keeps the email it showed while it closes", async ({ pag
   await kf(page).getByRole("button", { name: "Send invite" }).click()
   // Read it as the dialog starts closing: it must not switch to the next person's email mid-exit.
   expect(await input.inputValue()).toBe("maya@acme.com")
+})
+
+test("a button in the hero copies setup instructions for your coding agent", async ({ page, context }, info) => {
+  // On phones the hero keeps the demo in view instead (it starts when a quarter of it shows); the install section has the button.
+  test.skip(info.project.name === "phone", "desktop layout")
+  await page.goto("/")
+  const hero = page.locator('section[aria-labelledby="hero-title"]')
+  const button = hero.getByRole("button", { name: "Copy for your coding agent" })
+  await expect(button).toBeVisible()
+  expect(await noHorizontalScroll(page)).toBe(true)
+  // Reading the clipboard back needs a permission only Chromium grants to tests.
+  if (info.project.name === "chromium") await context.grantPermissions(["clipboard-read", "clipboard-write"])
+  await button.click()
+  await expect(page.getByRole("status").filter({ hasText: "Copied" }).first()).toBeAttached()
+  // While it says Copied, that is also its name: a button never goes nameless.
+  await expect(hero.getByRole("button", { name: "Copied. Now paste it.", exact: true })).toBeVisible()
+  if (info.project.name === "chromium") expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(agentPrompt())
+})
+
+test("the install section offers the same button next to the Claude Code plugin", async ({ page }) => {
+  await page.goto("/")
+  const install = page.locator('section[aria-labelledby="install-title"]')
+  await expect(install.getByRole("button", { name: "Copy for your coding agent" })).toBeVisible()
+  expect(await noHorizontalScroll(page)).toBe(true)
+  await expect(install.getByText("/plugin install keyframery@keyframery")).toBeVisible()
+})
+
+test("every address in the agent prompt works", async ({ request }) => {
+  const paths = [...agentPrompt().matchAll(/https:\/\/keyframery\.com(\/[^\s)"]*)/g)].map((m) => m[1]).filter((p) => p !== "/mcp" && !p.includes("{name}"))
+  expect(paths.length).toBeGreaterThanOrEqual(5)
+  for (const name of ["cuts", "match-cut", "list-cut", "value-cut", "load-cut"]) paths.push(`/r/${name}.json`)
+  for (const p of paths) expect((await request.get(p)).status(), p).toBe(200)
 })

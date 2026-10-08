@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { AgentPromptButton } from "@/components/site/agent-prompt-button"
 import { GitHubIcon } from "@/components/site/github-icon"
 import { InstallCommand } from "@/components/site/install-command"
 import { INSTALL_BY_URL } from "@/lib/kinds"
@@ -28,8 +29,10 @@ export function Hero() {
           <span className="md:block">Lists, numbers and loading states move instead of jumping.</span>{" "}
           <span className="md:block">Your components don&apos;t change.</span>
         </p>
-        <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
+        <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
           <InstallCommand command={INSTALL_BY_URL} />
+          {/* Not on phones: there the button would push the demo below the fold, and agents run on desktops anyway. */}
+          <AgentPromptButton className="hidden sm:inline-flex" />
           <div className="flex gap-3">
             <Link href="/docs/installation" className={`${action} bg-foreground text-background hover:bg-foreground/85`}>
               Get started
