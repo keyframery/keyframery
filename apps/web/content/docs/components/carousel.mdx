@@ -1,0 +1,31 @@
+---
+title: Carousel
+seoTitle: "shadcn/ui Carousel animation"
+heading: "Carousel animation"
+description: "The arrows dip and nudge while pressed; the slides keep Embla's own motion."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="carousel" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| An arrow is pressed | Dips and nudges 2 px toward its direction | 70–150 ms | Automatic |
+| The slides move | Embla's own drag and snap | its own | Its own motion |
+
+## Install
+
+Carousel is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add carousel
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a carousel (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

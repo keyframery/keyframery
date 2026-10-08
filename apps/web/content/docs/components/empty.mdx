@@ -1,0 +1,26 @@
+---
+title: Empty
+seoTitle: "shadcn/ui Empty animation"
+heading: "Empty animation"
+description: "An empty state arrives in place of content, and content replaces it, without a jump."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="empty" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Empty becomes content, or back | Fade or slide, with the height easing | 260 ms | [StateCut](/docs/helpers/state-cut) |
+
+## Install
+
+Install [StateCut](/docs/helpers/state-cut) and wrap the part that changes: `npx shadcn add @keyframery/state-cut`.
+
+## Turn it off
+
+Put `data-cut="none"` on a empty (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

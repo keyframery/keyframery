@@ -1,0 +1,31 @@
+---
+title: Pagination
+seoTitle: "shadcn/ui Pagination animation"
+heading: "Pagination animation"
+description: "The current page glides to the one you click, and the links dip while pressed."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="pagination" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| The current page changes | The highlight glides to it | 200–320 ms | Automatic |
+| A link is pressed | Dips; previous and next nudge toward their side | 70–150 ms | Automatic |
+
+## Install
+
+Pagination is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add pagination
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a pagination (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

@@ -1,0 +1,31 @@
+---
+title: Input Group
+seoTitle: "shadcn/ui Input Group animation"
+heading: "Input Group animation"
+description: "The whole group shakes once when its input turns invalid after a submit."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="input-group" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Its input turns invalid after a submit | The group shakes once | 240 ms | Automatic |
+| Its buttons | Dip while pressed | 70 ms in, 150 ms out | Automatic |
+
+## Install
+
+Input Group is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add input-group
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a input group (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

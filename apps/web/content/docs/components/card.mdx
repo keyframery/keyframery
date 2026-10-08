@@ -1,0 +1,26 @@
+---
+title: Card
+seoTitle: "shadcn/ui Card animation"
+heading: "Card animation"
+description: "A card opens into its detail view, on the same page or a new route, and shrinks back when you return."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="card" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Opens into its detail | Match cut: the card grows into the detail | 420 ms | [MatchCut](/docs/helpers/match-cut) |
+
+## Install
+
+Install [MatchCut](/docs/helpers/match-cut) and wrap the part that changes: `npx shadcn add @keyframery/match-cut`.
+
+## Turn it off
+
+Put `data-cut="none"` on a card (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

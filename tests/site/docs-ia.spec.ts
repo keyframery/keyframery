@@ -1,12 +1,15 @@
+import coverage from "../../apps/web/lib/coverage.json" with { type: "json" }
 import { expect, test } from "./kit"
 
 // Fumadocs puts a "Copy Anchor Link" button inside every heading.
 const headingText = (t: string) => t.replace(/Copy Anchor Link$/, "").trim()
 
-// The docs sidebar, in plain words: what people want to do, not how the library is built.
+// The docs sidebar, on the shadcn model: get started, then every component by its shadcn name, then helpers.
+const COMPONENTS = coverage.components.map((c) => c.name).sort((a, b) => a.localeCompare(b))
 const SIDEBAR: [group: string, items: string[]][] = [
-  ["Get started", ["Introduction", "Quick start", "Use with AI tools"]],
-  ["Animate your app", ["What's automatic", "Cards that open into a page", "Lists", "Numbers and statuses", "Loading states", "Whole-content states", "Icon moves"]],
+  ["Get started", ["Introduction", "Quick start", "What's automatic", "Use with AI tools"]],
+  ["Components", COMPONENTS],
+  ["Helpers", ["Cards that open into a page", "Lists", "Numbers and statuses", "Loading states", "Whole-content states", "Icon moves"]],
   ["Customize", ["Speed, easing and cuts", "Motion themes"]],
   ["Guides", ["Animations not working", "Detail pages on their own route", "Loading data after a click", "Live data", "Turning motion off in tests", "Performance"]],
   ["Reference", ["How it works", "Compared with other libraries", "Reduced motion and accessibility", "Base UI vs Radix", "Compatibility", "Changelog"]],
@@ -20,8 +23,7 @@ test("the sidebar is grouped by what you want to do, in plain words", async ({ p
   const groups = await sidebar.locator("p").allTextContents()
   expect(groups.map((g) => g.trim()).filter((g) => SIDEBAR.some(([name]) => name === g))).toEqual(SIDEBAR.map(([name]) => name))
   for (const [, items] of SIDEBAR) for (const item of items) await expect(sidebar.getByRole("link", { name: item, exact: true }), item).toHaveCount(1)
-  // Component pages stay, as reference, in one folder.
-  await expect(sidebar.getByText("Components", { exact: true })).toBeVisible()
+  expect(COMPONENTS).toHaveLength(63)
 })
 
 test("Quick start is three steps, each ending in what you should see", async ({ page }) => {

@@ -1,0 +1,30 @@
+---
+title: Slider
+seoTitle: "shadcn/ui Slider animation"
+heading: "Slider animation"
+description: "The thumb grows while you drag it and settles on release; arrow keys stay instant."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="slider" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| The thumb is dragged | Grows to 125% while held | 110 ms in, 150 ms out | Automatic |
+
+## Install
+
+Slider is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add slider
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a slider (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

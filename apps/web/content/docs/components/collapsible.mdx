@@ -1,0 +1,30 @@
+---
+title: Collapsible
+seoTitle: "shadcn/ui Collapsible animation"
+heading: "Collapsible animation"
+description: "Shadcn's collapsible has no motion of its own; with Keyframery it eases open and closed."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="collapsible" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Opens or closes | The height eases open and closed | 180–220 ms | Automatic |
+
+## Install
+
+Collapsible is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add collapsible
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a collapsible (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

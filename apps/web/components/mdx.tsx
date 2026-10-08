@@ -6,6 +6,7 @@ import type { MDXComponents } from "mdx/types"
 
 import { AlertDialogDemo, CommandDemo, DialogDemo, DrawerDemo, SheetDemo, TabsDemo, ToastDemo, TunedDemo } from "@/components/docs/demos/components"
 import { IconMovesDemo, ListCutDemo, LoadCutDemo, MatchCutDemo, StateCutDemo, ValueCutDemo } from "@/components/docs/demos/helpers"
+import { ComponentDemo } from "@/components/docs/demos/coverage"
 import { Preview } from "@/components/docs/preview"
 import { Tab, Tabs } from "@/components/docs/tabs"
 
@@ -33,6 +34,7 @@ export function getMDXComponents(components?: MDXComponents) {
     LoadCutDemo,
     StateCutDemo,
     IconMovesDemo,
+    ComponentDemo,
     ...components,
   } satisfies MDXComponents
 }

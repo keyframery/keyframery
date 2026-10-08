@@ -1,0 +1,35 @@
+---
+title: Attachment
+seoTitle: "shadcn/ui Attachment animation"
+heading: "Attachment animation"
+description: "Attachments ease in when added; a finished upload gives a small punch and a failed one shakes."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="attachment" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| An attachment is added | Scales from 96% and fades in | 220 ms | Automatic |
+| Upload finishes | The thumbnail gives a small punch | 300 ms | Automatic |
+| Upload fails | One short shake | 240 ms | Automatic |
+| Its action buttons | Dip while pressed | 70 ms in, 150 ms out | Automatic |
+
+Removing an attachment from a list folds it away with ListCut.
+
+## Install
+
+Attachment is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add attachment
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a attachment (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

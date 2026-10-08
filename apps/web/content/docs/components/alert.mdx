@@ -1,0 +1,32 @@
+---
+title: Alert
+seoTitle: "shadcn/ui Alert animation"
+heading: "Alert animation"
+description: "An alert that appears after the page has loaded eases in instead of popping."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="alert" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| An alert is shown (`{show && <Alert />}`) | Rises 6 px and fades in | 220 ms | Automatic |
+
+Only an alert inserted on its own eases in; alerts that arrive as part of a whole new page don't. To fold one away when it's dismissed, wrap the area in StateCut.
+
+## Install
+
+Alert is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add alert
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a alert (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

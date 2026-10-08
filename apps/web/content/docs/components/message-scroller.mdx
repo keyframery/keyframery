@@ -1,0 +1,34 @@
+---
+title: Message Scroller
+seoTitle: "shadcn/ui Message Scroller animation"
+heading: "Message Scroller animation"
+description: "Keeps its own scroll motion; new messages arrive through ListCut, and the jump button dips and nudges."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="message-scroller" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Scrolls to new messages | Its own scroll motion | its own | Its own motion |
+| A message arrives | Through ListCut | 260–380 ms | [ListCut](/docs/helpers/list-cut) |
+| Its jump button | Dips and nudges toward the end | 150 ms | Automatic |
+
+## Install
+
+Message Scroller is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add message-scroller
+```
+
+Install [ListCut](/docs/helpers/list-cut) and wrap the part that changes: `npx shadcn add @keyframery/list-cut`.
+
+## Turn it off
+
+Put `data-cut="none"` on a message scroller (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

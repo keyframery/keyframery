@@ -1,0 +1,30 @@
+---
+title: Navigation Menu
+seoTitle: "shadcn/ui Navigation Menu animation"
+heading: "Navigation Menu animation"
+description: "Keeps its own direction-aware motion and follows your theme's timing. Works on Base UI and Radix through <Cuts />."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="navigation-menu" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Opens, closes or moves between items | Its own direction-aware motion, on your theme's timing | your theme's timing | Automatic |
+
+## Install
+
+Navigation Menu is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add navigation-menu
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a navigation menu (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

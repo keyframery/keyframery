@@ -1,0 +1,26 @@
+---
+title: Skeleton
+seoTitle: "shadcn/ui Skeleton animation"
+heading: "Skeleton animation"
+description: "A skeleton dissolves into the real content, and never shows at all if the data is quick."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="skeleton" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| The data arrives | Dissolve; no skeleton if it takes under 300 ms | 240 ms | [LoadCut](/docs/helpers/load-cut) |
+
+## Install
+
+Install [LoadCut](/docs/helpers/load-cut) and wrap the part that changes: `npx shadcn add @keyframery/load-cut`.
+
+## Turn it off
+
+Put `data-cut="none"` on a skeleton (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

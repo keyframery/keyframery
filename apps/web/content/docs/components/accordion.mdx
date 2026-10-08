@@ -1,0 +1,31 @@
+---
+title: Accordion
+seoTitle: "shadcn/ui Accordion animation"
+heading: "Accordion animation"
+description: "Sections expand and collapse on your theme's curve, and the chevron turns instead of being swapped."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="accordion" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| A section opens or closes | The height eases open and closed | 200 ms | Automatic |
+| The section's chevron | Turns a half turn with the section | 200 ms | Automatic |
+
+## Install
+
+Accordion is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add accordion
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a accordion (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

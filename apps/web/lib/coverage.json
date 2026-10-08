@@ -1,0 +1,1064 @@
+{
+  "$comment": "Every shadcn/ui component and what Keyframery does with it. One source for the coverage page, the component pages and what AI tools read. how: automatic (with <Cuts />), helper (wrap your markup), add-on (@keyframery/icon-moves), own (the component's own motion), still (nothing changes on screen).",
+  "components": [
+    {
+      "slug": "accordion",
+      "name": "Accordion",
+      "kind": "tuned",
+      "summary": "Sections expand and collapse on your theme's curve, and the chevron turns instead of being swapped.",
+      "moves": [
+        [
+          "A section opens or closes",
+          "The height eases open and closed",
+          "200 ms",
+          "automatic"
+        ],
+        [
+          "The section's chevron",
+          "Turns a half turn with the section",
+          "200 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "alert",
+      "name": "Alert",
+      "kind": "response",
+      "summary": "An alert that appears after the page has loaded eases in instead of popping.",
+      "moves": [
+        [
+          "An alert is shown (`{show && <Alert />}`)",
+          "Rises 6 px and fades in",
+          "220 ms",
+          "automatic"
+        ]
+      ],
+      "note": "Only an alert inserted on its own eases in; alerts that arrive as part of a whole new page don't. To fold one away when it's dismissed, wrap the area in StateCut."
+    },
+    {
+      "slug": "alert-dialog",
+      "name": "Alert Dialog",
+      "kind": "cut",
+      "summary": "Opens out of the button you pressed and closes back into it; its icon redraws as it arrives.",
+      "moves": [
+        [
+          "Opens and closes",
+          "Rack focus from the button that opened it",
+          "340 ms in, 220 ms out",
+          "automatic"
+        ],
+        [
+          "Its media icon",
+          "Redraws once as the dialog lands",
+          "320 ms",
+          "automatic"
+        ],
+        [
+          "Its buttons",
+          "Dip while pressed",
+          "70 ms in, 150 ms out",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "aspect-ratio",
+      "name": "Aspect Ratio",
+      "kind": "still",
+      "summary": "Nothing changes on screen, so nothing moves.",
+      "moves": []
+    },
+    {
+      "slug": "attachment",
+      "name": "Attachment",
+      "kind": "response",
+      "summary": "Attachments ease in when added; a finished upload gives a small punch and a failed one shakes.",
+      "moves": [
+        [
+          "An attachment is added",
+          "Scales from 96% and fades in",
+          "220 ms",
+          "automatic"
+        ],
+        [
+          "Upload finishes",
+          "The thumbnail gives a small punch",
+          "300 ms",
+          "automatic"
+        ],
+        [
+          "Upload fails",
+          "One short shake",
+          "240 ms",
+          "automatic"
+        ],
+        [
+          "Its action buttons",
+          "Dip while pressed",
+          "70 ms in, 150 ms out",
+          "automatic"
+        ]
+      ],
+      "note": "Removing an attachment from a list folds it away with ListCut."
+    },
+    {
+      "slug": "avatar",
+      "name": "Avatar",
+      "kind": "response",
+      "summary": "When the photo finishes loading, it dissolves in over the fallback initials.",
+      "moves": [
+        [
+          "The image finishes loading",
+          "Fades in over the fallback",
+          "200 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "badge",
+      "name": "Badge",
+      "kind": "helper",
+      "summary": "A count in a badge rolls to its new value instead of flickering.",
+      "moves": [
+        [
+          "Its number changes",
+          "Changed digits roll, with a small punch",
+          "300 ms",
+          "helper:ValueCut"
+        ]
+      ]
+    },
+    {
+      "slug": "breadcrumb",
+      "name": "Breadcrumb",
+      "kind": "still",
+      "summary": "A breadcrumb changes with the route; route-to-route transitions are outside shadcn, so it stays as it is.",
+      "moves": [],
+      "note": "Transitions between your own routes are on the roadmap."
+    },
+    {
+      "slug": "bubble",
+      "name": "Bubble",
+      "kind": "helper",
+      "summary": "A new message bubble arrives from where it was sent instead of appearing at the bottom.",
+      "moves": [
+        [
+          "A message arrives",
+          "Flies from the composer, or slides in",
+          "260-380 ms",
+          "helper:ListCut"
+        ]
+      ]
+    },
+    {
+      "slug": "button",
+      "name": "Button",
+      "kind": "response",
+      "summary": "A button dips while it's pressed, quicker in than out; with Icon moves, its icon plays its own move.",
+      "moves": [
+        [
+          "Pressed",
+          "Dips to 97%, keeping shadcn's 1 px nudge",
+          "70 ms in, 150 ms out",
+          "automatic"
+        ],
+        [
+          "Its icon, when pressed",
+          "Plays its own move (a gear turns, a bell rings)",
+          "300-700 ms",
+          "add-on"
+        ]
+      ]
+    },
+    {
+      "slug": "button-group",
+      "name": "Button Group",
+      "kind": "response",
+      "summary": "Each button in the group dips while it's pressed.",
+      "moves": [
+        [
+          "A button is pressed",
+          "Dips to 97%",
+          "70 ms in, 150 ms out",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "calendar",
+      "name": "Calendar",
+      "kind": "response",
+      "summary": "The selected day glides to the day you click, and a new month slides in from the side you went toward.",
+      "moves": [
+        [
+          "You pick another day",
+          "The selection glides to it",
+          "200-320 ms",
+          "automatic"
+        ],
+        [
+          "Next or previous month",
+          "The new month slides in from that side",
+          "260 ms",
+          "automatic"
+        ],
+        [
+          "Its arrow buttons",
+          "Dip and nudge toward where they go",
+          "150 ms",
+          "automatic"
+        ]
+      ],
+      "note": "Moving through days or months with the keyboard stays instant."
+    },
+    {
+      "slug": "card",
+      "name": "Card",
+      "kind": "helper",
+      "summary": "A card opens into its detail view, on the same page or a new route, and shrinks back when you return.",
+      "moves": [
+        [
+          "Opens into its detail",
+          "Match cut: the card grows into the detail",
+          "420 ms",
+          "helper:MatchCut"
+        ]
+      ]
+    },
+    {
+      "slug": "carousel",
+      "name": "Carousel",
+      "kind": "response",
+      "summary": "The arrows dip and nudge while pressed; the slides keep Embla's own motion.",
+      "moves": [
+        [
+          "An arrow is pressed",
+          "Dips and nudges 2 px toward its direction",
+          "70-150 ms",
+          "automatic"
+        ],
+        [
+          "The slides move",
+          "Embla's own drag and snap",
+          "",
+          "own"
+        ]
+      ]
+    },
+    {
+      "slug": "chart",
+      "name": "Chart",
+      "kind": "still",
+      "summary": "Recharts animates its own data, so Keyframery leaves it alone.",
+      "moves": [
+        [
+          "Data changes",
+          "Recharts' own animation",
+          "",
+          "own"
+        ]
+      ]
+    },
+    {
+      "slug": "checkbox",
+      "name": "Checkbox",
+      "kind": "response",
+      "summary": "The tick draws itself when you check it; boxes that load checked don't redraw.",
+      "moves": [
+        [
+          "Checked",
+          "The tick draws itself",
+          "150 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "collapsible",
+      "name": "Collapsible",
+      "kind": "tuned",
+      "summary": "Shadcn's collapsible has no motion of its own; with Keyframery it eases open and closed.",
+      "moves": [
+        [
+          "Opens or closes",
+          "The height eases open and closed",
+          "180-220 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "combobox",
+      "name": "Combobox",
+      "kind": "tuned",
+      "summary": "The list opens from the input on your theme's curve, the chevron turns, and picked items tick.",
+      "moves": [
+        [
+          "The list opens or closes",
+          "Grows from the input and returns to it",
+          "tuned",
+          "automatic"
+        ],
+        [
+          "Its chevron",
+          "Turns while the list is open",
+          "200 ms",
+          "automatic"
+        ],
+        [
+          "An item is picked",
+          "Its tick draws itself",
+          "150 ms",
+          "automatic"
+        ],
+        [
+          "A chip is added",
+          "Pops in from 85%",
+          "220 ms",
+          "automatic"
+        ]
+      ],
+      "note": "Moving the highlight with the arrow keys stays instant."
+    },
+    {
+      "slug": "command",
+      "name": "Command",
+      "kind": "cut",
+      "summary": "The command dialog opens with the dialog's cut; checked items tick, and the keyboard highlight stays instant.",
+      "moves": [
+        [
+          "The dialog opens",
+          "Rack focus, like a dialog",
+          "340 ms in, 220 ms out",
+          "automatic"
+        ],
+        [
+          "An item is checked",
+          "Its tick draws itself",
+          "150 ms",
+          "automatic"
+        ]
+      ],
+      "note": "The highlight follows your arrow keys instantly: a command palette is used hundreds of times a day."
+    },
+    {
+      "slug": "context-menu",
+      "name": "Context Menu",
+      "kind": "tuned",
+      "summary": "Opens from the pointer and closes back into it on your theme's curve; checkbox and radio items tick.",
+      "moves": [
+        [
+          "Opens or closes",
+          "Grows from the pointer and returns to it",
+          "tuned",
+          "automatic"
+        ],
+        [
+          "A checkbox or radio item is checked",
+          "Its tick draws itself",
+          "150 ms",
+          "automatic"
+        ]
+      ],
+      "note": "The highlight follows your pointer and keys instantly."
+    },
+    {
+      "slug": "dialog",
+      "name": "Dialog",
+      "kind": "cut",
+      "summary": "Grows out of the button you pressed and closes back into it.",
+      "moves": [
+        [
+          "Opens and closes",
+          "Rack focus from the button that opened it",
+          "340 ms in, 220 ms out",
+          "automatic"
+        ],
+        [
+          "Its close ✕",
+          "Turns a quarter while pressed",
+          "150 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "direction",
+      "name": "Direction",
+      "kind": "still",
+      "summary": "A provider with nothing on screen.",
+      "moves": []
+    },
+    {
+      "slug": "drawer",
+      "name": "Drawer",
+      "kind": "cut",
+      "summary": "The page steps back behind the drawer; the drawer's own swipe motion stays.",
+      "moves": [
+        [
+          "Opens and closes",
+          "The page behind sinks and rounds its corners",
+          "460 ms",
+          "automatic"
+        ],
+        [
+          "Swipe",
+          "Vaul's own drag motion",
+          "",
+          "own"
+        ]
+      ]
+    },
+    {
+      "slug": "dropdown-menu",
+      "name": "Dropdown Menu",
+      "kind": "tuned",
+      "summary": "Opens from its trigger and closes back into it on your theme's curve; checkbox and radio items tick.",
+      "moves": [
+        [
+          "Opens or closes",
+          "Grows from its trigger and returns to it",
+          "tuned",
+          "automatic"
+        ],
+        [
+          "A checkbox or radio item is checked",
+          "Its tick draws itself",
+          "150 ms",
+          "automatic"
+        ]
+      ],
+      "note": "The highlight follows your pointer and keys instantly."
+    },
+    {
+      "slug": "empty",
+      "name": "Empty",
+      "kind": "helper",
+      "summary": "An empty state arrives in place of content, and content replaces it, without a jump.",
+      "moves": [
+        [
+          "Empty becomes content, or back",
+          "Fade or slide, with the height easing",
+          "260 ms",
+          "helper:StateCut"
+        ]
+      ]
+    },
+    {
+      "slug": "field",
+      "name": "Field",
+      "kind": "response",
+      "summary": "Choice cards change colour instead of jumping, and an error shakes once and rises in.",
+      "moves": [
+        [
+          "A choice card is picked",
+          "Its colours ease over",
+          "150 ms",
+          "automatic"
+        ],
+        [
+          "It turns invalid after a submit",
+          "Its control shakes once",
+          "240 ms",
+          "automatic"
+        ],
+        [
+          "The error message appears",
+          "Rises in",
+          "160 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "form",
+      "name": "Form",
+      "kind": "still",
+      "summary": "Form has no markup of its own; its fields respond through Field and Input.",
+      "moves": []
+    },
+    {
+      "slug": "hover-card",
+      "name": "Hover Card",
+      "kind": "tuned",
+      "summary": "The card opens out of the link you hover and closes back into it, on your theme's curve.",
+      "moves": [
+        [
+          "Opens or closes",
+          "Grows from its trigger and returns to it",
+          "tuned",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "input",
+      "name": "Input",
+      "kind": "response",
+      "summary": "An input that turns invalid after a submit gives one short shake; never while you type.",
+      "moves": [
+        [
+          "It turns invalid after a submit or blur",
+          "One short shake",
+          "240 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "input-group",
+      "name": "Input Group",
+      "kind": "response",
+      "summary": "The whole group shakes once when its input turns invalid after a submit.",
+      "moves": [
+        [
+          "Its input turns invalid after a submit",
+          "The group shakes once",
+          "240 ms",
+          "automatic"
+        ],
+        [
+          "Its buttons",
+          "Dip while pressed",
+          "70 ms in, 150 ms out",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "input-otp",
+      "name": "Input OTP",
+      "kind": "response",
+      "summary": "An invalid code shakes once; typing stays instant.",
+      "moves": [
+        [
+          "The code turns invalid",
+          "The slots shake once",
+          "240 ms",
+          "automatic"
+        ]
+      ],
+      "note": "The active slot moves as you type, so it stays instant."
+    },
+    {
+      "slug": "item",
+      "name": "Item",
+      "kind": "helper",
+      "summary": "Items are added, removed and reordered without jumping, and an item can open into its detail.",
+      "moves": [
+        [
+          "Added, removed or moved",
+          "Arrive, fold away and glide",
+          "260-380 ms",
+          "helper:ListCut"
+        ],
+        [
+          "Opens into its detail",
+          "Match cut",
+          "420 ms",
+          "helper:MatchCut"
+        ]
+      ]
+    },
+    {
+      "slug": "kbd",
+      "name": "Kbd",
+      "kind": "still",
+      "summary": "A keyboard key label never changes, so nothing moves.",
+      "moves": []
+    },
+    {
+      "slug": "label",
+      "name": "Label",
+      "kind": "still",
+      "summary": "A label never changes, so nothing moves.",
+      "moves": []
+    },
+    {
+      "slug": "marker",
+      "name": "Marker",
+      "kind": "still",
+      "summary": "A marker never changes, so nothing moves.",
+      "moves": []
+    },
+    {
+      "slug": "menubar",
+      "name": "Menubar",
+      "kind": "tuned",
+      "summary": "Menus open from their trigger and close back into it on your theme's curve; checkbox and radio items tick.",
+      "moves": [
+        [
+          "A menu opens or closes",
+          "Grows from its trigger and returns to it",
+          "tuned",
+          "automatic"
+        ],
+        [
+          "A checkbox or radio item is checked",
+          "Its tick draws itself",
+          "150 ms",
+          "automatic"
+        ]
+      ],
+      "note": "The highlight follows your pointer and keys instantly."
+    },
+    {
+      "slug": "message",
+      "name": "Message",
+      "kind": "helper",
+      "summary": "A new message arrives from where it was sent.",
+      "moves": [
+        [
+          "A message arrives",
+          "Flies from the composer, or slides in",
+          "260-380 ms",
+          "helper:ListCut"
+        ]
+      ]
+    },
+    {
+      "slug": "message-scroller",
+      "name": "Message Scroller",
+      "kind": "helper",
+      "summary": "Keeps its own scroll motion; new messages arrive through ListCut, and the jump button dips and nudges.",
+      "moves": [
+        [
+          "Scrolls to new messages",
+          "Its own scroll motion",
+          "",
+          "own"
+        ],
+        [
+          "A message arrives",
+          "Through ListCut",
+          "260-380 ms",
+          "helper:ListCut"
+        ],
+        [
+          "Its jump button",
+          "Dips and nudges toward the end",
+          "150 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "native-select",
+      "name": "Native Select",
+      "kind": "response",
+      "summary": "An invalid choice shakes once; the popup is drawn by the browser and can't be animated.",
+      "moves": [
+        [
+          "It turns invalid after a submit",
+          "One short shake",
+          "240 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "navigation-menu",
+      "name": "Navigation Menu",
+      "kind": "tuned",
+      "summary": "Keeps its own direction-aware motion and follows your theme's timing.",
+      "moves": [
+        [
+          "Opens, closes or moves between items",
+          "Its own direction-aware motion, on your theme's timing",
+          "tuned",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "pagination",
+      "name": "Pagination",
+      "kind": "response",
+      "summary": "The current page glides to the one you click, and the links dip while pressed.",
+      "moves": [
+        [
+          "The current page changes",
+          "The highlight glides to it",
+          "200-320 ms",
+          "automatic"
+        ],
+        [
+          "A link is pressed",
+          "Dips; previous and next nudge toward their side",
+          "70-150 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "popover",
+      "name": "Popover",
+      "kind": "tuned",
+      "summary": "A popover grows out of the button that opened it and goes back into it, on your theme's curve.",
+      "moves": [
+        [
+          "Opens or closes",
+          "Grows from its trigger and returns to it",
+          "tuned",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "progress",
+      "name": "Progress",
+      "kind": "response",
+      "summary": "The bar eases to its new value on your theme's curve.",
+      "moves": [
+        [
+          "The value changes",
+          "The bar eases to it",
+          "240 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "questionnaire",
+      "name": "Questionnaire",
+      "kind": "response",
+      "summary": "Picked choices tick or grow their dot, and the next step slides in like a tab.",
+      "moves": [
+        [
+          "A choice is picked",
+          "The tick draws itself, or the dot grows",
+          "150 ms",
+          "automatic"
+        ],
+        [
+          "Next or previous step",
+          "The new step slides in from that side",
+          "260 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "radio-group",
+      "name": "Radio Group",
+      "kind": "response",
+      "summary": "The dot grows from its centre on the item you pick.",
+      "moves": [
+        [
+          "An item is picked",
+          "Its dot grows from the centre",
+          "150 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "resizable",
+      "name": "Resizable",
+      "kind": "response",
+      "summary": "The handle thickens and takes the focus colour while you drag it.",
+      "moves": [
+        [
+          "The handle is dragged",
+          "Thickens and takes the focus colour",
+          "150 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "scroll-area",
+      "name": "Scroll Area",
+      "kind": "still",
+      "summary": "Scrolling follows your finger and wheel, so Keyframery adds nothing.",
+      "moves": []
+    },
+    {
+      "slug": "select",
+      "name": "Select",
+      "kind": "tuned",
+      "summary": "The list opens out of its trigger and closes back into it on your theme's curve, while the highlight follows your keys instantly.",
+      "moves": [
+        [
+          "Opens or closes",
+          "Grows from its trigger and returns to it",
+          "tuned",
+          "automatic"
+        ]
+      ],
+      "note": "The highlight follows your pointer and keys instantly."
+    },
+    {
+      "slug": "separator",
+      "name": "Separator",
+      "kind": "still",
+      "summary": "A separator never changes, so nothing moves.",
+      "moves": []
+    },
+    {
+      "slug": "sheet",
+      "name": "Sheet",
+      "kind": "cut",
+      "summary": "Slides in from its edge while the page steps back, and its ✕ turns while pressed.",
+      "moves": [
+        [
+          "Opens and closes",
+          "Slides from its edge; the page behind sinks",
+          "460 ms in, 260 ms out",
+          "automatic"
+        ],
+        [
+          "Its close ✕",
+          "Turns a quarter while pressed",
+          "150 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "sidebar",
+      "name": "Sidebar",
+      "kind": "response",
+      "summary": "The active item glides to the one you pick, the width follows your theme's curve, and labels leave before it closes.",
+      "moves": [
+        [
+          "The active item changes",
+          "The highlight glides to it",
+          "200-320 ms",
+          "automatic"
+        ],
+        [
+          "It collapses or expands",
+          "Width on your curve; labels leave first and arrive last",
+          "240 ms",
+          "automatic"
+        ],
+        [
+          "A submenu opens",
+          "Eases open, like a collapsible",
+          "180-220 ms",
+          "automatic"
+        ],
+        [
+          "An item's icon, when pressed",
+          "Plays its own move",
+          "300-700 ms",
+          "add-on"
+        ]
+      ]
+    },
+    {
+      "slug": "skeleton",
+      "name": "Skeleton",
+      "kind": "helper",
+      "summary": "A skeleton dissolves into the real content, and never shows at all if the data is quick.",
+      "moves": [
+        [
+          "The data arrives",
+          "Dissolve; no skeleton if it takes under 300 ms",
+          "240 ms",
+          "helper:LoadCut"
+        ]
+      ]
+    },
+    {
+      "slug": "slider",
+      "name": "Slider",
+      "kind": "response",
+      "summary": "The thumb grows while you drag it and settles on release; arrow keys stay instant.",
+      "moves": [
+        [
+          "The thumb is dragged",
+          "Grows to 125% while held",
+          "110 ms in, 150 ms out",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "sonner",
+      "name": "Sonner",
+      "kind": "cut",
+      "summary": "A toast flies from the button that made it, and its status icon plays as it lands.",
+      "moves": [
+        [
+          "A toast arrives",
+          "Cut on action: from the button you pressed",
+          "380 ms",
+          "automatic"
+        ],
+        [
+          "Its status icon",
+          "A tick or cross draws itself, a warning rocks",
+          "320 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "spinner",
+      "name": "Spinner",
+      "kind": "still",
+      "summary": "A spinner already spins, so Keyframery leaves it alone.",
+      "moves": [
+        [
+          "Loading",
+          "Its own spin",
+          "",
+          "own"
+        ]
+      ]
+    },
+    {
+      "slug": "switch",
+      "name": "Switch",
+      "kind": "response",
+      "summary": "The thumb travels on your theme's curve and stretches toward where it's going while held.",
+      "moves": [
+        [
+          "Switched",
+          "The thumb travels on your curve",
+          "150 ms",
+          "automatic"
+        ],
+        [
+          "Held",
+          "The thumb stretches toward its other side",
+          "70 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "table",
+      "name": "Table",
+      "kind": "helper",
+      "summary": "Rows are added, removed and reordered without jumping.",
+      "moves": [
+        [
+          "Rows are added, removed or moved",
+          "Arrive, fold away and glide",
+          "260-380 ms",
+          "helper:ListCut"
+        ],
+        [
+          "A row is selected",
+          "shadcn's own colour fade",
+          "",
+          "own"
+        ]
+      ]
+    },
+    {
+      "slug": "tabs",
+      "name": "Tabs",
+      "kind": "cut",
+      "summary": "The indicator moves first and the new panel follows a beat later, while the height eases to fit.",
+      "moves": [
+        [
+          "Switches tab",
+          "J-cut: the pill leads, the panel follows",
+          "320 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "textarea",
+      "name": "Textarea",
+      "kind": "response",
+      "summary": "A textarea that turns invalid after a submit gives one short shake; never while you type.",
+      "moves": [
+        [
+          "It turns invalid after a submit or blur",
+          "One short shake",
+          "240 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "toast",
+      "name": "Toast",
+      "kind": "cut",
+      "summary": "A toast flies from the button that made it, its status icon plays as it lands, and its ✕ turns while pressed.",
+      "moves": [
+        [
+          "A toast arrives",
+          "Cut on action: from the button you pressed",
+          "380 ms",
+          "automatic"
+        ],
+        [
+          "Its status icon",
+          "A tick or cross draws itself, a warning rocks",
+          "320 ms",
+          "automatic"
+        ],
+        [
+          "Its close ✕",
+          "Turns a quarter while pressed",
+          "150 ms",
+          "automatic"
+        ]
+      ]
+    },
+    {
+      "slug": "toggle",
+      "name": "Toggle",
+      "kind": "response",
+      "summary": "A toggle dips while pressed; with Icon moves, its icon plays its own move.",
+      "moves": [
+        [
+          "Pressed",
+          "Dips to 97%",
+          "70 ms in, 150 ms out",
+          "automatic"
+        ],
+        [
+          "Its icon, when pressed",
+          "Plays its own move",
+          "300-700 ms",
+          "add-on"
+        ]
+      ]
+    },
+    {
+      "slug": "toggle-group",
+      "name": "Toggle Group",
+      "kind": "response",
+      "summary": "Items dip while pressed, and a single choice glides to the item you pick.",
+      "moves": [
+        [
+          "An item is pressed",
+          "Dips to 97%",
+          "70 ms in, 150 ms out",
+          "automatic"
+        ],
+        [
+          "A single choice moves",
+          "The selection glides to it",
+          "200-320 ms",
+          "automatic"
+        ]
+      ],
+      "note": "A selection moved with the arrow keys stays instant."
+    },
+    {
+      "slug": "tooltip",
+      "name": "Tooltip",
+      "kind": "tuned",
+      "summary": "Opens from its trigger on your theme's curve; once one is open, neighbours open instantly.",
+      "moves": [
+        [
+          "Opens or closes",
+          "Grows from its trigger and returns to it",
+          "tuned",
+          "automatic"
+        ]
+      ]
+    }
+  ]
+}

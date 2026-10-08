@@ -1,0 +1,33 @@
+---
+title: Menubar
+seoTitle: "shadcn/ui Menubar animation"
+heading: "Menubar animation"
+description: "Menus open from their trigger and close back into it on your theme's curve; checkbox and radio items tick."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="menubar" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| A menu opens or closes | Grows from its trigger and returns to it | your theme's timing | Automatic |
+| A checkbox or radio item is checked | Its tick draws itself | 150 ms | Automatic |
+
+The highlight follows your pointer and keys instantly.
+
+## Install
+
+Menubar is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add menubar
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a menubar (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

@@ -1,0 +1,32 @@
+---
+title: Field
+seoTitle: "shadcn/ui Field animation"
+heading: "Field animation"
+description: "Choice cards change colour instead of jumping, and an error shakes once and rises in."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="field" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| A choice card is picked | Its colours ease over | 150 ms | Automatic |
+| It turns invalid after a submit | Its control shakes once | 240 ms | Automatic |
+| The error message appears | Rises in | 160 ms | Automatic |
+
+## Install
+
+Field is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add field
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a field (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

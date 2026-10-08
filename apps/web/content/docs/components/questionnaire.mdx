@@ -1,0 +1,31 @@
+---
+title: Questionnaire
+seoTitle: "shadcn/ui Questionnaire animation"
+heading: "Questionnaire animation"
+description: "Picked choices tick or grow their dot, and the next step slides in like a tab."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="questionnaire" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| A choice is picked | The tick draws itself, or the dot grows | 150 ms | Automatic |
+| Next or previous step | The new step slides in from that side | 260 ms | Automatic |
+
+## Install
+
+Questionnaire is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add questionnaire
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a questionnaire (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

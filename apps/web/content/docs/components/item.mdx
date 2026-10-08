@@ -1,0 +1,29 @@
+---
+title: Item
+seoTitle: "shadcn/ui Item animation"
+heading: "Item animation"
+description: "Items are added, removed and reordered without jumping, and an item can open into its detail."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="item" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Added, removed or moved | Arrive, fold away and glide | 260–380 ms | [ListCut](/docs/helpers/list-cut) |
+| Opens into its detail | Match cut | 420 ms | [MatchCut](/docs/helpers/match-cut) |
+
+## Install
+
+Install [ListCut](/docs/helpers/list-cut) and wrap the part that changes: `npx shadcn add @keyframery/list-cut`.
+
+Install [MatchCut](/docs/helpers/match-cut) and wrap the part that changes: `npx shadcn add @keyframery/match-cut`.
+
+## Turn it off
+
+Put `data-cut="none"` on a item (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

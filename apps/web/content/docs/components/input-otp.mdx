@@ -1,0 +1,32 @@
+---
+title: Input OTP
+seoTitle: "shadcn/ui Input OTP animation"
+heading: "Input OTP animation"
+description: "An invalid code shakes once; typing stays instant. Works on Base UI and Radix through <Cuts />."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="input-otp" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| The code turns invalid | The slots shake once | 240 ms | Automatic |
+
+The active slot moves as you type, so it stays instant.
+
+## Install
+
+Input OTP is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add input-otp
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a input otp (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

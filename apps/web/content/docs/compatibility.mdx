@@ -6,71 +6,71 @@ description: "How each of shadcn/ui's 63 components works with Keyframery, and t
 
 Every shadcn component works with `<Cuts />` mounted: no errors, and focus and accessibility intact. Components where the screen changes get a **cut**. Controls you press, tick or drag get a **response** on the control itself. Parts that never change (labels, separators, keyboard shortcuts) stay still on purpose.
 
-| Component | With Keyframery | Why |
+| Component | Keyframery | What moves |
 |---|---|---|
-| dialog | cut: rack focus | opens on top of the page; its ✕ turns while pressed |
-| alert-dialog | cut: rack focus | opens on top of the page; its icon redraws as it arrives |
-| command | cut: rack focus | its dialog opens on top; ticks draw themselves; the keyboard highlight stays instant |
-| sheet | cut: slide-sink | opens on top of the page |
-| drawer | cut: slide-sink | opens on top of the page |
-| tabs | cut: J-cut | switches to a neighbour |
-| sonner | cut: cut on action | a result of what you pressed; its status icon plays as it lands |
-| toast | cut: cut on action | a result of what you pressed; its status icon plays as it lands |
-| popover | tuned | already opens from its trigger |
-| dropdown-menu | tuned | opens from its trigger; checkbox and radio ticks draw themselves |
-| context-menu | tuned | opens from the pointer; checkbox and radio ticks draw themselves |
-| menubar | tuned | opens from its trigger; checkbox and radio ticks draw themselves |
-| select | tuned | already opens from its trigger |
-| combobox | tuned | opens from its trigger; its chevron turns; ticks draw themselves |
-| hover-card | tuned | already opens from its trigger |
-| tooltip | tuned | already opens from its trigger |
-| navigation-menu | tuned | already opens from its trigger |
-| accordion | tuned | expands in place; its chevron turns instead of being swapped |
-| collapsible | tuned | already expands in place |
-| card | helper: MatchCut | opens into its detail |
-| table | helper: ListCut | rows are added, removed and moved |
-| item | helper: ListCut | rows are added, removed and moved |
-| message | helper: ListCut | messages arrive |
-| bubble | helper: ListCut | messages arrive |
-| message-scroller | helper: ListCut | messages arrive |
-| badge | helper: ValueCut | its count changes |
-| skeleton | helper: LoadCut | becomes content |
-| calendar | response: highlight | the selected day glides to the day you click; months switching like tabs is planned |
-| carousel | response: press | the arrows dip while pressed; the slides keep Embla's own motion |
-| questionnaire | response: toggle | the tick draws and the dot grows; steps switching like tabs is planned |
-| pagination | response: press, highlight | links dip while pressed; the current page glides to the one you click |
-| attachment | planned | files are added and removed |
-| alert | planned | dismissing it should fold it away |
-| field | response: toggle, error | choice cards change colour; an error message rises in |
-| empty | helper: StateCut | appears in place of content |
-| sidebar | response: highlight | the active item glides; the width follows your curve and labels leave before it closes |
-| aspect-ratio | no cut | static |
-| avatar | no cut | static |
-| breadcrumb | no cut | static |
-| button | response: press | dips while pressed, quicker in than out |
-| button-group | response: press | each button dips while pressed |
-| checkbox | response: toggle | the tick draws itself |
-| direction | no cut | not visual |
-| form | no cut | not visual |
-| input | response: error | turning invalid after a submit gives one short shake; never while typing |
-| input-group | response: error | the whole group shakes once when its input turns invalid after a submit |
-| input-otp | response: error | typing stays instant; an invalid code shakes once |
-| kbd | no cut | static |
-| label | no cut | static |
-| marker | no cut | static |
-| native-select | response: error | the browser draws its popup; an invalid choice shakes once |
-| progress | response: fill | eases to its value on your curve |
-| radio-group | response: toggle | the dot grows on the item you pick |
-| resizable | response: drag | the handle thickens while you drag it |
-| scroll-area | no cut | follows your scroll |
-| separator | no cut | static |
-| slider | response: drag | the thumb grows while you drag it; arrow keys stay instant |
-| spinner | no cut | already animates |
-| switch | response: toggle | the thumb travels on your curve and stretches while held |
-| textarea | response: error | turning invalid after a submit gives one short shake; never while typing |
-| toggle | response: press | dips while pressed |
-| toggle-group | response: press, highlight | items dip while pressed; a single choice glides to the item you click |
-| chart | no cut | Recharts animates itself |
+| [Accordion](/docs/components/accordion) | Tuned | the height eases open and closed; turns a half turn with the section |
+| [Alert](/docs/components/alert) | Response | rises 6 px and fades in |
+| [Alert Dialog](/docs/components/alert-dialog) | Cut | rack focus from the button that opened it; redraws once as the dialog lands; dip while pressed |
+| [Aspect Ratio](/docs/components/aspect-ratio) | Still by design | nothing changes on screen |
+| [Attachment](/docs/components/attachment) | Response | scales from 96% and fades in; the thumbnail gives a small punch; one short shake; dip while pressed |
+| [Avatar](/docs/components/avatar) | Response | fades in over the fallback |
+| [Badge](/docs/components/badge) | Helper | changed digits roll, with a small punch |
+| [Breadcrumb](/docs/components/breadcrumb) | Still by design | nothing changes on screen |
+| [Bubble](/docs/components/bubble) | Helper | flies from the composer, or slides in |
+| [Button](/docs/components/button) | Response | dips to 97%, keeping shadcn's 1 px nudge; plays its own move (a gear turns, a bell rings) |
+| [Button Group](/docs/components/button-group) | Response | dips to 97% |
+| [Calendar](/docs/components/calendar) | Response | the selection glides to it; the new month slides in from that side; dip and nudge toward where they go |
+| [Card](/docs/components/card) | Helper | match cut: the card grows into the detail |
+| [Carousel](/docs/components/carousel) | Response | dips and nudges 2 px toward its direction; embla's own drag and snap |
+| [Chart](/docs/components/chart) | Still by design | recharts' own animation |
+| [Checkbox](/docs/components/checkbox) | Response | the tick draws itself |
+| [Collapsible](/docs/components/collapsible) | Tuned | the height eases open and closed |
+| [Combobox](/docs/components/combobox) | Tuned | grows from the input and returns to it; turns while the list is open; its tick draws itself; pops in from 85% |
+| [Command](/docs/components/command) | Cut | rack focus, like a dialog; its tick draws itself |
+| [Context Menu](/docs/components/context-menu) | Tuned | grows from the pointer and returns to it; its tick draws itself |
+| [Dialog](/docs/components/dialog) | Cut | rack focus from the button that opened it; turns a quarter while pressed |
+| [Direction](/docs/components/direction) | Still by design | nothing changes on screen |
+| [Drawer](/docs/components/drawer) | Cut | the page behind sinks and rounds its corners; vaul's own drag motion |
+| [Dropdown Menu](/docs/components/dropdown-menu) | Tuned | grows from its trigger and returns to it; its tick draws itself |
+| [Empty](/docs/components/empty) | Helper | fade or slide, with the height easing |
+| [Field](/docs/components/field) | Response | its colours ease over; its control shakes once; rises in |
+| [Form](/docs/components/form) | Still by design | nothing changes on screen |
+| [Hover Card](/docs/components/hover-card) | Tuned | grows from its trigger and returns to it |
+| [Input](/docs/components/input) | Response | one short shake |
+| [Input Group](/docs/components/input-group) | Response | the group shakes once; dip while pressed |
+| [Input OTP](/docs/components/input-otp) | Response | the slots shake once |
+| [Item](/docs/components/item) | Helper | arrive, fold away and glide; match cut |
+| [Kbd](/docs/components/kbd) | Still by design | nothing changes on screen |
+| [Label](/docs/components/label) | Still by design | nothing changes on screen |
+| [Marker](/docs/components/marker) | Still by design | nothing changes on screen |
+| [Menubar](/docs/components/menubar) | Tuned | grows from its trigger and returns to it; its tick draws itself |
+| [Message](/docs/components/message) | Helper | flies from the composer, or slides in |
+| [Message Scroller](/docs/components/message-scroller) | Helper | its own scroll motion; through ListCut; dips and nudges toward the end |
+| [Native Select](/docs/components/native-select) | Response | one short shake |
+| [Navigation Menu](/docs/components/navigation-menu) | Tuned | its own direction-aware motion, on your theme's timing |
+| [Pagination](/docs/components/pagination) | Response | the highlight glides to it; dips; previous and next nudge toward their side |
+| [Popover](/docs/components/popover) | Tuned | grows from its trigger and returns to it |
+| [Progress](/docs/components/progress) | Response | the bar eases to it |
+| [Questionnaire](/docs/components/questionnaire) | Response | the tick draws itself, or the dot grows; the new step slides in from that side |
+| [Radio Group](/docs/components/radio-group) | Response | its dot grows from the centre |
+| [Resizable](/docs/components/resizable) | Response | thickens and takes the focus colour |
+| [Scroll Area](/docs/components/scroll-area) | Still by design | nothing changes on screen |
+| [Select](/docs/components/select) | Tuned | grows from its trigger and returns to it |
+| [Separator](/docs/components/separator) | Still by design | nothing changes on screen |
+| [Sheet](/docs/components/sheet) | Cut | slides from its edge; the page behind sinks; turns a quarter while pressed |
+| [Sidebar](/docs/components/sidebar) | Response | the highlight glides to it; width on your curve; labels leave first and arrive last; eases open, like a collapsible; plays its own move |
+| [Skeleton](/docs/components/skeleton) | Helper | dissolve; no skeleton if it takes under 300 ms |
+| [Slider](/docs/components/slider) | Response | grows to 125% while held |
+| [Sonner](/docs/components/sonner) | Cut | cut on action: from the button you pressed; a tick or cross draws itself, a warning rocks |
+| [Spinner](/docs/components/spinner) | Still by design | its own spin |
+| [Switch](/docs/components/switch) | Response | the thumb travels on your curve; the thumb stretches toward its other side |
+| [Table](/docs/components/table) | Helper | arrive, fold away and glide; shadcn's own colour fade |
+| [Tabs](/docs/components/tabs) | Cut | j-cut: the pill leads, the panel follows |
+| [Textarea](/docs/components/textarea) | Response | one short shake |
+| [Toast](/docs/components/toast) | Cut | cut on action: from the button you pressed; a tick or cross draws itself, a warning rocks; turns a quarter while pressed |
+| [Toggle](/docs/components/toggle) | Response | dips to 97%; plays its own move |
+| [Toggle Group](/docs/components/toggle-group) | Response | dips to 97%; the selection glides to it |
+| [Tooltip](/docs/components/tooltip) | Tuned | grows from its trigger and returns to it |
 
 ## Tested versions
 

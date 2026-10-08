@@ -1,0 +1,32 @@
+---
+title: Select
+seoTitle: "shadcn/ui Select animation"
+heading: "Select animation"
+description: "The list opens out of its trigger and closes back into it on your theme's curve, while the highlight follows your keys instantly."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="select" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Opens or closes | Grows from its trigger and returns to it | your theme's timing | Automatic |
+
+The highlight follows your pointer and keys instantly.
+
+## Install
+
+Select is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add select
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a select (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

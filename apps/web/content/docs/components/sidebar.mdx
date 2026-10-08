@@ -1,0 +1,35 @@
+---
+title: Sidebar
+seoTitle: "shadcn/ui Sidebar animation"
+heading: "Sidebar animation"
+description: "The active item glides to the one you pick, the width follows your theme's curve, and labels leave before it closes."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="sidebar" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| The active item changes | The highlight glides to it | 200–320 ms | Automatic |
+| It collapses or expands | Width on your curve; labels leave first and arrive last | 240 ms | Automatic |
+| A submenu opens | Eases open, like a collapsible | 180–220 ms | Automatic |
+| An item's icon, when pressed | Plays its own move | 300–700 ms | [Icon moves](/docs/helpers/icon-moves) |
+
+## Install
+
+Sidebar is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add sidebar
+```
+
+For each icon's own move when it's pressed, add [Icon moves](/docs/helpers/icon-moves): `npx shadcn add @keyframery/icon-moves`.
+
+## Turn it off
+
+Put `data-cut="none"` on a sidebar (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

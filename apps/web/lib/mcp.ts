@@ -4,7 +4,7 @@
 import type { McpServer } from "@modelcontextprotocol/server"
 import { z } from "zod"
 
-import { kindsMarkdown, REGISTER } from "./kinds"
+import { KINDS, kindsMarkdown, REGISTER } from "./kinds"
 import { docsSearch } from "./search"
 import { docsLlms, source } from "./source"
 import { DEFAULTS, EASES, encode, EXIT_EASES, GROUPS, PROFILES, serializeTheme, themeAgentPrompt, toCode, toInstall, VARS, type Group, type ThemeSettings, type Var } from "./theme-url"
@@ -53,7 +53,17 @@ async function searchDocs(query: string, limit: number): Promise<Result> {
     if (r.type !== "page" && !entry.snippet) entry.snippet = plain(r.content)
     pages.set(url, entry)
   }
-  const top = [...pages].slice(0, limit)
+  // Name matches first, as in the site's search: "ListCut" leads to the ListCut page, not to the many
+  // component pages that mention it.
+  const q = query.trim().toLowerCase()
+  const helperOf = Object.fromEntries(KINDS.flatMap((k) => (k.helper ? [[`/docs/${k.docs}`, k.helper.toLowerCase()]] : [])))
+  const tier = (url: string, title: string) =>
+    Math.min(...[title.toLowerCase(), helperOf[url] ?? ""].filter(Boolean).map((n) => (n === q ? 0 : n.startsWith(q) ? 1 : n.includes(q) ? 2 : 3)))
+  const top = [...pages]
+    .map(([url, p], i) => ({ url, p, i, t: tier(url, p.title) }))
+    .sort((a, b) => a.t - b.t || a.i - b.i)
+    .map(({ url, p }) => [url, p] as const)
+    .slice(0, limit)
   if (!top.length) return reply(`No docs match "${query}". Try get_doc with path "index" for the overview, or list_kinds.`)
   return reply(top.map(([url, p], i) => `${i + 1}. ${p.title}: ${SITE}${url}${p.snippet ? `\n   ${p.snippet}` : ""}`).join("\n"))
 }

@@ -1,0 +1,27 @@
+---
+title: Table
+seoTitle: "shadcn/ui Table animation"
+heading: "Table animation"
+description: "Rows are added, removed and reordered without jumping. Works on Base UI and Radix through <Cuts />."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="table" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Rows are added, removed or moved | Arrive, fold away and glide | 260–380 ms | [ListCut](/docs/helpers/list-cut) |
+| A row is selected | shadcn's own colour fade | its own | Its own motion |
+
+## Install
+
+Install [ListCut](/docs/helpers/list-cut) and wrap the part that changes: `npx shadcn add @keyframery/list-cut`.
+
+## Turn it off
+
+Put `data-cut="none"` on a table (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

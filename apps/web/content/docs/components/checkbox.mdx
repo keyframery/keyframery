@@ -1,0 +1,30 @@
+---
+title: Checkbox
+seoTitle: "shadcn/ui Checkbox animation"
+heading: "Checkbox animation"
+description: "The tick draws itself when you check it; boxes that load checked don't redraw."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="checkbox" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Checked | The tick draws itself | 150 ms | Automatic |
+
+## Install
+
+Checkbox is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add checkbox
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a checkbox (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

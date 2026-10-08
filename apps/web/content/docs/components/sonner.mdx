@@ -1,0 +1,31 @@
+---
+title: Sonner
+seoTitle: "shadcn/ui Sonner animation"
+heading: "Sonner animation"
+description: "A toast flies from the button that made it, and its status icon plays as it lands."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="sonner" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| A toast arrives | Cut on action: from the button you pressed | 380 ms | Automatic |
+| Its status icon | A tick or cross draws itself, a warning rocks | 320 ms | Automatic |
+
+## Install
+
+Sonner is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add sonner
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a sonner (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

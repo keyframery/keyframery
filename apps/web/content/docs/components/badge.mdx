@@ -1,0 +1,26 @@
+---
+title: Badge
+seoTitle: "shadcn/ui Badge animation"
+heading: "Badge animation"
+description: "A count in a badge rolls to its new value instead of flickering. Works on Base UI and Radix through <Cuts />."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="badge" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| Its number changes | Changed digits roll, with a small punch | 300 ms | [ValueCut](/docs/helpers/value-cut) |
+
+## Install
+
+Install [ValueCut](/docs/helpers/value-cut) and wrap the part that changes: `npx shadcn add @keyframery/value-cut`.
+
+## Turn it off
+
+Put `data-cut="none"` on a badge (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

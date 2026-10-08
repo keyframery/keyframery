@@ -1,0 +1,30 @@
+---
+title: Progress
+seoTitle: "shadcn/ui Progress animation"
+heading: "Progress animation"
+description: "The bar eases to its new value on your theme's curve. Works on Base UI and Radix through <Cuts />."
+---
+
+{/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
+
+<Preview>
+  <ComponentDemo slug="progress" />
+</Preview>
+
+## What moves
+
+| When | What you see | Timing | How |
+|---|---|---|---|
+| The value changes | The bar eases to it | 240 ms | Automatic |
+
+## Install
+
+Progress is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+
+```bash
+npx shadcn add progress
+```
+
+## Turn it off
+
+Put `data-cut="none"` on a progress (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.

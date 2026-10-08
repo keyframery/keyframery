@@ -39,6 +39,8 @@ const config = {
       { source: '/docs/add-cuts', destination: '/docs/customize', permanent: true },
       { source: '/docs/theming/:page', destination: '/docs/customize', permanent: true },
       { source: '/docs/concepts/:page', destination: '/docs/how-it-works', permanent: true },
+      // The tuned components each have their own page now; the coverage table lists them all.
+      { source: '/docs/components/tuned', destination: '/docs/compatibility', permanent: true },
     ];
   },
 };

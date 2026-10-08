@@ -5,7 +5,7 @@ test("guides, compatibility and changelog render", async ({ page, errors }) => {
     expect((await page.goto(`/docs/${slug}`))?.status(), slug).toBe(200)
   }
   await page.goto("/docs/compatibility")
-  await expect(page.getByRole("cell", { name: "dialog", exact: true })).toBeVisible()
+  await expect(page.getByRole("cell", { name: "Dialog", exact: true })).toBeVisible()
   expect(await page.locator("tbody tr").count()).toBeGreaterThanOrEqual(63)
   expect(errors).toEqual([])
 })
