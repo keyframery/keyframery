@@ -22,3 +22,6 @@ apps/web/lib/keyframery/
 apps/web/public/r/
 apps/web/.data/
 apps/web/.source/
+
+# Internal planning docs (specs, plans): kept locally, not part of the public repo
+docs/superpowers/

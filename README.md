@@ -1,20 +1,74 @@
 # Keyframery
 
-Film-editing cuts for shadcn/ui. One `<Cuts />` line gives every dialog, sheet, tab and toast a real cut; four small helpers cover lists, values, loading and card-to-detail.
+Motion for shadcn/ui. Render one `<Cuts />` in your root layout, and your dialogs, sheets, tabs and toasts start moving from the button you pressed, and back into it. Four small components cover the changes shadcn has no component for: lists, numbers, loading states and cards that open into a page. Your components don't change.
 
-- Site and docs: https://keyframery.com
-- Install: `npx shadcn add @keyframery/cuts` (after adding `"@keyframery": "https://keyframery.com/r/{name}.json"` to `components.json`'s `registries`)
+- Website and docs: https://keyframery.com
+- Quick start: https://keyframery.com/docs/installation
+- Use with Claude Code and other AI tools: https://keyframery.com/docs/ai-tools
 
-## Repo
+## Quick start
+
+In a project with shadcn/ui:
+
+```bash
+npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"
+npx shadcn add @keyframery/cuts
+```
+
+Then render `<Cuts />` once, at the root:
+
+```tsx
+import { Cuts } from "@/components/keyframery/cuts"
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <Cuts />
+      </body>
+    </html>
+  )
+}
+```
+
+Open a dialog: it grows out of the button you pressed. It works with Base UI and Radix, in Next.js, Vite and React Router, at about 7 KB gzipped with no dependencies. Like the rest of shadcn, the CLI copies the code into your project, so you own it.
+
+## The four components
+
+| Component | For | Install |
+|---|---|---|
+| [`MatchCut`](https://keyframery.com/docs/helpers/match-cut) | a card that opens into its detail view | `npx shadcn add @keyframery/match-cut` |
+| [`ListCut`](https://keyframery.com/docs/helpers/list-cut) | lists that gain, lose or reorder items | `npx shadcn add @keyframery/list-cut` |
+| [`ValueCut`](https://keyframery.com/docs/helpers/value-cut) | numbers and statuses that change | `npx shadcn add @keyframery/value-cut` |
+| [`LoadCut`](https://keyframery.com/docs/helpers/load-cut) | skeletons that turn into content | `npx shadcn add @keyframery/load-cut` |
+
+## Use with Claude Code
+
+The plugin teaches Claude which animation fits each change, and connects the Keyframery MCP server:
+
+```bash
+/plugin marketplace add keyframery/keyframery
+/plugin install keyframery@keyframery
+```
+
+Or add only the MCP server, in Claude Code, Claude, Cursor or any MCP client. It is read-only and needs no account:
+
+```bash
+claude mcp add --transport http keyframery https://keyframery.com/mcp
+```
+
+The docs are also plain text for any assistant: https://keyframery.com/llms-full.txt
+
+## Working on Keyframery
 
 | Path | What |
 |---|---|
 | `registry/` | the shipped source: `components/keyframery/*`, `lib/keyframery/*`, `registry.json` |
-| `apps/web/` | keyframery.com: Next.js 16 + Fumadocs; uses the registry source directly |
+| `apps/web/` | keyframery.com: Next.js 16 + Fumadocs, including the MCP server at `/mcp` |
+| `plugins/keyframery/` | the Claude Code plugin; `.claude-plugin/marketplace.json` lists it |
 | `fixtures/` | generated test apps: Next.js on Base UI and Radix, plus stock twins |
 | `tests/` | Vitest unit tests, Playwright end-to-end tests for the layer (`e2e/`) and the site (`site/`) |
-
-## Commands
 
 ```bash
 pnpm install
@@ -29,4 +83,4 @@ pnpm -C apps/web dev         # work on the site with hot reload
 
 ## License
 
-MIT
+MIT, by [Briyan Hingrajiya](https://x.com/briyan_dev).
