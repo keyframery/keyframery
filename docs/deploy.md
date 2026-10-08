@@ -2,7 +2,7 @@
 
 Deployed to https://keyframery.com on 8 October 2026: Vercel project `keyframery` (team briyanpatels-projects), DNS at GoDaddy (`A @ 216.198.79.1`, `CNAME www` to Vercel, email records unchanged), Web Analytics on.
 
-Pro and its waitlist are switched off (`PRO_ENABLED` in `apps/web/lib/pro.ts`), so the Neon database (section 2) is only needed when Pro is switched back on. Still open: the shadcn registry-index PR (section 4).
+Pro and its waitlist are switched off (`PRO_ENABLED` in `apps/web/lib/pro.ts`), so the Neon database (section 2) is only needed when Pro is switched back on. Still open: the shadcn registry-index PR, opened 8 October 2026 as https://github.com/shadcn-ui/ui/pull/12204 (section 4). Once it merges, `npx shadcn add @keyframery/cuts` works without `registry add`, so simplify the docs, README and agent prompt.
 
 ## How a deploy happens
 
