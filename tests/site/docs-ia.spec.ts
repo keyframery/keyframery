@@ -76,7 +76,10 @@ test("the old page addresses redirect to where their content went", async ({ req
   }
 })
 
-test("no docs page links to a docs page that doesn't exist", async ({ page, request }) => {
+test("no docs page links to a docs page that doesn't exist", async ({ page, request }, info) => {
+  // Links are the same in every browser: one crawl is enough, and it visits every docs page, so it gets more time.
+  test.skip(info.project.name !== "chromium", "one browser crawls")
+  test.setTimeout(120_000)
   const sitemap = await (await request.get("/sitemap.xml")).text()
   const pages = [...sitemap.matchAll(/<loc>https:\/\/keyframery\.com(\/docs[^<]*)<\/loc>/g)].map((m) => m[1])
   expect(pages.length).toBeGreaterThan(15)
