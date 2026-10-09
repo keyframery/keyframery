@@ -1,11 +1,11 @@
 /* The seven kinds of change and the cut for each: what the MCP list_kinds tool serves. Snippets are copied from
    the helper docs; tests check every docs path exists. No imports, so unit tests load it directly. */
 
-/** Registers @keyframery in a project's components.json, once. Until then the CLI answers `Unknown registry "@keyframery"`. */
-export const REGISTER = 'npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"'
+/** Installs the layer. The shadcn CLI finds @keyframery in shadcn's registry index, so nothing needs setting up first. */
+export const INSTALL = "npx shadcn add @keyframery/cuts"
 
-/** Installs the layer in a fresh project without registering first (helpers need REGISTER: they depend on @keyframery/cuts). */
-export const INSTALL_BY_URL = "npx shadcn add https://keyframery.com/r/cuts.json"
+/** The fallback when a CLI answers `Unknown registry "@keyframery"`: registers it in the project's components.json, once. */
+export const REGISTER = 'npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"'
 
 export type Kind = {
   kind: string
@@ -119,7 +119,7 @@ export function kindsMarkdown(site = "https://keyframery.com"): string {
     "",
     "Keyframery has one cut for each of these seven kinds of change. The first two are automatic once <Cuts /> is in the root layout. The other five take one helper each, around your own markup; keep <Cuts /> mounted for them too. Avoid adding a second enter or exit animation to a part Keyframery already animates, and leave static controls alone.",
     "",
-    `Register Keyframery once per project before installing anything: \`${REGISTER}\`. After that, every install command below works.`,
+    `Install the layer with \`${INSTALL}\`; every helper below installs by name the same way. If the shadcn CLI answers \`Unknown registry "@keyframery"\`, register Keyframery once with \`${REGISTER}\`, then install again.`,
     "",
     ...parts.flatMap((p) => [p, ""]),
   ].join("\n")
@@ -131,9 +131,9 @@ export function agentPrompt(site = "https://keyframery.com"): string {
   return [
     "Add Keyframery to this project. It gives shadcn/ui components motion without changing them, and a motion theme sets the feel for the whole app.",
     "",
-    "1. Register Keyframery once, then install the layer:",
-    `   ${REGISTER}`,
-    "   npx shadcn add @keyframery/cuts",
+    "1. Install the layer:",
+    `   ${INSTALL}`,
+    `   If the CLI answers Unknown registry "@keyframery", run this once, then install again: ${REGISTER}`,
     "",
     "2. Render <Cuts /> once, after the app's content, in the root layout (app/layout.tsx in Next.js, src/main.tsx in Vite, app/root.tsx in React Router):",
     '   import { Cuts } from "@/components/keyframery/cuts"',

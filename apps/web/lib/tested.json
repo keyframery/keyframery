@@ -1,0 +1,37 @@
+{
+  "shadcnCli": "4.21.4",
+  "packages": [
+    {
+      "name": "@base-ui/react",
+      "version": "1.8.0"
+    },
+    {
+      "name": "radix-ui",
+      "version": "1.7.0"
+    },
+    {
+      "name": "sonner",
+      "version": "2.0.8"
+    },
+    {
+      "name": "vaul",
+      "version": "1.1.2"
+    },
+    {
+      "name": "cmdk",
+      "version": "1.1.1"
+    },
+    {
+      "name": "next",
+      "version": "16.3.6"
+    },
+    {
+      "name": "react",
+      "version": "19.3.0"
+    },
+    {
+      "name": "tailwindcss",
+      "version": "4.3.3"
+    }
+  ]
+}

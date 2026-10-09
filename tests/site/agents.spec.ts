@@ -29,7 +29,7 @@ test("the home page's Markdown tells an agent what Keyframery is and how to inst
   const md = await (await request.get("/", { headers: { Accept: "text/markdown" } })).text()
   for (const fact of [
     "open-source motion layer for shadcn/ui",
-    'npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"',
+    "npx shadcn add @keyframery/cuts",
     "<Cuts />",
     "https://keyframery.com/mcp",
     "https://keyframery.com/docs/installation",
@@ -73,7 +73,7 @@ test("the API catalog lists the MCP server and the shadcn registry, each with a 
 
 test("the MCP server card matches the server it describes", async ({ request }) => {
   const card = await (await request.get("/.well-known/mcp/server-card.json")).json()
-  expect(card.serverInfo).toEqual({ name: "keyframery", version: "0.2.0" })
+  expect(card.serverInfo).toEqual({ name: "keyframery", version: "0.2.1" })
   expect(card.url).toBe("https://keyframery.com/mcp")
   expect(card.transport).toEqual({ type: "streamable-http" })
   expect(card.capabilities).toEqual({ tools: true })
@@ -81,7 +81,7 @@ test("the MCP server card matches the server it describes", async ({ request }) 
     headers: { "content-type": "application/json", accept: "application/json, text/event-stream" },
     data: { jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "test", version: "1" } } },
   })
-  expect(await listed.text()).toContain('"name":"keyframery","version":"0.2.0"')
+  expect(await listed.text()).toContain('"name":"keyframery","version":"0.2.1"')
 })
 
 test("the agent skills index publishes the Keyframery skill, and its digest matches the file", async ({ request }) => {

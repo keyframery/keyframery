@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 import { InstallCommand } from "@/components/site/install-command"
-import { INSTALL_BY_URL } from "@/lib/kinds"
+import { INSTALL } from "@/lib/kinds"
 import { PRO_ENABLED } from "@/lib/pro"
 
 import { WaitlistForm } from "./waitlist-form"
@@ -17,7 +17,7 @@ export function Closing() {
           Install it, render <code className="font-mono text-[15px] text-foreground">{"<Cuts />"}</code> in your layout, then open any dialog in your app.
         </p>
         <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
-          <InstallCommand command={INSTALL_BY_URL} />
+          <InstallCommand command={INSTALL} />
           <Link
             href="/docs/installation"
             className="inline-flex h-11 items-center rounded-lg bg-foreground px-5 text-sm font-medium text-background outline-none hover:bg-foreground/85 focus-visible:ring-3 focus-visible:ring-ring/50"

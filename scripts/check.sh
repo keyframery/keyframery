@@ -15,4 +15,6 @@ if [ "$1" != "site" ]; then
   pnpm fixtures:build
   pnpm test:e2e
 fi
+# shadcn can change its components on any day. This reports what the fixtures don't cover yet; it doesn't fail the check.
+node scripts/drift.mjs || echo "⚠ See the shadcn drift above: re-test before the site names new versions (docs/deploy.md, \"shadcn drift\")."
 echo "All checks passed."

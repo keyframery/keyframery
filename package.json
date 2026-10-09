@@ -14,6 +14,7 @@
     "test:e2e": "pnpm -C tests e2e",
     "check:vite": "node fixtures/vite-check.mjs",
     "check:monorepo": "node fixtures/monorepo-check.mjs",
+    "drift": "node scripts/drift.mjs",
     "site:sync": "pnpm registry:build && pnpm -C apps/web sync",
     "site:build": "pnpm registry:build && pnpm -C apps/web build",
     "site:start": "pnpm -C apps/web start -p 4500",

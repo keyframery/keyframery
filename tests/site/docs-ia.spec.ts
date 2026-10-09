@@ -30,7 +30,7 @@ test("Quick start is three steps, each ending in what you should see", async ({ 
   await page.goto("/docs/installation")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Quick start")
   const steps = page.locator("article .fd-steps h3")
-  await expect(steps).toHaveText([/Register Keyframery and install it/, /Render <Cuts \/> once/, /Open a dialog/])
+  await expect(steps).toHaveText([/Install <Cuts \/>/, /Render <Cuts \/> once/, /Open a dialog/])
   expect(await page.getByText("You should see", { exact: false }).count()).toBeGreaterThanOrEqual(3)
 })
 

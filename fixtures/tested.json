@@ -1,0 +1,5 @@
+{
+  "shadcnCli": "4.21.4",
+  "styles": { "base": "base-nova", "radix": "radix-nova" },
+  "packages": ["@base-ui/react", "radix-ui", "sonner", "vaul", "cmdk", "next", "react", "tailwindcss"]
+}

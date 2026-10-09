@@ -1,3 +1,4 @@
+import tested from "../../apps/web/lib/tested.json" with { type: "json" }
 import { expect, takeCuts, test } from "./kit"
 
 test("the automatic groups and five helpers play live, each linked to its docs", async ({ page }) => {
@@ -56,7 +57,10 @@ test("Chat: a sent message flies from Send, and a reply rises in", async ({ page
 test("the install section and the FAQ tell coding-agent users about the plugin and the MCP server", async ({ page }) => {
   await page.goto("/")
   await expect(page.getByText("/plugin install keyframery@keyframery").first()).toBeVisible()
-  await expect(page.getByText('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"').first()).toBeVisible()
+  await expect(page.getByText("npx shadcn add @keyframery/cuts").first()).toBeVisible()
+  await expect(page.getByText(`Tested with shadcn CLI ${tested.shadcnCli}, on Base UI and Radix.`)).toBeVisible()
+  // shadcn's registry index knows @keyframery, so the page never asks for a register step.
+  await expect(page.getByText("npx shadcn registry add")).toHaveCount(0)
   await page.getByRole("button", { name: "Does it work with AI coding agents?" }).click()
   const answer = page.getByRole("region", { name: "Does it work with AI coding agents?" })
   await expect(answer).toContainText("keyframery.com/mcp")

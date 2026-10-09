@@ -3,7 +3,7 @@ import Link from "next/link"
 import { AgentPromptButton } from "@/components/site/agent-prompt-button"
 import { GitHubIcon } from "@/components/site/github-icon"
 import { InstallCommand } from "@/components/site/install-command"
-import { INSTALL_BY_URL } from "@/lib/kinds"
+import { INSTALL } from "@/lib/kinds"
 
 import { BeforeAfter } from "./before-after"
 import { WORKS_WITH } from "./logos"
@@ -40,7 +40,7 @@ export function Hero() {
           </span>
         </p>
         <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-          <InstallCommand command={INSTALL_BY_URL} />
+          <InstallCommand command={INSTALL} />
           {/* Not on phones: there the button would push the demo below the fold, and agents run on desktops anyway. */}
           <AgentPromptButton className="hidden sm:inline-flex" />
           <div className="flex gap-3">

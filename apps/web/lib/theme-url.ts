@@ -189,11 +189,11 @@ export function toInstall(settings: ThemeSettings): string {
   return [
     "Start with a project that already has shadcn/ui and components.json configured.",
     "",
-    "1. Register Keyframery once, then install the motion layer:",
+    "1. Install the motion layer:",
     "```bash",
-    'npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"',
     "npx shadcn add @keyframery/cuts",
     "```",
+    'If the CLI answers `Unknown registry "@keyframery"`, run `npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"` once, then install again.',
     "",
     "2. Keep your existing root layout and render the selected Cuts configuration once after its content:",
     "```tsx",

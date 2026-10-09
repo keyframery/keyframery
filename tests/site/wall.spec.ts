@@ -8,8 +8,8 @@ test("Dashboard: tabs whip, a new range loads without a jump, and numbers punch 
   await d.getByRole("tab", { name: "Overview" }).click()
   await d.getByRole("combobox", { name: "Range" }).click()
   await page.getByRole("option", { name: "Last 90 days" }).click()
-  // ValueCut keeps the current value in one visually hidden span; the rolling digits are aria-hidden.
-  await expect(d.locator(".sr-only").filter({ hasText: "$184,920" })).toHaveCount(1, { timeout: 4000 })
+  // ValueCut shows its value as plain text ([data-kf-text]); the rolling digits exist only while it changes, aria-hidden.
+  await expect(d.locator("[data-kf-text]").filter({ hasText: "$184,920" })).toHaveCount(1, { timeout: 4000 })
   const cuts = (await takeCuts(page)).map((c) => `${c.component}:${c.cut}`)
   expect(cuts).toEqual(expect.arrayContaining(["tabs:j-cut", "value:punch-in"]))
 })

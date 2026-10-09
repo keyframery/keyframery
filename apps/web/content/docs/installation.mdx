@@ -1,12 +1,12 @@
 ---
 title: Quick start
 seoTitle: "Install shadcn/ui animations in three steps"
-description: "Add animations to a shadcn/ui app in three steps: register Keyframery, install <Cuts />, render it once. Works with Next.js, Vite and React Router."
+description: "Add animations to a shadcn/ui app in three steps: install <Cuts />, render it once, open a dialog. Works with Next.js, Vite and React Router."
 faq:
   - q: "Do I need Framer Motion or another animation library?"
     a: "No. Keyframery adds motion with CSS and the Web Animations API. The CLI copies `<Cuts />`, its stylesheet and a small engine into your project, and adds no npm packages."
   - q: "Why does the CLI say Unknown registry \"@keyframery\"?"
-    a: "Your project hasn't registered Keyframery yet. Run `npx shadcn registry add \"@keyframery=https://keyframery.com/r/{name}.json\"` once, then install again."
+    a: "Your shadcn CLI didn't find `@keyframery` in shadcn's registry index. Register Keyframery once with `npx shadcn registry add \"@keyframery=https://keyframery.com/r/{name}.json\"`, then install again."
   - q: "Does it work with Vite and React Router?"
     a: "Yes. Render `<Cuts />` once in `src/main.tsx` for Vite or `app/root.tsx` for React Router, the same way as in a Next.js root layout."
 ---
@@ -16,16 +16,17 @@ You need a project with shadcn/ui set up, so `components.json` exists. Base UI a
 <Steps>
 <Step>
 
-### Register Keyframery and install it
+### Install `<Cuts />`
 
 ```bash
-npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"
 npx shadcn add @keyframery/cuts
 ```
 
-The first command adds Keyframery's registry to `components.json`, once per project. The second copies `components/keyframery/cuts.tsx`, its stylesheet and a small engine in `lib/keyframery/` into your project. No npm packages are added.
+Tested with shadcn CLI 4.21.4, on Base UI and Radix ([all versions](/docs/compatibility#tested-versions)).
 
-**You should see** `"@keyframery"` under `registries` in `components.json`, and a new `components/keyframery/` folder.
+This copies `components/keyframery/cuts.tsx`, its stylesheet and a small engine in `lib/keyframery/` into your project. No npm packages are added. Keyframery is in shadcn's registry index, so the CLI finds `@keyframery` with nothing to set up first.
+
+**You should see** a new `components/keyframery/` folder.
 
 </Step>
 <Step>
@@ -109,7 +110,7 @@ Open any dialog in your app.
 
 - Make sure `<Cuts />` is rendered once, in the root layout or entry file.
 - Check that your dialog's content element has `data-slot="dialog-content"`. Components added by shadcn CLI 3 and later have it; older copies don't. Run `npx shadcn add dialog` again to update yours.
-- If the CLI answered `Unknown registry "@keyframery"`, run the first command of step 1 again, or add the registry to `components.json` by hand:
+- If the CLI answered `Unknown registry "@keyframery"`, register Keyframery once with `npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"` and install again, or add the registry to `components.json` by hand:
 
 ```json title="components.json"
 {
@@ -124,4 +125,3 @@ Open any dialog in your app.
 - See [what's automatic](/docs/automatic) now that `<Cuts />` is running.
 - Choose a complete [motion theme](/docs/motion-themes) in the [builder](/theme), then copy its configured `<Cuts />` and CSS.
 - Animate [lists](/docs/helpers/list-cut), [numbers and statuses](/docs/helpers/value-cut), [skeleton loading](/docs/helpers/load-cut), [whole-content states](/docs/helpers/state-cut) and [cards that open into a page](/docs/helpers/match-cut). Each installs by name, for example `npx shadcn add @keyframery/state-cut`, and uses the same root `<Cuts />`.
-- To try the layer without registering first, `npx shadcn add https://keyframery.com/r/cuts.json` installs it by URL. That works for `cuts` only, because the other components depend on it.

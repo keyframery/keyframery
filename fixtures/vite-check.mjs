@@ -5,8 +5,9 @@ import os from "node:os"
 import path from "node:path"
 
 import { withRegistry } from "./registry-server.mjs"
+import { SHADCN_CLI } from "./tested.mjs"
 
-const CLI = `shadcn@${process.env.SHADCN_VERSION ?? "4.21.3"}`
+const CLI = `shadcn@${SHADCN_CLI}`
 const sh = (cmd, cwd) => execSync(cmd, { cwd, stdio: "inherit", env: { ...process.env, npm_config_user_agent: "npm/11.8.0 node/v24" } })
 const APP = `import { Cuts } from "@/components/keyframery/cuts"
 import { Button } from "@/components/ui/button"

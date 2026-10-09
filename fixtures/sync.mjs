@@ -5,9 +5,10 @@ import fs from "node:fs"
 import path from "node:path"
 
 import { withRegistry } from "./registry-server.mjs"
+import { SHADCN_CLI } from "./tested.mjs"
 
 const HERE = path.dirname(new URL(import.meta.url).pathname)
-const CLI = "shadcn@4.21.3"
+const CLI = `shadcn@${SHADCN_CLI}`
 const sh = (cmd, cwd) => execSync(cmd, { cwd, stdio: "inherit", env: { ...process.env, npm_config_user_agent: "npm/11.8.0 node/v24" } })
 const skip = (src) => !/[/\\](node_modules|\.next)([/\\]|$)/.test(src)
 

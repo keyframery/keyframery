@@ -26,14 +26,15 @@ describe("kinds", () => {
     expect(md).toContain("The seven kinds of change")
     expect(md).not.toContain("Every change on a screen")
     expect(md).toContain("https://keyframery.com/docs/helpers/list-cut")
-    // A fresh project doesn't know @keyframery until it is registered once.
-    expect(md).toContain('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"')
+    // shadcn's registry index resolves @keyframery; registering is only the fallback for an "Unknown registry" answer.
+    expect(md).toContain("npx shadcn add @keyframery/cuts")
+    expect(md).toContain(`Unknown registry "@keyframery"\`, register Keyframery once with \`${REGISTER}\``)
   })
 
   it("writes a prompt a coding agent can follow from an empty start", () => {
     const prompt = agentPrompt()
-    expect(prompt).toContain(REGISTER)
-    expect(prompt).toContain("npx shadcn add @keyframery/cuts")
+    expect(prompt).toContain("1. Install the layer:\n   npx shadcn add @keyframery/cuts")
+    expect(prompt).toContain(`Unknown registry "@keyframery", run this once, then install again: ${REGISTER}`)
     expect(prompt).toContain('import { Cuts } from "@/components/keyframery/cuts"')
     expect(prompt).toContain("<Cuts />")
     for (const k of KINDS.filter((k) => k.helper)) {

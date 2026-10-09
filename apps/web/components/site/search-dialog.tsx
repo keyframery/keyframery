@@ -53,16 +53,19 @@ export function rankResults(results: Result[], query: string): Result[] {
     .flatMap((x) => x.g)
 }
 
-export function SearchDialog({ open, onOpenChange }: SharedProps) {
+export function SearchDialog({ open, onOpenChange, dialogHandle }: SharedProps) {
   const router = useRouter()
   const { search, setSearch, query } = useDocsSearch({ type: "fetch" })
   const results = query.data === "empty" || !query.data ? [] : rankResults(query.data, search)
+  // "empty" with text typed means the request hasn't gone out yet (the input is debounced).
+  const searching = query.isLoading || (search.trim() !== "" && query.data === "empty")
+  // The search buttons are Base UI triggers bound to Fumadocs' dialog handle; only ⌘K goes through `open`.
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange} title="Search the docs" description="Search Keyframery's docs" className="sm:max-w-xl">
+    <CommandDialog handle={dialogHandle} open={open} onOpenChange={onOpenChange} title="Search the docs" description="Search Keyframery's docs" className="sm:max-w-xl">
       <Command shouldFilter={false}>
         <CommandInput placeholder="Search the docs" value={search} onValueChange={setSearch} />
         <CommandList>
-          <CommandEmpty>{search ? "Nothing matches that. Try a component name, like Dialog." : "Type to search."}</CommandEmpty>
+          <CommandEmpty>{!search ? "Type to search." : searching ? "Searching…" : "Nothing matches that. Try a component name, like Dialog."}</CommandEmpty>
           {results.length > 0 && (
             <CommandGroup heading="Docs">
               {results.slice(0, 12).map((r) => (

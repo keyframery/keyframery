@@ -2,7 +2,7 @@
 
 Deployed to https://keyframery.com on 8 October 2026: Vercel project `keyframery` (team briyanpatels-projects), DNS at GoDaddy (`A @ 216.198.79.1`, `CNAME www` to Vercel, email records unchanged), Web Analytics on.
 
-Pro and its waitlist are switched off (`PRO_ENABLED` in `apps/web/lib/pro.ts`), so the Neon database (section 2) is only needed when Pro is switched back on. Still open: the shadcn registry-index PR, opened 8 October 2026 as https://github.com/shadcn-ui/ui/pull/12204 (section 4). Once it merges, `npx shadcn add @keyframery/cuts` works without `registry add`, so simplify the docs, README and agent prompt.
+Pro and its waitlist are switched off (`PRO_ENABLED` in `apps/web/lib/pro.ts`), so the Neon database (section 2) is only needed when Pro is switched back on. Keyframery is in shadcn's registry index (merged 8 October 2026 in https://github.com/shadcn-ui/ui/pull/12207), so `npx shadcn add @keyframery/cuts` works without `registry add`. The docs keep `registry add` only as the fallback for `Unknown registry "@keyframery"`.
 
 ## How a deploy happens
 
@@ -18,6 +18,19 @@ There is no CI and no deploy on push: the repo is deliberately not connected to 
    ```
 4. Check the live site: key pages, `/r/cuts.json`, `/mcp`, and a screenshot.
 5. Run `pnpm indexnow`, which tells Bing (and other IndexNow engines) about every page in the live sitemap. It should print `200` or `202`.
+
+## shadcn drift
+
+Keyframery reads shadcn's markup, so a change upstream can break it. The fixture apps hold every shadcn component as the pinned CLI installed it (`fixtures/tested.json`), and the browser tests run against them. `pnpm drift` (about 20 seconds; `pnpm check` runs it at the end) reports anything they don't cover yet:
+
+- a fixture file that differs from what shadcn's registry gives today, through the pinned CLI or a newer one (the CLI's own `add --dry-run`);
+- a component in the registry that `apps/web/lib/coverage.json` doesn't list, or the reverse;
+- a new release of a package whose DOM Keyframery reads (`@base-ui/react`, `radix-ui`, `sonner`, `vaul`, `cmdk`). New Next.js, React or Tailwind releases are only listed.
+
+To re-test after it reports something:
+1. `SHADCN_VERSION=latest pnpm fixtures:create`, then `git diff fixtures/` shows exactly what shadcn changed.
+2. Run `pnpm check`. Fix the engine or the coverage data until it passes.
+3. Pin the CLI you tested in `fixtures/tested.json`, run `node apps/web/scripts/gen-tested.mjs` (the site's "Tested with" line and the tested-versions table), and deploy.
 
 ## 1. Vercel project
 

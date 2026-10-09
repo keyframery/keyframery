@@ -12,9 +12,10 @@ Motion for shadcn/ui. Render one `<Cuts />` in your root layout, and your dialog
 In a project with shadcn/ui:
 
 ```bash
-npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"
 npx shadcn add @keyframery/cuts
 ```
+
+If the CLI answers `Unknown registry "@keyframery"`, register it once with `npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"`, then install again.
 
 Then render `<Cuts />` once, at the root:
 

@@ -4,6 +4,13 @@ seoTitle: "Changelog: releases and tested versions"
 description: "Every Keyframery release and what changed in it, with the shadcn/ui bases and browsers each release was tested on."
 ---
 
+## 0.2.1 (9 October 2026)
+
+- ValueCut: at rest a value is now plain text, so copying it, find-in-page, screen readers and anything that reads the page get it once. Before, copying "1,284" gave each digit on its own line and then the number again. The digits roll exactly as before; run `npx shadcn add @keyframery/value-cut` again to update
+- One install command: `npx shadcn add @keyframery/cuts`. Keyframery is in shadcn's registry index, so there's no register step; `npx shadcn registry add` stays as the fallback for `Unknown registry "@keyframery"`
+- Docs search opens from its buttons too, phones included (only ⌘K opened it before), and says "Searching…" until results arrive
+- Tested with shadcn CLI 4.21.4 (was 4.21.3). The tested versions now come from what the test apps really run, and a drift check compares those apps with shadcn's registry before each release
+
 ## 0.2.0 (9 October 2026)
 
 Every shadcn component: all 63 now have a defined motion, or a written reason to stay still, and each has its own docs page.

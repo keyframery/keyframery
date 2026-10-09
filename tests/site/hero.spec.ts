@@ -27,12 +27,12 @@ async function center(l: Locator) {
 test("the first line says what Keyframery is, and the install command is right there", async ({ page }, info) => {
   await page.goto("/")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Add one line. Your shadcn/ui app animates.")
-  // The command has to work in a fresh project, before @keyframery is registered there.
+  // One command works in a fresh project: the shadcn CLI finds @keyframery in shadcn's registry index.
   const hero = page.locator('section[aria-labelledby="hero-title"]')
   await expect(hero.getByRole("link", { name: "Get started" })).toHaveAttribute("href", "/docs/installation")
   // Phones skip the theme sentence, so the demo stays inside its autoplay threshold.
   if (info.project.name !== "phone") await expect(hero.getByRole("link", { name: "motion theme" })).toHaveAttribute("href", "/theme")
-  await expect(hero.getByText("npx shadcn add https://keyframery.com/r/cuts.json")).toBeVisible()
+  await expect(hero.getByText("npx shadcn add @keyframery/cuts")).toBeVisible()
   // "Copied" shows for 1.6 s. Under load the runner can miss that window, so the page records the label change.
   const copy = hero.getByRole("button", { name: "Copy the install command" })
   await copy.evaluate((el) => {
@@ -77,7 +77,7 @@ test("a click on either side plays on both, and only the Keyframery side cuts, f
   await kf(page).getByRole("button", { name: "Send invite" }).click()
   await expect(stock(page).getByText("Maya Chen")).toBeVisible()
   await expect(kf(page).getByText("Maya Chen")).toBeVisible()
-  await expect(kf(page).locator(".sr-only").filter({ hasText: /^4$/ })).toHaveCount(1)
+  await expect(kf(page).locator("[data-kf-text]").filter({ hasText: /^4$/ })).toHaveCount(1)
   const after = (await takeCuts(page)).map((c) => `${c.component}:${c.cut}`)
   expect(after).toEqual(expect.arrayContaining(["list:cut-on-action", "value:punch-in"]))
 
@@ -143,7 +143,7 @@ test("on a phone, taking over keeps the copy the visitor is looking at", async (
   const withKf = page.getByRole("group", { name: "Compare" }).getByRole("button", { name: "With Keyframery" })
   await expect(withKf).toHaveAttribute("aria-pressed", "true")
   // Seats go 3 → 4 on the demo's invite and back to 3 on its remove; take over in the wait after the remove.
-  const seats = (n: number) => page.locator('[data-side="kf"] .sr-only').filter({ hasText: new RegExp(`^${n}$`) })
+  const seats = (n: number) => page.locator('[data-side="kf"] [data-kf-text]').filter({ hasText: new RegExp(`^${n}$`) })
   await expect(seats(4)).toHaveCount(1, { timeout: 15000 })
   await expect(seats(3)).toHaveCount(1, { timeout: 15000 })
   await takeOver(page)

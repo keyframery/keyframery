@@ -3,7 +3,8 @@ import Link from "next/link"
 
 import { AgentPromptButton } from "@/components/site/agent-prompt-button"
 import { InstallCommand } from "@/components/site/install-command"
-import { REGISTER } from "@/lib/kinds"
+import { INSTALL } from "@/lib/kinds"
+import tested from "@/lib/tested.json"
 
 function Step({ n, children }: { n: number; children: React.ReactNode }) {
   return (
@@ -73,14 +74,18 @@ export async function InstallSteps() {
             <Step n={1}>Add it with the shadcn CLI</Step>
             {/* minmax(0, 1fr): a grid column otherwise grows to the longest command and widens the page on phones. */}
             <div className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-2">
-              <InstallCommand className="sm:w-full" command={REGISTER} />
-              <InstallCommand className="sm:w-full" command="npx shadcn add @keyframery/cuts" />
+              <InstallCommand className="sm:w-full" command={INSTALL} />
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              The first line registers Keyframery in your <code className="font-mono text-[13px] text-foreground">components.json</code>, once. After that every
-              helper installs by name, like <code className="font-mono text-[13px] text-foreground">npx shadcn add @keyframery/list-cut</code>. The second copies{" "}
-              <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, its stylesheet and a small engine into your project: about 12 KB gzipped, with
-              no extra dependencies.
+              It copies <code className="font-mono text-[13px] text-foreground">{"<Cuts />"}</code>, its stylesheet and a small engine into your project: about 12 KB
+              gzipped, with no extra dependencies. Every helper installs by name the same way, like{" "}
+              <code className="font-mono text-[13px] text-foreground">npx shadcn add @keyframery/list-cut</code>.
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Tested with shadcn CLI {tested.shadcnCli}, on Base UI and Radix.{" "}
+              <Link href="/docs/compatibility#tested-versions" className="whitespace-nowrap font-medium text-foreground underline underline-offset-4">
+                All versions
+              </Link>
             </p>
           </li>
           <li className="min-w-0">
@@ -104,7 +109,7 @@ export async function InstallSteps() {
           <AgentPromptButton className="mt-3 w-full sm:w-auto" />
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
             In Claude Code, the plugin does the same, and reads the docs through the{" "}
-            <Link href="/docs/ai-tools" className="font-medium text-foreground underline underline-offset-4">
+            <Link href="/docs/ai-tools" className="whitespace-nowrap font-medium text-foreground underline underline-offset-4">
               Keyframery MCP server
             </Link>
             :

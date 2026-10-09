@@ -1,7 +1,7 @@
 {
   "name": "keyframery",
   "displayName": "Keyframery",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Add animations to shadcn/ui apps with one line. A skill that picks the right cut for each change, plus the Keyframery MCP server for docs, helper APIs and themes.",
   "author": { "name": "Briyan Hingrajiya", "email": "briyan@keyframery.com", "url": "https://x.com/briyan_dev" },
   "homepage": "https://keyframery.com/docs/ai-tools",

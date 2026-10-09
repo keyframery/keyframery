@@ -74,15 +74,17 @@ Every shadcn component works with `<Cuts />` mounted: no errors, and focus and a
 
 ## Tested versions
 
-| Package | Versions |
+The test suite installs Keyframery with this shadcn CLI into two Next.js apps that hold every shadcn component, one on Base UI and one on Radix, and runs each cut in all three browsers. Before each release, a drift check compares those components with what shadcn's registry serves that day.
+
+| Package | Version |
 |---|---|
-| shadcn CLI | 4.21.3 |
-| @base-ui/react | 1.8 |
-| radix-ui | 1.7 |
+| shadcn CLI | 4.21.4 |
+| @base-ui/react | 1.8.0 |
+| radix-ui | 1.7.0 |
 | sonner | 2.0.8 |
 | vaul | 1.1.2 |
 | cmdk | 1.1.1 |
-| Next.js | 16.3 |
-| React | 19.3 |
-| Tailwind CSS | 4 |
+| Next.js | 16.3.6 |
+| React | 19.3.0 |
+| Tailwind CSS | 4.3.3 |
 | Browsers | Chromium, WebKit (Safari) and Firefox, current stable |

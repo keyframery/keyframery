@@ -1,16 +1,17 @@
 // Regenerates fixtures/next-base and fixtures/next-radix from the live shadcn registry.
 // Apps are generated in a temp dir (so shadcn doesn't pick up this repo's pnpm lockfile), then copied in.
-// Usage:  node fixtures/create.mjs                          pinned shadcn CLI
-//         SHADCN_VERSION=latest node fixtures/create.mjs    weekly drift check
+// Usage:  node fixtures/create.mjs                          pinned shadcn CLI (fixtures/tested.json)
+//         SHADCN_VERSION=latest node fixtures/create.mjs    re-test after `pnpm drift` finds a change
 import { execSync } from "node:child_process"
 import fs from "node:fs"
 import os from "node:os"
 import path from "node:path"
 
 import { withRegistry } from "./registry-server.mjs"
+import { SHADCN_CLI } from "./tested.mjs"
 
 const HERE = path.dirname(new URL(import.meta.url).pathname)
-const CLI = `shadcn@${process.env.SHADCN_VERSION ?? "4.21.3"}`
+const CLI = `shadcn@${SHADCN_CLI}`
 const BASES = (process.env.KF_BASES ?? "base,radix").split(",")
 const sh = (cmd, cwd) => execSync(cmd, { cwd, stdio: "inherit", env: { ...process.env, npm_config_user_agent: "npm/11.8.0 node/v24" } })
 const skip = (src) => !/[/\\](node_modules|\.next)([/\\]|$)/.test(src)

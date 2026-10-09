@@ -1,7 +1,7 @@
 /* Markdown versions of the pages outside the docs, for AI agents that ask for Markdown (Accept: text/markdown).
    Built from the same constants as the site and the MCP server, so they can't drift from them. */
 
-import { KINDS, kindsMarkdown, REGISTER } from "./kinds"
+import { INSTALL, KINDS, kindsMarkdown, REGISTER } from "./kinds"
 import { SITE, TAGLINE } from "./seo"
 
 /** What the home page says, as Markdown: what it is, how to install it, what to read next. */
@@ -20,9 +20,10 @@ export function homeMarkdown(): string {
     "## Install",
     "",
     "```bash",
-    REGISTER,
-    "npx shadcn add @keyframery/cuts",
+    INSTALL,
     "```",
+    "",
+    `If the CLI answers \`Unknown registry "@keyframery"\`, register Keyframery once with \`${REGISTER}\`, then install again.`,
     "",
     'Then render `<Cuts />` once in the root layout, after the content: `import { Cuts } from "@/components/keyframery/cuts"`. Dialogs, alert dialogs, sheets, drawers, tabs, toasts and the command menu then animate on their own.',
     "",

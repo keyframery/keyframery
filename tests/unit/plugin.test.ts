@@ -25,6 +25,7 @@ describe("Claude Code plugin", () => {
     const skill = fs.readFileSync(file("plugins/keyframery/skills/keyframery/SKILL.md"), "utf8")
     expect(skill).toMatch(/^---\nname: keyframery\ndescription: .+\n---\n/)
     for (const tool of ["list_kinds", "search_docs", "get_doc", "make_theme"]) expect(skill).toContain(tool)
+    expect(skill).toContain("npx shadcn add @keyframery/cuts")
     expect(skill).toContain('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"')
     expect(skill).toContain("@keyframery/state-cut")
     expect(skill).toContain('profile: "quiet"')
