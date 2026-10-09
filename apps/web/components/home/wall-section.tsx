@@ -31,7 +31,7 @@ export function WallSection() {
     <section aria-labelledby="wall-title" className="pt-24 md:pt-36">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-6 px-4 pb-8 md:flex-row md:items-end md:justify-between">
         <div className="max-w-[600px]">
-          <h2 id="wall-title" className="text-[30px] leading-[1.1] font-semibold tracking-[-0.025em] md:text-[38px]">
+          <h2 id="wall-title" className="text-[32px] leading-[1.08] font-semibold tracking-[-0.03em] md:text-[44px]">
             Try it on real screens
           </h2>
           <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">

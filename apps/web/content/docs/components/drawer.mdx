@@ -5,9 +5,19 @@ heading: "Drawer animation"
 description: "Animate the shadcn/ui Drawer: the page steps back behind it as it rises, and its own swipe stays exactly as it was. Works with Base UI and Vaul."
 ---
 
-<Preview>
-  <DrawerDemo />
-</Preview>
+<Playground slug="drawer" />
+
+## Which cut it uses
+
+Drawers use the **Slide and sink** cut. A cut is how something arrives on the screen and how it leaves. The drawer keeps its own swipe and spring. Keyframery only makes the page behind step back a little while the drawer rises, so the drawer reads as on top.
+
+<CutCards menu="drawer">
+
+| Cut | What you see | Code |
+|---|---|---|
+| Slide and sink (default) | The page behind steps back a little while the drawer slides up. | `<Cuts drawer="slide-sink" />` |
+
+</CutCards>
 
 ## What it fixes
 
@@ -17,20 +27,57 @@ It works with both drawers: Base UI's and the Radix base's Vaul drawer.
 
 ## Install
 
-```bash
+```npm
 npx shadcn add drawer
 ```
 
-## Choose a cut
+## Change it
+
+Every change is one prop. The controls at the top of the page try them live.
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
 
 ```tsx
-// keep the page still behind drawers
-<Cuts drawer="none" />
+// In your root layout: every motion in your app
+<Cuts pace={1.6} />
+
+// Or just this one
+<DrawerContent data-cut-pace="1.6" />
 ```
 
-<TypeTable
-  type={{
-    'drawer (on <Cuts>)': { description: "Whether the page steps back behind drawers.", type: '"slide-sink" | "none"', default: '"slide-sink"' },
-    'data-cut (on the drawer content)': { description: "none keeps the page still for this drawer.", type: '"slide-sink" | "none"' },
-  }}
-/>
+### Turn it off
+
+```tsx
+// In your root layout: the page stays still behind every drawer
+<Cuts drawer="none" />
+
+// Just this one
+<DrawerContent data-cut="none" />
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<Cuts />`**, in your root layout:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `drawer` | `"slide-sink" \| "none"` | `"slide-sink"` | Whether the page steps back behind drawers. |
+| `pace` | `number` | `1` | Multiplies every duration in your app. |
+
+**On one `DrawerContent`**, for just that one:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `data-cut` | `"slide-sink" \| "none"` | – | `none` keeps the page still for this drawer. |
+| `data-cut-pace` | `number` | `1` | Multiplies every duration of this one. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |

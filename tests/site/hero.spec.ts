@@ -202,12 +202,13 @@ test("a button in the hero copies setup instructions for your coding agent", asy
   if (info.project.name === "chromium") expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(agentPrompt())
 })
 
-test("the install section offers the same button next to the Claude Code plugin", async ({ page }) => {
+test("the agents section offers the same button next to the Claude Code plugin and the MCP server", async ({ page }) => {
   await page.goto("/")
-  const install = page.locator('section[aria-labelledby="install-title"]')
-  await expect(install.getByRole("button", { name: "Copy for your coding agent" })).toBeVisible()
+  const agents = page.locator('section[aria-labelledby="agents-title"]')
+  await expect(agents.getByRole("button", { name: "Copy for your coding agent" })).toBeVisible()
   expect(await noHorizontalScroll(page)).toBe(true)
-  await expect(install.getByText("/plugin install keyframery@keyframery")).toBeVisible()
+  await expect(agents.getByText("/plugin install keyframery@keyframery")).toBeVisible()
+  await expect(agents.getByText("https://keyframery.com/mcp")).toBeVisible()
 })
 
 test("every address in the agent prompt works", async ({ request }) => {

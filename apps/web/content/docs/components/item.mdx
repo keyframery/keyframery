@@ -7,9 +7,11 @@ description: "Items are added, removed and reordered without jumping, and an ite
 
 {/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
 
-<Preview>
-  <ComponentDemo slug="item" />
-</Preview>
+<Playground slug="item" />
+
+## Which cut it uses
+
+Item moves with **ListCut** and **MatchCut**: a small Keyframery component you wrap around the part that changes.
 
 ## What moves
 
@@ -20,10 +22,50 @@ description: "Items are added, removed and reordered without jumping, and an ite
 
 ## Install
 
-Install [ListCut](/docs/helpers/list-cut) and wrap the part that changes: `npx shadcn add @keyframery/list-cut`.
+Install [ListCut](/docs/helpers/list-cut) and wrap the part that changes:
 
-Install [MatchCut](/docs/helpers/match-cut) and wrap the part that changes: `npx shadcn add @keyframery/match-cut`.
+```npm
+npx shadcn add @keyframery/list-cut
+```
 
-## Turn it off
+Install [MatchCut](/docs/helpers/match-cut) and wrap the part that changes:
 
-Put `data-cut="none"` on a item (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.
+```npm
+npx shadcn add @keyframery/match-cut
+```
+
+## Change it
+
+Every change is one prop. The controls at the top of the page try them live.
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
+
+```tsx
+<ListCut pace={1.6}>…</ListCut>
+```
+
+### Turn it off
+
+```tsx
+<ListCut cut="none">…</ListCut>
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<ListCut>`:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `pace` | `number` | `1` | Multiplies every duration of this one. |
+| `cut` | `"none"` | – | "none" swaps it instantly. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |

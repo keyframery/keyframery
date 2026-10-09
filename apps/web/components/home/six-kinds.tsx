@@ -67,7 +67,7 @@ export function SixKinds() {
   return (
     <section aria-labelledby="kinds-title" className="mx-auto w-full max-w-[1200px] px-4 pt-24 md:pt-36">
       <div className="max-w-[640px]">
-        <h2 id="kinds-title" className="text-[30px] leading-[1.1] font-semibold tracking-[-0.025em] text-balance md:text-[38px]">
+        <h2 id="kinds-title" className="text-[32px] leading-[1.08] font-semibold tracking-[-0.03em] text-balance md:text-[44px]">
           Seven kinds of change, one cut each
         </h2>
         <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
@@ -79,7 +79,7 @@ export function SixKinds() {
       <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-10">
         {KINDS.map(({ title, body, how, docs, name, Loop }) => (
           <article key={title} className={`flex flex-col bg-background ${how === "Automatic" ? "lg:col-span-5" : "lg:col-span-2"}`}>
-            <div className="border-b bg-stage">
+            <div className="stage-grid border-b">
               <Loop bare />
             </div>
             <div className="flex flex-1 flex-col p-5 md:p-6">

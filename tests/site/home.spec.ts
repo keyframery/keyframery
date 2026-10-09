@@ -1,5 +1,5 @@
 import tested from "../../apps/web/lib/tested.json" with { type: "json" }
-import { expect, takeCuts, test } from "./kit"
+import { expect, noHorizontalScroll, takeCuts, test } from "./kit"
 
 test("the automatic groups and five helpers play live, each linked to its docs", async ({ page }) => {
   await page.goto("/")
@@ -54,7 +54,20 @@ test("Chat: a sent message flies from Send, and a reply rises in", async ({ page
   expect(cuts).toEqual(expect.arrayContaining(["cut-on-action", "rise"]))
 })
 
-test("the install section and the FAQ tell coding-agent users about the plugin and the MCP server", async ({ page }) => {
+test("the home page says how it works, then lets you change a dialog with one prop", async ({ page }) => {
+  await page.goto("/?demo=off")
+  const how = page.getByRole("region", { name: "One line. Your components don't change." })
+  await expect(how.getByRole("listitem")).toHaveCount(3)
+  await expect(how).toContainText('data-slot="dialog-content"')
+  const tryIt = page.getByRole("region", { name: "Change anything with one prop" })
+  const playground = tryIt.locator("[data-playground]")
+  await playground.getByRole("group", { name: "Cut" }).getByRole("button", { name: "Fade" }).click()
+  await expect(page.locator("html")).toHaveAttribute("data-kf-dialog", "fade")
+  await expect(playground.locator("[data-playground-code]")).toContainText('<Cuts dialog="fade" />')
+  expect(await noHorizontalScroll(page)).toBe(true)
+})
+
+test("the home page and the FAQ tell coding-agent users about the plugin and the MCP server", async ({ page }) => {
   await page.goto("/")
   await expect(page.getByText("/plugin install keyframery@keyframery").first()).toBeVisible()
   await expect(page.getByText("npx shadcn add @keyframery/cuts").first()).toBeVisible()

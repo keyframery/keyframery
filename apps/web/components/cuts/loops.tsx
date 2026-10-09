@@ -11,7 +11,7 @@ import { ValueCut } from "@/components/keyframery/value-cut"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-const press = (el: Element | null) => el?.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "mouse", isPrimary: true }))
+export const press = (el: Element | null) => el?.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerType: "mouse", isPrimary: true }))
 
 const REDUCED = "(prefers-reduced-motion: reduce)"
 const onMotionChange = (notify: () => void) => {
@@ -26,7 +26,7 @@ function useReducedMotion() {
 }
 
 /** Runs `step` every `ms` while the element is on screen; under reduced motion it waits for Play. */
-function useLoop(ms: number, step: () => void) {
+export function useLoop(ms: number, step: () => void) {
   const ref = React.useRef<HTMLDivElement>(null)
   const still = useReducedMotion()
   const saved = React.useRef(step)

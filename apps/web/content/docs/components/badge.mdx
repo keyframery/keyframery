@@ -2,14 +2,16 @@
 title: Badge
 seoTitle: "shadcn/ui Badge animation"
 heading: "Badge animation"
-description: "A count in a badge rolls to its new value instead of flickering. Works on Base UI and Radix through <Cuts />."
+description: "A count in a badge rolls to its new value instead of flickering. Works on Base UI and Radix with <ValueCut>."
 ---
 
 {/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
 
-<Preview>
-  <ComponentDemo slug="badge" />
-</Preview>
+<Playground slug="badge" />
+
+## Which cut it uses
+
+Badge moves with **ValueCut**: a small Keyframery component you wrap around the part that changes.
 
 ## What moves
 
@@ -19,8 +21,44 @@ description: "A count in a badge rolls to its new value instead of flickering. W
 
 ## Install
 
-Install [ValueCut](/docs/helpers/value-cut) and wrap the part that changes: `npx shadcn add @keyframery/value-cut`.
+Install [ValueCut](/docs/helpers/value-cut) and wrap the part that changes:
 
-## Turn it off
+```npm
+npx shadcn add @keyframery/value-cut
+```
 
-Put `data-cut="none"` on a badge (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.
+## Change it
+
+Every change is one prop. The controls at the top of the page try them live.
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
+
+```tsx
+<ValueCut pace={1.6}>…</ValueCut>
+```
+
+### Turn it off
+
+```tsx
+<ValueCut cut="none">…</ValueCut>
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<ValueCut>`:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `pace` | `number` | `1` | Multiplies every duration of this one. |
+| `cut` | `"punch-in" \| "none"` | – | "none" swaps it instantly. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |

@@ -33,8 +33,16 @@ const noSubscribe = () => () => {}
  * the Pause button is in the server HTML for most visitors instead of appearing after hydration.
  */
 function useAutoplayAllowed() {
-  const reduced = React.useSyncExternalStore(subscribeMotion, () => matchMedia("(prefers-reduced-motion: reduce)").matches, () => false)
-  const off = React.useSyncExternalStore(noSubscribe, () => new URLSearchParams(location.search).get("demo") === "off", () => false)
+  const reduced = React.useSyncExternalStore(
+    subscribeMotion,
+    () => matchMedia("(prefers-reduced-motion: reduce)").matches,
+    () => false,
+  )
+  const off = React.useSyncExternalStore(
+    noSubscribe,
+    () => new URLSearchParams(location.search).get("demo") === "off",
+    () => false,
+  )
   return !reduced && !off
 }
 
@@ -58,7 +66,13 @@ function restAt(cursor: HTMLElement | null) {
 }
 
 const ripple = (cursor: HTMLElement | null) =>
-  cursor?.querySelector("[data-ring]")?.animate([{ scale: 0.4, opacity: 0.8 }, { scale: 1.7, opacity: 0 }], { duration: 480, easing: "cubic-bezier(0.22, 1, 0.36, 1)" })
+  cursor?.querySelector("[data-ring]")?.animate(
+    [
+      { scale: 0.4, opacity: 0.8 },
+      { scale: 1.7, opacity: 0 },
+    ],
+    { duration: 480, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+  )
 
 export function BeforeAfter() {
   const demo = useTeamDemo()
@@ -195,7 +209,11 @@ export function BeforeAfter() {
           ))}
         </div>
       </div>
-      <div data-testid="hero-stage" ref={stage} className="stage-grid grid gap-x-6 gap-y-5 rounded-2xl border p-3 sm:p-5 md:grid-cols-2 md:p-8">
+      <div
+        data-testid="hero-stage"
+        ref={stage}
+        className="stage-grid grid gap-x-6 gap-y-5 rounded-2xl border p-3 shadow-[0_1px_2px_rgba(16,16,20,0.05),0_32px_64px_-32px_rgba(16,16,20,0.28)] sm:p-5 md:grid-cols-2 md:p-8"
+      >
         {SIDES.map((s) => (
           <section
             key={s}

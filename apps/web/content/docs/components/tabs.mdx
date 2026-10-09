@@ -10,9 +10,21 @@ faq:
     a: "Yes. `<Cuts tabs=\"whip\" />` switches in 160 ms with a short motion blur, or put `data-cut=\"whip\"` on one `Tabs` root."
 ---
 
-<Preview>
-  <TabsDemo />
-</Preview>
+<Playground slug="tabs" />
+
+## Which cut it uses
+
+Tabs use the **J-cut**. A cut is how something arrives on the screen and how it leaves. With a J-cut, the highlight slides to the tab you picked first, and the new panel follows a beat later, so your eye is already in the right place when it arrives. There are 3 to pick from, and each one is a single prop:
+
+<CutCards menu="tabs">
+
+| Cut | What you see | Code |
+|---|---|---|
+| J-cut (default) | The highlight slides to your tab first, then the new panel follows a beat later. | `<Cuts tabs="j-cut" />` |
+| Whip | A quick swipe with a little motion blur, all at once. | `<Cuts tabs="whip" />` |
+| Fade | The old panel fades out and the new one fades in. | `<Cuts tabs="fade" />` |
+
+</CutCards>
 
 ## What it fixes
 
@@ -20,26 +32,70 @@ Stock tabs swap their panel in a single frame, and the frame snaps to the new he
 
 ## Install
 
-```bash
+```npm
 npx shadcn add tabs
 ```
 
-## Choose a cut
+## Change it
 
-Put `data-cut` on the `Tabs` root:
+Every change is one prop. The controls at the top of the page try them live.
+
+### Change just one
+
+For just one tabs component, put `data-cut` on its `Tabs` root:
 
 ```tsx
-<Cuts tabs="whip" />
 <Tabs data-cut="fade" defaultValue="account">…</Tabs>
 ```
 
-<TypeTable
-  type={{
-    'tabs (on <Cuts>)': { description: "The cut for every tabs component.", type: '"j-cut" | "whip" | "fade" | "none"', default: '"j-cut"' },
-    'data-cut (on Tabs)': { description: "The cut for this tabs component.", type: '"j-cut" | "whip" | "fade" | "none"' },
-    'data-cut-pace (on Tabs)': { description: "Duration multiplier.", type: "number" },
-  }}
-/>
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
+
+```tsx
+// In your root layout: every motion in your app
+<Cuts pace={1.6} />
+
+// Or just this one
+<Tabs data-cut-pace="1.6">…</Tabs>
+```
+
+### Turn it off
+
+```tsx
+// In your root layout: no motion on any tabs
+<Cuts tabs="none" />
+
+// Just this one keeps shadcn's own motion
+<Tabs data-cut="none">…</Tabs>
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<Cuts />`**, in your root layout:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `tabs` | `"j-cut" \| "whip" \| "fade" \| "none"` | `"j-cut"` | The cut for every tabs component. |
+| `pace` | `number` | `1` | Multiplies every duration in your app. |
+
+**On one `Tabs`**, for just that one:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `data-cut` | `"j-cut" \| "whip" \| "fade" \| "none"` | – | The cut for this tabs component. Beats the `<Cuts>` prop. |
+| `data-cut-pace` | `number` | `1` | Multiplies every duration of this one. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |
+
+## Timing
 
 | Cut | What plays |
 |---|---|

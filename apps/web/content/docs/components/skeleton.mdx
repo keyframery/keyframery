@@ -7,9 +7,11 @@ description: "A skeleton dissolves into the real content, and never shows at all
 
 {/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
 
-<Preview>
-  <ComponentDemo slug="skeleton" />
-</Preview>
+<Playground slug="skeleton" />
+
+## Which cut it uses
+
+Skeleton moves with **LoadCut**: a small Keyframery component you wrap around the part that changes.
 
 ## What moves
 
@@ -19,8 +21,44 @@ description: "A skeleton dissolves into the real content, and never shows at all
 
 ## Install
 
-Install [LoadCut](/docs/helpers/load-cut) and wrap the part that changes: `npx shadcn add @keyframery/load-cut`.
+Install [LoadCut](/docs/helpers/load-cut) and wrap the part that changes:
 
-## Turn it off
+```npm
+npx shadcn add @keyframery/load-cut
+```
 
-Put `data-cut="none"` on a skeleton (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.
+## Change it
+
+Every change is one prop. The controls at the top of the page try them live.
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
+
+```tsx
+<LoadCut pace={1.6}>…</LoadCut>
+```
+
+### Turn it off
+
+```tsx
+<LoadCut cut="none">…</LoadCut>
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<LoadCut>`:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `pace` | `number` | `1` | Multiplies every duration of this one. |
+| `cut` | `"dissolve" \| "none"` | – | "none" swaps it instantly. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |

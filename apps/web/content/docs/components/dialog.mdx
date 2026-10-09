@@ -12,9 +12,21 @@ faq:
     a: "Yes. Keyframery reads `data-open` on Base UI and `data-state` on Radix, and every cut is tested on both in Chromium, Firefox and WebKit."
 ---
 
-<Preview>
-  <DialogDemo />
-</Preview>
+<Playground slug="dialog" />
+
+## Which cut it uses
+
+Dialogs use the **Rack focus** cut. A cut is how something arrives on the screen and how it leaves. With rack focus, it grows out of the button you pressed, a little soft, and sharpens in place, the way a camera pulls focus. Closing goes back into the button. There are 3 to pick from, and each one is a single prop:
+
+<CutCards menu="dialog">
+
+| Cut | What you see | Code |
+|---|---|---|
+| Rack focus (default) | Grows out of the button you pressed, a little soft, then sharpens. Closing goes back into the button. | `<Cuts dialog="rack-focus" />` |
+| Punch in | Pops up in the middle with a tiny bounce. Closing shrinks it away. | `<Cuts dialog="punch-in" />` |
+| Fade | Fades in where it stands. Nothing moves. | `<Cuts dialog="fade" />` |
+
+</CutCards>
 
 ## What it fixes
 
@@ -24,36 +36,84 @@ A stock dialog appears in the middle of the screen, unconnected to what you pres
 
 Dialog is shadcn's own component. With [`<Cuts />`](/docs/installation) in your layout, there's nothing else to add:
 
-```bash
+```npm
 npx shadcn add dialog
 ```
 
-## Choose a cut
+## Change it
+
+Every change is one prop. The controls at the top of the page try them live.
+
+### Change just one
+
+The `dialog` prop changes every dialog, alert dialog and command menu. For just one dialog, put `data-cut` on its `DialogContent`:
 
 ```tsx
-// every dialog, alert dialog and command menu
-<Cuts dialog="punch-in" />
-
-// this dialog only
 <DialogContent data-cut="fade" />
+```
 
-// grow from the centre instead of the button
+### Grow from the middle
+
+A rack focus starts at the button you pressed. To start from the middle of the screen instead:
+
+```tsx
 <DialogContent data-cut-origin="center" />
 ```
 
-<TypeTable
-  type={{
-    'dialog (on <Cuts>)': { description: "The cut for every dialog, alert dialog and command menu.", type: '"rack-focus" | "punch-in" | "fade" | "none"', default: '"rack-focus"' },
-    'data-cut (on DialogContent)': { description: "The cut for this dialog. Beats the <Cuts> prop.", type: '"rack-focus" | "punch-in" | "fade" | "none"' },
-    'data-cut-origin (on DialogContent)': { description: "center starts a rack focus from the middle instead of the opener.", type: '"center"' },
-    'data-cut-pace': { description: "Duration multiplier for this dialog, or for everything inside an ancestor.", type: "number" },
-  }}
-/>
+A dialog opened from code, with no press, has no button to grow from, so it starts from the middle anyway.
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
+
+```tsx
+// In your root layout: every motion in your app
+<Cuts pace={1.6} />
+
+// Or just this one
+<DialogContent data-cut-pace="1.6" />
+```
+
+### Turn it off
+
+```tsx
+// In your root layout: no motion on any dialog
+<Cuts dialog="none" />
+
+// Just this one keeps shadcn's own motion
+<DialogContent data-cut="none" />
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<Cuts />`**, in your root layout:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `dialog` | `"rack-focus" \| "punch-in" \| "fade" \| "none"` | `"rack-focus"` | The cut for every dialog, alert dialog and command menu. |
+| `pace` | `number` | `1` | Multiplies every duration in your app. |
+
+**On one `DialogContent`**, for just that one:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `data-cut` | `"rack-focus" \| "punch-in" \| "fade" \| "none"` | – | The cut for this one. Beats the `<Cuts>` prop. |
+| `data-cut-origin` | `"center"` | – | center: a rack focus starts from the middle instead of the button. |
+| `data-cut-pace` | `number` | `1` | Multiplies every duration of this one. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |
+
+## Timing
 
 | Cut | Opening | Closing |
 |---|---|---|
 | `rack-focus` | from 35% toward the opener, at 0.94 scale and 8px blur, 340 ms | back toward the opener, 220 ms |
 | `punch-in` | from the centre, 0.85 to 1.02 to 1, 260 ms | to 0.96 and fade, 160 ms |
 | `fade` | opacity only, 200 ms | 150 ms |
-
-A dialog opened from code, with no press, has no opener, so a rack focus starts from the centre.

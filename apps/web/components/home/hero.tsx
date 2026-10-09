@@ -12,7 +12,8 @@ const action = "inline-flex h-11 items-center gap-2 rounded-lg px-5 text-sm font
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title">
+    <section aria-labelledby="hero-title" className="relative isolate">
+      <div aria-hidden="true" className="dot-field pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px]" />
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-4 pt-12 text-center md:pt-16">
         <Link
           href="/docs/ai-tools"

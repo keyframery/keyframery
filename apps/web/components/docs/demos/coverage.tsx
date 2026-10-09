@@ -263,6 +263,7 @@ function DropdownMenuDemo() {
 
 function FieldDemo() {
   const [error, setError] = React.useState("")
+  const id = React.useId()
   return (
     <form
       className="grid w-full max-w-xs gap-3"
@@ -273,8 +274,8 @@ function FieldDemo() {
       }}
     >
       <Field data-invalid={!!error || undefined}>
-        <FieldLabel htmlFor="field-demo-email">Email</FieldLabel>
-        <Input id="field-demo-email" name="email" placeholder="ana@acme.com" aria-invalid={!!error || undefined} />
+        <FieldLabel htmlFor={id}>Email</FieldLabel>
+        <Input id={id} name="email" placeholder="ana@acme.com" aria-invalid={!!error || undefined} />
         {error && <FieldError>{error}</FieldError>}
       </Field>
       <Button type="submit" className="w-fit">Subscribe</Button>

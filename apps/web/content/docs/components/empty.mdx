@@ -7,9 +7,11 @@ description: "An empty state arrives in place of content, and content replaces i
 
 {/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
 
-<Preview>
-  <ComponentDemo slug="empty" />
-</Preview>
+<Playground slug="empty" />
+
+## Which cut it uses
+
+Empty moves with **StateCut**: a small Keyframery component you wrap around the part that changes.
 
 ## What moves
 
@@ -19,8 +21,44 @@ description: "An empty state arrives in place of content, and content replaces i
 
 ## Install
 
-Install [StateCut](/docs/helpers/state-cut) and wrap the part that changes: `npx shadcn add @keyframery/state-cut`.
+Install [StateCut](/docs/helpers/state-cut) and wrap the part that changes:
 
-## Turn it off
+```npm
+npx shadcn add @keyframery/state-cut
+```
 
-Put `data-cut="none"` on a empty (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.
+## Change it
+
+Every change is one prop. The controls at the top of the page try them live.
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
+
+```tsx
+<StateCut pace={1.6}>…</StateCut>
+```
+
+### Turn it off
+
+```tsx
+<StateCut cut="none">…</StateCut>
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<StateCut>`:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `pace` | `number` | `1` | Multiplies every duration of this one. |
+| `cut` | `"fade" \| "slide" \| "none"` | – | "none" swaps it instantly. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |

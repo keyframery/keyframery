@@ -53,7 +53,7 @@ export function ComponentExplorer() {
   return (
     <section ref={ref} aria-labelledby="explorer-title" className="mx-auto w-full max-w-[1200px] px-4 pt-24 md:pt-36" data-testid="component-explorer">
       <div className="max-w-[680px]">
-        <h2 id="explorer-title" className="text-[30px] leading-[1.1] font-semibold tracking-[-0.025em] text-balance md:text-[38px]">
+        <h2 id="explorer-title" className="text-[32px] leading-[1.08] font-semibold tracking-[-0.03em] text-balance md:text-[44px]">
           All 63 shadcn components, covered
         </h2>
         <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">

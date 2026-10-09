@@ -9,11 +9,13 @@ import { WaitlistForm } from "./waitlist-form"
 export function Closing() {
   return (
     <section aria-labelledby="start-title" className="mx-auto w-full max-w-[1200px] px-4 pt-24 pb-20 md:pt-36 md:pb-28">
-      <div className="stage-grid flex flex-col items-center rounded-2xl border px-5 py-14 text-center md:py-20">
-        <h2 id="start-title" className="text-[30px] leading-[1.1] font-semibold tracking-[-0.025em] md:text-[38px]">
+      {/* No box: the closing is the hero's line again, on the same fading dots. */}
+      <div className="relative isolate flex flex-col items-center px-5 py-16 text-center md:py-24">
+        <div aria-hidden="true" className="dot-field pointer-events-none absolute inset-0 -z-10" />
+        <h2 id="start-title" className="text-[36px] leading-[1.05] font-semibold tracking-[-0.035em] md:text-[56px]">
           Start with one line
         </h2>
-        <p className="mt-4 max-w-[44ch] text-[17px] leading-relaxed text-muted-foreground">
+        <p className="mt-5 max-w-[44ch] text-[17px] leading-relaxed text-muted-foreground md:text-lg">
           Install it, render <code className="font-mono text-[15px] text-foreground">{"<Cuts />"}</code> in your layout, then open any dialog in your app.
         </p>
         <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">

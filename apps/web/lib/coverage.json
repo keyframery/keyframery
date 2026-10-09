@@ -1,11 +1,95 @@
 {
   "$comment": "Every shadcn/ui component and what Keyframery does with it. One source for the coverage page, the component pages and what AI tools read. how: automatic (with <Cuts />), helper (wrap your markup), add-on (@keyframery/icon-moves), own (the component's own motion), still (nothing changes on screen).",
+  "menus": {
+    "dialog": {
+      "label": "dialogs",
+      "cuts": [
+        {
+          "id": "rack-focus",
+          "name": "Rack focus",
+          "says": "Grows out of the button you pressed, a little soft, then sharpens. Closing goes back into the button."
+        },
+        {
+          "id": "punch-in",
+          "name": "Punch in",
+          "says": "Pops up in the middle with a tiny bounce. Closing shrinks it away."
+        },
+        {
+          "id": "fade",
+          "name": "Fade",
+          "says": "Fades in where it stands. Nothing moves."
+        }
+      ]
+    },
+    "sheet": {
+      "label": "sheets",
+      "cuts": [
+        {
+          "id": "slide-sink",
+          "name": "Slide and sink",
+          "says": "Slides in from its side while the page behind it steps back a little."
+        },
+        {
+          "id": "slide",
+          "name": "Slide",
+          "says": "Slides in from its side. The page behind stays still."
+        },
+        {
+          "id": "fade",
+          "name": "Fade",
+          "says": "Fades in where it stands. Nothing moves."
+        }
+      ]
+    },
+    "drawer": {
+      "label": "drawers",
+      "cuts": [
+        {
+          "id": "slide-sink",
+          "name": "Slide and sink",
+          "says": "The page behind steps back a little while the drawer slides up."
+        }
+      ]
+    },
+    "tabs": {
+      "label": "tabs",
+      "cuts": [
+        {
+          "id": "j-cut",
+          "name": "J-cut",
+          "says": "The highlight slides to your tab first, then the new panel follows a beat later."
+        },
+        {
+          "id": "whip",
+          "name": "Whip",
+          "says": "A quick swipe with a little motion blur, all at once."
+        },
+        {
+          "id": "fade",
+          "name": "Fade",
+          "says": "The old panel fades out and the new one fades in."
+        }
+      ]
+    },
+    "toast": {
+      "label": "toasts",
+      "cuts": [
+        {
+          "id": "cut-on-action",
+          "name": "Cut on action",
+          "says": "Flies out of the button you pressed, then settles into its corner."
+        }
+      ]
+    }
+  },
   "components": [
     {
       "slug": "accordion",
       "name": "Accordion",
       "kind": "tuned",
+      "part": "Accordion",
       "summary": "Sections expand and collapse on your theme's curve, and the chevron turns instead of being swapped.",
+      "try": "Open a question, then close it.",
       "moves": [
         [
           "A section opens or closes",
@@ -25,7 +109,9 @@
       "slug": "alert",
       "name": "Alert",
       "kind": "response",
+      "part": "Alert",
       "summary": "An alert that appears after the page has loaded eases in instead of popping.",
+      "try": "Press Show an alert.",
       "moves": [
         [
           "An alert is shown (`{show && <Alert />}`)",
@@ -40,7 +126,10 @@
       "slug": "alert-dialog",
       "name": "Alert Dialog",
       "kind": "cut",
+      "menu": "dialog",
+      "part": "AlertDialogContent",
       "summary": "Opens out of the button you pressed and closes back into it; its icon redraws as it arrives.",
+      "try": "Press Delete the project, then Keep the project.",
       "moves": [
         [
           "Opens and closes",
@@ -73,7 +162,9 @@
       "slug": "attachment",
       "name": "Attachment",
       "kind": "response",
+      "part": "Attachment",
       "summary": "Attachments ease in when added; a finished upload gives a small punch and a failed one shakes.",
+      "try": "Press Upload, then Upload and fail.",
       "moves": [
         [
           "An attachment is added",
@@ -106,7 +197,9 @@
       "slug": "avatar",
       "name": "Avatar",
       "kind": "response",
+      "part": "Avatar",
       "summary": "When the photo finishes loading, it dissolves in over the fallback initials.",
+      "try": "Press Reload the photo.",
       "moves": [
         [
           "The image finishes loading",
@@ -120,7 +213,9 @@
       "slug": "badge",
       "name": "Badge",
       "kind": "helper",
+      "part": "ValueCut",
       "summary": "A count in a badge rolls to its new value instead of flickering.",
+      "try": "Press Up by 19, then Down by 7.",
       "moves": [
         [
           "Its number changes",
@@ -142,7 +237,9 @@
       "slug": "bubble",
       "name": "Bubble",
       "kind": "helper",
+      "part": "ListCut",
       "summary": "A new message bubble arrives from where it was sent instead of appearing at the bottom.",
+      "try": "Press Add a task, then Reverse.",
       "moves": [
         [
           "A message arrives",
@@ -156,7 +253,9 @@
       "slug": "button",
       "name": "Button",
       "kind": "response",
+      "part": "Button",
       "summary": "A button dips while it's pressed, quicker in than out; with Icon moves, its icon plays its own move.",
+      "try": "Press and hold Save.",
       "moves": [
         [
           "Pressed",
@@ -176,7 +275,9 @@
       "slug": "button-group",
       "name": "Button Group",
       "kind": "response",
+      "part": "ButtonGroup",
       "summary": "Each button in the group dips while it's pressed.",
+      "try": "Press and hold Day, Week or Month.",
       "moves": [
         [
           "A button is pressed",
@@ -190,7 +291,9 @@
       "slug": "calendar",
       "name": "Calendar",
       "kind": "response",
+      "part": "Calendar",
       "summary": "The selected day glides to the day you click, and a new month slides in from the side you went toward.",
+      "try": "Pick a day.",
       "moves": [
         [
           "You pick another day",
@@ -217,7 +320,9 @@
       "slug": "card",
       "name": "Card",
       "kind": "helper",
+      "part": "MatchCut",
       "summary": "A card opens into its detail view, on the same page or a new route, and shrinks back when you return.",
+      "try": "Press the Northwind Studio card, then Back to orders.",
       "moves": [
         [
           "Opens into its detail",
@@ -231,7 +336,9 @@
       "slug": "carousel",
       "name": "Carousel",
       "kind": "response",
+      "part": "Carousel",
       "summary": "The arrows dip and nudge while pressed; the slides keep Embla's own motion.",
+      "try": "Use the arrows to move between slides.",
       "moves": [
         [
           "An arrow is pressed",
@@ -265,7 +372,9 @@
       "slug": "checkbox",
       "name": "Checkbox",
       "kind": "response",
+      "part": "Checkbox",
       "summary": "The tick draws itself when you check it; boxes that load checked don't redraw.",
+      "try": "Tick and untick a box.",
       "moves": [
         [
           "Checked",
@@ -279,7 +388,9 @@
       "slug": "collapsible",
       "name": "Collapsible",
       "kind": "tuned",
+      "part": "Collapsible",
       "summary": "Shadcn's collapsible has no motion of its own; with Keyframery it eases open and closed.",
+      "try": "Press Show three more files.",
       "moves": [
         [
           "Opens or closes",
@@ -293,7 +404,9 @@
       "slug": "combobox",
       "name": "Combobox",
       "kind": "tuned",
+      "part": "ComboboxContent",
       "summary": "The list opens from the input on your theme's curve, the chevron turns, and picked items tick.",
+      "try": "Click the field and type a letter.",
       "moves": [
         [
           "The list opens or closes",
@@ -326,7 +439,10 @@
       "slug": "command",
       "name": "Command",
       "kind": "cut",
+      "menu": "dialog",
+      "part": null,
       "summary": "The command dialog opens with the dialog's cut; checked items tick, and the keyboard highlight stays instant.",
+      "try": "Open the command menu, then press Esc.",
       "moves": [
         [
           "The dialog opens",
@@ -347,7 +463,9 @@
       "slug": "context-menu",
       "name": "Context Menu",
       "kind": "tuned",
+      "part": "ContextMenuContent",
       "summary": "Opens from the pointer and closes back into it on your theme's curve; checkbox and radio items tick.",
+      "try": "Right-click inside the dashed box.",
       "moves": [
         [
           "Opens or closes",
@@ -368,7 +486,10 @@
       "slug": "dialog",
       "name": "Dialog",
       "kind": "cut",
+      "menu": "dialog",
+      "part": "DialogContent",
       "summary": "Grows out of the button you pressed and closes back into it.",
+      "try": "Open the dialog, then close it.",
       "moves": [
         [
           "Opens and closes",
@@ -395,7 +516,10 @@
       "slug": "drawer",
       "name": "Drawer",
       "kind": "cut",
+      "menu": "drawer",
+      "part": "DrawerContent",
       "summary": "The page steps back behind the drawer; the drawer's own swipe motion stays.",
+      "try": "Open the drawer, then drag it back down.",
       "moves": [
         [
           "Opens and closes",
@@ -415,7 +539,9 @@
       "slug": "dropdown-menu",
       "name": "Dropdown Menu",
       "kind": "tuned",
+      "part": "DropdownMenuContent",
       "summary": "Opens from its trigger and closes back into it on your theme's curve; checkbox and radio items tick.",
+      "try": "Press View.",
       "moves": [
         [
           "Opens or closes",
@@ -436,7 +562,9 @@
       "slug": "empty",
       "name": "Empty",
       "kind": "helper",
+      "part": "StateCut",
       "summary": "An empty state arrives in place of content, and content replaces it, without a jump.",
+      "try": "Press Empty inbox, Show messages or Show error.",
       "moves": [
         [
           "Empty becomes content, or back",
@@ -450,7 +578,9 @@
       "slug": "field",
       "name": "Field",
       "kind": "response",
+      "part": "Field",
       "summary": "Choice cards change colour instead of jumping, and an error shakes once and rises in.",
+      "try": "Press Subscribe with the email empty.",
       "moves": [
         [
           "A choice card is picked",
@@ -483,7 +613,9 @@
       "slug": "hover-card",
       "name": "Hover Card",
       "kind": "tuned",
+      "part": "HoverCardContent",
       "summary": "The card opens out of the link you hover and closes back into it, on your theme's curve.",
+      "try": "Point at @keyframery and wait a moment.",
       "moves": [
         [
           "Opens or closes",
@@ -497,7 +629,9 @@
       "slug": "input",
       "name": "Input",
       "kind": "response",
+      "part": "Input",
       "summary": "An input that turns invalid after a submit gives one short shake; never while you type.",
+      "try": "Press the button with the field empty.",
       "moves": [
         [
           "It turns invalid after a submit or blur",
@@ -511,7 +645,9 @@
       "slug": "input-group",
       "name": "Input Group",
       "kind": "response",
+      "part": "InputGroup",
       "summary": "The whole group shakes once when its input turns invalid after a submit.",
+      "try": "Press the button with the field empty.",
       "moves": [
         [
           "Its input turns invalid after a submit",
@@ -531,7 +667,9 @@
       "slug": "input-otp",
       "name": "Input OTP",
       "kind": "response",
+      "part": "InputOTP",
       "summary": "An invalid code shakes once; typing stays instant.",
+      "try": "Type a wrong code, then press Check the code.",
       "moves": [
         [
           "The code turns invalid",
@@ -546,7 +684,9 @@
       "slug": "item",
       "name": "Item",
       "kind": "helper",
+      "part": "ListCut",
       "summary": "Items are added, removed and reordered without jumping, and an item can open into its detail.",
+      "try": "Press Add a task, then Reverse.",
       "moves": [
         [
           "Added, removed or moved",
@@ -587,7 +727,9 @@
       "slug": "menubar",
       "name": "Menubar",
       "kind": "tuned",
+      "part": "MenubarContent",
       "summary": "Menus open from their trigger and close back into it on your theme's curve; checkbox and radio items tick.",
+      "try": "Press File, then View.",
       "moves": [
         [
           "A menu opens or closes",
@@ -608,7 +750,9 @@
       "slug": "message",
       "name": "Message",
       "kind": "helper",
+      "part": "ListCut",
       "summary": "A new message arrives from where it was sent.",
+      "try": "Press Add a task, then Reverse.",
       "moves": [
         [
           "A message arrives",
@@ -622,7 +766,9 @@
       "slug": "message-scroller",
       "name": "Message Scroller",
       "kind": "helper",
+      "part": "ListCut",
       "summary": "Keeps its own scroll motion; new messages arrive through ListCut, and the jump button dips and nudges.",
+      "try": "Press Add a task, then Reverse.",
       "moves": [
         [
           "Scrolls to new messages",
@@ -648,7 +794,9 @@
       "slug": "native-select",
       "name": "Native Select",
       "kind": "response",
+      "part": "NativeSelect",
       "summary": "An invalid choice shakes once; the popup is drawn by the browser and can't be animated.",
+      "try": "Press the button without choosing a plan.",
       "moves": [
         [
           "It turns invalid after a submit",
@@ -662,7 +810,9 @@
       "slug": "navigation-menu",
       "name": "Navigation Menu",
       "kind": "tuned",
+      "part": "NavigationMenuContent",
       "summary": "Keeps its own direction-aware motion and follows your theme's timing.",
+      "try": "Point at Product, then Resources.",
       "moves": [
         [
           "Opens, closes or moves between items",
@@ -676,7 +826,9 @@
       "slug": "pagination",
       "name": "Pagination",
       "kind": "response",
+      "part": "Pagination",
       "summary": "The current page glides to the one you click, and the links dip while pressed.",
+      "try": "Press a page number, or Next.",
       "moves": [
         [
           "The current page changes",
@@ -696,7 +848,9 @@
       "slug": "popover",
       "name": "Popover",
       "kind": "tuned",
+      "part": "PopoverContent",
       "summary": "A popover grows out of the button that opened it and goes back into it, on your theme's curve.",
+      "try": "Press Share.",
       "moves": [
         [
           "Opens or closes",
@@ -710,7 +864,9 @@
       "slug": "progress",
       "name": "Progress",
       "kind": "response",
+      "part": "Progress",
       "summary": "The bar eases to its new value on your theme's curve.",
+      "try": "Press More, then Less.",
       "moves": [
         [
           "The value changes",
@@ -724,7 +880,9 @@
       "slug": "questionnaire",
       "name": "Questionnaire",
       "kind": "response",
+      "part": "Questionnaire",
       "summary": "Picked choices tick or grow their dot, and the next step slides in like a tab.",
+      "try": "Pick an answer, then press Next.",
       "moves": [
         [
           "A choice is picked",
@@ -744,7 +902,9 @@
       "slug": "radio-group",
       "name": "Radio Group",
       "kind": "response",
+      "part": "RadioGroup",
       "summary": "The dot grows from its centre on the item you pick.",
+      "try": "Pick another option.",
       "moves": [
         [
           "An item is picked",
@@ -758,7 +918,9 @@
       "slug": "resizable",
       "name": "Resizable",
       "kind": "response",
+      "part": "ResizablePanelGroup",
       "summary": "The handle thickens and takes the focus colour while you drag it.",
+      "try": "Drag the line between Files and Preview.",
       "moves": [
         [
           "The handle is dragged",
@@ -779,7 +941,9 @@
       "slug": "select",
       "name": "Select",
       "kind": "tuned",
+      "part": "SelectContent",
       "summary": "The list opens out of its trigger and closes back into it on your theme's curve, while the highlight follows your keys instantly.",
+      "try": "Open the list and pick a fruit.",
       "moves": [
         [
           "Opens or closes",
@@ -801,7 +965,10 @@
       "slug": "sheet",
       "name": "Sheet",
       "kind": "cut",
+      "menu": "sheet",
+      "part": "SheetContent",
       "summary": "Slides in from its edge while the page steps back, and its ✕ turns while pressed.",
+      "try": "Open the sheet, then close it.",
       "moves": [
         [
           "Opens and closes",
@@ -821,7 +988,9 @@
       "slug": "sidebar",
       "name": "Sidebar",
       "kind": "response",
+      "part": "Sidebar",
       "summary": "The active item glides to the one you pick, the width follows your theme's curve, and labels leave before it closes.",
+      "try": "Press Inbox, Calendar or Settings.",
       "moves": [
         [
           "The active item changes",
@@ -853,7 +1022,9 @@
       "slug": "skeleton",
       "name": "Skeleton",
       "kind": "helper",
+      "part": "LoadCut",
       "summary": "A skeleton dissolves into the real content, and never shows at all if the data is quick.",
+      "try": "Press Load slowly, then Load fast.",
       "moves": [
         [
           "The data arrives",
@@ -867,7 +1038,9 @@
       "slug": "slider",
       "name": "Slider",
       "kind": "response",
+      "part": "Slider",
       "summary": "The thumb grows while you drag it and settles on release; arrow keys stay instant.",
+      "try": "Drag the slider.",
       "moves": [
         [
           "The thumb is dragged",
@@ -881,7 +1054,10 @@
       "slug": "sonner",
       "name": "Sonner",
       "kind": "cut",
+      "menu": "toast",
+      "part": null,
       "summary": "A toast flies from the button that made it, and its status icon plays as it lands.",
+      "try": "Press Save, Warn or Fail.",
       "moves": [
         [
           "A toast arrives",
@@ -915,7 +1091,9 @@
       "slug": "switch",
       "name": "Switch",
       "kind": "response",
+      "part": "Switch",
       "summary": "The thumb travels on your theme's curve and stretches toward where it's going while held.",
+      "try": "Flip a switch.",
       "moves": [
         [
           "Switched",
@@ -935,7 +1113,9 @@
       "slug": "table",
       "name": "Table",
       "kind": "helper",
+      "part": "ListCut",
       "summary": "Rows are added, removed and reordered without jumping.",
+      "try": "Press Add a task, then Reverse.",
       "moves": [
         [
           "Rows are added, removed or moved",
@@ -955,7 +1135,10 @@
       "slug": "tabs",
       "name": "Tabs",
       "kind": "cut",
+      "menu": "tabs",
+      "part": "Tabs",
       "summary": "The indicator moves first and the new panel follows a beat later, while the height eases to fit.",
+      "try": "Switch between Account, Billing and Team.",
       "moves": [
         [
           "Switches tab",
@@ -969,7 +1152,9 @@
       "slug": "textarea",
       "name": "Textarea",
       "kind": "response",
+      "part": "Textarea",
       "summary": "A textarea that turns invalid after a submit gives one short shake; never while you type.",
+      "try": "Press the button with the note empty.",
       "moves": [
         [
           "It turns invalid after a submit or blur",
@@ -983,7 +1168,10 @@
       "slug": "toast",
       "name": "Toast",
       "kind": "cut",
+      "menu": "toast",
+      "part": null,
       "summary": "A toast flies from the button that made it, its status icon plays as it lands, and its ✕ turns while pressed.",
+      "try": "Press Copy the link or Save the draft.",
       "moves": [
         [
           "A toast arrives",
@@ -1009,7 +1197,9 @@
       "slug": "toggle",
       "name": "Toggle",
       "kind": "response",
+      "part": "Toggle",
       "summary": "A toggle dips while pressed; with Icon moves, its icon plays its own move.",
+      "try": "Press the bold, italic or bell button.",
       "moves": [
         [
           "Pressed",
@@ -1029,7 +1219,9 @@
       "slug": "toggle-group",
       "name": "Toggle Group",
       "kind": "response",
+      "part": "ToggleGroup",
       "summary": "Items dip while pressed, and a single choice glides to the item you pick.",
+      "try": "Press Day, Week or Month.",
       "moves": [
         [
           "An item is pressed",
@@ -1050,7 +1242,9 @@
       "slug": "tooltip",
       "name": "Tooltip",
       "kind": "tuned",
+      "part": "TooltipContent",
       "summary": "Opens from its trigger on your theme's curve; once one is open, neighbours open instantly.",
+      "try": "Point at B, I or U.",
       "moves": [
         [
           "Opens or closes",

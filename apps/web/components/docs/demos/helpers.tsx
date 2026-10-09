@@ -12,15 +12,17 @@ import { Bell, Calendar, Copy, CreditCard, Download, Heart, Mail, RefreshCw, Sea
 
 export function MatchCutDemo() {
   const [open, setOpen] = React.useState(false)
+  // One id per copy: a component page shows this demo twice, side by side, and each card must grow into its own detail.
+  const id = `docs-order-${React.useId()}`
   return open ? (
-    <MatchCut key="detail" id="docs-order" className="w-full max-w-sm rounded-2xl border bg-background p-5">
+    <MatchCut key="detail" id={id} className="w-full max-w-sm rounded-2xl border bg-background p-5">
       <p className="text-sm text-muted-foreground">Order 1044</p>
       <p className="mt-1 text-lg font-semibold">Northwind Studio</p>
       <p className="mt-3 text-sm text-muted-foreground">3 items, $1,300.00. Shipped on 2 October.</p>
       <Button variant="outline" size="sm" className="mt-4" onClick={() => setOpen(false)}>Back to orders</Button>
     </MatchCut>
   ) : (
-    <MatchCut key="card" id="docs-order" className="w-56 rounded-xl border bg-background">
+    <MatchCut key="card" id={id} className="w-56 rounded-xl border bg-background">
       <button type="button" className="w-full p-3 text-left" onClick={() => setOpen(true)}>
         <span className="block text-sm font-medium">Northwind Studio</span>
         <span className="block text-sm text-muted-foreground">Order 1044, $1,300.00</span>

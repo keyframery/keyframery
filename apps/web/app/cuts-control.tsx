@@ -14,7 +14,7 @@ type Control = {
   menus: Menus
   setEnabled: (on: boolean) => void
   setPace: (pace: number | undefined) => void
-  setMenus: (menus: Menus) => void
+  setMenus: React.Dispatch<React.SetStateAction<Menus>>
   reset: () => void
 }
 

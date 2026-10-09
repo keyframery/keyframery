@@ -1,5 +1,5 @@
 /* Turns the docs' processed MDX into plain Markdown for AI tools (llms-full.txt, the .mdx routes, the MCP
-   get_doc tool): drops live demos, flattens Steps and Tabs, and renders TypeTable props as a Markdown table.
+   get_doc tool): drops live demos, flattens Steps, Tabs, install tabs, callouts and cut cards, and renders TypeTable props as a Markdown table.
    Code blocks pass through untouched. No imports, so unit tests load it directly. */
 
 const STR = String.raw`"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'`
@@ -28,9 +28,9 @@ export function typeTableToMarkdown(typeAttr: string): string {
 }
 
 const PREVIEW_OPEN = /^<Preview(\s[^>]*)?>$/
-const DEMO = /^<[A-Z]\w*Demo\s*\/>$/
-const WRAPPER_OPEN = /^<(Steps|Step|Tabs|Tab)(\s[^>]*)?>$/
-const WRAPPER_CLOSE = /^<\/(Steps|Step|Tabs|Tab)>$/
+const DEMO = /^<([A-Z]\w*Demo|Playground)(\s[^>]*)?\/>$/
+const WRAPPER_OPEN = /^<(Steps|Step|Tabs|Tab|CutCards|Callout)(\s[^>]*)?>$/
+const WRAPPER_CLOSE = /^<\/(Steps|Step|Tabs|Tab|CutCards|Callout)>$/
 
 export function cleanDocMarkdown(md: string): string {
   const lines = md.split("\n")
@@ -55,6 +55,23 @@ export function cleanDocMarkdown(md: string): string {
       continue
     }
     if (DEMO.test(text)) continue
+    // Install tabs (npm, pnpm, yarn, bun from a ```npm block): keep the first tab's command, as it was written.
+    if (/^<CodeBlockTabs[\s>]/.test(text)) {
+      const block: string[] = []
+      let inFence = false
+      let indent = 0
+      while (i < lines.length - 1 && lines[i].trim() !== "</CodeBlockTabs>") {
+        const l = lines[++i]
+        if (block.length && !inFence) continue
+        if (l.trim().startsWith("```")) {
+          if (!inFence) indent = l.length - l.trimStart().length
+          inFence = !inFence
+          block.push(l.slice(indent))
+        } else if (inFence) block.push(l.slice(indent))
+      }
+      out.push(...block)
+      continue
+    }
     if (text.startsWith("<TypeTable")) {
       let block = line
       while (!lines[i].trim().endsWith("/>") && i < lines.length - 1) block += "\n" + lines[++i]
@@ -63,7 +80,8 @@ export function cleanDocMarkdown(md: string): string {
     }
     const open = WRAPPER_OPEN.exec(text)
     if (open) {
-      const label = open[1] === "Tab" ? /value="([^"]*)"/.exec(text)?.[1] : undefined
+      // A tab's name, or a callout's title, becomes a bold line; CutCards keeps the Markdown table it wraps.
+      const label = open[1] === "Tab" ? /value="([^"]*)"/.exec(text)?.[1] : open[1] === "Callout" ? /title="([^"]*)"/.exec(text)?.[1] : undefined
       if (label) out.push(`**${decode(label)}**`, "")
       depth++
       continue

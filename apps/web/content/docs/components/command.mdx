@@ -5,9 +5,23 @@ heading: "Command menu animation"
 description: "Animate the shadcn/ui Command menu: it opens with the dialog's cut, growing into place instead of popping in, with no changes to your component."
 ---
 
-<Preview>
-  <CommandDemo />
-</Preview>
+<Playground slug="command" />
+
+## Which cut it uses
+
+The command menu is a dialog, so it uses the **Rack focus** cut too. A cut is how something arrives on the screen and how it leaves. It grows out of the button you pressed, or from the middle when you open it with a keyboard shortcut. There are 3 to pick from, and each one is a single prop:
+
+<CutCards menu="dialog">
+
+| Cut | What you see | Code |
+|---|---|---|
+| Rack focus (default) | Grows out of the button you pressed, a little soft, then sharpens. Closing goes back into the button. | `<Cuts dialog="rack-focus" />` |
+| Punch in | Pops up in the middle with a tiny bounce. Closing shrinks it away. | `<Cuts dialog="punch-in" />` |
+| Fade | Fades in where it stands. Nothing moves. | `<Cuts dialog="fade" />` |
+
+</CutCards>
+
+The command menu follows the `dialog` prop, the same one that changes every dialog and alert dialog.
 
 ## What it fixes
 
@@ -15,22 +29,47 @@ description: "Animate the shadcn/ui Command menu: it opens with the dialog's cut
 
 ## Install
 
-```bash
+```npm
 npx shadcn add command
 ```
 
-## Choose a cut
+## Change it
 
-The command menu follows the `dialog` menu:
+Every change is one prop. The controls at the top of the page try them live.
+
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
 
 ```tsx
-<Cuts dialog="punch-in" />
+// In your root layout: every motion in your app
+<Cuts pace={1.6} />
 ```
 
-<TypeTable
-  type={{
-    'dialog (on <Cuts>)': { description: "The cut for dialogs, alert dialogs and the command menu.", type: '"rack-focus" | "punch-in" | "fade" | "none"', default: '"rack-focus"' },
-  }}
-/>
+A keyboard shortcut counts as a press only when a focused element receives it. A global ⌘K listener has no opener, so the menu opens from the middle.
 
-A keyboard shortcut counts as a press only when a focused element receives it. A global ⌘K listener has no opener, so the menu opens from the centre.
+### Turn it off
+
+```tsx
+// In your root layout: no motion on any dialog or command menu
+<Cuts dialog="none" />
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<Cuts />`**, in your root layout:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `dialog` | `"rack-focus" \| "punch-in" \| "fade" \| "none"` | `"rack-focus"` | The cut for dialogs, alert dialogs and the command menu. |
+| `pace` | `number` | `1` | Multiplies every duration in your app. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |

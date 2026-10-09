@@ -18,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 export function DialogDemo() {
+  const id = React.useId()
   return (
     <Dialog>
       <DialogTrigger render={<Button variant="outline" />}>Open the dialog</DialogTrigger>
@@ -27,8 +28,8 @@ export function DialogDemo() {
           <DialogDescription>The dialog grew out of the button you pressed. Close it and it returns there.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-2">
-          <Label htmlFor="demo-project">Project name</Label>
-          <Input id="demo-project" defaultValue="Northwind" />
+          <Label htmlFor={id}>Project name</Label>
+          <Input id={id} defaultValue="Northwind" />
         </div>
         <DialogFooter>
           <DialogClose render={<Button />}>Rename project</DialogClose>

@@ -8,9 +8,19 @@ faq:
     a: "No. Call `toast()` as usual. Each toast flies out of the element you pressed, with Sonner and with Base UI toasts."
 ---
 
-<Preview>
-  <ToastDemo />
-</Preview>
+<Playground slug="toast" />
+
+## Which cut it uses
+
+Toasts use the **Cut on action** cut. A cut is how something arrives on the screen and how it leaves. The toast starts at the button you pressed, small and a little blurred, and flies to its corner, so you can see which button it is about without reading it.
+
+<CutCards menu="toast">
+
+| Cut | What you see | Code |
+|---|---|---|
+| Cut on action (default) | Flies out of the button you pressed, then settles into its corner. | `<Cuts toast="cut-on-action" />` |
+
+</CutCards>
 
 ## What it fixes
 
@@ -22,20 +32,46 @@ It works with sonner on both bases, and with Base UI's own `Toast`.
 
 ## Install
 
-```bash
+```npm
 npx shadcn add sonner
 ```
 
-## Choose a cut
+## Change it
+
+Every change is one prop. The controls at the top of the page try them live.
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
 
 ```tsx
+// In your root layout: every motion in your app
+<Cuts pace={1.6} />
+```
+
+The flight takes 480 ms × pace, from 0.4 scale and a 6px blur. The toast's exit is the library's own.
+
+### Turn it off
+
+```tsx
+// In your root layout: toasts keep the library's own entrance
 <Cuts toast="none" />
 ```
 
-<TypeTable
-  type={{
-    'toast (on <Cuts>)': { description: "The cut for sonner and Base UI toasts.", type: '"cut-on-action" | "none"', default: '"cut-on-action"' },
-  }}
-/>
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
 
-The flight takes 480 ms × pace, from 0.4 scale and a 6px blur. The toast's exit is the library's own.
+## Props
+
+**On `<Cuts />`**, in your root layout:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `toast` | `"cut-on-action" \| "none"` | `"cut-on-action"` | The cut for sonner and Base UI toasts. |
+| `pace` | `number` | `1` | Multiplies every duration in your app. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |

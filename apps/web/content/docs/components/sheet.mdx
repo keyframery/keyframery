@@ -8,9 +8,21 @@ faq:
     a: "Yes. Use `<Cuts sheet=\"slide\" />`: the sheet slides in from its edge without the page stepping back."
 ---
 
-<Preview>
-  <SheetDemo />
-</Preview>
+<Playground slug="sheet" />
+
+## Which cut it uses
+
+Sheets use the **Slide and sink** cut. A cut is how something arrives on the screen and how it leaves. The sheet slides in from its side while the page behind it steps back a little, so you can tell the sheet is on top. There are 3 to pick from, and each one is a single prop:
+
+<CutCards menu="sheet">
+
+| Cut | What you see | Code |
+|---|---|---|
+| Slide and sink (default) | Slides in from its side while the page behind it steps back a little. | `<Cuts sheet="slide-sink" />` |
+| Slide | Slides in from its side. The page behind stays still. | `<Cuts sheet="slide" />` |
+| Fade | Fades in where it stands. Nothing moves. | `<Cuts sheet="fade" />` |
+
+</CutCards>
 
 ## What it fixes
 
@@ -20,24 +32,70 @@ The part of the page that steps back is the top-level element in `<body>` that h
 
 ## Install
 
-```bash
+```npm
 npx shadcn add sheet
 ```
 
-## Choose a cut
+## Change it
+
+Every change is one prop. The controls at the top of the page try them live.
+
+### Change just one
+
+For just one sheet, put `data-cut` on its `SheetContent`:
 
 ```tsx
-<Cuts sheet="slide" />
-<SheetContent data-cut="fade" />
+<SheetContent data-cut="slide" />
 ```
 
-<TypeTable
-  type={{
-    'sheet (on <Cuts>)': { description: "The cut for every sheet.", type: '"slide-sink" | "slide" | "fade" | "none"', default: '"slide-sink"' },
-    'data-cut (on SheetContent)': { description: "The cut for this sheet.", type: '"slide-sink" | "slide" | "fade" | "none"' },
-    'data-cut-pace': { description: "Duration multiplier.", type: "number" },
-  }}
-/>
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
+
+```tsx
+// In your root layout: every motion in your app
+<Cuts pace={1.6} />
+
+// Or just this one
+<SheetContent data-cut-pace="1.6" />
+```
+
+### Turn it off
+
+```tsx
+// In your root layout: no motion on any sheet
+<Cuts sheet="none" />
+
+// Just this one keeps shadcn's own motion
+<SheetContent data-cut="none" />
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<Cuts />`**, in your root layout:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `sheet` | `"slide-sink" \| "slide" \| "fade" \| "none"` | `"slide-sink"` | The cut for every sheet. |
+| `pace` | `number` | `1` | Multiplies every duration in your app. |
+
+**On one `SheetContent`**, for just that one:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `data-cut` | `"slide-sink" \| "slide" \| "fade" \| "none"` | – | The cut for this sheet. Beats the `<Cuts>` prop. |
+| `data-cut-pace` | `number` | `1` | Multiplies every duration of this one. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |
+
+## Timing
 
 | Cut | Opening | Closing |
 |---|---|---|

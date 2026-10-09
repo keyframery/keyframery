@@ -5,9 +5,21 @@ heading: "Alert Dialog animation"
 description: "Animate the shadcn/ui Alert Dialog: the confirmation grows out of the button that asked for it and closes back into it, with no changes to your code."
 ---
 
-<Preview>
-  <AlertDialogDemo />
-</Preview>
+<Playground slug="alert-dialog" />
+
+## Which cut it uses
+
+Alert dialogs use the **Rack focus** cut. A cut is how something arrives on the screen and how it leaves. With rack focus, it grows out of the button you pressed, a little soft, and sharpens in place, the way a camera pulls focus. Closing goes back into the button. There are 3 to pick from, and each one is a single prop:
+
+<CutCards menu="dialog">
+
+| Cut | What you see | Code |
+|---|---|---|
+| Rack focus (default) | Grows out of the button you pressed, a little soft, then sharpens. Closing goes back into the button. | `<Cuts dialog="rack-focus" />` |
+| Punch in | Pops up in the middle with a tiny bounce. Closing shrinks it away. | `<Cuts dialog="punch-in" />` |
+| Fade | Fades in where it stands. Nothing moves. | `<Cuts dialog="fade" />` |
+
+</CutCards>
 
 ## What it fixes
 
@@ -15,25 +27,78 @@ A confirmation should read as the answer to the button you pressed. With Keyfram
 
 ## Install
 
-```bash
+```npm
 npx shadcn add alert-dialog
 ```
 
 Nothing else, as long as `<Cuts />` is in your layout.
 
-## Choose a cut
+## Change it
 
-Alert dialogs follow the `dialog` menu:
+Every change is one prop. The controls at the top of the page try them live.
+
+### Change just one
+
+The `dialog` prop changes every dialog, alert dialog and command menu. For just one alert dialog, put `data-cut` on its `AlertDialogContent`:
 
 ```tsx
-<Cuts dialog="punch-in" />
 <AlertDialogContent data-cut="fade" />
 ```
 
-<TypeTable
-  type={{
-    'dialog (on <Cuts>)': { description: "The cut for dialogs, alert dialogs and the command menu.", type: '"rack-focus" | "punch-in" | "fade" | "none"', default: '"rack-focus"' },
-    'data-cut (on AlertDialogContent)': { description: "The cut for this alert dialog.", type: '"rack-focus" | "punch-in" | "fade" | "none"' },
-    'data-cut-origin (on AlertDialogContent)': { description: "center starts from the middle.", type: '"center"' },
-  }}
-/>
+### Grow from the middle
+
+A rack focus starts at the button you pressed. To start from the middle of the screen instead:
+
+```tsx
+<AlertDialogContent data-cut-origin="center" />
+```
+
+An alert dialog opened from code, with no press, has no button to grow from, so it starts from the middle anyway.
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
+
+```tsx
+// In your root layout: every motion in your app
+<Cuts pace={1.6} />
+
+// Or just this one
+<AlertDialogContent data-cut-pace="1.6" />
+```
+
+### Turn it off
+
+```tsx
+// In your root layout: no motion on any dialog
+<Cuts dialog="none" />
+
+// Just this one keeps shadcn's own motion
+<AlertDialogContent data-cut="none" />
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<Cuts />`**, in your root layout:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `dialog` | `"rack-focus" \| "punch-in" \| "fade" \| "none"` | `"rack-focus"` | The cut for every dialog, alert dialog and command menu. |
+| `pace` | `number` | `1` | Multiplies every duration in your app. |
+
+**On one `AlertDialogContent`**, for just that one:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `data-cut` | `"rack-focus" \| "punch-in" \| "fade" \| "none"` | – | The cut for this one. Beats the `<Cuts>` prop. |
+| `data-cut-origin` | `"center"` | – | center: a rack focus starts from the middle instead of the button. |
+| `data-cut-pace` | `number` | `1` | Multiplies every duration of this one. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |

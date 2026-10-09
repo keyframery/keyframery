@@ -7,9 +7,11 @@ description: "An invalid choice shakes once; the popup is drawn by the browser a
 
 {/* Generated from lib/coverage.json by scripts/gen-components.mjs. Edit the data, then run the script. */}
 
-<Preview>
-  <ComponentDemo slug="native-select" />
-</Preview>
+<Playground slug="native-select" />
+
+## Which cut it uses
+
+Native Select doesn't open or close, so it has no cut. It gets a **response** instead: a small reaction when you press it, tick it or drag it, so you can feel that it worked.
 
 ## What moves
 
@@ -21,10 +23,57 @@ description: "An invalid choice shakes once; the popup is drawn by the browser a
 
 Native Select is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
 
-```bash
+```npm
 npx shadcn add native-select
 ```
 
-## Turn it off
+## Change it
 
-Put `data-cut="none"` on a native select (or anything around it) to keep shadcn's own motion there. `<Cuts responses="none" />` turns off every response across the app and keeps the cuts. With reduced motion, movement becomes a short fade or nothing.
+Every change is one prop. The controls at the top of the page try them live.
+
+### Make it faster or slower
+
+`pace` multiplies every duration: `1.6` is slower, `0.6` is faster.
+
+```tsx
+// In your root layout: every motion in your app
+<Cuts pace={1.6} />
+
+// Or just this one
+<NativeSelect data-cut-pace="1.6" />
+```
+
+### Turn it off
+
+```tsx
+// In your root layout: no responses anywhere (cuts keep playing)
+<Cuts responses="none" />
+
+// Just this one keeps shadcn's own motion
+<NativeSelect data-cut="none" />
+```
+
+With reduced motion turned on in the system settings, movement becomes a short fade or nothing.
+
+## Props
+
+**On `<Cuts />`**, in your root layout:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `pace` | `number` | `1` | Multiplies every duration in your app. |
+| `responses` | `"on" \| "none"` | `"on"` | "none" turns off every response and keeps the cuts. |
+
+**On one `NativeSelect`**, for just that one:
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `data-cut` | `"none"` | – | `none` keeps shadcn's own motion on this one. |
+| `data-cut-pace` | `number` | `1` | Multiplies every duration of this one. |
+
+**In your global CSS:**
+
+| Prop | Values | Default | What it does |
+|---|---|---|---|
+| `--kf-ease` | `string` | `cubic-bezier(0.22, 1, 0.36, 1)` | The curve things arrive on. Or pick a theme at [/theme](/theme). |
+| `--kf-ease-exit` | `string` | `cubic-bezier(0.5, 0, 0.75, 0)` | The curve things leave on. |

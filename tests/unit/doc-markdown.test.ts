@@ -51,6 +51,60 @@ describe("cleanDocMarkdown", () => {
   it("leaves code blocks alone, even when they contain tags the cleaner removes elsewhere", () => {
     expect(out).toContain("```tsx\n<Tabs>\n  <Cuts />\n</Tabs>\n```")
   })
+
+  it("keeps the table a CutCards wraps, and turns a callout's title into a bold line", () => {
+    const md = cleanDocMarkdown(
+      [
+        '<CutCards menu="dialog">',
+        "",
+        "| Cut | What you see | Code |",
+        "|---|---|---|",
+        '| Fade | Fades in where it stands. | `<Cuts dialog="fade" />` |',
+        "",
+        "</CutCards>",
+        "",
+        '<Callout title="Nothing moves here, on purpose">',
+        "There's nothing to set up.",
+        "</Callout>",
+        "",
+        '<Playground slug="dialog" />',
+      ].join("\n"),
+    )
+    expect(md).not.toMatch(/CutCards|Callout|Playground/)
+    expect(md).toContain('| Fade | Fades in where it stands. | `<Cuts dialog="fade" />` |')
+    expect(md).toContain("**Nothing moves here, on purpose**\n\nThere's nothing to set up.")
+  })
+
+  it("turns install tabs into the one npm command they were written as", () => {
+    const md = cleanDocMarkdown(
+      [
+        "Add it:",
+        "",
+        '<CodeBlockTabs defaultValue="npm">',
+        "  <CodeBlockTabsList>",
+        '    <CodeBlockTabsTrigger value="npm">',
+        "      npm",
+        "    </CodeBlockTabsTrigger>",
+        "  </CodeBlockTabsList>",
+        "",
+        '  <CodeBlockTab value="npm">',
+        "    ```bash",
+        "    npx shadcn add dialog",
+        "    ```",
+        "  </CodeBlockTab>",
+        "",
+        '  <CodeBlockTab value="pnpm">',
+        "    ```bash",
+        "    pnpm dlx shadcn add dialog",
+        "    ```",
+        "  </CodeBlockTab>",
+        "</CodeBlockTabs>",
+        "",
+        "Done.",
+      ].join("\n"),
+    )
+    expect(md).toBe("Add it:\n\n```bash\nnpx shadcn add dialog\n```\n\nDone.")
+  })
 })
 
 describe("typeTableToMarkdown", () => {

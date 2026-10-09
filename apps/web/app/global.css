@@ -36,8 +36,9 @@
   --sidebar-ring: #9aa0ad;
   /* Cobalt marks "Keyframery is on". It appears nowhere else. */
   --cut: #2447f5;
-  --stage: #f4f5f7;
+  --stage: #f7f7f8;
   --stage-line: rgb(22 24 29 / 0.05);
+  --stage-dot: rgb(22 24 29 / 0.13);
 }
 
 .dark {
@@ -70,6 +71,7 @@
   --cut: #8098ff;
   --stage: #131417;
   --stage-line: rgb(236 236 238 / 0.05);
+  --stage-dot: rgb(236 236 238 / 0.1);
 }
 
 @theme inline {
@@ -121,17 +123,22 @@
   }
 }
 
-/* The hero's stage: a quiet 24px grid behind the two app windows. */
+/* Where demos play: a fine dot field, like the cutting mat a frame is laid on. */
 .stage-grid {
   background-color: var(--stage);
-  background-image:
-    linear-gradient(to right, var(--stage-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--stage-line) 1px, transparent 1px);
-  background-size: 24px 24px;
-  background-position: -1px -1px;
+  background-image: radial-gradient(var(--stage-dot) 1px, transparent 1.25px);
+  background-size: 18px 18px;
+  background-position: -2px -2px;
 }
 
-/* The install section's syntax-highlighted snippet (Shiki, GitHub high-contrast light/dark themes). */
+/* The same dots behind the hero's headline, fading out before they reach the edges. */
+.dot-field {
+  background-image: radial-gradient(var(--stage-dot) 1px, transparent 1.25px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(ellipse 55% 60% at 50% 35%, #000 30%, transparent 100%);
+}
+
+/* The home page's syntax-highlighted layout snippet (Shiki, GitHub high-contrast light/dark themes). */
 .kf-snippet {
   background: transparent !important;
 }
@@ -151,6 +158,46 @@
 .kf-snippet .line.highlighted {
   background: color-mix(in oklab, var(--cut) 8%, transparent);
   box-shadow: inset 2px 0 0 var(--cut);
+}
+
+/* ---------- Docs: one clear ladder of sizes ----------
+   Page title 32px, sections 20px with a rule above each so they read as separate steps, sub-sections 16px,
+   text 15px. Fumadocs' defaults (16px text, 24px sections) sit too close to the 28px title to tell apart. */
+#nd-page .prose {
+  font-size: 15px;
+  line-height: 1.75;
+}
+#nd-page .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  margin-top: 3.5rem;
+  margin-bottom: 1rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--border);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+#nd-page .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  margin-top: 2.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+#nd-page .prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+#nd-page .prose :where(thead th):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+/* A long union type wraps between its values, and each wrapped piece keeps the code look. */
+#nd-page .prose :where(td code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  font-size: 12px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 html > body[data-scroll-locked] {

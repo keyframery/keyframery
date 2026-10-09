@@ -39,7 +39,7 @@ test("the automatic groups are wider than the five helper tiles", async ({ page 
 
 test("the layout snippet is syntax-highlighted, with the <Cuts /> line marked", async ({ page }) => {
   await page.goto("/")
-  const snippet = page.locator('section[aria-labelledby="install-title"] pre.shiki')
+  const snippet = page.locator('section[aria-labelledby="how-title"] pre.shiki')
   await expect(snippet).toHaveCount(1)
   expect(await snippet.locator('span[style*="--shiki"]').count()).toBeGreaterThan(5)
   await expect(snippet.locator(".line.highlighted")).toHaveText("        <Cuts />")

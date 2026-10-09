@@ -127,7 +127,7 @@ const QUESTIONS: ({ q: string; a: string } | { q: string; a: React.ReactNode; te
 export function Faq() {
   return (
     <section aria-labelledby="faq-title" className="mx-auto grid w-full max-w-[1200px] gap-8 px-4 pt-24 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16 md:pt-36">
-      <h2 id="faq-title" className="text-[30px] leading-[1.1] font-semibold tracking-[-0.025em] md:text-[38px]">
+      <h2 id="faq-title" className="text-[32px] leading-[1.08] font-semibold tracking-[-0.03em] md:text-[44px]">
         Questions
       </h2>
       <JsonLd data={faqData(QUESTIONS.map((item) => ({ q: item.q, text: "text" in item ? item.text : item.a })))} />
