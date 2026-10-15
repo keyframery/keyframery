@@ -16,5 +16,12 @@ export default defineConfig({
   reporter: [["list"], ["html", { open: "never", outputFolder: "../.reports/site" }]],
   use: { baseURL: "http://localhost:4500", trace: "retain-on-failure" },
   projects: all.filter((p) => !browsers || browsers.includes(p.name)),
-  webServer: { command: "pnpm -C ../apps/web start -p 4500", url: "http://localhost:4500", reuseExistingServer: true, timeout: 60_000 },
+  webServer: {
+    command: "pnpm -C ../apps/web start -p 4500",
+    url: "http://localhost:4500",
+    reuseExistingServer: true,
+    timeout: 60_000,
+    // tests/site/admin.spec.ts signs in with this; production sets its own on Vercel.
+    env: { KEYFRAMERY_ADMIN_PASSWORD: "site-tests-admin-password-0123456789" },
+  },
 })

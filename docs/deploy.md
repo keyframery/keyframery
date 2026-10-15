@@ -48,6 +48,21 @@ To re-test after it reports something:
 
 Without `DATABASE_URL`, signups go to `apps/web/.data/waitlist.jsonl`. That's fine locally, but on Vercel the file system doesn't persist, so set the variable before launch.
 
+The same database holds the usage counts that `/admin` reads (installs, MCP calls, agent reads; see `apps/web/lib/usage.ts`). That table is not created by the app: run `apps/web/db/usage.sql` once in the Neon SQL editor. Until it exists, nothing is counted and `/admin` says the table is missing.
+
+## Admin dashboard (/admin)
+
+One password, no accounts. Set these for Production (values never appear on the page; its Setup card shows which are set):
+
+| Variable | What it unlocks |
+|---|---|
+| `KEYFRAMERY_ADMIN_PASSWORD` | the page itself; 24+ characters, or /admin stays closed. Changing it signs everyone out. |
+| `DATABASE_URL` | installs (`/r/*.json` downloads, split CLI / browser / other), MCP tool calls and clients, agent reads (Markdown, llms.txt, .well-known) |
+| `CF_API_TOKEN`, `CF_ACCOUNT_ID` | site traffic from Cloudflare Web Analytics (token permission: Account Analytics: Read) |
+| `GITHUB_TOKEN` | GitHub views, clones and referrers (a fine-grained token on keyframery/keyframery with Administration: Read-only). Stars work without it. |
+
+Counting happens in `proxy.ts` (installs, agent reads) and `app/mcp/route.ts` (MCP calls), after the response, and never fails a request. Only counts are stored: no IP addresses or user agent strings. The privacy page says so; keep it in step if what's counted changes.
+
 ## 3. Domain
 
 1. In Vercel, open the project's **Domains** settings and add `keyframery.com` and `www.keyframery.com` (redirect www to the apex).

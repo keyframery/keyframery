@@ -25,6 +25,8 @@ const config = {
     return [
       ...['/', '/cuts', '/theme', '/docs', '/docs/:path*'].map((source) => ({ source, headers: vary })),
       { source: '/', headers: [{ key: 'Link', value: link }] },
+      // The password-protected dashboard: never indexed, and its address never leaks to sites it links to.
+      { source: '/admin', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }, { key: 'Referrer-Policy', value: 'no-referrer' }] },
     ];
   },
   async redirects() {

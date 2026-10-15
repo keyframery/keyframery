@@ -26,6 +26,11 @@ export default function Page() {
             identify you.
           </li>
           <li>
+            <b>Download and agent counts.</b> When a tool downloads a component from keyframery.com/r, calls the MCP server, or reads the docs as
+            Markdown, we add one to a daily count of what was fetched and the kind of client (for example the shadcn CLI, a browser or a named
+            crawler). We keep only those counts, not your IP address or anything else that identifies you.
+          </li>
+          <li>
             <b>Request logs.</b> Vercel, which hosts the site, keeps standard request logs, such as IP address and browser, for a short time to run and
             protect the service.
           </li>
@@ -34,7 +39,8 @@ export default function Page() {
       <PolicySection title="The MCP server">
         <p>
           keyframery.com/mcp answers your AI tool&apos;s questions about the docs. It receives only what the tool sends it, such as a search query, a docs
-          path or theme settings. It stores none of it, and it never reads your code. Its requests appear in Vercel&apos;s request logs like any other page.
+          path or theme settings. It stores none of it, apart from counting which tool was called and the client&apos;s name, and it never reads
+          your code. Its requests appear in Vercel&apos;s request logs like any other page.
         </p>
       </PolicySection>
       <PolicySection title="What we don't do">

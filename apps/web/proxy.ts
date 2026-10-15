@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 import { isMarkdownPreferred, rewritePath } from 'fumadocs-core/negotiation';
 import { docsContentRoute, docsRoute } from '@/lib/shared';
+import { classifyClient, classifyRequest, recordUsage } from '@/lib/usage';
 
 const { rewrite: rewriteDocs } = rewritePath(
   `${docsRoute}{/*path}`,
@@ -19,7 +20,11 @@ const { rewrite: rewriteMdx } = rewritePath(
 /** Pages outside the docs that also have a Markdown version (app/<name>.md/route.ts). */
 const PAGE_MARKDOWN: Record<string, string> = { '/': '/index.md', '/cuts': '/cuts.md', '/theme': '/theme.md' };
 
-export default function proxy(request: NextRequest) {
+export default function proxy(request: NextRequest, event: NextFetchEvent) {
+  // Installs and agent reads load no analytics script, so they're counted here (lib/usage.ts), after the response.
+  const hit = classifyRequest(request.method, request.nextUrl.pathname, isMarkdownPreferred(request));
+  if (hit) event.waitUntil(recordUsage({ ...hit, client: classifyClient(request.headers.get('user-agent')) }));
+
   const result = rewriteMdx(request.nextUrl.pathname) || rewriteSuffix(request.nextUrl.pathname);
   if (result) {
     return NextResponse.rewrite(new URL(result, request.nextUrl));
