@@ -1,5 +1,13 @@
 # Keyframery
 
+<p align="center">
+  <a href="https://keyframery.com">
+    <img src="docs/demo.gif" width="960" alt="The same shadcn/ui team app twice, clicked at the same time. On the left, shadcn/ui as it ships: the Invite dialog fades in on the spot and the new member just appears. On the right, the same app with Keyframery: the dialog grows out of the Invite button, the new member slides into the list and the seat count rolls up." />
+  </a>
+</p>
+
+<p align="center"><b>Same app, same clicks.</b> Left: shadcn/ui as it ships. Right: the same app with one <code>&lt;Cuts /&gt;</code> line added. <a href="https://keyframery.com">Try it live</a>.</p>
+
 Motion for shadcn/ui. Render one `<Cuts />` in your root layout, and your dialogs, sheets, tabs and toasts start moving from the button you pressed, and back into it. Five small components cover the changes shadcn has no component for: lists, numbers, loading states, cards that open into a page, and views that change state. Pick a motion theme (Quiet, Crisp, Expressive or your own) for the whole app. Your components don't change.
 
 - Website and docs: https://keyframery.com
