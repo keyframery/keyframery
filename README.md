@@ -76,6 +76,16 @@ StateCut transitions whole views. LoadCut manages skeleton delay and minimum dis
 
 ## Use with your coding agent
 
+Install the Keyframery skill with the cross-agent Skills CLI:
+
+```bash
+npx skills add keyframery/keyframery --skill keyframery
+```
+
+To preview available skills first, run `npx skills add keyframery/keyframery --list`.
+
+This installs reusable guidance for your coding agent. The skill can read public Markdown docs; MCP is optional and configured separately. Adding the animation code to your app still uses the shadcn commands above.
+
 In Claude Code, the plugin teaches Claude which animation fits each change, and connects the Keyframery MCP server:
 
 ```bash
@@ -83,7 +93,7 @@ In Claude Code, the plugin teaches Claude which animation fits each change, and 
 /plugin install keyframery@keyframery
 ```
 
-Every other agent connects to the MCP server at `https://keyframery.com/mcp`. It is read-only and needs no account. For example, in Codex:
+For other agents, optionally connect to the MCP server at `https://keyframery.com/mcp` for documentation and theme tools. It is read-only and needs no account. For example, in Codex:
 
 ```bash
 codex mcp add keyframery --url https://keyframery.com/mcp

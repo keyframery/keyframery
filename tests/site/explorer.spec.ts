@@ -1,7 +1,7 @@
 import { expect, test } from "./kit"
 
 test("the explorer lists all 63 components, filters them, and plays the one you pick", async ({ page, errors }) => {
-  await page.goto("/")
+  await page.goto("/cuts")
   const explorer = page.getByTestId("component-explorer")
   await explorer.scrollIntoViewIfNeeded()
   const list = explorer.getByRole("list", { name: "Components" })

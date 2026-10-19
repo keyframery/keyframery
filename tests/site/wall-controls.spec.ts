@@ -1,14 +1,14 @@
 import { expect, takeCuts, test } from "./kit"
 
 test("the wall's shadcn/ui switch turns cuts off for the wall only", async ({ page }) => {
-  await page.goto("/?demo=off")
+  await page.goto("/cuts?demo=off#app-examples")
   const wall = page.getByTestId("wall")
   await page.getByTestId("wall-stock").click()
   await expect(page.getByTestId("wall-stock")).toHaveAttribute("aria-pressed", "true")
   await expect(wall).toHaveAttribute("data-cut", "none")
   // The rest of the page keeps its cuts.
   expect(await page.evaluate(() => document.documentElement.hasAttribute("data-kf"))).toBe(true)
-  await expect(page.getByRole("region", { name: "shadcn/ui with Keyframery" })).not.toHaveAttribute("data-cut", "none")
+  await expect(page.getByRole("region", { name: "Change anything with one prop" }).locator("[data-preview-stage]")).not.toHaveAttribute("data-cut", "none")
   await takeCuts(page)
   await wall.getByRole("button", { name: "Edit profile" }).click()
   await expect(page.getByRole("dialog", { name: "Edit profile" })).toBeVisible()
@@ -19,7 +19,7 @@ test("the wall's shadcn/ui switch turns cuts off for the wall only", async ({ pa
 })
 
 test("slow-mo slows the wall's cuts four times, and nothing else", async ({ page }) => {
-  await page.goto("/?demo=off")
+  await page.goto("/cuts?demo=off#app-examples")
   const wall = page.getByTestId("wall")
   await page.getByTestId("slowmo").click()
   await expect(page.getByTestId("slowmo")).toHaveAttribute("aria-pressed", "true")

@@ -1,17 +1,19 @@
 ---
 name: keyframery
-description: Use when adding animation, motion themes or transitions to a React app built with shadcn/ui (dialogs, sheets, drawers, tabs, toasts, menus, lists, numbers, loading and whole-content states), or when the user mentions Keyframery, <Cuts />, MatchCut, ListCut, ValueCut, LoadCut or StateCut. Installs copied source with the shadcn CLI and applies a reusable motion theme.
+description: Use when adding animation, motion themes or transitions to a React app built with shadcn/ui (dialogs, sheets, drawers, tabs, toasts, menus, lists, numbers, loading and whole-content states), or when the user mentions Keyframery, Cuts, MatchCut, ListCut, ValueCut, LoadCut or StateCut. Installs copied source with the shadcn CLI and applies a reusable motion theme.
 ---
 
 # Keyframery
 
 Keyframery gives shadcn/ui apps the transitions a film editor would make. One `<Cuts />` in the root layout animates shadcn's own dialogs, sheets, drawers, tabs, toasts and menus without editing them. Five helpers cover the changes shadcn has no component for. A motion theme (Quiet, Crisp, Expressive or custom) sets pace, easing and cuts for the whole app. The code is copied into the project by the shadcn CLI, like the rest of shadcn.
 
-The `keyframery` MCP server at https://keyframery.com/mcp (the Claude Code plugin connects it) has the details:
+MCP is optional. When the `keyframery` MCP server at https://keyframery.com/mcp is configured (the Claude Code plugin connects it), use the tools available in your agent:
 - `list_kinds`: the seven kinds of change, with the cut, install command and snippet for each. Call it before choosing a helper.
 - `get_doc`: any docs page as Markdown, for example `installation`, `helpers/list-cut`, `customize`.
 - `search_docs`: find the right page when you don't know it.
 - `make_theme`: Quiet, Crisp or Expressive plus optional overrides, with the matching `<Cuts />`, CSS and installation handoff. It generates instructions and never edits the project itself.
+
+Without MCP, start with the public Markdown index at https://keyframery.com/llms.txt and read the relevant `.mdx` page: https://keyframery.com/docs/installation.mdx, https://keyframery.com/docs/helpers/list-cut.mdx, https://keyframery.com/docs/motion-themes.mdx or https://keyframery.com/docs/customize.mdx. Use the index to find other helpers. Call MCP tools only when they are available.
 
 ## 1. Check the project
 
@@ -55,7 +57,7 @@ Render it once. It renders nothing itself and is safe with server rendering.
 ## 4. Check that it works
 
 - `<html>` gets a `data-kf` attribute while `<Cuts />` runs.
-- Open a dialog: it should grow out of the button that opened it. If it still pops into the middle, the dialog's content element may lack `data-slot="dialog-content"`. Copies from before shadcn CLI 3 don't have it; run `npx shadcn add dialog` again to update.
+- Open a dialog: it should grow out of the button that opened it. If it still pops into the middle, the dialog's content element may lack `data-slot="dialog-content"`. Copies from before shadcn CLI 3 don't have it; run `npx shadcn add dialog` again to update, and review the diff before replacing customizations.
 
 ## 5. Choose the cut by the kind of change
 
@@ -73,17 +75,17 @@ Rules:
 - Avoid adding a second enter or exit animation to a supported part that `<Cuts />` already handles. Leave existing unrelated motion alone.
 - Don't animate static components: buttons, inputs, labels, badges that don't change.
 - Use the same stable `id` you use as the React `key` for ListCut items and MatchCut pairs.
-- Call `get_doc` for a helper's exact props before writing it.
+- Read a helper's exact props before writing it, using `get_doc` when available or its public Markdown page otherwise.
 - Keep one root `<Cuts />` mounted for helper motion too. Do not assume arbitrary React components receive automatic animation.
 - StateCut animates whole-content changes; LoadCut handles skeleton timing; ValueCut handles a small number or status. Do not substitute one for another merely because all can show loading or status text.
 
 ## 6. Tune it
 
-- Start from Quiet, Crisp or Expressive in `make_theme` with `profile: "quiet"`, `"crisp"` or `"expressive"`. Individual options override that preset. Apply the generated props and CSS; there is no runtime `profile` prop on `<Cuts />`.
+- When `make_theme` is available, start from Quiet, Crisp or Expressive with `profile: "quiet"`, `"crisp"` or `"expressive"`. Individual options override that preset. Otherwise use the builder at https://keyframery.com/theme and its copied configuration, or follow the motion-themes and customize Markdown pages above. Apply the documented props and CSS; there is no runtime `profile` prop on `<Cuts />`.
 - Per component: `<Cuts dialog="punch-in" tabs="whip" toast="none" pace={1.2} />`.
 - Buttons, checkboxes, radios, switches, sliders, resize handles and progress bars already respond to presses, ticks and drags through `<Cuts />`; don't add your own press or check animations. `<Cuts responses="none" />` turns those off and keeps the cuts.
 - Optional: `npx shadcn add @keyframery/icon-moves`, then render `<IconMoves />` next to `<Cuts />`. Pressed icons play their own move (a gear turns, a bell rings) with the lucide icons already in the app; don't swap icons for animated copies.
-- App-wide or per section: `--kf-pace`, `--kf-ease` and `--kf-ease-exit` coordinate motion; `--kf-travel`, `--kf-blur` and `--kf-depth` shape rack-focus dialogs specifically; `--kf-hold` controls LoadCut's skeleton delay. `make_theme` writes the corresponding CSS.
+- App-wide or per section: `--kf-pace`, `--kf-ease` and `--kf-ease-exit` coordinate motion; `--kf-travel`, `--kf-blur` and `--kf-depth` shape rack-focus dialogs specifically; `--kf-hold` controls LoadCut's skeleton delay. The builder and `make_theme` generate the corresponding CSS.
 - Per element: `data-cut="none"` turns cuts off for an element and everything inside it. `data-cut-pace="2"` slows one section.
 - Reduced motion removes Keyframery's movement, scale and blur in favor of short fades or instant swaps. The drawer's native swipe behavior is preserved.
 - The builder at https://keyframery.com/theme supports local named saves, share links and validated version-1 JSON import/export, all free with no account. Its copied agent prompt carries the exact theme.

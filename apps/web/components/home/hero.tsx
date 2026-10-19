@@ -8,93 +8,63 @@ import { INSTALL } from "@/lib/kinds"
 import { BeforeAfter } from "./before-after"
 import { WORKS_WITH } from "./logos"
 
-const action = "inline-flex h-11 items-center gap-2 rounded-lg px-5 text-sm font-medium outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+const action = "inline-flex h-11 items-center justify-center gap-2 rounded-lg px-5 text-sm font-medium outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50"
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="relative isolate">
-      <div aria-hidden="true" className="dot-field pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px]" />
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-4 pt-12 text-center md:pt-16">
-        <Link
-          href="/docs/ai-tools"
-          className="inline-flex max-w-full items-center gap-2 rounded-full border bg-card py-1 pr-3.5 pl-1 text-[13px] shadow-xs outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50"
-        >
-          <span className="rounded-full bg-foreground px-2 py-0.5 text-xs font-medium text-background">New</span>
-          <span className="truncate">Works with Claude Code, Codex, Cursor and more</span>
-        </Link>
-        <h1 id="hero-title" className="mt-7 text-[40px] leading-[1.03] font-semibold tracking-[-0.04em] text-balance sm:text-[52px] md:text-[68px]">
-          Add one line. <span className="md:block">Your shadcn/ui app animates.</span>
-        </h1>
-        <p className="mt-6 max-w-[60ch] text-[17px] leading-relaxed text-pretty text-muted-foreground md:text-lg">
-          <span className="md:block">Keyframery is an open-source animation library for shadcn/ui.</span>{" "}
-          <span className="md:block">Dialogs grow from their button. Tabs, lists and loading states move.</span>{" "}
-          {/* Phones keep the original length: a longer paragraph pushes the demo below its autoplay threshold. */}
-          <span className="md:block">
-            <span className="hidden sm:inline">
-              Pick a{" "}
-              <Link href="/theme" className="text-foreground underline underline-offset-4">
-                motion theme
-              </Link>
-              .{" "}
-            </span>
-            Your components don&apos;t change.
-          </span>
+    <section aria-labelledby="hero-title" className="landing-hero relative isolate border-b">
+      <div aria-hidden="true" className="landing-hero-grid pointer-events-none absolute inset-0 -z-10" />
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-4 pt-10 text-center md:pt-14">
+        <p className="inline-flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase">
+          <span aria-hidden="true" className="size-1.5 rounded-full bg-cut" />
+          The motion layer for shadcn/ui
         </p>
-        <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-          <InstallCommand command={INSTALL} />
-          {/* Not on phones: there the button would push the demo below the fold, and agents run on desktops anyway. */}
-          <AgentPromptButton className="hidden sm:inline-flex" />
-          <div className="flex gap-3">
-            <Link href="/docs/installation" className={`${action} bg-foreground text-background hover:bg-foreground/85`}>
-              Get started
-            </Link>
-            <a href="https://github.com/keyframery/keyframery" className={`${action} border bg-card shadow-xs hover:bg-muted`}>
-              <GitHubIcon className="size-4" />
-              GitHub
-            </a>
-          </div>
+        <h1 id="hero-title" className="mt-5 text-[39px] leading-[1.06] font-semibold tracking-[-0.045em] text-balance sm:text-[52px] md:text-[64px]">
+          Add one line. <span className="md:block">Your shadcn/ui app <span className="text-cut">animates.</span></span>
+        </h1>
+        <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-pretty text-muted-foreground sm:text-[17px]">
+          Keyframery adds consistent motion to your existing shadcn/ui app.
+          Dialogs, lists and loading states move. Your components stay yours.
+        </p>
+        <div className="mt-6 flex w-full flex-wrap items-center justify-center gap-3">
+          <a href="#demo" className={`${action} bg-foreground text-background shadow-xs hover:bg-foreground/85`}>
+            Try the demo <span aria-hidden="true">↗</span>
+          </a>
+          <Link href="/docs/installation" className={`${action} border bg-card hover:bg-muted`}>
+            Add to my app
+          </Link>
         </div>
-        <ul aria-label="Facts" className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-1.5 text-sm text-muted-foreground">
-          <li>
-            <b className="font-semibold text-foreground tabular-nums">63</b> components
-          </li>
-          <li>
-            <b className="font-semibold text-foreground tabular-nums">12 KB</b> gzipped
-          </li>
-          <li>
-            <b className="font-semibold text-foreground tabular-nums">0</b> dependencies
-          </li>
-          <li>
-            <b className="font-semibold text-foreground">Base UI</b> and <b className="font-semibold text-foreground">Radix</b>
-          </li>
+        <ul aria-label="Facts" className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-1 text-xs text-muted-foreground sm:text-[13px]">
+          <li>Free and open source</li>
+          <li>MIT licensed</li>
+          <li>No account required</li>
         </ul>
+        <div className="mt-5 w-full max-w-[345px] sm:w-auto sm:max-w-none">
+          <InstallCommand command={INSTALL} className="h-9 border-transparent bg-transparent text-xs shadow-none" />
+        </div>
       </div>
       <BeforeAfter />
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-4 px-4 pt-12 md:flex-row md:justify-center md:gap-8">
-        <p className="text-sm text-muted-foreground">Works with</p>
-        <ul aria-label="Works with" className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-sm font-medium text-foreground/80">
-          {WORKS_WITH.map((tool) => (
-            <li key={tool.name} className="inline-flex items-center gap-2">
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-[18px] fill-current">
-                <path d={tool.path} />
-              </svg>
-              {tool.name}
-            </li>
-          ))}
-        </ul>
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-5 px-4 py-8 md:gap-6 md:py-10">
+        <div className="flex flex-col items-center gap-3 md:flex-row md:gap-7">
+          <p className="text-xs text-muted-foreground">Built for your stack</p>
+          <ul aria-label="Works with" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[13px] font-medium text-foreground/80">
+            {WORKS_WITH.map((tool) => (
+              <li key={tool.name} className="inline-flex items-center gap-2">
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="size-3.5 fill-current"><path d={tool.path} /></svg>
+                {tool.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[13px] text-muted-foreground">
+          <span>About 12 KB gzipped · no animation dependencies</span>
+          <Link href="/theme" className="underline-offset-4 hover:text-foreground hover:underline">Make a motion theme</Link>
+          <a href="https://github.com/keyframery/keyframery" className="inline-flex items-center gap-1.5 underline-offset-4 hover:text-foreground hover:underline">
+            <GitHubIcon className="size-3.5" /> GitHub
+          </a>
+          <AgentPromptButton className="hidden h-8 border-transparent bg-transparent px-2 text-xs shadow-none sm:inline-flex" />
+        </div>
       </div>
-      <nav aria-label="Animation guides" className="mx-auto flex max-w-[1200px] flex-wrap justify-center gap-x-6 gap-y-3 px-4 pt-6 text-sm">
-        {[
-          ["/docs/components/dialog", "Dialog animation"],
-          ["/docs/components/tabs", "Animated tabs"],
-          ["/docs/helpers/list-cut", "List animations"],
-          ["/docs/guides/animations-not-working", "Fix animations that don’t play"],
-        ].map(([href, label]) => (
-          <Link key={href} href={href} className="text-muted-foreground underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4">
-            {label}
-          </Link>
-        ))}
-      </nav>
     </section>
   )
 }

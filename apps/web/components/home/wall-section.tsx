@@ -28,7 +28,7 @@ export function WallSection() {
     setStock(next)
   }
   return (
-    <section aria-labelledby="wall-title" className="pt-24 md:pt-36">
+    <section id="app-examples" aria-labelledby="wall-title" className="scroll-mt-24 pt-24 md:pt-36">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-6 px-4 pb-8 md:flex-row md:items-end md:justify-between">
         <div className="max-w-[600px]">
           <h2 id="wall-title" className="text-[32px] leading-[1.08] font-semibold tracking-[-0.03em] md:text-[44px]">

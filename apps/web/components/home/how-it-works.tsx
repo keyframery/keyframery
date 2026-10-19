@@ -31,7 +31,7 @@ function Step({ n, title, children }: { n: number; title: React.ReactNode; child
   )
 }
 
-/** "How it works", the page's one dark panel: three steps beside the one line they add, and why that's enough. */
+/** Three installation steps beside the actual root layout. Internals stay in the docs. */
 export async function HowItWorks() {
   // Shiki at build time with the high-contrast GitHub themes (the plain ones colour some tokens below 4.5:1).
   const snippet = await highlight(LAYOUT, {
@@ -55,17 +55,16 @@ export async function HowItWorks() {
     },
   })
   return (
-    <section aria-labelledby="how-title" className="mx-auto w-full max-w-[1200px] px-4 pt-24 md:pt-36">
+    <section id="install" aria-labelledby="how-title" className="mx-auto w-full max-w-[1200px] scroll-mt-20 px-4 pt-20 md:pt-24">
       {/* .dark switches the design tokens inside, so the panel stays dark on a light page. */}
       <div className="dark rounded-3xl border bg-background text-foreground shadow-[0_40px_80px_-40px_rgba(16,16,20,0.55)] dark:bg-neutral-950">
         <div className="grid gap-12 p-6 sm:p-10 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-14 md:p-14">
           <div className="min-w-0">
             <h2 id="how-title" className="text-[32px] leading-[1.08] font-semibold tracking-[-0.03em] text-balance md:text-[44px]">
-              One line. Your components don&apos;t change.
+              Keep your components. Add the motion.
             </h2>
             <p className="mt-4 text-[17px] leading-relaxed text-pretty text-muted-foreground">
-              shadcn already gives every part a name, like <code className="font-mono text-[15px] whitespace-nowrap text-foreground">data-slot=&quot;dialog-content&quot;</code>. Keyframery
-              reads those names and gives each part its motion. It doesn&apos;t replace or wrap anything, so removing the line puts you back on stock shadcn.
+              Add the motion layer once, then keep building with the components you already use. The CLI copies the source into your project, so you can read it, change it and make it yours.
             </p>
             <ol className="mt-10 grid gap-8">
               <Step n={1} title="Add it with the shadcn CLI">
@@ -96,8 +95,11 @@ export async function HowItWorks() {
                   </Link>
                 </p>
               </Step>
-              <Step n={3} title="Use shadcn as usual">
-                <p>Every component you have, and every one you add later. Nothing in your code changes.</p>
+              <Step n={3} title="Open a dialog. See the difference.">
+                <p>
+                  Dialogs, sheets, tabs and toasts animate automatically. Lists and loading states use small helpers.{" "}
+                  <Link href="/docs/components/dialog#working-example-review-a-release" className="font-medium text-foreground underline underline-offset-4">Try a complete example</Link>
+                </p>
               </Step>
             </ol>
           </div>
@@ -106,15 +108,10 @@ export async function HowItWorks() {
               <p className="border-b px-4 py-2.5 font-mono text-xs text-muted-foreground">app/layout.tsx</p>
               {snippet}
             </div>
-            <div aria-hidden="true" className="grid gap-2 rounded-xl border bg-card p-4 text-[13px] sm:grid-cols-[auto_auto_auto] sm:items-center sm:justify-start sm:gap-3">
-              <span className="font-mono text-[12px] text-foreground">{"<DialogContent>"}</span>
-              <span className="text-muted-foreground">renders as</span>
-              <span className="font-mono text-[12px] text-foreground">{'<div data-slot="dialog-content">'}</span>
-              <span className="text-muted-foreground sm:col-span-3">
-                Keyframery sees that name, so the dialog grows out of the button you pressed.
-              </span>
-            </div>
-            <p className="sr-only">Your DialogContent renders as an element named dialog-content. Keyframery sees that name and makes the dialog grow out of the button you pressed.</p>
+            <p className="text-[13px] leading-relaxed text-muted-foreground">
+              Reduced motion is respected by default. Turn motion off for any part of your app.{" "}
+              <Link href="/docs/accessibility" className="text-foreground underline underline-offset-4">Accessibility details</Link>
+            </p>
           </div>
         </div>
       </div>

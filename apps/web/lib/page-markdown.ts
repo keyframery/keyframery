@@ -17,6 +17,8 @@ export function homeMarkdown(): string {
     "- MIT licensed. The shadcn CLI copies the code into the project.",
     "- Profiles, local saves, share links, JSON import/export and installation handoff are free. No account is required.",
     "",
+    `Try the live before-and-after demo: ${SITE}/#demo. See dialog, list and loading examples on the home page, then browse the full interactive component explorer and app screens at ${SITE}/cuts.`,
+    "",
     "## Install",
     "",
     "```bash",
@@ -55,9 +57,9 @@ export function homeMarkdown(): string {
   ].join("\n")
 }
 
-/** The /cuts page: the seven kinds of change and the cut for each. */
+/** The /cuts gallery: transition patterns, component comparisons and complete app screens. */
 export function cutsMarkdown(): string {
-  return `${kindsMarkdown(SITE)}\nSee each cut play: ${SITE}/cuts\n`
+  return `${kindsMarkdown(SITE)}\nSee each cut play: ${SITE}/cuts#patterns\n\nTry the configurable dialog studio, compare all 63 component references with stock shadcn in the interactive explorer at ${SITE}/cuts#component-explorer, and use six complete demo screens at ${SITE}/cuts#app-examples. Some components intentionally stay still. The app gallery has its own stock/Keyframery switch, slow motion and optional autoplay.\n`
 }
 
 /** The /theme page: what the builder does, with the docs that hold every value. */

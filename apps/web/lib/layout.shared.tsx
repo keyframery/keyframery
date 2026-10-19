@@ -18,7 +18,7 @@ export function baseOptions(): BaseLayoutProps {
     },
     links: [
       { text: "Docs", url: "/docs" },
-      { text: "Cuts", url: "/cuts" },
+      { text: "Examples", url: "/cuts" },
       { text: "Theme", url: "/theme" },
       ...(PRO_ENABLED ? [{ text: "Pro", url: "/pro" }] : []),
       // Fumadocs' own githubUrl icon is an <svg role="img"> with no title, which fails axe; this one is decorative.

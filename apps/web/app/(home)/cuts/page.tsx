@@ -2,12 +2,15 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import { CutOnActionLoop, DissolveLoop, JCutLoop, MatchCutLoop, PunchInLoop, RackFocusLoop } from "@/components/cuts/loops"
+import { ComponentExplorer } from "@/components/home/component-explorer"
 import { StateCutLoop } from "@/components/home/state-cut-loop"
+import { TryIt } from "@/components/home/try-it"
+import { WallSection } from "@/components/home/wall-section"
 import { pageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
-  title: "UI transition patterns: the seven cuts",
-  description: "Seven kinds of interface change, and the film cut Keyframery uses for each: rack focus, J-cut, match cut, cut on action, punch-in, dissolve, fade and slide.",
+  title: "shadcn/ui animation examples",
+  description: "Explore Keyframery's seven UI transition patterns, tune a dialog, compare shadcn components and try motion on six interactive app screens.",
   path: "/cuts",
   markdown: "/cuts.md",
 })
@@ -24,10 +27,17 @@ const ROWS = [
 
 export default function Page() {
   return (
-    <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-16">
-      <h1 className="text-[44px] leading-[1.05] font-semibold tracking-[-0.03em]">Seven cuts, one for each kind of change</h1>
-      <p className="mt-4 max-w-[60ch] text-lg text-muted-foreground">Each kind of change on a screen has a cut from film editing that makes it easy to follow. Try them together in the <Link href="/theme" className="underline underline-offset-4">motion theme builder</Link>.</p>
-      <div className="mt-12 grid gap-16">
+    <main className="w-full flex-1 py-16">
+      <header className="mx-auto w-full max-w-[1200px] px-4">
+        <h1 className="max-w-[20ch] text-[36px] leading-[1.05] font-semibold tracking-[-0.03em] md:text-[44px]">Animation examples for your shadcn app</h1>
+        <p className="mt-4 max-w-[60ch] text-lg text-muted-foreground">Explore seven kinds of interface change, tune a dialog and compare components on interactive app screens. Try a shared style in the <Link href="/theme" className="underline underline-offset-4">motion theme builder</Link>.</p>
+        <nav aria-label="Animation example sections" className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
+          <Link href="#patterns" className="underline underline-offset-4">Seven transition patterns</Link>
+          <Link href="#component-explorer" className="underline underline-offset-4">Component explorer</Link>
+          <Link href="#app-examples" className="underline underline-offset-4">App screens</Link>
+        </nav>
+      </header>
+      <div id="patterns" className="mx-auto mt-12 grid w-full max-w-[1200px] scroll-mt-24 gap-16 px-4">
         {ROWS.map(({ id, cut, kind, film, ui, docs, Loop }) => (
           <section key={id} id={id} className="grid scroll-mt-24 gap-6 md:grid-cols-[1fr_1.2fr] md:items-center">
             <div>
@@ -41,6 +51,9 @@ export default function Page() {
           </section>
         ))}
       </div>
+      <TryIt />
+      <ComponentExplorer />
+      <WallSection />
     </main>
   )
 }

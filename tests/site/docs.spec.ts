@@ -1,5 +1,26 @@
 import { expect, takeCuts, test } from "./kit"
 
+test("the introduction leads directly from its preview to installation", async ({ page }) => {
+  await page.goto("/docs")
+  const article = page.locator("article")
+  const preview = article.locator("[data-preview]").first()
+  const install = article.getByRole("link", { name: "Add this to my app", exact: true })
+  await expect(install).toHaveAttribute("href", "/docs/installation")
+  expect(await preview.evaluate((el) => el.nextElementSibling?.textContent)).toContain("Add this to my app")
+  await install.click()
+  await expect(page).toHaveURL(/\/docs\/installation$/)
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Quick start")
+})
+
+test("the quick start verification links to a complete working dialog example", async ({ page }) => {
+  await page.goto("/docs/installation")
+  const example = page.locator("article").getByRole("link", { name: "complete dialog example", exact: true })
+  await expect(example).toHaveAttribute("href", "/docs/components/dialog#working-example-review-a-release")
+  await example.click()
+  await expect(page).toHaveURL(/\/docs\/components\/dialog#working-example-review-a-release$/)
+  await expect(page.locator("#working-example-review-a-release")).toBeVisible()
+})
+
 test("a preview set to Stock gets no Keyframery motion, even in its portaled dialog", async ({ page }) => {
   await page.goto("/docs")
   const preview = page.locator("[data-preview]").first()

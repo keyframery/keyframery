@@ -10,7 +10,7 @@ const cell = "flex min-w-0 flex-col gap-3 p-6 md:p-7"
 /** "Or let your coding agent do it": a prompt for any agent, the Claude Code plugin, and the MCP server, in one panel. */
 export function Agents() {
   return (
-    <section aria-labelledby="agents-title" className="mx-auto w-full max-w-[1200px] px-4 pt-24 md:pt-36">
+    <section aria-labelledby="agents-title" className="mx-auto w-full max-w-[1200px] px-4 pt-20 md:pt-24">
       <SectionHeading id="agents-title" title="Or let your coding agent do it">
         Claude Code, Codex, Cursor and other agents can install Keyframery, add the helpers your app needs, and read these docs while they work.
       </SectionHeading>

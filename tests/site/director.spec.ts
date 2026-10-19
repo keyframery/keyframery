@@ -2,7 +2,7 @@ import { expect, takeCuts, test } from "./kit"
 
 test("after a short idle the page plays itself, and the first real input stops it", async ({ page }, info) => {
   test.skip(info.project.name === "phone", "Director runs on desktop layouts")
-  await page.goto("/?director=fast&demo=off")
+  await page.goto("/cuts?director=fast&demo=off#app-examples")
   // It only starts while the wall is on screen.
   await page.getByTestId("wall").evaluate((el) => el.scrollIntoView({ block: "center" }))
   await expect(page.getByTestId("director")).toHaveAttribute("aria-pressed", "true", { timeout: 4000 })
@@ -25,7 +25,7 @@ test("after a short idle the page plays itself, and the first real input stops i
 test("Director never starts by itself under reduced motion", async ({ browser }) => {
   const ctx = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1280, height: 800 } })
   const page = await ctx.newPage()
-  await page.goto("http://localhost:4500/?director=fast")
+  await page.goto("http://localhost:4500/cuts?director=fast#app-examples")
   await page.waitForTimeout(1500)
   await expect(page.getByTestId("director")).toHaveAttribute("aria-pressed", "false")
   await ctx.close()
@@ -33,7 +33,7 @@ test("Director never starts by itself under reduced motion", async ({ browser })
 
 test("on a phone, Director waits for its button instead of scrolling the page by itself", async ({ page }, info) => {
   test.skip(info.project.name !== "phone", "phone layout only")
-  await page.goto("/?director=fast")
+  await page.goto("/cuts?director=fast#app-examples")
   // Park the viewport inside the wall, where the desktop idle trigger would fire.
   await page.evaluate(() => {
     const wall = document.querySelector('[data-testid="wall"]')!.getBoundingClientRect()

@@ -28,16 +28,14 @@ test("an incomplete email gets a specific message", async ({ page }) => {
   await expect(page.getByRole("status")).toContainText("doesn't look complete")
 })
 
-test("the home page runs from what it is to how it works, what moves, how to change it, everything, agents, questions and the close", async ({ page }) => {
+test("the home page runs from practical examples and themes through installation, agents, questions and the close", async ({ page }) => {
   await page.goto("/")
   // Section headings only (ids ending in -title), not the dialog titles inside the demo screens.
   const order = await page.locator('main h2[id$="-title"]').allTextContents()
   expect(order).toEqual([
-    "One line. Your components don't change.",
-    "Seven kinds of change, one cut each",
-    "Change anything with one prop",
-    "All 63 shadcn components, covered",
-    "Try it on real screens",
+    "Small details. A different feel.",
+    "Your app. Your motion.",
+    "Keep your components. Add the motion.",
     "Or let your coding agent do it",
     "Questions",
     "Start with one line",

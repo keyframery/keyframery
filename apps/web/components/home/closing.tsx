@@ -8,9 +8,9 @@ import { WaitlistForm } from "./waitlist-form"
 
 export function Closing() {
   return (
-    <section aria-labelledby="start-title" className="mx-auto w-full max-w-[1200px] px-4 pt-24 pb-20 md:pt-36 md:pb-28">
+    <section aria-labelledby="start-title" className="mx-auto w-full max-w-[1200px] px-4 pt-20 pb-16 md:pt-24 md:pb-20">
       {/* No box: the closing is the hero's line again, on the same fading dots. */}
-      <div className="relative isolate flex flex-col items-center px-5 py-16 text-center md:py-24">
+      <div className="relative isolate flex flex-col items-center overflow-hidden rounded-3xl border bg-card px-5 py-12 text-center md:py-16">
         <div aria-hidden="true" className="dot-field pointer-events-none absolute inset-0 -z-10" />
         <h2 id="start-title" className="text-[36px] leading-[1.05] font-semibold tracking-[-0.035em] md:text-[56px]">
           Start with one line
@@ -24,9 +24,10 @@ export function Closing() {
             href="/docs/installation"
             className="inline-flex h-11 items-center rounded-lg bg-foreground px-5 text-sm font-medium text-background outline-none hover:bg-foreground/85 focus-visible:ring-3 focus-visible:ring-ring/50"
           >
-            Get started
+            Add to my app
           </Link>
         </div>
+        <p className="mt-5 text-[13px] text-muted-foreground">Free, open source and ready for your next project.</p>
       </div>
       {PRO_ENABLED && (
         <div className="mt-12 grid gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-start md:gap-16">

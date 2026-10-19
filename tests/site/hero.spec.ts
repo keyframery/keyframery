@@ -37,15 +37,15 @@ async function center(l: Locator) {
   return { x: b.x + b.width / 2, y: b.y + b.height / 2 }
 }
 
-test("the first line says what Keyframery is, and the install command is right there", async ({ page, context, browserName }, info) => {
+test("the first line says what Keyframery is, and the install command is right there", async ({ page, context, browserName }) => {
   await enableClipboard(page, context, browserName)
   await page.goto("/")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Add one line. Your shadcn/ui app animates.")
   // One command works in a fresh project: the shadcn CLI finds @keyframery in shadcn's registry index.
   const hero = page.locator('section[aria-labelledby="hero-title"]')
-  await expect(hero.getByRole("link", { name: "Get started" })).toHaveAttribute("href", "/docs/installation")
-  // Phones skip the theme sentence, so the demo stays inside its autoplay threshold.
-  if (info.project.name !== "phone") await expect(hero.getByRole("link", { name: "motion theme" })).toHaveAttribute("href", "/theme")
+  await expect(hero.getByRole("link", { name: "Try the demo", exact: true })).toHaveAttribute("href", "#demo")
+  await expect(hero.getByRole("link", { name: "Add to my app", exact: true })).toHaveAttribute("href", "/docs/installation")
+  await expect(hero.getByRole("link", { name: /motion theme/i })).toHaveAttribute("href", "/theme")
   await expect(hero.getByText("npx shadcn add @keyframery/cuts")).toBeVisible()
   // "Copied" shows for 1.6 s. Under load the runner can miss that window, so the page records the label change.
   const copy = hero.getByRole("button", { name: "Copy the install command" })
@@ -57,6 +57,20 @@ test("the first line says what Keyframery is, and the install command is right t
   await copy.click()
   await expect.poll(() => page.evaluate(() => (window as unknown as { __labels: string[] }).__labels)).toContain("Copied")
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(INSTALL)
+})
+
+test("the comparison is visible on arrival and its main action takes keyboard focus to it", async ({ page }) => {
+  await page.goto("/?demo=off")
+  const demo = page.locator("#demo")
+  const viewport = page.viewportSize()!
+  await expect.poll(async () => {
+    const box = await page.getByTestId("hero-stage").boundingBox()
+    return box !== null && box.y < viewport.height && box.y + box.height > 0
+  }).toBe(true)
+  await page.getByRole("link", { name: "Try the demo", exact: true }).focus()
+  await page.keyboard.press("Enter")
+  await expect(page).toHaveURL(/#demo$/)
+  await expect(demo).toBeFocused()
 })
 
 test("the hero shows the same app twice: stock shadcn, and shadcn with Keyframery", async ({ page }) => {

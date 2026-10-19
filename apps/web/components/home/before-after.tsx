@@ -190,7 +190,7 @@ export function BeforeAfter() {
   const cursorShown = running && placed
 
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-4 pt-10 md:pt-14">
+    <div id="demo" tabIndex={-1} aria-label="Interactive before and after demo" className="mx-auto w-full max-w-[1200px] scroll-mt-20 px-4 pt-6 outline-none focus-visible:rounded-2xl focus-visible:ring-3 focus-visible:ring-ring/50 md:pt-8">
       <div role="group" aria-label="Compare" className="mb-3 flex justify-center md:hidden">
         <div className="inline-flex rounded-lg border bg-card p-0.5">
           {SIDES.map((s) => (
@@ -212,7 +212,7 @@ export function BeforeAfter() {
       <div
         data-testid="hero-stage"
         ref={stage}
-        className="stage-grid grid gap-x-6 gap-y-5 rounded-2xl border p-3 shadow-[0_1px_2px_rgba(16,16,20,0.05),0_32px_64px_-32px_rgba(16,16,20,0.28)] sm:p-5 md:grid-cols-2 md:p-8"
+        className="landing-demo-frame stage-grid grid gap-x-5 gap-y-5 rounded-2xl border p-3 sm:p-5 md:grid-cols-2 md:p-6"
       >
         {SIDES.map((s) => (
           <section

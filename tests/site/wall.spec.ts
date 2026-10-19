@@ -1,7 +1,7 @@
 import { expect, takeCuts, test } from "./kit"
 
 test("Dashboard: tabs whip, a new range loads without a jump, and numbers punch in", async ({ page }) => {
-  await page.goto("/")
+  await page.goto("/cuts")
   const d = page.locator('[data-screen="dashboard"]')
   await d.getByRole("tab", { name: "Analytics" }).click()
   await expect(d.getByRole("tabpanel")).toContainText("Top pages")
@@ -15,7 +15,7 @@ test("Dashboard: tabs whip, a new range loads without a jump, and numbers punch 
 })
 
 test("Inbox: an email opens into its detail and archiving one folds it away", async ({ page }) => {
-  await page.goto("/")
+  await page.goto("/cuts")
   const inbox = page.locator('[data-screen="inbox"]')
   await inbox.getByRole("button", { name: /^Design review/ }).click()
   await expect(inbox.getByRole("button", { name: "Back to inbox" })).toBeVisible()
@@ -27,7 +27,7 @@ test("Inbox: an email opens into its detail and archiving one folds it away", as
 })
 
 test("Playlist: shuffling glides every track to its new place; the track menu opens", async ({ page }) => {
-  await page.goto("/")
+  await page.goto("/cuts")
   const p = page.locator('[data-screen="playlist"]')
   await p.getByRole("button", { name: "Shuffle" }).click()
   await p.getByRole("button", { name: "Options for Night drive" }).click()
@@ -38,7 +38,7 @@ test("Playlist: shuffling glides every track to its new place; the track menu op
 })
 
 test("Payments: charging moves Pending → Processing → Paid; ⌘K opens actions", async ({ page }) => {
-  await page.goto("/")
+  await page.goto("/cuts")
   const pay = page.locator('[data-screen="payments"]')
   await pay.getByRole("button", { name: "Charge $1,300.00" }).click()
   await expect(pay.getByTestId("invoice-status")).toContainText("Paid", { timeout: 5000 })

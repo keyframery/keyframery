@@ -34,7 +34,7 @@
   --sidebar-accent-foreground: #16181d;
   --sidebar-border: #e4e6eb;
   --sidebar-ring: #9aa0ad;
-  /* Cobalt marks "Keyframery is on". It appears nowhere else. */
+  /* Cobalt connects the product's motion to its landing-page accent. */
   --cut: #2447f5;
   --stage: #f7f7f8;
   --stage-line: rgb(22 24 29 / 0.05);
@@ -136,6 +136,20 @@
   background-image: radial-gradient(var(--stage-dot) 1px, transparent 1.25px);
   background-size: 18px 18px;
   mask-image: radial-gradient(ellipse 55% 60% at 50% 35%, #000 30%, transparent 100%);
+}
+
+/* A quiet frame-editing grid; the real product demos provide the motion. */
+.landing-hero {
+  background: radial-gradient(ellipse 60% 45% at 50% 72%, color-mix(in oklab, var(--cut) 5%, transparent), transparent);
+}
+.landing-hero-grid {
+  background-image: linear-gradient(var(--stage-line) 1px, transparent 1px), linear-gradient(90deg, var(--stage-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(transparent, #000 45%, transparent 95%);
+}
+.landing-demo-frame {
+  border-color: color-mix(in oklab, var(--cut) 14%, var(--border));
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--card) 75%, transparent), 0 24px 64px -32px color-mix(in oklab, var(--cut) 30%, transparent);
 }
 
 /* The home page's syntax-highlighted layout snippet (Shiki, GitHub high-contrast light/dark themes). */

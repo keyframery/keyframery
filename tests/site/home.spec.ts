@@ -1,21 +1,19 @@
 import tested from "../../apps/web/lib/tested.json" with { type: "json" }
 import { expect, noHorizontalScroll, takeCuts, test } from "./kit"
 
-test("the automatic groups and five helpers play live, each linked to its docs", async ({ page }) => {
+test("three practical examples show the motion and link to complete docs", async ({ page }) => {
   await page.goto("/")
-  const grid = page.getByRole("region", { name: "Seven kinds of change, one cut each" })
-  for (const title of [
-    "Dialogs open from their button",
-    "Tabs slide instead of snapping",
-    "A card opens into its page",
-    "New items come from where they started",
-    "Numbers roll to their new value",
-    "Loading states settle in",
-    "Content changes keep their context",
-  ])
-    await expect(grid.getByRole("heading", { name: title })).toBeVisible()
-  await expect(grid.getByRole("link", { name: "MatchCut docs" })).toHaveAttribute("href", "/docs/helpers/match-cut")
-  await expect(grid.getByRole("link", { name: "StateCut docs" })).toHaveAttribute("href", "/docs/helpers/state-cut")
+  const examples = page.getByRole("region", { name: "Small details. A different feel." })
+  await expect(examples.locator("article")).toHaveCount(3)
+  for (const [title, href] of [
+    ["Dialogs that follow your action", "/docs/components/dialog"],
+    ["Lists that keep their place", "/docs/helpers/list-cut"],
+    ["Loading that feels considered", "/docs/helpers/load-cut"],
+  ]) {
+    const example = examples.locator("article").filter({ has: page.getByRole("heading", { name: title }) })
+    await expect(example.getByRole("heading", { name: title })).toBeVisible()
+    await expect(example.locator(`a[href="${href}"]`)).toBeVisible()
+  }
 })
 
 test("the FAQ answers open and close", async ({ page }) => {
@@ -29,7 +27,7 @@ test("the FAQ answers open and close", async ({ page }) => {
 })
 
 test("Settings: the dialog grows from its button; the sheet steps the page back; saving toasts", async ({ page }) => {
-  await page.goto("/")
+  await page.goto("/cuts#app-examples")
   const settings = page.locator('[data-screen="settings"]')
   await settings.getByRole("button", { name: "Edit profile" }).click()
   await expect(page.getByRole("dialog", { name: "Edit profile" })).toBeVisible()
@@ -44,7 +42,7 @@ test("Settings: the dialog grows from its button; the sheet steps the page back;
 })
 
 test("Chat: a sent message flies from Send, and a reply rises in", async ({ page }) => {
-  await page.goto("/")
+  await page.goto("/cuts#app-examples")
   const chat = page.locator('[data-screen="chat"]')
   await chat.getByRole("textbox", { name: "Message" }).fill("Ship it")
   await chat.getByRole("button", { name: "Send" }).click()
@@ -54,11 +52,16 @@ test("Chat: a sent message flies from Send, and a reply rises in", async ({ page
   expect(cuts).toEqual(expect.arrayContaining(["cut-on-action", "rise"]))
 })
 
-test("the home page says how it works, then lets you change a dialog with one prop", async ({ page }) => {
+test("the home page explains installation in three steps", async ({ page }) => {
   await page.goto("/?demo=off")
-  const how = page.getByRole("region", { name: "One line. Your components don't change." })
+  const how = page.getByRole("region", { name: "Keep your components. Add the motion." })
   await expect(how.getByRole("listitem")).toHaveCount(3)
-  await expect(how).toContainText('data-slot="dialog-content"')
+  await expect(how.getByRole("link", { name: "Quick start" })).toHaveAttribute("href", "/docs/installation")
+  expect(await noHorizontalScroll(page)).toBe(true)
+})
+
+test("the examples page lets you change a dialog with one prop", async ({ page }) => {
+  await page.goto("/cuts")
   const tryIt = page.getByRole("region", { name: "Change anything with one prop" })
   const playground = tryIt.locator("[data-playground]")
   await playground.getByRole("group", { name: "Cut" }).getByRole("button", { name: "Fade" }).click()

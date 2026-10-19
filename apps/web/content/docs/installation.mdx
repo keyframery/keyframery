@@ -99,7 +99,7 @@ export default function App() {
 
 ### Open a dialog
 
-Open any dialog in your app.
+Open any dialog in your app, or try the [complete dialog example](/docs/components/dialog#working-example-review-a-release).
 
 **You should see** it grow out of the button you pressed, and close back into it. Tabs now slide, sheets push the page back, and toasts fly from the button that made them.
 
@@ -109,7 +109,7 @@ Open any dialog in your app.
 ## If the dialog still pops into the middle
 
 - Make sure `<Cuts />` is rendered once, in the root layout or entry file.
-- Check that your dialog's content element has `data-slot="dialog-content"`. Components added by shadcn CLI 3 and later have it; older copies don't. Run `npx shadcn add dialog` again to update yours.
+- Check that your dialog's content element has `data-slot="dialog-content"`. Components added by shadcn CLI 3 and later have it; older copies don't. Run `npx shadcn add dialog` again to update yours, and review the diff before replacing any customizations.
 - If the CLI answered `Unknown registry "@keyframery"`, register Keyframery once with `npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"` and install again, or add the registry to `components.json` by hand:
 
 ```json title="components.json"
