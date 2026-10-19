@@ -9,10 +9,96 @@ faq:
   - q: "How do I disable the animation on one shadcn dialog?"
     a: "Add `data-cut=\"none\"` to its `DialogContent` to keep shadcn's own motion there. For no motion at all, also remove the `animate-in` and `animate-out` classes from `DialogContent` in your `components/ui`."
   - q: "Does it work on Base UI and Radix?"
-    a: "Yes. Keyframery reads `data-open` on Base UI and `data-state` on Radix, and every cut is tested on both in Chromium, Firefox and WebKit."
+    a: "Yes. Keyframery reads Base UI's `data-open` and Radix's `data-state` attributes. Keep shadcn's `data-slot=\"dialog-content\"` on the popup; the trigger composition API differs between the two bases."
 ---
 
+To animate a shadcn/ui dialog opening and closing, render one `<Cuts />` in your app root and keep using your existing `Dialog`. The default animation grows the dialog from the button that opened it and returns it there on close. Base UI and Radix are both supported.
+
 <Playground slug="dialog" />
+
+## Working example: review a release
+
+Start with a React project that already has shadcn/ui and its global stylesheet configured. Install the motion layer and dialog:
+
+```bash
+npx shadcn add @keyframery/cuts
+npx shadcn add dialog
+```
+
+Render `<Cuts />` once in your root layout. Keep your existing providers, styles and fonts; this is the minimal Next.js App Router version:
+
+```tsx title="app/layout.tsx"
+import type { ReactNode } from "react"
+import { Cuts } from "@/components/keyframery/cuts"
+import "./globals.css"
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <Cuts />
+      </body>
+    </html>
+  )
+}
+```
+
+Then add this component to a page. It uses the trigger's own button, so the same example works with either shadcn base:
+
+```tsx title="components/release-dialog.tsx"
+"use client"
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+export function ReleaseDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger className="rounded-md border px-4 py-2">
+        Review release
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Release ready for review</DialogTitle>
+          <DialogDescription>
+            Check the changelog and preview before publishing.
+          </DialogDescription>
+        </DialogHeader>
+        <ul className="list-disc pl-5 text-sm">
+          <li>Changelog complete</li>
+          <li>Preview checked</li>
+        </ul>
+        <DialogFooter>
+          <DialogClose className="rounded-md border px-4 py-2">
+            Back to editing
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+```
+
+Open **Review release**, then close with **Back to editing** or Escape. The dialog should grow from the trigger and return to it. The dialog base still handles focus, keyboard input and its accessible title and description.
+
+For Vite, React Router or an unknown registry error, follow the [root setup and registry instructions](/docs/installation). You do not need Motion or Framer Motion for this animation.
+
+## Base UI, Radix and limits
+
+- Keep `data-slot="dialog-content"` on the popup. Older or heavily customized shadcn copies may need that attribute restored; check the [compatibility versions](/docs/compatibility#tested-versions).
+- To compose a shadcn `Button`, Base UI uses `<DialogTrigger render={<Button />}>Review release</DialogTrigger>`; Radix uses `<DialogTrigger asChild><Button>Review release</Button></DialogTrigger>`. Do not put a button inside the trigger's default button.
+- A dialog opened by code without a recent press starts from the center. Set `data-cut-origin="center"` if that is always the effect you want.
+- Keep `<Dialog>` mounted while closing. Removing the whole component immediately prevents its exit animation; see [fixing interrupted closing animations](/docs/guides/animations-not-working#the-closing-animation-is-cut-short).
+- With the system's reduced-motion preference, the dialog fades without movement, scaling or blur. See [motion accessibility](/docs/accessibility).
 
 ## Which cut it uses
 
@@ -31,14 +117,6 @@ Dialogs use the **Rack focus** cut. A cut is how something arrives on the screen
 ## What it fixes
 
 A stock dialog appears in the middle of the screen, unconnected to what you pressed. With Keyframery it starts out toward the button, slightly small and soft, and sharpens in place. That's a rack focus: the camera pulls focus from the page to the dialog. Closing reverses it, back into the button.
-
-## Install
-
-Dialog is shadcn's own component. With [`<Cuts />`](/docs/installation) in your layout, there's nothing else to add:
-
-```npm
-npx shadcn add dialog
-```
 
 ## Change it
 

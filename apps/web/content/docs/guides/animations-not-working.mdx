@@ -1,22 +1,22 @@
 ---
 title: Animations not working
-seoTitle: "shadcn/ui animations not working? Every fix"
+seoTitle: "shadcn/ui animations not working? Common fixes"
 heading: "shadcn/ui animations not working"
-description: "Why shadcn/ui animations stop working, and the fix for each cause: a missing tw-animate-css or shadcn/tailwind.css import, Tailwind v3, monorepos and exits."
+description: "Fix common shadcn/ui animation problems: Tailwind CSS imports, Base UI and Radix state variants, monorepo scanning, interrupted exits and reduced motion."
 faq:
   - q: "Why is my shadcn dialog not animating?"
-    a: "Usually one of two lines is missing from `globals.css`: `@import \"tw-animate-css\";` or `@import \"shadcn/tailwind.css\";`. On Radix, a missing `shadcn/tailwind.css` is the most common cause, because without it the `data-open:` classes don't match Radix's `data-state` attribute."
+    a: "In a current Tailwind v4 setup, check `@import \"tw-animate-css\";` and `@import \"shadcn/tailwind.css\";` in the global stylesheet. Also check your component's state classes, whether it is removed before closing finishes and the system's reduced-motion setting."
   - q: "Do I need tailwindcss-animate or tw-animate-css?"
     a: "On Tailwind v4, tw-animate-css: shadcn deprecated tailwindcss-animate in favour of it. A Tailwind v3 project keeps using tailwindcss-animate as a plugin in `tailwind.config.js`."
   - q: "Why doesn't the closing animation play?"
     a: "The dialog is probably removed from the page the moment it closes. Keep `<Dialog>` rendered and control it with `open` and `onOpenChange`, so its content stays mounted until the closing animation ends."
 ---
 
-Most of the time, shadcn/ui animations stop working because a line is missing from your global stylesheet. Check that first. The other causes below are rarer, and each one has a one-step fix.
+When shadcn/ui animations do not work, check the global stylesheet, component state classes and mounting behavior first. These checks apply to stock shadcn components; you do not need Keyframery to restore their built-in motion. If stock motion works but a Keyframery cut does not, jump to [checking the motion layer](#stock-motion-works-but-keyframery-doesnt).
 
 ## Check this first
 
-A project set up with a current shadcn CLI starts its stylesheet with these three lines:
+A Tailwind v4 project set up with the current shadcn CLI uses these stylesheet imports. Keep your existing theme declarations below them:
 
 ```css title="app/globals.css"
 @import "tailwindcss";
@@ -24,7 +24,7 @@ A project set up with a current shadcn CLI starts its stylesheet with these thre
 @import "shadcn/tailwind.css";
 ```
 
-If one is missing, add it. In most projects that's the whole fix.
+Confirm that this stylesheet is imported by your app entry or root layout. For a Tailwind v3 app, use the [v3 plugin setup](#a-tailwind-v3-project) instead.
 
 | What you see | The likely cause |
 |---|---|
@@ -34,6 +34,7 @@ If one is missing, add it. In most projects that's the whole fix.
 | Components from a shared package or monorepo don't animate | [Your components live in another package](#your-components-live-in-another-package) |
 | Opening animates, closing doesn't | [The closing animation is cut short](#the-closing-animation-is-cut-short) |
 | It seems to work, but you can barely see it | [It is animating, just quickly](#it-is-animating-just-quickly) |
+| Stock motion works, but a Keyframery dialog stays centered | [Check the root motion layer and data slots](#stock-motion-works-but-keyframery-doesnt) |
 
 ## tw-animate-css isn't imported
 
@@ -110,7 +111,7 @@ Point Tailwind at them with `@source`, using a path relative to the stylesheet:
 
 ## The closing animation is cut short
 
-Radix and Base UI both keep a dialog's content on the page until its closing animation ends. That only works if the dialog itself stays rendered. If you render it conditionally, React removes it the moment it closes:
+Radix and Base UI support keeping a dialog's content on the page while its closing animation finishes. That only works if the dialog root stays rendered and its state classes still provide the exit animation. If you render the whole dialog conditionally, React removes it the moment it closes:
 
 ```tsx
 // The closing animation never plays
@@ -128,11 +129,57 @@ Radix and Base UI both keep a dialog's content on the page until its closing ani
 
 The same applies to sheets, popovers and every other part that opens and closes.
 
+Here is a complete controlled dialog that keeps its root mounted. This uses the trigger's own button on either Base UI or Radix:
+
+```tsx title="components/controlled-dialog.tsx"
+"use client"
+
+import { useState } from "react"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+export function ControlledDialog() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger>Review changes</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Review changes</DialogTitle>
+          <DialogDescription>Close this dialog to check its exit animation.</DialogDescription>
+        </DialogHeader>
+        <DialogClose>Close review</DialogClose>
+      </DialogContent>
+    </Dialog>
+  )
+}
+```
+
 ## It is animating, just quickly
 
 Current shadcn dialogs animate in 100 ms (`duration-100`), which is easy to miss. Raise it on one component to check that it works, for example `duration-300` on `DialogContent`.
 
 If animations are near-instant on your machine only, check your system's "Reduce motion" setting. Many CSS resets shorten every animation when it's on.
+
+Honor that preference in the shipped app. Use browser developer tools to compare both settings while debugging; a reduced-motion version is expected behavior, not an animation failure. See [accessible motion](/docs/accessibility).
+
+## Stock motion works but Keyframery doesn't
+
+1. Follow the [installation guide](/docs/installation) and render one `<Cuts />` at the app root. Its stylesheet is imported by the installed component.
+2. Inspect `<html>` in developer tools after hydration. An active instance adds `data-kf`; `enabled={false}` removes it and restores stock motion.
+3. Inspect the rendered popup or tabs, not just your JSX. Dialog content needs `data-slot="dialog-content"`; tabs need the `tabs`, `tabs-trigger` and `tabs-content` slots plus their base library's normal state attributes.
+4. Check for `data-cut="none"` on the element or an ancestor, or `dialog="none"` / `tabs="none"` on `<Cuts />`. These opt out of the corresponding cut.
+5. Remove a second animation applied to the same element while reproducing the issue. Test with an ordinary [dialog example](/docs/components/dialog#working-example-review-a-release) or [tabs example](/docs/components/tabs#working-example-project-settings) before restoring custom styling.
+
+Base UI uses attributes such as `data-open` and `data-active`; Radix uses `data-state`. Keyframery reads both. It relies on shadcn's data slots, so older copies or wrappers that strip those attributes need updating. Compare the [tested component versions](/docs/compatibility#tested-versions).
 
 ## Animate more than fades
 

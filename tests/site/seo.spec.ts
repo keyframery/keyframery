@@ -3,6 +3,9 @@ import http from "node:http"
 import path from "node:path"
 
 import type { Page } from "@playwright/test"
+import { Client, StreamableHTTPClientTransport } from "@modelcontextprotocol/client"
+
+import { CONTENT_MODIFIED } from "../../apps/web/lib/content-modified"
 
 import { expect, test } from "./kit"
 
@@ -107,6 +110,63 @@ test("docs pages point AI tools at their Markdown version", async ({ page, reque
     expect((await request.get(`${p}.mdx`)).status(), p).toBe(200)
   }
 })
+
+test("sitemap modification dates match checked content dates and omit unknown dates", async ({ request }) => {
+  const xml = await (await request.get("/sitemap.xml")).text()
+  const dates: Record<string, string> = {}
+  for (const entry of xml.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+    const route = new URL(entry[1].match(/<loc>([^<]+)<\/loc>/)![1]).pathname
+    const modified = entry[1].match(/<lastmod>([^<]+)<\/lastmod>/)?.[1]
+    if (modified) dates[route] = modified
+  }
+  expect(dates).toEqual(CONTENT_MODIFIED)
+})
+
+test("six representative docs keep descriptions, code and questions across HTML, Markdown, full docs and MCP", async ({ page, request }, info) => {
+  const full = await (await request.get("/llms-full.txt")).text()
+  const client = new Client({ name: "keyframery-seo-tests", version: "1.0.0" })
+  try {
+    await client.connect(new StreamableHTTPClientTransport(new URL("/mcp", info.project.use.baseURL ?? "http://localhost:4500")))
+    for (const route of ["/docs/installation", "/docs/components/dialog", "/docs/components/tabs", "/docs/helpers/list-cut", "/docs/helpers/load-cut", "/docs/ai-tools"]) {
+      await page.goto(route)
+      const description = (await meta(page, 'meta[name="description"]'))!
+      const markdown = await (await request.get(`${route}.mdx`)).text()
+      expect(markdown.split(description), route).toHaveLength(2)
+      expect(markdown, route).toContain("```")
+      const questions = await page.locator('section[aria-labelledby="questions"] h3').allTextContents()
+      for (const question of questions) expect(markdown, route).toContain(`### ${question.trim()}`)
+      expect(full, route).toContain(markdown.trim())
+      const result = await client.callTool({ name: "get_doc", arguments: { path: route } })
+      expect(result.isError, route).toBeFalsy()
+      const text = (result.content as { type: string; text?: string }[]).map((item) => item.text ?? "").join("\n")
+      expect(text, route).toBe(markdown)
+    }
+  } finally {
+    await client.close()
+  }
+})
+
+for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 }]) {
+  test(`theme loading keeps the footer beyond the first viewport at ${viewport.width}px`, async ({ page }) => {
+    await page.setViewportSize(viewport)
+    let releaseScripts!: () => void
+    const scripts = new Promise<void>((resolve) => { releaseScripts = resolve })
+    await page.route("**/_next/static/**", async (route) => {
+      if (route.request().resourceType() === "script") await scripts
+      await route.continue()
+    })
+    try {
+      await page.goto("/theme", { waitUntil: "commit" })
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible()
+      await expect(page.locator("footer")).toBeAttached()
+      expect((await page.locator("footer").boundingBox())!.y).toBeGreaterThanOrEqual(viewport.height)
+    } finally {
+      releaseScripts()
+    }
+    await expect(page.getByRole("radio", { name: "Expressive", exact: true })).toBeVisible()
+    expect((await page.locator("footer").boundingBox())!.y).toBeGreaterThanOrEqual(viewport.height)
+  })
+}
 
 test("the vercel.app address redirects to keyframery.com, keeping the path", async ({}, info) => {
   const port = Number(new URL(info.project.use.baseURL ?? "http://localhost:4500").port || 4500)

@@ -10,7 +10,60 @@ faq:
     a: "Yes. `<Cuts tabs=\"whip\" />` switches in 160 ms with a short motion blur, or put `data-cut=\"whip\"` on one `Tabs` root."
 ---
 
+To animate shadcn/ui tabs, install `<Cuts />` once at the app root and use the usual `Tabs`, `TabsList`, `TabsTrigger` and `TabsContent` components. The default J-cut moves the active highlight first, brings in the next panel a beat later and eases the container height. It supports both Base UI and Radix.
+
 <Playground slug="tabs" />
+
+## Working example: project settings
+
+Complete the [root motion setup](/docs/installation), then add shadcn's tabs:
+
+```bash
+npx shadcn add tabs
+```
+
+This component uses the same API with either shadcn base:
+
+```tsx title="components/project-settings.tsx"
+"use client"
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+export function ProjectSettings() {
+  return (
+    <Tabs defaultValue="general" className="w-full max-w-md">
+      <TabsList>
+        <TabsTrigger value="general">General</TabsTrigger>
+        <TabsTrigger value="members">Members</TabsTrigger>
+      </TabsList>
+      <TabsContent value="general" className="rounded-lg border p-4">
+        <h2 className="font-medium">Release website</h2>
+        <p className="text-sm">Public preview enabled.</p>
+      </TabsContent>
+      <TabsContent value="members" className="rounded-lg border p-4">
+        <h2 className="font-medium">Project members</h2>
+        <ul className="mt-2 grid gap-2 text-sm">
+          <li>Ada — owner</li>
+          <li>Priya — editor</li>
+          <li>Leo — reviewer</li>
+        </ul>
+      </TabsContent>
+    </Tabs>
+  )
+}
+```
+
+Switch between **General** and **Members**. The highlight travels to the active trigger; the panel changes separately, and the taller members panel gives the height animation something to interpolate. Use the base library's normal keyboard navigation as well.
+
+## Indicator motion and panel motion
+
+The indicator is a temporary visual copy of the active trigger's background, border radius and shadow. It is separate from the outgoing panel's visual copy and the incoming panel animation. The `tabs` cut controls this sequence together; there is no separate indicator-speed prop.
+
+- Preserve shadcn's `tabs`, `tabs-trigger` and `tabs-content` data slots and the base library's active-state attributes. Base UI uses `data-active`; Radix uses `data-state="active"`.
+- Use matching `value` props on each trigger and panel. Keep the normal tab/panel relationship rather than replacing panels with unrelated markup.
+- The sliding highlight is designed around shadcn's active pill. A custom underline, pseudo-element or transparent trigger may need its own styling; Keyframery does not recreate every custom indicator.
+- The cut follows a recent pointer or keyboard press on a tab. Programmatic changes without a tab press and the initial render do not start the same sequence.
+- Reduced motion removes the sliding, blur and height morph, leaving a short panel fade. See [accessibility and reduced motion](/docs/accessibility).
 
 ## Which cut it uses
 
@@ -29,12 +82,6 @@ Tabs use the **J-cut**. A cut is how something arrives on the screen and how it 
 ## What it fixes
 
 Stock tabs swap their panel in a single frame, and the frame snaps to the new height. With the J-cut, the active pill whips across first, the old panel leaves, and the new panel enters 70 ms later. Meanwhile the frame's height morphs smoothly. Your eye follows the pill, and the panel arrives where you're already looking.
-
-## Install
-
-```npm
-npx shadcn add tabs
-```
 
 ## Change it
 
@@ -102,3 +149,5 @@ With reduced motion turned on in the system settings, movement becomes a short f
 | `j-cut` | the pill whips over (200 ms), the old panel leaves (180 ms), the new panel enters 70 ms later (300 ms), and the height morphs (320 ms) |
 | `whip` | no lead, 160 ms, with a 4px motion blur on both panels and the height morph |
 | `fade` | a 180 ms crossfade and the height morph |
+
+If the tabs stay static, check the [root setup](/docs/installation) and [animation troubleshooting](/docs/guides/animations-not-working). For whole-content changes outside a tab interface, use [StateCut](/docs/helpers/state-cut).

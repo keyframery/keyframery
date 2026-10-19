@@ -12,6 +12,8 @@ faq:
     a: "Yes. ListCut only compares ids between renders, so any data source works. Items that arrive while nothing was pressed rise in."
 ---
 
+To animate adding, removing and reordering items in React, wrap the list in `ListCut` and each row in `ListCut.Item`. Give each row a stable `key` and matching `id`. Your state updates stay ordinary React; the helper compares the rendered rows and animates their changes.
+
 <Preview>
   <ListCutDemo />
 </Preview>
@@ -28,6 +30,68 @@ If your project doesn't know `@keyframery` yet, do the [Quick start](/docs/insta
 
 ## Use
 
+### Working example: a release checklist
+
+Keep one root [`<Cuts />`](/docs/installation) running, then copy this client component. The buttons add a task, remove one or reverse the order without any animation code in the event handlers:
+
+```tsx title="components/release-checklist.tsx"
+"use client"
+
+import { useRef, useState } from "react"
+import { ListCut } from "@/components/keyframery/list-cut"
+
+export function ReleaseChecklist() {
+  const [tasks, setTasks] = useState([
+    { id: 1, text: "Review the changelog" },
+    { id: 2, text: "Check the mobile preview" },
+    { id: 3, text: "Confirm the release date" },
+  ])
+  const nextId = useRef(4)
+
+  function addTask() {
+    const id = nextId.current++
+    setTasks((current) => [...current, { id, text: `Release task ${id}` }])
+  }
+
+  return (
+    <section aria-label="Release checklist" className="grid max-w-md gap-3">
+      <div className="flex gap-2">
+        <button type="button" onClick={addTask} className="rounded-md border px-3 py-2">
+          Add a task
+        </button>
+        <button
+          type="button"
+          onClick={() => setTasks((current) => [...current].reverse())}
+          className="rounded-md border px-3 py-2"
+        >
+          Reverse order
+        </button>
+      </div>
+      <ListCut as="ul" className="grid gap-2">
+        {tasks.map((task) => (
+          <ListCut.Item key={task.id} id={task.id} as="li" className="flex items-center justify-between gap-3 rounded-md border p-3">
+            <span>{task.text}</span>
+            <button
+              type="button"
+              aria-label={`Remove ${task.text}`}
+              onClick={() => setTasks((current) => current.filter((item) => item.id !== task.id))}
+              className="rounded border px-2 py-1"
+            >
+              Done
+            </button>
+          </ListCut.Item>
+        ))}
+      </ListCut>
+      {tasks.length === 0 && <p className="text-sm">All tasks complete. Add another task above.</p>}
+    </section>
+  )
+}
+```
+
+Try **Add a task**, **Reverse order**, then **Done**. The add button sits outside the list so it can be the arrival's origin. Creating ids in the event handler keeps the state updater pure, including in React Strict Mode.
+
+### Apply it to your own data
+
 Replace your list and its items with `ListCut` and `ListCut.Item`, and give each item the same `id` you use as its `key`:
 
 ```tsx
@@ -43,6 +107,8 @@ import { ListCut } from "@/components/keyframery/list-cut"
 ```
 
 It works with any data source, because it only compares ids between renders. For a table, use `ListCut as="tbody"` with `ListCut.Item as="tr"`.
+
+Use a database id or another persistent identifier. Array indexes, `Math.random()` and ids regenerated during render make a reorder look like unrelated additions and removals. Keep the same `ListCut` mounted when its data changes.
 
 ## You should see
 
@@ -74,9 +140,14 @@ Both pass any other props, such as `className` or `aria-label`, to their element
 
 ## Good to know
 
+- Both Base UI and Radix projects use this same helper; it wraps your HTML rather than replacing a shadcn primitive. It also requires the root [motion setup](/docs/installation).
 - The first render never animates.
-- Only items in or near the viewport animate, so long lists stay fast.
-- Timing: an added item flies in over 480 ms; a removed one folds away and the items below follow 60 ms later; a moved one glides over 320 ms.
+- Only items in or near the viewport animate. ListCut still measures mounted rows; it is not a virtualizer and does not by itself make an unbounded list cheap.
+- At the default pace, an item arriving from a recent press outside the list takes 380 ms; an arrival without that origin rises over 260 ms. A removed item fades and shrinks over 220 ms, the remaining rows follow after 60 ms, and reorders glide over 320 ms.
 - A removed table row folds inside a one-row table that keeps your column widths.
+- With reduced motion, new rows use a 120 ms fade. Exit ghosts and reorder movement are skipped. `cut="none"` disables this list's motion.
+- ListCut animates changes; your app still owns sorting, network requests, error handling, announcements and focus after removing the focused row. See [accessibility guidance](/docs/accessibility).
 
 In film, a new item flying from the button is a **cut on action**, and a removed item leaving before the rest move up is an **L-cut**.
+
+For a skeleton before the list arrives, use [LoadCut loading transitions](/docs/helpers/load-cut). For an empty or error screen, use [StateCut](/docs/helpers/state-cut).

@@ -8,7 +8,7 @@
 
 <p align="center"><b>Same app, same clicks.</b> Left: shadcn/ui as it ships. Right: the same app with one <code>&lt;Cuts /&gt;</code> line added. <a href="https://keyframery.com">Try it live</a>.</p>
 
-Motion for shadcn/ui. Render one `<Cuts />` in your root layout, and your dialogs, sheets, tabs and toasts start moving from the button you pressed, and back into it. Five small components cover the changes shadcn has no component for: lists, numbers, loading states, cards that open into a page, and views that change state. Pick a motion theme (Quiet, Crisp, Expressive or your own) for the whole app. Your components don't change.
+Keyframery is an open-source motion layer for shadcn/ui. Render one `<Cuts />` in your root layout, and your dialogs, sheets, tabs and toasts start moving from the button you pressed, and back into it. Five small components cover the changes shadcn has no component for: lists, numbers, loading states, cards that open into a page, and views that change state. Pick a motion theme (Quiet, Crisp, Expressive or your own) for the whole app. Your components don't change.
 
 - Website and docs: https://keyframery.com
 - Quick start: https://keyframery.com/docs/installation

@@ -29,6 +29,15 @@ describe("coverage", () => {
     expect(fs.readFileSync(path.join(docs, "compatibility.mdx"), "utf8")).toContain(coverageTable())
   })
 
+  it("does not advertise an animation on components that stay still", () => {
+    for (const c of coverage.components.filter((component) => component.kind === "still")) {
+      const page = pageFor(c)
+      expect(page.match(/^seoTitle: (.+)$/m)?.[1], c.slug).not.toMatch(/animation/i)
+      expect(page.match(/^heading: (.+)$/m)?.[1], c.slug).not.toMatch(/animation/i)
+      expect(page, c.slug).toContain('title="Nothing moves here, on purpose"')
+    }
+  })
+
   it("only names helpers that the registry ships", () => {
     const items = new Set(registry.items.map((i: { title?: string }) => i.title))
     for (const c of coverage.components)

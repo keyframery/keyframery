@@ -89,7 +89,7 @@ export function pageFor(c) {
   const lines = [
     "---",
     `title: ${c.name}`,
-    `seoTitle: "shadcn/ui ${c.name} animation"`,
+    `seoTitle: "shadcn/ui ${c.name}${c.kind === "still" ? " reference" : " animation"}"`,
     // Like the hand-written pages: "Checkbox animation"; a component where nothing moves keeps its plain name.
     `heading: "${c.kind === "still" ? c.name : `${c.name} animation`}"`,
     `description: ${JSON.stringify(description)}`,

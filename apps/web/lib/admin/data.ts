@@ -1,4 +1,5 @@
 import { SERVER_INFO } from "@/lib/mcp"
+import { summarizeUsage, type Usage, type UsageCount } from "./usage-summary"
 
 /**
  * Everything /admin shows, each from its own source. A source that isn't configured or fails says so on its own
@@ -27,18 +28,7 @@ function add(map: Map<string, number>, key: string, count: number) {
   map.set(key, (map.get(key) ?? 0) + count)
 }
 
-/* Installs, MCP calls and agent reads (lib/usage.ts) */
-
-export type Usage = {
-  totals: Record<"install" | "mcp" | "agent", number>
-  allTime: Record<"install" | "mcp" | "agent", number>
-  installsByItem: { item: string; cli: number; browser: number; other: number }[]
-  installsByDay: Row[]
-  mcpTools: Row[]
-  mcpClients: Row[]
-  agentItems: Row[]
-  agentClients: Row[]
-}
+/* Aggregate registry GETs, copy actions, MCP calls and agent reads (lib/usage.ts). */
 
 export async function usage(days: number): Promise<Source<Usage>> {
   const url = process.env.DATABASE_URL
@@ -47,46 +37,10 @@ export async function usage(days: number): Promise<Source<Usage>> {
     const { neon } = await import("@neondatabase/serverless")
     const sql = neon(url, { fetchOptions: { signal: AbortSignal.timeout(TIMEOUT) } })
     const rows = (await sql`select day::text as day, kind, item, client, count from usage_counts
-      where day > (now() at time zone 'utc')::date - ${days}::int`) as { day: string; kind: keyof Usage["totals"]; item: string; client: string; count: number }[]
+      where day > (now() at time zone 'utc')::date - ${days}::int`) as UsageCount[]
     const all = (await sql`select kind, sum(count)::int as count from usage_counts group by kind`) as { kind: keyof Usage["totals"]; count: number }[]
 
-    const totals = { install: 0, mcp: 0, agent: 0 }
-    const allTime = { install: 0, mcp: 0, agent: 0 }
-    for (const r of all) allTime[r.kind] = r.count
-    const items = new Map<string, { item: string; cli: number; browser: number; other: number }>()
-    const installDays = new Map<string, number>()
-    const [mcpTools, mcpClients, agentItems, agentClients] = [new Map<string, number>(), new Map<string, number>(), new Map<string, number>(), new Map<string, number>()]
-
-    for (const r of rows) {
-      totals[r.kind] += r.count
-      if (r.kind === "install") {
-        const entry = items.get(r.item) ?? { item: r.item, cli: 0, browser: 0, other: 0 }
-        if (r.client === "cli") entry.cli += r.count
-        else if (r.client === "browser") entry.browser += r.count
-        else entry.other += r.count
-        items.set(r.item, entry)
-        if (r.client === "cli") add(installDays, r.day, r.count)
-      } else if (r.kind === "mcp") {
-        if (r.item === "initialize") add(mcpClients, r.client, r.count)
-        else add(mcpTools, r.item.replace(/^tool:/, ""), r.count)
-      } else {
-        add(agentItems, r.item, r.count)
-        add(agentClients, r.client, r.count)
-      }
-    }
-    return {
-      ok: true,
-      data: {
-        totals,
-        allTime,
-        installsByItem: [...items.values()].sort((a, b) => b.cli - a.cli || b.browser - a.browser),
-        installsByDay: [...installDays].map(([label, count]) => ({ label, count })).sort((a, b) => b.label.localeCompare(a.label)),
-        mcpTools: top(mcpTools),
-        mcpClients: top(mcpClients),
-        agentItems: top(agentItems, 25),
-        agentClients: top(agentClients),
-      },
-    }
+    return { ok: true, data: summarizeUsage(rows, all) }
   } catch (error) {
     if (error instanceof Error && /usage_counts.*does not exist/i.test(error.message)) {
       return { ok: false, reason: "The usage_counts table doesn't exist yet: run apps/web/db/usage.sql once in Neon." }
@@ -257,7 +211,7 @@ export function setup() {
   const has = (name: string) => Boolean(process.env[name])
   return [
     { name: "KEYFRAMERY_ADMIN_PASSWORD", set: has("KEYFRAMERY_ADMIN_PASSWORD"), use: "this page's password (24+ characters)" },
-    { name: "DATABASE_URL", set: has("DATABASE_URL"), use: "installs, MCP calls and agent reads (Neon)" },
+    { name: "DATABASE_URL", set: has("DATABASE_URL"), use: "registry GETs, successful copies, MCP calls and agent reads (Neon)" },
     { name: "CF_API_TOKEN", set: has("CF_API_TOKEN"), use: "site traffic (Cloudflare Web Analytics, Account Analytics: Read)" },
     { name: "CF_ACCOUNT_ID", set: has("CF_ACCOUNT_ID"), use: "site traffic (Cloudflare account)" },
     { name: "GITHUB_TOKEN", set: has("GITHUB_TOKEN"), use: "GitHub traffic (optional; stars work without it)" },

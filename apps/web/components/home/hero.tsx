@@ -26,8 +26,8 @@ export function Hero() {
           Add one line. <span className="md:block">Your shadcn/ui app animates.</span>
         </h1>
         <p className="mt-6 max-w-[60ch] text-[17px] leading-relaxed text-pretty text-muted-foreground md:text-lg">
-          <span className="md:block">Dialogs grow from the button you clicked. Tabs slide instead of snapping.</span>{" "}
-          <span className="md:block">Lists, numbers and loading states move instead of jumping.</span>{" "}
+          <span className="md:block">Keyframery is an open-source animation library for shadcn/ui.</span>{" "}
+          <span className="md:block">Dialogs grow from their button. Tabs, lists and loading states move.</span>{" "}
           {/* Phones keep the original length: a longer paragraph pushes the demo below its autoplay threshold. */}
           <span className="md:block">
             <span className="hidden sm:inline">
@@ -83,6 +83,18 @@ export function Hero() {
           ))}
         </ul>
       </div>
+      <nav aria-label="Animation guides" className="mx-auto flex max-w-[1200px] flex-wrap justify-center gap-x-6 gap-y-3 px-4 pt-6 text-sm">
+        {[
+          ["/docs/components/dialog", "Dialog animation"],
+          ["/docs/components/tabs", "Animated tabs"],
+          ["/docs/helpers/list-cut", "List animations"],
+          ["/docs/guides/animations-not-working", "Fix animations that don’t play"],
+        ].map(([href, label]) => (
+          <Link key={href} href={href} className="text-muted-foreground underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4">
+            {label}
+          </Link>
+        ))}
+      </nav>
     </section>
   )
 }

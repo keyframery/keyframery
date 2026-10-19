@@ -1,0 +1,13 @@
+prompt_id,cluster,prompt,expected_evidence_topic
+AI01,category,"How can I add animations to an existing shadcn/ui app without replacing all of its components?","Installation model and supported-component limits"
+AI02,dialog,"How do I make a shadcn dialog open from the button that triggered it and close back toward that button?","Trigger origin and programmatic fallback"
+AI03,dialog,"What should I check when a shadcn dialog's open and close animations do not run?","Markup and root setup troubleshooting"
+AI04,tabs,"How can I animate shadcn tabs while distinguishing the active indicator from the tab content transition?","Indicator versus panel behavior"
+AI05,list,"How can I animate adding, removing, and reordering items in a React list with stable keys?","Stable IDs and data update example"
+AI06,list,"Can I animate React table row additions, removals, and reorders without changing the table's semantic markup?","Semantic tbody/tr support and limits"
+AI07,loading,"How can I avoid a skeleton flashing when a React request finishes quickly?","Hold and minimum-show presentation timing"
+AI08,loading,"How do I transition a React skeleton into real content while managing height changes?","Loading example and layout limitations"
+AI09,compatibility,"Which animation approaches work with both Base UI and Radix based shadcn components?","UI base compatibility and tested boundaries"
+AI10,accessibility,"How should I add motion to shadcn components while respecting reduced motion and keyboard interaction?","Reduced motion and retained component semantics"
+AI11,agents,"How can I connect a coding assistant to read-only docs for adding animations to a shadcn app?","Agent setup and actual read-only capabilities"
+AI12,comparison,"When should I choose a motion layer for existing shadcn components instead of a general React animation library?","Accurate tradeoffs and primary sources"

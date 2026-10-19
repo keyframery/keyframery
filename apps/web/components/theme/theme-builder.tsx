@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import type { Menus } from "@/lib/keyframery/engine"
+import { trackCopy } from "@/lib/track-copy"
 import {
   cssValue,
   decode,
@@ -131,6 +132,8 @@ export function ThemeBuilder() {
 
   const copy = async (what: CopyTarget) => {
     setError("")
+    setCopied("")
+    setNotice("")
     try {
       if (!navigator.clipboard?.writeText) throw new Error("Clipboard is unavailable. Select and copy the code below.")
       const text =
@@ -142,6 +145,7 @@ export function ThemeBuilder() {
               ? themeAgentPrompt(s)
               : `${location.origin}${pathname}${encode(s) ? `?${encode(s)}` : ""}`
       await navigator.clipboard.writeText(text)
+      trackCopy(what === "install" ? "install_copy" : what === "agent" ? "agent_prompt_copy" : what === "link" ? "theme_share" : "theme_copy", "theme-builder")
       if (copyTimer.current) clearTimeout(copyTimer.current)
       setCopied(what)
       setNotice(

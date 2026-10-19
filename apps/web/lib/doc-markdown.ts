@@ -32,6 +32,28 @@ const DEMO = /^<([A-Z]\w*Demo|Playground)(\s[^>]*)?\/>$/
 const WRAPPER_OPEN = /^<(Steps|Step|Tabs|Tab|CutCards|Callout)(\s[^>]*)?>$/
 const WRAPPER_CLOSE = /^<\/(Steps|Step|Tabs|Tab|CutCards|Callout)>$/
 
+/** A page's own questions, shared by the Markdown routes, llms-full.txt and MCP. */
+function faqMarkdown(faq: { q: string; a: string }[] | undefined): string {
+  if (!faq?.length) return ""
+  return `\n\n## Questions\n\n${faq.map(({ q, a }) => `### ${q}\n\n${a}`).join("\n\n")}\n`
+}
+
+/** Include the HTML header's description in every text interface, without repeating an existing opening answer. */
+export function renderDocMarkdown({ title, url, description, body, faq }: {
+  title: string
+  url: string
+  description?: string
+  body: string
+  faq?: { q: string; a: string }[]
+}): string {
+  const content = cleanDocMarkdown(body).trim()
+  const summary = description?.trim()
+  const plain = (text: string) => text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[`*_~]/g, "").replace(/\s+/g, " ").trim()
+  const opening = plain(content.split(/\n\s*\n/)[0] ?? "")
+  const hasSummary = summary && (opening === plain(summary) || opening.startsWith(`${plain(summary)} `))
+  return `# ${title} (${url})\n\n${summary && !hasSummary ? `${summary}\n\n` : ""}${content}${faqMarkdown(faq)}`
+}
+
 export function cleanDocMarkdown(md: string): string {
   const lines = md.split("\n")
   const out: string[] = []

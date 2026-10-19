@@ -1,0 +1,1 @@
+run_id,prompt_id,prompt,date_time,product,model,search_mode,locale,run_status,answer_artifact,brand_mentioned,brand_recommended,citation_present,citation_url,cited_domain,is_keyframery_source,claim,accuracy,evidence_url,checked_date,correction_task,notes

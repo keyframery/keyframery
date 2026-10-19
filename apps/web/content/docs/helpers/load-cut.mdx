@@ -6,15 +6,17 @@ description: "Animate loading states in React with LoadCut: the skeleton dissolv
 faq:
   - q: "How do I stop a skeleton from flashing when data loads fast?"
     a: "Wrap the content in `LoadCut`. It waits 300 ms before showing the skeleton, so fast data never shows one, and once shown the skeleton stays at least 400 ms."
-  - q: "Does it prevent layout shift?"
-    a: "Yes. While it waits, LoadCut reserves the space, and the height eases from the skeleton to the content instead of jumping."
+  - q: "How does LoadCut reduce loading layout changes?"
+    a: "On the first load it reserves the skeleton's space, then eases the wrapper height as content arrives. Match skeleton dimensions to the content and reserve image sizes too; LoadCut does not guarantee zero layout shift elsewhere on the page."
 ---
+
+To transition a React skeleton into loaded content, pass `loading` and `skeleton` to `LoadCut` and put your content inside. It waits 300 ms before showing the skeleton, keeps a shown skeleton visible for at least 400 ms and dissolves it into the result. Fast responses skip the skeleton.
 
 <Preview>
   <LoadCutDemo />
 </Preview>
 
-A stock skeleton blinks on for a moment even when the data is fast, then snaps to content of a different height, and the page jumps. `LoadCut` fixes both.
+A skeleton shown immediately can flash during a fast request. `LoadCut` gives you a delay, a minimum display time and a height transition in one wrapper.
 
 ## Install
 
@@ -25,6 +27,68 @@ npx shadcn add @keyframery/load-cut
 If your project doesn't know `@keyframery` yet, do the [Quick start](/docs/installation) first.
 
 ## Use
+
+### Working example: refresh an invoice list
+
+Complete the [root motion setup](/docs/installation), then use this component to compare a 150 ms response with a 1,200 ms response. It uses local timers so the example runs without an API or extra packages:
+
+```tsx title="components/invoice-loading.tsx"
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+import { LoadCut } from "@/components/keyframery/load-cut"
+
+export function InvoiceLoading() {
+  const [loading, setLoading] = useState(false)
+  const [revision, setRevision] = useState(1)
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => () => {
+    if (timer.current !== null) clearTimeout(timer.current)
+  }, [])
+
+  function refresh(delay: number) {
+    setLoading(true)
+    timer.current = setTimeout(() => {
+      setRevision((current) => current + 1)
+      setLoading(false)
+    }, delay)
+  }
+
+  const skeleton = (
+    <div aria-hidden="true" className="grid gap-2">
+      {[1, 2, 3].map((id) => <div key={id} className="h-10 rounded-md bg-muted" />)}
+    </div>
+  )
+
+  return (
+    <section aria-label="Invoices" className="grid max-w-md gap-3">
+      <LoadCut loading={loading} skeleton={skeleton}>
+        <ul className="grid gap-2">
+          {[1041, 1042, 1043].map((id) => (
+            <li key={id} className="flex h-10 items-center justify-between rounded-md border px-3 text-sm">
+              <span>Invoice {id}</span>
+              <span>Revision {revision}</span>
+            </li>
+          ))}
+        </ul>
+      </LoadCut>
+      <div className="flex gap-2">
+        <button type="button" disabled={loading} onClick={() => refresh(150)} className="rounded-md border px-3 py-2">
+          Load fast
+        </button>
+        <button type="button" disabled={loading} onClick={() => refresh(1200)} className="rounded-md border px-3 py-2">
+          Load slowly
+        </button>
+      </div>
+    </section>
+  )
+}
+```
+
+With **Load fast**, the previous content stays visible during the wait, then its revision changes. With **Load slowly**, the placeholder appears after 300 ms and dissolves into the new revision when ready. The placeholder and content both use three 40 px rows with the same gap, so this example reserves the same space in both states.
+
+### Connect real data
 
 Wrap the content, and pass your loading flag and skeleton:
 
@@ -37,9 +101,11 @@ import { Skeleton } from "@/components/ui/skeleton"
 </LoadCut>
 ```
 
+Here `isLoading`, `RevenueChart` and `data` come from your application. Install shadcn's `skeleton` component if you use that version. LoadCut controls presentation; your data library still owns fetching, cancellation, errors and stale data.
+
 ## You should see
 
-- **Fast data:** no skeleton at all. The content just appears, and nothing on the page jumps.
+- **Fast data:** no skeleton. On the first load the skeleton's hidden box reserves space; on refresh the existing content stays visible during the wait.
 - **Slow data:** the skeleton shows, then dissolves into the content while the height eases from one to the other.
 
 ## Options
@@ -60,8 +126,11 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 For empty, error, success or other whole-content switches without skeleton timing, use [StateCut](/docs/helpers/state-cut). For a changing count or short status label, use [ValueCut](/docs/helpers/value-cut).
 
-- LoadCut waits `--kf-hold` (300 ms) before it shows the skeleton. During the wait the space is reserved but empty, so nothing jumps.
+- LoadCut waits `--kf-hold` (300 ms) before it shows the skeleton. On the initial load, a hidden copy of your skeleton reserves its space during the wait.
 - Once shown, the skeleton stays at least 400 ms, so it never flashes, then dissolves over 240 ms.
 - LoadCut sets `aria-busy` while loading.
+- With reduced motion, it keeps the delay and minimum display time but skips the dissolve and height animation. `cut="none"` also skips those animations.
+- Match the skeleton to the expected content and give images explicit dimensions. A height animation can still move surrounding content; this wrapper is not a guarantee of a zero CLS score.
+- Base UI and Radix projects use the same LoadCut API. Keep one root `<Cuts />` and handle loading failures in your application; use [StateCut for error and empty states](/docs/helpers/state-cut).
 
 In film, one shot fading into the next is a **dissolve**.

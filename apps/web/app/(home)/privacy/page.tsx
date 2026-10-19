@@ -1,18 +1,20 @@
 import type { Metadata } from "next"
 
+import { AnalyticsPreferences } from "@/components/site/analytics-preferences"
 import { Policy, PolicySection } from "@/components/site/policy"
+import { configuredClarityId } from "@/lib/clarity"
 import { PRO_ENABLED } from "@/lib/pro"
 import { pageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
   title: "Privacy",
-  description: "What keyframery.com and its MCP server collect, and what they don't: no cookies, no tracking across sites, and no selling of data.",
+  description: "How keyframery.com handles aggregate usage, optional Microsoft Clarity session analytics, and your privacy choices.",
   path: "/privacy",
 })
 
 export default function Page() {
   return (
-    <Policy title="Privacy">
+    <Policy title="Privacy" effective="19 October 2026">
       <PolicySection title="What we collect">
         <ul>
           {PRO_ENABLED && (
@@ -31,10 +33,30 @@ export default function Page() {
             crawler). We keep only those counts, not your IP address or anything else that identifies you.
           </li>
           <li>
+            <b>Copy actions.</b> When you successfully copy an install command, coding-agent prompt, theme code or theme share link, we add one to a
+            daily count of that action, the page path and the component used. We do not send or store the clipboard contents, theme settings,
+            query strings, referrers or visitor identifiers. These counts use no cookies and are not linked to your browsing or downloads.
+          </li>
+          <li>
+            <b>Optional session analytics.</b> If you explicitly allow it below, Microsoft Clarity can collect page URLs, device information and
+            masked interactions such as clicks and scrolling to create heatmaps and session replays. It can use this site&apos;s <code>_clck</code> and{" "}
+            <code>_clsk</code> cookies to connect visits. We mask page text and inputs, send no custom user or session identifiers, and keep advertising
+            storage denied. Microsoft processes this information under its{" "}
+            <a href="https://privacy.microsoft.com/privacystatement" className="underline underline-offset-4">Privacy Statement</a>.
+          </li>
+          <li>
             <b>Request logs.</b> Vercel, which hosts the site, keeps standard request logs, such as IP address and browser, for a short time to run and
             protect the service.
           </li>
         </ul>
+      </PolicySection>
+      <PolicySection title="Analytics preferences">
+        <p>
+          Clarity is off by default and makes no requests before you opt in. It does not run on the admin dashboard or preview/local sites.
+          Turning it off stops recording and clears this site&apos;s Clarity cookies. We cannot delete Microsoft-domain cookies from this site;
+          your browser&apos;s privacy settings control those. This choice does not change cookieless Cloudflare analytics or aggregate copy/download counts.
+        </p>
+        <AnalyticsPreferences configured={Boolean(configuredClarityId())} />
       </PolicySection>
       <PolicySection title="The MCP server">
         <p>
@@ -44,7 +66,7 @@ export default function Page() {
         </p>
       </PolicySection>
       <PolicySection title="What we don't do">
-        <p>We don&apos;t sell or share your data, and we don&apos;t use advertising or tracking cookies.</p>
+        <p>We don&apos;t sell your personal data or send custom user identifiers to Clarity. Optional Clarity analytics uses cookies only after your opt-in; advertising storage remains denied.</p>
       </PolicySection>
       {PRO_ENABLED && (
         <PolicySection title="Your choices">

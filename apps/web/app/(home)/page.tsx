@@ -10,7 +10,7 @@ import { WallSection } from "@/components/home/wall-section"
 import { JsonLd, pageMetadata, projectData } from "@/lib/seo"
 
 const description =
-  "Add one line and every shadcn/ui component animates: dialogs grow from their button, tabs slide, ticks draw, lists move. Pick a motion theme. Open source."
+  "Keyframery is an open-source shadcn/ui animation library. Add one line for dialogs, tabs and toasts, plus helpers for lists, values and loading states."
 
 export const metadata = pageMetadata({ absolute: "Keyframery: the shadcn/ui animation library, in one line", description, path: "/", markdown: "/index.md" })
 

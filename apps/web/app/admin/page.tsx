@@ -60,7 +60,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ d
       </header>
 
       <section aria-label="Summary" className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-        <Stat label="Installs (CLI)" value={use.ok ? sum(use.data.installsByDay) : null} note={use.ok ? `${use.data.allTime.install} all-time downloads` : undefined} />
+        <Stat label="Cuts downloads (CLI-like)" value={use.ok ? sum(use.data.cutsByDay) : null} note={use.ok ? `${use.data.allTime.install} all-time registry GETs` : undefined} />
         <Stat label="MCP calls" value={use.ok ? use.data.totals.mcp : null} />
         <Stat label="Agent reads" value={use.ok ? use.data.totals.agent : null} />
         <Stat label="Site visits" value={site.ok ? site.data.visits : null} note={site.ok ? `${site.data.views} page views` : undefined} />
@@ -68,7 +68,28 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ d
         <Stat label="skills.sh installs" value={dist.ok ? sum(dist.data.skills.ours) : null} />
       </section>
 
-      <Section title="Installs" description="Downloads of keyframery.com/r/*.json. The shadcn CLI downloads with Node, so “CLI” is the closest thing to an install. One `shadcn add` can fetch several files, and registry.json is the index, not an install.">
+      <Section title="Copy actions" description="Successful clipboard writes, by action, page and component. These aggregate intent counts are not unique developers, completed installations or organic conversions. No visitor/session attribution is collected; failed clipboard writes do not count.">
+        <Sourced source={use}>
+          {(u) => (
+            <Table>
+              <TableHeader><TableRow><TableHead>Action</TableHead><TableHead>Page</TableHead><TableHead>Component</TableHead><TableHead className="text-right">Copies</TableHead></TableRow></TableHeader>
+              <TableBody>
+                {u.copyEvents.length === 0 && <Empty colSpan={4} />}
+                {u.copyEvents.map((r) => (
+                  <TableRow key={`${r.event}:${r.page}:${r.component}`}>
+                    <TableCell className="font-mono text-xs">{r.event}</TableCell>
+                    <TableCell className="font-mono text-xs">{r.page}</TableCell>
+                    <TableCell className="font-mono text-xs">{r.component}</TableCell>
+                    <TableCell className="text-right tabular-nums">{r.count}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </Sourced>
+      </Section>
+
+      <Section title="Registry downloads" description="GET requests for keyframery.com/r/*.json, recorded before response completion. CLI-like means an approximate Node/Bun/Deno user-agent classification; it is a download proxy, not a confirmed installation or unique developer. Cuts is counted separately from helpers/dependencies; one shadcn add can request several files. registry.json is only the index.">
         <Sourced source={use}>
           {(u) => (
             <div className="grid gap-6 lg:grid-cols-2">
@@ -76,24 +97,30 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ d
                 <TableHeader>
                   <TableRow>
                     <TableHead>Item</TableHead>
-                    <TableHead className="text-right">CLI</TableHead>
+                    <TableHead className="text-right">CLI-like</TableHead>
                     <TableHead className="text-right">Browser</TableHead>
+                    <TableHead className="text-right">Crawler/AI</TableHead>
                     <TableHead className="text-right">Other</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {u.installsByItem.length === 0 && <Empty colSpan={4} />}
-                  {u.installsByItem.map((r) => (
+                  {u.registryByItem.length === 0 && <Empty colSpan={5} />}
+                  {u.registryByItem.map((r) => (
                     <TableRow key={r.item}>
                       <TableCell className="font-mono text-xs">{r.item}</TableCell>
                       <TableCell className="text-right tabular-nums">{r.cli}</TableCell>
                       <TableCell className="text-right tabular-nums">{r.browser}</TableCell>
+                      <TableCell className="text-right tabular-nums">{r.crawler}</TableCell>
                       <TableCell className="text-right tabular-nums">{r.other}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
-              <Rows rows={u.installsByDay} head={["Day", "CLI downloads"]} />
+              <div className="grid gap-6">
+                <Rows rows={u.cutsByDay} head={["Day", "Cuts CLI-like GETs"]} />
+                <Rows rows={u.otherRegistryByDay} head={["Day", "Other files CLI-like GETs"]} />
+                <Rows rows={u.registryClients} head={["Client classification", "Registry GETs"]} />
+              </div>
             </div>
           )}
         </Sourced>

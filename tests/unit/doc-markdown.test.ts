@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { cleanDocMarkdown, typeTableToMarkdown } from "../../apps/web/lib/doc-markdown"
+import { cleanDocMarkdown, renderDocMarkdown, typeTableToMarkdown } from "../../apps/web/lib/doc-markdown"
 
 const SAMPLE = [
   "# ListCut (/docs/helpers/list-cut)",
@@ -122,5 +122,39 @@ describe("typeTableToMarkdown", () => {
     expect(table).toContain("| `id` | `string \\| number` | required | The item's stable id. |")
     expect(table).toContain('| `as` | `React.ElementType` | `"div"` | The item element. |')
     expect(table).toContain('| `data-cut="none"` | `"none"` |  | Stock timing (aria-live="polite"). |')
+  })
+})
+
+describe("renderDocMarkdown", () => {
+  const description = "Use the existing components with one root motion layer."
+
+  it("includes the visible description before setup code and keeps the FAQ", () => {
+    const md = renderDocMarkdown({
+      title: "Setup",
+      url: "/docs/installation",
+      description,
+      body: '<Tabs>\n  <Tab value="Vite">\n    ```tsx\n    <Cuts />\n    ```\n  </Tab>\n</Tabs>',
+      faq: [{ q: "Can I keep my components?", a: "Yes. Render `<Cuts />` once." }],
+    })
+    expect(md.startsWith(`# Setup (/docs/installation)\n\n${description}\n\n`)).toBe(true)
+    expect(md).toContain("**Vite**\n\n```tsx\n<Cuts />\n```")
+    expect(md).toContain("## Questions\n\n### Can I keep my components?\n\nYes. Render `<Cuts />` once.")
+    expect(md.split(description)).toHaveLength(2)
+  })
+
+  it("does not repeat a description already present in the opening paragraph", () => {
+    const md = renderDocMarkdown({ title: "Setup", url: "/docs/installation", description, body: `\n${description}\n\n## Install\n\nRead the setup.` })
+    expect(md.split(description)).toHaveLength(2)
+    expect(md).toContain("## Install\n\nRead the setup.")
+  })
+
+  it("recognizes matching Markdown formatting and whitespace without deleting code", () => {
+    const md = renderDocMarkdown({ title: "Setup", url: "/docs/installation", description: "Use Cuts for motion.", body: "Use `Cuts`\nfor **motion**.\n\n```tsx\nconst description = 'Use Cuts for motion.'\n```" })
+    expect(md.startsWith("# Setup (/docs/installation)\n\nUse `Cuts`\nfor **motion**.")).toBe(true)
+    expect(md).toContain("```tsx\nconst description = 'Use Cuts for motion.'\n```")
+  })
+
+  it("allows pages without a description or FAQ", () => {
+    expect(renderDocMarkdown({ title: "Reference", url: "/docs/reference", body: "## API\n\n`pace`" })).toBe("# Reference (/docs/reference)\n\n## API\n\n`pace`")
   })
 })

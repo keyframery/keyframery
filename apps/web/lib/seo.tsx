@@ -58,17 +58,20 @@ const graph = (...nodes: object[]) => ({ "@context": "https://schema.org", "@gra
 export const siteData = () =>
   graph(
     { "@type": "Organization", "@id": ORG_ID, name: SITE_NAME, url: SITE, logo: `${SITE}/apple-icon.png`, sameAs: [REPO], founder: MAKER },
-    { "@type": "WebSite", "@id": WEBSITE_ID, name: SITE_NAME, url: SITE, description: TAGLINE, inLanguage: "en", publisher: { "@id": ORG_ID } },
+    { "@type": "WebSite", "@id": WEBSITE_ID, name: SITE_NAME, alternateName: "keyframery", url: SITE, description: TAGLINE, inLanguage: "en", publisher: { "@id": ORG_ID } },
   )
 
 /** On the home page: the project itself. */
 export const projectData = (description: string) =>
   graph({
     "@type": "SoftwareSourceCode",
+    "@id": `${SITE}/#software`,
     name: SITE_NAME,
     description,
     url: SITE,
     codeRepository: REPO,
+    mainEntityOfPage: SITE,
+    isPartOf: { "@id": WEBSITE_ID },
     programmingLanguage: ["TypeScript", "React"],
     runtimePlatform: "Browser",
     license: "https://opensource.org/licenses/MIT",

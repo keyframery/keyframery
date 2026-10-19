@@ -1,0 +1,21 @@
+metric_id,metric,source,segment,cadence,range_start,range_end,source_timezone,value,unit,status,evidence_path,notes
+G01,Nonbrand clicks,Google Search Console,Exclude case-insensitive keyframery; save actual variant rule,weekly,,,,,clicks,unmeasured,,Query-table limitations preserved
+G02,Nonbrand impressions,Google Search Console,Same rule and filters as G01,weekly,,,,,impressions,unmeasured,,Do not infer search volume
+G03,Priority-page visibility,Google Search Console,One row per exact priority URL,weekly,,,,,inspection verdict,unmeasured,,Record selected canonical separately
+G04,Install command copies,usage_counts,install_copy by stored item,weekly,,,,,successful actions,unmeasured,,Directional intent; no visitor or organic join
+G05,Agent prompt copies,usage_counts,agent_prompt_copy by stored item,weekly,,,,,successful actions,unmeasured,,No clipboard contents collected
+G06,Theme copies and shares,usage_counts,Separate theme_copy and theme_share rows,weekly,,,,,successful actions,unmeasured,,Keep event kinds separate
+G07,Main registry demand,usage_counts,kind=install item=cuts client=cli,weekly,,,,,CLI-like GETs,unmeasured,,Download proxy; not confirmed installs
+G08,Helper registry demand,usage_counts,kind=install client=cli by helper item,weekly,,,,,CLI-like GETs,unmeasured,,Separate helpers from cuts and dependencies
+G09,Google AI impressions,Google Search Console,Generative AI performance report,monthly,,,,,impressions,unmeasured,,Overlaps Search results; not clicks
+G10,Accurate cited runs,Fixed AI prompt log,Per product/model/search mode,monthly,,,,,runs and denominator,unmeasured,,Deduplicate run IDs; not crawler requests
+G11,AI referral visits,Existing browser analytics,Actual observed referrer by source,monthly,,,,,visits,unmeasured,,Not all AI referrals retain referrers
+G12,Earned referring pages,Placement record,Published relevant external URLs,monthly,,,,,pages,unmeasured,,Opportunities and submissions excluded
+G13,Repository referral demand,GitHub traffic,Views and clones separately,weekly,,,,,source-defined counts,unmeasured,,Preserve actual available date range
+G14,Core Web Vitals,Field report,URL/origin and mobile/desktop separately,monthly,,,,,p75 metric,unmeasured,,Save LCP INP CLS separately; lab is diagnostic
+G15,Exact brand clicks,Google Search Console,Trimmed query equals keyframery case-insensitively,weekly,,,,,clicks,unmeasured,,Homepage owns brand intent; separate from nonbrand acquisition
+G16,Exact brand impressions,Google Search Console,Same exact-brand filter as G15,weekly,,,,,impressions,unmeasured,,Record actual position and device context; no first-place claim
+G17,Other branded clicks,Google Search Console,Contains keyframery case-insensitively but is not exact brand,weekly,,,,,clicks,unmeasured,,Keep actual docs/github/domain navigation queries separate when present
+G18,Other branded impressions,Google Search Console,Same other-brand filter as G17,weekly,,,,,impressions,unmeasured,,Do not infer unobserved variants or add overlapping segments
+G19,Branded lookup accuracy,Branded AI accuracy log,BR01-BR03 per product/model/search mode,monthly,,,,,accurate checks and denominator,unmeasured,,Official site/repository/description; separate from unbranded prompts
+G20,Exact brand average position,Google Search Console,Same exact-brand filter as G15 by device and country,weekly,,,,,source-defined average position,unmeasured,,Not a universal live rank; retain comparable filters

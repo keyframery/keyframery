@@ -9,6 +9,10 @@ const code = "font-mono text-[13px] text-foreground"
 /** `text` is the plain answer for the FAQ structured data; a string answer is its own text. */
 const QUESTIONS: ({ q: string; a: string } | { q: string; a: React.ReactNode; text: string })[] = [
   {
+    q: "What is Keyframery?",
+    a: "Keyframery is an open-source motion layer for shadcn/ui. Add one <Cuts /> component at the root of your React app to animate supported dialogs, sheets, tabs and toasts. Five helpers handle lists, values, loading, cards and content states. The source is copied into your project and is MIT licensed.",
+  },
+  {
     q: "Which shadcn components does it cover?",
     a: "All 63. Dialogs, sheets, drawers, tabs and toasts get cuts; menus, popovers and accordions follow your timing; buttons, checkboxes, switches, sliders, the sidebar and the calendar respond to presses, ticks and drags; lists, numbers, loading and empty states use five small helpers; labels and separators stay still on purpose. Each has its own docs page.",
   },

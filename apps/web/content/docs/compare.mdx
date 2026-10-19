@@ -7,24 +7,26 @@ faq:
   - q: "Does Keyframery use Framer Motion?"
     a: "No. Keyframery adds no animation package dependencies: it uses CSS and the Web Animations API."
   - q: "Is Keyframery an alternative to Magic UI or Animate UI?"
-    a: "Not exactly. Magic UI and Animate UI give you new animated components to add. Keyframery animates the shadcn/ui components you already have. Many apps use both."
+    a: "They offer different installation models. Keyframery adds one root motion layer without editing your shadcn/ui components. Animate UI v2 swaps primitive imports inside existing components and uses Motion. Magic UI provides components and effects to add. Choose by the interaction and code changes you want."
   - q: "Can I use Keyframery with Motion?"
     a: "Yes. Keyframery leaves your own Motion animations alone. If one shadcn part already has its own Motion animation, add `data-cut=\"none\"` to it, so only one of them animates it."
 ---
 
-They solve different problems, so the right choice depends on what you want to change. tw-animate-css gives shadcn/ui its default fades. Motion is a library for writing your own animations. Animate UI and Magic UI give you new components that are already animated. Keyframery animates the shadcn/ui components you already have, with one line, and works alongside any of the others.
+Choose by the interaction you need and the code you want to own. Keyframery adds a root motion layer to supported shadcn/ui components. Motion gives you an API for custom animation. Animate UI v2 installs animated primitives behind your existing components. Magic UI provides components and visual effects to add, while tw-animate-css supplies CSS animation utilities.
 
 ## At a glance
 
 | | Keyframery | Motion | Animate UI | Magic UI | tw-animate-css |
 |---|---|---|---|---|---|
-| What it is | Motion for the shadcn/ui components you already have | An animation library for React and JavaScript | Animated components and primitives you install | Animated components and effects you add | Tailwind CSS animation classes |
-| How you use it | Choose a theme, render `<Cuts />` once, and use five focused helpers for changes in your own markup | Write the animation yourself, with `motion` components and props | Install each component or primitive with the shadcn CLI | Install or copy each component | Classes such as `animate-in` and `fade-in-0` |
-| Your existing components | Unchanged | You add the animation to them | Replaced by its own versions | Unchanged; you add new ones | Already use it |
-| Dependencies | None | The `motion` package | Motion | Motion | None (CSS only) |
-| License | MIT | MIT | MIT + Commons Clause | MIT | MIT |
+| What it is | A motion layer for supported shadcn/ui parts | An API for custom React and JavaScript animation | Animated primitives for Radix UI, Base UI and React Aria | Components and visual effects to add | Tailwind CSS animation utilities |
+| How you use it | Install copied source, render `<Cuts />` once, and use focused helpers for your own markup | Write animations with `motion` components and props | Install `@animate-ui/react` and `motion`; the CLI can update primitive imports across installed components | Install or copy individual components | Apply classes such as `animate-in` and `fade-in-0` |
+| Your existing components | Keep their imports, structure and styles | Change the elements you want to animate | Keep their wrapper API and styles; primitive imports and animation classes change | Keep them and add selected effects | Use animation classes in your markup |
+| Added animation dependencies | None | `motion` | `@animate-ui/react` and `motion` | Varies by component; many use Motion | None at runtime (CSS only) |
+| Source license | [MIT](https://github.com/keyframery/keyframery/blob/main/LICENSE) | [MIT](https://github.com/motiondivision/motion/blob/main/packages/motion/LICENSE.md) | [MIT + Commons Clause](https://github.com/imskyleen/animate-ui/blob/main/LICENSE.md) | [MIT](https://github.com/magicuidesign/magicui/blob/main/LICENSE.md) | [MIT](https://github.com/Wombosvideo/tw-animate-css/blob/main/LICENSE) |
 
-Each project's description, license and dependencies are as stated in its own repository on 8 October 2026.
+Checked against each project's official documentation and source on **19 October 2026**. The table describes the open-source projects; separately sold templates and products may have different terms. Dependencies depend on the component and version you install.
+
+Sources: [Motion React docs](https://motion.dev/docs/react), [Animate UI introduction](https://animate-ui.com/docs) and [installation](https://animate-ui.com/docs/installation), [Magic UI installation](https://magicui.design/docs/installation), and [tw-animate-css usage](https://github.com/Wombosvideo/tw-animate-css).
 
 ## When to use Keyframery
 
@@ -36,7 +38,13 @@ When you need animation that you design yourself: gestures and dragging, scroll-
 
 ## When to use Animate UI or Magic UI
 
-When you want animated components, primitives or visual effects to build with. Animate UI includes interactive UI components and unstyled primitives; Magic UI includes visual effects often used on marketing pages. Keyframery's focus is applying reusable motion to existing supported shadcn parts. Check each project's current license for your use.
+Animate UI v2 fits projects that want motion inside their primitive layer. Its CLI changes the imports in existing shadcn/ui files and removes animation classes that Motion replaces. It also provides agent workflows. Review its dry run to see the changes before applying them.
+
+Magic UI fits a page that needs a selected effect or component, such as an animated list or visual accent. Review each example's dependencies and behavior. Keyframery focuses on a shared motion theme for supported app interactions and five helpers for changes in your own markup.
+
+## Compare the same interaction
+
+Try the [dialog example](/docs/components/dialog), [list additions, removals and reorders](/docs/helpers/list-cut), or [skeleton-to-content example](/docs/helpers/load-cut). The examples show the full setup, live behavior and limits, so you can evaluate the interaction you actually need. For a performance comparison, use the same UI, build mode and device; this page does not claim that one library is universally faster or smaller.
 
 ## About tw-animate-css
 
@@ -46,6 +54,6 @@ It's probably already in your project: shadcn/ui uses its classes for the defaul
 
 Yes. Keyframery animates its supported shadcn/ui parts, which it finds by their `data-slot` names, and elements you wrap in its five helpers.
 
-- Components from Animate UI or Magic UI keep their own animation.
-- Motion code you write is left alone.
-- If a shadcn part already has a Motion animation of its own, add `data-cut="none"` to it, so they don't both animate it. See [Customize](/docs/customize#one-element-or-one-area).
+- Use each animation system on separate elements. A component from another library may retain shadcn's `data-slot` names, so Keyframery can still recognize it.
+- For a supported shadcn part with its own animation, add `data-cut="none"` to opt it out of Keyframery. Check opening, closing and reduced-motion behavior after combining systems. See [Customize](/docs/customize#one-element-or-one-area).
+- Start with the [installation guide](/docs/installation) and [compatibility table](/docs/compatibility) to check what the root layer covers.

@@ -16,7 +16,8 @@ export default function Page() {
     <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-16">
       <h1 className="text-[44px] leading-[1.05] font-semibold tracking-[-0.03em]">Motion theme builder</h1>
       <p className="mt-4 max-w-[60ch] text-lg text-muted-foreground">Start with a profile, try a real workflow, then make it yours. Everything on this page, including the dialogs, uses your settings. Save the theme or copy its code into your app.</p>
-      <div className="mt-10">
+      {/* The search-param builder hydrates inside Suspense; reserve its space so the footer cannot jump out of view. */}
+      <div className="mt-10 min-h-screen">
         <Suspense>
           <ThemeBuilder />
         </Suspense>

@@ -1,50 +1,110 @@
 ---
 title: Detail pages on their own route
 seoTitle: "Next.js App Router shared element transitions"
-description: "Animate a card on one route into its detail page on another in the Next.js App Router with MatchCut. Going back shrinks the detail into the card again."
+description: "Build a card-to-detail shared element transition in the Next.js App Router with MatchCut, stable ids, client navigation and slow-route fallbacks."
+faq:
+  - q: "Does MatchCut work across Next.js App Router pages?"
+    a: "Yes, during client navigation when the incoming MatchCut mounts within one second of the outgoing one leaving, or while a matching peer remains mounted. Give both the same stable id. A full document navigation starts fresh."
+  - q: "What happens if the detail route is slow?"
+    a: "If the source has unmounted and no matching target appears within one second, MatchCut skips the transition. Keep the route useful without animation, or show a target with the same id in a route-aware loading boundary."
 ---
 
-[MatchCut](/docs/helpers/match-cut) works across a client-side route change, because it only needs the same `id` to leave and arrive within a second.
+Use [MatchCut](/docs/helpers/match-cut) for a shared element transition from a card to its detail page in the Next.js App Router. Wrap both surfaces with the same stable `id` and navigate with Next.js `Link`. The incoming surface grows from the outgoing card's box; returning to the list can play the reverse match.
+
+This is a component-level transition. Your routes, data loading and navigation still belong to Next.js.
+
+## Prerequisites
+
+Install the helper and keep one `<Cuts />` in the shared app root:
+
+```bash
+npx shadcn add @keyframery/match-cut
+```
+
+Follow the [root motion setup](/docs/installation) first. The example below uses the App Router and the existing `@/` alias. Base UI and Radix apps use the same MatchCut API.
+
+## Working example: order card to order detail
+
+Use this local data so the route example runs without an API:
+
+```ts title="lib/example-orders.ts"
+export const orders = [
+  { id: "1044", customer: "Northwind Studio", summary: "3 items · Shipped" },
+  { id: "1045", customer: "Acme Workshop", summary: "2 items · Processing" },
+]
+```
+
+Render a matching wrapper around each link:
 
 ```tsx title="app/orders/page.tsx"
 import Link from "next/link"
 
 import { MatchCut } from "@/components/keyframery/match-cut"
+import { orders } from "@/lib/example-orders"
 
-export default async function Orders() {
-  const orders = await getOrders()
+export default function Orders() {
   return (
-    <ul className="grid gap-2">
-      {orders.map((o) => (
-        <li key={o.id}>
-          <MatchCut id={`order-${o.id}`}>
-            <Link href={`/orders/${o.id}`} className="block rounded-xl border p-3">{o.customer}</Link>
-          </MatchCut>
-        </li>
-      ))}
-    </ul>
+    <main className="mx-auto max-w-2xl p-6">
+      <h1 className="mb-4 text-2xl font-semibold">Orders</h1>
+      <ul className="grid gap-3">
+        {orders.map((order) => (
+          <li key={order.id}>
+            <MatchCut id={`order-${order.id}`} className="rounded-xl border bg-background">
+              <Link href={`/orders/${order.id}`} className="block p-4">
+                <h2 className="font-medium">{order.customer}</h2>
+                <p className="text-sm">Order {order.id}</p>
+              </Link>
+            </MatchCut>
+          </li>
+        ))}
+      </ul>
+    </main>
   )
 }
 ```
 
+Use the same wrapper id on the detail route:
+
 ```tsx title="app/orders/[id]/page.tsx"
+import Link from "next/link"
+import { notFound } from "next/navigation"
 import { MatchCut } from "@/components/keyframery/match-cut"
+import { orders } from "@/lib/example-orders"
 
 export default async function Order({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const order = await getOrder(id)
+  const order = orders.find((item) => item.id === id)
+  if (!order) notFound()
+
   return (
-    <MatchCut id={`order-${order.id}`} className="rounded-2xl border p-6">
-      <OrderDetail order={order} />
-    </MatchCut>
+    <main className="mx-auto max-w-2xl p-6">
+      <Link href="/orders" className="mb-4 inline-block underline">Back to orders</Link>
+      <MatchCut id={`order-${order.id}`} className="rounded-2xl border bg-background p-6">
+        <h1 className="text-2xl font-semibold">{order.customer}</h1>
+        <p className="mt-2">Order {order.id}</p>
+        <p className="mt-4">{order.summary}</p>
+      </MatchCut>
+    </main>
   )
 }
 ```
 
-`MatchCut` is a client component, and the pages around it can stay server components.
+Visit `/orders`, open **Northwind Studio**, then use **Back to orders** or browser Back. Test a direct visit to `/orders/1044` too: the page must remain useful when there is no source card to animate from.
 
-## Things to know
+`MatchCut` is a client component; these pages and their data can remain server components.
 
-- **Navigate on the client.** A `<Link>` or `router.push` keeps the page alive, so the match can play. A full page load starts fresh and plays nothing.
-- **Back works too.** Going back mounts the card again with the same `id`, so the detail shrinks into it.
-- **Slow routes.** If the detail page takes longer than a second to render, there's nothing left to match, and it simply appears. Add a `loading.tsx` that renders the same `MatchCut` with a skeleton inside, so the match plays at once and the content dissolves in.
+## Navigation and timing limits
+
+- **Use client navigation.** `Link` or `router.push` preserves the browser document and the helper's in-memory match. A reload, external link or full document navigation starts fresh.
+- **Keep the root shared.** Put `<Cuts />` in a layout that survives both routes. Navigation between separate root layouts causes a full page load.
+- **Keep ids stable and specific.** Use `order-1044` for that order in both places. Unrelated visible instances sharing an id can become unintended match partners.
+- **The match has a one-second window.** After the source unmounts, the destination must mount within one second. If that expires, the page simply appears. A matching surface that is still mounted can also provide the source.
+- **Back needs a matching card.** If filters, pagination or changed data remove the original card, there is no return target. The page still navigates normally.
+- **Reduced motion uses a short fade.** Position, scale and corner-radius motion are skipped. `cut="none"` disables matching for a surface; see [motion accessibility](/docs/accessibility).
+- **This example covers ordinary list/detail routes.** Parallel routes, intercepted routes, nested transitions and persistent surfaces need testing in your own layout. MatchCut is not a router and does not coordinate every possible route pattern.
+
+## Slow routes and loading boundaries
+
+Next.js can show a [`loading.tsx` fallback](https://nextjs.org/docs/app/api-reference/file-conventions/loading) while a route streams. If you can render a target `MatchCut` with the correct id there, it can receive the match before the real data arrives. A loading component does not receive route params as props; a client loading component can read the current dynamic segment with [`useParams`](https://nextjs.org/docs/app/api-reference/functions/use-params).
+
+Do not give every loading screen a generic shared id. Keep the fallback's box close to the final surface and test slow navigation and Back. For client-side loading within a mounted detail component, [LoadCut](/docs/helpers/load-cut) manages the skeleton-to-content handoff. It does not extend MatchCut's one-second window.

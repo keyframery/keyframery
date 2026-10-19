@@ -1,11 +1,24 @@
-import type { Locator, Page } from "@playwright/test"
+import type { BrowserContext, Locator, Page } from "@playwright/test"
 
-import { agentPrompt } from "../../apps/web/lib/kinds"
+import { agentPrompt, INSTALL } from "../../apps/web/lib/kinds"
 
 import { expect, noHorizontalScroll, takeCuts, test } from "./kit"
 
 const stock = (page: Page) => page.getByRole("region", { name: "shadcn/ui as it ships" })
 const kf = (page: Page) => page.getByRole("region", { name: "shadcn/ui with Keyframery" })
+
+async function enableClipboard(page: Page, context: BrowserContext, browserName: string) {
+  // Exercise the real clipboard on Chromium, including its mobile project. Other engines do not expose
+  // clipboard permissions to Playwright, so give their success-path tests a controlled clipboard.
+  if (browserName === "chromium") await context.grantPermissions(["clipboard-read", "clipboard-write"])
+  else await page.addInitScript(() => {
+    let text = ""
+    Object.defineProperty(navigator, "clipboard", {
+      value: { writeText: async (value: string) => { text = value }, readText: async () => text },
+      configurable: true,
+    })
+  })
+}
 
 /** The page can hydrate after <Cuts /> mounts: wait until the hero's own listeners are attached. */
 async function ready(page: Page) {
@@ -24,7 +37,8 @@ async function center(l: Locator) {
   return { x: b.x + b.width / 2, y: b.y + b.height / 2 }
 }
 
-test("the first line says what Keyframery is, and the install command is right there", async ({ page }, info) => {
+test("the first line says what Keyframery is, and the install command is right there", async ({ page, context, browserName }, info) => {
+  await enableClipboard(page, context, browserName)
   await page.goto("/")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Add one line. Your shadcn/ui app animates.")
   // One command works in a fresh project: the shadcn CLI finds @keyframery in shadcn's registry index.
@@ -42,6 +56,7 @@ test("the first line says what Keyframery is, and the install command is right t
   })
   await copy.click()
   await expect.poll(() => page.evaluate(() => (window as unknown as { __labels: string[] }).__labels)).toContain("Copied")
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(INSTALL)
 })
 
 test("the hero shows the same app twice: stock shadcn, and shadcn with Keyframery", async ({ page }) => {
@@ -185,21 +200,20 @@ test("the invite dialog keeps the email it showed while it closes", async ({ pag
   expect(await input.inputValue()).toBe("maya@acme.com")
 })
 
-test("a button in the hero copies setup instructions for your coding agent", async ({ page, context }, info) => {
+test("a button in the hero copies setup instructions for your coding agent", async ({ page, context, browserName }, info) => {
   // On phones the hero keeps the demo in view instead (it starts when a quarter of it shows); the install section has the button.
   test.skip(info.project.name === "phone", "desktop layout")
+  await enableClipboard(page, context, browserName)
   await page.goto("/")
   const hero = page.locator('section[aria-labelledby="hero-title"]')
   const button = hero.getByRole("button", { name: "Copy for your coding agent" })
   await expect(button).toBeVisible()
   expect(await noHorizontalScroll(page)).toBe(true)
-  // Reading the clipboard back needs a permission only Chromium grants to tests.
-  if (info.project.name === "chromium") await context.grantPermissions(["clipboard-read", "clipboard-write"])
   await button.click()
   await expect(page.getByRole("status").filter({ hasText: "Copied" }).first()).toBeAttached()
   // While it says Copied, that is also its name: a button never goes nameless.
   await expect(hero.getByRole("button", { name: "Copied. Now paste it.", exact: true })).toBeVisible()
-  if (info.project.name === "chromium") expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(agentPrompt())
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(agentPrompt())
 })
 
 test("the agents section offers the same button next to the Claude Code plugin and the MCP server", async ({ page }) => {

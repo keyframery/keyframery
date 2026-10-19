@@ -1,13 +1,16 @@
 /**
- * Counts what page analytics can't see, because no script runs: registry downloads (installs), MCP calls and agent
- * reads of the Markdown docs. Each hit adds one to a row for (day, kind, item, client). Nothing that identifies a
+ * Counts registry GETs, MCP calls, Markdown reads and successful browser copy actions.
+ * Each hit adds one to a row for (day, kind, item, client). Nothing that identifies a
  * person is kept: no IP address and no user agent string, only the kind of client it names (e.g. "cli", "ClaudeBot").
  *
  * Rows live in Neon when DATABASE_URL is set; without it, nothing is recorded. The table comes from db/usage.sql,
  * which is run by hand: the app never creates or changes tables itself.
  */
 
-export type UsageKind = "install" | "mcp" | "agent"
+import type { CopyEventName } from "./copy-events"
+
+// "install" is the historical database key for registry GET requests, not confirmed installations.
+export type UsageKind = "install" | "mcp" | "agent" | CopyEventName
 export type UsageHit = { kind: UsageKind; item: string; client: string }
 
 /** Named clients, checked in order: crawlers and AI agents first, then the coding tools that call the MCP server. */
@@ -33,6 +36,9 @@ const NAMED: [RegExp, string][] = [
   [/Windsurf|Codeium/i, "Windsurf"],
   [/VSCode|vscode/, "VS Code"],
 ]
+
+const CRAWLERS = new Set(["GPTBot", "ChatGPT-User", "OAI-SearchBot", "ClaudeBot", "Claude-User", "Claude-SearchBot", "PerplexityBot", "Perplexity-User", "Google", "Bing", "Applebot", "CCBot", "Bytespider", "Amazonbot", "Meta", "DuckDuckGo", "other-bot"])
+export const isCrawlerClient = (client: string): boolean => CRAWLERS.has(client)
 
 /** The kind of client behind a user agent. The shadcn CLI downloads with Node's fetch, whose user agent is "node". */
 export function classifyClient(userAgent: string | null): string {

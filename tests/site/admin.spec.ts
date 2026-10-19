@@ -7,17 +7,18 @@ test("admin asks for the password, keeps the numbers behind it, and signs out", 
   const response = await page.goto("/admin")
   expect(response?.headers()["x-robots-tag"]).toBe("noindex, nofollow")
   await expect(page.getByRole("heading", { name: "Keyframery admin" })).toBeVisible()
-  await expect(page.getByText("Installs (CLI)")).toHaveCount(0)
+  await expect(page.getByText("Cuts downloads (CLI-like)")).toHaveCount(0)
 
   await page.getByLabel("Password").fill("not-the-password")
   await page.getByRole("button", { name: "Open admin" }).click()
   // Next.js keeps its own empty role="alert" route announcer on the page, so look for ours by its text.
   await expect(page.getByRole("alert").filter({ hasText: "That password isn't right." })).toBeVisible()
-  await expect(page.getByText("Installs (CLI)")).toHaveCount(0)
+  await expect(page.getByText("Cuts downloads (CLI-like)")).toHaveCount(0)
 
   await page.getByLabel("Password").fill(PASSWORD)
   await page.getByRole("button", { name: "Open admin" }).click()
-  await expect(page.getByText("Installs (CLI)")).toBeVisible({ timeout: 20_000 })
+  await expect(page.getByText("Cuts downloads (CLI-like)")).toBeVisible({ timeout: 20_000 })
+  await expect(page.getByRole("heading", { name: "Copy actions", exact: true })).toBeVisible()
   await expect(page.getByRole("heading", { name: "Setup" })).toBeVisible()
   // A source without its settings says so on its own card instead of breaking the page.
   await expect(page.getByText("Not available: DATABASE_URL isn't set.").first()).toBeVisible()
@@ -28,7 +29,7 @@ test("admin asks for the password, keeps the numbers behind it, and signs out", 
 
   await page.getByRole("button", { name: "Sign out" }).click()
   await expect(page.getByLabel("Password")).toBeVisible()
-  await expect(page.getByText("Installs (CLI)")).toHaveCount(0)
+  await expect(page.getByText("Cuts downloads (CLI-like)")).toHaveCount(0)
 })
 
 test("robots and the sitemap leave admin out", async ({ request }) => {
