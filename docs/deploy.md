@@ -44,7 +44,7 @@ To re-test after it reports something:
 
 1. Add the Neon integration in Vercel, or create a database at neon.tech.
 2. Set `DATABASE_URL` for Production and Preview.
-3. Run `apps/web/db/usage.sql` in the Neon SQL editor. Rerun it on existing databases to add the copy-event kinds to the table constraint; the script preserves existing counters. The app does not create or migrate this table.
+3. Run `apps/web/db/usage.sql` in the Neon SQL editor, or explicitly run `node apps/web/scripts/migrate-usage.mjs --apply` from the repo root with the intended `DATABASE_URL`. Rerun it on existing databases to add the copy-event kinds to the table constraint; the script preserves existing counters. The CLI reads the reviewed SQL relative to its own file, limits lock waits to 3 seconds and statements to 10 seconds, locks the table while comparing row/event totals, and verifies the new kinds. SQL failures roll back the transaction; a failed post-commit verification is reported as committed and requires inspection. Missing or invalid arguments exit before any database connection. The app does not create or migrate this table. For a one-deployment Vercel override, use `cd ../.. && pnpm registry:build && node apps/web/scripts/migrate-usage.mjs --apply && pnpm -C apps/web build`; leave the project's normal build command unchanged.
 4. If Pro is enabled later, the first signup creates the waitlist table with `create table if not exists waitlist (email text primary key, source text not null, created_at timestamptz not null default now())`.
 
 Without `DATABASE_URL`, signups go to `apps/web/.data/waitlist.jsonl`. That's fine locally, but on Vercel the file system doesn't persist, so set the variable before launch.
