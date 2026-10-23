@@ -40,8 +40,11 @@ export default function Page() {
           </li>
           <li>
             <b>Copy actions.</b> When you successfully copy an install command, coding-agent prompt, theme code or theme share link, we add one to a
-            daily count of that action, the page path and the component used. We do not send or store the clipboard contents, theme settings,
-            query strings, referrers or visitor identifiers. These counts use no cookies and are not linked to your browsing or downloads.
+            daily count of that action, the page path and the component used. These aggregate counts contain no clipboard contents, theme settings,
+            query strings, referrers or visitor identifiers, use no cookies, and are not linked to your browsing or downloads. On the production
+            website, we also send the action name, page path and component to Google Analytics so we can understand which visits lead to copy
+            actions. Google Analytics can connect these events to visits using its analytics cookies. We do not include clipboard contents or
+            theme settings in the custom event parameters.
           </li>
           <li>
             <b>Optional session analytics.</b> If you explicitly allow it below, Microsoft Clarity can collect page URLs, device information and

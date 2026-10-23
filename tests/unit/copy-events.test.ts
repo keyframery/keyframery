@@ -47,3 +47,46 @@ describe("aggregate copy events", () => {
     expect(() => trackCopy("install_copy", "install-command")).not.toThrow()
   })
 })
+
+describe("Google Analytics copy events", () => {
+  it("sends all four successful actions with fixed metadata and no theme settings", () => {
+    const gtag = vi.fn()
+    vi.stubGlobal("gtag", gtag)
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 204 })))
+    window.history.replaceState(null, "", "/theme?name=private&dialog=fade#private")
+
+    for (const name of ["install_copy", "agent_prompt_copy", "theme_copy", "theme_share"] as const) {
+      trackCopy(name, "theme-builder")
+      expect(gtag).toHaveBeenLastCalledWith("event", name, {
+        send_to: "G-R8KDF02XF8",
+        page_path: "/theme",
+        component: "theme-builder",
+      })
+    }
+    expect(gtag).toHaveBeenCalledTimes(4)
+    trackCopy("theme_copy", "install-command")
+    expect(gtag).toHaveBeenCalledTimes(4)
+  })
+
+  it("still sends GA events when the aggregate collector fails", () => {
+    const gtag = vi.fn()
+    vi.stubGlobal("gtag", gtag)
+    vi.stubGlobal("fetch", () => { throw new Error("unavailable") })
+
+    expect(() => trackCopy("install_copy", "install-command")).not.toThrow()
+    expect(gtag).toHaveBeenCalledWith("event", "install_copy", {
+      send_to: "G-R8KDF02XF8",
+      page_path: "/",
+      component: "install-command",
+    })
+  })
+
+  it("keeps aggregate collection and successful copies working when GA fails", () => {
+    const fetch = vi.fn().mockResolvedValue(new Response(null, { status: 204 }))
+    vi.stubGlobal("fetch", fetch)
+    vi.stubGlobal("gtag", () => { throw new Error("blocked") })
+
+    expect(() => trackCopy("agent_prompt_copy", "agent-prompt-button")).not.toThrow()
+    expect(fetch).toHaveBeenCalledOnce()
+  })
+})
