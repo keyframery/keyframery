@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 import { PRO_ENABLED } from "@/lib/pro"
@@ -28,6 +29,23 @@ export function SiteFooter() {
               Briyan Hingrajiya
             </a>
           </p>
+          <a
+            href="https://www.codehype.ai/product/keyframery?utm_source=codehype_badge"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-block w-[180px] max-w-full"
+          >
+            <Image
+              src="https://www.codehype.ai/badges/keyframery.svg?variant=find-us&v=20"
+              alt="Featured on CodeHype"
+              width={180}
+              height={65}
+              loading="lazy"
+              decoding="async"
+              unoptimized
+              className="inline-block h-auto max-h-[65px] w-full max-w-[180px] border-0"
+            />
+          </a>
         </div>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-8 sm:grid-cols-3">
           {GROUPS.map((g) => (
