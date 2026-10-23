@@ -91,7 +91,7 @@ test("the agent skills index publishes the Keyframery skill, and its digest matc
   const [skill] = index.skills
   expect(skill).toMatchObject({ name: "keyframery", type: "skill-md", url: "/.well-known/agent-skills/keyframery/SKILL.md" })
   const res = await request.get(skill.url)
-  expect(res.headers()["content-type"]).toBe("text/markdown; charset=utf-8")
+  expect(res.headers()["content-type"]).toBe('text/markdown; profile="urn:air:agent-skills"; charset=utf-8')
   const bytes = await res.body()
   const { createHash } = await import("node:crypto")
   expect(skill.digest).toBe(`sha256:${createHash("sha256").update(bytes).digest("hex")}`)
@@ -105,6 +105,10 @@ test("the ARD catalog lists the MCP server and the skill, with stable identifier
   const catalog = await res.json()
   expect(catalog.specVersion).toBeTruthy()
   expect(catalog.host).toEqual({ displayName: "Keyframery", identifier: "did:web:keyframery.com" })
+  expect(catalog.entries.find((e: { identifier: string }) => e.identifier === "urn:air:keyframery.com:skill:keyframery")).toMatchObject({
+    type: 'text/markdown; profile="urn:air:agent-skills"',
+    url: "https://keyframery.com/.well-known/agent-skills/keyframery/SKILL.md",
+  })
   for (const e of catalog.entries) {
     expect(e.identifier, e.displayName).toMatch(/^urn:air:keyframery\.com:/)
     expect("url" in e !== "data" in e, e.displayName).toBe(true)

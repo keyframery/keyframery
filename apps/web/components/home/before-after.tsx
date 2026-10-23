@@ -46,23 +46,30 @@ function useAutoplayAllowed() {
   return !reduced && !off
 }
 
-/** Moves a cursor to the centre of `target`, in its window's coordinates. */
-async function glide(cursor: HTMLElement | null, target: HTMLElement | null) {
+/** Measure both copies before either cursor writes styles. */
+function measureGlide(cursor: HTMLElement | null, target: HTMLElement | null) {
   const win = cursor?.parentElement
-  if (!cursor || !win || !target) return
+  if (!cursor || !win || !target) return null
   const w = win.getBoundingClientRect()
-  if (!w.width) return // the copy hidden on phones
+  if (!w.width) return null // the copy hidden on phones
   const r = target.getBoundingClientRect()
   const to = `${Math.round(r.left - w.left + r.width / 2)}px ${Math.round(r.top - w.top + r.height / 2)}px`
   const from = cursor.style.translate || to
+  return { cursor, from, to }
+}
+
+/** Moves a cursor to its measured target, in its window's coordinates. */
+async function glide(move: ReturnType<typeof measureGlide>) {
+  if (!move) return
+  const { cursor, from, to } = move
   cursor.style.translate = to
   await cursor.animate([{ translate: from }, { translate: to }], { duration: 620, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }).finished.catch(() => {})
 }
 
-function restAt(cursor: HTMLElement | null) {
+function measureRest(cursor: HTMLElement | null) {
   const win = cursor?.parentElement
-  if (!cursor || !win || cursor.style.translate) return
-  cursor.style.translate = `${Math.round(win.clientWidth * 0.7)}px ${Math.round(win.clientHeight * 0.84)}px`
+  if (!cursor || !win || cursor.style.translate) return null
+  return { cursor, translate: `${Math.round(win.clientWidth * 0.7)}px ${Math.round(win.clientHeight * 0.84)}px` }
 }
 
 const ripple = (cursor: HTMLElement | null) =>
@@ -153,8 +160,8 @@ export function BeforeAfter() {
     const run = async () => {
       await sleep(300)
       if (cancelled) return
-      restAt(stockCursor.current)
-      restAt(kfCursor.current)
+      const resting = [stockCursor.current, kfCursor.current].map(measureRest)
+      resting.forEach((position) => { if (position) position.cursor.style.translate = position.translate })
       setPlaced(true)
       await sleep(600)
       while (!cancelled) {
@@ -165,7 +172,8 @@ export function BeforeAfter() {
           await sleep(400)
           continue
         }
-        await Promise.all([glide(stockCursor.current, targets[0]), glide(kfCursor.current, targets[1])])
+        const moves = [measureGlide(stockCursor.current, targets[0]), measureGlide(kfCursor.current, targets[1])]
+        await Promise.all(moves.map(glide))
         if (cancelled) return
         // Stock first, Keyframery last: the last press is where a cut starts.
         own.current = true

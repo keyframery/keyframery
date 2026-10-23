@@ -12,6 +12,7 @@ import { SITE } from "./seo"
 const MCP = `${SITE}/mcp`
 const SERVER_CARD = `${SITE}/.well-known/mcp/server-card.json`
 const SKILL_PATH = "/.well-known/agent-skills/keyframery/SKILL.md"
+export const SKILL_MEDIA_TYPE = 'text/markdown; profile="urn:air:agent-skills"'
 
 /** /.well-known/mcp/server-card.json (MCP SEP-1649). */
 export const serverCard = () => ({
@@ -73,7 +74,7 @@ export const aiCatalog = () => ({
     {
       identifier: "urn:air:keyframery.com:skill:keyframery",
       displayName: "Keyframery skill",
-      type: "text/markdown",
+      type: SKILL_MEDIA_TYPE,
       url: `${SITE}${SKILL_PATH}`,
       representativeQueries: ["add animations to my shadcn app", "animate dialogs, tabs and toasts in shadcn/ui", "install Keyframery"],
     },

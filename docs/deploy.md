@@ -19,6 +19,18 @@ There is no CI and no deploy on push: the repo is deliberately not connected to 
 4. Check the live site: key pages, `/r/cuts.json`, `/mcp`, and a screenshot.
 5. Run `pnpm indexnow`, which tells Bing (and other IndexNow engines) about every page in the live sitemap. It should print `200` or `202`.
 
+## Mobile performance
+
+The 23 October 2026 mobile PageSpeed report scored 68. Source fixes defer search until it opens, stop the homepage from prefetching the docs' full demo registry, delay Google Analytics until after load, prioritize the heading's font, and batch the two demo cursors' layout reads. Search ranking stays shared with WebMCP without importing the search UI.
+
+Keep CSS in Next.js's separate immutable assets. Enabling `experimental.inlineCss` repeated about 311 KB of CSS in both the HTML and React's serialized payload, making the homepage about 1.18 MB uncompressed. External styles reduce that HTML to about 227 KB. In local Lighthouse 13.5.0 mobile runs with the same default settings, the changes improved performance from 55 to 86, LCP from 6.3 to 3.8 seconds, blocking time from 760 to 160 ms, and transferred bytes from about 859 to 445 KB. These local results exclude production analytics and Cloudflare injection; they are not a new live PageSpeed score.
+
+`PublicEmail` adds Cloudflare's documented `email_off` comments around the public contact link and the hero's demo addresses. This prevents email rewriting and its blocking decoder without changing the address or requiring client JavaScript. Do not use `Cache-Control: no-transform` for this: Next.js's compression middleware also honors it, leaving the large HTML uncompressed. After deployment, verify the mail link and demo addresses, gzip/Brotli response compression, and absence of `email-decode.min.js` on the homepage. See [Cloudflare's email obfuscation documentation](https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/#prevent-cloudflare-from-obfuscating-email).
+
+The remaining Cloudflare beacon cache lifetime and legacy code in Cloudflare/Next.js/React are vendor-controlled. Do not rewrite vendor bundles or remove framework polyfills just to suppress an audit. Separate stylesheets can still appear as render-blocking; the comparison above favors the smaller document and cacheable CSS. Run `pnpm check:site` before deploying these site-only changes, then rerun the live mobile PageSpeed report to include the CDN and production scripts.
+
+The footer's CodeHype badge is pinned locally as `public/codehype-keyframery-v20.svg` because the remote image host intermittently returns 403 to Safari. The original product attribution link stays intact. Its versioned path has a one-year immutable cache policy; use a new filename if replacing the artwork.
+
 ## shadcn drift
 
 Keyframery reads shadcn's markup, so a change upstream can break it. The fixture apps hold every shadcn component as the pinned CLI installed it (`fixtures/tested.json`), and the browser tests run against them. `pnpm drift` (about 20 seconds; `pnpm check` runs it at the end) reports anything they don't cover yet:

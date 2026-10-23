@@ -6,6 +6,8 @@ const COMPONENTS = ["dialog", "alert-dialog", "sheet", "drawer", "tabs", "toast"
 const HELPERS = ["match-cut", "list-cut", "value-cut", "load-cut"]
 
 test("every component and helper page has a live preview and an API table", async ({ page, errors }) => {
+  // Eleven full navigations need a crawl budget, especially in WebKit under parallel load.
+  test.setTimeout(90_000)
   for (const slug of [...COMPONENTS.map((c) => `components/${c}`), ...HELPERS.map((h) => `helpers/${h}`)]) {
     const res = await page.goto(`/docs/${slug}`)
     expect(res?.status(), slug).toBe(200)

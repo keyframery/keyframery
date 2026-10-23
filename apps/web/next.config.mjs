@@ -5,8 +5,7 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  // The stylesheet goes inside the HTML, so the first paint doesn't wait for it to download alongside the scripts.
-  experimental: { inlineCss: true },
+  // Keep CSS in cacheable assets. inlineCss duplicates the full stylesheet in HTML and the RSC payload.
   // Pages merged in the docs revamp: their old addresses lead to where the content went.
   // These addresses answer with HTML or Markdown depending on Accept (proxy.ts), so caches must keep the two apart.
   // Next.js's own Vary list is repeated in case the platform replaces rather than extends it. Vercel serves its own
@@ -25,6 +24,8 @@ const config = {
     return [
       ...['/', '/cuts', '/theme', '/docs', '/docs/:path*'].map((source) => ({ source, headers: vary })),
       { source: '/', headers: [{ key: 'Link', value: link }] },
+      // Pinned badge artwork: avoid the third-party image host's intermittent 403s.
+      { source: '/codehype-keyframery-v20.svg', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
       // The password-protected dashboard: never indexed, and its address never leaks to sites it links to.
       { source: '/admin', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }, { key: 'Referrer-Policy', value: 'no-referrer' }] },
     ];

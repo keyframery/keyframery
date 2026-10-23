@@ -39,6 +39,7 @@ test("a preview set to Stock gets no Keyframery motion, even in its portaled dia
 })
 
 test("every Get started, Customize and Reference page renders", async ({ page, errors }) => {
+  test.setTimeout(90_000) // Twelve navigations share this test's overall deadline.
   for (const slug of ["", "installation", "ai-tools", "automatic", "customize", "motion-themes", "helpers/state-cut", "how-it-works", "accessibility", "base-ui-vs-radix", "compatibility", "changelog"]) {
     const res = await page.goto(`/docs/${slug}`)
     expect(res?.status(), slug).toBe(200)

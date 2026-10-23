@@ -1,11 +1,10 @@
-import { RootProvider } from "fumadocs-ui/provider/next"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import Script from "next/script"
 
 import { CutsControl } from "@/app/cuts-control"
 import { ClarityAnalytics } from "@/components/site/clarity-analytics"
-import { SearchDialog } from "@/components/site/search-dialog"
+import { SiteProvider } from "@/components/site/provider"
 import { WebMcp } from "@/components/site/web-mcp"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
@@ -14,8 +13,8 @@ import { JsonLd, SITE, siteData } from "@/lib/seo"
 
 import "./global.css"
 
-const sans = Geist({ subsets: ["latin"], variable: "--font-geist" })
-const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
+const sans = Geist({ subsets: ["latin"], variable: "--font-geist", display: "optional" })
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", preload: false })
 
 // Analytics: keyframery.com runs through Cloudflare, which injects its Web Analytics beacon into every page ("Automatic setup").
 // Don't add the beacon script here too: two beacons split the counts across two sites.
@@ -43,20 +42,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
         <WebMcp />
         <ClarityAnalytics projectId={configuredClarityId()} />
-        <RootProvider search={{ SearchDialog }}>
+        <SiteProvider>
           <TooltipProvider>
             <CutsControl>{children}</CutsControl>
           </TooltipProvider>
           <Toaster />
-        </RootProvider>
+        </SiteProvider>
         {process.env.VERCEL_ENV === "production" && (
           <>
             <Script
               id="google-tag-loader"
               src="https://www.googletagmanager.com/gtag/js?id=G-R8KDF02XF8"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="google-analytics" strategy="lazyOnload">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}

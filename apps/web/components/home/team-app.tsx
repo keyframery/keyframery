@@ -11,6 +11,7 @@ import * as React from "react"
 
 import { ListCut } from "@/components/keyframery/list-cut"
 import { ValueCut } from "@/components/keyframery/value-cut"
+import { PublicEmail } from "@/components/site/public-email"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -177,7 +178,7 @@ export function TeamApp({ side, demo, cursorRef, cursorShown }: { side: Side; de
                   </Avatar>
                   <div className="min-w-0 flex-1 leading-tight">
                     <p className="truncate text-sm font-medium">{m.name}</p>
-                    <p className="truncate text-xs text-muted-foreground">{m.email}</p>
+                    <p className="truncate text-xs text-muted-foreground"><PublicEmail address={m.email} /></p>
                   </div>
                   {m.role === "Invited" ? (
                     <span className="flex items-center gap-1">

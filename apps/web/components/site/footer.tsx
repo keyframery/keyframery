@@ -4,6 +4,7 @@ import Link from "next/link"
 import { PRO_ENABLED } from "@/lib/pro"
 
 import { LogoMark } from "./logo"
+import { PublicEmail } from "./public-email"
 
 const GROUPS: { title: string; links: [label: string, href: string][] }[] = [
   { title: "Product", links: [["Docs", "/docs"], ["Examples", "/cuts"], ["Theme", "/theme"], ...(PRO_ENABLED ? [["Pro", "/pro"] as [string, string]] : [])] },
@@ -18,7 +19,7 @@ export function SiteFooter() {
     <footer className="border-t">
       <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-14 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16">
         <div>
-          <Link href="/" className="inline-flex items-center gap-2 text-[15px] font-semibold tracking-tight">
+          <Link href="/" prefetch={false} className="inline-flex items-center gap-2 text-[15px] font-semibold tracking-tight">
             <LogoMark className="size-5" />
             Keyframery
           </Link>
@@ -36,7 +37,7 @@ export function SiteFooter() {
             className="mt-6 inline-block w-[180px] max-w-full"
           >
             <Image
-              src="https://www.codehype.ai/badges/keyframery.svg?variant=find-us&v=20"
+              src="/codehype-keyframery-v20.svg"
               alt="Featured on CodeHype"
               width={180}
               height={65}
@@ -58,6 +59,8 @@ export function SiteFooter() {
                       <Link href={href} className={linkClass}>
                         {label}
                       </Link>
+                    ) : href.startsWith("mailto:") ? (
+                      <PublicEmail address={label} link className={linkClass} />
                     ) : (
                       <a href={href} className={linkClass}>
                         {label}

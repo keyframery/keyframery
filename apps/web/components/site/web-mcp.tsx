@@ -9,7 +9,7 @@
 import * as React from "react"
 
 import { agentPrompt } from "@/lib/kinds"
-import { rankResults } from "./search-dialog"
+import { rankResults } from "./search-results"
 
 type Tool = {
   name: string

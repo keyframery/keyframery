@@ -30,7 +30,7 @@ export function Hero() {
           <a href="#demo" className={`${action} bg-foreground text-background shadow-xs hover:bg-foreground/85`}>
             Try the demo <span aria-hidden="true">↗</span>
           </a>
-          <Link href="/docs/installation" className={`${action} border bg-card hover:bg-muted`}>
+          <Link href="/docs/installation" prefetch={false} className={`${action} border bg-card hover:bg-muted`}>
             Add to my app
           </Link>
         </div>

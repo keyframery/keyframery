@@ -39,12 +39,10 @@ test("the StateCut example links to its API and can change content", async ({ pa
   await expect.poll(async () => (await takeCuts(page)).some((c) => c.component === "state"), { timeout: 8000 }).toBe(true)
 })
 
-test("under reduced motion the loops wait for Play", async ({ browser }) => {
-  const ctx = await browser.newContext({ reducedMotion: "reduce" })
-  const page = await ctx.newPage()
-  await page.goto("http://localhost:4500/cuts")
+test("under reduced motion the loops wait for Play", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  await page.goto("/cuts")
   await expect(page.getByRole("button", { name: "Play the rack focus loop" })).toBeVisible()
-  await ctx.close()
 })
 
 test("the match cut loop really grows the card into its page", async ({ page }) => {
