@@ -1,6 +1,7 @@
 import { RootProvider } from "fumadocs-ui/provider/next"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import Script from "next/script"
 
 import { CutsControl } from "@/app/cuts-control"
 import { ClarityAnalytics } from "@/components/site/clarity-analytics"
@@ -48,6 +49,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </TooltipProvider>
           <Toaster />
         </RootProvider>
+        {process.env.VERCEL_ENV === "production" && (
+          <>
+            <Script
+              id="google-tag-loader"
+              src="https://www.googletagmanager.com/gtag/js?id=G-R8KDF02XF8"
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-R8KDF02XF8');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   )

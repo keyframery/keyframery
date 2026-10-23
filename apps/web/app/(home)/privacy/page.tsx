@@ -8,13 +8,13 @@ import { pageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
   title: "Privacy",
-  description: "How keyframery.com handles aggregate usage, optional Microsoft Clarity session analytics, and your privacy choices.",
+  description: "How keyframery.com uses Google Analytics, aggregate usage counts, optional Microsoft Clarity session analytics, and your privacy choices.",
   path: "/privacy",
 })
 
 export default function Page() {
   return (
-    <Policy title="Privacy" effective="19 October 2026">
+    <Policy title="Privacy" effective="23 October 2026">
       <PolicySection title="What we collect">
         <ul>
           {PRO_ENABLED && (
@@ -26,6 +26,12 @@ export default function Page() {
           <li>
             <b>Anonymous usage.</b> Cloudflare Web Analytics counts page views and visits, and how fast pages load. It uses no cookies and doesn&apos;t
             identify you.
+          </li>
+          <li>
+            <b>Google Analytics.</b> Google Analytics measures page views, visits and interactions on the production website. It receives page and
+            device information and can use analytics cookies such as <code>_ga</code> to distinguish browsers and connect visits. Google processes
+            this information under its{" "}
+            <a href="https://policies.google.com/privacy" className="underline underline-offset-4">Privacy Policy</a>.
           </li>
           <li>
             <b>Download and agent counts.</b> When a tool downloads a component from keyframery.com/r, calls the MCP server, or reads the docs as
@@ -54,7 +60,8 @@ export default function Page() {
         <p>
           Clarity is off by default and makes no requests before you opt in. It does not run on the admin dashboard or preview/local sites.
           Turning it off stops recording and clears this site&apos;s Clarity cookies. We cannot delete Microsoft-domain cookies from this site;
-          your browser&apos;s privacy settings control those. This choice does not change cookieless Cloudflare analytics or aggregate copy/download counts.
+          your browser&apos;s privacy settings control those. This choice controls Microsoft Clarity only; it does not change Google Analytics,
+          cookieless Cloudflare analytics or aggregate copy/download counts.
         </p>
         <AnalyticsPreferences configured={Boolean(configuredClarityId())} />
       </PolicySection>
