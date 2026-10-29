@@ -115,7 +115,14 @@ export function WavePhotoUpload({ upload, onChange, accept = ["image/png", "imag
   React.useLayoutEffect(() => {
     const el = frame.current
     if (!el) return
-    const observer = new ResizeObserver(() => phaseNow.current === "idle" && resize(idleHeight(), true))
+    // Only a new width re-fits the empty frame. Height changes are the frame's own springs, and answering those would
+    // snap a photo's frame back to the empty height before the phase has caught up.
+    let width = -1
+    const observer = new ResizeObserver(() => {
+      if (el.clientWidth === width) return
+      width = el.clientWidth
+      if (phaseNow.current === "idle") resize(idleHeight(), true)
+    })
     observer.observe(el)
     return () => observer.disconnect()
   }, [idleHeight, resize])
@@ -166,10 +173,11 @@ export function WavePhotoUpload({ upload, onChange, accept = ["image/png", "imag
     } catch {
       return refuse(next, from, "That photo couldn't be opened. Try another one.")
     }
-    await retract()
-    photo.current = loaded.url
+    // A good photo clears an old complaint at once, before the last photo sinks away.
     window.clearTimeout(quiet.current)
     setProblem(null)
+    await retract()
+    photo.current = loaded.url
     setFile(next)
     setDims([loaded.image.naturalWidth, loaded.image.naturalHeight])
     setPercent(0)
