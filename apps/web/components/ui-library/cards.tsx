@@ -4,7 +4,10 @@ import * as React from "react"
 
 import { CombinationOtp } from "@/components/keyframery/combination-otp"
 import { PeekPagination } from "@/components/keyframery/peek-pagination"
+import { WavePhotoUpload, type WavePhotoUploadHandle } from "@/components/keyframery/wave-photo-upload"
 import type { UiComponent } from "@/lib/ui-library"
+
+import { pretendUpload, sampleFile } from "./demos"
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -30,10 +33,27 @@ export function CardPreview({ component }: { component: UiComponent }) {
         <PeekPagination key={run} total={3000} pageSize={10} defaultPage={8} className="max-w-[440px]" />
       </Frame>
     )
+  if (component.slug === "wave-photo-upload") return <PhotoCard key={run} onReset={reset} />
   return null
 }
 
-function Frame({ children, note, onReset }: { children: React.ReactNode; note?: string; onReset?: () => void }) {
+function PhotoCard({ onReset }: { onReset: () => void }) {
+  const photo = React.useRef<WavePhotoUploadHandle>(null)
+  return (
+    <Frame
+      onReset={onReset}
+      note={
+        <button type="button" onClick={async () => photo.current?.pick(await sampleFile())} className="rounded-sm underline-offset-2 outline-none hover:text-foreground hover:underline focus-visible:ring-3 focus-visible:ring-ring/50">
+          Drop a photo, or try a sample
+        </button>
+      }
+    >
+      <WavePhotoUpload ref={photo} aspect={2.2} upload={pretendUpload(3)} className="max-w-[300px]" />
+    </Frame>
+  )
+}
+
+function Frame({ children, note, onReset }: { children: React.ReactNode; note?: React.ReactNode; onReset?: () => void }) {
   return (
     <div style={{ "--kf-accent": "var(--cut)" } as React.CSSProperties} className="stage-grid relative flex h-60 items-center justify-center px-5 [&>*]:min-w-0">
       {children}

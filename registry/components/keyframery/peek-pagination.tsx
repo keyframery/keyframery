@@ -3,9 +3,12 @@
 /**
  * PeekPagination: pagination that shows you where you'll land before you click. Point at a page number, an arrow
  * or a gap and a small card rises above it with that page: its number, its range, and anything you render for it,
- * like its first few rows. Drag across a gap to browse the pages hidden inside it, or type one into Go to. The row
- * keeps the same few slots, so 3 pages or 3,000 take the same room. First, previous, next and last, the range on
- * screen and rows per page are built in. PaginationContent changes your content in the direction you moved.
+ * like its first few rows. Give it `peek` and it fetches that page itself: only once the pointer rests on it, cancelled
+ * if the pointer moves on, kept once it arrives. Fetch through your data cache and peeking becomes prefetching: the page
+ * you were looking at opens instantly when you click it. Drag across a gap to browse the pages hidden inside it, or
+ * type one into Go to. The row keeps the same few slots, so 3 pages or 3,000 take the same room. First, previous, next
+ * and last, the range on screen and rows per page are built in. PaginationContent changes your content in the
+ * direction you moved.
  */
 
 import * as React from "react"
@@ -18,12 +21,15 @@ const CARD = 224 // the peek card's width, in px
 const glide = { type: "spring", duration: 0.4, bounce: 0.1 } as const
 const RAISED = "bg-card shadow-[0_2px_3px_-1px_rgb(0_0_0/0.1),0_1px_0_0_rgb(25_28_33/0.02)] ring-1 ring-black/8 dark:shadow-[0_1px_2px_rgb(0_0_0/0.5)] dark:ring-white/10"
 const blurIn = { initial: { opacity: 0, filter: "blur(4px)" }, animate: { opacity: 1, filter: "blur(0px)" }, exit: { opacity: 0, filter: "blur(4px)" } }
+const REST = 150 // ms the pointer rests on a page before the card fetches it
+const KEEP = 60 // how many fetched pages the card keeps
 
 type Slot = { kind: "page"; n: number } | { kind: "gap"; side: "start" | "end"; from: number; to: number }
 type Peek = { page: number; el: HTMLElement; x?: number; hint?: string; fast?: boolean }
 type Peeking = { show: (peek: Peek, now?: boolean) => void; hide: (delay?: number) => void; hideFor: (el: HTMLElement) => void; hovered: string | null; setHovered: (key: string | null) => void; id: string }
+type Loaded<T> = { page: number; state: "loading" | "ready" | "failed"; data?: T }
 
-export type PeekPaginationProps = {
+export type PeekPaginationProps<T = unknown> = {
   /** The current page, when you control it. */
   page?: number
   /** The first page shown, when you don't. */
@@ -38,13 +44,19 @@ export type PeekPaginationProps = {
   /** Offer these page sizes. */
   pageSizes?: number[]
   onPageSizeChange?: (size: number) => void
-  /** What the card shows for a page you point at, under its number and range. Its first few rows work well. */
-  preview?: (page: number) => React.ReactNode
+  /**
+   * Fetches what the card shows for a page. It runs once the pointer has rested on that page for a moment (not while
+   * it sweeps past), it's cancelled through `signal` if the pointer moves on, and what it returns is kept, so pointing
+   * back is instant. Fetch through your data cache and the page is already loaded when it's clicked.
+   */
+  peek?: (page: number, signal: AbortSignal) => Promise<T>
+  /** Draws the card's body for a page, under its number and range. With `peek`, `data` is what it fetched. */
+  preview?: (page: number, data: T) => React.ReactNode
   className?: string
   "aria-label"?: string
 }
 
-export function PeekPagination({ page: controlled, defaultPage = 1, onPageChange, pages: count, total, pageSize = 10, pageSizes, onPageSizeChange, preview, className, "aria-label": ariaLabel = "Pagination" }: PeekPaginationProps) {
+export function PeekPagination<T = unknown>({ page: controlled, defaultPage = 1, onPageChange, pages: count, total, pageSize = 10, pageSizes, onPageSizeChange, peek: load, preview, className, "aria-label": ariaLabel = "Pagination" }: PeekPaginationProps<T>) {
   const pages = Math.max(1, count ?? (total === undefined ? 1 : Math.ceil(total / pageSize)))
   const [own, setOwn] = React.useState(defaultPage)
   const page = clamp(controlled ?? own, 1, pages)
@@ -66,6 +78,63 @@ export function PeekPagination({ page: controlled, defaultPage = 1, onPageChange
   const cur = { x: useMotionValue(0), w: useMotionValue(0) }
   const over = { x: useMotionValue(0), w: useMotionValue(0), o: useMotionValue(0) }
   const placed = React.useRef(false)
+  // What the card has fetched: the page it's showing, and every page it has fetched so far.
+  const [loaded, setLoaded] = React.useState<Loaded<T> | null>(null)
+  const kept = React.useRef(new Map<number, T>())
+  const loader = React.useRef(load)
+  const fetching = Boolean(load)
+  const peekPage = peek?.page ?? null
+
+  React.useEffect(() => {
+    loader.current = load
+  })
+
+  // Different pages once the page size or the data changes: forget what was fetched.
+  React.useEffect(() => kept.current.clear(), [pageSize, total, pages])
+
+  // Fetch the page the card is showing, once the pointer has rested on it. Moving on cancels the fetch.
+  React.useEffect(() => {
+    const fetchPage = loader.current
+    if (peekPage === null || !fetchPage) return
+    const have = kept.current.get(peekPage)
+    if (kept.current.has(peekPage)) {
+      setLoaded({ page: peekPage, state: "ready", data: have })
+      return
+    }
+    setLoaded({ page: peekPage, state: "loading" })
+    const controller = new AbortController()
+    const timer = window.setTimeout(() => {
+      fetchPage(peekPage, controller.signal).then(
+        (data) => {
+          kept.current.set(peekPage, data)
+          if (kept.current.size > KEEP) kept.current.delete(kept.current.keys().next().value as number)
+          if (!controller.signal.aborted) setLoaded({ page: peekPage, state: "ready", data })
+        },
+        () => {
+          if (!controller.signal.aborted) setLoaded({ page: peekPage, state: "failed" })
+        },
+      )
+    }, REST)
+    return () => {
+      window.clearTimeout(timer)
+      controller.abort()
+    }
+  }, [peekPage, fetching])
+
+  /** The card's body for a page: what was fetched for it, a quiet skeleton while it loads, or a line if it didn't. */
+  function content(p: number): React.ReactNode {
+    if (!preview) return null
+    if (!fetching) return preview(p, undefined as T)
+    if (loaded?.page === p && loaded.state === "ready") {
+      return (
+        <motion.div initial={{ opacity: 0, filter: "blur(2px)" }} animate={{ opacity: 1, filter: "blur(0px)" }} transition={{ duration: 0.22 }}>
+          {preview(p, loaded.data as T)}
+        </motion.div>
+      )
+    }
+    if (loaded?.page === p && loaded.state === "failed") return <p className="text-xs text-muted-foreground">This page didn't load. Point at it again to retry.</p>
+    return <Skeleton />
+  }
 
   // A narrow row shows one page either side of the current one instead of two, so it always fits.
   React.useLayoutEffect(() => {
@@ -213,7 +282,7 @@ export function PeekPagination({ page: controlled, defaultPage = 1, onPageChange
             {pageSizes && pageSizes.length > 1 && <Sizes sizes={pageSizes} value={pageSize} onChange={(size) => onPageSizeChange?.(size)} />}
           </div>
         </div>
-        <PeekCard peek={peek} nav={nav} range={range} preview={preview} />
+        <PeekCard peek={peek} nav={nav} range={range} content={preview ? content : undefined} />
       </nav>
     </MotionConfig>
   )
@@ -405,7 +474,7 @@ function GoTo({ pages, onGo, peekers }: { pages: number; onGo: (page: number) =>
 }
 
 /** The card: it rises above what you point at, glides along as you move, and swaps pages in the direction you went. */
-function PeekCard({ peek, nav, range, preview }: { peek: Peek | null; nav: React.RefObject<HTMLElement | null>; range: (page: number) => readonly [number, number] | null; preview?: (page: number) => React.ReactNode }) {
+function PeekCard({ peek, nav, range, content }: { peek: Peek | null; nav: React.RefObject<HTMLElement | null>; range: (page: number) => readonly [number, number] | null; content?: (page: number) => React.ReactNode }) {
   const reduce = useReducedMotion() ?? false
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -447,7 +516,7 @@ function PeekCard({ peek, nav, range, preview }: { peek: Peek | null; nav: React
           </span>
         )}
       </div>
-      {preview && <div className="mt-2.5 border-t border-border/70 pt-2.5">{preview(peek.page)}</div>}
+      {content && <div className="mt-2.5 border-t border-border/70 pt-2.5">{content(peek.page)}</div>}
       {peek.hint && <p className="mt-2 text-[11.5px] leading-snug text-muted-foreground">{peek.hint}</p>}
     </>
   )
@@ -500,6 +569,26 @@ function PeekCard({ peek, nav, range, preview }: { peek: Peek | null; nav: React
         </motion.div>
       )}
     </AnimatePresence>
+  )
+}
+
+/** Three quiet rows standing in for a page that's still on its way. */
+function Skeleton() {
+  return (
+    <div aria-hidden="true" className="space-y-1.5">
+      {[0.62, 0.48, 0.55].map((w, i) => (
+        <div key={i} className="flex h-[18px] items-center gap-2">
+          <span className="size-1.5 shrink-0 rounded-full bg-muted" />
+          <motion.span
+            className="h-2 rounded-full bg-muted"
+            style={{ width: `${w * 100}%` }}
+            animate={{ opacity: [0.55, 1, 0.55] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: i * 0.12 }}
+          />
+          <span className="ml-auto h-2 w-10 rounded-full bg-muted" />
+        </div>
+      ))}
+    </div>
   )
 }
 

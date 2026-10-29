@@ -275,6 +275,25 @@
           "target": "components/keyframery/peek-pagination.tsx"
         }
       ]
+    },
+    {
+      "name": "wave-photo-upload",
+      "type": "registry:component",
+      "title": "Wave Photo Upload",
+      "description": "An image upload where a beam of light prints your photo line by line as it uploads, the picture developing right behind it. Drag and drop, paste and retry built in.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "components/keyframery/wave-photo-upload.tsx",
+          "type": "registry:component",
+          "target": "components/keyframery/wave-photo-upload.tsx"
+        }
+      ]
     }
   ]
 }
