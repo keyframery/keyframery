@@ -4,6 +4,10 @@
 @import "fumadocs-ui/css/shadcn.css";
 @import "fumadocs-ui/css/preset.css";
 
+/* components/keyframery is a gitignored copy of registry/, which Tailwind neither scans nor watches reliably.
+   Keyframery UI components style themselves with Tailwind classes, so scan their source in registry/. */
+@source "../../../registry/components/keyframery";
+
 @custom-variant dark (&:is(.dark *));
 
 :root {

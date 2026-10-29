@@ -18,6 +18,7 @@ export function baseOptions(): BaseLayoutProps {
     },
     links: [
       { text: "Docs", url: "/docs" },
+      { text: "Components", url: "/ui" },
       { text: "Examples", url: "/cuts" },
       { text: "Theme", url: "/theme" },
       ...(PRO_ENABLED ? [{ text: "Pro", url: "/pro" }] : []),
