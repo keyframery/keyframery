@@ -46,10 +46,12 @@ export function InstallTabs({ slug, packages, source }: { slug: string; packages
         <InstallCommand command={`npx shadcn add @keyframery/${slug}`} className="sm:w-full" />
       ) : (
         <ol className="grid gap-5">
-          <li className="grid gap-2">
-            <p>Install the packages it uses.</p>
-            <InstallCommand command={`npm install ${packages.join(" ")}`} className="sm:w-full" />
-          </li>
+          {packages.length > 0 && (
+            <li className="grid gap-2">
+              <p>Install the packages it uses.</p>
+              <InstallCommand command={`npm install ${packages.join(" ")}`} className="sm:w-full" />
+            </li>
+          )}
           <li className="grid gap-2">
             <p>
               Copy the source into <code className="font-mono text-[0.9em]">components/keyframery/{slug}.tsx</code>.

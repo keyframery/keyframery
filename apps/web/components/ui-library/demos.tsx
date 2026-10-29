@@ -8,6 +8,7 @@ import { WavePhotoUpload, type WavePhotoUploadHandle } from "@/components/keyfra
 import type { UiSlug } from "@/lib/ui-library"
 import { cn } from "@/lib/utils"
 
+import { RelayBentoDemo } from "./relay-bento-demo"
 import { Choice, Stage } from "./stage"
 
 type Size = "default" | "large"
@@ -259,10 +260,40 @@ function WavePhotoUploadDemo({ size }: { size: Size }) {
   )
 }
 
+function RelayBentoStage({ size }: { size: Size }) {
+  const [run, reset] = useRun()
+  const [checks, setChecks] = React.useState<"pass" | "fail">("pass")
+  return (
+    <Stage
+      size={size}
+      plain
+      onReset={reset}
+      options={
+        <Choice
+          label="Checks"
+          value={checks}
+          onChange={(value) => {
+            setChecks(value)
+            reset()
+          }}
+          options={[
+            { value: "pass", label: "Pass" },
+            { value: "fail", label: "Fail" },
+          ]}
+        />
+      }
+      hint="It plays by itself: each commit travels from tile to tile through the gaps. Point at a region or a bar for its numbers."
+    >
+      <RelayBentoDemo key={run} fail={checks === "fail"} className="max-w-[1040px]" />
+    </Stage>
+  )
+}
+
 const DEMOS: Partial<Record<UiSlug, (props: { size: Size }) => React.ReactNode>> = {
   "combination-otp": CombinationOtpDemo,
   "peek-pagination": PeekPaginationDemo,
   "wave-photo-upload": WavePhotoUploadDemo,
+  "relay-bento": RelayBentoStage,
 }
 
 export function Demo({ slug, size = "default" }: { slug: UiSlug; size?: Size }) {

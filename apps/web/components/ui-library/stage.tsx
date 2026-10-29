@@ -24,14 +24,15 @@ export function Choice<T extends string>({ label, value, options, onChange }: { 
 }
 
 /** The playable frame around one Keyframery UI component: the dotted stage, a hint, options and a reset. */
-export function Stage({ children, hint, options, onReset, size = "default", className }: { children: React.ReactNode; hint?: React.ReactNode; options?: React.ReactNode; onReset?: () => void; size?: "default" | "large"; className?: string }) {
+export function Stage({ children, hint, options, onReset, size = "default", plain, className }: { children: React.ReactNode; hint?: React.ReactNode; options?: React.ReactNode; onReset?: () => void; size?: "default" | "large"; plain?: boolean; className?: string }) {
   return (
     <figure
       // Components take their accent from --kf-accent; on this site that's the cobalt the motion layer uses.
       style={{ "--kf-accent": "var(--cut)" } as React.CSSProperties}
       className={cn("not-prose m-0 flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-card", className)}
     >
-      <div className={cn("stage-grid flex flex-1 items-center justify-center px-4 py-10 sm:px-10 [&>*]:min-w-0", size === "large" ? "min-h-[380px]" : "min-h-[300px]")}>{children}</div>
+      {/* A plain stage drops the dotted grid, for a component that brings its own structure (like a bento's gaps). */}
+      <div className={cn("flex flex-1 items-center justify-center [&>*]:min-w-0", plain ? "bg-background px-2 py-8 sm:px-6" : "stage-grid px-4 py-10 sm:px-10", size === "large" ? "min-h-[380px]" : "min-h-[300px]")}>{children}</div>
       {(hint || onReset) && (
         <figcaption className="flex min-h-11 flex-wrap items-center gap-x-3 gap-y-2 border-t px-4 py-2 text-sm text-muted-foreground">
           <span className="min-w-0 flex-1 text-pretty">{hint}</span>

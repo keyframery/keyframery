@@ -8,6 +8,7 @@ import { WavePhotoUpload, type WavePhotoUploadHandle } from "@/components/keyfra
 import type { UiComponent } from "@/lib/ui-library"
 
 import { pretendUpload, sampleFile } from "./demos"
+import { RelayBentoDemo } from "./relay-bento-demo"
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -34,6 +35,14 @@ export function CardPreview({ component }: { component: UiComponent }) {
       </Frame>
     )
   if (component.slug === "wave-photo-upload") return <PhotoCard key={run} onReset={reset} />
+  if (component.slug === "relay-bento")
+    return (
+      <Frame note="It plays by itself">
+        <Scaled width={1000} height={800} scale={0.28}>
+          <RelayBentoDemo className="w-[1000px]" />
+        </Scaled>
+      </Frame>
+    )
   return null
 }
 
@@ -50,6 +59,15 @@ function PhotoCard({ onReset }: { onReset: () => void }) {
     >
       <WavePhotoUpload ref={photo} aspect={2.2} upload={pretendUpload(3)} className="max-w-[300px]" />
     </Frame>
+  )
+}
+
+/** A big component, shrunk to fit a card while still running live. */
+function Scaled({ width, height, scale, children }: { width: number; height: number; scale: number; children: React.ReactNode }) {
+  return (
+    <div aria-hidden="true" inert className="pointer-events-none shrink-0" style={{ width: width * scale, height: height * scale }}>
+      <div style={{ width, height, transform: `scale(${scale})`, transformOrigin: "top left" }}>{children}</div>
+    </div>
   )
 }
 

@@ -1,7 +1,7 @@
 /* Keyframery UI: our own components. One entry per component; the /ui pages, the sidebar, the sitemap and each
    page's metadata read from here. Only components marked "new" get a page; "soon" ones are listed as coming next. */
 
-export type UiSlug = "combination-otp" | "peek-pagination" | "wave-photo-upload" | "photocopy-button" | "blinds-password"
+export type UiSlug = "combination-otp" | "peek-pagination" | "wave-photo-upload" | "photocopy-button" | "relay-bento" | "blinds-password"
 
 export type UiProp = { name: string; type: string; fallback?: string; description: string }
 
@@ -9,9 +9,11 @@ export type UiComponent = {
   slug: UiSlug
   name: string
   /** Where it sits in the sidebar. */
-  group: "Inputs" | "Navigation" | "Media" | "Actions"
+  group: "Inputs" | "Navigation" | "Media" | "Actions" | "Layout"
   /** "new" is built and playable; "soon" is still being made. */
   status: "new" | "soon"
+  /** Needs the page's full width for its preview, so its page drops the contents rail. */
+  wide?: boolean
   /** One line for cards and the sidebar: what it does, in plain words. */
   tagline: string
   /** The opening paragraph on its own page. */
@@ -186,6 +188,79 @@ export function CoverPhoto() {
     ],
   },
   {
+    slug: "relay-bento",
+    name: "Relay Bento",
+    group: "Layout",
+    status: "new",
+    wide: true,
+    tagline: "A bento grid that tells its own story: a light carries the work from tile to tile through the gaps, on a loop.",
+    summary:
+      "A bento grid where the space between the tiles does the talking. Send a light from one tile to another and it leaves the exact thing that sent it, runs through the gaps around the tiles, never across them, and lands on the tile that acts on it. That tile catches the light along its edge, gives a little as it lands, and glows softly while it works. Chain a few sends into a story and the bento plays it on its own, again and again, while it's on screen. In the demo a team ships all afternoon: each commit travels to the build, the checks, out to its preview and every region at once, into the traffic chart, and home, where the light docks in the commit's dot on the timeline and the next commit drops onto it.",
+    seoTitle: "Relay bento grid for shadcn/ui",
+    description: "A bento grid for shadcn/ui that animates itself: a light carries each step from tile to tile through the gaps, so the grid tells one story on a loop.",
+    packages: [],
+    usage: `"use client"
+
+import * as React from "react"
+import { RelayBento, RelayTile, useRelay, useRelayLoop } from "@/components/keyframery/relay-bento"
+
+export function Features() {
+  return (
+    <RelayBento className="grid-cols-1 md:grid-cols-3 md:grid-rows-[220px_220px]">
+      <Story />
+    </RelayBento>
+  )
+}
+
+// Tiles can live anywhere inside the bento. useRelay and useRelayLoop work in any of them.
+function Story() {
+  const relay = useRelay()
+  const button = React.useRef<HTMLButtonElement>(null)
+  const [step, setStep] = React.useState("ready")
+
+  // Plays while the bento is on screen, then rests and plays again. Leaving the screen aborts the signal.
+  useRelayLoop(async (signal) => {
+    setStep("uploading")
+    await relay.send(button, "scan", { signal }) // resolves when the light lands
+    setStep("scanning")
+    await relay.send("scan", ["share", "archive"], { tone: "success", signal })
+    setStep("done")
+  }, { rest: 1600 })
+
+  return (
+    <>
+      <RelayTile id="upload" title="Drop a file" description="It starts the moment it lands." className="md:row-span-2">
+        <button ref={button}>Upload</button>
+      </RelayTile>
+      <RelayTile id="scan" title="Scanned" description="Checked before anyone opens it." className="md:col-span-2" />
+      <RelayTile id="share" title="Shared" description="A link for everyone who needs it." />
+      <RelayTile id="archive" title="Kept" description="A copy goes to the archive." />
+    </>
+  )
+}`,
+    props: [
+      { name: "RelayBento", type: "div props + ref", description: "The grid. Lay the tiles out with ordinary grid classes (grid-cols-*, grid-rows-*, col-span-*): the light finds its way through whatever gaps there are, at any size, and reroutes when the layout changes." },
+      { name: "ref", type: "{ send }", description: "send from outside the bento, if the code that runs the story lives there." },
+      { name: "RelayTile id", type: "string", description: "What send calls the tile." },
+      { name: "RelayTile title", type: "ReactNode", description: "A short name, set under the tile's picture. It also names the tile for screen readers." },
+      { name: "RelayTile description", type: "ReactNode", description: "A line or two under the title." },
+      { name: "RelayTile side", type: "boolean", fallback: "false", description: "Sets the title and description beside the picture, on the left, whenever the tile is wide (36rem or more). Good for a wide, short tile like a map." },
+      { name: "--relay-tile", type: "CSS color", description: "The tiles' fill. By default it's mixed from your theme's muted and background colours; set it on the bento, or anything around it, to choose your own." },
+      { name: "useRelay().send", type: "(from, to, options?) => Promise<void>", description: "Runs light from one tile to another, or to several at once, and resolves when it lands. from and to are tile ids, elements inside tiles or refs to them: the light leaves beside the thing that sent it and lands beside the thing that receives it." },
+      { name: "options.tone", type: '"accent" | "success" | "danger"', fallback: '"accent"', description: "The light's colour, from --kf-accent, --kf-success or --kf-danger in your theme. Unset, they're blue, green and red." },
+      { name: "options.dock", type: "boolean", fallback: "false", description: "The light carries on past the tile's edge into the element it was sent to, and settles there as a dot that rings once. Good for a status dot or an avatar near an edge." },
+      { name: "options.signal", type: "AbortSignal", description: "Stops the light where it is. It fades out, and send resolves at once." },
+      { name: "options.pace", type: "number", fallback: "1", description: "How fast the light travels: 2 is twice as fast." },
+      { name: "useRelayLoop", type: "(story: (signal) => Promise<void>, { rest? }) => void", description: "Plays a story while the bento is on screen: it runs, rests for rest ms (1600 by default), and runs again. Scrolling away or hiding the tab aborts signal, and the story starts over on return." },
+    ],
+    notes: [
+      "The light only ever travels through the gaps, so it never covers a word of your content, and it finds its route from where the tiles actually are. Any grid layout works, down to one column on a phone.",
+      "It's drawn on one canvas laid over the grid that ignores the pointer, so every button, link and selection inside a tile works as usual. Nothing is drawn while no light is moving, and nothing plays while the bento is off screen.",
+      "Each tile is a group named by its title. The light is hidden from screen readers, so say what happened in the tile itself, as the demo does with its statuses.",
+      "With reduced motion on, nothing travels: send resolves at once, the receiving tile's edge glows for a moment, and a loop plays its story once and stays where it ends.",
+    ],
+  },
+  {
     slug: "photocopy-button",
     name: "Photocopy Button",
     group: "Actions",
@@ -215,7 +290,7 @@ export function CoverPhoto() {
   },
 ]
 
-export const UI_GROUPS: UiComponent["group"][] = ["Inputs", "Navigation", "Media", "Actions"]
+export const UI_GROUPS: UiComponent["group"][] = ["Inputs", "Navigation", "Media", "Actions", "Layout"]
 
 /** Built components in sidebar order: by group, then as listed. Pagers follow this too. */
 export const UI_ORDER = UI_GROUPS.flatMap((group) => UI_COMPONENTS.filter((c) => c.group === group && c.status === "new"))

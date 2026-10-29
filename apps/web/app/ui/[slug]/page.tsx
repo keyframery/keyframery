@@ -54,7 +54,7 @@ export default async function Page(props: PageProps<"/ui/[slug]">) {
   const source = await fs.readFile(path.join(process.cwd(), "components/keyframery", `${c.slug}.tsx`), "utf8").catch(() => null)
 
   return (
-    <DocsPage toc={TOC}>
+    <DocsPage toc={c.wide ? undefined : TOC} full={c.wide}>
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
         <Link href="/ui" className="hover:text-foreground">
           Components

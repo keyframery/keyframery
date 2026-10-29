@@ -294,6 +294,22 @@
           "target": "components/keyframery/wave-photo-upload.tsx"
         }
       ]
+    },
+    {
+      "name": "relay-bento",
+      "type": "registry:component",
+      "title": "Relay Bento",
+      "description": "A bento grid that animates itself: a light carries each step from tile to tile through the gaps between them, so the grid tells one story, on a loop, while it is on screen.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "components/keyframery/relay-bento.tsx",
+          "type": "registry:component",
+          "target": "components/keyframery/relay-bento.tsx"
+        }
+      ]
     }
   ]
 }
