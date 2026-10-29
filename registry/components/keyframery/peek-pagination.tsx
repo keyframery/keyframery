@@ -20,8 +20,8 @@ const RAISED = "bg-card shadow-[0_2px_3px_-1px_rgb(0_0_0/0.1),0_1px_0_0_rgb(25_2
 const blurIn = { initial: { opacity: 0, filter: "blur(4px)" }, animate: { opacity: 1, filter: "blur(0px)" }, exit: { opacity: 0, filter: "blur(4px)" } }
 
 type Slot = { kind: "page"; n: number } | { kind: "gap"; side: "start" | "end"; from: number; to: number }
-type Peek = { page: number; el: HTMLElement; x?: number; hint?: string }
-type Peeking = { show: (peek: Peek, now?: boolean) => void; hide: (delay?: number) => void; hovered: string | null; setHovered: (key: string | null) => void; id: string }
+type Peek = { page: number; el: HTMLElement; x?: number; hint?: string; fast?: boolean }
+type Peeking = { show: (peek: Peek, now?: boolean) => void; hide: (delay?: number) => void; hideFor: (el: HTMLElement) => void; hovered: string | null; setHovered: (key: string | null) => void; id: string }
 
 export type PeekPaginationProps = {
   /** The current page, when you control it. */
@@ -113,7 +113,12 @@ export function PeekPagination({ page: controlled, defaultPage = 1, onPageChange
     timers.current.hide = window.setTimeout(() => setPeek(null), delay)
   }
 
-  const peekers: Peeking = { show, hide, hovered, setHovered, id }
+  /** Closes the card only if it's showing for this element: another button losing focus shouldn't close it. */
+  function hideFor(el: HTMLElement) {
+    if (peeking.current?.el === el) hide(0)
+  }
+
+  const peekers: Peeking = { show, hide, hideFor, hovered, setHovered, id }
   const near = compact ? 1 : 2 // pages shown either side of the current one
 
   /** Where a slot sits in the row, ignoring any slide it's in the middle of. */
@@ -241,7 +246,7 @@ function PageNumber({ n, current, onGo, peekers }: { n: number; current: boolean
         peekers.show({ page: n, el: event.currentTarget })
       }}
       onFocus={(event) => event.currentTarget.matches(":focus-visible") && peekers.show({ page: n, el: event.currentTarget }, true)}
-      onBlur={() => peekers.hide(0)}
+      onBlur={(event) => peekers.hideFor(event.currentTarget)}
       {...blurIn}
       transition={{ layout: glide, duration: 0.2 }}
       className={cn("relative h-8 min-w-8 shrink-0 rounded-[8px] px-1.5 text-[13px] font-medium tabular-nums outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50", current ? "text-foreground" : "text-muted-foreground hover:text-foreground")}
@@ -272,7 +277,7 @@ function Gap({ side, from, to, jump, onGo, peekers }: { side: "start" | "end"; f
         if (!drag.current) peekers.show({ page: jump, el: event.currentTarget, hint })
       }}
       onFocus={(event) => event.currentTarget.matches(":focus-visible") && peekers.show({ page: jump, el: event.currentTarget, hint }, true)}
-      onBlur={() => peekers.hide(0)}
+      onBlur={(event) => peekers.hideFor(event.currentTarget)}
       onPointerDown={(event) => {
         if (event.button !== 0) return
         event.currentTarget.setPointerCapture(event.pointerId)
@@ -288,7 +293,7 @@ function Gap({ side, from, to, jump, onGo, peekers }: { side: "start" | "end"; f
           setScrubbing(true)
         }
         d.page = clamp(jump + Math.round(dx / 6), from, to)
-        peekers.show({ page: d.page, el: event.currentTarget, x: event.clientX, hint: "Let go to open it" }, true)
+        peekers.show({ page: d.page, el: event.currentTarget, x: event.clientX, hint: "Let go to open it", fast: true }, true)
       }}
       onPointerUp={() => {
         const d = drag.current
@@ -338,7 +343,7 @@ function Step({ kind, to, disabled, onGo, peekers }: { kind: "first" | "prev" | 
         peekers.show({ page: to, el: event.currentTarget })
       }}
       onFocus={(event) => event.currentTarget.matches(":focus-visible") && peekers.show({ page: to, el: event.currentTarget }, true)}
-      onBlur={() => peekers.hide(0)}
+      onBlur={(event) => peekers.hideFor(event.currentTarget)}
       initial="rest"
       animate="rest"
       whileHover="hover"
@@ -386,7 +391,7 @@ function GoTo({ pages, onGo, peekers }: { pages: number; onGo: (page: number) =>
             peekers.hide(0)
           }
         }}
-        onBlur={() => peekers.hide(0)}
+        onBlur={(event) => peekers.hideFor(event.currentTarget)}
         inputMode="numeric"
         aria-label={`Go to page, 1 to ${pages}`}
         placeholder="Page"
@@ -432,6 +437,20 @@ function PeekCard({ peek, nav, range, preview }: { peek: Peek | null; nav: React
   }, [peek, nav, x, y, caret, reduce])
 
   const r = peek ? range(peek.page) : null
+  const body = peek && (
+    <>
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="text-[13px] font-medium text-foreground">Page {peek.page.toLocaleString("en-US")}</span>
+        {r && (
+          <span className="text-xs text-muted-foreground tabular-nums">
+            {r[0].toLocaleString("en-US")}–{r[1].toLocaleString("en-US")}
+          </span>
+        )}
+      </div>
+      {preview && <div className="mt-2.5 border-t border-border/70 pt-2.5">{preview(peek.page)}</div>}
+      {peek.hint && <p className="mt-2 text-[11.5px] leading-snug text-muted-foreground">{peek.hint}</p>}
+    </>
+  )
   return (
     <AnimatePresence>
       {peek && (
@@ -453,32 +472,28 @@ function PeekCard({ peek, nav, range, preview }: { peek: Peek | null; nav: React
               transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
               style={{ transformOrigin: "50% 100%" }}
             >
-              <AnimatePresence mode="popLayout" initial={false} custom={dir}>
-                <motion.div
-                  key={peek.page}
-                  custom={dir}
-                  variants={{
-                    enter: (k: number) => ({ opacity: 0, x: 10 * k, filter: "blur(3px)" }),
-                    center: { opacity: 1, x: 0, filter: "blur(0px)" },
-                    exit: (k: number) => ({ opacity: 0, x: -10 * k, filter: "blur(3px)" }),
-                  }}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ type: "spring", duration: 0.28, bounce: 0 }}
-                >
-                  <div className="flex items-baseline justify-between gap-3">
-                    <span className="text-[13px] font-medium text-foreground">Page {peek.page.toLocaleString("en-US")}</span>
-                    {r && (
-                      <span className="text-xs text-muted-foreground tabular-nums">
-                        {r[0].toLocaleString("en-US")}–{r[1].toLocaleString("en-US")}
-                      </span>
-                    )}
-                  </div>
-                  {preview && <div className="mt-2.5 border-t border-border/70 pt-2.5">{preview(peek.page)}</div>}
-                  {peek.hint && <p className="mt-2 text-[11.5px] leading-snug text-muted-foreground">{peek.hint}</p>}
-                </motion.div>
-              </AnimatePresence>
+              {/* Pages swap with a short slide, except while you drag across a gap: then they swap at once. */}
+              {peek.fast ? (
+                <div key={peek.page}>{body}</div>
+              ) : (
+                <AnimatePresence mode="popLayout" initial={false} custom={dir}>
+                  <motion.div
+                    key={peek.page}
+                    custom={dir}
+                    variants={{
+                      enter: (k: number) => ({ opacity: 0, x: 10 * k, filter: "blur(3px)" }),
+                      center: { opacity: 1, x: 0, filter: "blur(0px)" },
+                      exit: (k: number) => ({ opacity: 0, x: -10 * k, filter: "blur(3px)" }),
+                    }}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ type: "spring", duration: 0.28, bounce: 0 }}
+                  >
+                    {body}
+                  </motion.div>
+                </AnimatePresence>
+              )}
               <motion.span className="absolute -bottom-[5px] -ml-[5px] size-2.5 rotate-45 border-r border-b border-black/8 bg-card dark:border-white/10" style={{ left: caret }} />
             </motion.div>
           </div>
