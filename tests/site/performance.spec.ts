@@ -13,13 +13,13 @@ test("the landing page waits for navigation before fetching other routes", async
     if (request.headers()["next-router-prefetch"] === "1") prefetched.push(request.url())
   })
   await page.goto("/")
-  await expect(page.locator('[data-testid="hero-stage"][data-ready]')).toBeAttached()
+  await expect(page.getByRole("group", { name: "Store dashboard with Keyframery" })).toBeAttached()
   // Next schedules viewport prefetching after hydration; allow that idle task to run.
   await page.waitForTimeout(1500)
   expect(prefetched).toEqual([])
 
-  await page.locator('section[aria-labelledby="hero-title"]').getByRole("link", { name: "Add to my app", exact: true }).click()
-  await expect(page).toHaveURL(/\/docs\/installation$/)
+  await page.locator('section[aria-labelledby="hero-title"]').getByRole("link", { name: "Read the docs" }).click()
+  await expect(page).toHaveURL(/\/docs$/)
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible()
 })
 

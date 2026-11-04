@@ -3,7 +3,7 @@ import { createFromSource } from 'fumadocs-core/search/server';
 import { source } from './source';
 
 /**
- * One index for the ⌘K search route and the MCP search_docs tool. Each page's FAQ (frontmatter, rendered under
+ * One index for the ⌘K search route. Each page's FAQ (frontmatter, rendered under
  * "Questions") is indexed too, so a search for a question finds the page that answers it.
  */
 export const docsSearch = createFromSource(source, {

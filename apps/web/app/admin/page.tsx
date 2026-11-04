@@ -59,9 +59,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ d
         </nav>
       </header>
 
-      <section aria-label="Summary" className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+      <section aria-label="Summary" className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
         <Stat label="Cuts downloads (CLI-like)" value={use.ok ? sum(use.data.cutsByDay) : null} note={use.ok ? `${use.data.allTime.install} all-time registry GETs` : undefined} />
-        <Stat label="MCP calls" value={use.ok ? use.data.totals.mcp : null} />
         <Stat label="Agent reads" value={use.ok ? use.data.totals.agent : null} />
         <Stat label="Site visits" value={site.ok ? site.data.visits : null} note={site.ok ? `${site.data.views} page views` : undefined} />
         <Stat label="GitHub stars" value={gh.ok ? gh.data.stars : null} />
@@ -121,17 +120,6 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ d
                 <Rows rows={u.otherRegistryByDay} head={["Day", "Other files CLI-like GETs"]} />
                 <Rows rows={u.registryClients} head={["Client classification", "Registry GETs"]} />
               </div>
-            </div>
-          )}
-        </Sourced>
-      </Section>
-
-      <Section title="MCP server" description="Calls to keyframery.com/mcp: which tools, and which clients connected (from the client's own name).">
-        <Sourced source={use}>
-          {(u) => (
-            <div className="grid gap-6 lg:grid-cols-2">
-              <Rows rows={u.mcpTools} head={["Tool", "Calls"]} />
-              <Rows rows={u.mcpClients} head={["Client", "Connections"]} />
             </div>
           )}
         </Sourced>
@@ -197,9 +185,6 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ d
                 <b>skills.sh:</b>{" "}
                 {d.skills.ours.length ? d.skills.ours.map((s) => `${s.label} (${s.count} installs)`).join(", ") : "no Keyframery skill listed yet"}
                 {d.skills.topMatch && `. Searching “keyframery” shows ${d.skills.topMatch.label} first (${d.skills.topMatch.count.toLocaleString("en")} installs).`}
-              </li>
-              <li>
-                <b>MCP server:</b> version {d.mcpVersion}
               </li>
             </ul>
           )}

@@ -1,4 +1,3 @@
-import { SERVER_INFO } from "@/lib/mcp"
 import { summarizeUsage, type Usage, type UsageCount } from "./usage-summary"
 
 /**
@@ -28,7 +27,7 @@ function add(map: Map<string, number>, key: string, count: number) {
   map.set(key, (map.get(key) ?? 0) + count)
 }
 
-/* Aggregate registry GETs, copy actions, MCP calls and agent reads (lib/usage.ts). */
+/* Aggregate registry GETs, copy actions and agent reads (lib/usage.ts). */
 
 export async function usage(days: number): Promise<Source<Usage>> {
   const url = process.env.DATABASE_URL
@@ -165,7 +164,6 @@ export async function github(): Promise<Source<GitHub>> {
 export type Distribution = {
   skills: { ours: Row[]; topMatch: Row | null }
   registryIndex: { listed: boolean; url: string | null }
-  mcpVersion: string
 }
 
 export async function distribution(): Promise<Source<Distribution>> {
@@ -184,7 +182,6 @@ export async function distribution(): Promise<Source<Distribution>> {
           topMatch: found[0] ? { label: `${found[0].source} · ${found[0].name}`, count: found[0].installs } : null,
         },
         registryIndex: { listed: Boolean(entry), url: entry },
-        mcpVersion: SERVER_INFO.version,
       },
     }
   } catch (error) {
@@ -211,7 +208,7 @@ export function setup() {
   const has = (name: string) => Boolean(process.env[name])
   return [
     { name: "KEYFRAMERY_ADMIN_PASSWORD", set: has("KEYFRAMERY_ADMIN_PASSWORD"), use: "this page's password (24+ characters)" },
-    { name: "DATABASE_URL", set: has("DATABASE_URL"), use: "registry GETs, successful copies, MCP calls and agent reads (Neon)" },
+    { name: "DATABASE_URL", set: has("DATABASE_URL"), use: "registry GETs, successful copies and agent reads (Neon)" },
     { name: "CF_API_TOKEN", set: has("CF_API_TOKEN"), use: "site traffic (Cloudflare Web Analytics, Account Analytics: Read)" },
     { name: "CF_ACCOUNT_ID", set: has("CF_ACCOUNT_ID"), use: "site traffic (Cloudflare account)" },
     { name: "GITHUB_TOKEN", set: has("GITHUB_TOKEN"), use: "GitHub traffic (optional; stars work without it)" },

@@ -31,16 +31,16 @@ describe("usage dashboard aggregation", () => {
       row("install_copy", "/theme", "theme-builder", 4),
       row("agent_prompt_copy", "/", "agent-prompt-button", 6),
       row("agent", "/llms.txt", "ClaudeBot", 7),
-      row("mcp", "tool:get_doc", "cli", 8),
-      row("mcp", "initialize", "Cursor", 9),
-    ], [{ kind: "install_copy", count: 20 }])
+      // Rows left over from the removed MCP server are ignored.
+      row("mcp" as UsageCount["kind"], "tool:get_doc", "cli", 8),
+    ], [{ kind: "install_copy", count: 20 }, { kind: "mcp" as UsageCount["kind"], count: 8 }])
     expect(summary.copyEvents).toHaveLength(3)
     expect(summary.copyEvents).toContainEqual({ event: "install_copy", page: "/", component: "install-command", count: 5 })
     expect(summary.totals.install_copy).toBe(9)
     expect(summary.allTime.install_copy).toBe(20)
     expect(summary.totals.install).toBe(0)
     expect(summary.agentItems).toEqual([{ label: "/llms.txt", count: 7 }])
-    expect(summary.mcpTools).toEqual([{ label: "get_doc", count: 8 }])
-    expect(summary.mcpClients).toEqual([{ label: "Cursor", count: 9 }])
+    expect(Object.keys(summary.totals)).not.toContain("mcp")
+    expect(Object.keys(summary.allTime)).not.toContain("mcp")
   })
 })

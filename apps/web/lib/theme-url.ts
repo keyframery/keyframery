@@ -250,7 +250,7 @@ export function themeAgentPrompt(settings: ThemeSettings): string {
     "",
     "Fetch the helper documentation for exact APIs. Do not replace components/ui or add an animation dependency. Do not wrap static inputs and buttons in animation helpers.",
     "Check keyboard interactions, rapid state changes and the platform reduced-motion preference after integrating.",
+    "Docs index: https://keyframery.com/llms.txt",
     "Plain-text docs: https://keyframery.com/llms-full.txt",
-    "Read-only MCP tools and supported-change catalogue: https://keyframery.com/mcp (call list_kinds first).",
   ].join("\n")
 }

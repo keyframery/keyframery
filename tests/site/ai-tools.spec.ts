@@ -1,29 +1,21 @@
 import { expect, test } from "./kit"
 
-test("the AI tools page shows the plugin, the MCP server and llms.txt", async ({ page }) => {
+test("the AI tools page shows the plugin, the copy-a-prompt option and the Markdown docs", async ({ page }) => {
   await page.goto("/docs/ai-tools")
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Use with AI tools")
   await expect(page.getByText("/plugin install keyframery@keyframery").first()).toBeVisible()
-  await expect(page.getByText("claude mcp add --transport http keyframery https://keyframery.com/mcp").first()).toBeVisible()
-  await expect(page.getByRole("heading", { name: "llms.txt" })).toBeVisible()
-})
-
-test("llms.txt points AI tools at the MCP server", async ({ request }) => {
-  expect(await (await request.get("/llms.txt")).text()).toContain("https://keyframery.com/mcp")
-})
-
-test("the AI tools page sets up the MCP server in each major coding agent, Claude Code first", async ({ page }) => {
-  await page.goto("/docs/ai-tools")
-  // The page's own questions, at the end, are h3s too; the tool sections are the ones before them.
-  const tools = (await page.locator("article h3").evaluateAll((hs) => hs.filter((h) => !h.closest('section[aria-labelledby="questions"]')).map((h) => h.textContent ?? ""))).map((t) =>
+  // Content headings only: the page's own questions at the end are headings too.
+  const headings = (await page.locator("article h2").evaluateAll((hs) => hs.filter((h) => !h.closest('section[aria-labelledby="questions"]')).map((h) => h.textContent ?? ""))).map((t) =>
     t.replace(/Copy Anchor Link$/, "").trim(),
   )
-  expect(tools).toEqual(["Claude Code", "Claude", "Codex", "Cursor", "VS Code (GitHub Copilot)", "Gemini CLI", "Any other MCP client"])
-  for (const text of [
-    "codex mcp add keyframery --url https://keyframery.com/mcp",
-    "[mcp_servers.keyframery]",
-    '"type": "http"',
-    "gemini mcp add --scope user --transport http keyframery https://keyframery.com/mcp",
-  ])
-    await expect(page.getByText(text, { exact: false }).first(), text).toBeVisible()
+  for (const h of ["Claude Code plugin", "Copy a prompt", "Any other agent"]) expect(headings).toContain(h)
+  await expect(page.getByRole("link", { name: "/llms.txt", exact: true }).first()).toBeVisible()
+  expect(await page.locator("article").innerText()).not.toMatch(/\bmcp\b/i)
+})
+
+test("llms.txt points coding agents at the skill and the full docs", async ({ request }) => {
+  const text = await (await request.get("/llms.txt")).text()
+  expect(text).toContain("https://keyframery.com/llms-full.txt")
+  expect(text).toContain("/plugin marketplace add keyframery/keyframery")
+  expect(text).not.toMatch(/mcp/i)
 })

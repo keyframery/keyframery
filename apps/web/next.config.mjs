@@ -17,7 +17,6 @@ const config = {
     const link = [
       '</.well-known/api-catalog>; rel="api-catalog"',
       '</docs>; rel="service-doc"',
-      '</.well-known/mcp/server-card.json>; rel="service-desc"; type="application/json"',
       '</llms.txt>; rel="describedby"; type="text/plain"',
       '</index.md>; rel="alternate"; type="text/markdown"',
     ].join(', ');

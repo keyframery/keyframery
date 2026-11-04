@@ -11,8 +11,6 @@ export type Usage = {
   otherRegistryByDay: Row[]
   registryClients: Row[]
   copyEvents: { event: CopyEventName; page: string; component: string; count: number }[]
-  mcpTools: Row[]
-  mcpClients: Row[]
   agentItems: Row[]
   agentClients: Row[]
 }
@@ -20,7 +18,7 @@ export type Usage = {
 const add = (map: Map<string, number>, key: string, count: number) => map.set(key, (map.get(key) ?? 0) + count)
 const top = (map: Map<string, number>, limit = 20): Row[] => [...map].map(([label, count]) => ({ label, count })).sort((a, b) => b.count - a.count).slice(0, limit)
 const daily = (map: Map<string, number>): Row[] => [...map].map(([label, count]) => ({ label, count })).sort((a, b) => b.label.localeCompare(a.label))
-const emptyTotals = (): Record<UsageKind, number> => ({ install: 0, mcp: 0, agent: 0, install_copy: 0, agent_prompt_copy: 0, theme_copy: 0, theme_share: 0 })
+const emptyTotals = (): Record<UsageKind, number> => ({ install: 0, agent: 0, install_copy: 0, agent_prompt_copy: 0, theme_copy: 0, theme_share: 0 })
 
 /** Registry GETs and clipboard intent stay separate; neither measures unique users or successful installs. */
 export function summarizeUsage(counts: UsageCount[], all: { kind: UsageKind; count: number }[]): Usage {
@@ -29,7 +27,7 @@ export function summarizeUsage(counts: UsageCount[], all: { kind: UsageKind; cou
   for (const r of all) if (Object.hasOwn(allTime, r.kind)) allTime[r.kind] = r.count
   const items = new Map<string, Usage["registryByItem"][number]>()
   const copies = new Map<string, Usage["copyEvents"][number]>()
-  const [cuts, otherRegistry, registryClients, mcpTools, mcpClients, agentItems, agentClients] = Array.from({ length: 7 }, () => new Map<string, number>())
+  const [cuts, otherRegistry, registryClients, agentItems, agentClients] = Array.from({ length: 5 }, () => new Map<string, number>())
 
   for (const r of counts) {
     if (!Object.hasOwn(totals, r.kind)) continue
@@ -43,9 +41,6 @@ export function summarizeUsage(counts: UsageCount[], all: { kind: UsageKind; cou
       items.set(r.item, entry)
       add(registryClients, r.client, r.count)
       if (r.client === "cli" && r.item !== "registry") add(r.item === "cuts" ? cuts : otherRegistry, r.day, r.count)
-    } else if (r.kind === "mcp") {
-      if (r.item === "initialize") add(mcpClients, r.client, r.count)
-      else add(mcpTools, r.item.replace(/^tool:/, ""), r.count)
     } else if (r.kind === "agent") {
       add(agentItems, r.item, r.count)
       add(agentClients, r.client, r.count)
@@ -64,8 +59,6 @@ export function summarizeUsage(counts: UsageCount[], all: { kind: UsageKind; cou
     otherRegistryByDay: daily(otherRegistry),
     registryClients: top(registryClients),
     copyEvents: [...copies.values()].sort((a, b) => b.count - a.count),
-    mcpTools: top(mcpTools),
-    mcpClients: top(mcpClients),
     agentItems: top(agentItems, 25),
     agentClients: top(agentClients),
   }

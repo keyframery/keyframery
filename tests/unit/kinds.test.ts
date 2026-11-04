@@ -43,7 +43,8 @@ describe("kinds", () => {
       expect(prompt).toContain(`https://keyframery.com/docs/${k.docs}.mdx`)
     }
     expect(prompt).toContain("https://keyframery.com/llms-full.txt")
-    expect(prompt).toContain("https://keyframery.com/mcp")
+    expect(prompt).toContain("https://keyframery.com/llms.txt")
+    expect(prompt).not.toMatch(/mcp/i)
     expect(prompt).toContain("Quiet, Crisp or Expressive")
     expect(prompt).toContain("StateCut for whole-content state switches")
     // Plain text: it is pasted into a chat box, so no Markdown fences and no trailing whitespace.

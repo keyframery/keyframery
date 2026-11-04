@@ -16,12 +16,12 @@ There is no CI and no deploy on push: the repo is deliberately not connected to 
    vercel link --yes --project keyframery --cwd ../kf-deploy
    vercel deploy --prod --yes --cwd ../kf-deploy
    ```
-4. Check the live site: key pages, `/r/cuts.json`, `/mcp`, and a screenshot.
+4. Check the live site: key pages, `/r/cuts.json`, `/llms.txt`, and a screenshot.
 5. Run `pnpm indexnow`, which tells Bing (and other IndexNow engines) about every page in the live sitemap. It should print `200` or `202`.
 
 ## Mobile performance
 
-The 23 October 2026 mobile PageSpeed report scored 68. Source fixes defer search until it opens, stop the homepage from prefetching the docs' full demo registry, delay Google Analytics until after load, prioritize the heading's font, and batch the two demo cursors' layout reads. Search ranking stays shared with WebMCP without importing the search UI.
+The 23 October 2026 mobile PageSpeed report scored 68. Source fixes defer search until it opens, stop the homepage from prefetching the docs' full demo registry, delay Google Analytics until after load, prioritize the heading's font, and batch the two demo cursors' layout reads.
 
 Keep CSS in Next.js's separate immutable assets. Enabling `experimental.inlineCss` repeated about 311 KB of CSS in both the HTML and React's serialized payload, making the homepage about 1.18 MB uncompressed. External styles reduce that HTML to about 227 KB. In local Lighthouse 13.5.0 mobile runs with the same default settings, the changes improved performance from 55 to 86, LCP from 6.3 to 3.8 seconds, blocking time from 760 to 160 ms, and transferred bytes from about 859 to 445 KB. These local results exclude production analytics and Cloudflare injection; they are not a new live PageSpeed score.
 
@@ -61,7 +61,7 @@ To re-test after it reports something:
 
 Without `DATABASE_URL`, signups go to `apps/web/.data/waitlist.jsonl`. That's fine locally, but on Vercel the file system doesn't persist, so set the variable before launch.
 
-The database holds the usage counts that `/admin` reads: registry GETs, MCP calls, agent reads and successful copies (see `apps/web/lib/usage.ts`). Without `DATABASE_URL` or the table, counts are not persisted. An old table constraint rejects copy events until the SQL script is rerun; check server warnings and actual rows after deployment.
+The database holds the usage counts that `/admin` reads: registry GETs, agent reads and successful copies (see `apps/web/lib/usage.ts`). Without `DATABASE_URL` or the table, counts are not persisted. An old table constraint rejects copy events until the SQL script is rerun; check server warnings and actual rows after deployment.
 
 ## Admin dashboard (/admin)
 
@@ -70,11 +70,11 @@ One password, no accounts. Set these for Production (values never appear on the 
 | Variable | What it unlocks |
 |---|---|
 | `KEYFRAMERY_ADMIN_PASSWORD` | the page itself; 24+ characters, or /admin stays closed. Changing it signs everyone out. |
-| `DATABASE_URL` | registry GETs (Cuts separate from other files; CLI-like / browser / crawler / other), successful copy actions, MCP tool calls and clients, agent reads (Markdown, llms.txt, .well-known) |
+| `DATABASE_URL` | registry GETs (Cuts separate from other files; CLI-like / browser / crawler / other), successful copy actions, agent reads (Markdown, llms.txt, .well-known) |
 | `CF_API_TOKEN`, `CF_ACCOUNT_ID` | site traffic from Cloudflare Web Analytics (token permission: Account Analytics: Read) |
 | `GITHUB_TOKEN` | GitHub views, clones and referrers (a fine-grained token on keyframery/keyframery with Administration: Read-only). Stars work without it. |
 
-Registry and agent counting starts in `proxy.ts` with background work; it does not establish successful response completion. MCP counting runs through `app/mcp/route.ts`. These counts never fail the request. Registry GETs are download proxies, not confirmed installations or unique developers; client classification is approximate. The `install` database kind is retained for historical registry counts. Do not divide unrelated daily copy, download and Cloudflare visit totals into an organic conversion rate.
+Registry and agent counting starts in `proxy.ts` with background work; it does not establish successful response completion. These counts never fail the request. Registry GETs are download proxies, not confirmed installations or unique developers; client classification is approximate. The `install` database kind is retained for historical registry counts, and old `mcp` rows from the removed MCP server stay in the table but are no longer shown. Do not divide unrelated daily copy, download and Cloudflare visit totals into an organic conversion rate.
 
 Successful clipboard writes POST to `/api/events` using same-origin JSON, without cookies or referrers. The endpoint validates origin, body size and a fixed event/page/component allowlist before scheduling a daily increment. It rejects cross-site browser writes but is a public aggregate counter, so scripted requests and repeated actions can inflate it. HTTP 204 means accepted for best-effort counting, not confirmed database persistence. No identities, clipboard contents, query strings or theme settings are stored. The privacy page describes both collection paths.
 
@@ -84,7 +84,7 @@ Successful clipboard writes POST to `/api/events` using same-origin JSON, withou
 | `agent_prompt_copy` | `/` | `agent-prompt-button` |
 | `install_copy`, `agent_prompt_copy`, `theme_copy`, `theme_share` | `/theme` | `theme-builder` |
 
-After deployment, copy one install command successfully, query its row in `usage_counts` and confirm the count increases by one. Block clipboard access and retry: the UI must report failure and the row must stay unchanged. Repeat with an agent prompt and a theme copy, then verify a registry GET and an MCP tool call independently. Database connectivity, production table migration and event receipt need this live check; local browser requests alone cannot verify persistence.
+After deployment, copy one install command successfully, query its row in `usage_counts` and confirm the count increases by one. Block clipboard access and retry: the UI must report failure and the row must stay unchanged. Repeat with an agent prompt and a theme copy, then verify a registry GET and an agent read (for example `/llms.txt`) independently. Database connectivity, production table migration and event receipt need this live check; local browser requests alone cannot verify persistence.
 
 ## Optional Microsoft Clarity
 

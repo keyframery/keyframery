@@ -84,31 +84,25 @@ npx skills add keyframery/keyframery --skill keyframery
 
 To preview available skills first, run `npx skills add keyframery/keyframery --list`.
 
-This installs reusable guidance for your coding agent. The skill can read public Markdown docs; MCP is optional and configured separately. Adding the animation code to your app still uses the shadcn commands above.
+This installs reusable guidance for your coding agent. The skill reads the public Markdown docs when it needs exact APIs. Adding the animation code to your app still uses the shadcn commands above.
 
-In Claude Code, the plugin teaches Claude which animation fits each change, and connects the Keyframery MCP server:
+In Claude Code, the plugin ships the same skill, so Claude knows which animation fits each change:
 
 ```bash
 /plugin marketplace add keyframery/keyframery
 /plugin install keyframery@keyframery
 ```
 
-For other agents, optionally connect to the MCP server at `https://keyframery.com/mcp` for documentation and theme tools. It is read-only and needs no account. For example, in Codex:
+Codex, Cursor and other agents can read the docs as plain Markdown: start at https://keyframery.com/llms.txt, or take every page in one file from https://keyframery.com/llms-full.txt. Any docs page is Markdown when you add `.mdx` to its URL.
 
-```bash
-codex mcp add keyframery --url https://keyframery.com/mcp
-```
-
-Setup for Claude, Cursor, VS Code, Gemini CLI and any other MCP client: https://keyframery.com/docs/ai-tools
-
-The docs are also plain text for any assistant: https://keyframery.com/llms-full.txt
+More on agents: https://keyframery.com/docs/ai-tools
 
 ## Working on Keyframery
 
 | Path | What |
 |---|---|
 | `registry/` | the shipped source: `components/keyframery/*`, `lib/keyframery/*`, `registry.json` |
-| `apps/web/` | keyframery.com: Next.js 16 + Fumadocs, including the MCP server at `/mcp` |
+| `apps/web/` | keyframery.com: Next.js 16 + Fumadocs, plus `llms.txt` and the Markdown docs |
 | `plugins/keyframery/` | the Claude Code plugin; `.claude-plugin/marketplace.json` lists it |
 | `fixtures/` | generated test apps: Next.js on Base UI and Radix, plus stock twins |
 | `tests/` | Vitest unit tests, Playwright end-to-end tests for the layer (`e2e/`) and the site (`site/`) |

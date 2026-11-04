@@ -5,7 +5,6 @@ import Script from "next/script"
 import { CutsControl } from "@/app/cuts-control"
 import { ClarityAnalytics } from "@/components/site/clarity-analytics"
 import { SiteProvider } from "@/components/site/provider"
-import { WebMcp } from "@/components/site/web-mcp"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { configuredClarityId } from "@/lib/clarity"
@@ -40,7 +39,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <JsonLd data={siteData()} />
         {/* The agent discovery catalog (ARD); React moves this link into <head>. */}
         <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
-        <WebMcp />
         <ClarityAnalytics projectId={configuredClarityId()} />
         <SiteProvider>
           <TooltipProvider>

@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
   title: "Terms",
-  description: "The terms for keyframery.com, the Keyframery MCP server and the MIT-licensed code: what is provided as is, fair use, and how changes are announced.",
+  description: "The terms for keyframery.com and the MIT-licensed code: what is provided as is, fair use, and how changes are announced.",
   path: "/terms",
 })
 
@@ -18,11 +18,11 @@ export default function Page() {
           Keyframery&apos;s components and engine are released under the MIT license. The license file in the repository is what governs your use of the code.
         </p>
       </PolicySection>
-      <PolicySection title="The website and the MCP server">
-        <p>keyframery.com and keyframery.com/mcp are provided as is, without warranties of any kind. We may change or stop them at any time.</p>
+      <PolicySection title="The website">
+        <p>keyframery.com is provided as is, without warranties of any kind. We may change or stop them at any time.</p>
       </PolicySection>
       <PolicySection title="Fair use">
-        <p>Don&apos;t overload, aggressively scrape or try to break the site or the MCP server.</p>
+        <p>Don&apos;t overload, aggressively scrape or try to break the site.</p>
       </PolicySection>
       {PRO_ENABLED && (
         <PolicySection title="Pro">

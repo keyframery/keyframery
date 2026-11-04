@@ -1,5 +1,5 @@
 /**
- * Counts registry GETs, MCP calls, Markdown reads and successful browser copy actions.
+ * Counts registry GETs, Markdown reads and successful browser copy actions.
  * Each hit adds one to a row for (day, kind, item, client). Nothing that identifies a
  * person is kept: no IP address and no user agent string, only the kind of client it names (e.g. "cli", "ClaudeBot").
  *
@@ -10,10 +10,11 @@
 import type { CopyEventName } from "./copy-events"
 
 // "install" is the historical database key for registry GET requests, not confirmed installations.
-export type UsageKind = "install" | "mcp" | "agent" | CopyEventName
+// Older rows may also have kind "mcp", from a server that has since been removed; nothing reads or writes them now.
+export type UsageKind = "install" | "agent" | CopyEventName
 export type UsageHit = { kind: UsageKind; item: string; client: string }
 
-/** Named clients, checked in order: crawlers and AI agents first, then the coding tools that call the MCP server. */
+/** Named clients, checked in order: crawlers and AI agents first, then coding tools that read the docs. */
 const NAMED: [RegExp, string][] = [
   [/GPTBot/i, "GPTBot"],
   [/ChatGPT-User/i, "ChatGPT-User"],
@@ -68,26 +69,6 @@ export function classifyRequest(method: string, pathname: string, markdown: bool
   if (/\.mdx?$/.test(pathname)) return { kind: "agent", item: pathname.replace(/\.mdx$/, ".md") }
   if (markdown) return { kind: "agent", item: pathname === "/" ? "/index.md" : `${pathname}.md` }
   return null
-}
-
-/** The MCP calls worth counting in one JSON-RPC body (a message or a batch): which tool, and which client said hello. */
-export function mcpHits(body: unknown, client: string): UsageHit[] {
-  const messages = Array.isArray(body) ? body : [body]
-  const hits: UsageHit[] = []
-  for (const message of messages) {
-    if (!message || typeof message !== "object") continue
-    const { method, params } = message as { method?: unknown; params?: { name?: unknown; clientInfo?: { name?: unknown } } }
-    if (method === "tools/call" && typeof params?.name === "string") hits.push({ kind: "mcp", item: `tool:${clip(params.name)}`, client })
-    if (method === "initialize") {
-      const name = params?.clientInfo?.name
-      hits.push({ kind: "mcp", item: "initialize", client: typeof name === "string" && name.trim() ? clip(name) : client })
-    }
-  }
-  return hits
-}
-
-function clip(text: string) {
-  return text.trim().replace(/[^\w .:@/-]/g, "").slice(0, 60) || "unknown"
 }
 
 /** Adds one to each hit's daily count. Never throws: counting must not break the response it rides on. */

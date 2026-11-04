@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Page() {
   return (
-    <Policy title="Privacy" effective="23 October 2026">
+    <Policy title="Privacy" effective="4 November 2026">
       <PolicySection title="What we collect">
         <ul>
           {PRO_ENABLED && (
@@ -34,8 +34,7 @@ export default function Page() {
             <a href="https://policies.google.com/privacy" className="underline underline-offset-4">Privacy Policy</a>.
           </li>
           <li>
-            <b>Download and agent counts.</b> When a tool downloads a component from keyframery.com/r, calls the MCP server, or reads the docs as
-            Markdown, we add one to a daily count of what was fetched and the kind of client (for example the shadcn CLI, a browser or a named
+            <b>Download and agent counts.</b> When a tool downloads a component from keyframery.com/r or reads the docs as Markdown, we add one to a daily count of what was fetched and the kind of client (for example the shadcn CLI, a browser or a named
             crawler). We keep only those counts, not your IP address or anything else that identifies you.
           </li>
           <li>
@@ -67,13 +66,6 @@ export default function Page() {
           cookieless Cloudflare analytics or aggregate copy/download counts.
         </p>
         <AnalyticsPreferences configured={Boolean(configuredClarityId())} />
-      </PolicySection>
-      <PolicySection title="The MCP server">
-        <p>
-          keyframery.com/mcp answers your AI tool&apos;s questions about the docs. It receives only what the tool sends it, such as a search query, a docs
-          path or theme settings. It stores none of it, apart from counting which tool was called and the client&apos;s name, and it never reads
-          your code. Its requests appear in Vercel&apos;s request logs like any other page.
-        </p>
       </PolicySection>
       <PolicySection title="What we don't do">
         <p>We don&apos;t sell your personal data or send custom user identifiers to Clarity. Optional Clarity analytics uses cookies only after your opt-in; advertising storage remains denied.</p>

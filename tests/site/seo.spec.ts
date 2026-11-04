@@ -3,7 +3,6 @@ import http from "node:http"
 import path from "node:path"
 
 import type { Page } from "@playwright/test"
-import { Client, StreamableHTTPClientTransport } from "@modelcontextprotocol/client"
 
 import { CONTENT_MODIFIED } from "../../apps/web/lib/content-modified"
 
@@ -96,7 +95,7 @@ test("structured data describes the project, the maker, the FAQ and each docs pa
 test("robots.txt lets every crawler in, AI ones included, says AI may use the content, and keeps crawlers out of the API", async ({ request }) => {
   const robots = await (await request.get("/robots.txt")).text()
   // Content Signals (contentsignals.org): search, quoting in AI answers and training are all welcome. Inside the * group.
-  expect(robots).toMatch(/User-Agent: \*\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: \/\nDisallow: \/api\/\nDisallow: \/mcp/)
+  expect(robots).toMatch(/User-Agent: \*\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: \/\nDisallow: \/api\/\nDisallow: \/admin/)
   expect(robots).toContain(`Sitemap: ${BASE}/sitemap.xml`)
   // One group for everyone: no crawler, GPTBot or ClaudeBot included, gets its own rules.
   expect(robots.match(/User-Agent:/g)).toHaveLength(1)
@@ -122,27 +121,17 @@ test("sitemap modification dates match checked content dates and omit unknown da
   expect(dates).toEqual(CONTENT_MODIFIED)
 })
 
-test("six representative docs keep descriptions, code and questions across HTML, Markdown, full docs and MCP", async ({ page, request }, info) => {
+test("six representative docs keep descriptions, code and questions across HTML, Markdown and full docs", async ({ page, request }) => {
   const full = await (await request.get("/llms-full.txt")).text()
-  const client = new Client({ name: "keyframery-seo-tests", version: "1.0.0" })
-  try {
-    await client.connect(new StreamableHTTPClientTransport(new URL("/mcp", info.project.use.baseURL ?? "http://localhost:4500")))
-    for (const route of ["/docs/installation", "/docs/components/dialog", "/docs/components/tabs", "/docs/helpers/list-cut", "/docs/helpers/load-cut", "/docs/ai-tools"]) {
-      await page.goto(route)
-      const description = (await meta(page, 'meta[name="description"]'))!
-      const markdown = await (await request.get(`${route}.mdx`)).text()
-      expect(markdown.split(description), route).toHaveLength(2)
-      expect(markdown, route).toContain("```")
-      const questions = await page.locator('section[aria-labelledby="questions"] h3').allTextContents()
-      for (const question of questions) expect(markdown, route).toContain(`### ${question.trim()}`)
-      expect(full, route).toContain(markdown.trim())
-      const result = await client.callTool({ name: "get_doc", arguments: { path: route } })
-      expect(result.isError, route).toBeFalsy()
-      const text = (result.content as { type: string; text?: string }[]).map((item) => item.text ?? "").join("\n")
-      expect(text, route).toBe(markdown)
-    }
-  } finally {
-    await client.close()
+  for (const route of ["/docs/installation", "/docs/components/dialog", "/docs/components/tabs", "/docs/helpers/list-cut", "/docs/helpers/load-cut", "/docs/ai-tools"]) {
+    await page.goto(route)
+    const description = (await meta(page, 'meta[name="description"]'))!
+    const markdown = await (await request.get(`${route}.mdx`)).text()
+    expect(markdown.split(description), route).toHaveLength(2)
+    expect(markdown, route).toContain("```")
+    const questions = await page.locator('section[aria-labelledby="questions"] h3').allTextContents()
+    for (const question of questions) expect(markdown, route).toContain(`### ${question.trim()}`)
+    expect(full, route).toContain(markdown.trim())
   }
 })
 

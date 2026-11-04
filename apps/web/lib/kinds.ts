@@ -1,4 +1,4 @@
-/* The seven kinds of change and the cut for each: what the MCP list_kinds tool serves. Snippets are copied from
+/* The seven kinds of change and the cut for each: what /cuts and the agent prompt list. Snippets are copied from
    the helper docs; tests check every docs path exists. No imports, so unit tests load it directly. */
 
 /** Installs the layer. The shadcn CLI finds @keyframery in shadcn's registry index, so nothing needs setting up first. */
@@ -140,7 +140,7 @@ export function agentPrompt(site = "https://keyframery.com"): string {
     "   Dialogs, alert dialogs, sheets, drawers, tabs, toasts and the command menu now animate on their own. Don't edit components/ui.",
     "",
     `3. Choose Quiet, Crisp or Expressive: ${site}/theme`,
-    "   Apply its generated <Cuts /> props and CSS variables. The MCP make_theme tool accepts a profile plus optional overrides. Keep the existing UI components.",
+    "   Apply its generated <Cuts /> props and CSS variables. Keep the existing UI components.",
     "",
     "4. Find changes outside the automatic components and wrap them:",
     ...helpers,
@@ -149,7 +149,7 @@ export function agentPrompt(site = "https://keyframery.com"): string {
     "",
     "Use StateCut for whole-content state switches, LoadCut for delayed skeleton loading, and ValueCut for a small changing value. Keep <Cuts /> mounted. Respect reduced motion and avoid duplicating an animation Keyframery already handles.",
     "",
+    `Docs index: ${site}/llms.txt`,
     `All docs as plain text: ${site}/llms-full.txt`,
-    `MCP server, if you can add one: ${site}/mcp`,
   ].join("\n")
 }

@@ -31,7 +31,7 @@ test("the home page's Markdown tells an agent what Keyframery is and how to inst
     "open-source motion layer for shadcn/ui",
     "npx shadcn add @keyframery/cuts",
     "<Cuts />",
-    "https://keyframery.com/mcp",
+    "https://keyframery.com/llms.txt",
     "https://keyframery.com/docs/installation",
   ])
     expect(md, fact).toContain(fact)
@@ -55,33 +55,28 @@ test("pages with a Markdown version link to it, and the link works", async ({ pa
 
 test("the home page's Link headers point agents at the machine-readable files", async ({ request }) => {
   const link = (await request.get("/")).headers()["link"] ?? ""
-  for (const rel of ['</.well-known/api-catalog>; rel="api-catalog"', 'rel="service-doc"', 'rel="service-desc"', 'rel="describedby"', '</index.md>; rel="alternate"; type="text/markdown"'])
+  for (const rel of ['</.well-known/api-catalog>; rel="api-catalog"', 'rel="service-doc"', 'rel="describedby"', '</index.md>; rel="alternate"; type="text/markdown"'])
     expect(link, rel).toContain(rel)
+  expect(link).not.toMatch(/mcp/i)
 })
 
-test("the API catalog lists the MCP server and the shadcn registry, each with a description and docs", async ({ request }) => {
+test("the API catalog lists the shadcn registry, with a description and docs", async ({ request }) => {
   const res = await request.get("/.well-known/api-catalog")
   expect(res.status()).toBe(200)
   expect(res.headers()["content-type"]).toContain("application/linkset+json")
   const { linkset } = (await res.json()) as { linkset: { anchor: string; "service-desc": { href: string }[]; "service-doc": { href: string }[] }[] }
-  expect(linkset.map((e) => e.anchor)).toEqual(["https://keyframery.com/mcp", "https://keyframery.com/r/registry.json"])
+  expect(linkset.map((e) => e.anchor)).toEqual(["https://keyframery.com/r/registry.json"])
   for (const e of linkset) {
     expect(e["service-desc"].length, e.anchor).toBeGreaterThan(0)
     expect(e["service-doc"].length, e.anchor).toBeGreaterThan(0)
   }
 })
 
-test("the MCP server card matches the server it describes", async ({ request }) => {
-  const card = await (await request.get("/.well-known/mcp/server-card.json")).json()
-  expect(card.serverInfo).toEqual({ name: "keyframery", version: "0.2.1" })
-  expect(card.url).toBe("https://keyframery.com/mcp")
-  expect(card.transport).toEqual({ type: "streamable-http" })
-  expect(card.capabilities).toEqual({ tools: true })
-  const listed = await request.post("/mcp", {
-    headers: { "content-type": "application/json", accept: "application/json, text/event-stream" },
-    data: { jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "test", version: "1" } } },
-  })
-  expect(await listed.text()).toContain('"name":"keyframery","version":"0.2.1"')
+test("there is no MCP server, card or WebMCP registration", async ({ request }) => {
+  expect((await request.get("/.well-known/mcp/server-card.json")).status()).toBe(404)
+  expect((await request.post("/mcp", { headers: { "content-type": "application/json" }, data: {} })).status()).toBe(404)
+  expect(await (await request.get("/llms.txt")).text()).not.toMatch(/mcp/i)
+  expect(await (await request.get("/auth.md")).text()).not.toMatch(/mcp/i)
 })
 
 test("the agent skills index publishes the Keyframery skill, and its digest matches the file", async ({ request }) => {
@@ -99,7 +94,7 @@ test("the agent skills index publishes the Keyframery skill, and its digest matc
   expect(bytes.toString()).toBe(readFileSync(new URL("../../plugins/keyframery/skills/keyframery/SKILL.md", import.meta.url), "utf8"))
 })
 
-test("the ARD catalog lists the MCP server and the skill, with stable identifiers", async ({ page, request }) => {
+test("the ARD catalog lists the skill, with stable identifiers", async ({ page, request }) => {
   const res = await request.get("/.well-known/ai-catalog.json")
   expect(res.headers()["access-control-allow-origin"]).toBe("*")
   const catalog = await res.json()
@@ -126,20 +121,4 @@ test("auth.md tells agents there's nothing to register for", async ({ request })
   const md = await res.text()
   expect(md.split("\n")[0]).toMatch(/^# .*auth\.md/)
   expect(md).toContain("No registration")
-})
-
-test("WebMCP: an in-browser agent gets read-only tools to search the docs and read pages", async ({ page }) => {
-  // Stand in for a browser with WebMCP, recording what the page registers.
-  await page.addInitScript(() => {
-    const tools: Record<string, { description: string; execute: (input: unknown) => Promise<unknown> }> = {}
-    ;(window as unknown as { __tools: typeof tools }).__tools = tools
-    Object.defineProperty(document, "modelContext", { value: { registerTool: async (t: { name: string } & (typeof tools)[string]) => void (tools[t.name] = t) } })
-  })
-  await page.goto("/")
-  await expect.poll(() => page.evaluate(() => Object.keys((window as unknown as { __tools: object }).__tools).sort())).toEqual(["get_install_steps", "read_page", "search_docs"])
-  const found = await page.evaluate(() => (window as unknown as { __tools: Record<string, { execute: (i: unknown) => Promise<unknown> }> }).__tools.search_docs.execute({ query: "list" }))
-  expect(JSON.stringify(found)).toContain("/docs/helpers/list-cut")
-  expect((found as { path: string }[])[0].path).toBe("/docs/helpers/list-cut")
-  const md = await page.evaluate(() => (window as unknown as { __tools: Record<string, { execute: (i: unknown) => Promise<unknown> }> }).__tools.read_page.execute({ path: "/docs/installation" }))
-  expect(JSON.stringify(md)).toContain("# Quick start")
 })

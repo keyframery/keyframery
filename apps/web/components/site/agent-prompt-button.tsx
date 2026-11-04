@@ -8,7 +8,7 @@ import { trackCopy } from "@/lib/track-copy"
 import { cn } from "@/lib/utils"
 
 /** Copies setup instructions to paste into Claude Code, Cursor or any other coding agent. */
-export function AgentPromptButton({ className }: { className?: string }) {
+export function AgentPromptButton({ className, label = "Copy for your coding agent" }: { className?: string; label?: string }) {
   const [copied, setCopied] = React.useState(false)
   const [error, setError] = React.useState(false)
   const Icon = copied ? CheckIcon : CopyIcon
@@ -38,7 +38,7 @@ export function AgentPromptButton({ className }: { className?: string }) {
         {/* Both labels share one grid cell, so the button keeps its width when the label changes. The hidden one
             (visibility: hidden) drops out of the button's name, so the name is always the label you see. */}
         <span className="grid">
-          <span className={cn("col-start-1 row-start-1", (copied || error) && "invisible")}>Copy for your coding agent</span>
+          <span className={cn("col-start-1 row-start-1", (copied || error) && "invisible")}>{label}</span>
           <span className={cn("col-start-1 row-start-1", !copied && "invisible")}>Copied. Now paste it.</span>
           <span className={cn("col-start-1 row-start-1", !error && "invisible")}>Copy failed. Try again.</span>
         </span>

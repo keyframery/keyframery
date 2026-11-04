@@ -13,6 +13,6 @@ export const CONTENT_MODIFIED: Readonly<Record<string, string>> = {
   "/docs/guides/animations-not-working": "2026-10-19",
   "/docs/guides/detail-routes": "2026-10-19",
   "/docs/compare": "2026-10-19",
-  "/docs/ai-tools": "2026-10-19",
-  "/privacy": "2026-10-19",
+  "/docs/ai-tools": "2026-11-04",
+  "/privacy": "2026-11-04",
 }

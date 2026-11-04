@@ -6,7 +6,7 @@
     {
       "name": "keyframery",
       "source": "./plugins/keyframery",
-      "description": "Teaches Claude to add Keyframery's animations to shadcn/ui apps and connects the Keyframery MCP server."
+      "description": "Teaches Claude to add Keyframery's animations to shadcn/ui apps."
     }
   ]
 }

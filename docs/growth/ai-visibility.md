@@ -35,9 +35,8 @@ For each product/mode, report **completed runs / planned runs**, **brand mention
 | Evidence | What it establishes | What it does not establish |
 |---|---|---|
 | Named crawler/Markdown request | A classified request reached an interface and was counted | A visible citation, recommendation or user visit |
-| MCP initialization/tool call | A counted protocol action | A successful answer, integration or adoption |
 | Saved answer with a visible source link | A citation in that specific sampled answer | Guaranteed repeatability or broad product visibility |
 | Search Console generative AI impressions | Links shown in Google's documented AI features | AI clicks or conversions; counts overlap search reporting |
 | Measured referral visit | A visit with the observed referrer in that collection system | Every AI visit, every citation or confirmed installation |
 
-Google's [Generative AI performance documentation](https://support.google.com/webmasters/answer/16984139) defines the impressions report. Its [AI optimization guidance](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) says special AI markup and `llms.txt` are unnecessary for Google visibility. Keep Markdown and MCP useful for developers while judging visibility from actual observed answers.
+Google's [Generative AI performance documentation](https://support.google.com/webmasters/answer/16984139) defines the impressions report. Its [AI optimization guidance](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) says special AI markup and `llms.txt` are unnecessary for Google visibility. Keep Markdown useful for developers while judging visibility from actual observed answers.

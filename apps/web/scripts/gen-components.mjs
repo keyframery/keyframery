@@ -122,7 +122,16 @@ export function pageFor(c) {
   if (c.note) lines.push(c.note, "")
 
   lines.push("## Install", "")
-  if (automatic) lines.push(`${c.name} is shadcn's own component. With \`<Cuts />\` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:`, "", ...npm(`npx shadcn add ${c.slug}`))
+  // Keyframery's own command first: the shadcn one alone reads as if it were the install for Keyframery.
+  if (automatic)
+    lines.push(
+      "First, Keyframery itself, once per project. Skip this if `<Cuts />` is already in your root layout ([Quick start](/docs/installation)):",
+      "",
+      ...npm("npx shadcn add @keyframery/cuts"),
+      `Then shadcn's own ${c.name}, if you don't have it yet:`,
+      "",
+      ...npm(`npx shadcn add ${c.slug}`),
+    )
   for (const h of helpers) lines.push(`Install [${h}](/docs/helpers/${HELPER_DOCS[h]}) and wrap the part that changes:`, "", ...npm(`npx shadcn add @keyframery/${HELPER_DOCS[h]}`))
   if (addOn) lines.push("For each icon's own move when it's pressed, add [Icon moves](/docs/helpers/icon-moves):", "", ...npm("npx shadcn add @keyframery/icon-moves"))
 

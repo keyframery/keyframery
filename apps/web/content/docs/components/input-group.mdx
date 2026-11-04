@@ -22,7 +22,13 @@ Input Group doesn't open or close, so it has no cut. It gets a **response** inst
 
 ## Install
 
-Input Group is shadcn's own component. With `<Cuts />` in your root layout ([Quick start](/docs/installation)), there's nothing else to add:
+First, Keyframery itself, once per project. Skip this if `<Cuts />` is already in your root layout ([Quick start](/docs/installation)):
+
+```npm
+npx shadcn add @keyframery/cuts
+```
+
+Then shadcn's own Input Group, if you don't have it yet:
 
 ```npm
 npx shadcn add input-group

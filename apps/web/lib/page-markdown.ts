@@ -1,5 +1,5 @@
 /* Markdown versions of the pages outside the docs, for AI agents that ask for Markdown (Accept: text/markdown).
-   Built from the same constants as the site and the MCP server, so they can't drift from them. */
+   Built from the same constants as the site, so they can't drift from it. */
 
 import { INSTALL, KINDS, kindsMarkdown, REGISTER } from "./kinds"
 import { SITE, TAGLINE } from "./seo"
@@ -38,7 +38,7 @@ export function homeMarkdown(): string {
     "## With AI coding agents",
     "",
     "- Claude Code plugin: `/plugin marketplace add keyframery/keyframery`, then `/plugin install keyframery@keyframery`.",
-    `- MCP server for any client: ${SITE}/mcp (read-only, no account).`,
+    `- Any other agent (Codex, Cursor and the rest): start at ${SITE}/llms.txt and read the pages it lists.`,
     `- All docs as plain text: ${SITE}/llms-full.txt`,
     "",
     "## Read next",
@@ -75,7 +75,7 @@ export function themeMarkdown(): string {
     "",
     `Every variable, default and \`<Cuts>\` prop is documented, as Markdown, at ${SITE}/docs/customize.mdx`,
     "",
-    "An agent can also build a theme through the read-only MCP server's `make_theme` tool with a quiet, crisp or expressive profile plus individual overrides. The builder can copy an agent prompt carrying the exact configuration.",
+    "The builder can copy an agent prompt carrying the exact configuration, so a coding agent applies the theme you tuned rather than an approximation.",
     "",
     `Theme reuse and installation guide: ${SITE}/docs/motion-themes.mdx`,
     "",

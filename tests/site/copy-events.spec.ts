@@ -7,12 +7,12 @@ test("successful install and agent copies each send one aggregate event", async 
     events.push(route.request().postDataJSON())
     await route.fulfill({ status: 204 })
   })
-  await page.goto("/?demo=off")
-  await page.getByRole("button", { name: "Copy the install command", exact: true }).first().click()
-  await expect(page.getByRole("button", { name: "Copied", exact: true }).first()).toBeVisible()
+  await page.goto("/")
+  await page.locator("#skill").getByRole("button", { name: "Copy the plugin install commands" }).click()
+  await expect(page.getByRole("status").filter({ hasText: "Copied the plugin install commands" })).toBeAttached()
   await expect.poll(() => events).toEqual([{ event: "install_copy", page: "/", component: "install-command" }])
-  // The agent button in this section is also available on phones.
-  await page.locator('section[aria-labelledby="agents-title"]').getByRole("button", { name: "Copy for your coding agent" }).click()
+  // The hero's main button copies the agent prompt.
+  await page.locator('section[aria-labelledby="hero-title"]').getByRole("button", { name: "Copy prompt for your agent" }).click()
   await expect.poll(() => events).toEqual([
     { event: "install_copy", page: "/", component: "install-command" },
     { event: "agent_prompt_copy", page: "/", component: "agent-prompt-button" },
@@ -30,12 +30,12 @@ for (const clipboard of ["denied", "unsupported"] as const) {
       events.push(route.request().postDataJSON())
       await route.fulfill({ status: 204 })
     })
-    await page.goto("/?demo=off")
-    await page.getByRole("button", { name: "Copy the install command", exact: true }).first().click()
-    await expect(page.getByRole("button", { name: "Copy failed. Retry copying the install command" }).first()).toBeVisible()
-    const agents = page.locator('section[aria-labelledby="agents-title"]')
-    await agents.getByRole("button", { name: "Copy for your coding agent" }).click()
-    await expect(agents.getByRole("button", { name: "Copy failed. Try again." })).toBeVisible()
+    await page.goto("/")
+    await page.locator("#skill").getByRole("button", { name: "Copy the plugin install commands" }).click()
+    await expect(page.getByRole("status").filter({ hasText: "Copy failed." }).first()).toBeAttached()
+    const hero = page.locator('section[aria-labelledby="hero-title"]')
+    await hero.getByRole("button", { name: "Copy prompt for your agent" }).click()
+    await expect(hero.getByRole("button", { name: "Copy failed. Try again." })).toBeVisible()
     await expect(page.getByRole("status").filter({ hasText: "Copied" })).toHaveCount(0)
     expect(events).toEqual([])
     await page.goto("/theme")

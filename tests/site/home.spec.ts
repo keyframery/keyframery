@@ -1,18 +1,19 @@
-import tested from "../../apps/web/lib/tested.json" with { type: "json" }
 import { expect, noHorizontalScroll, takeCuts, test } from "./kit"
 
-test("three practical examples show the motion and link to complete docs", async ({ page }) => {
+test("six live cards show what moves, each saying whether it is automatic or which helper", async ({ page }) => {
   await page.goto("/")
-  const examples = page.getByRole("region", { name: "Small details. A different feel." })
-  await expect(examples.locator("article")).toHaveCount(3)
-  for (const [title, href] of [
-    ["Dialogs that follow your action", "/docs/components/dialog"],
-    ["Lists that keep their place", "/docs/helpers/list-cut"],
-    ["Loading that feels considered", "/docs/helpers/load-cut"],
+  const features = page.getByRole("region", { name: "Every change gets the right animation." })
+  await expect(features.locator("article")).toHaveCount(6)
+  for (const [title, how] of [
+    ["Dialogs grow from the button", "Automatic"],
+    ["Lists make room", "ListCut"],
+    ["Numbers roll to the new value", "ValueCut"],
+    ["Loading dissolves into content", "LoadCut"],
+    ["Tabs slide the way you go", "Automatic"],
+    ["Cards open into their page", "MatchCut"],
   ]) {
-    const example = examples.locator("article").filter({ has: page.getByRole("heading", { name: title }) })
-    await expect(example.getByRole("heading", { name: title })).toBeVisible()
-    await expect(example.locator(`a[href="${href}"]`)).toBeVisible()
+    const card = features.locator("article").filter({ has: page.getByRole("heading", { name: title }) })
+    await expect(card.getByText(how, { exact: true })).toBeVisible()
   }
 })
 
@@ -20,10 +21,10 @@ test("the FAQ answers open and close", async ({ page }) => {
   await page.goto("/")
   const q = page.getByRole("button", { name: "Does it change my components?" })
   await q.click()
-  await expect(page.getByText("Nothing in components/ui is edited.")).toBeVisible()
+  await expect(page.getByText("Remove the line and you have stock shadcn again.")).toBeVisible()
   await q.click()
   // The closed panel collapses to 0 px. Its text stays in the HTML for crawlers (and WebKit still gives it a box), so check the panel.
-  await expect(page.locator('[data-slot="accordion-content"]').filter({ hasText: "Nothing in components/ui is edited." })).toBeHidden()
+  await expect(page.locator('[data-slot="accordion-content"]').filter({ hasText: "Remove the line and you have stock shadcn again." })).toBeHidden()
 })
 
 test("Settings: the dialog grows from its button; the sheet steps the page back; saving toasts", async ({ page }) => {
@@ -52,11 +53,12 @@ test("Chat: a sent message flies from Send, and a reply rises in", async ({ page
   expect(cuts).toEqual(expect.arrayContaining(["cut-on-action", "rise"]))
 })
 
-test("the home page explains installation in three steps", async ({ page }) => {
-  await page.goto("/?demo=off")
-  const how = page.getByRole("region", { name: "Keep your components. Add the motion." })
-  await expect(how.getByRole("listitem")).toHaveCount(3)
-  await expect(how.getByRole("link", { name: "Quick start" })).toHaveAttribute("href", "/docs/installation")
+test("the home page explains installation by hand in three steps", async ({ page }) => {
+  await page.goto("/")
+  const hand = page.getByRole("region", { name: "Rather do it yourself? It's one line of code." })
+  await expect(hand.getByRole("listitem")).toHaveCount(3)
+  await expect(hand.getByText("npx shadcn add @keyframery/cuts")).toBeVisible()
+  await expect(hand.getByRole("link", { name: "Read the quick start" })).toHaveAttribute("href", "/docs/installation")
   expect(await noHorizontalScroll(page)).toBe(true)
 })
 
@@ -70,15 +72,12 @@ test("the examples page lets you change a dialog with one prop", async ({ page }
   expect(await noHorizontalScroll(page)).toBe(true)
 })
 
-test("the home page and the FAQ tell coding-agent users about the plugin and the MCP server", async ({ page }) => {
+test("the home page tells coding-agent users about the skill, and never asks for a register step", async ({ page }) => {
   await page.goto("/")
   await expect(page.getByText("/plugin install keyframery@keyframery").first()).toBeVisible()
   await expect(page.getByText("npx shadcn add @keyframery/cuts").first()).toBeVisible()
-  await expect(page.getByText(`Tested with shadcn CLI ${tested.shadcnCli}, on Base UI and Radix.`)).toBeVisible()
   // shadcn's registry index knows @keyframery, so the page never asks for a register step.
   await expect(page.getByText("npx shadcn registry add")).toHaveCount(0)
-  await page.getByRole("button", { name: "Does it work with AI coding agents?" }).click()
-  const answer = page.getByRole("region", { name: "Does it work with AI coding agents?" })
-  await expect(answer).toContainText("keyframery.com/mcp")
-  await expect(answer).toContainText("Codex")
+  await page.getByRole("button", { name: "What does the skill do that the docs don't?" }).click()
+  await expect(page.getByText("review a diff instead of wiring it yourself")).toBeVisible()
 })

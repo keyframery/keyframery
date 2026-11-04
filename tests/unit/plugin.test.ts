@@ -20,15 +20,16 @@ describe("Claude Code plugin", () => {
     expect(fs.existsSync(file("plugins/keyframery/logo.png"))).toBe(true)
   })
 
-  it("connects the hosted MCP server and ships the skill", () => {
-    expect(json("plugins/keyframery/.mcp.json")).toEqual({ mcpServers: { keyframery: { type: "http", url: "https://keyframery.com/mcp" } } })
+  it("ships the skill and no MCP server", () => {
+    expect(fs.existsSync(file("plugins/keyframery/.mcp.json"))).toBe(false)
     const skill = fs.readFileSync(file("plugins/keyframery/skills/keyframery/SKILL.md"), "utf8")
     expect(skill).toMatch(/^---\nname: keyframery\ndescription: .+\n---\n/)
-    for (const tool of ["list_kinds", "search_docs", "get_doc", "make_theme"]) expect(skill).toContain(tool)
+    for (const tool of ["list_kinds", "search_docs", "get_doc", "make_theme"]) expect(skill).not.toContain(tool)
+    expect(skill).not.toMatch(/mcp/i)
+    expect(skill).toContain("https://keyframery.com/llms.txt")
     expect(skill).toContain("npx shadcn add @keyframery/cuts")
     expect(skill).toContain('npx shadcn registry add "@keyframery=https://keyframery.com/r/{name}.json"')
     expect(skill).toContain("@keyframery/state-cut")
-    expect(skill).toContain('profile: "quiet"')
     expect(skill).toContain("there is no runtime `profile` prop")
     expect(skill).toContain("Keep one root `<Cuts />` mounted")
   })

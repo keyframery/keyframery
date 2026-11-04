@@ -1,5 +1,5 @@
-/* Turns the docs' processed MDX into plain Markdown for AI tools (llms-full.txt, the .mdx routes, the MCP
-   get_doc tool): drops live demos, flattens Steps, Tabs, install tabs, callouts and cut cards, and renders TypeTable props as a Markdown table.
+/* Turns the docs' processed MDX into plain Markdown for AI tools (llms-full.txt and the .mdx routes):
+   drops live demos, flattens Steps, Tabs, install tabs, callouts and cut cards, and renders TypeTable props as a Markdown table.
    Code blocks pass through untouched. No imports, so unit tests load it directly. */
 
 const STR = String.raw`"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'`
@@ -32,7 +32,7 @@ const DEMO = /^<([A-Z]\w*Demo|Playground)(\s[^>]*)?\/>$/
 const WRAPPER_OPEN = /^<(Steps|Step|Tabs|Tab|CutCards|Callout)(\s[^>]*)?>$/
 const WRAPPER_CLOSE = /^<\/(Steps|Step|Tabs|Tab|CutCards|Callout)>$/
 
-/** A page's own questions, shared by the Markdown routes, llms-full.txt and MCP. */
+/** A page's own questions, shared by the Markdown routes and llms-full.txt. */
 function faqMarkdown(faq: { q: string; a: string }[] | undefined): string {
   if (!faq?.length) return ""
   return `\n\n## Questions\n\n${faq.map(({ q, a }) => `### ${q}\n\n${a}`).join("\n\n")}\n`

@@ -28,17 +28,17 @@ test("an incomplete email gets a specific message", async ({ page }) => {
   await expect(page.getByRole("status")).toContainText("doesn't look complete")
 })
 
-test("the home page runs from practical examples and themes through installation, agents, questions and the close", async ({ page }) => {
+test("the home page runs from what it is, through what moves, the skill, doing it by hand, questions and the close", async ({ page }) => {
   await page.goto("/")
   // Section headings only (ids ending in -title), not the dialog titles inside the demo screens.
   const order = await page.locator('main h2[id$="-title"]').allTextContents()
   expect(order).toEqual([
-    "Small details. A different feel.",
-    "Your app. Your motion.",
-    "Keep your components. Add the motion.",
-    "Or let your coding agent do it",
-    "Questions",
-    "Start with one line",
+    "shadcn/ui gives you the parts. Keyframery makes them move.",
+    "Every change gets the right animation.",
+    "Install the skill. Ask for animations. Review the diff.",
+    "Rather do it yourself? It's one line of code.",
+    "Before you install",
+    "Give your app the cuts an editor would choose.",
   ])
   await expect(page.getByRole("button", { name: "Join the waitlist" })).toHaveCount(PRO_ENABLED ? 1 : 0)
 })
