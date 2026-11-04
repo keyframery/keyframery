@@ -1,7 +1,7 @@
 /* Keyframery UI: our own components. One entry per component; the /ui pages, the sidebar, the sitemap and each
    page's metadata read from here. Only components marked "new" get a page; "soon" ones are listed as coming next. */
 
-export type UiSlug = "combination-otp" | "peek-pagination" | "wave-photo-upload" | "photocopy-button" | "relay-bento" | "blinds-password"
+export type UiSlug = "combination-otp" | "peek-pagination" | "wave-photo-upload" | "photocopy-code-block" | "relay-bento" | "blinds-password"
 
 export type UiProp = { name: string; type: string; fallback?: string; description: string }
 
@@ -188,6 +188,51 @@ export function CoverPhoto() {
     ],
   },
   {
+    slug: "photocopy-code-block",
+    name: "Photocopy Code Block",
+    group: "Actions",
+    status: "new",
+    tagline: "Press copy and a lamp of light reads your code like a copier, then folds into the button.",
+    summary:
+      "A code block whose copy button photocopies the code. Press copy and the button says Copied the moment it's on your clipboard. Then a fine lamp of light reads the code from top to bottom, each line glowing softly as it passes, runs back to the top, dimmed, the way a copier's does, and folds into the button, bringing in the count: Copied 14 lines. A one-line command gets a light that runs across it, straight into the button. Copy by hand instead, by selecting a few lines and pressing ⌘C, and a lamp only as wide as your selection reads just those letters, so you can see exactly what went to your clipboard. Shell prompts are shown but never copied.",
+    seoTitle: "Photocopy code block for shadcn/ui",
+    description: "A code block for shadcn/ui whose copy button photocopies the code: a lamp reads it line by line and folds into the button. Shows exactly what ⌘C copied.",
+    packages: ["motion"],
+    usage: `import { codeToHtml } from "shiki"
+
+import { PhotocopyCodeBlock } from "@/components/keyframery/photocopy-code-block"
+
+export async function Snippet({ code }: { code: string }) {
+  const html = await codeToHtml(code, {
+    lang: "tsx",
+    themes: { light: "github-light", dark: "github-dark" },
+    defaultColor: false,
+  })
+  return (
+    <PhotocopyCodeBlock code={code} title="app/page.tsx">
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </PhotocopyCodeBlock>
+  )
+}
+
+// A command: plain text is fine, and the $ is never copied.
+<PhotocopyCodeBlock language="bash" code="$ pnpm add motion" />`,
+    props: [
+      { name: "code", type: "string", description: "The code. It's what gets copied, and what's shown when there are no children. Leave it out and the text is read from what's shown." },
+      { name: "children", type: "ReactNode", description: "The code as your highlighter renders it, like Shiki's HTML. The lamp lights whatever is there, colours and all." },
+      { name: "title", type: "string", description: "A file name or label for the header, like app/page.tsx. Without one, the button sits in the corner, or at the end of a one-line command." },
+      { name: "language", type: "string", description: "Used to spot shell commands, so their prompts are left out of the clipboard." },
+      { name: "prompt", type: "string | false", description: 'A prompt to show but never copy, like "$ ". It\'s found on its own when every line of shell code starts with one; false turns it off.' },
+      { name: "onCopy", type: "(text: string) => void", description: "Runs with exactly what went to the clipboard, from the button, ⌘C on the block, or a selection." },
+    ],
+    notes: [
+      "Copying by hand counts too. Select part of the code and press ⌘C, and the lamp reads only the letters you selected, then the button says how many lines you got. Focus the block and press ⌘C with nothing selected, and it copies the whole thing.",
+      "It works with any highlighter, or none. The lamp lights a copy of whatever is rendered, so Shiki, rehype-pretty-code or a plain string all look right. To use it for every code block in MDX, map pre to it and leave out code: the text is read from the block.",
+      "If the page can't reach the clipboard, the code is selected for you and the button says to press ⌘C.",
+      "The button is a real button with a label, and screen readers hear what was copied. With reduced motion on, there's no lamp: the button just says Copied.",
+    ],
+  },
+  {
     slug: "relay-bento",
     name: "Relay Bento",
     group: "Layout",
@@ -259,20 +304,6 @@ function Story() {
       "Each tile is a group named by its title. The light is hidden from screen readers, so say what happened in the tile itself, as the demo does with its statuses.",
       "With reduced motion on, nothing travels: send resolves at once, the receiving tile's edge glows for a moment, and a loop plays its story once and stays where it ends.",
     ],
-  },
-  {
-    slug: "photocopy-button",
-    name: "Photocopy Button",
-    group: "Actions",
-    status: "soon",
-    tagline: "Press copy and a light sweeps across the code, then a copy of it slides into the button.",
-    summary: "",
-    seoTitle: "Photocopy button for shadcn/ui",
-    description: "A copy button for shadcn/ui code blocks: a light sweeps the code and a copy slides into the button.",
-    packages: ["motion"],
-    usage: "",
-    props: [],
-    notes: [],
   },
   {
     slug: "blinds-password",

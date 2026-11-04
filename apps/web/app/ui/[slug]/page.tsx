@@ -2,7 +2,7 @@ import fs from "node:fs/promises"
 import path from "node:path"
 
 import { highlight } from "fumadocs-core/highlight"
-import { DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page"
+import { DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
@@ -88,7 +88,6 @@ export default async function Page(props: PageProps<"/ui/[slug]">) {
             )}
           </div>
         </div>
-        <DocsDescription className="mb-0 max-w-[68ch] text-[17px] leading-relaxed text-pretty">{c.summary}</DocsDescription>
       </header>
 
       <section id="preview" aria-label="Preview" className="mt-8 scroll-mt-24">

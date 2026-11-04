@@ -35,6 +35,8 @@ type Flight = { src: string; from: Point; to: Point; key: number }
 type Spit = { label: string; from: Point; to: Point; key: number }
 type Palette = { accent: RGB; ink: RGB }
 
+const noSubscribe = () => () => {}
+
 export type WavePhotoUploadHandle = {
   /** Starts with a file you already have, as if it had been dropped. */
   pick: (file: File) => void
@@ -71,7 +73,8 @@ export function WavePhotoUpload({ upload, onChange, accept = ["image/png", "imag
   const [spit, setSpit] = React.useState<Spit | null>(null)
   const [glowing, setGlowing] = React.useState<string | null>(null) // the photo the glow is made from
   const [height, setHeight] = React.useState(IDLE_HEIGHT)
-  const [paste, setPaste] = React.useState("⌘V")
+  // ⌘V on Apple devices, Ctrl+V elsewhere; the server assumes ⌘V.
+  const paste = React.useSyncExternalStore(noSubscribe, () => (/Mac|iPhone|iPad/.test(navigator.platform) ? "⌘V" : "Ctrl+V"), () => "⌘V")
   const root = React.useRef<HTMLDivElement>(null)
   const frame = React.useRef<HTMLDivElement>(null)
   const canvas = React.useRef<HTMLCanvasElement>(null)
@@ -82,15 +85,12 @@ export function WavePhotoUpload({ upload, onChange, accept = ["image/png", "imag
   const over = React.useRef(false) // the pointer is on the component, so a paste goes to it
   const quiet = React.useRef(0) // clears the problem line after a while
   const phaseNow = React.useRef<Phase>("idle")
+  const flights = React.useRef(0) // a fresh key for each photo that falls in
   const frameHeight = useMotionValue(IDLE_HEIGHT)
   const glow = useMotionValue(0) // the photo's own colours, glowing around the frame
   const sink = useMotionValue(1) // the photo sinking back into the point
   const sinkBlur = useTransform(sink, (v) => `blur(${((1 - v) * 6).toFixed(2)}px)`)
   const names = accept.map((type) => TYPES[type] ?? type.split("/").pop()?.toUpperCase() ?? type)
-
-  React.useEffect(() => {
-    if (!/Mac|iPhone|iPad/.test(navigator.platform)) setPaste("Ctrl+V")
-  }, [])
 
   React.useEffect(() => {
     phaseNow.current = phase
@@ -189,7 +189,7 @@ export function WavePhotoUpload({ upload, onChange, accept = ["image/png", "imag
     setPhase("drawing")
     if (reduce) return begin(next, loaded.image, width, h)
     // The photo falls into the point on the bottom edge, then the print starts.
-    setFlight({ src: loaded.url, from, to: { x: width / 2, y: h }, key: performance.now() })
+    setFlight({ src: loaded.url, from, to: { x: width / 2, y: h }, key: ++flights.current })
     window.setTimeout(() => {
       setFlight(null)
       begin(next, loaded.image, width, h)

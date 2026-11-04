@@ -132,7 +132,7 @@ export function PeekPagination<T = unknown>({ page: controlled, defaultPage = 1,
         </motion.div>
       )
     }
-    if (loaded?.page === p && loaded.state === "failed") return <p className="text-xs text-muted-foreground">This page didn't load. Point at it again to retry.</p>
+    if (loaded?.page === p && loaded.state === "failed") return <p className="text-xs text-muted-foreground">This page didn&apos;t load. Point at it again to retry.</p>
     return <Skeleton />
   }
 

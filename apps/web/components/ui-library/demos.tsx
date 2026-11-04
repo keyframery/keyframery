@@ -4,6 +4,7 @@ import * as React from "react"
 
 import { CombinationOtp } from "@/components/keyframery/combination-otp"
 import { PaginationContent, PeekPagination } from "@/components/keyframery/peek-pagination"
+import { PhotocopyCodeBlock } from "@/components/keyframery/photocopy-code-block"
 import { WavePhotoUpload, type WavePhotoUploadHandle } from "@/components/keyframery/wave-photo-upload"
 import type { UiSlug } from "@/lib/ui-library"
 import { cn } from "@/lib/utils"
@@ -260,6 +261,72 @@ function WavePhotoUploadDemo({ size }: { size: Size }) {
   )
 }
 
+export const LAUNCH_BUTTON = `import { motion } from "motion/react"
+
+export function Launch({ onClick }: { onClick: () => void }) {
+  return (
+    <motion.button
+      whileTap={{ scale: 0.96 }}
+      transition={{ type: "spring", bounce: 0.3 }}
+      onClick={onClick}
+      className="rounded-full bg-black px-5 py-2.5 text-white"
+    >
+      Launch
+    </motion.button>
+  )
+}`
+
+// Just enough highlighting for the demo's snippets, so the lamp has real colours to light.
+const TSX = /(?<comment>\/\/.*$)|(?<string>"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(?<tag><\/?[A-Za-z][\w.]*)|(?<keyword>\b(?:import|from|export|function|return|const|let|await|async|type|default)\b)|(?<number>\b\d+(?:\.\d+)?\b)|(?<attr>\b[a-zA-Z][\w-]*(?==))|(?<name>\b[A-Z][A-Za-z]+\b(?=\())/gm
+const INK: Record<string, string> = {
+  comment: "text-[#8b8f98] dark:text-[#6e737c]",
+  string: "text-[#0b7a5a] dark:text-[#86e1b9]",
+  tag: "text-[#2447f5] dark:text-[#98abff]",
+  keyword: "text-[#c0266d] dark:text-[#ff8ab8]",
+  number: "text-[#b25e09] dark:text-[#f7c37a]",
+  attr: "text-[#7c3aed] dark:text-[#cbaaff]",
+  name: "text-[#0e7490] dark:text-[#7fd6e8]",
+}
+
+export function highlight(code: string) {
+  const out: React.ReactNode[] = []
+  let last = 0
+  for (const m of code.matchAll(TSX)) {
+    const kind = Object.entries(m.groups ?? {}).find(([, v]) => v !== undefined)?.[0]
+    if (m.index > last) out.push(code.slice(last, m.index))
+    out.push(
+      <span key={m.index} className={kind ? INK[kind] : undefined}>
+        {m[0]}
+      </span>,
+    )
+    last = m.index + m[0].length
+  }
+  out.push(code.slice(last))
+  return <code>{out}</code>
+}
+
+function PhotocopyCodeBlockDemo({ size }: { size: Size }) {
+  const [run, reset] = useRun()
+  return (
+    <Stage
+      size={size}
+      onReset={reset}
+      hint={
+        <>
+          Press copy. Or select a few lines and press <span className="font-medium text-foreground">⌘C</span>: the lamp reads just those.
+        </>
+      }
+    >
+      <div key={run} className="flex w-full max-w-[600px] flex-col items-start gap-3">
+        <PhotocopyCodeBlock language="bash" code="$ npx shadcn@latest add @keyframery/photocopy-code-block" className="w-fit max-w-full" />
+        <PhotocopyCodeBlock code={LAUNCH_BUTTON} title="components/launch.tsx">
+          {highlight(LAUNCH_BUTTON)}
+        </PhotocopyCodeBlock>
+      </div>
+    </Stage>
+  )
+}
+
 function RelayBentoStage({ size }: { size: Size }) {
   const [run, reset] = useRun()
   const [checks, setChecks] = React.useState<"pass" | "fail">("pass")
@@ -293,6 +360,7 @@ const DEMOS: Partial<Record<UiSlug, (props: { size: Size }) => React.ReactNode>>
   "combination-otp": CombinationOtpDemo,
   "peek-pagination": PeekPaginationDemo,
   "wave-photo-upload": WavePhotoUploadDemo,
+  "photocopy-code-block": PhotocopyCodeBlockDemo,
   "relay-bento": RelayBentoStage,
 }
 

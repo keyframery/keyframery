@@ -4,13 +4,18 @@ import * as React from "react"
 
 import { CombinationOtp } from "@/components/keyframery/combination-otp"
 import { PeekPagination } from "@/components/keyframery/peek-pagination"
+import { PhotocopyCodeBlock } from "@/components/keyframery/photocopy-code-block"
 import { WavePhotoUpload, type WavePhotoUploadHandle } from "@/components/keyframery/wave-photo-upload"
 import type { UiComponent } from "@/lib/ui-library"
 
-import { pretendUpload, sampleFile } from "./demos"
+import { highlight, pretendUpload, sampleFile } from "./demos"
 import { RelayBentoDemo } from "./relay-bento-demo"
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+const HELLO = `export function greet(name: string) {
+  return "Hello, " + name
+}`
 
 /** A card's live preview: the real component, small, on the dotted stage. */
 export function CardPreview({ component }: { component: UiComponent }) {
@@ -41,6 +46,14 @@ export function CardPreview({ component }: { component: UiComponent }) {
         <Scaled width={1000} height={800} scale={0.28}>
           <RelayBentoDemo className="w-[1000px]" />
         </Scaled>
+      </Frame>
+    )
+  if (component.slug === "photocopy-code-block")
+    return (
+      <Frame onReset={reset} note="Press copy">
+        <PhotocopyCodeBlock key={run} code={HELLO} title="hello.ts" className="max-w-[320px]">
+          {highlight(HELLO)}
+        </PhotocopyCodeBlock>
       </Frame>
     )
   return null

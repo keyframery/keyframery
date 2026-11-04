@@ -33,7 +33,6 @@ export default function Page() {
                 </Link>
                 <Tag status={c.status} />
               </h2>
-              <p className="mt-1 max-w-[52ch] text-sm text-pretty text-muted-foreground">{c.tagline}</p>
             </div>
           </article>
         ))}
