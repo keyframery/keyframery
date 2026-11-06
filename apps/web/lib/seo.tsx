@@ -98,7 +98,8 @@ export const projectData = (description: string) =>
     codeRepository: REPO,
     mainEntityOfPage: SITE,
     isPartOf: { "@id": WEBSITE_ID },
-    programmingLanguage: ["TypeScript", "React"],
+    // React is a library, not a language; the runtime is the browser.
+    programmingLanguage: "TypeScript",
     runtimePlatform: "Browser",
     license: "https://opensource.org/licenses/MIT",
     author: MAKER,
@@ -230,6 +231,32 @@ export const blogIndexData = (posts: { path: string; headline: string; published
     },
   )
 
+/** On /cuts: a guide to the transition patterns, with live examples. */
+export const cutsPageData = (description: string) =>
+  graph(
+    {
+      "@type": "Article",
+      "@id": `${url("/cuts")}#article`,
+      headline: "shadcn/ui animation examples",
+      description,
+      url: url("/cuts"),
+      mainEntityOfPage: url("/cuts"),
+      image: `${SITE}/opengraph-image`,
+      inLanguage: "en",
+      about: { "@id": `${SITE}/#software` },
+      author: MAKER,
+      publisher: { "@id": ORG_ID },
+      isPartOf: { "@id": WEBSITE_ID },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { name: SITE_NAME, item: SITE },
+        { name: "Examples", item: url("/cuts") },
+      ].map((x, i) => ({ "@type": "ListItem", position: i + 1, ...x })),
+    },
+  )
+
 /** On /about: the page describes the organization and its maker. */
 export const aboutPageData = () =>
   graph(
@@ -253,7 +280,7 @@ export const aboutPageData = () =>
   )
 
 /** On a /ui component page: the component's source (installed with the shadcn CLI), and where it sits. */
-export const uiComponentData = (c: { slug: string; name: string; description: string; packages: string[] }) =>
+export const uiComponentData = (c: { slug: string; name: string; description: string; seoTitle: string }) =>
   graph(
     {
       "@type": "SoftwareSourceCode",
@@ -262,11 +289,25 @@ export const uiComponentData = (c: { slug: string; name: string; description: st
       description: c.description,
       url: url(`/ui/${c.slug}`),
       codeRepository: REPO,
-      programmingLanguage: ["TypeScript", "React"],
+      programmingLanguage: "TypeScript",
       runtimePlatform: "Browser",
       license: "https://opensource.org/licenses/MIT",
       isAccessibleForFree: true,
-      ...(c.packages.length ? { softwareRequirements: c.packages.join(", ") } : {}),
+      author: MAKER,
+      publisher: { "@id": ORG_ID },
+      isPartOf: { "@id": WEBSITE_ID },
+    },
+    // The page itself is documentation about the component: install, props, accessibility.
+    {
+      "@type": "Article",
+      "@id": `${url(`/ui/${c.slug}`)}#article`,
+      headline: c.seoTitle,
+      description: c.description,
+      url: url(`/ui/${c.slug}`),
+      mainEntityOfPage: url(`/ui/${c.slug}`),
+      image: `${SITE}/opengraph-image`,
+      inLanguage: "en",
+      about: { "@id": `${url(`/ui/${c.slug}`)}#component` },
       author: MAKER,
       publisher: { "@id": ORG_ID },
       isPartOf: { "@id": WEBSITE_ID },

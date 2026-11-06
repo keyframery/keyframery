@@ -6,11 +6,13 @@ import { ComponentExplorer } from "@/components/home/component-explorer"
 import { StateCutLoop } from "@/components/home/state-cut-loop"
 import { TryIt } from "@/components/home/try-it"
 import { WallSection } from "@/components/home/wall-section"
-import { pageMetadata } from "@/lib/seo"
+import { cutsPageData, JsonLd, pageMetadata } from "@/lib/seo"
+
+const description = "Explore Keyframery's seven UI transition patterns, tune a dialog, compare shadcn components and try motion on six interactive app screens."
 
 export const metadata: Metadata = pageMetadata({
   title: "shadcn/ui animation examples",
-  description: "Explore Keyframery's seven UI transition patterns, tune a dialog, compare shadcn components and try motion on six interactive app screens.",
+  description,
   path: "/cuts",
   markdown: "/cuts.md",
 })
@@ -28,6 +30,7 @@ const ROWS = [
 export default function Page() {
   return (
     <div className="w-full flex-1 py-16">
+      <JsonLd data={cutsPageData(description)} />
       <header className="mx-auto w-full max-w-[1200px] px-4">
         <h1 className="max-w-[20ch] text-[36px] leading-[1.05] font-semibold tracking-[-0.03em] md:text-[44px]">Animation examples for your shadcn app</h1>
         <p className="mt-4 max-w-[60ch] text-lg text-muted-foreground">Explore seven kinds of interface change, tune a dialog and compare components on interactive app screens. Try a shared style in the <Link href="/theme" className="underline underline-offset-4">motion theme builder</Link>.</p>
