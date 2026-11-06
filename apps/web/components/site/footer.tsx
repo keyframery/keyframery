@@ -7,9 +7,9 @@ import { LogoMark } from "./logo"
 import { PublicEmail } from "./public-email"
 
 const GROUPS: { title: string; links: [label: string, href: string][] }[] = [
-  { title: "Product", links: [["Docs", "/docs"], ["Examples", "/cuts"], ["Theme", "/theme"], ...(PRO_ENABLED ? [["Pro", "/pro"] as [string, string]] : [])] },
+  { title: "Product", links: [["Docs", "/docs"], ["Examples", "/cuts"], ["Theme", "/theme"], ["Blog", "/blog"], ...(PRO_ENABLED ? [["Pro", "/pro"] as [string, string]] : [])] },
   { title: "Developers", links: [["AI tools", "/docs/ai-tools"], ["GitHub", "https://github.com/keyframery/keyframery"], ["llms.txt", "/llms.txt"]] },
-  { title: "Company", links: [["briyan@keyframery.com", "mailto:briyan@keyframery.com"], ["Privacy", "/privacy"], ["Terms", "/terms"]] },
+  { title: "Company", links: [["About", "/about"], ["briyan@keyframery.com", "mailto:briyan@keyframery.com"], ["Privacy", "/privacy"], ["Terms", "/terms"]] },
 ]
 
 const linkClass = "underline-offset-4 hover:text-foreground hover:underline"
@@ -26,9 +26,9 @@ export function SiteFooter() {
           <p className="mt-3 text-sm text-muted-foreground">Animations for shadcn/ui.</p>
           <p className="mt-6 text-sm text-muted-foreground">
             Made by{" "}
-            <a href="https://x.com/briyan_dev" className="text-foreground underline underline-offset-4">
+            <Link href="/authors/briyan-hingrajiya" prefetch={false} className="text-foreground underline underline-offset-4">
               Briyan Hingrajiya
-            </a>
+            </Link>
           </p>
           <a
             href="https://www.codehype.ai/product/keyframery?utm_source=codehype_badge"

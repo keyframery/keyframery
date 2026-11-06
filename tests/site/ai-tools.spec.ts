@@ -2,7 +2,7 @@ import { expect, test } from "./kit"
 
 test("the AI tools page shows the plugin, the copy-a-prompt option and the Markdown docs", async ({ page }) => {
   await page.goto("/docs/ai-tools")
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Use with AI tools")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Claude Code skill and AI tools for shadcn/ui animation")
   await expect(page.getByText("/plugin install keyframery@keyframery").first()).toBeVisible()
   // Content headings only: the page's own questions at the end are headings too.
   const headings = (await page.locator("article h2").evaluateAll((hs) => hs.filter((h) => !h.closest('section[aria-labelledby="questions"]')).map((h) => h.textContent ?? ""))).map((t) =>

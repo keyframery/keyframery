@@ -17,6 +17,9 @@ import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { getPageImageUrl, getPageMarkdownUrl, gitConfig } from '@/lib/shared';
 import { docData, faqData, JsonLd, pageMetadata, SITE, url } from '@/lib/seo';
+import { CONTENT_MODIFIED } from '@/lib/content-modified';
+import CONTENT_DATES from '@/lib/content-dates.json';
+import { longDate } from '@/lib/blog';
 
 /** `code` in a FAQ answer, as inline code. */
 function inline(text: string) {
@@ -35,10 +38,14 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const toc = faq.length ? [...page.data.toc, { title: 'Questions', url: '#questions', depth: 2 }] : page.data.toc;
   const { previous, next } = findNeighbour(source.getPageTree(), page.url);
   const component = params.slug?.[0] === 'components' ? params.slug[1] : undefined;
+  // From git history (scripts/gen-content-dates.mjs); a hand-checked date in CONTENT_MODIFIED wins when it's newer.
+  const dates = (CONTENT_DATES as Record<string, { published: string; modified: string }>)[page.url];
+  const hand = CONTENT_MODIFIED[page.url];
+  const modified = [dates?.modified, hand].filter(Boolean).sort().at(-1);
 
   return (
     <DocsPage toc={toc} full={page.data.full}>
-      <JsonLd data={docData({ path: page.url, headline: heading, description: page.data.description ?? '', image: `${SITE}${getPageImageUrl(page).url}` })} />
+      <JsonLd data={docData({ path: page.url, headline: heading, description: page.data.description ?? '', image: `${SITE}${getPageImageUrl(page).url}`, published: dates?.published, modified })} />
       {faq.length > 0 && <JsonLd data={faqData(faq.map(({ q, a }) => ({ q, text: a.replaceAll('`', '') })))} />}
       {/* The title row: the page's name, then what you can do with the page and where to go next. */}
       <header className="grid gap-4">
@@ -68,6 +75,15 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
           </div>
         </div>
         <DocsDescription className="mb-0 max-w-[68ch] text-[17px] leading-relaxed text-pretty">{page.data.description}</DocsDescription>
+        {/* Says what Keyframery is on every page, so a passage quoted on its own still names the product. */}
+        <p className="-mt-2 text-sm text-fd-muted-foreground">
+          {modified && (
+            <>
+              Updated <time dateTime={modified}>{longDate(modified)}</time> ·{' '}
+            </>
+          )}
+          Part of Keyframery, the open-source motion layer for shadcn/ui
+        </p>
         {component && <PageChips slug={component} />}
       </header>
       <DocsBody>
@@ -109,5 +125,9 @@ export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): P
     image: getPageImageUrl(page).url,
   });
   // The same page as Markdown, for AI tools that look for it.
-  return { ...metadata, alternates: { ...metadata.alternates, types: { 'text/markdown': `${url(page.url)}.mdx` } } };
+  return {
+    ...metadata,
+    alternates: { ...metadata.alternates, types: { 'text/markdown': `${url(page.url)}.mdx` } },
+    ...(page.data.noindex ? { robots: { index: false, follow: true } } : {}),
+  };
 }

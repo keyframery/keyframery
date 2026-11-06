@@ -1,7 +1,7 @@
-import { cutsMarkdown, MARKDOWN_HEADERS } from "@/lib/page-markdown"
+import { cutsMarkdown, markdownCopyHeaders } from "@/lib/page-markdown"
 
 export const dynamic = "force-static"
 
 export function GET() {
-  return new Response(cutsMarkdown(), { headers: MARKDOWN_HEADERS })
+  return new Response(cutsMarkdown(), { headers: markdownCopyHeaders("/cuts") })
 }

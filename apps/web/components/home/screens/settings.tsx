@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { Switch } from "@/components/ui/switch"
 
 import { Screen } from "../screen"
+import { PublicEmail } from "@/components/site/public-email"
 
 export function Settings({ className }: { className?: string }) {
   return (
@@ -19,7 +20,7 @@ export function Settings({ className }: { className?: string }) {
         <span aria-hidden="true" className="grid size-10 place-items-center rounded-full bg-muted text-sm font-medium">AK</span>
         <div className="min-w-0">
           <p className="truncate text-sm font-medium">Ada Kaur</p>
-          <p className="truncate text-sm text-muted-foreground">ada@studio.dev</p>
+          <p className="truncate text-sm text-muted-foreground"><PublicEmail address="ada@studio.dev" /></p>
         </div>
       </div>
       <div className="mt-4 grid gap-2">

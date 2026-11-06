@@ -1,5 +1,6 @@
 ---
 title: Performance
+heading: "Animation performance and bundle size"
 seoTitle: "Animation performance and bundle size"
 description: "What Keyframery runs in the browser, how to check its bundled size, and the variable to change on slow devices."
 ---
@@ -8,7 +9,7 @@ description: "What Keyframery runs in the browser, how to check its bundled size
 
 - **One** `MutationObserver` that watches for shadcn parts appearing and changing state
 - **Two** listeners in the capture phase, `pointerdown` and `keydown`, that remember the last press
-- Animations of `transform`, `opacity` and `filter` only, which the browser runs off the main thread where it can
+- Animations of `transform`, `opacity` and `filter`, which the browser runs off the main thread where it can. A few parts also animate size so the content around them moves instead of jumping: `height` for collapsible content, for the tab panel area when two panels differ in height, and for LoadCut and StateCut when the new content is taller or shorter; `width` for ValueCut when a number gains or loses digits
 - Ghosts, the copies of leaving elements, which are removed as soon as their animation ends or is cancelled
 
 Nothing runs while nothing changes.

@@ -5,9 +5,10 @@ import { Policy, PolicySection } from "@/components/site/policy"
 import { configuredClarityId } from "@/lib/clarity"
 import { PRO_ENABLED } from "@/lib/pro"
 import { pageMetadata } from "@/lib/seo"
+import { PublicEmail } from "@/components/site/public-email"
 
 export const metadata: Metadata = pageMetadata({
-  title: "Privacy",
+  title: "Privacy policy: what keyframery.com collects",
   description: "How keyframery.com uses Google Analytics, aggregate usage counts, optional Microsoft Clarity session analytics, and your privacy choices.",
   path: "/privacy",
 })
@@ -72,11 +73,11 @@ export default function Page() {
       </PolicySection>
       {PRO_ENABLED && (
         <PolicySection title="Your choices">
-          <p>To remove your email from the waitlist, write to briyan@keyframery.com and we&apos;ll delete it.</p>
+          <p>To remove your email from the waitlist, write to <PublicEmail address="briyan@keyframery.com" link className="underline underline-offset-4" /> and we&apos;ll delete it.</p>
         </PolicySection>
       )}
       <PolicySection title="Contact">
-        <p>Briyan Hingrajiya, briyan@keyframery.com</p>
+        <p>Briyan Hingrajiya, <PublicEmail address="briyan@keyframery.com" link className="underline underline-offset-4" /></p>
       </PolicySection>
     </Policy>
   )

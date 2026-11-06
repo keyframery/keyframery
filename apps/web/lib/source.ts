@@ -18,6 +18,8 @@ const docs = defineDocs({
       /** The page's H1, when the sidebar's short `title` would be too vague on its own. */
       heading: z.string().optional(),
       faq: faqSchema.optional(),
+      /** Kept in the docs for readers, left out of search results and the sitemap. */
+      noindex: z.boolean().optional(),
     }),
     postprocess: {
       includeProcessedMarkdown: true,

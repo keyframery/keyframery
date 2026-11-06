@@ -43,9 +43,12 @@ export function CardPreview({ component }: { component: UiComponent }) {
   if (component.slug === "relay-bento")
     return (
       <Frame note="It plays by itself">
-        <Scaled width={1000} height={800} scale={0.28}>
-          <RelayBentoDemo className="w-[1000px]" />
-        </Scaled>
+        {/* At 28% its buttons are 7 px wide: too small to use, so the preview is out of the tab order and the reading order. */}
+        <div inert>
+          <Scaled width={1000} height={800} scale={0.28}>
+            <RelayBentoDemo className="w-[1000px]" />
+          </Scaled>
+        </div>
       </Frame>
     )
   if (component.slug === "photocopy-code-block")

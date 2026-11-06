@@ -28,7 +28,7 @@ test("the sidebar is grouped by what you want to do, in plain words", async ({ p
 
 test("Quick start is three steps, each ending in what you should see", async ({ page }) => {
   await page.goto("/docs/installation")
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Quick start")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Install shadcn/ui animations in three steps")
   const steps = page.locator("article .fd-steps h3")
   await expect(steps).toHaveText([/Install <Cuts \/>/, /Render <Cuts \/> once/, /Open a dialog/])
   expect(await page.getByText("You should see", { exact: false }).count()).toBeGreaterThanOrEqual(3)
@@ -45,7 +45,7 @@ test("every Animate page follows one template: Install, Use, You should see, Opt
 
 test("What's automatic shows each automatic component with a demo and a link to its reference", async ({ page }) => {
   await page.goto("/docs/automatic")
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("What's automatic")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Animate shadcn/ui dialogs, sheets and tabs automatically")
   expect(await page.locator("[data-preview]").count()).toBeGreaterThanOrEqual(5)
   for (const ref of ["dialog", "sheet", "drawer", "tabs", "toast", "command", "tuned"]) await expect(page.locator(`article a[href="/docs/components/${ref}"]`).first(), ref).toBeVisible()
 })

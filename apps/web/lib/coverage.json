@@ -89,6 +89,7 @@
       "kind": "tuned",
       "part": "Accordion",
       "summary": "Sections expand and collapse on your theme's curve, and the chevron turns instead of being swapped.",
+      "description": "Animate the shadcn/ui Accordion: each section's height eases open and closed on your theme's curve, and the chevron turns a half turn with it.",
       "try": "Open a question, then close it.",
       "moves": [
         [
@@ -111,6 +112,7 @@
       "kind": "response",
       "part": "Alert",
       "summary": "An alert that appears after the page has loaded eases in instead of popping.",
+      "description": "When a shadcn/ui Alert appears after the page has loaded, it rises 6 px and fades in instead of popping onto the screen. No code changes needed.",
       "try": "Press Show an alert.",
       "moves": [
         [
@@ -156,6 +158,7 @@
       "name": "Aspect Ratio",
       "kind": "still",
       "summary": "Nothing changes on screen, so nothing moves.",
+      "description": "The shadcn/ui Aspect Ratio holds a box at a fixed shape and never changes on screen, so Keyframery leaves it exactly as shadcn ships it.",
       "moves": []
     },
     {
@@ -164,6 +167,7 @@
       "kind": "response",
       "part": "Attachment",
       "summary": "Attachments ease in when added; a finished upload gives a small punch and a failed one shakes.",
+      "description": "Attachments in shadcn/ui ease in when you add them. A finished upload gives the thumbnail a small punch, and a failed one shakes once.",
       "try": "Press Upload, then Upload and fail.",
       "moves": [
         [
@@ -199,6 +203,7 @@
       "kind": "response",
       "part": "Avatar",
       "summary": "When the photo finishes loading, it dissolves in over the fallback initials.",
+      "description": "When a shadcn/ui Avatar's photo finishes loading, it dissolves in over the fallback initials instead of replacing them in a single frame.",
       "try": "Press Reload the photo.",
       "moves": [
         [
@@ -215,6 +220,7 @@
       "kind": "helper",
       "part": "ValueCut",
       "summary": "A count in a badge rolls to its new value instead of flickering.",
+      "description": "Show a changing count in a shadcn/ui Badge with ValueCut: only the digits that changed roll to the new number, with a small punch at the end.",
       "try": "Press Up by 19, then Down by 7.",
       "moves": [
         [
@@ -230,6 +236,7 @@
       "name": "Breadcrumb",
       "kind": "still",
       "summary": "A breadcrumb changes with the route; route-to-route transitions are outside shadcn, so it stays as it is.",
+      "description": "A shadcn/ui Breadcrumb changes with the route, and route transitions are outside shadcn, so Keyframery keeps the breadcrumb as it ships.",
       "moves": [],
       "note": "Transitions between your own routes are on the roadmap."
     },
@@ -239,6 +246,7 @@
       "kind": "helper",
       "part": "ListCut",
       "summary": "A new message bubble arrives from where it was sent instead of appearing at the bottom.",
+      "description": "New chat bubbles arrive from the composer that sent them instead of appearing at the bottom. Wrap the list in ListCut; Base UI and Radix both work.",
       "try": "Press Add a task, then Reverse.",
       "moves": [
         [
@@ -255,6 +263,7 @@
       "kind": "response",
       "part": "Button",
       "summary": "A button dips while it's pressed, quicker in than out; with Icon moves, its icon plays its own move.",
+      "description": "Pressing a shadcn/ui Button makes it dip to 97%, quicker in than out. Add Icon moves and its lucide icon plays its own move, like a gear turning.",
       "try": "Press and hold Save.",
       "moves": [
         [
@@ -277,6 +286,7 @@
       "kind": "response",
       "part": "ButtonGroup",
       "summary": "Each button in the group dips while it's pressed.",
+      "description": "Every button in a shadcn/ui Button Group dips to 97% while it's pressed, so a row of actions feels as responsive as a single button.",
       "try": "Press and hold Day, Week or Month.",
       "moves": [
         [
@@ -293,6 +303,7 @@
       "kind": "response",
       "part": "Calendar",
       "summary": "The selected day glides to the day you click, and a new month slides in from the side you went toward.",
+      "description": "In the shadcn/ui Calendar, the selection glides to the day you click, and the next month slides in from the side you moved toward.",
       "try": "Pick a day.",
       "moves": [
         [
@@ -322,6 +333,7 @@
       "kind": "helper",
       "part": "MatchCut",
       "summary": "A card opens into its detail view, on the same page or a new route, and shrinks back when you return.",
+      "description": "Open a shadcn/ui Card into its detail view with MatchCut. It grows into the page, on the same route or a new one, and shrinks back when you return.",
       "try": "Press the Northwind Studio card, then Back to orders.",
       "moves": [
         [
@@ -338,6 +350,7 @@
       "kind": "response",
       "part": "Carousel",
       "summary": "The arrows dip and nudge while pressed; the slides keep Embla's own motion.",
+      "description": "The shadcn/ui Carousel arrows dip and nudge 2 px toward their direction when pressed, while the slides keep Embla's own drag and snap.",
       "try": "Use the arrows to move between slides.",
       "moves": [
         [
@@ -359,6 +372,7 @@
       "name": "Chart",
       "kind": "still",
       "summary": "Recharts animates its own data, so Keyframery leaves it alone.",
+      "description": "shadcn/ui Charts are drawn by Recharts, which animates its own data, so Keyframery leaves the chart alone and adds no second animation.",
       "moves": [
         [
           "Data changes",
@@ -374,6 +388,7 @@
       "kind": "response",
       "part": "Checkbox",
       "summary": "The tick draws itself when you check it; boxes that load checked don't redraw.",
+      "description": "The tick in a shadcn/ui Checkbox draws itself when you check the box. Boxes that load already checked appear without redrawing.",
       "try": "Tick and untick a box.",
       "moves": [
         [
@@ -390,6 +405,7 @@
       "kind": "tuned",
       "part": "Collapsible",
       "summary": "Shadcn's collapsible has no motion of its own; with Keyframery it eases open and closed.",
+      "description": "The shadcn/ui Collapsible has no motion of its own. With Keyframery its content eases open and closed on the same curve as the rest of your app.",
       "try": "Press Show three more files.",
       "moves": [
         [
@@ -406,6 +422,7 @@
       "kind": "tuned",
       "part": "ComboboxContent",
       "summary": "The list opens from the input on your theme's curve, the chevron turns, and picked items tick.",
+      "description": "A shadcn/ui Combobox list grows out of its input and returns to it. The chevron turns while it's open, and picked items draw their tick.",
       "try": "Click the field and type a letter.",
       "moves": [
         [
@@ -465,6 +482,7 @@
       "kind": "tuned",
       "part": "ContextMenuContent",
       "summary": "Opens from the pointer and closes back into it on your theme's curve; checkbox and radio items tick.",
+      "description": "A shadcn/ui Context Menu grows from the pointer and closes back into it on your theme's curve, and checkbox and radio items tick as you pick them.",
       "try": "Right-click inside the dashed box.",
       "moves": [
         [
@@ -510,6 +528,7 @@
       "name": "Direction",
       "kind": "still",
       "summary": "A provider with nothing on screen.",
+      "description": "The shadcn/ui Direction provider sets text direction and draws nothing on screen, so there is nothing for Keyframery to animate.",
       "moves": []
     },
     {
@@ -541,6 +560,7 @@
       "kind": "tuned",
       "part": "DropdownMenuContent",
       "summary": "Opens from its trigger and closes back into it on your theme's curve; checkbox and radio items tick.",
+      "description": "A shadcn/ui Dropdown Menu opens out of its trigger and closes back into it on your theme's curve. Checkbox and radio items draw a tick.",
       "try": "Press View.",
       "moves": [
         [
@@ -564,6 +584,7 @@
       "kind": "helper",
       "part": "StateCut",
       "summary": "An empty state arrives in place of content, and content replaces it, without a jump.",
+      "description": "Swap a shadcn/ui Empty state for real content, or back, without a jump: StateCut fades or slides between them while the height eases.",
       "try": "Press Empty inbox, Show messages or Show error.",
       "moves": [
         [
@@ -580,6 +601,7 @@
       "kind": "response",
       "part": "Field",
       "summary": "Choice cards change colour instead of jumping, and an error shakes once and rises in.",
+      "description": "Choice cards in a shadcn/ui Field ease from one colour to the next, and an error makes the control shake once while the message rises in.",
       "try": "Press Subscribe with the email empty.",
       "moves": [
         [
@@ -607,6 +629,7 @@
       "name": "Form",
       "kind": "still",
       "summary": "Form has no markup of its own; its fields respond through Field and Input.",
+      "description": "shadcn/ui Form has no markup of its own. Its fields respond through Field and Input, so check those pages for the shake and colour changes.",
       "moves": []
     },
     {
@@ -615,6 +638,7 @@
       "kind": "tuned",
       "part": "HoverCardContent",
       "summary": "The card opens out of the link you hover and closes back into it, on your theme's curve.",
+      "description": "A shadcn/ui Hover Card opens out of the link you're pointing at and closes back into it, on the same curve as every menu in your app.",
       "try": "Point at @keyframery and wait a moment.",
       "moves": [
         [
@@ -631,6 +655,7 @@
       "kind": "response",
       "part": "Input",
       "summary": "An input that turns invalid after a submit gives one short shake; never while you type.",
+      "description": "A shadcn/ui Input that turns invalid after a submit gives one short shake. Typing never triggers it, so the field stays calm while people fill it in.",
       "try": "Press the button with the field empty.",
       "moves": [
         [
@@ -647,6 +672,7 @@
       "kind": "response",
       "part": "InputGroup",
       "summary": "The whole group shakes once when its input turns invalid after a submit.",
+      "description": "When the input in a shadcn/ui Input Group turns invalid after a submit, the whole group shakes once, and its buttons dip while pressed.",
       "try": "Press the button with the field empty.",
       "moves": [
         [
@@ -669,6 +695,7 @@
       "kind": "response",
       "part": "InputOTP",
       "summary": "An invalid code shakes once; typing stays instant.",
+      "description": "An invalid code makes the shadcn/ui Input OTP slots shake once, while typing stays instant. For a code field that rolls digits, see Combination OTP.",
       "try": "Type a wrong code, then press Check the code.",
       "moves": [
         [
@@ -686,6 +713,7 @@
       "kind": "helper",
       "part": "ListCut",
       "summary": "Items are added, removed and reordered without jumping, and an item can open into its detail.",
+      "description": "Add, remove and reorder shadcn/ui Items without jumps using ListCut, and open an item into its detail view with MatchCut.",
       "try": "Press Add a task, then Reverse.",
       "moves": [
         [
@@ -707,6 +735,7 @@
       "name": "Kbd",
       "kind": "still",
       "summary": "A keyboard key label never changes, so nothing moves.",
+      "description": "A shadcn/ui Kbd label shows a keyboard key and never changes, so Keyframery leaves it as shadcn ships it while everything around it animates.",
       "moves": []
     },
     {
@@ -714,6 +743,7 @@
       "name": "Label",
       "kind": "still",
       "summary": "A label never changes, so nothing moves.",
+      "description": "A shadcn/ui Label never changes on screen, so nothing moves and Keyframery leaves it alone. The field it labels still shakes on errors.",
       "moves": []
     },
     {
@@ -721,6 +751,7 @@
       "name": "Marker",
       "kind": "still",
       "summary": "A marker never changes, so nothing moves.",
+      "description": "A shadcn/ui Marker is static by design, so Keyframery doesn't touch it. Nearby lists and messages still animate through ListCut.",
       "moves": []
     },
     {
@@ -729,6 +760,7 @@
       "kind": "tuned",
       "part": "MenubarContent",
       "summary": "Menus open from their trigger and close back into it on your theme's curve; checkbox and radio items tick.",
+      "description": "Each shadcn/ui Menubar menu grows from its trigger and returns to it on your theme's curve, and checkbox and radio items draw their tick.",
       "try": "Press File, then View.",
       "moves": [
         [
@@ -752,6 +784,7 @@
       "kind": "helper",
       "part": "ListCut",
       "summary": "A new message arrives from where it was sent.",
+      "description": "A new chat message in shadcn/ui flies out of the composer that sent it, or slides in if it came from someone else. Wrap the list in ListCut.",
       "try": "Press Add a task, then Reverse.",
       "moves": [
         [
@@ -768,6 +801,7 @@
       "kind": "helper",
       "part": "ListCut",
       "summary": "Keeps its own scroll motion; new messages arrive through ListCut, and the jump button dips and nudges.",
+      "description": "The shadcn/ui Message Scroller keeps its own scrolling. New messages arrive through ListCut, and the jump-to-latest button nudges toward the end.",
       "try": "Press Add a task, then Reverse.",
       "moves": [
         [
@@ -796,6 +830,7 @@
       "kind": "response",
       "part": "NativeSelect",
       "summary": "An invalid choice shakes once; the popup is drawn by the browser and can't be animated.",
+      "description": "A shadcn/ui Native Select shakes once when its choice is invalid. The dropdown itself is drawn by the browser, so it can't be animated.",
       "try": "Press the button without choosing a plan.",
       "moves": [
         [
@@ -812,6 +847,7 @@
       "kind": "tuned",
       "part": "NavigationMenuContent",
       "summary": "Keeps its own direction-aware motion and follows your theme's timing.",
+      "description": "The shadcn/ui Navigation Menu keeps its own direction-aware motion. Keyframery only aligns its timing with the rest of your app's motion theme.",
       "try": "Point at Product, then Resources.",
       "moves": [
         [
@@ -828,6 +864,7 @@
       "kind": "response",
       "part": "Pagination",
       "summary": "The current page glides to the one you click, and the links dip while pressed.",
+      "description": "In shadcn/ui Pagination, the current-page highlight glides to the page you click, links dip while pressed, and the arrows nudge toward their side.",
       "try": "Press a page number, or Next.",
       "moves": [
         [
@@ -850,6 +887,7 @@
       "kind": "tuned",
       "part": "PopoverContent",
       "summary": "A popover grows out of the button that opened it and goes back into it, on your theme's curve.",
+      "description": "A shadcn/ui Popover grows out of the button that opened it and goes back into it when it closes, on your theme's curve. No code changes needed.",
       "try": "Press Share.",
       "moves": [
         [
@@ -866,6 +904,7 @@
       "kind": "response",
       "part": "Progress",
       "summary": "The bar eases to its new value on your theme's curve.",
+      "description": "A shadcn/ui Progress bar eases to each new value on your theme's curve instead of jumping, so long tasks read as steady movement.",
       "try": "Press More, then Less.",
       "moves": [
         [
@@ -882,6 +921,7 @@
       "kind": "response",
       "part": "Questionnaire",
       "summary": "Picked choices tick or grow their dot, and the next step slides in like a tab.",
+      "description": "In a shadcn/ui Questionnaire, picked answers draw a tick or grow their dot, and the next step slides in from the side you're moving toward.",
       "try": "Pick an answer, then press Next.",
       "moves": [
         [
@@ -904,6 +944,7 @@
       "kind": "response",
       "part": "RadioGroup",
       "summary": "The dot grows from its centre on the item you pick.",
+      "description": "Pick an option in a shadcn/ui Radio Group and its dot grows from the centre, so the selection reads clearly without extra colour.",
       "try": "Pick another option.",
       "moves": [
         [
@@ -920,6 +961,7 @@
       "kind": "response",
       "part": "ResizablePanelGroup",
       "summary": "The handle thickens and takes the focus colour while you drag it.",
+      "description": "A shadcn/ui Resizable handle thickens and takes your focus colour while you drag it, so it's obvious which divider you've grabbed.",
       "try": "Drag the line between Files and Preview.",
       "moves": [
         [
@@ -935,6 +977,7 @@
       "name": "Scroll Area",
       "kind": "still",
       "summary": "Scrolling follows your finger and wheel, so Keyframery adds nothing.",
+      "description": "Scrolling in a shadcn/ui Scroll Area follows your finger and wheel directly, so Keyframery adds no motion on top of it.",
       "moves": []
     },
     {
@@ -943,6 +986,7 @@
       "kind": "tuned",
       "part": "SelectContent",
       "summary": "The list opens out of its trigger and closes back into it on your theme's curve, while the highlight follows your keys instantly.",
+      "description": "The shadcn/ui Select list opens out of its trigger and closes back into it, while the highlight follows your arrow keys with no delay.",
       "try": "Open the list and pick a fruit.",
       "moves": [
         [
@@ -959,6 +1003,7 @@
       "name": "Separator",
       "kind": "still",
       "summary": "A separator never changes, so nothing moves.",
+      "description": "A shadcn/ui Separator is a line that never changes, so there is nothing to animate. Keyframery leaves it exactly as it ships.",
       "moves": []
     },
     {
@@ -990,6 +1035,7 @@
       "kind": "response",
       "part": "Sidebar",
       "summary": "The active item glides to the one you pick, the width follows your theme's curve, and labels leave before it closes.",
+      "description": "In the shadcn/ui Sidebar, the active item glides to the one you pick, the width follows your theme's curve, and labels leave before it closes.",
       "try": "Press Inbox, Calendar or Settings.",
       "moves": [
         [
@@ -1024,6 +1070,7 @@
       "kind": "helper",
       "part": "LoadCut",
       "summary": "A skeleton dissolves into the real content, and never shows at all if the data is quick.",
+      "description": "Replace a shadcn/ui Skeleton with real content using LoadCut: it dissolves in, and if the data arrives within 300 ms the skeleton never shows.",
       "try": "Press Load slowly, then Load fast.",
       "moves": [
         [
@@ -1040,6 +1087,7 @@
       "kind": "response",
       "part": "Slider",
       "summary": "The thumb grows while you drag it and settles on release; arrow keys stay instant.",
+      "description": "The shadcn/ui Slider thumb grows to 125% while you drag it and settles when you let go. Arrow keys still move it instantly.",
       "try": "Drag the slider.",
       "moves": [
         [
@@ -1078,6 +1126,7 @@
       "name": "Spinner",
       "kind": "still",
       "summary": "A spinner already spins, so Keyframery leaves it alone.",
+      "description": "A shadcn/ui Spinner already spins on its own, so Keyframery leaves it alone. Use LoadCut if you'd rather swap content without a spinner.",
       "moves": [
         [
           "Loading",
@@ -1093,6 +1142,7 @@
       "kind": "response",
       "part": "Switch",
       "summary": "The thumb travels on your theme's curve and stretches toward where it's going while held.",
+      "description": "The shadcn/ui Switch thumb travels on your theme's curve and stretches toward its other side while held, so a toggle feels physical.",
       "try": "Flip a switch.",
       "moves": [
         [
@@ -1115,6 +1165,7 @@
       "kind": "helper",
       "part": "ListCut",
       "summary": "Rows are added, removed and reordered without jumping.",
+      "description": "Add, remove and reorder shadcn/ui Table rows without jumps: wrap the rows in ListCut and they arrive, fold away and glide into place.",
       "try": "Press Add a task, then Reverse.",
       "moves": [
         [
@@ -1154,6 +1205,7 @@
       "kind": "response",
       "part": "Textarea",
       "summary": "A textarea that turns invalid after a submit gives one short shake; never while you type.",
+      "description": "A shadcn/ui Textarea that turns invalid after a submit gives one short shake, and never while someone is still typing in it.",
       "try": "Press the button with the note empty.",
       "moves": [
         [
@@ -1199,6 +1251,7 @@
       "kind": "response",
       "part": "Toggle",
       "summary": "A toggle dips while pressed; with Icon moves, its icon plays its own move.",
+      "description": "A shadcn/ui Toggle dips to 97% while pressed. Add Icon moves and its lucide icon plays its own small move each time you press it.",
       "try": "Press the bold, italic or bell button.",
       "moves": [
         [
@@ -1221,6 +1274,7 @@
       "kind": "response",
       "part": "ToggleGroup",
       "summary": "Items dip while pressed, and a single choice glides to the item you pick.",
+      "description": "Items in a shadcn/ui Toggle Group dip while pressed, and in single mode the selection glides to the item you pick.",
       "try": "Press Day, Week or Month.",
       "moves": [
         [
@@ -1244,6 +1298,7 @@
       "kind": "tuned",
       "part": "TooltipContent",
       "summary": "Opens from its trigger on your theme's curve; once one is open, neighbours open instantly.",
+      "description": "A shadcn/ui Tooltip grows out of its trigger on your theme's curve. Once one tooltip is open, its neighbours open instantly as you move along.",
       "try": "Point at B, I or U.",
       "moves": [
         [

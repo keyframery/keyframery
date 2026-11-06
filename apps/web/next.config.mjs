@@ -20,8 +20,16 @@ const config = {
       '</llms.txt>; rel="describedby"; type="text/plain"',
       '</index.md>; rel="alternate"; type="text/markdown"',
     ].join(', ');
+    // Baseline security headers for every response. Listed first, so the /admin rule below can tighten Referrer-Policy.
+    const security = [
+      { key: 'X-Content-Type-Options', value: 'nosniff' },
+      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+      { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+      { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()' },
+    ];
     return [
-      ...['/', '/cuts', '/theme', '/docs', '/docs/:path*'].map((source) => ({ source, headers: vary })),
+      { source: '/:path*', headers: security },
+      ...['/', '/cuts', '/theme', '/docs', '/docs/:path*', '/blog/:slug'].map((source) => ({ source, headers: vary })),
       { source: '/', headers: [{ key: 'Link', value: link }] },
       // Pinned badge artwork: avoid the third-party image host's intermittent 403s.
       { source: '/codehype-keyframery-v20.svg', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
@@ -43,6 +51,10 @@ const config = {
       { source: '/docs/concepts/:page', destination: '/docs/how-it-works', permanent: true },
       // The tuned components each have their own page now; the coverage table lists them all.
       { source: '/docs/components/tuned', destination: '/docs/compatibility', permanent: true },
+      // Sonner is documented with Toast (one page for both); see MERGED in scripts/gen-components.mjs.
+      { source: '/docs/components/sonner', destination: '/docs/components/toast', permanent: true },
+      // The MCP server was retired on 4 Nov 2026; agents now use the skill and the Markdown docs.
+      { source: '/mcp', destination: '/docs/ai-tools', permanent: true },
     ];
   },
 };

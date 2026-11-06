@@ -1,0 +1,154 @@
+---
+title: "Best Claude Code skills for UI animation: we tested 4 on one shadcn/ui app"
+seoTitle: "Best Claude Code skills for animation, tested"
+description: "We ran frontend-design, Emil Kowalski's skills, impeccable and Keyframery through 15 Claude Code runs on one shadcn/ui app. What each wrote, and which to use."
+published: "2026-11-06"
+author: "Briyan Hingrajiya"
+tags: ["Claude Code skills", "UI animation", "shadcn/ui", "frontend design skill", "React"]
+about: ["Claude Code skills", "UI animation"]
+disclosure: "Keyframery is our product. Every skill ran through the same three prompts on the same app, and the method, a discarded first batch and Keyframery's limits are all described below. The tests ran in Claude Code, and this post was drafted with AI assistance and checked against the test data before publishing."
+tldr:
+  - "We gave Claude Code (Opus 5.5) three animation requests on a small shadcn/ui app, once with no skill and once with each of four skills: 15 runs. All 15 results built with next build."
+  - "Emil Kowalski's skills gave the most disciplined hand-written motion: no row-height animation and no home-made number counter in any run. It did add the Motion package once."
+  - "impeccable wrote the most code (469 lines over three runs) and added touches nobody asked for. Anthropic's frontend-design skipped its own skill once and looked much like no skill at all."
+  - "Keyframery wrote the least app code (52 lines) because the motion lives in a library it installs, 2,100 to 2,600 copied lines per run. It only helps if you use shadcn/ui."
+faq:
+  - q: "What is the best Claude Code skill for animations?"
+    a: "It depends on your stack. When you want the agent to hand-write the motion, Emil Kowalski's skills did best in our test. For a shadcn/ui app where you want consistent motion across every dialog, list and number with little code, Keyframery wrote the least. Both are free."
+  - q: "Does the frontend-design skill help with animation?"
+    a: "Not much in our test. Anthropic's frontend-design skill is about visual direction: type, colour and layout. On the dialog prompt the agent did not load it at all, and its two other runs looked like the no-skill baseline, including animating row height."
+  - q: "How do I install a Claude Code skill?"
+    a: "Most skills install as a Claude Code plugin with `/plugin marketplace add owner/repo` and then `/plugin install`, through a CLI such as `npx skills add`, or by copying the skill's folder into `.claude/skills/` in your project or `~/.claude/skills/` for every project. The install section of this post lists the command for each skill we tested."
+  - q: "Do Claude Code skills work with Cursor or Codex?"
+    a: "Skills are plain SKILL.md folders, and many agents now read them. Emil Kowalski's skills, impeccable and Keyframery all publish steps for agents other than Claude Code. We only tested Claude Code."
+sources:
+  - title: "Claude Code docs: Agent Skills"
+    url: "https://code.claude.com/docs/en/skills"
+  - title: "Anthropic frontend-design plugin (claude-plugins-official)"
+    url: "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design"
+  - title: "emilkowalski/skills on GitHub"
+    url: "https://github.com/emilkowalski/skills"
+  - title: "pbakaus/impeccable on GitHub"
+    url: "https://github.com/pbakaus/impeccable"
+  - title: "keyframery/keyframery on GitHub"
+    url: "https://github.com/keyframery/keyframery"
+  - title: "web.dev: How to create high-performance CSS animations"
+    url: "https://web.dev/articles/animations-guide"
+  - title: "MDN: prefers-reduced-motion"
+    url: "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion"
+---
+
+A skill is a folder of instructions that Claude Code loads when a task matches it. Several popular ones promise better UI and better motion. We wanted to know what they change in the code an agent writes, so we gave the same small app and the same three requests to Claude Code five times: once with no skill, then once with each skill.
+
+## Which Claude Code skill is best for UI animation?
+
+If you want the agent to hand-write the motion, Emil Kowalski's skills did best. In three runs they never animated row height and never wrote a home-made number counter, two habits the baseline showed in most of its runs. If your app uses shadcn/ui, Keyframery needed the least app code, 52 lines over three runs, because the motion lives in a library it installs once.
+
+| Skill | App code written (3 runs) | Animated row height | Hand-written number counter | Used its skill | Builds |
+|---|---|---|---|---|---|
+| No skill | 373 lines | 2 of 3 | 2 | n/a | 3 of 3 |
+| Anthropic frontend-design | 387 lines | 2 of 3 | 2 | 2 of 3 | 3 of 3 |
+| Emil Kowalski's skills | 259 lines | 0 of 3 | 0 | 3 of 3 | 3 of 3 |
+| impeccable | 469 lines | 0 of 3 | 2 | 3 of 3 | 3 of 3 |
+| Keyframery | 52 lines, plus a copied library | 0 of 3 | 0 | 3 of 3 | 3 of 3 |
+
+"Builds" means `next build` finished with no errors after the run. Where a run added a package to `package.json` without installing it, we installed it before building. No agent opened the app in a browser, and neither did our scoring, so this table says nothing about how the motion feels. More on that under [what the numbers don't show](#what-the-numbers-dont-show).
+
+## How we tested
+
+The app was a single Next.js 16 page with React 19.3 and stock shadcn/ui components on Radix: a revenue card, a list of three orders, and a delete button on each row that opens a confirmation dialog. We confirmed this version built cleanly before the runs reported here.
+
+Every run got one of these requests, typed the way a developer would type it:
+
+1. "Add animations to this app so it feels polished."
+2. "Animate the delete dialog so it opens and closes nicely."
+3. "When I add or delete an order, animate the list and the revenue number."
+
+| Setting | Value |
+|---|---|
+| Runs | 15: 5 setups × 3 prompts |
+| Model | Claude Opus 5.5 in Claude Code 2.1.318 |
+| Date | 6 November 2026 |
+| Isolation | A fresh copy of the app per run; no user settings, MCP servers or project notes |
+| Skill placement | Copied into the project's `.claude/skills/` folder; the install section lists each project's own installer |
+| Tools | Read, edit and search files, load skills, fetch web pages, and run `npx shadcn add` |
+| Scoring | The diff of each run, `next build` on the result, and the agent's own summary |
+| Lines | Lines added in the run's diff, config included, leaving out library files a CLI copied in |
+
+Every setup could run the shadcn CLI, because adding components with it is a normal step in a shadcn/ui project and Keyframery installs that way. No setup could run installs, builds or scripts (read-only commands such as `ls` and `cat` were allowed); that blocked an `npm install` attempt in three runs (frontend-design once, Emil Kowalski's skills twice) and impeccable's helper in all three of its runs. Keyframery's first, failed prompt 1 attempt also tried `npm install`.
+
+Two Keyframery runs failed the first time. In one the network timed out during the download. In the other the agent wrote the install command with `--yes` and a different spelling, which our list of allowed commands didn't match. We added those spellings of `npx shadcn add`, plus `npx shadcn registry add`, to the list and reran both runs on their own (prompt 1 needed one more try after a second timeout). No run from the other setups tried the shadcn CLI, so the wider list would not have changed them.
+
+This is our second batch. The first full batch of 15 ran on a copy of the app that still had leftovers from our own test setup: a registry address that only works on our machine and a layout importing four files that weren't there, so the app could not build. We discarded that batch, fixed the app and ran all 15 again. In the discarded batch Keyframery could not install at all, because the broken registry address was its install source. The other setups showed the same habits as in the table, with three differences: impeccable animated row height on prompt 3, Emil Kowalski's skills added the Motion package twice instead of once, and frontend-design loaded its skill only on prompt 1.
+
+## What each skill did
+
+### No skill
+
+The plain agent did careful work. It noticed that each row held its own dialog, so deleting an order removed the dialog mid-close, and it fixed that. It also handled reduced motion every time.
+
+It then hand-built everything. Two of three runs collapsed deleted rows by animating height, which makes the browser recalculate the page layout on every frame ([web.dev](https://web.dev/articles/animations-guide) recommends sticking to `transform` and `opacity`). Two runs wrote their own `requestAnimationFrame` counter for the revenue number. The first prompt also brought a staggered page-load animation and a colour tint on new rows.
+
+### Anthropic frontend-design
+
+Anthropic's [frontend-design skill](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design) for Claude Code is about visual identity: type, colour, layout and avoiding templated looks. On the dialog prompt the agent did not load it at all and changed six lines in the shared dialog. On the other two prompts it loaded the skill and produced work very close to the baseline: row-height animation, a hand-written counter, plus extras such as a "+$70" label next to the revenue after adding an order, and a count-up from $0 when the page loads.
+
+If you want a page that looks less generic, this skill aims at that. For motion it added little in our runs.
+
+### Emil Kowalski's skills
+
+[Emil Kowalski's skills repository](https://github.com/emilkowalski/skills) has 17 skills. Claude Code picked `animate` for the first two prompts and `choreograph` for the third. They start by asking whether something should move at all and why, and they give fixed curves and durations.
+
+No run animated row height, and none wrote its own counter. The dialog opened in 200 ms and closed in 150 ms on one curve, which the agent added to the stylesheet once as a token. Prompt 3 came with a timing table the agent wrote in its summary. That run used the Motion library's layout animations for the list, and since the app didn't have Motion, it added the package to `package.json`. Its attempt to install it was blocked by our setup, so you would run `npm install` yourself.
+
+### impeccable
+
+The [impeccable skill](https://github.com/pbakaus/impeccable) covers the whole design job, from planning and critique to polish, and animation is one command among many. It first tries to run its own helper program, which our setup did not allow, so it fell back to its documented path and read the code directly.
+
+Its motion avoided height animation, but it wrote 469 lines over three runs, the most of any setup. A new row was briefly shaded, a "+$70" or "−$129" label appeared and faded next to the revenue, and focus moved to the Orders heading after a delete. You could argue for each of these, though none of them was in the request.
+
+### Keyframery
+
+[Keyframery](/docs) is a motion layer for shadcn/ui, and the skill tells the agent to install it rather than write motion by hand. In every run the agent installed it with the shadcn CLI, rendered `<Cuts />` once in the layout, and, on prompts 1 and 3, wrapped the list in [`ListCut`](/docs/helpers/list-cut) and the revenue in [`ValueCut`](/docs/helpers/value-cut). That came to 52 lines of app code across three runs.
+
+Each run also copied between 2,100 and 2,600 lines of library code into `components/keyframery/` and `lib/keyframery/`. You own that code the way you own shadcn/ui components, but the agent did not write it, so the line count above is not a like-for-like comparison of effort. Keyframery only works with shadcn/ui, and you get [its set of motions](/cuts); a one-off animation of your own design is still hand-written work. In the code these runs installed, the list and dialog motion uses `transform` and `opacity`, plus a blur on the dialog. The number does too, but it also animates its own width when the number of digits changes, for example when the revenue drops from $274 to $64. Elsewhere the library animates `height`, for collapsible panels and for tab panels of different heights, which this app doesn't have.
+
+The dialog code differs too. The other four setups set the dialog to scale up from 95 or 96% in the middle of the screen. Keyframery's dialog [starts partway toward the button that opened it](/docs/components/dialog), slightly small and blurred, and returns there when it closes; we read that from the code and docs, since nobody watched these runs on screen.
+
+## What the numbers don't show
+
+Three runs per setup is a small sample, and the same prompt can produce different code on another day. The table shows what happened in these 15 runs; it can't give you a rate.
+
+We did not watch any of the motion. Every result builds, and we read every diff and compared timings and techniques, but how the animations feel on screen is outside what we measured.
+
+Line counts also say little about quality on their own. Fewer lines can mean less to maintain, or a library doing the work, and impeccable's extra lines bought polish some teams would want.
+
+We used one model, Opus 5.5, on one small page built on Radix. A larger app, [Base UI instead of Radix](/docs/base-ui-vs-radix) or another model could change the results.
+
+Keyframery is our product, as the disclosure at the top says. The prompts stayed the same from the first batch to the last. The app, the list of allowed commands and two checks changed along the way, and the method section above covers each change. The two checks: we counted Tailwind's `motion-safe:` classes as reduced-motion support, and we left the library files Keyframery copied in out of the line counts.
+
+Every setup respected the reduced-motion setting described on [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). Keyframery handles it inside its library (see its [reduced-motion docs](/docs/accessibility)); the others wrote it into each change.
+
+## How to install each skill
+
+Anthropic's frontend-design is in Claude Code's official plugin marketplace:
+
+```bash
+/plugin install frontend-design@claude-plugins-official
+```
+
+Emil Kowalski's skills install with the skills CLI, and impeccable has its own installer. Run both from your project root:
+
+```bash
+npx skills@latest add emilkowalski/skills
+npx impeccable install
+```
+
+Keyframery ships as a Claude Code plugin:
+
+```bash
+/plugin marketplace add keyframery/keyframery
+/plugin install keyframery@keyframery
+```
+
+Then ask for the change you want in plain words, as we did above. For other agents, see each project's README, or [Use with AI tools](/docs/ai-tools) for Keyframery.

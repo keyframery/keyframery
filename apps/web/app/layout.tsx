@@ -13,7 +13,7 @@ import { JsonLd, SITE, siteData } from "@/lib/seo"
 import "./global.css"
 
 const sans = Geist({ subsets: ["latin"], variable: "--font-geist", display: "optional" })
-const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", preload: false })
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", preload: false, display: "optional" })
 
 // Analytics: keyframery.com runs through Cloudflare, which injects its Web Analytics beacon into every page ("Automatic setup").
 // Don't add the beacon script here too: two beacons split the counts across two sites.
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
   title: { default: "Keyframery: the shadcn/ui animation library, in one line", template: "%s | Keyframery" },
   description: "Add one line and your shadcn/ui app animates: dialogs grow from the button you clicked, tabs slide, and lists and loading states move.",
   applicationName: "Keyframery",
-  authors: [{ name: "Briyan Hingrajiya", url: "https://x.com/briyan_dev" }],
+  authors: [{ name: "Briyan Hingrajiya", url: "https://keyframery.com/authors/briyan-hingrajiya" }],
   creator: "Briyan Hingrajiya",
   // Let search and AI answers quote as much as they need, and show large previews.
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 } },
+  robots: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1, googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 } },
   openGraph: { type: "website", siteName: "Keyframery", url: SITE },
   twitter: { card: "summary_large_image", creator: "@briyan_dev" },
 }

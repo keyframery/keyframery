@@ -11,7 +11,7 @@ import { notFound } from "next/navigation"
 import { CodeBlock, InstallTabs, PreviewTabs } from "@/components/ui-library/blocks"
 import { Demo } from "@/components/ui-library/demos"
 import { Tag } from "@/components/ui-library/tag"
-import { pageMetadata } from "@/lib/seo"
+import { JsonLd, pageMetadata, uiComponentData } from "@/lib/seo"
 import { UI_ORDER, uiComponent } from "@/lib/ui-library"
 
 export const dynamicParams = false
@@ -55,6 +55,7 @@ export default async function Page(props: PageProps<"/ui/[slug]">) {
 
   return (
     <DocsPage toc={c.wide ? undefined : TOC} full={c.wide}>
+      <JsonLd data={uiComponentData(c)} />
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
         <Link href="/ui" className="hover:text-foreground">
           Components

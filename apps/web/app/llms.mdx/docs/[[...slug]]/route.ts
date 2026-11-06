@@ -1,6 +1,7 @@
 import { docsLlms, source } from '@/lib/source';
 import { getPageMarkdownUrl } from '@/lib/shared';
 import { notFound } from 'next/navigation';
+import { markdownCopyHeaders } from '@/lib/page-markdown';
 
 export const revalidate = false;
 
@@ -9,11 +10,8 @@ export async function GET(_req: Request, { params }: RouteContext<'/llms.mdx/doc
   const page = source.getPage(slug?.slice(0, -1));
   if (!page) notFound();
 
-  return new Response(await docsLlms.page(page), {
-    headers: {
-      'Content-Type': 'text/markdown; charset=utf-8',
-    },
-  });
+  // The HTML page is the one to index; this copy points search engines at it.
+  return new Response(await docsLlms.page(page), { headers: markdownCopyHeaders(page.url) });
 }
 
 export function generateStaticParams() {

@@ -16,6 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { PublicEmail } from "@/components/site/public-email"
 
 export function DialogDemo() {
   const id = React.useId()
@@ -94,7 +95,7 @@ export function TabsDemo() {
         <TabsTrigger value="billing">Billing</TabsTrigger>
         <TabsTrigger value="team">Team</TabsTrigger>
       </TabsList>
-      <TabsContent value="account" className="rounded-lg border p-4 text-sm">Signed in as ada@studio.dev.</TabsContent>
+      <TabsContent value="account" className="rounded-lg border p-4 text-sm">Signed in as <PublicEmail address="ada@studio.dev" />.</TabsContent>
       <TabsContent value="billing" className="rounded-lg border p-4 text-sm">Pro plan, renews on 1 November.<div className="mt-3 h-12 rounded bg-muted" /></TabsContent>
       <TabsContent value="team" className="rounded-lg border p-4 text-sm">4 members. Ada, Leo, Priya and Sam.</TabsContent>
     </Tabs>

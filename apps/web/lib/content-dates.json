@@ -1,0 +1,346 @@
+{
+  "/docs": {
+    "published": "2026-10-07",
+    "modified": "2026-10-19"
+  },
+  "/docs/accessibility": {
+    "published": "2026-10-07",
+    "modified": "2026-10-08"
+  },
+  "/docs/ai-tools": {
+    "published": "2026-10-07",
+    "modified": "2026-11-06"
+  },
+  "/docs/automatic": {
+    "published": "2026-10-08",
+    "modified": "2026-11-06"
+  },
+  "/docs/base-ui-vs-radix": {
+    "published": "2026-10-07",
+    "modified": "2026-10-07"
+  },
+  "/docs/changelog": {
+    "published": "2026-10-07",
+    "modified": "2026-10-09"
+  },
+  "/docs/compare": {
+    "published": "2026-10-08",
+    "modified": "2026-11-06"
+  },
+  "/docs/compatibility": {
+    "published": "2026-10-07",
+    "modified": "2026-11-06"
+  },
+  "/docs/components/accordion": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/alert": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/alert-dialog": {
+    "published": "2026-10-07",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/aspect-ratio": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/attachment": {
+    "published": "2026-10-09",
+    "modified": "2026-11-06"
+  },
+  "/docs/components/avatar": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/badge": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/breadcrumb": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/bubble": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/button": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/button-group": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/calendar": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/card": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/carousel": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/chart": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/checkbox": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/collapsible": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/combobox": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/command": {
+    "published": "2026-10-07",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/context-menu": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/dialog": {
+    "published": "2026-10-07",
+    "modified": "2026-10-19"
+  },
+  "/docs/components/direction": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/drawer": {
+    "published": "2026-10-07",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/dropdown-menu": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/empty": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/field": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/form": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/hover-card": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/input": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/input-group": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/input-otp": {
+    "published": "2026-10-09",
+    "modified": "2026-11-06"
+  },
+  "/docs/components/item": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/kbd": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/label": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/marker": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/menubar": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/message": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/message-scroller": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/native-select": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/navigation-menu": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/pagination": {
+    "published": "2026-10-09",
+    "modified": "2026-11-06"
+  },
+  "/docs/components/popover": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/progress": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/questionnaire": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/radio-group": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/resizable": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/scroll-area": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/select": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/separator": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/sheet": {
+    "published": "2026-10-07",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/sidebar": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/skeleton": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/slider": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/spinner": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/switch": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/table": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/components/tabs": {
+    "published": "2026-10-07",
+    "modified": "2026-10-19"
+  },
+  "/docs/components/textarea": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/toast": {
+    "published": "2026-10-07",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/toggle": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/toggle-group": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/components/tooltip": {
+    "published": "2026-10-09",
+    "modified": "2026-11-04"
+  },
+  "/docs/customize": {
+    "published": "2026-10-08",
+    "modified": "2026-11-06"
+  },
+  "/docs/guides/animations-not-working": {
+    "published": "2026-10-08",
+    "modified": "2026-10-19"
+  },
+  "/docs/guides/data-loading": {
+    "published": "2026-10-07",
+    "modified": "2026-10-19"
+  },
+  "/docs/guides/detail-routes": {
+    "published": "2026-10-07",
+    "modified": "2026-10-19"
+  },
+  "/docs/guides/live-data": {
+    "published": "2026-10-07",
+    "modified": "2026-10-07"
+  },
+  "/docs/guides/performance": {
+    "published": "2026-10-07",
+    "modified": "2026-11-06"
+  },
+  "/docs/guides/testing": {
+    "published": "2026-10-07",
+    "modified": "2026-10-08"
+  },
+  "/docs/helpers/icon-moves": {
+    "published": "2026-10-09",
+    "modified": "2026-10-09"
+  },
+  "/docs/helpers/list-cut": {
+    "published": "2026-10-07",
+    "modified": "2026-10-19"
+  },
+  "/docs/helpers/load-cut": {
+    "published": "2026-10-07",
+    "modified": "2026-10-19"
+  },
+  "/docs/helpers/match-cut": {
+    "published": "2026-10-07",
+    "modified": "2026-10-08"
+  },
+  "/docs/helpers/state-cut": {
+    "published": "2026-10-08",
+    "modified": "2026-10-09"
+  },
+  "/docs/helpers/value-cut": {
+    "published": "2026-10-07",
+    "modified": "2026-10-08"
+  },
+  "/docs/how-it-works": {
+    "published": "2026-10-08",
+    "modified": "2026-10-08"
+  },
+  "/docs/installation": {
+    "published": "2026-10-07",
+    "modified": "2026-10-19"
+  },
+  "/docs/motion-themes": {
+    "published": "2026-10-08",
+    "modified": "2026-11-04"
+  }
+}

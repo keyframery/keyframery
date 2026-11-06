@@ -17,6 +17,10 @@ const { rewrite: rewriteMdx } = rewritePath(
   `${docsContentRoute}{/*path}/content.md`,
 );
 
+// a blog post as Markdown: /blog/<slug>.md
+const { rewrite: rewriteBlogMd } = rewritePath('/blog/:slug.md', '/llms.mdx/blog/:slug');
+const { rewrite: rewriteBlog } = rewritePath('/blog/:slug', '/llms.mdx/blog/:slug');
+
 /** Pages outside the docs that also have a Markdown version (app/<name>.md/route.ts). */
 const PAGE_MARKDOWN: Record<string, string> = { '/': '/index.md', '/cuts': '/cuts.md', '/theme': '/theme.md' };
 
@@ -25,13 +29,14 @@ export default function proxy(request: NextRequest, event: NextFetchEvent) {
   const hit = classifyRequest(request.method, request.nextUrl.pathname, isMarkdownPreferred(request));
   if (hit) event.waitUntil(recordUsage({ ...hit, client: classifyClient(request.headers.get('user-agent')) }));
 
-  const result = rewriteMdx(request.nextUrl.pathname) || rewriteSuffix(request.nextUrl.pathname);
+  const result = rewriteMdx(request.nextUrl.pathname) || rewriteSuffix(request.nextUrl.pathname) || rewriteBlogMd(request.nextUrl.pathname);
   if (result) {
     return NextResponse.rewrite(new URL(result, request.nextUrl));
   }
 
   if (isMarkdownPreferred(request)) {
-    const result = PAGE_MARKDOWN[request.nextUrl.pathname] ?? rewriteDocs(request.nextUrl.pathname);
+    const path = request.nextUrl.pathname;
+    const result = PAGE_MARKDOWN[path] ?? (rewriteDocs(path) || (path !== '/blog/rss.xml' && rewriteBlog(path)));
 
     if (result) {
       return NextResponse.rewrite(new URL(result, request.nextUrl), {

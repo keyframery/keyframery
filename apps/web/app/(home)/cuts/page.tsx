@@ -27,7 +27,7 @@ const ROWS = [
 
 export default function Page() {
   return (
-    <main className="w-full flex-1 py-16">
+    <div className="w-full flex-1 py-16">
       <header className="mx-auto w-full max-w-[1200px] px-4">
         <h1 className="max-w-[20ch] text-[36px] leading-[1.05] font-semibold tracking-[-0.03em] md:text-[44px]">Animation examples for your shadcn app</h1>
         <p className="mt-4 max-w-[60ch] text-lg text-muted-foreground">Explore seven kinds of interface change, tune a dialog and compare components on interactive app screens. Try a shared style in the <Link href="/theme" className="underline underline-offset-4">motion theme builder</Link>.</p>
@@ -54,6 +54,6 @@ export default function Page() {
       <TryIt />
       <ComponentExplorer />
       <WallSection />
-    </main>
+    </div>
   )
 }

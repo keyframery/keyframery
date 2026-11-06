@@ -40,12 +40,13 @@ export function Hero() {
       {/* Sky above the photo, then the photo itself (NASA, public domain), fading into the page. */}
       <div aria-hidden="true" className="lp-hero-sky absolute inset-x-0 top-0 -z-20 h-[760px]" />
       <div aria-hidden="true" className="lp-photo absolute inset-x-0 top-[470px] -z-20 h-[640px] sm:top-[420px] sm:h-auto sm:aspect-[4928/2768]">
-        <Image src={horizon} alt="" fill priority sizes="100vw" placeholder="blur" className="object-cover object-[50%_0%]" />
+        {/* Phones show a 640 px tall crop of a wide photo, about three screen widths across, so they need the larger file to stay sharp. */}
+        <Image src={horizon} alt="" fill priority sizes="(max-width: 640px) 300vw, 100vw" placeholder="blur" className="object-cover object-[50%_0%]" />
         <div className="lp-photo-fade absolute inset-0" />
       </div>
 
       <div className={cn(wrap, "flex flex-col items-center pt-32 text-center text-white md:pt-40")}>
-        <Link href="/ui" className="lp-tag group outline-none hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/60">
+        <Link prefetch={false} href="/ui" className="lp-tag group outline-none hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/60">
           <span className="rounded-full bg-white px-1.5 py-px text-[10.5px] font-semibold text-black">New</span>
           Keyframery UI: components with the motion built in
           <ArrowRight aria-hidden="true" className="size-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -57,11 +58,11 @@ export function Hero() {
         </p>
         <div className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
           <AgentPromptButton label="Copy prompt for your agent" className="lp-btn lp-btn-primary h-[2.875rem] w-full border-0 sm:w-auto" />
-          <Link href="/docs" className="lp-btn lp-btn-glass w-full sm:w-auto">
+          <Link prefetch={false} href="/docs" className="lp-btn lp-btn-glass w-full sm:w-auto">
             Read the docs <ArrowRight aria-hidden="true" className="size-4" />
           </Link>
         </div>
-        <ul aria-label="Facts" className="lp-hero-title mt-5 flex flex-wrap justify-center gap-x-5 gap-y-1 text-[13px] font-medium text-white/90">
+        <ul aria-label="Facts" className="lp-hero-title mt-5 flex flex-wrap justify-center gap-x-5 gap-y-1 text-[13px] font-medium text-white [text-shadow:0_1px_10px_rgb(0_0_0/0.55)]">
           <li>Free and open source</li>
           <li>MIT licensed</li>
           <li>About 12 KB, no animation libraries</li>
@@ -160,14 +161,14 @@ export function Features() {
         ))}
       </div>
       <div className="mt-10 grid gap-4 md:grid-cols-2">
-        <Link href="/theme" className="lp-card group flex items-center justify-between gap-6 rounded-2xl p-6 outline-none focus-visible:ring-2 focus-visible:ring-white/50">
+        <Link prefetch={false} href="/theme" className="lp-card group flex items-center justify-between gap-6 rounded-2xl p-6 outline-none focus-visible:ring-2 focus-visible:ring-white/50">
           <span>
             <span className="block text-[16px] font-semibold tracking-tight">Pick a feel: Quiet, Crisp or Expressive</span>
             <span className="mt-1 block text-[14px] lp-muted">Tune pace and easing for the whole app, then share it as a theme.</span>
           </span>
           <ArrowUpRight aria-hidden="true" className="size-5 shrink-0 lp-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </Link>
-        <Link href="/ui" className="lp-card group flex items-center justify-between gap-6 rounded-2xl p-6 outline-none focus-visible:ring-2 focus-visible:ring-white/50">
+        <Link prefetch={false} href="/ui" className="lp-card group flex items-center justify-between gap-6 rounded-2xl p-6 outline-none focus-visible:ring-2 focus-visible:ring-white/50">
           <span>
             <span className="block text-[16px] font-semibold tracking-tight">Keyframery UI</span>
             <span className="mt-1 block text-[14px] lp-muted">New components where the motion is the point: OTP, pagination, uploads, bento.</span>
@@ -252,7 +253,7 @@ export function ByHand() {
       </ol>
       <p className="mt-6 text-center text-[14px] lp-muted">
         Reduced motion is respected: every cut becomes a short fade.{" "}
-        <Link href="/docs/installation" className="font-medium text-[var(--lp-ink)] underline underline-offset-4">
+        <Link prefetch={false} href="/docs/installation" className="font-medium text-[var(--lp-ink)] underline underline-offset-4">
           Read the quick start
         </Link>
       </p>
@@ -322,7 +323,7 @@ export function Closing() {
         <p className="mx-auto mt-5 max-w-[46ch] text-[17px] leading-relaxed text-white/75">Install the skill and ask for animations, or add the one line yourself.</p>
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <AgentPromptButton label="Copy prompt for your agent" className="lp-btn lp-btn-primary h-[2.875rem] w-full border-0 sm:w-auto" />
-          <Link href="/docs/installation" className="lp-btn lp-btn-glass w-full sm:w-auto">
+          <Link prefetch={false} href="/docs/installation" className="lp-btn lp-btn-glass w-full sm:w-auto">
             Read the docs
           </Link>
         </div>

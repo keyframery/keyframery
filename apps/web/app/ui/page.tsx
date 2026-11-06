@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import { CardPreview } from "@/components/ui-library/cards"
 import { Tag } from "@/components/ui-library/tag"
-import { pageMetadata } from "@/lib/seo"
+import { JsonLd, pageMetadata, uiIndexData } from "@/lib/seo"
 import { UI_ORDER, UI_SOON } from "@/lib/ui-library"
 
 export const metadata: Metadata = pageMetadata({
@@ -16,6 +16,7 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <DocsPage full>
+      <JsonLd data={uiIndexData(UI_ORDER)} />
       <header className="grid gap-x-12 gap-y-4 pt-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
         <h1 className="text-[34px] leading-[1.06] font-semibold tracking-[-0.03em] text-balance md:text-[42px]">Animated components for shadcn/ui</h1>
         <p className="max-w-[52ch] text-[17px] leading-relaxed text-pretty text-muted-foreground">

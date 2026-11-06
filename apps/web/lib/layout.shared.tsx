@@ -21,6 +21,7 @@ export function baseOptions(): BaseLayoutProps {
       { text: "Components", url: "/ui" },
       { text: "Examples", url: "/cuts" },
       { text: "Theme", url: "/theme" },
+      { text: "Blog", url: "/blog" },
       ...(PRO_ENABLED ? [{ text: "Pro", url: "/pro" }] : []),
       // Fumadocs' own githubUrl icon is an <svg role="img"> with no title, which fails axe; this one is decorative.
       {

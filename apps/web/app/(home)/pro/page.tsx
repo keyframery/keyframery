@@ -22,7 +22,7 @@ const SCREENS = [
 export default function Page() {
   if (!PRO_ENABLED) notFound()
   return (
-    <main className="mx-auto grid w-full max-w-[1200px] flex-1 gap-12 px-4 py-20 md:grid-cols-[1fr_1fr] md:gap-16">
+    <div className="mx-auto grid w-full max-w-[1200px] flex-1 gap-12 px-4 py-20 md:grid-cols-[1fr_1fr] md:gap-16">
       <div>
         <h1 className="text-[44px] leading-[1.05] font-semibold tracking-[-0.03em]">Pro is coming</h1>
         <p className="mt-5 max-w-[56ch] text-lg text-muted-foreground">
@@ -45,6 +45,6 @@ export default function Page() {
         </dl>
         <p className="mt-4 text-sm text-muted-foreground">Each screen comes in Base UI and Radix, and you copy it into your app like any shadcn block.</p>
       </section>
-    </main>
+    </div>
   )
 }

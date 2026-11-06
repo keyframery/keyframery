@@ -3,9 +3,10 @@ import type { Metadata } from "next"
 import { Policy, PolicySection } from "@/components/site/policy"
 import { PRO_ENABLED } from "@/lib/pro"
 import { pageMetadata } from "@/lib/seo"
+import { PublicEmail } from "@/components/site/public-email"
 
 export const metadata: Metadata = pageMetadata({
-  title: "Terms",
+  title: "Terms of use for the Keyframery site and code",
   description: "The terms for keyframery.com and the MIT-licensed code: what is provided as is, fair use, and how changes are announced.",
   path: "/terms",
 })
@@ -33,7 +34,7 @@ export default function Page() {
         <p>If these terms change, we&apos;ll update this page and its date.</p>
       </PolicySection>
       <PolicySection title="Contact">
-        <p>Briyan Hingrajiya, briyan@keyframery.com</p>
+        <p>Briyan Hingrajiya, <PublicEmail address="briyan@keyframery.com" link className="underline underline-offset-4" /></p>
       </PolicySection>
     </Policy>
   )

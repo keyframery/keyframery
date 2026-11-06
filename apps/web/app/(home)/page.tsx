@@ -9,11 +9,14 @@ const display = Inter({ subsets: ["latin"], axes: ["opsz"], variable: "--font-lp
 const description =
   "Keyframery is an open-source motion layer for shadcn/ui. Install the skill and your coding agent adds it, or add one line yourself: dialogs, tabs, toasts, lists, numbers and loading states animate."
 
-export const metadata = pageMetadata({ absolute: "Keyframery: the shadcn/ui animation library, in one line", description, path: "/", markdown: "/index.md" })
+/** The search snippet: Google cuts descriptions at about 155 characters, so it's shorter than the structured-data description. */
+const metaDescription = "Open-source motion layer for shadcn/ui. Add one line, or let your coding agent add it: dialogs, tabs, toasts, lists and numbers animate."
+
+export const metadata = pageMetadata({ absolute: "Keyframery: the shadcn/ui animation library, in one line", description: metaDescription, path: "/", markdown: "/index.md" })
 
 export default function Page() {
   return (
-    <main className={`lp dark ${display.variable} flex flex-1 flex-col`}>
+    <div className={`lp dark ${display.variable} flex flex-1 flex-col`}>
       <JsonLd data={projectData(description)} />
       <Hero />
       <WhatItIs />
@@ -22,6 +25,6 @@ export default function Page() {
       <ByHand />
       <Faq />
       <Closing />
-    </main>
+    </div>
   )
 }

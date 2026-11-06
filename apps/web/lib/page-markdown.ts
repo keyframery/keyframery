@@ -83,3 +83,9 @@ export function themeMarkdown(): string {
 }
 
 export const MARKDOWN_HEADERS = { "Content-Type": "text/markdown; charset=utf-8" }
+
+/** Headers for a Markdown copy of an HTML page: the HTML page is the one search engines should index. */
+export const markdownCopyHeaders = (path: string) => ({
+  ...MARKDOWN_HEADERS,
+  Link: `<https://keyframery.com${path === "/" ? "" : path}>; rel="canonical"`,
+})

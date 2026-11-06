@@ -9,7 +9,7 @@ test("the introduction leads directly from its preview to installation", async (
   expect(await preview.evaluate((el) => el.nextElementSibling?.textContent)).toContain("Add this to my app")
   await install.click()
   await expect(page).toHaveURL(/\/docs\/installation$/)
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Quick start")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Install shadcn/ui animations in three steps")
 })
 
 test("the quick start verification links to a complete working dialog example", async ({ page }) => {

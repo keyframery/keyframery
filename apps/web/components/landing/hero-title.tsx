@@ -34,7 +34,7 @@ export function HeroTitle({ className }: { className?: string }) {
   const [prev, setPrev] = React.useState<number | null>(null)
   const [widths, setWidths] = React.useState<number[]>([])
   const [inView, setInView] = React.useState(true)
-  const root = React.useRef<HTMLHeadingElement>(null)
+  const root = React.useRef<HTMLDivElement>(null)
   const measure = React.useRef<HTMLSpanElement>(null)
 
   // Measure every word once fonts are ready, so the slot can ease to each width.
@@ -67,8 +67,12 @@ export function HeroTitle({ className }: { className?: string }) {
   const width = i === -1 ? widths[WORDS.length] : widths[i]
 
   return (
-    <h1 ref={root} id="hero-title" className={className}>
-      <span className="sr-only">Add one line. Your shadcn/ui app animates.</span>
+    // The heading is the plain sentence, so search engines, AI tools and screen readers read exactly that. The animated
+    // copy and the measuring words sit beside it, hidden from them, and only look like the heading.
+    <div ref={root} className={className}>
+      <h1 id="hero-title" className="sr-only">
+        Add one line. Your shadcn/ui app animates.
+      </h1>
       <span aria-hidden="true">
         Add one line.
         <span className="block text-white/75">
@@ -101,6 +105,6 @@ export function HeroTitle({ className }: { className?: string }) {
         ))}
         <span className="inline-block">app</span>
       </span>
-    </h1>
+    </div>
   )
 }

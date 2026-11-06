@@ -64,7 +64,7 @@ test("pages are titled the way people search, with headings that say what the pa
     ["/", "Keyframery: the shadcn/ui animation library, in one line", "Add one line. Your shadcn/ui app animates."],
     ["/docs/components/dialog", "shadcn/ui Dialog animation: open and close | Keyframery", "Dialog animation"],
     ["/docs/helpers/list-cut", "React list animations for shadcn/ui | Keyframery", "List animations"],
-    ["/docs/ai-tools", "Animations with Claude Code, Codex and Cursor | Keyframery", "Use with AI tools"],
+    ["/docs/ai-tools", "Claude Code skill for shadcn/ui animation | Keyframery", "Claude Code skill and AI tools for shadcn/ui animation"],
   ]) {
     await page.goto(p)
     await expect(page, p).toHaveTitle(title)
@@ -86,7 +86,7 @@ test("structured data describes the project, the maker, the FAQ and each docs pa
 
   await page.goto("/docs/helpers/list-cut")
   const doc = await structuredData(page)
-  const article = doc.find((n) => n["@type"] === "TechArticle")!
+  const article = doc.find((n) => n["@type"] === "Article")!
   expect(article.url).toBe(`${BASE}/docs/helpers/list-cut`)
   const crumbs = doc.find((n) => n["@type"] === "BreadcrumbList") as { "@type": "BreadcrumbList"; itemListElement: { position: number; name: string; item?: string }[] }
   expect(crumbs.itemListElement.map((c) => c.item ?? c.name)).toEqual([BASE, `${BASE}/docs`, `${BASE}/docs/helpers/list-cut`])
