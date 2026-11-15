@@ -34,10 +34,10 @@ function Profile() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-3">
-        <span className="grid size-10 place-items-center rounded-full bg-muted text-[12px] font-semibold text-muted-foreground">HG</span>
+        <span className="grid size-10 place-items-center rounded-full bg-muted text-[12px] font-semibold text-muted-foreground">NB</span>
         <div className="flex flex-col gap-1.5">
-          <span className="text-[15px] leading-none font-semibold tracking-tight">Hollis Grant</span>
-          <span className="text-[12px] leading-none text-muted-foreground">Ceramicist · Porto</span>
+          <span className="text-[15px] leading-none font-semibold tracking-tight">Nell Barrow</span>
+          <span className="text-[12px] leading-none text-muted-foreground">Ceramicist, Stroud</span>
         </div>
       </div>
       <Separator />

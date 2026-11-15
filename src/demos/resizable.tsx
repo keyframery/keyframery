@@ -28,11 +28,11 @@ function ExpandIcon({ wide }: { wide: boolean }) {
 }
 
 const mail = [
-  { from: "Inès Moreau", subject: "Lisbon offsite: final headcount", time: "09:24" },
-  { from: "Kofi Mensah", subject: "Flights for the 14th", time: "08:10" },
-  { from: "Aiko Sato", subject: "Hotel confirmation", time: "Tue" },
-  { from: "Hollis Grant", subject: "Dinner on Thursday", time: "Mon" },
-  { from: "Wren Takahashi", subject: "Photos from Kyoto", time: "Sun" },
+  { from: "Dana Whitfield", subject: "Moving day: the plan", time: "09:24" },
+  { from: "Marcus Bell", subject: "Van is booked", time: "08:10" },
+  { from: "Joanna Park", subject: "Keys for the new place", time: "Tue" },
+  { from: "Leo Grant", subject: "Spare boxes?", time: "Mon" },
+  { from: "Fatima Noor", subject: "Housewarming date", time: "Sun" },
 ]
 
 export default function ResizableDemo() {
@@ -76,7 +76,7 @@ export default function ResizableDemo() {
           <article className="px-5 pt-3.5">
             <div className="flex items-start gap-3">
               <h3 className="text-[15px] font-semibold tracking-tight">
-                Lisbon offsite: final headcount
+                Moving day: the plan
               </h3>
               <button
                 type="button"
@@ -91,19 +91,19 @@ export default function ResizableDemo() {
             </div>
             <div className="mt-3 flex items-center gap-2.5">
               <span className="grid size-8 shrink-0 place-items-center rounded-full bg-muted text-[11px] font-semibold text-muted-foreground">
-                IM
+                DW
               </span>
               <div className="min-w-0">
-                <div className="truncate text-[13px] font-medium">Inès Moreau</div>
-                <div className="truncate text-[12px] text-muted-foreground">To the Lisbon group · 09:24</div>
+                <div className="truncate text-[13px] font-medium">Dana Whitfield</div>
+                <div className="truncate text-[12px] text-muted-foreground">To Marcus, Joanna · 09:24</div>
               </div>
             </div>
             <p className="mt-4 text-[13px] leading-[1.6]">
-              We are twelve for Lisbon. Rooms are booked from the 14th to the 17th, and dinner on
-              Thursday is at eight in Alfama.
+              The van comes at eight on Saturday. Kitchen first, then the bedrooms, and the piano
+              goes last so it is the first thing out.
             </p>
             <p className="mt-3 text-[13px] leading-[1.6]">
-              Send me your food notes by Friday and I will pass them on to the kitchen.
+              Tape and marker pens are in the hall. Label every box with the room it goes to.
             </p>
           </article>
         </ResizablePanel>

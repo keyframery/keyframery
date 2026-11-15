@@ -34,7 +34,7 @@ const presets = ["#e5484d", "#f76b15", "#ffc53d", "#30a46c", "#12a594", "#0090ff
 
 const events = [
   { time: "09:30", title: "Design review", place: "Room 4" },
-  { time: "13:00", title: "Lunch with Kofi", place: "Cervejaria" },
+  { time: "13:00", title: "Lunch with Tom", place: "Bao, Soho" },
 ]
 
 export default function ColorPickerDemo() {

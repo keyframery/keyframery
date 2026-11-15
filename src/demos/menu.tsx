@@ -39,12 +39,10 @@ const playlists = ["Road trip", "Late night focus", "Sunday cooking"]
 export default function MenuDemo() {
   return (
     <div className="flex w-[380px] items-center gap-3 rounded-[14px] bg-background p-2.5 pr-3 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
-      <div className="relative size-12 shrink-0 overflow-hidden rounded-[9px] bg-primary bg-[repeating-radial-gradient(circle,color-mix(in_oklab,var(--primary-foreground)_9%,transparent)_0_1px,transparent_1px_3px)] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.08)]">
-        <span className="absolute inset-0 m-auto size-3.5 rounded-full bg-primary-foreground/90 shadow-[0_0_0_4px_var(--primary)]" />
-      </div>
+      <img src="/demo/gig.jpg" alt="" className="size-12 shrink-0 rounded-[9px] bg-muted object-cover" />
       <div className="min-w-0 flex-1">
         <div className="truncate text-[14px] font-medium tracking-tight">Slow Morning</div>
-        <div className="mt-0.5 truncate text-[12px] text-muted-foreground">Lina Hart · Paper Rooms</div>
+        <div className="mt-0.5 truncate text-[12px] text-muted-foreground">Lina Hart, live at the Roundhouse</div>
       </div>
       <span className="text-[12px] text-muted-foreground tabular-nums">3:42</span>
       <Menu>

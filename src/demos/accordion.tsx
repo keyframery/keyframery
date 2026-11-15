@@ -52,10 +52,10 @@ export default function AccordionDemo() {
   return (
     <div className="h-[392px] w-[440px]">
       <div className="flex items-baseline justify-between gap-4">
-        <h3 className="text-[15px] font-semibold tracking-tight">Lisbon to Tokyo</h3>
+        <h3 className="text-[15px] font-semibold tracking-tight">Glasgow to Rome</h3>
         <p className="text-[12px] text-muted-foreground tabular-nums">Booking K7M2QX</p>
       </div>
-      <p className="mt-1 text-[13px] text-muted-foreground">Thu 14 May · 2 travellers · Economy Flex</p>
+      <p className="mt-1 text-[13px] text-muted-foreground">Thursday 14 May, 2 adults</p>
       <div className="mt-4 rounded-[14px] bg-card px-4 shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08)]">
         <Accordion defaultValue={["baggage"]}>
           {questions.map((item) => (

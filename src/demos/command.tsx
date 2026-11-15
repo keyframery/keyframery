@@ -149,9 +149,9 @@ export default function CommandDemo() {
           <CommandSeparator />
           <CommandGroup>
             <CommandGroupLabel>Recent notes</CommandGroupLabel>
-            <CommandItem data-play="note-lisbon" value="note-lisbon" label="Lisbon packing list">
+            <CommandItem data-play="note-crete" value="note-crete" label="Crete packing list">
               <CommandItemIcon>{icons.note}</CommandItemIcon>
-              <CommandItemText>Lisbon packing list</CommandItemText>
+              <CommandItemText>Crete packing list</CommandItemText>
               <span className="ml-auto text-[12px] text-muted-foreground">Travel</span>
             </CommandItem>
             <CommandItem data-play="note-ragu" value="note-ragu" label="Sunday ragù">

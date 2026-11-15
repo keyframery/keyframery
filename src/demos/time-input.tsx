@@ -23,7 +23,7 @@ export default function TimeInputDemo() {
   return (
     <div className="w-[380px]">
       <h3 className="text-[15px] font-semibold tracking-tight">Opening hours</h3>
-      <p className="mt-1 text-[13px] text-muted-foreground">Little Fern Bakery · shown on your listing</p>
+      <p className="mt-1 text-[13px] text-muted-foreground">Little Fern Bakery</p>
 
       <div
         className="mt-5 grid grid-cols-[1fr_auto_auto_auto] items-center gap-x-2 gap-y-2.5 text-[13px]"

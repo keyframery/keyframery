@@ -19,11 +19,9 @@ export default function RatingDemo() {
   return (
     <div className="w-[360px]">
       <div className="flex items-center gap-3">
-        <div className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-muted text-[13px] font-semibold text-muted-foreground">
-          CR
-        </div>
+        <img src="/demo/coast-4.jpg" alt="" className="size-11 shrink-0 rounded-[10px] bg-muted object-cover" />
         <div className="min-w-0">
-          <h3 className="text-[15px] font-semibold tracking-tight">Casa do Rio, Porto</h3>
+          <h3 className="text-[15px] font-semibold tracking-tight">Seaview flat, Whitstable</h3>
           <p className="mt-1 text-[12px] text-muted-foreground">3 nights · 8 to 11 November</p>
         </div>
       </div>

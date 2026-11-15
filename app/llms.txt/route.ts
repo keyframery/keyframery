@@ -6,7 +6,7 @@ export const revalidate = false
 
 const HEADER = `# Keyframery
 
-> Keyframery is an open-source (MIT) set of 60 animated React components for UI SDK (@ui-sdk/react), written in plain CSS with no animation library. Each component keeps UI SDK's parts and props, so an app can swap one import and keep its code. Components install as source with the shadcn CLI (npx shadcn add @keyframery/tabs) into components/keyframery/. Four motion styles (Calm, Springy, Snappy, Playful) change how every component moves with one attribute, data-motion, on <html>.
+> Keyframery is an open-source (MIT) set of 61 animated React components for UI SDK (@ui-sdk/react), written in plain CSS with no animation library. Each component keeps UI SDK's parts and props, so an app can swap one import and keep its code. Components install as source with the shadcn CLI (npx shadcn add @keyframery/tabs) into components/keyframery/. Four motion styles (Calm, Springy, Snappy, Playful) change how every component moves with one attribute, data-motion, on <html>.
 
 - Full docs in one file: ${SITE}/llms-full.txt
 - Every docs page is also Markdown: add .mdx to its URL (or send Accept: text/markdown)

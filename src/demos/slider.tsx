@@ -56,7 +56,7 @@ export default function SliderDemo() {
           <h3 className="text-[15px] font-semibold tracking-tight">Price per night</h3>
           <SliderValue className="text-muted-foreground" />
         </div>
-        <p className="mt-1 text-[12px] text-muted-foreground tabular-nums">{matches} stays in Porto · taxes included</p>
+        <p className="mt-1 text-[12px] text-muted-foreground tabular-nums">{matches} stays in Edinburgh · taxes included</p>
 
         <div className="mt-5 flex h-14 items-end gap-[3px] px-2" aria-hidden>
           {bands.map((count, i) => {

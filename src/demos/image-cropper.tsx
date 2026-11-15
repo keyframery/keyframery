@@ -29,10 +29,7 @@ export const play = [
   { click: '[data-ratio="free"]', wait: 1700 },
 ]
 
-/* A lake at dusk, drawn inline so the demo needs no network. */
-const photo = `data:image/svg+xml,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 640 400"><defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c2f5e"/><stop offset=".45" stop-color="#b8607a"/><stop offset=".72" stop-color="#f2a66b"/><stop offset="1" stop-color="#fbd7a0"/></linearGradient><linearGradient id="w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e79a6e"/><stop offset="1" stop-color="#3a3466"/></linearGradient><radialGradient id="g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff4d6"/><stop offset=".35" stop-color="#ffd59a" stop-opacity=".9"/><stop offset="1" stop-color="#ffd59a" stop-opacity="0"/></radialGradient></defs><rect width="640" height="400" fill="url(#s)"/><circle cx="410" cy="232" r="90" fill="url(#g)"/><circle cx="410" cy="232" r="26" fill="#fff1d2"/><path d="M0 250 90 170l70 50 80-90 90 80 60-40 100 70 70-55 80 65v40H0z" fill="#6d4a78" opacity=".75"/><path d="M0 262 70 220l90 30 110-60 120 70 90-35 160 45v28H0z" fill="#3f3263"/><rect y="262" width="640" height="138" fill="url(#w)"/><g fill="#fff1d2" opacity=".55"><rect x="376" y="276" width="68" height="3" rx="1.5"/><rect x="388" y="290" width="44" height="2.5" rx="1.25"/><rect x="396" y="303" width="28" height="2" rx="1"/></g><path d="M0 330q120-20 250 0t250-6 140 10v66H0z" fill="#241f45"/><path d="M60 330l14-46 14 46zm40 2l10-34 10 34zm440-6l12-40 12 40zm-30 4l9-28 9 28z" fill="#1a1636"/></svg>`,
-)}`
+const photo = "/demo/lake.jpg"
 
 const ratios = [
   { id: "free", label: "Free", value: undefined },
@@ -105,7 +102,7 @@ export default function ImageCropperDemo() {
         onCropChange={(next) => setCrop(next)}
       >
         <ImageCropperViewport>
-          <ImageCropperImage alt="A lake at dusk below purple hills" />
+          <ImageCropperImage alt="A wooden jetty on a mountain lake" />
           <ImageCropperSelection>
             <ImageCropperGrid />
             {handles.map((position) => (

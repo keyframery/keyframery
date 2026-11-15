@@ -32,10 +32,10 @@ export default function ProgressDemo() {
   return (
     <div className="w-[400px]">
       <div className="flex items-baseline justify-between gap-4">
-        <h3 className="text-[15px] font-semibold tracking-tight">Lisbon, May</h3>
+        <h3 className="text-[15px] font-semibold tracking-tight">Grandad’s 80th</h3>
         <p className="text-[12px] text-muted-foreground tabular-nums">Shared album</p>
       </div>
-      <p className="mt-1 text-[13px] text-muted-foreground">Adding photos from Inès’s phone</p>
+      <p className="mt-1 text-[13px] text-muted-foreground">Adding photos from Ellie’s phone</p>
 
       <div className="mt-4 rounded-[14px] bg-card p-4 shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08)]">
         <Progress value={(done / total) * 100}>

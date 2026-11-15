@@ -34,14 +34,14 @@ const jump =
   "grid size-7 cursor-pointer place-items-center rounded-[8px] text-muted-foreground outline-none transition-[background-color,color,scale] duration-150 ease-pop hover:bg-accent hover:text-foreground active:scale-[0.94] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card motion-reduce:transition-none"
 
 const guests = [
-  { name: "Inès Moreau", note: "Hosting", reply: "Going" },
-  { name: "Kofi Mensah", note: "Plus one", reply: "Going" },
-  { name: "Aiko Sato", note: "Vegetarian", reply: "Going" },
-  { name: "Hollis Grant", note: "Arrives Friday", reply: "Maybe" },
-  { name: "Wren Takahashi", note: "Plus one", reply: "Going" },
-  { name: "Tomasz Wójcik", note: "Bringing dessert", reply: "Going" },
+  { name: "Clare Dawson", note: "Hosting", reply: "Going" },
+  { name: "Ben Morley", note: "Plus one", reply: "Going" },
+  { name: "Nadia Haddad", note: "Vegetarian", reply: "Going" },
+  { name: "Rob Fenwick", note: "Arrives Friday", reply: "Maybe" },
+  { name: "Ellie Shaw", note: "Plus one", reply: "Going" },
+  { name: "Gareth Price", note: "Bringing dessert", reply: "Going" },
   { name: "Priya Nair", note: "Vegan", reply: "Going" },
-  { name: "Mateo Álvarez", note: "Driving from Porto", reply: "Going" },
+  { name: "Mateo Álvarez", note: "Driving up from Bristol", reply: "Going" },
   { name: "Freya Lindqvist", note: "Plus one", reply: "Maybe" },
   { name: "Omar Haddad", note: "No shellfish", reply: "Going" },
   { name: "Chloe Bennett", note: "Leaves early", reply: "Going" },

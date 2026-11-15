@@ -32,67 +32,16 @@ export const play = [
   { key: "Escape", wait: 1400 },
 ]
 
-const vignette = "radial-gradient(ellipse at 50% 45%, transparent 55%, rgb(0 0 0 / 0.2))"
-
-/* Painted stand-ins for photos: layered gradients, no network. */
 const photos = [
-  {
-    name: "Harbour at dusk",
-    scene: [
-      vignette,
-      "radial-gradient(circle at 68% 42%, oklch(0.95 0.07 85) 0 5%, oklch(0.9 0.1 70 / 0.45) 7%, transparent 18%)",
-      "linear-gradient(transparent 62%, oklch(0.45 0.08 250) 63%, oklch(0.32 0.06 255))",
-      "linear-gradient(oklch(0.58 0.09 295), oklch(0.74 0.1 345) 38%, oklch(0.84 0.1 60) 62%)",
-    ],
-  },
-  {
-    name: "Lemon tree",
-    scene: [
-      vignette,
-      "radial-gradient(circle at 30% 40%, oklch(0.88 0.16 98) 0 7%, transparent 7.5%)",
-      "radial-gradient(circle at 62% 58%, oklch(0.86 0.16 95) 0 8%, transparent 8.5%)",
-      "radial-gradient(circle at 74% 28%, oklch(0.89 0.15 100) 0 6%, transparent 6.5%)",
-      "radial-gradient(ellipse at 50% 50%, oklch(0.55 0.12 145), oklch(0.38 0.09 150))",
-    ],
-  },
-  {
-    name: "Blue door",
-    scene: [
-      vignette,
-      "linear-gradient(oklch(0.3 0.03 60), oklch(0.3 0.03 60)) 50% 63% / 3% 3% no-repeat",
-      "linear-gradient(oklch(0.5 0.13 250), oklch(0.42 0.12 255)) 50% 100% / 40% 74% no-repeat",
-      "linear-gradient(oklch(0.92 0.03 80), oklch(0.85 0.04 70))",
-    ],
-  },
-  {
-    name: "Morning coffee",
-    scene: [
-      vignette,
-      "radial-gradient(circle at 50% 54%, oklch(0.38 0.06 50) 0 15%, oklch(0.96 0.01 80) 16% 21%, oklch(0.6 0.02 70 / 0.35) 22%, transparent 26%)",
-      "linear-gradient(135deg, oklch(0.72 0.05 60), oklch(0.6 0.05 50))",
-    ],
-  },
-  {
-    name: "Dunes",
-    scene: [
-      vignette,
-      "radial-gradient(ellipse 90% 40% at 30% 100%, oklch(0.7 0.11 60), transparent 70%)",
-      "radial-gradient(ellipse 80% 45% at 85% 95%, oklch(0.62 0.11 50), transparent 70%)",
-      "linear-gradient(transparent 55%, oklch(0.78 0.1 70) 56%)",
-      "linear-gradient(oklch(0.72 0.08 230), oklch(0.9 0.04 80) 55%)",
-    ],
-  },
-  {
-    name: "Lavender field",
-    scene: [
-      vignette,
-      "repeating-linear-gradient(0deg, oklch(0.56 0.13 300) 0 7%, oklch(0.46 0.08 145) 7% 11%) 0 100% / 100% 48% no-repeat",
-      "linear-gradient(oklch(0.8 0.07 55), oklch(0.93 0.04 85) 55%)",
-    ],
-  },
+  { name: "Flat white", src: "/demo/food-1.jpg" },
+  { name: "Raspberries", src: "/demo/food-2.jpg" },
+  { name: "Peppercorns and garlic", src: "/demo/food-3.jpg" },
+  { name: "Last of the grapes", src: "/demo/food-4.jpg" },
+  { name: "Tea, second pot", src: "/demo/food-5.jpg" },
+  { name: "Raspberries again", src: "/demo/food-6.jpg" },
 ]
 
-const albums = ["Summer 2026", "Family", "Favourites"]
+const albums = ["Kitchen", "Market days", "Favourites"]
 
 function Icon({ d }: { d: string }) {
   return (
@@ -124,7 +73,7 @@ export default function ContextMenuDemo() {
   return (
     <div className="w-[440px]">
       <div className="mb-3 flex items-baseline justify-between">
-        <h3 className="text-[15px] font-semibold tracking-tight">Weekend in Porto</h3>
+        <h3 className="text-[15px] font-semibold tracking-tight">Sunday kitchen</h3>
         <span className="text-[12px] text-muted-foreground tabular-nums">6 photos</span>
       </div>
       <ContextMenu onPayloadChange={(payload) => setActive(payload as number)}>
@@ -136,8 +85,8 @@ export default function ContextMenuDemo() {
               aria-label={photo.name}
               payload={i}
               className="group/photo relative aspect-[4/3] overflow-hidden rounded-[10px] shadow-[inset_0_0_0_1px_rgb(0_0_0/0.06)] not-data-closed:ring-2 not-data-closed:ring-ring/70 not-data-closed:ring-offset-2 not-data-closed:ring-offset-background"
-              style={{ background: photo.scene.join(", ") }}
             >
+              <img src={photo.src} alt="" draggable={false} className="absolute inset-0 size-full bg-muted object-cover" />
               <button
                 type="button"
                 data-more={i}

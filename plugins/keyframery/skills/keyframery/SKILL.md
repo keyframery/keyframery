@@ -5,7 +5,7 @@ description: Use when adding animated UI components or motion to a React app tha
 
 # Keyframery
 
-Keyframery is 60 animated React components built on UI SDK (`@ui-sdk/react`). UI SDK supplies the behaviour (keyboard, focus, positioning, screen readers). Keyframery adds the motion in plain CSS, and a finished look if wanted. The shadcn CLI copies the source into the project, like the rest of shadcn.
+Keyframery is 61 animated React components built on UI SDK (`@ui-sdk/react`). UI SDK supplies the behaviour (keyboard, focus, positioning, screen readers). Keyframery adds the motion in plain CSS, and a finished look if wanted. The shadcn CLI copies the source into the project, like the rest of shadcn.
 
 The docs are public Markdown; read them for exact parts and props instead of guessing. Start with the index at https://keyframery.com/llms.txt. Add `.mdx` to any docs URL to get that page as Markdown, for example https://keyframery.com/docs/components/tabs.mdx or https://keyframery.com/docs/motion-styles.mdx. Every page in one file: https://keyframery.com/llms-full.txt.
 

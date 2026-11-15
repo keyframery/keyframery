@@ -48,7 +48,7 @@ export default function DatePickerDemo() {
   return (
     <div className="flex h-[440px] w-[320px] flex-col">
       <div className="mb-4">
-        <h3 className="text-[15px] font-semibold tracking-tight">Casa do Rio, Porto</h3>
+        <h3 className="text-[15px] font-semibold tracking-tight">The Old Bakery, Rye</h3>
         <p className="mt-1 text-[13px] text-muted-foreground">Double room · €118 a night</p>
       </div>
       <label htmlFor="check-in" className="mb-1.5 text-[13px] font-medium">

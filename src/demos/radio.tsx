@@ -20,7 +20,7 @@ export default function RadioDemo() {
   return (
     <div className="w-[380px]">
       <h3 id="delivery" className="text-[15px] font-semibold tracking-tight">Delivery</h3>
-      <p className="mt-1 text-[12px] text-muted-foreground">2 items · Ceramic pour-over set, Linen apron</p>
+      <p className="mt-1 text-[12px] text-muted-foreground">Pour-over set and a linen apron</p>
       <RadioGroup
         aria-labelledby="delivery"
         defaultValue="express"

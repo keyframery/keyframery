@@ -61,8 +61,8 @@ export default function NumberInputDemo() {
   return (
     <div className="flex w-[340px] flex-col gap-5">
       <div>
-        <h3 className="text-[15px] font-semibold tracking-tight">Casa Alfama</h3>
-        <p className="mt-1 text-[13px] text-muted-foreground">Whole flat · sleeps 4 · €{nightly} a night</p>
+        <h3 className="text-[15px] font-semibold tracking-tight">Hollow Farm cottage</h3>
+        <p className="mt-1 text-[13px] text-muted-foreground">Sleeps 4, €{nightly} a night</p>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <Field>

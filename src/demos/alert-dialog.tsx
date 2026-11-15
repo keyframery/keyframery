@@ -35,25 +35,13 @@ function TrashIcon() {
   )
 }
 
-/* Four soft tiles standing in for the album's photos. */
-const tiles = [
-  "bg-foreground/[0.07]",
-  "bg-foreground/[0.12]",
-  "bg-foreground/[0.05]",
-  "bg-foreground/[0.1]",
-]
-
 export default function AlertDialogDemo() {
   return (
     <div className="flex w-[340px] items-center gap-3.5 rounded-[14px] bg-muted/60 p-3">
-      <div className="grid size-12 shrink-0 grid-cols-2 gap-0.5 overflow-hidden rounded-[10px]">
-        {tiles.map((t) => (
-          <span key={t} className={t} />
-        ))}
-      </div>
+      <img src="/demo/canal.jpg" alt="" className="size-12 shrink-0 rounded-[10px] bg-muted object-cover" />
       <div className="min-w-0 flex-1">
-        <div className="text-[14px] font-semibold tracking-tight">Summer in Kyoto</div>
-        <div className="mt-0.5 text-[12px] text-muted-foreground tabular-nums">214 photos · 3.2 GB</div>
+        <div className="text-[14px] font-semibold tracking-tight">Bruges, 2024</div>
+        <div className="mt-0.5 text-[12px] text-muted-foreground tabular-nums">214 photos, 3.2 GB</div>
       </div>
       <AlertDialog>
         <AlertDialogTrigger variant="destructive">Delete</AlertDialogTrigger>
@@ -63,7 +51,7 @@ export default function AlertDialogDemo() {
             <TrashIcon />
           </AlertDialogMedia>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete “Summer in Kyoto”?</AlertDialogTitle>
+            <AlertDialogTitle>Delete “Bruges, 2024”?</AlertDialogTitle>
             <AlertDialogDescription>
               All 214 photos leave this album and your shared link stops working. Photos you
               also keep in other albums stay there.

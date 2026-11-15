@@ -15,7 +15,7 @@ export const play = [
   { click: '[data-value="kyoto/market"] [data-slot="tree-label"]', wait: 1200 },
   { click: '[data-value="lisbon/arrival"] [data-slot="tree-label"]', wait: 1200 },
   { click: '[data-value="kyoto"] [data-slot="tree-indicator"]', wait: 1100 },
-  { click: '[data-value="lisbon/alfama"] [data-slot="tree-label"]', wait: 1600 },
+  { click: '[data-value="lisbon/slopes"] [data-slot="tree-label"]', wait: 1600 },
 ]
 
 type Album = { value: string; label: string; count: number; children?: Album[] }
@@ -29,17 +29,17 @@ const library: Album[] = [
     children: [
       {
         value: "lisbon",
-        label: "Lisbon offsite",
+        label: "Ski week",
         count: 268,
         children: [
           { value: "lisbon/arrival", label: "Arrival day", count: 84 },
-          { value: "lisbon/alfama", label: "Alfama walk", count: 126 },
+          { value: "lisbon/slopes", label: "On the slopes", count: 126 },
           { value: "lisbon/dinner", label: "Team dinner", count: 58 },
         ],
       },
       {
         value: "kyoto",
-        label: "Kyoto in spring",
+        label: "Mum's 60th",
         count: 342,
         children: [
           { value: "kyoto/temples", label: "Temples", count: 190 },
@@ -122,7 +122,7 @@ export default function TreeDemo() {
         <Tree
           aria-label="Photo library"
           defaultExpanded={["2026", "lisbon"]}
-          defaultValue="lisbon/alfama"
+          defaultValue="lisbon/slopes"
         >
           <Albums albums={library} />
         </Tree>

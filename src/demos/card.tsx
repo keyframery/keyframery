@@ -61,8 +61,8 @@ export default function CardDemo() {
     <div className="flex w-[640px] items-start gap-4">
       <Card interactive spotlight data-play="trip" className="w-[316px]">
         <CardHeader>
-          <CardTitle>Lisbon offsite</CardTitle>
-          <CardDescription>14 to 17 May · Alfama · 12 people</CardDescription>
+          <CardTitle>Ski week</CardTitle>
+          <CardDescription>Les Arcs, 8 to 15 Feb</CardDescription>
           <CardAction>
             <span className="inline-flex h-5 items-center rounded-full bg-muted px-2 text-[11px] font-medium text-muted-foreground">
               In 23 days
@@ -70,13 +70,13 @@ export default function CardDemo() {
           </CardAction>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-2">
-          <Stat label="Booked" value="9 of 12" />
-          <Stat label="Budget" value="€8,400" />
-          <Stat label="Flights" value="11" />
-          <Stat label="Hotel nights" value="36" />
+          <Stat label="Booked" value="5 of 6" />
+          <Stat label="Budget" value="€4,150" />
+          <Stat label="Lift passes" value="6" />
+          <Stat label="Lessons" value="3" />
         </CardContent>
         <CardFooter className="justify-between">
-          <span className="text-[12px] text-muted-foreground">Updated 2h ago by Inès</span>
+          <span className="text-[12px] text-muted-foreground">Jo paid the chalet</span>
           <button type="button" className={key}>
             Itinerary
           </button>

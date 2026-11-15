@@ -42,7 +42,7 @@ export default function InputDemo() {
         <FieldLabel>Where to?</FieldLabel>
         <InputGroup>
           <SearchIcon />
-          <Input defaultValue="Lisbon" placeholder="City, landmark or address" autoComplete="off" />
+          <Input defaultValue="Rome" placeholder="City, landmark or address" autoComplete="off" />
           <InputClear aria-label="Clear destination" />
         </InputGroup>
       </Field>
@@ -55,7 +55,7 @@ export default function InputDemo() {
         <FieldLabel>Trip page</FieldLabel>
         <InputGroup className="gap-0">
           <span>trips.co/</span>
-          <Input defaultValue="lisbon-offsite" autoComplete="off" spellCheck={false} />
+          <Input defaultValue="rome-in-may" autoComplete="off" spellCheck={false} />
         </InputGroup>
       </Field>
       <Field name="reference" disabled>

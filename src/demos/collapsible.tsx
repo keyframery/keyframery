@@ -9,9 +9,9 @@ export const play = [
 ]
 
 const middle = [
-  { time: "09:31", name: "Coimbra-B" },
-  { time: "10:02", name: "Pombal" },
-  { time: "10:34", name: "Entroncamento" },
+  { time: "09:31", name: "Darlington" },
+  { time: "10:02", name: "York" },
+  { time: "10:34", name: "Doncaster" },
 ]
 
 function Stop({
@@ -49,16 +49,16 @@ export default function CollapsibleDemo() {
   return (
     <div className="w-[420px]">
       <div className="flex items-baseline justify-between gap-4">
-        <h3 className="text-[15px] font-semibold tracking-tight">Porto to Lisbon</h3>
-        <p className="text-[12px] text-muted-foreground tabular-nums">Alfa Pendular 133</p>
+        <h3 className="text-[15px] font-semibold tracking-tight">Edinburgh to London</h3>
+        <p className="text-[12px] text-muted-foreground tabular-nums">LNER 1E07</p>
       </div>
-      <p className="mt-1 text-[13px] text-muted-foreground">Sat 16 May · 3h 05m · Coach 4, seat 61</p>
+      <p className="mt-1 text-[13px] text-muted-foreground">Saturday 16 May, coach 4, seat 61</p>
 
       <div className="relative mt-4 rounded-[14px] bg-card px-4 py-2 shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08)]">
         {/* The line the stops sit on. */}
         <span aria-hidden className="absolute top-6 bottom-6 left-[69px] w-px bg-border" />
-        <Stop time="08:09" name="Porto Campanhã" detail="Platform 5" end />
-        <Stop time="08:52" name="Aveiro" />
+        <Stop time="08:09" name="Edinburgh Waverley" detail="Platform 5" end />
+        <Stop time="08:52" name="Newcastle" />
         <Collapsible>
           <CollapsibleTrigger className="ml-[62px] w-[calc(100%-62px)]">
             {(state) => (state.open ? "Hide stops" : "Show 3 more stops")}
@@ -69,8 +69,8 @@ export default function CollapsibleDemo() {
             ))}
           </CollapsiblePanel>
         </Collapsible>
-        <Stop time="11:05" name="Lisboa Oriente" />
-        <Stop time="11:14" name="Lisboa Santa Apolónia" detail="Arrives on time" end />
+        <Stop time="11:05" name="Peterborough" />
+        <Stop time="11:14" name="London King's Cross" detail="Arrives on time" end />
       </div>
     </div>
   )

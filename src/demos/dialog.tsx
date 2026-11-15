@@ -39,8 +39,8 @@ export default function DialogDemo() {
   return (
     <div className="flex w-[340px] items-center gap-3 rounded-[14px] bg-muted/60 p-3 pl-4">
       <div className="min-w-0 flex-1">
-        <div className="text-[14px] font-semibold tracking-tight">Lisbon offsite</div>
-        <div className="mt-0.5 text-[12px] text-muted-foreground tabular-nums">14 to 17 May · 12 people</div>
+        <div className="text-[14px] font-semibold tracking-tight">Hen weekend</div>
+        <div className="mt-0.5 text-[12px] text-muted-foreground tabular-nums">Margate, 9 people</div>
       </div>
       <Dialog>
         <DialogTrigger>Edit trip</DialogTrigger>
@@ -53,7 +53,7 @@ export default function DialogDemo() {
           <div className="mt-5 grid gap-4">
             <div>
               <Label htmlFor="trip-name">Name</Label>
-              <input id="trip-name" className={field} defaultValue="Lisbon offsite" />
+              <input id="trip-name" className={field} defaultValue="Hen weekend" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -67,7 +67,7 @@ export default function DialogDemo() {
             </div>
             <div>
               <Label htmlFor="trip-stay">Where you're staying</Label>
-              <input id="trip-stay" className={field} defaultValue="Casa do Largo, Alfama" />
+              <input id="trip-stay" className={field} defaultValue="The Sands, Margate" />
             </div>
           </div>
           <DialogFooter>

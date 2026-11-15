@@ -28,8 +28,8 @@ export default function ToastDemo() {
   return (
     <div className="flex w-[380px] flex-col items-center gap-5 text-center">
       <div>
-        <div className="text-[15px] font-semibold tracking-tight">Hotel Alfama Patio</div>
-        <div className="mt-1 text-[13px] text-muted-foreground">14 to 17 May · 3 nights · €412</div>
+        <div className="text-[15px] font-semibold tracking-tight">The Zetter, Clerkenwell</div>
+        <div className="mt-1 text-[13px] text-muted-foreground">3 nights from Friday, €412</div>
       </div>
       <div className="flex flex-wrap justify-center gap-2">
         <button
@@ -37,7 +37,7 @@ export default function ToastDemo() {
           className={key}
           data-play="save"
           onClick={() =>
-            toast.success("Saved to Lisbon trip", { description: "Hotel Alfama Patio · 14 to 17 May" })
+            toast.success("Saved to London trip", { description: "The Zetter, Clerkenwell" })
           }
         >
           Save to trip

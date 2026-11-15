@@ -38,7 +38,7 @@ export default function SegmentedControlDemo() {
       </SegmentedControl>
 
       <h3 className="mt-7 text-[15px] font-semibold tracking-tight">Family plan</h3>
-      <p className="mt-1 text-[12px] text-muted-foreground">Up to 6 people · shared albums · 2 TB</p>
+      <p className="mt-1 text-[12px] text-muted-foreground">Up to 6 people and 2 TB of storage</p>
       <div className="mt-4 flex items-baseline gap-1.5">
         <span className="text-[34px] leading-none font-semibold tracking-tight tabular-nums">{plan.price}</span>
         <span className="text-[13px] text-muted-foreground">{plan.per}</span>

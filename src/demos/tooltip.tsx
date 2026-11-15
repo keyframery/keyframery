@@ -64,12 +64,10 @@ export default function TooltipDemo() {
   return (
     <div className="w-[340px] rounded-[16px] bg-muted/60 p-4">
       <div className="flex items-center gap-3">
-        <div className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-foreground/[0.07] text-muted-foreground shadow-[inset_0_0_0_1px_rgb(0_0_0/0.04)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255/0.05)] [&_svg]:size-[18px]">
-          <Icon d="M6 12V3.5l7-1.5V10.5M6 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm7-1.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
-        </div>
+        <img src="/demo/cup.jpg" alt="" className="size-11 shrink-0 rounded-[10px] bg-muted object-cover" />
         <div className="min-w-0 flex-1">
           <div data-play="away" className="truncate text-[14px] font-semibold tracking-tight">Sunday Morning Coffee</div>
-          <div className="truncate text-[12px] text-muted-foreground">Playlist · 24 songs · 1 h 32 min</div>
+          <div className="truncate text-[12px] text-muted-foreground">24 songs, about an hour and a half</div>
         </div>
       </div>
       <div className="mt-4 flex items-center justify-between px-1">

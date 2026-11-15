@@ -40,7 +40,7 @@ export default function LabelDemo() {
       }}
     >
       <h3 className="text-[15px] font-semibold tracking-tight">Book a table</h3>
-      <p className="mt-1 text-[12px] text-muted-foreground">Osteria Lume · Friday 22 November · 20:00</p>
+      <p className="mt-1 text-[12px] text-muted-foreground">Padella, Friday 22 November at 8pm</p>
 
       <div className="mt-5 flex items-center justify-between">
         <Label htmlFor="kf-seating">

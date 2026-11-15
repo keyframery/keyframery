@@ -18,14 +18,14 @@ function typeOut(into: string, text: string, step = 90) {
 
 /* The demo plays itself: an empty submit opens the errors, typing fills the fields. */
 export const play = [
-  { type: "", into: 'input[placeholder="Inès Moreau"]', wait: 100 },
+  { type: "", into: 'input[placeholder="Your name"]', wait: 100 },
   { type: "", into: 'input[type="email"]', wait: 600 },
   { click: 'button[type="submit"]', wait: 1800 },
-  ...typeOut('input[placeholder="Inès Moreau"]', "Kofi Mensah", 80),
+  ...typeOut('input[placeholder="Your name"]', "Tom Becker", 80),
   { wait: 500 },
-  ...typeOut('input[type="email"]', "kofi@", 90),
+  ...typeOut('input[type="email"]', "tom@", 90),
   { wait: 1400 },
-  ...typeOut('input[type="email"]', "kofi@mensah.co", 90).slice(5),
+  ...typeOut('input[type="email"]', "tom@becker.co", 90).slice(5),
   { wait: 1800 },
 ]
 
@@ -34,16 +34,16 @@ export default function FieldDemo() {
     <form className="w-[360px]" onSubmit={(event) => event.preventDefault()}>
       <FieldSet>
         <FieldLegend>Reserve a table</FieldLegend>
-        <FieldDescription>Osteria Lume · Friday 14 June · 2 guests</FieldDescription>
+        <FieldDescription>Padella, Borough. Friday 14 June, 2 guests</FieldDescription>
         <FieldGroup>
           <Field name="name">
             <FieldLabel>Name</FieldLabel>
-            <Input required autoComplete="off" placeholder="Inès Moreau" />
+            <Input required autoComplete="off" placeholder="Your name" />
             <FieldError match="valueMissing">Enter the name for the booking.</FieldError>
           </Field>
           <Field name="email">
             <FieldLabel>Email</FieldLabel>
-            <Input type="email" required autoComplete="off" placeholder="ines@moreau.studio" />
+            <Input type="email" required autoComplete="off" placeholder="you@example.com" />
             <FieldDescription>We send the confirmation here.</FieldDescription>
             <FieldError match="valueMissing">Enter your email address.</FieldError>
             <FieldError match="typeMismatch">That doesn't look like an email address.</FieldError>

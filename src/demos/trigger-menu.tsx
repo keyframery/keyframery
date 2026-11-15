@@ -25,7 +25,7 @@ export const play = [
   { key: "ArrowDown", wait: 450 },
   { key: "ArrowDown", wait: 650 },
   { key: "Enter", wait: 700 },
-  { type: "Can you check with @Aiko Sato about ", into: "#trip-reply", wait: 300 },
+  { type: "Can you check with @Joanna Park about ", into: "#trip-reply", wait: 300 },
   { click: "#kf-action", wait: 1000 },
   { key: "ArrowDown", wait: 450 },
   { key: "ArrowDown", wait: 650 },
@@ -34,9 +34,9 @@ export const play = [
 ]
 
 const people = [
-  { value: "ines", label: "Inès Moreau", hint: "Owner" },
-  { value: "kofi", label: "Kofi Mensah", hint: "Booked flights" },
-  { value: "aiko", label: "Aiko Sato", hint: "Hotel" },
+  { value: "ines", label: "Dana Whitfield", hint: "Owner" },
+  { value: "kofi", label: "Marcus Bell", hint: "Booked the van" },
+  { value: "aiko", label: "Joanna Park", hint: "Has the keys" },
   { value: "tomas", label: "Tomás Reyes", hint: "Joins Friday" },
 ]
 
@@ -59,7 +59,7 @@ export default function TriggerMenuDemo() {
     <div className="w-[400px]">
       <div className="mb-2 flex items-baseline justify-between">
         <label htmlFor="trip-reply" className="text-[13px] leading-none font-medium">
-          Reply to the Lisbon trip
+          Reply to moving day
         </label>
         <span className="flex items-center gap-1 text-[12px] text-muted-foreground">
           {[
@@ -92,7 +92,7 @@ export default function TriggerMenuDemo() {
         <TriggerMenuInput
           id="trip-reply"
           spellCheck={false}
-          placeholder="Thursday dinner is booked for 12. Who still needs a ticket?"
+          placeholder="Van comes at eight. Who is bringing tape?"
         />
         <TriggerMenuStatus />
         <TriggerMenuContent className="w-60">

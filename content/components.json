@@ -44,6 +44,7 @@
   "segmented-control": "The selected key stretches across toward the new option, then closes up.",
   "select": "The list unfolds from the field, one highlight glides between options and the chosen value rises in.",
   "separator": "The line draws itself from the centre outward, then its label fades in.",
+  "sidebar": "The current page's key glides between items, groups fold away on a spring, and the sidebar narrows to an icon rail.",
   "skeleton": "A shimmering placeholder that cross-fades to the real content, which rises in out of a blur.",
   "slider": "The thumb grows while you drag, the fill springs to new values and the digits roll.",
   "switch": "The thumb stretches toward the side it is moving to, then settles.",

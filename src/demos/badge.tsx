@@ -18,10 +18,10 @@ const key =
 type Thread = { id: string; from: string; initials: string; subject: string; time: string; add: number }
 
 const threads: Thread[] = [
-  { id: "tap", from: "TAP Air Portugal", initials: "TP", subject: "Lisbon, 14 May · seat 12A", time: "09:41", add: 1 },
-  { id: "ines", from: "Inès Moreau", initials: "IM", subject: "Dinner on Thursday?", time: "08:12", add: 3 },
-  { id: "casa", from: "Casa Alfama", initials: "CA", subject: "Your check-in details", time: "Mon", add: 0 },
-  { id: "bank", from: "Northbank", initials: "NB", subject: "Card payment €412.00", time: "Sun", add: 1 },
+  { id: "tap", from: "Priya Shah", initials: "PS", subject: "Train tickets attached", time: "09:41", add: 1 },
+  { id: "ines", from: "Mum", initials: "M", subject: "Are you still coming Sunday?", time: "08:12", add: 3 },
+  { id: "casa", from: "Gareth Price", initials: "GP", subject: "Re: boiler service", time: "Mon", add: 0 },
+  { id: "bank", from: "Ellie Shaw", initials: "ES", subject: "Photos from the party", time: "Sun", add: 1 },
 ]
 
 const start: Record<string, number> = { tap: 1, ines: 2, casa: 0, bank: 1 }

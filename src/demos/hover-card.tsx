@@ -31,14 +31,12 @@ export default function HoverCardDemo() {
   return (
     <div className="w-[380px] rounded-[14px] bg-muted/60 p-4">
       <div className="flex items-center gap-2.5">
-        <span className="grid size-7 place-items-center rounded-full bg-background text-[11px] font-semibold text-muted-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06)] dark:bg-accent dark:shadow-none">
-          IM
-        </span>
-        <span data-play="away" className="text-[13px] font-medium">Inès Moreau</span>
+        <img src="/demo/face-3.jpg" alt="" className="size-7 rounded-full bg-muted object-cover" />
+        <span data-play="away" className="text-[13px] font-medium">Priya Shah</span>
         <span className="ml-auto text-[12px] text-muted-foreground tabular-nums">2h</span>
       </div>
       <div className="mt-3 text-[14px] leading-[22px] text-foreground/85">
-        Thursday dinner is booked for all 12 of us at{" "}
+        Thursday dinner is booked for all eight of us at{" "}
         <HoverCard>
           <HoverCardTrigger href="#taberna" className="whitespace-nowrap">Taberna da Rua das Flores</HoverCardTrigger>
           <HoverCardContent>
@@ -49,7 +47,7 @@ export default function HoverCardDemo() {
               </span>
               <div className="min-w-0">
                 <div className="text-[14px] leading-5 font-semibold tracking-tight">Taberna da Rua das Flores</div>
-                <div className="text-[12px] text-muted-foreground">Portuguese · €€ · Chiado</div>
+                <div className="text-[12px] text-muted-foreground">Small plates, Chiado</div>
               </div>
             </div>
             <div className="mt-3 leading-5 text-muted-foreground">

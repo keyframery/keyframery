@@ -97,11 +97,11 @@ export default function PasswordInputDemo() {
       </Field>
       <Field name="wifi">
         <FieldLabel>Guest Wi-Fi</FieldLabel>
-        <PasswordInput readOnly defaultValue="casa-alfama-2024">
+        <PasswordInput readOnly defaultValue="hollowfarm-2024">
           <PasswordInputControl />
           <PasswordInputToggle aria-label="Show password" />
         </PasswordInput>
-        <FieldDescription>Network “Casa Alfama”, shared by your host.</FieldDescription>
+        <FieldDescription>Network “HollowFarm-Guest”, from the note on the fridge.</FieldDescription>
       </Field>
       <Field name="old" disabled>
         <FieldLabel>Current password</FieldLabel>

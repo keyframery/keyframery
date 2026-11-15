@@ -81,12 +81,12 @@ export default function SkeletonDemo() {
             AS
           </span>
           <div className="min-w-0">
-            <div className="text-[15px] leading-5 font-semibold tracking-tight">Aiko Sato</div>
-            <div className="text-[12px] leading-4 text-muted-foreground">@aiko · Osaka</div>
+            <div className="text-[15px] leading-5 font-semibold tracking-tight">Joe Ramsey</div>
+            <div className="text-[12px] leading-4 text-muted-foreground">@joeramsey, Leeds</div>
           </div>
         </div>
         <p className="text-[13px] leading-5 text-muted-foreground">
-          Slow trains, small hotels and the best noodles in every city. Planning Lisbon in May.
+          Slow trains, small hotels and the best noodles in every city. Sicily next, if the ferries run.
         </p>
         <div className="grid grid-cols-3 gap-2">
           {stats.map((s) => (

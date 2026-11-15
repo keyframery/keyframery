@@ -13,13 +13,13 @@ export const meta = { name: "Token Input", group: "Forms" }
 /* The demo plays itself: two suggested people are added and pop in as tokens, then removed. */
 const lastRemove = '[data-slot="token-input-host"]:last-of-type [data-slot="token-input-token-remove"]'
 export const play = [
-  { click: '[data-suggest="wren@north.co"]', wait: 1000 },
-  { click: '[data-suggest="tomas.wojcik@lumen.pl"]', wait: 1300 },
+  { click: '[data-suggest="leo@grantstudio.co"]', wait: 1000 },
+  { click: '[data-suggest="fatima.noor@outlook.com"]', wait: 1300 },
   { click: lastRemove, wait: 700 },
   { click: lastRemove, wait: 1100 },
 ]
 
-const suggested = ["wren@north.co", "tomas.wojcik@lumen.pl"]
+const suggested = ["leo@grantstudio.co", "fatima.noor@outlook.com"]
 
 type Value = React.ComponentProps<typeof TokenInput>["defaultValue"] & {}
 type Segment = Value[number]
@@ -54,9 +54,9 @@ function tokenize(value: Value): Value {
 }
 
 const initial: Value = [
-  emailToken("ines.moreau@atelier.pt"),
-  emailToken("kofi@gmial.com"),
-  emailToken("aiko.sato@studio.jp"),
+  emailToken("dana@whitfield.uk"),
+  emailToken("marcus@gmial.com"),
+  emailToken("joanna.park@hey.com"),
 ]
 
 function initials(email: string) {
@@ -74,7 +74,7 @@ export default function TokenInputDemo() {
     <div className="w-[420px]">
       <div className="mb-2 flex items-baseline justify-between">
         <span id="invite-label" className="text-[13px] leading-none font-medium">
-          Invite to “Lisbon offsite”
+          Invite to “Ski week”
         </span>
         <span className="text-[12px] text-muted-foreground tabular-nums">{people.length} people</span>
       </div>

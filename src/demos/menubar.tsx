@@ -30,15 +30,7 @@ export const play = [
   { key: "Escape", wait: 1400 },
 ]
 
-/* Six photos, drawn as soft light-to-shade gradients in the theme's own greys. */
-const tiles = [
-  [4, 14, "160deg"],
-  [10, 3, "200deg"],
-  [6, 18, "120deg"],
-  [14, 5, "90deg"],
-  [3, 11, "180deg"],
-  [12, 20, "140deg"],
-] as const
+const tiles = [28, 29, 15, 17, 18, 19]
 
 export default function MenubarDemo() {
   return (
@@ -116,17 +108,17 @@ export default function MenubarDemo() {
       </div>
       <div className="p-3">
         <div className="mb-2.5 flex items-baseline justify-between px-0.5">
-          <span className="text-[13px] font-medium">Lisbon, May</span>
-          <span className="text-[12px] text-muted-foreground tabular-nums">48 photos</span>
+          <span className="text-[13px] font-medium">Hill walk, March</span>
+          <span className="text-[12px] text-muted-foreground tabular-nums">31 photos</span>
         </div>
         <div className="grid grid-cols-3 gap-1.5">
-          {tiles.map(([from, to, angle], i) => (
-            <div
-              key={i}
-              className="aspect-[4/3] rounded-[8px] shadow-[inset_0_0_0_1px_rgb(0_0_0/0.04)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255/0.04)]"
-              style={{
-                background: `linear-gradient(${angle}, color-mix(in oklab, var(--foreground) ${from}%, var(--background)), color-mix(in oklab, var(--foreground) ${to}%, var(--background)))`,
-              }}
+          {tiles.map((id) => (
+            <img
+              key={id}
+              src={`/demo/walk-${id}.jpg`}
+              alt=""
+              draggable={false}
+              className="block aspect-[4/3] w-full rounded-[8px] bg-muted object-cover"
             />
           ))}
         </div>

@@ -50,7 +50,7 @@ export default function CalendarDemo() {
       value={stay}
       onValueChange={(value) => setStay(value as [string, string] | null)}
       min={daysFromToday(0)}
-      aria-label="Stay in Lisbon"
+      aria-label="Stay at Hollow Farm"
     >
       <CalendarHeader>
         <CalendarPrevious />
@@ -63,7 +63,7 @@ export default function CalendarDemo() {
           {stay ? `${label(stay[0])} to ${label(stay[1])}` : "Pick your dates"}
         </span>
         <span className="text-muted-foreground tabular-nums">
-          {stay ? `${nights} ${nights === 1 ? "night" : "nights"}` : "Lisbon"}
+          {stay ? `${nights} ${nights === 1 ? "night" : "nights"}` : "Pick your dates"}
         </span>
       </div>
     </Calendar>

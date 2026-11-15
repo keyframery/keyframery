@@ -48,21 +48,21 @@ function ImageIcon() {
 export default function FileInputDemo() {
   const [files] = React.useState(createFileInputController)
   const [initial] = React.useState(() => [
-    photo("tram-28-at-dusk.jpg", 2_412_000),
-    photo("pasteis-de-belem.jpg", 1_186_000),
+    photo("first-dance.jpg", 2_412_000),
+    photo("the-cake.jpg", 1_186_000),
   ])
   const addAlbum = () =>
     files.addFiles([
-      photo("alfama-rooftops.jpg", 3_208_000),
-      photo("lx-factory-lunch.jpg", 1_744_000),
-      photo("sunset-at-belem.jpg", 2_655_000),
+      photo("speeches.jpg", 3_208_000),
+      photo("confetti.jpg", 1_744_000),
+      photo("last-dance.jpg", 2_655_000),
     ])
 
   return (
     <div className="flex w-[380px] flex-col gap-4">
       <div>
-        <h3 className="text-[15px] font-semibold tracking-tight">Lisbon offsite photos</h3>
-        <p className="mt-1 text-[13px] text-muted-foreground">Shared with the 12 people on this trip.</p>
+        <h3 className="text-[15px] font-semibold tracking-tight">Wedding photos</h3>
+        <p className="mt-1 text-[13px] text-muted-foreground">Everyone who was there can add theirs.</p>
       </div>
       <FileInput name="photos" multiple accept="image/*" maxFiles={8} defaultValue={initial} controller={files}>
         <FileInputDropzone>
@@ -81,7 +81,7 @@ export default function FileInputDemo() {
                   onClick={addAlbum}
                   className="inline-flex h-8 cursor-pointer items-center rounded-[9px] px-3 text-[13px] leading-none font-medium text-muted-foreground outline-none transition-[color,background-color,scale] duration-200 ease-pop hover:bg-foreground/[0.06] hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.96] motion-reduce:transition-none"
                 >
-                  From Kofi's album
+                  From your phone
                 </button>
               </div>
             </>

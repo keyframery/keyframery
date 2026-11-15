@@ -50,7 +50,7 @@ export default function ToolbarDemo() {
   return (
     <div className="relative mb-5 w-[400px]">
       <article className="rounded-[14px] bg-card px-6 pt-5 pb-10 text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
-        <h3 className="text-[15px] font-semibold tracking-tight">Packing for Lisbon</h3>
+        <h3 className="text-[15px] font-semibold tracking-tight">Allotment, Saturday</h3>
         <p className="mt-1 text-[12px] text-muted-foreground">Edited just now</p>
         <p
           className={cn(
@@ -59,7 +59,7 @@ export default function ToolbarDemo() {
             align === "right" && "text-right",
           )}
         >
-          A light jacket for evenings by the river.{" "}
+          Seed potatoes in by ten.{" "}
           <span
             className={cn(
               "rounded-[3px] bg-ring/20 box-decoration-clone px-0.5 py-0.5",
@@ -68,9 +68,9 @@ export default function ToolbarDemo() {
               styles.includes("underline") && "underline decoration-[1.5px] underline-offset-[3px]",
             )}
           >
-            Good shoes for the hills in Alfama.
+            Net the brassicas before the pigeons find them.
           </span>{" "}
-          Leave room in the bag for ceramics.
+          Take the long twine.
         </p>
       </article>
 

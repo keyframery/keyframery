@@ -117,6 +117,12 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 
 **Run it locally:** `pnpm build && npx next start -p 4640`, then open http://localhost:4640. `pnpm build` runs the registry and docs generators first.
 
+## Sidebar and demo clean-up (2026-11-15, late)
+
+- **Sidebar** is component 61: `primitives/sidebar.tsx`, `ui/sidebar.tsx`, `demos/sidebar.tsx`. UI SDK has no sidebar, so it is plain elements with shadcn's part names (like Card). Moves: Glide (the active key, anchored to `[data-active]`), Height (collapsible groups reuse the collapsible primitive), the rail collapse, Press. No mobile sheet yet.
+- **Demos no longer look generated** (reviewed against the stageshow skill's craft rules): CSS-painted "photos" and drawn SVG faces were replaced with real photos in `public/demo/` (Unsplash licence, fetched via picsum.photos). The shared Lisbon cast was replaced by a different setting per demo. Initials in squares were replaced by photos where they acted as logos.
+- Component counts on the site and in the skill now say 61; the changelog has a 1.1 entry.
+
 ## Fixed during the launch review
 
 - **Self-play focus rings:** while a demo plays itself, the clicked buttons no longer show focus rings.
