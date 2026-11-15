@@ -25,6 +25,14 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 - [x] Redirects for every old keyframery.com URL (`content/old-urls.txt`, in `next.config.ts`)
 - [ ] Deploy and point keyframery.com at the new site (ask the user first)
 
+## Status 2026-11-15 (afternoon)
+
+- The old Cuts repo `keyframery/keyframery` was deleted. A full mirror backup is at `~/keyframery-cuts-backup.git`.
+- The new code is pushed to a fresh `keyframery/keyframery` (public, `main`), using the gh account `BriyanPatel`, which is admin.
+- The build and type-check pass.
+- Lighthouse scores: `/` perf 65, a11y 99, best practices 100, SEO 92. `/docs/components/tabs` perf 82, a11y 100, best practices 100, SEO 92. To fix: the robots.txt error, heading order, CLS 0.19 and LCP about 5 s on the landing page.
+- Vercel project `briyanpatels-projects/keyframery`, which serves keyframery.com, still has Root Directory `apps/web` and the old build command. Change them to root `.`, `pnpm build` and the pnpm install, and reconnect git, before deploying.
+
 ## Restart point (2026-11-15, paused by the user)
 
 **Done, in this order:**
