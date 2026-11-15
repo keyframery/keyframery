@@ -1,0 +1,30 @@
+---
+title: Browser support
+heading: "Browser support"
+description: "Keyframery's motion is written with modern CSS: linear() easings, @starting-style, anchor positioning and sibling-index(). Here is what each move relies on."
+---
+
+Keyframery has no JavaScript animation engine. The motion is modern CSS, so what you see depends on what the browser supports.
+
+<Callout title="Tested in Chrome">
+
+Keyframery is developed and tested in current Chrome. Other browsers have not been tested component by component yet. UI SDK's behaviour (keyboard, focus, opening and closing) does not depend on any of the CSS below, but check the components you use in the browsers you support before you ship.
+
+</Callout>
+
+## What the moves rely on
+
+| CSS feature | Used for |
+| --- | --- |
+| [`linear()` easing](https://developer.mozilla.org/docs/Web/CSS/easing-function/linear) | Every spring and pop |
+| [`@property`](https://developer.mozilla.org/docs/Web/CSS/@property) | Stretch (tabs, segmented control, navigation menu), animated star fills |
+| [`@starting-style`](https://developer.mozilla.org/docs/Web/CSS/@starting-style) | Entrances, drawn checks |
+| [Anchor positioning](https://developer.mozilla.org/docs/Web/CSS/CSS_anchor_positioning) | Glide: the single highlight in menus, lists, radios, toolbars and calendars |
+| [`sibling-index()`](https://developer.mozilla.org/docs/Web/CSS/sibling-index) | Cascade: the delay between rows |
+| Individual transforms (`translate`, `scale`, `rotate`) | Most moves |
+
+The links go to MDN, which lists current browser support for each feature.
+
+## Framework support
+
+React 19 and Tailwind CSS v4 are required. Next.js, Vite and React Router are covered in [Installation](/docs/installation#framework-notes).

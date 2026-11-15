@@ -1,0 +1,57 @@
+---
+title: Use with AI tools
+heading: "Use Keyframery with Claude Code, Cursor and Codex"
+description: "Install the Keyframery skill in Claude Code, or copy a prompt for any other coding agent. Every docs page is also plain Markdown."
+faq:
+  - q: "What does the skill do that the docs don't?"
+    a: "It saves you the reading. The skill tells the agent how Keyframery is installed and used, so you can say \"animate my UI SDK components\" and review a diff."
+  - q: "Does the agent need network access?"
+    a: "Only to run the shadcn CLI, which downloads the components, and to read the docs when it needs an exact API."
+---
+
+Keyframery is built to be installed by a coding agent as easily as by hand.
+
+## Copy a prompt (any agent)
+
+One prompt with everything an agent needs: how to install, which file to import from, and the rules to follow. Paste it into Claude Code, Cursor, Codex or any other agent.
+
+<AgentPromptButton />
+
+## The skill (Claude Code)
+
+Run these two commands in Claude Code:
+
+```text
+/plugin marketplace add keyframery/keyframery
+/plugin install keyframery@keyframery
+```
+
+Then ask in plain words:
+
+- "Add animated tabs and a dialog to the settings page."
+- "Swap my UI SDK imports for Keyframery's primitives."
+- "Make the whole app feel calmer."
+
+The skill checks your project, installs the components with the shadcn CLI, uses the primitive where you already have your own styling, and tells you what it changed and where.
+
+The skill is one Markdown file. Other agents that support skills can read it at [/.well-known/agent-skills/keyframery/SKILL.md](/.well-known/agent-skills/keyframery/SKILL.md).
+
+## Docs as Markdown
+
+| What | Where |
+| --- | --- |
+| Index of every page | [/llms.txt](/llms.txt) |
+| All docs in one file | [/llms-full.txt](/llms-full.txt) |
+| Any page as Markdown | Add `.mdx` to its URL, for example `/docs/components/tabs.mdx` |
+| The registry | [/r/registry.json](/r/registry.json) |
+
+Every page also has a **Copy Markdown** button at the top.
+
+## What agents should not do
+
+The prompt and the skill both carry these rules. If you write your own instructions, keep them:
+
+- Don't add an animation library. The motion is CSS.
+- Don't hand-edit durations. Change `--kf-speed` or the [motion style](/docs/motion-styles).
+- Don't remove the `motion-reduce` classes.
+- Don't overwrite files in `components/ui`. Keyframery lives in `components/keyframery`.

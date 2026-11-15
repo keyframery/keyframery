@@ -1,0 +1,67 @@
+---
+title: Troubleshooting
+heading: "Troubleshooting"
+description: "Fixes for the things that most often go wrong: an unknown registry, a serif font after shadcn init, Next.js stopping on Date.now(), and motion that doesn't play."
+---
+
+## The CLI says Unknown registry "@keyframery"
+
+Your shadcn CLI didn't find `@keyframery` in shadcn's registry index. Update the CLI, or register the registry once and install again:
+
+```bash
+npx shadcn@latest registry add "@keyframery=https://keyframery.com/r/{name}.json"
+```
+
+Keep the quotes: some shells expand `{name}` otherwise.
+
+## Text shows in a serif font (Times)
+
+This comes from the project setup, not from Keyframery, which never sets a font. A fresh `create-next-app` project names its font `--font-geist-sans`, while `shadcn init` can write `--font-sans: var(--font-sans)`, which points at nothing. Point it at your font in `globals.css`:
+
+```css title="app/globals.css"
+@theme inline {
+  --font-sans: var(--font-geist-sans); /* was: var(--font-sans) */
+}
+```
+
+## Next.js stops with "unstable value Date.now()"
+
+With `cacheComponents` turned on, Next.js won't prerender anything that reads the current time. UI SDK's date components (Calendar, Date Picker and Date Input) read it to know what "today" is, so render them inside `<Suspense>` after `await connection()`:
+
+```tsx title="app/booking/page.tsx"
+import { connection } from "next/server"
+import { Suspense } from "react"
+
+import { Calendar } from "@/components/keyframery/calendar"
+
+async function Today() {
+  await connection() // render on each request, so "today" is today
+  return <Calendar />
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <Today />
+    </Suspense>
+  )
+}
+```
+
+This happens with UI SDK's own Calendar too; it is not specific to Keyframery.
+
+## Nothing animates
+
+Check these in order:
+
+1. **Reduced motion.** Keyframery stops moving when your operating system asks for reduced motion. On macOS: System Settings, Accessibility, Display, Reduce motion.
+2. **The motion tokens.** Your global CSS should contain `--kf-speed` and `--ease-spring`. If it doesn't, run the install command again; the CLI adds them.
+3. **The browser.** See [Browser support](/docs/browser-support).
+
+## A button shows two spinners while pending
+
+Keyframery's Button renders its own spinner while pending. If yours already renders one, pass `pendingIndicator={null}`.
+
+## Something else
+
+Open an issue on [GitHub](https://github.com/keyframery/keyframery/issues) with the component name and what you expected.

@@ -1,0 +1,16 @@
+{
+  "name": "keyframery",
+  "displayName": "Keyframery",
+  "version": "1.0.0",
+  "description": "Animated components for UI SDK, built with plain CSS. A skill that installs them with the shadcn CLI, swaps UI SDK imports for animated primitives, and sets a motion style for the whole app.",
+  "author": { "name": "Briyan Hingrajiya", "email": "briyan@keyframery.com", "url": "https://x.com/briyan_dev" },
+  "homepage": "https://keyframery.com/docs/ai-tools",
+  "repository": "https://github.com/keyframery/keyframery",
+  "license": "MIT",
+  "keywords": ["ui-sdk", "shadcn", "animation", "motion", "react", "components"],
+  "icon": "./logo.png",
+  "documentationUrl": "https://keyframery.com/docs/ai-tools",
+  "supportUrl": "https://github.com/keyframery/keyframery/issues",
+  "privacyPolicyUrl": "https://keyframery.com/privacy",
+  "termsOfServiceUrl": "https://keyframery.com/terms"
+}

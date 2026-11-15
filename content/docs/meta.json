@@ -1,0 +1,22 @@
+{
+  "title": "Docs",
+  "root": true,
+  "pages": [
+    "---Get started---",
+    "index",
+    "installation",
+    "swap-the-import",
+    "ai-tools",
+    "---Motion---",
+    "motion-styles",
+    "moves",
+    "theming",
+    "---Components---",
+    "...components",
+    "---Reference---",
+    "accessibility",
+    "browser-support",
+    "troubleshooting",
+    "changelog"
+  ]
+}

@@ -1,0 +1,22 @@
+---
+title: Changelog
+heading: "Changelog"
+description: "What changed in Keyframery, newest first: the 1.0 release for UI SDK, and what happened to the earlier Cuts motion layer."
+---
+
+## 1.0: Keyframery for UI SDK
+
+November 2026
+
+Keyframery is now a set of animated components for [UI SDK](https://ui-sdk.dev).
+
+- **60 components**, each built on its UI SDK counterpart with the same parts and props.
+- **Two layers per component:** a primitive that adds motion only, and a finished component with a look.
+- **Four motion styles:** Calm, Springy, Snappy and Playful, switched with `data-motion`.
+- **Plain CSS:** no animation library. Springs are CSS easings.
+- **Installs with the shadcn CLI** from the `@keyframery` registry.
+- **A skill for Claude Code** and a prompt for other coding agents.
+
+### If you used the earlier Keyframery
+
+The earlier Keyframery was a motion layer for shadcn/ui, built around a `<Cuts />` component. It has been retired, and its registry items (`cuts`, `value-cut`, `list-cut`, `load-cut`, `state-cut`, `match-cut` and `icon-moves`) are no longer served. The code already copied into your project keeps working, because the shadcn CLI copies source rather than linking to it.

@@ -1,0 +1,126 @@
+---
+title: Installation
+heading: "Install Keyframery in three steps"
+description: "Add animated UI SDK components to a React app in three steps with the shadcn CLI. Works with Next.js, Vite and React Router."
+faq:
+  - q: "Do I need to install UI SDK first?"
+    a: "No. The CLI installs `@ui-sdk/react` and `@ui-sdk/core` for you, pinned to the version the components are tested with."
+  - q: "Why does the CLI say Unknown registry \"@keyframery\"?"
+    a: "Your shadcn CLI didn't find `@keyframery` in shadcn's registry index. Register it once with `npx shadcn@latest registry add \"@keyframery=https://keyframery.com/r/{name}.json\"`, then install again."
+  - q: "Will it overwrite my shadcn/ui components?"
+    a: "No. Keyframery installs into `components/keyframery/`. Nothing in `components/ui/` is touched."
+---
+
+You need React 19, Tailwind CSS v4 and a project set up for the shadcn CLI, so `components.json` exists. If it doesn't, run `npx shadcn@latest init` first.
+
+Prefer to let your coding agent do it? <a href="/docs/ai-tools">Use the skill or the prompt</a>.
+
+<Steps>
+<Step>
+
+### Add a component
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+This copies two files into your project and adds the motion tokens to your global CSS:
+
+```text
+components/keyframery/tabs.tsx
+components/keyframery/primitives/tabs.tsx
+```
+
+UI SDK (`@ui-sdk/react` and `@ui-sdk/core`) is installed for you, pinned to the version the components are tested with. Keyframery is in shadcn's registry index, so the CLI finds `@keyframery` with nothing to set up first.
+
+**You should see** a new `components/keyframery/` folder.
+
+</Step>
+<Step>
+
+### Use it
+
+```tsx title="app/settings/page.tsx"
+import { Tabs, TabsList, TabsPanel, TabsPanels, TabsTab } from "@/components/keyframery/tabs"
+
+export default function Settings() {
+  return (
+    <Tabs defaultValue="general">
+      <TabsList>
+        <TabsTab value="general">General</TabsTab>
+        <TabsTab value="billing">Billing</TabsTab>
+      </TabsList>
+      <TabsPanels>
+        <TabsPanel value="general">…</TabsPanel>
+        <TabsPanel value="billing">…</TabsPanel>
+      </TabsPanels>
+    </Tabs>
+  )
+}
+```
+
+**You should see** the key stretch across to the tab you click, and the panel slide in from that side.
+
+</Step>
+<Step>
+
+### Pick how it moves
+
+Springy is the default. To change the feel of every component at once, set a motion style on `<html>`:
+
+```html
+<html data-motion="calm">
+```
+
+The values are `calm`, `springy`, `snappy` and `playful`. More in [Motion styles](/docs/motion-styles).
+
+</Step>
+</Steps>
+
+## Install everything
+
+```npm
+npx shadcn@latest add @keyframery/all
+```
+
+All 60 components, in one command. Your bundler only ships the ones you import.
+
+## Framework notes
+
+<Tabs items={["Next.js", "Vite", "React Router"]}>
+<Tab value="Next.js">
+
+Works in the App Router, with server rendering. Components that hold state are marked `"use client"` already.
+
+With `cacheComponents` turned on, the three date components need one extra step. See [Troubleshooting](/docs/troubleshooting#nextjs-stops-with-unstable-value-datenow).
+
+</Tab>
+<Tab value="Vite">
+
+Set up Tailwind CSS v4 and the `@/` path alias the way [shadcn's Vite guide](https://ui.shadcn.com/docs/installation/vite) describes, then install as above.
+
+</Tab>
+<Tab value="React Router">
+
+Follow [shadcn's React Router guide](https://ui.shadcn.com/docs/installation/react-router) for Tailwind and the path alias, then install as above.
+
+</Tab>
+</Tabs>
+
+## What the CLI adds to your CSS
+
+The first component you install adds a small block of motion tokens to your global stylesheet: one speed setting, three easings, and the four motion styles. Every component reads them.
+
+```css
+:root {
+  --kf-speed: 1;
+  --ease-house: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: linear(/* a spring, written as a CSS easing */);
+  --ease-pop: linear(/* a livelier spring for small payoffs */);
+}
+```
+
+## Next
+
+- Already using UI SDK? [Swap the import](/docs/swap-the-import) and keep your styling.
+- Something not working? [Troubleshooting](/docs/troubleshooting).

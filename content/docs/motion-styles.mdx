@@ -1,0 +1,87 @@
+---
+title: Motion styles
+heading: "Four motion styles, one setting"
+description: "Switch every Keyframery component between Calm, Springy, Snappy and Playful motion with one attribute. Timing, springiness and pop change; your markup doesn't."
+faq:
+  - q: "Can different parts of my app use different styles?"
+    a: "Yes. `data-motion` works on any element and changes the motion inside it."
+  - q: "Can I make my own style?"
+    a: "Yes. A style is three CSS variables: `--kf-speed`, `--ease-spring` and `--ease-pop`. Set them under your own `data-motion` value."
+---
+
+A motion style changes how everything moves: how fast, how springy, how much pop. Try it here. The switcher changes this whole site.
+
+<MotionStylePlayground />
+
+| Style | Speed | Feel | Good for |
+| --- | --- | --- | --- |
+| **Calm** | 1.35× slower | No bounce; moves settle softly | Dashboards, finance, long sessions |
+| **Springy** | 1× | A 5% spring and a 16% pop. The default | Most products |
+| **Snappy** | 0.6× (faster) | Crisp, almost no overshoot | Developer tools, dense apps |
+| **Playful** | 1.15× | A 12% spring and a 29% pop | Consumer apps |
+
+## Set a style
+
+Put `data-motion` on `<html>`. Popups render at the end of `<body>`, so setting it on `<html>` makes sure they follow too. Leave it off for Springy.
+
+```html
+<html data-motion="calm">
+```
+
+## Let people choose
+
+The switcher is a component like the others. It applies the style to the page and remembers the choice.
+
+```npm
+npx shadcn@latest add @keyframery/motion-style
+```
+
+```tsx
+import { MotionStyleSwitcher } from "@/components/keyframery/motion-style"
+
+export function Settings() {
+  return <MotionStyleSwitcher />
+}
+```
+
+## How it works
+
+Every duration in every component is written as a multiple of one variable, and every easing reads one of three tokens:
+
+```css
+/* inside a component */
+transition: scale calc(260ms * var(--kf-speed, 1)) var(--ease-pop);
+```
+
+| Token | What it is | Used for |
+| --- | --- | --- |
+| `--kf-speed` | A multiplier for every duration and delay | The overall pace |
+| `--ease-house` | A smooth ease-out, no overshoot | Fades, heights, stretches |
+| `--ease-spring` | A spring with a small overshoot | Moves and entrances |
+| `--ease-pop` | A livelier spring | Small payoffs: a check landing, a press releasing |
+
+A style is new values for those tokens. The springs are written with CSS `linear()`, so nothing runs in JavaScript.
+
+## Make your own
+
+```css
+[data-motion="brand"] {
+  --kf-speed: 0.85;
+  --ease-spring: var(--ease-house); /* no overshoot on moves */
+}
+```
+
+Then use `data-motion="brand"`.
+
+## Nesting
+
+`data-motion` works on any element, so one part of an app can move differently from the rest:
+
+```tsx
+<html data-motion="calm">
+  …
+  <section data-motion="playful">{/* onboarding */}</section>
+</html>
+```
+
+Popups opened from inside the section render at the end of `<body>`, so they follow the style on `<html>`.

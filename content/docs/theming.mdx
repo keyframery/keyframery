@@ -1,0 +1,64 @@
+---
+title: Theming
+heading: "Theme Keyframery with your colours and fonts"
+description: "The finished components use the shadcn/ui colour tokens, so they take your theme. Change colours, radius and fonts in CSS, or edit the source."
+faq:
+  - q: "Does Keyframery work with my existing shadcn/ui theme?"
+    a: "Yes. The finished components read the same tokens shadcn/ui does (`--background`, `--primary`, `--border` and the rest), in light and dark."
+  - q: "Does Keyframery set a font?"
+    a: "No. Components use the font your app uses."
+---
+
+There are three ways to change how Keyframery looks, from the lightest to the most complete.
+
+## 1. Your tokens
+
+The finished components are styled with the shadcn/ui colour tokens. If your app has a shadcn theme, they already match it, in light and dark:
+
+```css
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.165 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.962 0 0);
+  --border: oklch(0.915 0 0);
+  --ring: oklch(0.62 0.17 255);
+  /* …the rest of the shadcn tokens */
+}
+```
+
+Change `--primary` and every selected key, checked box and filled bar follows. Change `--ring` and every focus ring follows.
+
+## 2. Your classes
+
+Every part takes `className`, merged after ours, so yours win:
+
+```tsx
+<TabsList className="rounded-full bg-indigo-50">
+  <TabsTab value="overview" className="rounded-full">Overview</TabsTab>
+</TabsList>
+```
+
+## 3. Your source
+
+The code is in your project. Open `components/keyframery/tabs.tsx` and change anything. If you want a completely different look, build it on the primitive and keep the motion: see [Swap the import](/docs/swap-the-import).
+
+## The look, in four shapes
+
+The finished components share a small vocabulary, which is why they sit well together:
+
+| Shape | What it is | Where |
+| --- | --- | --- |
+| **Well** | A recessed track | Tabs list, segmented control, slider track |
+| **Key** | A raised surface that sits in a well | The selected tab, a button, a switch thumb |
+| **Field** | A hairline box you type into | Input, select, date input |
+| **Sheet** | A floating surface | Menu, popover, dialog |
+
+## Fonts
+
+Keyframery never sets a font. If text shows in a serif font after `shadcn init`, see [Troubleshooting](/docs/troubleshooting#text-shows-in-a-serif-font-times).
+
+## Motion
+
+Motion is themed separately, with [motion styles](/docs/motion-styles).

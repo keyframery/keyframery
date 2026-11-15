@@ -1,0 +1,12 @@
+{
+  "name": "keyframery",
+  "description": "Keyframery for Claude Code: animated components for UI SDK.",
+  "owner": { "name": "Briyan Hingrajiya", "email": "briyan@keyframery.com" },
+  "plugins": [
+    {
+      "name": "keyframery",
+      "source": "./plugins/keyframery",
+      "description": "Teaches Claude to install and use Keyframery's animated UI SDK components."
+    }
+  ]
+}

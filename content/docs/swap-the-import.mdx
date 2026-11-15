@@ -1,0 +1,61 @@
+---
+title: Swap the import
+heading: "Swap the import, keep your UI SDK components"
+description: "Every Keyframery primitive has the same parts and props as its UI SDK component. Change one import line and the component animates. Your markup and styles stay."
+faq:
+  - q: "Do the primitives change how my components look?"
+    a: "No. A primitive adds motion and the layout that motion needs (for example, a positioned indicator). Colours, radii, shadows and spacing stay yours."
+  - q: "Can I use the primitive for some components and the finished one for others?"
+    a: "Yes. They are separate files, and both read the same motion tokens, so they move alike."
+---
+
+If you already build with UI SDK, you don't have to adopt a new look to get the motion. Each Keyframery component ships a **primitive**: UI SDK's own component with motion added, and nothing else.
+
+```tsx
+// Before: UI SDK as it ships
+import { Switch, SwitchThumb } from "@ui-sdk/react/switch"
+
+// After: the same parts and props, now animated
+import { Switch, SwitchThumb } from "@/components/keyframery/primitives/switch"
+```
+
+Nothing below that line changes. Your JSX, your props and your class names all stay.
+
+## How a primitive is built
+
+A primitive imports the UI SDK part, adds motion classes, and passes everything else through:
+
+```tsx title="components/keyframery/primitives/switch.tsx"
+import { Switch as SwitchPart, SwitchThumb as SwitchThumbPart } from "@ui-sdk/react/switch"
+
+// Every UI SDK part and type passes straight through.
+export * from "@ui-sdk/react/switch"
+
+function SwitchThumb({ className, ...props }: React.ComponentProps<typeof SwitchThumbPart>) {
+  // The thumb stretches toward the side it is moving to. Your className is merged last, so it wins.
+  return <SwitchThumbPart className={withClass("…motion classes…", className)} {...props} />
+}
+
+export { Switch, SwitchThumb }
+```
+
+So three things are always true:
+
+- **Same parts.** Every export of `@ui-sdk/react/<name>` is exported by the primitive, animated or passed through.
+- **Same props.** Props go straight to UI SDK. `className` still accepts a string or a function of state.
+- **Your styles win.** Your classes are merged after the motion classes.
+
+## Primitive or finished component?
+
+| | Primitive | Finished component |
+| --- | --- | --- |
+| Import | `@/components/keyframery/primitives/tabs` | `@/components/keyframery/tabs` |
+| Motion | Yes | Yes |
+| Look | Yours | Ours, on the shadcn/ui colour tokens |
+| Use it when | You already style UI SDK yourself | You want it working and good-looking now |
+
+Both are installed by the same command, so you can start with the finished component and drop to the primitive when you want your own look.
+
+## A few have no UI SDK part
+
+UI SDK has no card, badge, kbd or skeleton. Those four are plain elements with the same two layers, so the whole set stays consistent. Context Menu is built on UI SDK's menu, and the Motion Style switcher on its preferences.

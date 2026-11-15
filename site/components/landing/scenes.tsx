@@ -1,0 +1,326 @@
+"use client"
+
+/* The live pieces of the landing page. Every scene is a real Keyframery component playing its own demo. */
+
+import Link from "next/link"
+import * as React from "react"
+
+import { MotionStyle, motionStyle, type MotionStyleValue, usePreference } from "@/components/primitives/motion-style"
+import { MotionStyleSwitcher } from "@/components/ui/motion-style"
+import * as accordion from "@/demos/accordion"
+import * as button from "@/demos/button"
+import * as carousel from "@/demos/carousel"
+import * as checkbox from "@/demos/checkbox"
+import * as menu from "@/demos/menu"
+import * as meter from "@/demos/meter"
+import * as numberInput from "@/demos/number-input"
+import * as otpInput from "@/demos/otp-input"
+import * as radio from "@/demos/radio"
+import * as segmentedControl from "@/demos/segmented-control"
+import * as slider from "@/demos/slider"
+import * as switchDemo from "@/demos/switch"
+import * as tabs from "@/demos/tabs"
+import * as timeline from "@/demos/timeline"
+import * as tooltip from "@/demos/tooltip"
+import { cn } from "@/lib/utils"
+import { Demo, DemoFrame } from "@site/components/demo"
+import type { DemoModule } from "@site/lib/demo-types"
+
+/* Bundled with the page, so they are in the first paint. Anything else loads on demand. */
+const BUNDLED: Record<string, DemoModule> = {
+  accordion,
+  button,
+  carousel,
+  checkbox,
+  menu,
+  meter,
+  "number-input": numberInput,
+  "otp-input": otpInput,
+  radio,
+  "segmented-control": segmentedControl,
+  slider,
+  switch: switchDemo,
+  tabs,
+  timeline,
+  tooltip,
+}
+
+export function Scene({ slug, className, pad }: { slug: string; className?: string; pad?: number }) {
+  const demo = BUNDLED[slug]
+  // Every scene sits in a box of fixed height, so it is scaled to fit both ways.
+  return demo ? <DemoFrame demo={demo} slug={slug} className={className} pad={pad} fitHeight /> : <Demo slug={slug} className={className} pad={pad} fitHeight />
+}
+
+/* The landing page is always dark. Popups render at the end of <body>, outside the page's own .dark
+   wrapper, so <body> carries the class too while the landing is open. */
+export function ForceDark() {
+  React.useEffect(() => {
+    document.body.classList.add("dark")
+    return () => document.body.classList.remove("dark")
+  }, [])
+  return null
+}
+
+/* ---------------------------------------------------------------- Hero: a board of live components */
+
+const BOARD = [
+  { slug: "tabs", name: "Tabs" },
+  { slug: "menu", name: "Menu" },
+  { slug: "calendar", name: "Calendar" },
+  { slug: "otp-input", name: "OTP Input" },
+  { slug: "meter", name: "Meter" },
+  { slug: "switch", name: "Switch" },
+]
+
+export function HeroBoard() {
+  return (
+    <div className="rounded-[28px] bg-white/[0.04] p-2 shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_0_1px_rgb(255_255_255/0.07),0_50px_120px_-40px_rgb(0_0_0/0.9)] backdrop-blur-sm sm:p-3 md:rounded-[36px]">
+      <div className="overflow-hidden rounded-[20px] bg-[#08090c] ring-1 ring-white/[0.08] md:rounded-[26px]">
+        <div className="flex items-center gap-3 border-b border-white/[0.07] px-4 py-2.5">
+          <span aria-hidden="true" className="flex gap-1.5">
+            <span className="size-2.5 rounded-full bg-white/15" />
+            <span className="size-2.5 rounded-full bg-white/15" />
+            <span className="size-2.5 rounded-full bg-white/15" />
+          </span>
+          <p className="ml-1 hidden text-[12.5px] text-white/50 sm:block">Live components. Point at one to take over.</p>
+          <div className="ml-auto flex items-center gap-2.5">
+            <span className="hidden text-[12.5px] text-white/50 md:inline">Motion style</span>
+            <MotionStyleSwitcher />
+          </div>
+        </div>
+        <ul aria-label="Live components" className="grid gap-px bg-white/[0.07] md:grid-cols-3">
+          {BOARD.map(({ slug, name }, i) => (
+            <li key={slug} className={cn("relative bg-[#0a0b0f]", i > 2 && "hidden md:block")}>
+              <Scene slug={slug} className="lp-stage h-[360px] pb-10!" pad={24} />
+              <Link
+                prefetch={false}
+                href={`/docs/components/${slug}`}
+                className="absolute bottom-3 left-4 rounded-full px-2 py-0.5 font-mono text-[11px] text-white/45 outline-none ring-1 ring-white/10 hover:text-white focus-visible:ring-white/60"
+              >
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+/* ---------------------------------------------------------------- The same click, twice */
+
+const TAB_ORDER = [3, 1, 2, 0]
+
+/* Two copies of the same tabs. The left one has every transition and animation turned off, which is what
+   UI SDK gives you before you add motion. A script clicks the same tab in both at the same moment. */
+export function SameClick() {
+  const root = React.useRef<HTMLDivElement>(null)
+  const still: DemoModule = React.useMemo(() => ({ default: tabs.default, meta: tabs.meta }), [])
+
+  React.useEffect(() => {
+    const el = root.current
+    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    let visible = false
+    let hands = false
+    let step = 0
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.5 })
+    io.observe(el)
+    const enter = () => {
+      hands = true
+      el.removeAttribute("data-autoplaying")
+    }
+    const leave = () => (hands = false)
+    el.addEventListener("pointerenter", enter)
+    el.addEventListener("pointerleave", leave)
+    const timer = setInterval(() => {
+      if (!visible || hands) return
+      el.setAttribute("data-autoplaying", "")
+      const index = TAB_ORDER[step++ % TAB_ORDER.length]
+      for (const side of el.querySelectorAll("[data-side]")) side.querySelectorAll<HTMLElement>('[role="tab"]')[index]?.click()
+    }, 2200)
+    return () => {
+      clearInterval(timer)
+      io.disconnect()
+      el.removeEventListener("pointerenter", enter)
+      el.removeEventListener("pointerleave", leave)
+    }
+  }, [])
+
+  return (
+    <div ref={root} className="grid gap-5 md:grid-cols-2">
+      {[
+        { side: "still", dot: "bg-white/35", name: "UI SDK", note: "as it ships: the tab changes at once", frame: "kf-still" },
+        { side: "moving", dot: "bg-[#8098ff]", name: "with Keyframery", note: "the key stretches across and the panel follows", frame: "" },
+      ].map(({ side, dot, name, note, frame }) => (
+        <div key={side} data-side={side} className="min-w-0">
+          <p className="mb-3 flex flex-wrap items-center gap-x-2 text-[13.5px]">
+            <span aria-hidden="true" className={cn("size-2 rounded-full", dot)} />
+            <span className="font-medium">{name}</span>
+            <span className="lp-muted">{note}</span>
+          </p>
+          <div className={cn("lp-card overflow-hidden rounded-2xl", frame)}>
+            <DemoFrame demo={still} slug={`tabs-${side}`} className="lp-stage h-[300px]" pad={24} fitHeight />
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/* ---------------------------------------------------------------- Motion styles */
+
+const STYLES: { value: MotionStyleValue; name: string; pace: string; body: string }[] = [
+  { value: "calm", name: "Calm", pace: "1.35× slower", body: "No bounce. For dashboards, finance and long working sessions." },
+  { value: "springy", name: "Springy", pace: "The default", body: "A small spring and pop. Feels physical without showing off." },
+  { value: "snappy", name: "Snappy", pace: "0.6×", body: "Fast and crisp. For developer tools and dense apps." },
+  { value: "playful", name: "Playful", pace: "1.15×", body: "Bigger springs, bolder pops. For consumer apps." },
+]
+
+/* Four cards that set the motion style for the whole page, and remember it. */
+export function StylePicker() {
+  const { value } = usePreference(motionStyle)
+  return (
+    <MotionStyle preference={motionStyle}>
+      <div role="radiogroup" aria-label="Motion style" className="grid gap-3 sm:grid-cols-2">
+        {STYLES.map((s) => {
+          const on = value === s.value
+          return (
+            <button
+              key={s.value}
+              type="button"
+              role="radio"
+              aria-checked={on}
+              onClick={(event) => motionStyle.set(s.value, { reason: "press", event: event.nativeEvent })}
+              className={cn(
+                "rounded-xl p-4 text-left outline-none ring-1 transition-[scale,background-color,box-shadow] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-[#8098ff] active:scale-[0.98] motion-reduce:transition-none",
+                on ? "bg-white/[0.07] ring-[#8098ff]/60" : "bg-white/[0.02] ring-white/10 hover:bg-white/[0.05]",
+              )}
+            >
+              <span className="flex items-center justify-between gap-3">
+                <span className="flex items-center gap-2 text-[15px] font-semibold">
+                  <span aria-hidden="true" className={cn("size-2 rounded-full transition-colors", on ? "bg-[#8098ff]" : "bg-white/20")} />
+                  {s.name}
+                </span>
+                <span className="font-mono text-[11px] text-white/45">{s.pace}</span>
+              </span>
+              <span className="mt-1.5 block text-[13.5px] leading-relaxed lp-muted">{s.body}</span>
+            </button>
+          )
+        })}
+      </div>
+    </MotionStyle>
+  )
+}
+
+/* ---------------------------------------------------------------- The explorer: every component, live */
+
+export type ExplorerGroup = { group: string; items: { slug: string; name: string; description: string; moves: string[] }[] }
+
+/* Pick a group, pick a component: it plays in the stage. Moves to the next component on its own every few
+   seconds until a visitor picks one, then stays where they put it. */
+export function ComponentExplorer({ groups }: { groups: ExplorerGroup[] }) {
+  const all = React.useMemo(() => groups.flatMap((g) => g.items.map((i) => ({ ...i, group: g.group }))), [groups])
+  const [group, setGroup] = React.useState(groups[0].group)
+  const [slug, setSlug] = React.useState(groups[0].items[0].slug)
+  const [touched, setTouched] = React.useState(false)
+  const root = React.useRef<HTMLDivElement>(null)
+  const items = groups.find((g) => g.group === group)?.items ?? []
+  const current = all.find((i) => i.slug === slug) ?? all[0]
+
+  React.useEffect(() => {
+    if (touched || matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const el = root.current
+    let visible = false
+    let hands = false
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.4 })
+    if (el) io.observe(el)
+    const enter = () => (hands = true)
+    const leave = () => (hands = false)
+    el?.addEventListener("pointerenter", enter)
+    el?.addEventListener("pointerleave", leave)
+    const t = setInterval(() => {
+      if (!visible || hands) return
+      setSlug((s) => {
+        const next = all[(all.findIndex((i) => i.slug === s) + 1) % all.length]
+        setGroup(next.group)
+        return next.slug
+      })
+    }, 7000)
+    return () => {
+      clearInterval(t)
+      io.disconnect()
+      el?.removeEventListener("pointerenter", enter)
+      el?.removeEventListener("pointerleave", leave)
+    }
+  }, [touched, all])
+
+  return (
+    <div ref={root} className="lp-card overflow-hidden rounded-[24px]">
+      <div className="flex gap-1.5 overflow-x-auto border-b border-[var(--lp-line)] px-3 py-3 [scrollbar-width:none]">
+        {groups.map((g) => (
+          <button
+            key={g.group}
+            type="button"
+            aria-pressed={g.group === group}
+            onClick={() => {
+              setTouched(true)
+              setGroup(g.group)
+              setSlug(g.items[0].slug)
+            }}
+            className={cn(
+              "shrink-0 rounded-full px-3 py-1.5 text-[13px] font-medium outline-none transition-[scale,background-color,color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-[#8098ff] active:scale-95 motion-reduce:transition-none",
+              g.group === group ? "bg-white text-black" : "text-white/60 hover:bg-white/[0.07] hover:text-white",
+            )}
+          >
+            {g.group} <span className="tabular-nums opacity-50">{g.items.length}</span>
+          </button>
+        ))}
+      </div>
+      <div className="grid md:grid-cols-[260px_minmax(0,1fr)]">
+        <ul aria-label={`${group} components`} className="flex gap-1 overflow-x-auto border-b border-[var(--lp-line)] p-2 md:block md:max-h-[520px] md:space-y-0.5 md:overflow-y-auto md:border-r md:border-b-0">
+          {items.map((i) => (
+            <li key={i.slug} className="shrink-0">
+              <button
+                type="button"
+                aria-current={i.slug === slug}
+                onClick={() => {
+                  setTouched(true)
+                  setSlug(i.slug)
+                }}
+                className={cn(
+                  "w-full rounded-lg px-3 py-2 text-left text-[14px] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[#8098ff] motion-reduce:transition-none",
+                  i.slug === slug ? "bg-white/[0.08] font-medium text-white" : "text-white/60 hover:bg-white/[0.04] hover:text-white",
+                )}
+              >
+                {i.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div className="min-w-0">
+          <Scene key={current.slug} slug={current.slug} className="lp-stage h-[440px]" pad={28} />
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[var(--lp-line)] px-5 py-4">
+            <div className="min-w-0 flex-1">
+              <p className="text-[15px] font-semibold">{current.name}</p>
+              <p className="mt-0.5 text-[13.5px] leading-relaxed lp-muted">{current.description}</p>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {current.moves.map((m) => (
+                <span key={m} className="rounded-full px-2 py-0.5 font-mono text-[10.5px] text-[#a5b4ff] ring-1 ring-[#8098ff]/30">
+                  {m}
+                </span>
+              ))}
+            </div>
+            <Link
+              prefetch={false}
+              href={`/docs/components/${current.slug}`}
+              className="lp-btn lp-btn-glass h-9 px-4 text-[13px]"
+            >
+              Docs and code
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

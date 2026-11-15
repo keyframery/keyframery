@@ -1,0 +1,44 @@
+---
+title: Accessibility
+heading: "Accessibility: motion that never costs access"
+description: "Keyframery keeps UI SDK's keyboard, focus and screen-reader behaviour intact, and stops moving when reduced motion is on."
+faq:
+  - q: "What happens with prefers-reduced-motion?"
+    a: "Movement turns off. Things change at once, or with a short fade, instead of sliding, stretching, popping or blurring. Loading spinners keep turning."
+  - q: "Do the animations change what a screen reader announces?"
+    a: "No. Visual effects such as rolling digits are hidden from assistive technology, which gets the plain value."
+---
+
+Keyframery adds animation on top of UI SDK and leaves its accessibility exactly as it is.
+
+## Behaviour comes from UI SDK, untouched
+
+Every component that has a UI SDK counterpart renders that UI SDK component underneath, with the same parts and props. Keyboard interaction, focus management, ARIA roles and states, typeahead, focus trapping in dialogs and positioning all come from UI SDK. Keyframery adds the motion and the look; it doesn't change any behaviour.
+
+The few components UI SDK doesn't have (card, badge, kbd and skeleton) are plain elements that bring no behaviour of their own.
+
+## Reduced motion
+
+When someone turns on reduced motion in their operating system, Keyframery's movement turns off. Things change at once, or with a short fade, instead of sliding, stretching, popping or blurring. Nothing is lost: the component still opens, closes, selects and updates. Shimmering skeletons become still blocks.
+
+One exception is deliberate: loading spinners keep turning, because they are the only sign that something is still happening.
+
+We test this on every component by loading it with reduced motion on, using it, and checking that nothing else moves.
+
+## Keyboard focus stays visible
+
+Every interactive component has a visible focus ring for keyboard users. Rings that move, like the one-time code's ring gliding between slots, are animated focus indicators, not replacements for them.
+
+## Screen readers get the plain value
+
+Visual effects never change what assistive technology hears. A meter whose digits roll announces "47.3 GB", not the digits rolling past.
+
+## Motion carries meaning
+
+- Popups unfold from the control that opened them, so it is clear where they came from.
+- Panels slide in from the side you moved toward, so the direction matches the action.
+- Numbers roll up or down, so a change in value is noticed.
+
+## Self-playing demos
+
+The demos on this site play themselves to show the motion. They stop as soon as you point at one or press a key, and they don't play at all when reduced motion is on. Your components never play by themselves; that is only for these docs.
