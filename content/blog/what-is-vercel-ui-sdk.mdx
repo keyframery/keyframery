@@ -1,7 +1,7 @@
 ---
-title: "What is Vercel's UI SDK? A practical guide to @ui-sdk/react"
-seoTitle: "Vercel UI SDK explained: what it is, how to use it"
-description: "Vercel's UI SDK is a beta library of accessible UI behaviors for coding agents. What it ships, how it compares with Radix and Base UI, and how to animate it."
+title: "What is Vercel's UI SDK, and how do you animate it?"
+seoTitle: "Vercel UI SDK: what it is and how to animate it"
+description: "Vercel's UI SDK is a beta library of accessible UI behaviors for coding agents. What it ships, plus tested CSS to animate its menus, dialogs, tabs and panels."
 published: "2026-11-15"
 author: "Briyan Hingrajiya"
 tags: ["Vercel UI SDK", "@ui-sdk/react", "headless UI", "React components", "UI animation", "AI coding agents"]
@@ -11,7 +11,8 @@ tldr:
   - "UI SDK is a beta library from Vercel Labs, published to npm on 12 November 2026 under the Apache-2.0 license. It gives you the behavior of a UI (keyboard, focus, selection, popups and the ARIA that goes with them) and leaves the look to you."
   - "One framework-neutral core, @ui-sdk/core, has adapters for React, Vue, Svelte, Solid and Web Components. The React package needs React 19 and lists 55 ready-made components, from Accordion to Waterfall."
   - "It is written for coding agents first. An agent skill teaches your agent to build components from behaviors like createPopup and createRovingFocus, and a createAgent bridge lets an agent read and operate the finished UI."
-  - "Parts render unstyled and expose state as data attributes. Animation is yours to write: popups get data-starting-style and data-ending-style, and tabs expose the selected tab's position as CSS variables."
+  - "Parts render unstyled and expose state as data attributes, so animation is yours to write. This post gives tested, copy-paste CSS for menus, popovers, dialogs, tab indicators, tab panels and collapsible panels, with reduced motion built in."
+  - "One catch we found in testing: UI SDK's documented tab-indicator recipe turns transitions off while data-activation-direction is none, so the indicator jumps on the first click. Leave that rule out and the first click slides."
 faq:
   - q: "Who makes UI SDK?"
     a: "Vercel Labs. The source is on GitHub at vercel-labs/ui and the docs are at ui-sdk.dev. It is in beta, and the docs say some APIs may still change."
@@ -23,6 +24,8 @@ faq:
     a: "Radix Primitives and Base UI ship a fixed set of headless components. UI SDK ships components too, but its main unit is the behavior, such as createPopup, createSelection or createTypeahead, which an agent combines into components the library never shipped. It also runs on five frameworks from one core, and it includes an agent bridge for operating the UI."
   - q: "Does UI SDK animate components?"
     a: "It gives you the hooks, not the motion. Popup content gets data-starting-style before it enters and data-ending-style while it leaves, and stays mounted until its exit transition ends. Collapsible can animate its height. The transitions themselves are CSS you write, or a library you add."
+  - q: "How do I animate UI SDK components?"
+    a: "Target each part's data-slot with CSS. Put the hidden state on data-starting-style and data-ending-style and add a transition, and UI SDK keeps the part mounted until the exit finishes. Use --transform-origin for popups, the --active-tab-* variables for tab indicators and --collapsible-panel-height for panels. The full tested stylesheet is at keyframery.com/blog/vercel-ui-sdk/ui-sdk-motion.css."
   - q: "Which React version does UI SDK need?"
     a: "React 19 or newer. The @ui-sdk/react package declares react and react-dom >=19 as peer dependencies."
 sources:
@@ -42,7 +45,7 @@ sources:
     url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html"
 ---
 
-This guide covers what UI SDK ships, how it works, how it compares with Radix, Base UI and shadcn/ui, and how to style and animate it. We checked every claim against version `0.1.0-beta.2`, the version the components on this site run on.
+This guide explains what UI SDK ships and how it works, then gives you tested CSS to animate its components, with a live demo. We checked every claim against version `0.1.0-beta.2`, the version the components on this site run on. If you only want the animation, [skip to the recipes](#how-do-you-animate-ui-sdk-components).
 
 ## What is UI SDK?
 
@@ -127,7 +130,7 @@ The second half is the agent as a user. `createAgent` from `@ui-sdk/react/agent`
 
 If you already use shadcn/ui, nothing forces a move. Its components sit on Radix or Base UI, and they keep working. UI SDK matters most if you build components shadcn/ui doesn't have, if you target more than React, or if agents write most of your UI code. We compared the two ways agents learn a component library, skills and MCP servers, in [shadcn skill vs MCP server](/blog/shadcn-skill-vs-mcp).
 
-## How do you style and animate UI SDK components?
+## How do you style UI SDK components?
 
 Parts render without styles. You target `data-slot` and the state attributes with plain CSS, CSS Modules or Tailwind. With Tailwind, attribute variants read naturally:
 
@@ -143,27 +146,174 @@ A few behaviors need a little CSS of their own, such as keeping a closed popup h
 @layer ui-sdk;
 ```
 
-Motion is where you do the most work yourself. UI SDK gives you the hooks:
+## How do you animate UI SDK components?
 
-- **Entry and exit.** Popup content gets `data-starting-style` before it enters and `data-ending-style` while it leaves, and it stays mounted until the exit transition finishes. Put exit styles on `data-ending-style`; `data-closed` describes the state but doesn't keep the element on the page.
-- **Origin.** Popups expose `--transform-origin`, so a menu can grow out of the button that opened it.
-- **Indicators.** Tabs measure the selected tab into CSS variables (`--active-tab-left`, `--active-tab-width` and the rest) and set `data-activation-direction` to `left`, `right`, `up` or `down`, so a panel can slide in from the side you moved toward.
-- **Height.** Collapsible can animate its height while keeping its contents.
+UI SDK gives you the hooks and leaves the motion to you:
 
-Here is the docs' own popover example, a short scale and fade that switches off for people who ask for reduced motion:
+- **Entry and exit.** Popups, dialogs, tab panels and collapsible panels get `data-starting-style` on their first frame and `data-ending-style` while they leave. UI SDK keeps the part mounted until the exit transition finishes. `data-closed` describes the state but doesn't keep anything on the page, so put exit styles on `data-ending-style`.
+- **Origin.** Popups expose `--transform-origin`, the point on the button they open from.
+- **Indicators.** Tabs measure the selected tab into `--active-tab-left`, `--active-tab-width` and four more variables, and set `data-activation-direction` to `left`, `right`, `up` or `down`.
+- **Height.** Collapsible and Accordion panels expose their measured height as `--collapsible-panel-height` and `--accordion-panel-height`.
 
-```tsx
-<PopoverContent
-  aria-label="Project details"
-  className="origin-(--transform-origin) transition-[opacity,scale] duration-150 data-starting-style:scale-96 data-starting-style:opacity-0 data-ending-style:scale-96 data-ending-style:opacity-0 motion-reduce:transition-none"
->
-  Last updated today.
-</PopoverContent>
+The recipes below use those hooks. We tested each one in Chrome on `@ui-sdk/react` `0.1.0-beta.2` by sampling the computed styles frame by frame, with reduced motion off and on. Try them here; these are plain UI SDK components with nothing on them but this CSS:
+
+<UiSdkRecipeDemo />
+
+The whole stylesheet is one file, [ui-sdk-motion.css](/blog/vercel-ui-sdk/ui-sdk-motion.css), MIT licensed. Import it after your `@layer ui-sdk;` line.
+
+### Shared timings
+
+Put durations and easings in variables, so the whole app moves at one pace and you can retune it in one place.
+
+```css
+:root {
+  --motion-fast: 150ms;
+  --motion-base: 220ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
 ```
 
-That works for one popover. For a whole app you want the same timing and easing everywhere, an indicator that stretches between tabs, numbers that roll, checks that draw, and a single place to respect [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). The [WCAG guidance on animation from interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html) asks for a way to turn non-essential motion off, so build that in from the start.
+### Menus, popovers, selects and tooltips
 
-This is the gap we built Keyframery for: 60 components for UI SDK with the motion already written in plain CSS, which keep UI SDK's parts and props so you change one import. The [installation guide](/docs/installation) has the details, and [swap the import](/docs/swap-the-import) shows the one-line change.
+Each popup grows out of the button that opened them and shrinks back into it. The same rule covers every popup part.
+
+```css
+:is(
+  [data-slot="menu-content"],
+  [data-slot="popover-content"],
+  [data-slot="select-content"],
+  [data-slot="combobox-content"],
+  [data-slot="hover-card-content"],
+  [data-slot="tooltip-content"]
+) {
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity var(--motion-fast) var(--ease-out),
+    scale var(--motion-fast) var(--ease-out);
+
+  &:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+```
+
+### Dialogs
+
+The page behind dims and the dialog rises into place. The dialog uses `transform` on purpose: if you center it with Tailwind's `-translate-x-1/2`, that sets the separate `translate` property, and a recipe that animated `translate` would knock the dialog sideways as it opens.
+
+```css
+[data-slot="dialog-backdrop"] {
+  transition: opacity var(--motion-base) var(--ease-out);
+
+  &:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+  }
+}
+
+[data-slot="dialog-content"] {
+  transition:
+    opacity var(--motion-base) var(--ease-out),
+    transform var(--motion-base) var(--ease-out);
+
+  &:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+```
+
+### Tab indicator, and the first-click catch
+
+The indicator follows the measured variables, with a small spring.
+
+```css
+[data-slot="tabs-list"] {
+  position: relative;
+}
+
+[data-slot="tabs-indicator"] {
+  position: absolute;
+  top: var(--active-tab-top);
+  left: var(--active-tab-left);
+  width: var(--active-tab-width);
+  height: var(--active-tab-height);
+  transition:
+    left var(--motion-base) var(--ease-spring),
+    top var(--motion-base) var(--ease-spring),
+    width var(--motion-base) var(--ease-spring),
+    height var(--motion-base) var(--ease-spring);
+}
+```
+
+UI SDK's docs add one more rule, `&[data-activation-direction="none"] { transition: none; }`, so the indicator doesn't animate into its first position. In our tests that rule made the first click jump. The attribute changes from `none` to `right` in the same frame as the position, and a browser only animates a change when the transition was already switched on before it. Leave the rule out. Before UI SDK measures, the indicator's position is `auto`, which never animates, so the first placement stays still anyway. We checked both: no movement on load, and a slide on the first click.
+
+### Tab panels that slide from the side you moved toward
+
+Stack the panels in one grid cell so the old and new panel overlap while they cross, then pick the direction from `data-activation-direction`.
+
+```css
+.tab-panels {
+  display: grid;
+
+  & > [data-slot="tabs-panel"] {
+    grid-area: 1 / 1;
+    transition:
+      opacity var(--motion-base) var(--ease-out),
+      translate var(--motion-base) var(--ease-out);
+  }
+
+  & > [data-slot="tabs-panel"][data-starting-style] {
+    opacity: 0;
+    &[data-activation-direction="right"] { translate: 16px 0; }
+    &[data-activation-direction="left"] { translate: -16px 0; }
+  }
+
+  & > [data-slot="tabs-panel"][data-ending-style] {
+    opacity: 0;
+    &[data-activation-direction="right"] { translate: -16px 0; }
+    &[data-activation-direction="left"] { translate: 16px 0; }
+  }
+}
+```
+
+Wrap your `TabsPanel`s in `<div className="tab-panels">`. The full file also covers `up` and `down` for vertical tabs.
+
+### Collapsible and Accordion panels
+
+Animate the measured height between zero and the content's height. Swap `collapsible` for `accordion` in both names for Accordion.
+
+```css
+[data-slot="collapsible-panel"] {
+  height: var(--collapsible-panel-height);
+  overflow: hidden;
+  transition: height var(--motion-base) var(--ease-out);
+
+  &:is([data-starting-style], [data-ending-style]) {
+    height: 0;
+  }
+}
+```
+
+### Reduced motion
+
+Some people get dizzy or distracted from interface motion and turn it off in their system settings. The [WCAG guidance on animation from interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html) asks for a way to turn non-essential motion off, and [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) tells you when they have.
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  [data-slot] {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+```
+
+The near-zero duration matters. With `transition: none`, no `transitionend` event fires; with 0.01ms it does, and the exit finishes at once. In our tests every part above changed in one or two frames with reduced motion on, and closed popups and dialogs still left the page.
+
+### Going further
+
+These six recipes cover the parts most apps open and close all day. A full motion system has more: numbers that roll to their new value, checkmarks that draw, menu items that arrive one after another, and a calendar month that slides in from the side you clicked. We packaged all of that as Keyframery, 60 components for UI SDK with the motion written in plain CSS, which keep UI SDK's parts and props so you change one import. The [installation guide](/docs/installation) has the details.
 
 ## Should you use UI SDK now?
 

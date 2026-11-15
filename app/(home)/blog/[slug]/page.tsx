@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 
 import { PreviewLink } from "@site/components/blog/preview-link"
 import { ReadingRing } from "@site/components/blog/reading-ring"
+import { UiSdkRecipeDemo } from "@site/components/blog/ui-sdk-recipe-demo"
 import { getMDXComponents } from "@site/components/mdx"
 import { AUTHORS, authorPath, blog, longDate, readingTime, type Post } from "@site/lib/blog"
 import { blogPostData, faqData, JsonLd, pageMetadata } from "@site/lib/seo"
@@ -147,7 +148,7 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
       )}
 
       <article id="article" className="prose mt-10 max-w-none lg:col-start-1">
-        <MDX components={getMDXComponents({ a: PreviewLink })} />
+        <MDX components={getMDXComponents({ a: PreviewLink, UiSdkRecipeDemo })} />
         {faq.length > 0 && (
           <section aria-labelledby="questions">
             <h2 id="questions">Questions</h2>

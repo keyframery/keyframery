@@ -1,0 +1,134 @@
+/*
+ * Motion for UI SDK components in plain CSS.
+ * From "What is Vercel's UI SDK, and how do you animate it?": https://keyframery.com/blog/what-is-vercel-ui-sdk
+ * Tested against @ui-sdk/react 0.1.0-beta.2. MIT licensed: copy it, change it, ship it.
+ *
+ * Put `@layer ui-sdk;` at the very top of your global stylesheet first, then import this file.
+ */
+
+/* One set of timings for the whole app. Change these and everything follows. */
+:root {
+  --motion-fast: 150ms;
+  --motion-base: 220ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+/* 1. Popups grow out of the button that opened them, and shrink back into it. */
+:is(
+  [data-slot="menu-content"],
+  [data-slot="popover-content"],
+  [data-slot="select-content"],
+  [data-slot="combobox-content"],
+  [data-slot="hover-card-content"],
+  [data-slot="tooltip-content"]
+) {
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity var(--motion-fast) var(--ease-out),
+    scale var(--motion-fast) var(--ease-out);
+
+  &:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+
+/* 2. Dialogs: the page dims, and the dialog rises into place. */
+[data-slot="dialog-backdrop"] {
+  transition: opacity var(--motion-base) var(--ease-out);
+
+  &:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+  }
+}
+
+/* `transform`, not `translate` or `scale`, so it adds to a dialog you center with Tailwind's -translate-x-1/2. */
+[data-slot="dialog-content"] {
+  transition:
+    opacity var(--motion-base) var(--ease-out),
+    transform var(--motion-base) var(--ease-out);
+
+  &:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+
+/* 3. Tabs: the indicator travels to the tab you pick, with a little spring. */
+[data-slot="tabs-list"] {
+  position: relative;
+}
+
+[data-slot="tabs-indicator"] {
+  position: absolute;
+  top: var(--active-tab-top);
+  left: var(--active-tab-left);
+  width: var(--active-tab-width);
+  height: var(--active-tab-height);
+  transition:
+    left var(--motion-base) var(--ease-spring),
+    top var(--motion-base) var(--ease-spring),
+    width var(--motion-base) var(--ease-spring),
+    height var(--motion-base) var(--ease-spring);
+  /* No rule for data-activation-direction="none" on purpose: switching the transition on in the same frame as the
+     first move means the first click jumps. Before it measures, the indicator's position is `auto`, which never
+     animates, so the first placement stays still anyway. */
+}
+
+/* 4. Tab panels slide in from the side you moved toward. Wrap the panels in an element with this class. */
+.tab-panels {
+  display: grid;
+
+  & > [data-slot="tabs-panel"] {
+    grid-area: 1 / 1;
+    transition:
+      opacity var(--motion-base) var(--ease-out),
+      translate var(--motion-base) var(--ease-out);
+  }
+
+  & > [data-slot="tabs-panel"][data-starting-style] {
+    opacity: 0;
+    &[data-activation-direction="right"] { translate: 16px 0; }
+    &[data-activation-direction="left"] { translate: -16px 0; }
+    &[data-activation-direction="down"] { translate: 0 16px; }
+    &[data-activation-direction="up"] { translate: 0 -16px; }
+  }
+
+  & > [data-slot="tabs-panel"][data-ending-style] {
+    opacity: 0;
+    &[data-activation-direction="right"] { translate: -16px 0; }
+    &[data-activation-direction="left"] { translate: 16px 0; }
+    &[data-activation-direction="down"] { translate: 0 -16px; }
+    &[data-activation-direction="up"] { translate: 0 16px; }
+  }
+}
+
+/* 5. Collapsible and Accordion panels open to their real height. */
+[data-slot="collapsible-panel"] {
+  height: var(--collapsible-panel-height);
+  overflow: hidden;
+  transition: height var(--motion-base) var(--ease-out);
+
+  &:is([data-starting-style], [data-ending-style]) {
+    height: 0;
+  }
+}
+
+[data-slot="accordion-panel"] {
+  height: var(--accordion-panel-height);
+  overflow: hidden;
+  transition: height var(--motion-base) var(--ease-out);
+
+  &:is([data-starting-style], [data-ending-style]) {
+    height: 0;
+  }
+}
+
+/* 6. Reduced motion: state changes happen at once. A near-zero duration (not `none`) still fires transitionend. */
+@media (prefers-reduced-motion: reduce) {
+  [data-slot] {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
