@@ -20,6 +20,7 @@ export function baseOptions(): BaseLayoutProps {
       { text: "Components", url: "/docs/components", active: "nested-url" },
       { text: "Motion styles", url: "/docs/motion-styles" },
       { text: "AI tools", url: "/docs/ai-tools" },
+      { text: "Blog", url: "/blog", active: "nested-url" },
       // Fumadocs' own githubUrl icon is an <svg role="img"> with no title, which fails axe; this one is decorative.
       { type: "icon", url: REPO, text: "GitHub", label: "GitHub", external: true, icon: <GitHubIcon /> },
     ],

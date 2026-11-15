@@ -6,14 +6,14 @@ import { Accordion, AccordionHeader, AccordionItem, AccordionPanel, AccordionTri
 import { cn } from "@/lib/utils"
 import { AgentPromptButton } from "@site/components/agent-prompt-button"
 import { INSTALL_ONE, PLUGIN } from "@site/lib/agent"
-import { entries, groups } from "@site/lib/catalog"
+import { entries } from "@site/lib/catalog"
 import { WORKS_WITH } from "@site/lib/logos"
 import { faqData, JsonLd } from "@site/lib/seo"
 
 import horizon from "../../assets/horizon.jpg"
 import { HeroTitle } from "./hero-title"
 import { KeyframeArc } from "./keyframe-arc"
-import { ComponentExplorer, HeroBoard, SameClick, Scene, StylePicker } from "./scenes"
+import { HeroBoard, SameClick, Scene, StylePicker } from "./scenes"
 import { CopyLines, SkillTerminal } from "./skill-terminal"
 
 const wrap = "mx-auto w-full max-w-[1200px] px-4 sm:px-6"
@@ -39,7 +39,7 @@ export function Hero() {
       {/* Sky above the photo, then the photo itself (NASA, public domain), fading into the page. */}
       <div aria-hidden="true" className="lp-hero-sky absolute inset-x-0 top-0 -z-20 h-[760px]" />
       <div aria-hidden="true" className="lp-photo absolute inset-x-0 top-[470px] -z-20 h-[640px] sm:top-[420px] sm:h-auto sm:aspect-[4928/2768]">
-        <Image src={horizon} alt="" fill priority sizes="(max-width: 640px) 300vw, 100vw" placeholder="blur" className="object-cover object-[50%_0%]" />
+        <Image src={horizon} alt="" fill priority fetchPriority="high" sizes="(max-width: 640px) 1280px, 100vw" placeholder="blur" className="object-cover object-[50%_0%]" />
         <div className="lp-photo-fade absolute inset-0" />
       </div>
 
@@ -49,7 +49,7 @@ export function Hero() {
           Keyframery for UI SDK: {entries.length} animated components
           <ArrowRight aria-hidden="true" className="size-3.5 transition-transform group-hover:translate-x-0.5" />
         </Link>
-        <HeroTitle className="lp-display lp-hero-title relative mt-7 text-[42px] leading-[1.06] text-balance sm:text-[60px] md:text-[76px]" />
+        <HeroTitle className="lp-display lp-hero-title relative mt-7 text-[34px] min-[380px]:text-[40px] leading-[1.06] text-balance sm:text-[60px] md:text-[76px]" />
         <p className="lp-hero-title mt-6 max-w-[58ch] text-[16px] leading-relaxed text-pretty text-white/80 sm:text-[18px]">
           Keyframery is a free set of {entries.length} components for UI SDK with the motion already done, in plain CSS. Same parts, same props:
           change one import, or let your coding agent do it with our skill.
@@ -68,6 +68,8 @@ export function Hero() {
       </div>
 
       <div className={cn(wrap, "lp-rise mt-20 md:mt-28")}>
+        {/* Keeps the outline in order: the demos inside the board carry their own h3s. */}
+        <h2 className="sr-only">Six live components</h2>
         <HeroBoard />
       </div>
 
@@ -285,44 +287,6 @@ export function ByHand() {
           Read the installation guide
         </Link>
       </p>
-    </section>
-  )
-}
-
-/* ---------------------------------------------------------------- Every component, live */
-
-export function Wall() {
-  const explorer = groups.map(({ group, items }) => ({
-    group,
-    items: items.map((e) => ({ slug: e.slug, name: e.name, description: e.description, moves: [...new Set(e.moves.map(([m]) => m))] })),
-  }))
-  return (
-    <section id="components" aria-labelledby="wall-title" className={cn(wrap, "scroll-mt-20 pb-24 md:pb-32")}>
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <p className="lp-tag">The set</p>
-          <h2 id="wall-title" className="lp-display mt-5 text-[36px] leading-[1.05] md:text-[52px]">
-            All {entries.length} components, live
-          </h2>
-          <p className="mt-4 max-w-[52ch] text-[17px] leading-relaxed lp-muted">Pick one and it plays. Every component, from Accordion to Waterfall.</p>
-        </div>
-        <Link prefetch={false} href="/docs/components" className="lp-btn lp-btn-glass">
-          Browse the docs <ArrowRight aria-hidden="true" className="size-4" />
-        </Link>
-      </div>
-      <div className="mt-12">
-        <ComponentExplorer groups={explorer} />
-      </div>
-      {/* Every component as a plain link too, for search engines and anyone who prefers a list. */}
-      <nav aria-label="All components" className="sr-only">
-        <ul>
-          {entries.map((e) => (
-            <li key={e.slug}>
-              <Link href={`/docs/components/${e.slug}`}>{e.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </section>
   )
 }

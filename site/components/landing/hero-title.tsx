@@ -77,7 +77,8 @@ export function HeroTitle({ className }: { className?: string }) {
       <span aria-hidden="true">
         Swap one import.
         <span className="block text-white/75">
-          Your UI SDK{" "}
+          {/* On phones "Your UI SDK" gets its own line, so a long word never re-wraps the headline and shifts the page. */}
+          <span className="max-sm:block">Your UI SDK</span>{" "}
           <span
             className="relative inline-block h-[1.08em] align-bottom text-white transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
             style={{ width: width ? `${width}px` : undefined }}

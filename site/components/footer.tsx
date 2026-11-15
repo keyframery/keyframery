@@ -5,7 +5,7 @@ import { REPO } from "@site/lib/shared"
 import { LogoMark } from "./logo"
 
 const GROUPS: { title: string; links: [label: string, href: string][] }[] = [
-  { title: "Product", links: [["Components", "/docs/components"], ["Motion styles", "/docs/motion-styles"], ["Installation", "/docs/installation"], ["Changelog", "/docs/changelog"]] },
+  { title: "Product", links: [["Components", "/docs/components"], ["Motion styles", "/docs/motion-styles"], ["Installation", "/docs/installation"], ["Changelog", "/docs/changelog"], ["Blog", "/blog"]] },
   { title: "Developers", links: [["AI tools", "/docs/ai-tools"], ["Swap the import", "/docs/swap-the-import"], ["GitHub", REPO], ["llms.txt", "/llms.txt"]] },
   { title: "More", links: [["Accessibility", "/docs/accessibility"], ["Troubleshooting", "/docs/troubleshooting"], ["Privacy", "/privacy"], ["Terms", "/terms"]] },
 ]
@@ -55,6 +55,11 @@ export function SiteFooter() {
       <p className="mx-auto w-full max-w-[1200px] border-t px-4 py-6 text-[13px] text-muted-foreground sm:px-6">
         © 2026 Keyframery. Code under the MIT license. Not affiliated with Vercel or shadcn.
       </p>
+      {/* The sign-off: the wordmark set edge to edge, fading from top to bottom, with a band of light that
+          sweeps down through it like a playhead. Decorative, so it's hidden from screen readers. */}
+      <div aria-hidden="true" className="kf-wordmark">
+        <span>Keyframery</span>
+      </div>
     </footer>
   )
 }

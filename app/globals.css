@@ -394,3 +394,44 @@ body:has(.lp) [data-theme-toggle] {
     transform: translateY(-0.6em);
   }
 }
+
+/* ---------------------------------------------------------------- Footer wordmark */
+/* "Keyframery" fills the full width (the font size is set in vw so the word always spans the screen),
+   with the descenders kept whole so the y's still read as y's. The letters fade from top to bottom, and a soft band
+   of light travels down through them on a loop. Under reduced motion the band rests. */
+.kf-wordmark {
+  overflow: hidden;
+  height: calc(var(--kf-wm-size) * 1.04);
+  margin-top: 2rem;
+  --kf-wm-size: 18.9vw;
+  user-select: none;
+  pointer-events: none;
+}
+.kf-wordmark span {
+  display: block;
+  padding-inline: 1.5vw calc(1.5vw + 0.07em);
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--kf-wm-size);
+  font-weight: 700;
+  letter-spacing: -0.065em;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+  color: transparent;
+  background-image:
+    linear-gradient(180deg, transparent 0%, color-mix(in oklab, var(--foreground) 55%, transparent) 50%, transparent 100%),
+    linear-gradient(180deg, color-mix(in oklab, var(--foreground) 20%, transparent) 15%, color-mix(in oklab, var(--foreground) 2%, transparent) 100%);
+  background-size: 100% 60%, 100% 100%;
+  background-repeat: no-repeat;
+  background-position: 0 -120%, 0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: kf-wm-sweep 7s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+@keyframes kf-wm-sweep {
+  0% { background-position: 0 -120%, 0 0; }
+  70%, 100% { background-position: 0 260%, 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kf-wordmark span { animation: none !important; background-position: 0 -120%, 0 0; }
+}

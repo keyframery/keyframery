@@ -88,9 +88,9 @@ export function HeroBoard() {
             <MotionStyleSwitcher />
           </div>
         </div>
-        <ul aria-label="Live components" className="grid gap-px bg-white/[0.07] md:grid-cols-3">
+        <ul aria-label="Live components" className="grid grid-cols-[minmax(0,1fr)] gap-px bg-white/[0.07] md:grid-cols-3">
           {BOARD.map(({ slug, name }, i) => (
-            <li key={slug} className={cn("relative bg-[#0a0b0f]", i > 2 && "hidden md:block")}>
+            <li key={slug} className={cn("relative min-w-0 bg-[#0a0b0f]", i > 2 && "hidden md:block")}>
               <Scene slug={slug} className="lp-stage h-[360px] pb-10!" pad={24} />
               <Link
                 prefetch={false}
@@ -209,118 +209,5 @@ export function StylePicker() {
         })}
       </div>
     </MotionStyle>
-  )
-}
-
-/* ---------------------------------------------------------------- The explorer: every component, live */
-
-export type ExplorerGroup = { group: string; items: { slug: string; name: string; description: string; moves: string[] }[] }
-
-/* Pick a group, pick a component: it plays in the stage. Moves to the next component on its own every few
-   seconds until a visitor picks one, then stays where they put it. */
-export function ComponentExplorer({ groups }: { groups: ExplorerGroup[] }) {
-  const all = React.useMemo(() => groups.flatMap((g) => g.items.map((i) => ({ ...i, group: g.group }))), [groups])
-  const [group, setGroup] = React.useState(groups[0].group)
-  const [slug, setSlug] = React.useState(groups[0].items[0].slug)
-  const [touched, setTouched] = React.useState(false)
-  const root = React.useRef<HTMLDivElement>(null)
-  const items = groups.find((g) => g.group === group)?.items ?? []
-  const current = all.find((i) => i.slug === slug) ?? all[0]
-
-  React.useEffect(() => {
-    if (touched || matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    const el = root.current
-    let visible = false
-    let hands = false
-    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.4 })
-    if (el) io.observe(el)
-    const enter = () => (hands = true)
-    const leave = () => (hands = false)
-    el?.addEventListener("pointerenter", enter)
-    el?.addEventListener("pointerleave", leave)
-    const t = setInterval(() => {
-      if (!visible || hands) return
-      setSlug((s) => {
-        const next = all[(all.findIndex((i) => i.slug === s) + 1) % all.length]
-        setGroup(next.group)
-        return next.slug
-      })
-    }, 7000)
-    return () => {
-      clearInterval(t)
-      io.disconnect()
-      el?.removeEventListener("pointerenter", enter)
-      el?.removeEventListener("pointerleave", leave)
-    }
-  }, [touched, all])
-
-  return (
-    <div ref={root} className="lp-card overflow-hidden rounded-[24px]">
-      <div className="flex gap-1.5 overflow-x-auto border-b border-[var(--lp-line)] px-3 py-3 [scrollbar-width:none]">
-        {groups.map((g) => (
-          <button
-            key={g.group}
-            type="button"
-            aria-pressed={g.group === group}
-            onClick={() => {
-              setTouched(true)
-              setGroup(g.group)
-              setSlug(g.items[0].slug)
-            }}
-            className={cn(
-              "shrink-0 rounded-full px-3 py-1.5 text-[13px] font-medium outline-none transition-[scale,background-color,color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-[#8098ff] active:scale-95 motion-reduce:transition-none",
-              g.group === group ? "bg-white text-black" : "text-white/60 hover:bg-white/[0.07] hover:text-white",
-            )}
-          >
-            {g.group} <span className="tabular-nums opacity-50">{g.items.length}</span>
-          </button>
-        ))}
-      </div>
-      <div className="grid md:grid-cols-[260px_minmax(0,1fr)]">
-        <ul aria-label={`${group} components`} className="flex gap-1 overflow-x-auto border-b border-[var(--lp-line)] p-2 md:block md:max-h-[520px] md:space-y-0.5 md:overflow-y-auto md:border-r md:border-b-0">
-          {items.map((i) => (
-            <li key={i.slug} className="shrink-0">
-              <button
-                type="button"
-                aria-current={i.slug === slug}
-                onClick={() => {
-                  setTouched(true)
-                  setSlug(i.slug)
-                }}
-                className={cn(
-                  "w-full rounded-lg px-3 py-2 text-left text-[14px] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[#8098ff] motion-reduce:transition-none",
-                  i.slug === slug ? "bg-white/[0.08] font-medium text-white" : "text-white/60 hover:bg-white/[0.04] hover:text-white",
-                )}
-              >
-                {i.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div className="min-w-0">
-          <Scene key={current.slug} slug={current.slug} className="lp-stage h-[440px]" pad={28} />
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[var(--lp-line)] px-5 py-4">
-            <div className="min-w-0 flex-1">
-              <p className="text-[15px] font-semibold">{current.name}</p>
-              <p className="mt-0.5 text-[13.5px] leading-relaxed lp-muted">{current.description}</p>
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {current.moves.map((m) => (
-                <span key={m} className="rounded-full px-2 py-0.5 font-mono text-[10.5px] text-[#a5b4ff] ring-1 ring-[#8098ff]/30">
-                  {m}
-                </span>
-              ))}
-            </div>
-            <Link
-              prefetch={false}
-              href={`/docs/components/${current.slug}`}
-              className="lp-btn lp-btn-glass h-9 px-4 text-[13px]"
-            >
-              Docs and code
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
   )
 }

@@ -30,7 +30,18 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 - The old Cuts repo `keyframery/keyframery` was deleted. A full mirror backup is at `~/keyframery-cuts-backup.git`.
 - The new code is pushed to a fresh `keyframery/keyframery` (public, `main`), using the gh account `BriyanPatel`, which is admin.
 - The build and type-check pass.
-- Lighthouse scores: `/` perf 65, a11y 99, best practices 100, SEO 92. `/docs/components/tabs` perf 82, a11y 100, best practices 100, SEO 92. To fix: the robots.txt error, heading order, CLS 0.19 and LCP about 5 s on the landing page.
+- Lighthouse, after the fixes (mobile, local production build):
+  - `/`: perf 77, a11y 100, best practices 100, SEO 100 (CLS went from 0.22 to 0.01)
+  - `/docs/components/tabs`: perf 87, a11y 100, best practices 100, SEO 100
+  - `/blog/shadcn-skill-vs-mcp`: perf 89, a11y 100, best practices 100, SEO 100
+  - The landing's LCP (about 5 s, simulated) is render delay from the live demos' JavaScript, not the photo download.
+- Landing changes the user asked for on 2026-11-15:
+  - removed the "All 60 components, live" explorer
+  - removed the moving light on the closing arc
+  - added a full-width "Keyframery" wordmark under the footer that fades top to bottom, with a light band sweeping down
+  - fixed the hero board overflowing on phones
+  - fixed the hero headline re-wrapping on phones
+- The old blog is ported: `/blog`, both posts, `/authors/briyan-hingrajiya`, RSS, social images and `.md` copies, at the old URLs. The skills benchmark post carries an `archived` note, because it tested the old Cuts product.
 - Vercel project `briyanpatels-projects/keyframery`, which serves keyframery.com, still has Root Directory `apps/web` and the old build command. Change them to root `.`, `pnpm build` and the pnpm install, and reconnect git, before deploying.
 
 ## Restart point (2026-11-15, paused by the user)

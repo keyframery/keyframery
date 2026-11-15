@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google"
 
 import { ForceDark } from "@site/components/landing/scenes"
-import { ByHand, Closing, Faq, Hero, Moves, Skill, Styles, Wall, WhatItIs } from "@site/components/landing/sections"
+import { ByHand, Closing, Faq, Hero, Moves, Skill, Styles, WhatItIs } from "@site/components/landing/sections"
 import { JsonLd, pageMetadata, projectData } from "@site/lib/seo"
 
 // Inter with optical sizing: the Display cut at headline sizes. Only the landing uses it.
@@ -26,7 +26,6 @@ export default function Page() {
       <Styles />
       <Skill />
       <ByHand />
-      <Wall />
       <Faq />
       <Closing />
     </div>

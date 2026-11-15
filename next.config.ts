@@ -24,7 +24,7 @@ const oldUrls = fs
   .map((u) => u.trim())
   .filter(Boolean)
 
-const kept = new Set(["", "/docs", "/docs/installation", "/docs/accessibility", "/docs/components", "/docs/ai-tools", "/docs/changelog", "/privacy", "/terms"])
+const kept = new Set(["", "/blog", "/blog/shadcn-skill-vs-mcp", "/blog/best-claude-code-skills-ui-animation", "/authors/briyan-hingrajiya", "/docs", "/docs/installation", "/docs/accessibility", "/docs/components", "/docs/ai-tools", "/docs/changelog", "/privacy", "/terms"])
 
 function target(url: string): string | null {
   if (kept.has(url)) return null

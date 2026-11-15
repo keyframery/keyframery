@@ -1,0 +1,214 @@
+---
+title: "shadcn skill vs MCP server: which one your coding agent needs"
+seoTitle: "shadcn skills vs MCP server: which to install"
+description: "Install the shadcn skill first. We measured it against the shadcn MCP server in Claude Code: tokens each adds and what each returns in a Base UI project."
+published: "2026-11-11"
+author: "Briyan Hingrajiya"
+tags: ["shadcn skill", "shadcn MCP server", "shadcn/ui", "Claude Code", "AI coding agents"]
+about: ["shadcn/ui", "Model Context Protocol", "Agent Skills"]
+disclosure: "Keyframery is our product and it ships a skill. We ran an MCP server for it from 8 October to 4 November 2026 and then removed it. The measurements were taken on 11 November 2026, and this post was drafted with AI assistance and checked against the recorded output before publishing."
+tldr:
+  - "The shadcn skill teaches a coding agent how to write shadcn/ui code for your project: Base UI or Radix, your import aliases, your Tailwind version and shadcn's composition rules. The shadcn MCP server gives the agent seven tools for searching and viewing registry items."
+  - "In Claude Code 2.1.322 on 11 November 2026, the shadcn skill added 166 tokens to an idle session and the shadcn MCP server added 132. Claude Code loads the rest of each only when it is used."
+  - "On first use the shadcn skill loads about 9,700 tokens in Claude Code: 8,277 for its main file plus our project's settings. The MCP server's seven tool definitions are 1,500 to 1,900 tokens, and every tool result adds its own size."
+  - "In our Base UI project, on shadcn CLI 4.23.0 and 4.21.3, the shadcn MCP server returned a Radix dialog example and Radix dependencies for the button. The CLI commands the skill points to returned the Base UI button file and links to the Base UI dialog docs."
+  - "Install the shadcn skill first. Add the shadcn MCP server when your agent can't run shell commands or doesn't load skills. We ran no agent task, so this rests on what each one returns."
+faq:
+  - q: "Do I need the shadcn MCP server if I have the shadcn skill?"
+    a: "Usually not, when your agent can run shell commands. The shadcn skill sends the agent to the shadcn CLI for `search`, `view`, `docs` and `add`, which covers what the MCP tools do, and it also reads your project's settings. The MCP server helps when the agent has no shell or doesn't load skills."
+  - q: "Does the shadcn MCP server install components?"
+    a: "No, the shadcn MCP server does not install components. Its `get_add_command_for_items` tool returns the CLI command, for example `pnpm dlx shadcn@latest add @shadcn/dialog @shadcn/field`, and the agent or you run it. The other six tools list, search and view registry items, show examples and return a short audit checklist."
+  - q: "How many tokens do the shadcn skill and MCP server use in Claude Code?"
+    a: "In Claude Code 2.1.322 with Claude Opus 5.5, on 11 November 2026, the shadcn skill added 166 tokens to an idle session and the shadcn MCP server added 132. On first use the skill loads about 9,700 tokens: 8,277 for `SKILL.md` plus 1,388 of project settings in our app. The MCP server's seven tool definitions are 1,500 to 1,900 tokens, plus each tool result."
+  - q: "Does the shadcn MCP server work with Base UI?"
+    a: "It connects, but in our test it did not return Base UI code. On shadcn CLI 4.23.0, on 11 November 2026, in a `base-nova` project, the shadcn MCP server listed `radix-ui` as the button's dependency and its dialog example used Radix's `asChild`. The CLI's `shadcn view` returned the Base UI button file and `shadcn docs` returned links to the Base UI dialog docs. Version 4.21.3 gave the same results."
+  - q: "What tools does the shadcn MCP server have?"
+    a: "Seven, as of shadcn CLI 4.23.0: `get_project_registries`, `list_items_in_registries`, `search_items_in_registries`, `view_items_in_registries`, `get_item_examples_from_registries`, `get_add_command_for_items` and `get_audit_checklist`. They list, search and view registry items. None installs a component."
+  - q: "Which agents can install the shadcn skill?"
+    a: "The shadcn skill installs with the skills CLI, `npx skills add shadcn/ui`, whose README lists Claude Code, Cursor, Codex, OpenCode and 75 more agents as supported. We only measured it in Claude Code, so we can't say how other agents load it."
+sources:
+  - title: "shadcn/ui docs: Skills"
+    url: "https://ui.shadcn.com/docs/skills"
+  - title: "shadcn/ui docs: MCP Server"
+    url: "https://ui.shadcn.com/docs/mcp"
+  - title: "shadcn/ui changelog, March 2026: shadcn/cli v4"
+    url: "https://ui.shadcn.com/docs/changelog/2026-03-cli-v4"
+  - title: "shadcn/ui changelog, August 2025: shadcn CLI 3.0 and MCP Server"
+    url: "https://ui.shadcn.com/docs/changelog/2025-08-cli-3-mcp"
+  - title: "The shadcn skill's files on GitHub"
+    url: "https://github.com/shadcn-ui/ui/tree/main/skills/shadcn"
+  - title: "shadcn 4.23.0 release notes"
+    url: "https://github.com/shadcn-ui/ui/releases/tag/shadcn%404.23.0"
+  - title: "The shadcn skill on skills.sh"
+    url: "https://www.skills.sh/shadcn-ui/ui/shadcn"
+  - title: "Claude Code docs: Skills"
+    url: "https://code.claude.com/docs/en/skills"
+  - title: "Claude Code docs: MCP and tool search"
+    url: "https://code.claude.com/docs/en/mcp"
+  - title: "skills CLI on GitHub (supported agents)"
+    url: "https://github.com/vercel-labs/skills"
+  - title: "Model Context Protocol"
+    url: "https://modelcontextprotocol.io"
+---
+
+shadcn/ui ships two things for coding agents. The first is a skill, listed in the docs as shadcn skills: a set of instructions that teaches the agent how to write shadcn/ui code for your project. The second is an MCP server (MCP is the Model Context Protocol, the standard that lets an AI tool call outside programs), which gives the agent tools for searching and viewing registry items. A registry is a catalogue of components the shadcn CLI can install. We loaded both in Claude Code, counted what each adds to a session, and compared what each returns inside the same app.
+
+## Should you install the shadcn skill or the MCP server?
+
+Install the shadcn skill first, and add the shadcn MCP server when your agent can't run shell commands or doesn't load skills. Only the skill reads your project's library, aliases and Tailwind version. In our Base UI project, on shadcn CLI 4.23.0, the CLI commands the skill points to returned the Base UI button file and links to the Base UI dialog docs. The MCP server answered the same requests with Radix dependencies and a Radix example. Keeping both loaded added 292 tokens to an idle Claude Code session. This is a default based on what each one returns: we ran no agent task, so we can't say which writes better UI.
+
+| | shadcn skill | shadcn MCP server |
+|---|---|---|
+| What it is | Instructions: one `SKILL.md` and 12 reference files | A local server, `shadcn mcp`, with 7 tools |
+| Install | `npx skills add shadcn/ui` | `npx shadcn@latest mcp init --client claude` |
+| Reads your project (Base UI or Radix, aliases, Tailwind version) | Yes, with `shadcn info --json` | No |
+| Searches and views registry items | Through the CLI: `search`, `view`, `docs` | Yes, as tools |
+| Installs components | Runs `shadcn add` | Returns the `add` command for the agent to run |
+| Idle cost in Claude Code 2.1.322 | 166 tokens | 132 tokens |
+| Size when loaded | About 9,700 tokens on first use, then each CLI result | 1,500 to 1,900 tokens of tool definitions, then each tool result |
+| Released | March 2026, with CLI v4 | August 2025, with CLI 3.0 |
+
+We measured on 11 November 2026 with Claude Code 2.1.322, Claude Opus 5.5 and shadcn CLI 4.23.0, on macOS with Node 24.13.1. The method is under [how many tokens each one uses](#how-many-tokens-do-the-shadcn-skill-and-mcp-server-use-in-claude-code).
+
+## What the shadcn skill does
+
+The skill is a folder of Markdown that an agent loads when a task involves shadcn/ui. shadcn released it with CLI v4 on 6 March 2026 ([CLI v4 changelog](https://ui.shadcn.com/docs/changelog/2026-03-cli-v4)), and it installs with one command:
+
+```bash
+npx skills add shadcn/ui
+```
+
+Its [page on skills.sh](https://www.skills.sh/shadcn-ui/ui/shadcn) showed 143.8K installs when we checked on 11 November 2026.
+
+The skill starts by reading your project. Its main file has a line that runs `shadcn info --json` and puts the result in front of the agent: framework, Tailwind version, import aliases, icon library, installed components, and which of the two component libraries shadcn/ui supports your project is built on, Base UI or Radix. In our app that output was 3,058 bytes.
+
+The main file, [`SKILL.md`](https://github.com/shadcn-ui/ui/tree/main/skills/shadcn), is 21,606 bytes, and it lists what shadcn calls critical rules. Forms use `FieldGroup` and `Field`. Spacing uses `gap-*`, never `space-y-*`. A custom trigger uses `asChild` on Radix and `render` on Base UI. Twelve more files sit beside it and are read only when a task needs them: six rule files that pair incorrect code with the correct version, a CLI reference, and guides for theming, registries, design systems and the MCP server.
+
+For finding and adding components, the skill sends the agent to the shadcn CLI. `search` finds an item, `view` shows its code and `add` installs it. `docs` returns links to the documentation, which the agent then fetches, so this path needs web access as well as a shell. In Claude Code the skill pre-approves every `shadcn@latest` command, `add` included, for the turn that uses it, so the agent doesn't stop to ask before each one.
+
+An agent decides for itself when to load a skill, and it can skip one. In [our earlier test of animation skills](/blog/best-claude-code-skills-ui-animation), Claude Code left Anthropic's frontend-design skill unloaded in one of three runs.
+
+## What the shadcn MCP server does
+
+The MCP server ships inside the shadcn CLI. It arrived with CLI 3.0 on 27 August 2025 ([CLI 3.0 changelog](https://ui.shadcn.com/docs/changelog/2025-08-cli-3-mcp)), built on the [Model Context Protocol](https://modelcontextprotocol.io). One command writes the config for your editor:
+
+```bash
+npx shadcn@latest mcp init --client claude
+```
+
+We did not run that command. According to shadcn's MCP docs, the config for Claude Code is a `.mcp.json` file that starts `npx shadcn@latest mcp` as a local process.
+
+We started the server from shadcn CLI 4.23.0 and asked it for its tools. There are seven, and we called each one once in our app:
+
+| Tool | What it does | What it returned in our run |
+|---|---|---|
+| `get_project_registries` | Lists the registries in `components.json` | Two names: `@shadcn` and `@aceternity` |
+| `list_items_in_registries` | Lists a registry's items, 100 at a time | The first 100 of 471 items, 11,307 characters |
+| `search_items_in_registries` | Searches item names and descriptions | Three matches for "login form" |
+| `view_items_in_registries` | Shows an item's details | A five-line summary of `@shadcn/button`, 98 characters |
+| `get_item_examples_from_registries` | Finds usage examples with their code | Two examples for "dialog-demo", 2,931 characters |
+| `get_add_command_for_items` | Returns the CLI install command | `pnpm dlx shadcn@latest add @shadcn/dialog @shadcn/field` |
+| `get_audit_checklist` | Returns checks to run after adding components | Six checks, such as imports, dependencies, lint errors and type errors |
+
+None of the seven installs anything. `get_add_command_for_items` hands back the CLI command, and the agent, or you, still runs it in a shell.
+
+The server also has no tool for project settings. The skill's own [MCP reference](https://github.com/shadcn-ui/ui/blob/main/skills/shadcn/mcp.md) says that for aliases, framework and Tailwind version you run `shadcn info`, because "there is no MCP equivalent".
+
+## How many tokens do the shadcn skill and MCP server use in Claude Code?
+
+In Claude Code 2.1.322 with Claude Opus 5.5, the shadcn skill added 166 tokens to an idle session and the shadcn MCP server added 132. We ran the same one-line prompt in four fresh folders and read the prompt size Claude Code reported for each run.
+
+| Setup | Prompt tokens | Added |
+|---|---|---|
+| Neither | 17,969 | |
+| Skill only | 18,135 | +166 |
+| MCP server only, shadcn 4.23.0 | 18,101 | +132 |
+| Both | 18,261 | +292 |
+
+Each folder held a `package.json` and our `components.json`. For the skill runs we copied the skill's folder from GitHub into `.claude/skills/shadcn`, and for the MCP runs the config file started `npx shadcn@latest mcp`. Every run used this command, with user settings switched off so nothing else on the machine was loaded. Runs without the server passed an empty config file in place of `mcp.json`:
+
+```bash
+claude -p "Reply with only the word OK." --model claude-opus-5-5 \
+  --output-format stream-json --verbose --setting-sources project \
+  --strict-mcp-config --mcp-config mcp.json --no-session-persistence
+```
+
+Prompt tokens are the input, cache-write and cache-read tokens in the result event, added together. Each setup ran once, and the baseline ran twice with the same result. The two rows with the MCP server were measured later the same day than the first two. The MCP server from shadcn 4.21.3 added 170 tokens instead of 132: with that version, Claude Code also listed three tools for reading MCP resources.
+
+Both numbers are small because Claude Code holds most of the content back. For a skill it keeps only the description in context, and the full skill loads when it is invoked ([Claude Code skills docs](https://code.claude.com/docs/en/skills)). For MCP servers, tool search is on by default: only tool names load at the start of a session, and a tool's definition loads when the agent goes looking for it ([Claude Code MCP docs](https://code.claude.com/docs/en/mcp)).
+
+These are the sizes that load on use, counted from the files and outputs:
+
+| What loads | Size |
+|---|---|
+| Skill: `SKILL.md` | 8,277 tokens |
+| Skill: project settings from `shadcn info --json`, in our app | 1,388 tokens |
+| Skill: all 12 reference files, if every one were read | 43,355 tokens |
+| MCP server: the seven tool definitions, as JSON | 1,508 tokens compact, 1,869 indented |
+| MCP server: each tool result | 55 to 11,307 characters in our seven calls |
+
+Added up, the skill should cost about 9,700 tokens the first time a task triggers it: 8,277 plus 1,388. We did not watch it load in a live session. The Claude Code docs say a loaded skill's content stays in context across turns. The MCP server starts smaller and then adds the size of every result. A client that loads all tool definitions up front would carry 1,500 to 1,900 tokens from the first message.
+
+## Does the shadcn MCP server work in a Base UI project?
+
+It connects, but in our test it did not return Base UI code. Our app is built on Base UI (`"style": "base-nova"` in `components.json`). On shadcn CLI 4.23.0, two of the MCP results described the Radix version of shadcn/ui. A third listed 471 items where the CLI listed 221, and we did not work out why.
+
+| Request | shadcn MCP server | CLI command the skill points to |
+|---|---|---|
+| The button component | `view_items_in_registries` returned "Dependencies: cn, radix-ui" and no file contents | `shadcn view @shadcn/button` returned the `base-nova` file, which imports `@base-ui/react/button` |
+| A dialog example | `get_item_examples_from_registries` returned code from `registry/new-york-v4/examples/dialog-demo.tsx`, with `asChild` three times | `shadcn docs dialog` returned links to the Base UI docs page, the Base UI example file and the Base UI API reference |
+| Everything in `@shadcn` | `list_items_in_registries` reported 471 items | `shadcn search @shadcn` reported 221 items |
+
+We searched for "dialog-demo" because the tool's own description suggests that pattern.
+
+The two libraries don't share an API. Radix swaps a trigger's element with `asChild`, and Base UI does it with `render`. An agent that copied the `asChild` example into a Base UI project would write code for the wrong library. The skill covers that case twice: it reads which library your project uses, and it carries a [rule file on the differences](https://github.com/shadcn-ui/ui/blob/main/skills/shadcn/rules/base-vs-radix.md). We ran into the same split while building motion for both, and wrote it up in [Base UI vs Radix](/docs/base-ui-vs-radix).
+
+We ran the same calls on 4.21.3, the version installed in our repository, and got the same Radix results. Version 4.23.0 came out on 27 October 2026 and moved the server to version 2 of the MCP TypeScript SDK ([release notes](https://github.com/shadcn-ui/ui/releases/tag/shadcn%404.23.0)). The tool output differed in one way. On 4.21.3 the list and search results printed `Add command: [object Promise]` under every item, and 4.23.0 prints the real command.
+
+## When is the MCP server the better choice?
+
+The clearest case is an agent with no shell. A chat client that speaks MCP but can't run commands can still search a registry and read example code through the server. In our run the view tool returned a summary of the component without its file, and you would run the `add` command it gives you yourself.
+
+The server also suits a setup where you don't want the agent running shell commands at all. The seven tools list, search and view, and none is described as changing files, so you can allow them and keep the shell closed. The skill works the other way, since it pre-approves `shadcn` commands in Claude Code.
+
+Some agents don't load skills. The [skills CLI](https://github.com/vercel-labs/skills) lists Claude Code, Cursor, Codex, OpenCode and 75 more agents as supported, so check yours before assuming it can't.
+
+Private registries are documented for both. The [MCP docs](https://ui.shadcn.com/docs/mcp) list them as supported, with access tokens set in `components.json`, and the CLI reads the same file. We only tested the public `@shadcn` registry.
+
+Keeping both loaded is cheap while idle, and shadcn's [skill docs](https://ui.shadcn.com/docs/skills) allow for it: they describe component discovery through `shadcn docs`, `shadcn search` or the MCP tools. If you run both in a Base UI project, check which library an example targets before your agent copies from it.
+
+## Why we removed our own MCP server
+
+We made a smaller version of this choice for Keyframery. On 8 October 2026 we launched a hosted MCP server with four read-only tools. One listed the kinds of change the library animates, two searched and returned docs pages, and one produced a motion theme. A Claude Code plugin shipped it together with a skill.
+
+On 4 November 2026 we removed the server and kept the skill. Everything the docs tools returned was already public as Markdown: every docs page has a `.mdx` address, and [`/llms.txt`](/llms.txt) indexes them. The skill tells the agent which page to read, and the agent fetches it like any other URL. With the skill in place, the server no longer gave an agent anything it couldn't already read.
+
+We did give up the theme tool. A motion theme now comes from the [theme builder](/theme), which copies a prompt for your agent.
+
+The shadcn MCP server is in a different position. It searches registries, which a page of Markdown can't do, so our decision doesn't apply to it. Before adding a server now, we list what it would return and check whether the agent can already read or run the same thing.
+
+## What we did not measure
+
+No agent built anything in this test. We counted tokens and compared output, and we ran the CLI commands by hand. The skill never loaded inside a session, so its on-use figures are file sizes we added up. We did not give an agent the same task with each setup, and we can't tell you which one produces better UI.
+
+Each setup ran once, on one client and one model: Claude Code 2.1.322 with Opus 5.5. Token counts change with the model, and other agents load skills and MCP tools in their own ways.
+
+We used one project, a Next.js app on Base UI and Tailwind v4. In a Radix project the MCP results above should match the project's library, though we did not test one. The case for the skill would then rest on project settings alone.
+
+The file sizes in tokens came from sending each file's text to the model once and subtracting an empty run, so they are approximate.
+
+## How to install the shadcn skill and MCP server in Claude Code
+
+```bash
+# The skill
+npx skills add shadcn/ui
+
+# The MCP server, for Claude Code
+npx shadcn@latest mcp init --client claude
+```
+
+The agent loads the skill on its own when a task involves shadcn/ui in a project with a `components.json`. It has no slash command to run. According to shadcn's MCP docs, after adding the server you restart Claude Code, run `/mcp` and look for `shadcn` marked as connected.
+
+The same docs list `cursor`, `vscode`, `codex` and `opencode` as other values for `--client`, and describe one manual config step for Codex. To update later, `npx skills update` refreshes the skill's files. The server config runs `shadcn@latest`, so it follows new CLI releases.
+
+The shadcn skill covers how components are composed. Motion and visual design are left to other skills, and we tested four of those on one shadcn/ui app in [Best Claude Code skills for UI animation](/blog/best-claude-code-skills-ui-animation).

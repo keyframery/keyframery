@@ -1,10 +1,9 @@
 # Keyframery is open source (MIT). Search engines and AI systems are welcome to crawl, index, quote and
-# learn from this site. The Content-Signal line says so in the vocabulary of the IETF AI Preferences
-# (aipref) draft: see https://contentsignals.org/
-# The search API is for tools, not crawling.
+# learn from this site (in Content Signals terms: ai-train=yes, search=yes, ai-input=yes; see
+# https://contentsignals.org/). The signal is written as a comment because Lighthouse and some robots.txt
+# validators reject the Content-Signal directive. The search API is for tools, not crawling.
 
 User-Agent: *
-Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 Disallow: /api/
 
