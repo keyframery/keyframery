@@ -23,7 +23,20 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 - [x] Install tested in a fresh create-next-app + shadcn init project: tabs, dialog, select and menu install, build and run (re-test all 60 before launch)
 - [x] New website (Next.js at the project root: `app/`, `site/`): home, docs intro, installation, motion styles, accessibility, and 60 component pages with live demos, install command, example and source
 - [x] Redirects for every old keyframery.com URL (`content/old-urls.txt`, in `next.config.ts`)
-- [ ] Deploy and point keyframery.com at the new site (ask the user first)
+- [x] Live on keyframery.com since 2026-11-15. Deployed with the Vercel CLI (`vercel deploy --prod` from the repo root; `.vercelignore` keeps uploads small). Rollback target, the old Cuts site: `dpl_2ZyYZKTzUfvsjHZ9YfDRxLGsWw4H`.
+
+## Live (2026-11-15)
+
+- keyframery.com serves this repo. Vercel project settings were changed: Root Directory is now the repo root (was `apps/web`), and the build command is `pnpm build`.
+- Pushes don't auto-deploy yet. Linking the repo failed because the Vercel account needs a GitHub Login Connection; the user has to add it. Until then, deploy with `vercel deploy --prod --scope briyanpatels-projects`.
+- Checked on the live domain:
+  - all pages and registry items return 200
+  - old URLs redirect
+  - `*.vercel.app` forwards to keyframery.com
+  - GA4 and Cloudflare Web Analytics both load
+  - robots.txt is served unmodified
+- Cloudflare returns 403 for the bare `Python-urllib` user agent only. AI crawlers, node, curl and python-requests all get 200.
+- Old project env vars (`DATABASE_URL`, `CF_API_TOKEN`, `KEYFRAMERY_ADMIN_PASSWORD` and others) are still set on Vercel but unused. They can be removed.
 
 ## Status 2026-11-15 (afternoon)
 
