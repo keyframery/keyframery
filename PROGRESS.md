@@ -38,6 +38,14 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 - Cloudflare returns 403 for the bare `Python-urllib` user agent only. AI crawlers, node, curl and python-requests all get 200.
 - Old project env vars (`DATABASE_URL`, `CF_API_TOKEN`, `KEYFRAMERY_ADMIN_PASSWORD` and others) are still set on Vercel but unused. They can be removed.
 
+## Social previews (2026-11-15)
+
+- The shared site cover is now `public/og/keyframery-ui-v1.png`: a 1200×630 capture of real tabs, slider and switch components, with the current UI SDK positioning.
+- Open Graph and Twitter share the versioned image URL. The old `/opengraph-image` address redirects to it; docs and blog posts keep their own cards.
+- Regenerate with `node scripts/social-cover/capture.mjs` (requires Chrome). Its source is under `scripts/social-cover/`; the temporary page and generated dev types are removed after capture.
+- Verified the production build, both TypeScript configurations, all 80 sitemap pages' social tags, and home-page tags for Twitter, Facebook, Slack and browser user agents. The cover route is absent from production.
+- Existing platform previews may remain cached until the platform scrapes the page again. Deployment still uses the Vercel CLI as described above.
+
 ## Status 2026-11-15 (afternoon)
 
 - The old Cuts repo `keyframery/keyframery` was deleted. A full mirror backup is at `~/keyframery-cuts-backup.git`.

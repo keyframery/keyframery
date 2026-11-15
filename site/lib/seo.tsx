@@ -13,8 +13,8 @@ export const isoTime = (day: string) => `${day}T09:00:00+05:30`
 const ORG_ID = `${SITE}/#organization`
 const WEBSITE_ID = `${SITE}/#website`
 
-/** The site's social image (app/opengraph-image.tsx). A page that sets its own openGraph loses the inherited one, so it's named here. */
-const SITE_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: "Keyframery: animated components for UI SDK" }
+/** Version the URL when the cover changes so link previewers fetch the new image. */
+export const SITE_IMAGE = { url: "/og/keyframery-ui-v1.png", width: 1200, height: 630, alt: "Keyframery: animated UI SDK components, with tabs, a price slider and notification switches" }
 
 /**
  * Title, description, canonical URL and social tags for one page. A page's openGraph replaces the layout's whole,

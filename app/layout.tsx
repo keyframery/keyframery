@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import Script from "next/script"
 
 import { SiteProvider } from "@site/components/provider"
-import { JsonLd, siteData } from "@site/lib/seo"
+import { JsonLd, SITE_IMAGE, siteData } from "@site/lib/seo"
 import { SITE } from "@site/lib/shared"
 
 import "./globals.css"
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   authors: [{ name: "Briyan Hingrajiya" }],
   creator: "Briyan Hingrajiya",
   robots: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 },
-  openGraph: { type: "website", siteName: "Keyframery", url: SITE },
-  twitter: { card: "summary_large_image", creator: "@briyan_dev" },
+  openGraph: { type: "website", siteName: "Keyframery", url: SITE, images: SITE_IMAGE },
+  twitter: { card: "summary_large_image", creator: "@briyan_dev", images: SITE_IMAGE },
 }
 
 /* Applied before the first paint: the motion style the visitor picked last time. */
