@@ -51,7 +51,11 @@ export function Hero() {
         </Link>
         <HeroTitle className="lp-display lp-hero-title relative mt-7 text-[34px] min-[380px]:text-[40px] leading-[1.06] text-balance sm:text-[60px] md:text-[76px]" />
         <p className="lp-hero-title mt-6 max-w-[58ch] text-[16px] leading-relaxed text-pretty text-white/80 sm:text-[18px]">
-          Keyframery is a free set of {entries.length} components for UI SDK with the motion already done, in plain CSS. Same parts, same props:
+          Keyframery is a free set of {entries.length} components for{" "}
+          <a href="https://ui-sdk.dev" className="underline decoration-white/40 underline-offset-4 outline-none hover:decoration-white focus-visible:ring-2 focus-visible:ring-white/60">
+            Vercel&apos;s UI SDK
+          </a>{" "}
+          (@ui-sdk/react) with the motion already done, in plain CSS. Same parts, same props:
           change one import, or let your coding agent do it with our skill.
         </p>
         <div className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
@@ -97,7 +101,11 @@ export function WhatItIs() {
     <section id="see" aria-labelledby="see-title" className={cn(wrap, "scroll-mt-20 py-24 md:py-32")}>
       <Heading id="see-title" eyebrow="What it is" title="UI SDK gives you the behaviour. Keyframery makes it move.">
         It isn&apos;t a different component library. Underneath, every component is UI SDK&apos;s own. Here is the same click on the same tabs,
-        twice.
+        twice. New to UI SDK?{" "}
+        <Link prefetch={false} href="/blog/what-is-vercel-ui-sdk" className="underline underline-offset-4 outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-white/60">
+          Read what Vercel&apos;s UI SDK is and how to animate it
+        </Link>
+        .
       </Heading>
       <div className="mt-14">
         <SameClick />

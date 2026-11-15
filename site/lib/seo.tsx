@@ -112,7 +112,7 @@ export const breadcrumbData = (trail: { name: string; path: string }[]) =>
   })
 
 /** On a docs page. */
-export const docData = ({ path, headline, description }: { path: string; headline: string; description: string }) =>
+export const docData = ({ path, headline, description, dateModified, image }: { path: string; headline: string; description: string; dateModified?: string; image?: string }) =>
   graph({
     "@type": "TechArticle",
     "@id": `${url(path)}#article`,
@@ -120,6 +120,8 @@ export const docData = ({ path, headline, description }: { path: string; headlin
     description,
     url: url(path),
     mainEntityOfPage: url(path),
+    ...(dateModified ? { dateModified } : {}),
+    ...(image ? { image: { "@type": "ImageObject", url: url(image), width: 1200, height: 630 } } : {}),
     inLanguage: "en",
     isPartOf: { "@id": WEBSITE_ID },
     author: MAKER,

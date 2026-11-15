@@ -24,7 +24,7 @@ const oldUrls = fs
   .map((u) => u.trim())
   .filter(Boolean)
 
-const kept = new Set(["", "/blog", "/blog/shadcn-skill-vs-mcp", "/blog/best-claude-code-skills-ui-animation", "/authors/briyan-hingrajiya", "/docs", "/docs/installation", "/docs/accessibility", "/docs/components", "/docs/ai-tools", "/docs/changelog", "/privacy", "/terms"])
+const kept = new Set(["", "/blog", "/blog/shadcn-skill-vs-mcp", "/blog/best-claude-code-skills-ui-animation", "/authors/briyan-hingrajiya", "/docs", "/docs/installation", "/docs/accessibility", "/docs/components", "/docs/ai-tools", "/docs/changelog", "/privacy", "/terms", "/docs/guides/animations-not-working", "/docs/guides/tw-animate-css-vs-tailwindcss-animate", "/docs/guides/testing"])
 
 function target(url: string): string | null {
   if (kept.has(url)) return null
@@ -36,7 +36,6 @@ function target(url: string): string | null {
   }
   if (url === "/theme" || url === "/docs/motion-themes" || url === "/docs/customize") return "/docs/motion-styles"
   if (url === "/ui" || url.startsWith("/ui/")) return "/docs/components"
-  if (url === "/docs/guides/animations-not-working") return "/docs/troubleshooting"
   if (url.startsWith("/docs/")) return "/docs"
   return "/"
 }

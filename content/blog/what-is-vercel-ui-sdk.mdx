@@ -176,7 +176,7 @@ Put durations and easings in variables, so the whole app moves at one pace and y
 
 ### Menus, popovers, selects and tooltips
 
-Each popup grows out of the button that opened them and shrinks back into it. The same rule covers every popup part.
+Each popup grows out of the button that opened them and shrinks back into it. The same rule covers every popup part. Keyframery's animated [Menu](/docs/components/menu), [Popover](/docs/components/popover), [Select](/docs/components/select) and [Tooltip](/docs/components/tooltip) start from this rule and add a gliding highlight.
 
 ```css
 :is(
@@ -201,7 +201,7 @@ Each popup grows out of the button that opened them and shrinks back into it. Th
 
 ### Dialogs
 
-The page behind dims and the dialog rises into place. The dialog uses `transform` on purpose: if you center it with Tailwind's `-translate-x-1/2`, that sets the separate `translate` property, and a recipe that animated `translate` would knock the dialog sideways as it opens.
+The page behind dims and the dialog rises into place. The dialog uses `transform` on purpose: if you center it with Tailwind's `-translate-x-1/2`, that sets the separate `translate` property, and a recipe that animated `translate` would knock the dialog sideways as it opens. For a finished version with staggered contents, see Keyframery's animated [Dialog](/docs/components/dialog).
 
 ```css
 [data-slot="dialog-backdrop"] {
@@ -226,7 +226,7 @@ The page behind dims and the dialog rises into place. The dialog uses `transform
 
 ### Tab indicator, and the first-click catch
 
-The indicator follows the measured variables, with a small spring.
+The indicator follows the measured variables, with a small spring. Keyframery's animated [Tabs](/docs/components/tabs) ship this with the first-click fix already in.
 
 ```css
 [data-slot="tabs-list"] {
@@ -282,7 +282,7 @@ Wrap your `TabsPanel`s in `<div className="tab-panels">`. The full file also cov
 
 ### Collapsible and Accordion panels
 
-Animate the measured height between zero and the content's height. Swap `collapsible` for `accordion` in both names for Accordion.
+Animate the measured height between zero and the content's height. Swap `collapsible` for `accordion` in both names for Accordion. The finished versions are Keyframery's animated [Collapsible](/docs/components/collapsible) and [Accordion](/docs/components/accordion).
 
 ```css
 [data-slot="collapsible-panel"] {

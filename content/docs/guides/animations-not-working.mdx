@@ -1,0 +1,70 @@
+---
+title: Animations not working
+heading: "UI SDK animations not working? Nine causes and fixes"
+seoTitle: "UI SDK animations not working: 9 causes and fixes"
+description: "Why a UI SDK component won't animate, or jumps, or vanishes without its exit: the nine causes we see most, each with the fix. Tested on @ui-sdk/react 0.1.0-beta.2."
+faq:
+  - q: "Why does my UI SDK popup disappear without its exit animation?"
+    a: "The exit styles are on `data-closed`. UI SDK keeps a part on the page only while `data-ending-style` is set and its exit transition runs, so put the exit styles on `data-ending-style`."
+  - q: "Why does the UI SDK tab indicator jump on the first click?"
+    a: "UI SDK's documented indicator CSS turns transitions off while `data-activation-direction` is `none`, and the first selection writes the position before that attribute changes. Leave that rule out and the first click slides."
+  - q: "Can Motion (Framer Motion) animate a UI SDK popup's exit?"
+    a: "Not reliably in 0.1.0-beta.2: `keepMounted` does not let an animation library hold the popup open while it leaves (vercel-labs/ui issue #518). Use a CSS transition on `data-ending-style`."
+---
+
+UI SDK ships behaviour, not motion: every part renders unstyled and tells your CSS what state it is in through data attributes. When something won't animate, the cause is almost always one of the nine below. Each is checked against `@ui-sdk/react` 0.1.0-beta.2 (15 November 2026); the issue links go to [vercel-labs/ui](https://github.com/vercel-labs/ui) on GitHub.
+
+## 1. The popup vanishes instead of animating out
+
+Exit styles written on `data-closed` never play. `data-closed` describes the state, but UI SDK keeps the part on the page only while `data-ending-style` is set and the exit transition runs. Put the exit on `data-ending-style`:
+
+```css
+[data-slot="popover-content"] {
+  transition: opacity 150ms, scale 150ms;
+  &:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+```
+
+## 2. The tab indicator jumps on the first click
+
+UI SDK's documented indicator recipe turns transitions off while `data-activation-direction` is `none`. The first selection after mount writes the `--active-tab-*` variables before that attribute changes, so the first move happens with transitions off ([#532](https://github.com/vercel-labs/ui/issues/532)). Leave out the rule that sets `transition: none` for `data-activation-direction="none"`, and the first click slides. Keyframery's animated [Tabs](/docs/components/tabs) ship without it.
+
+## 3. Nothing moves at all
+
+Check the operating system first. UI SDK motion you write should stop under reduced motion, and Keyframery's does: on macOS it is System Settings, Accessibility, Display, Reduce motion. Then check that the part has a `transition` at all; UI SDK adds none of its own.
+
+## 4. Reduced motion leaves closed popups on the page
+
+A reduced-motion rule that sets `transition: none` can stop the exit from finishing. Use a near-zero duration instead, so the transition still runs and ends at once:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  [data-slot] {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+```
+
+## 5. Motion or Framer Motion can't drive the exit
+
+In 0.1.0-beta.2, `keepMounted` does not let an animation library keep a popup open while it animates out ([#518](https://github.com/vercel-labs/ui/issues/518)). Animate the exit with a CSS transition on `data-ending-style` (cause 1), which UI SDK waits for. Keyframery needs no animation library for this reason.
+
+## 6. A field error can't animate out
+
+`FieldError` leaves immediately: it gets no `data-ending-style` and has no `keepMounted` ([#519](https://github.com/vercel-labs/ui/issues/519)). Animate its entrance only, or keep the error element mounted and animate its text.
+
+## 7. The checkbox check runs backwards before it draws
+
+A freshly mounted `CheckboxIndicator` is styled once before `data-starting-style` arrives, so an enter transition can play in reverse first ([#511](https://github.com/vercel-labs/ui/issues/511)). Keyframery's [Checkbox](/docs/components/checkbox) draws the check with `@starting-style` instead, which the browser applies on the first frame.
+
+## 8. Springs fail or throw in older Safari
+
+Spring easings written with CSS `linear()` need Safari 17.2 or later. UI SDK's own sheet animation passes `linear()` to `element.animate()` without checking, and throws below 17.2 ([#485](https://github.com/vercel-labs/ui/issues/485)). See [Browser support](/docs/browser-support) for what each Keyframery move relies on.
+
+## 9. Keyframery components install but don't move
+
+Your global CSS should contain `--kf-speed` and `--ease-spring`. If it doesn't, run the install command again; the shadcn CLI adds the motion tokens with the first component. More fixes in [Troubleshooting](/docs/troubleshooting).

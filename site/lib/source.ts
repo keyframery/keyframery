@@ -15,6 +15,8 @@ const docs = defineDocs({
     schema: pageSchema.extend({
       /** The page's H1, when the sidebar's short `title` would be too vague on its own. */
       heading: z.string().optional(),
+      /** The search-result title, when the sidebar's short `title` leaves out what people search for. */
+      seoTitle: z.string().optional(),
       /** A component page: its slug, so the page can show the component's facts under the title. */
       component: z.string().optional(),
       faq: faqSchema.optional(),

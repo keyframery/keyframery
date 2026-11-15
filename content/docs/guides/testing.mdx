@@ -1,0 +1,45 @@
+---
+title: Testing
+heading: "Disable animations in Playwright tests for UI SDK"
+seoTitle: "Disable animations in Playwright for UI SDK"
+description: "Make Playwright tests and screenshots of animated UI SDK components fast and stable: emulate reduced motion, let screenshots stop animations, and shrink Keyframery's durations with one variable."
+faq:
+  - q: "How do I disable animations in Playwright?"
+    a: "Set `reducedMotion: 'reduce'` in the `use` block of playwright.config, or call `page.emulateMedia({ reducedMotion: 'reduce' })` in a test. For screenshots, pass `animations: 'disabled'`, which `toHaveScreenshot` already uses by default."
+  - q: "Should I set transition: none in tests?"
+    a: "No. UI SDK keeps a closing popup on the page until its exit transition ends, so removing transitions can leave closed popups behind. Use reduced motion or near-zero durations instead."
+---
+
+**Turn on reduced motion for the whole test run.** Keyframery components stop moving under reduced motion, so state changes land at once and your assertions never wait on an animation. Playwright emulates the setting for you:
+
+```ts title="playwright.config.ts"
+import { defineConfig } from "@playwright/test"
+
+export default defineConfig({
+  use: {
+    reducedMotion: "reduce",
+  },
+})
+```
+
+For a single test, call `await page.emulateMedia({ reducedMotion: "reduce" })` before you interact with the page.
+
+## Stable screenshots
+
+`expect(page).toHaveScreenshot()` stops CSS animations and transitions by default: finite ones jump to their end, infinite ones are cancelled. For a plain `page.screenshot()`, ask for the same:
+
+```ts
+await page.screenshot({ path: "dialog.png", animations: "disabled" })
+```
+
+## Faster without reduced motion
+
+If you want to test the real motion path, shrink every Keyframery duration instead of removing it. All durations are written as `calc(Nms * var(--kf-speed, 1))`, so one variable scales them:
+
+```ts
+await page.addStyleTag({ content: ":root { --kf-speed: 0.01 }" })
+```
+
+## Don't remove transitions
+
+A global `* { transition: none !important }` looks tempting, but UI SDK keeps a closing popup, dialog or panel on the page until its exit transition finishes. Without a transition, the exit may never complete, and a closed menu can stay in the DOM and catch your next click. Near-zero durations (`0.01ms`, or `--kf-speed: 0.01`) still run and end at once. The same reasoning is behind the reduced-motion rule in [UI SDK animations not working](/docs/guides/animations-not-working#4-reduced-motion-leaves-closed-popups-on-the-page).

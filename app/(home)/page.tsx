@@ -11,9 +11,9 @@ const description =
   "Keyframery is an open-source set of 60 animated components for UI SDK, built with plain CSS. They keep UI SDK's parts and props: swap one import, or let your coding agent do it with the Keyframery skill. Four motion styles change how the whole app moves."
 
 /** The search snippet: Google cuts descriptions at about 155 characters. */
-const metaDescription = "60 animated components for UI SDK, in plain CSS. Same parts and props: swap one import, or let your coding agent do it. Four motion styles."
+const metaDescription = "60 animated components for Vercel's UI SDK (@ui-sdk/react), in plain CSS. Same parts and props: swap one import, or let your coding agent do it. Four motion styles."
 
-export const metadata = pageMetadata({ absolute: "Keyframery: animated components for UI SDK", description: metaDescription, path: "/" })
+export const metadata = pageMetadata({ absolute: "Keyframery: Animated UI SDK Components for React", description: metaDescription, path: "/" })
 
 export default function Page() {
   return (

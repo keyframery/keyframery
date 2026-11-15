@@ -8,6 +8,7 @@ import { notFound } from "next/navigation"
 
 import { PageChips } from "@site/components/docs/page-chips"
 import { getMDXComponents } from "@site/components/mdx"
+import { lastChanged } from "@site/lib/dates"
 import { breadcrumbData, docData, faqData, JsonLd, pageMetadata } from "@site/lib/seo"
 import { getPageMarkdownUrl, gitConfig, url } from "@site/lib/shared"
 import { source } from "@site/lib/source"
@@ -36,7 +37,7 @@ export default async function Page(props: Props) {
 
   return (
     <DocsPage toc={toc} full={page.data.full}>
-      <JsonLd data={docData({ path: page.url, headline: heading, description: page.data.description ?? "" })} />
+      <JsonLd data={docData({ path: page.url, headline: heading, description: page.data.description ?? "", dateModified: lastChanged(page.url), image: `/og/docs/${[...page.slugs, "image.png"].join("/")}` })} />
       <JsonLd
         data={breadcrumbData([
           { name: "Keyframery", path: "/" },
@@ -103,8 +104,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   if (!page) notFound()
   const component = page.data.component
   const metadata = pageMetadata({
-    title: component ? `${page.data.title} for UI SDK, animated` : page.data.title,
     // Component pages lead with what people search for: an animated <component> for UI SDK.
+    title: page.data.seoTitle ?? (component ? `Animated ${page.data.title} for UI SDK` : page.data.title),
     description: component ? `Animated ${page.data.title.toLowerCase()} for UI SDK, in plain CSS. ${page.data.description ?? ""}`.slice(0, 160) : (page.data.description ?? ""),
     path: page.url,
     image: `/og/docs/${[...page.slugs, "image.png"].join("/")}`,

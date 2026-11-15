@@ -1,0 +1,63 @@
+---
+title: tw-animate-css vs tailwindcss-animate
+heading: "tw-animate-css vs tailwindcss-animate, and what UI SDK needs"
+seoTitle: "tw-animate-css vs tailwindcss-animate (Tailwind v4)"
+description: "tw-animate-css is the Tailwind v4 replacement for the tailwindcss-animate plugin. How they differ, how to switch, how to fix \"Can't resolve 'tw-animate-css'\", and why UI SDK components animate better with plain CSS transitions."
+faq:
+  - q: "Should I use tw-animate-css or tailwindcss-animate?"
+    a: "On Tailwind CSS v4, use tw-animate-css: it is imported from CSS, while tailwindcss-animate is a JavaScript plugin written for Tailwind v3's config file. The utility class names are the same."
+  - q: "How do I fix Can't resolve 'tw-animate-css'?"
+    a: "The package isn't installed in the project that imports it. Run `npm install tw-animate-css` (or your package manager's equivalent) and restart the dev server."
+  - q: "Do Keyframery components need tw-animate-css?"
+    a: "No. Keyframery's motion is plain CSS transitions and keyframes that ship with each component, so neither package is required."
+---
+
+**Use tw-animate-css on Tailwind CSS v4, and tailwindcss-animate only on a Tailwind v3 project.** Both give you the same enter and exit utilities (`animate-in`, `fade-in`, `zoom-in-95`, `slide-in-from-top-2` and their `out` versions); they differ in how they plug into Tailwind.
+
+| | tw-animate-css | tailwindcss-animate |
+| --- | --- | --- |
+| Tailwind version | v4 | v3 |
+| How it's added | `@import "tw-animate-css";` in your CSS | `plugins: [require("tailwindcss-animate")]` in `tailwind.config.js` |
+| Used by new shadcn/ui projects | Yes | No (older projects) |
+| npm downloads, week to 14 Nov 2026 | 49.8 million | 23.7 million |
+
+Download counts are from the [npm registry API](https://api.npmjs.org/downloads/point/last-week/tw-animate-css).
+
+## Switch from tailwindcss-animate
+
+1. Remove the plugin from `tailwind.config.js` and uninstall it.
+2. Install the new package:
+
+```npm
+npm install tw-animate-css
+```
+
+3. Import it after Tailwind in your global stylesheet:
+
+```css title="app/globals.css"
+@import "tailwindcss";
+@import "tw-animate-css";
+```
+
+Your existing `animate-in` and `animate-out` classes keep working.
+
+## "Can't resolve 'tw-animate-css'"
+
+The stylesheet imports the package but the project doesn't have it. Install it as above and restart the dev server. In a monorepo, install it in the app that owns the stylesheet, not only at the root.
+
+## With UI SDK, prefer transitions
+
+The tw-animate-css classes in shadcn/ui examples are keyed to Radix's `data-state="open"` and `data-state="closed"`. UI SDK uses different attributes: a popup, dialog or panel gets `data-starting-style` on its first frame and `data-ending-style` while it leaves, and UI SDK keeps it mounted until the exit **transition** finishes. So for UI SDK, a CSS transition on those two attributes is the dependable way to get both the entrance and the exit:
+
+```css
+[data-slot="menu-content"] {
+  transform-origin: var(--transform-origin);
+  transition: opacity 150ms, scale 150ms;
+  &:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+```
+
+The full tested set (menus, dialogs, tabs, collapsible panels, reduced motion) is in [What is Vercel's UI SDK, and how do you animate it?](/blog/what-is-vercel-ui-sdk). Keyframery's [60 animated UI SDK components](/docs/components) are built the same way, so they need neither tw-animate-css nor tailwindcss-animate. If something still won't move, see [UI SDK animations not working](/docs/guides/animations-not-working).

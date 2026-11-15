@@ -70,9 +70,16 @@ for (const slug of slugs) {
     return one.length <= 96 ? one : `import {\n${parts.map((p) => `  ${p},`).join("\n")}\n} from "${from}"`
   }
 
+  // The first question is this component's own (its moves), so no two pages carry the same questions.
   const faq = [
+    moves.length
+      ? {
+          q: `How does the animated ${name} for UI SDK move?`,
+          a: moves.map(([m, text]) => `${m}: ${text.replace(/\.?$/, ".")}`).join(" "),
+        }
+      : null,
     {
-      q: `Does the ${name} need an animation library?`,
+      q: `Do I need Motion or Framer Motion for the animated ${name}?`,
       a: `No. Every move is plain CSS, so there is nothing to install besides the component${sdk ? " and UI SDK" : ""}.`,
     },
     sdk
@@ -81,13 +88,13 @@ for (const slug of slugs) {
           a: `Yes. Import from \`@/components/keyframery/primitives/${slug}\` instead. It has the same parts and props as \`@ui-sdk/react/${sdk}\` and adds motion only.`,
         }
       : null,
-    { q: "What happens when someone turns on reduced motion?", a: "Nothing moves. State changes happen at once, or with a short fade." },
+    { q: `What happens to the ${name} when someone turns on reduced motion?`, a: "Nothing moves. State changes happen at once, or with a short fade." },
   ].filter(Boolean)
 
   const page = [
     "---",
     `title: ${yaml(name)}`,
-    `heading: ${yaml(`${name}`)}`,
+    `heading: ${yaml(`Animated ${name} for UI SDK`)}`,
     `description: ${yaml(description)}`,
     `component: ${yaml(slug)}`,
     "faq:",
@@ -158,8 +165,8 @@ for (const slug of slugs) {
     "## Accessibility",
     "",
     sdk
-      ? `Keyboard, focus and screen-reader behaviour come from UI SDK and are not changed. With reduced motion turned on, the ${lower} stops moving: changes happen at once or with a short fade. More in [Accessibility](/docs/accessibility).`
-      : `With reduced motion turned on, the ${lower} stops moving: changes happen at once or with a short fade. More in [Accessibility](/docs/accessibility).`,
+      ? `Keyboard, focus and screen-reader behaviour come from UI SDK and are not changed. With reduced motion turned on, nothing in the ${lower} moves: changes happen at once or with a short fade. More in [Accessibility](/docs/accessibility).`
+      : `With reduced motion turned on, nothing in the ${lower} moves: changes happen at once or with a short fade. More in [Accessibility](/docs/accessibility).`,
     "",
     "## Source",
     "",

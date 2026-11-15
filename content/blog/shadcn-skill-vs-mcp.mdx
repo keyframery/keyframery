@@ -3,6 +3,8 @@ title: "shadcn skill vs MCP server: which one your coding agent needs"
 seoTitle: "shadcn skills vs MCP server: which to install"
 description: "Install the shadcn skill first. We measured it against the shadcn MCP server in Claude Code: tokens each adds and what each returns in a Base UI project."
 published: "2026-11-11"
+updated: "2026-11-15"
+archived: "Keyframery has since moved from shadcn/ui to Vercel's UI SDK: it is now 60 animated components for UI SDK, written in plain CSS. The measurements of the shadcn skill and MCP server below are unchanged; only the Keyframery details describe the earlier product."
 author: "Briyan Hingrajiya"
 tags: ["shadcn skill", "shadcn MCP server", "shadcn/ui", "Claude Code", "AI coding agents"]
 about: ["shadcn/ui", "Model Context Protocol", "Agent Skills"]
@@ -161,7 +163,7 @@ It connects, but in our test it did not return Base UI code. Our app is built on
 
 We searched for "dialog-demo" because the tool's own description suggests that pattern.
 
-The two libraries don't share an API. Radix swaps a trigger's element with `asChild`, and Base UI does it with `render`. An agent that copied the `asChild` example into a Base UI project would write code for the wrong library. The skill covers that case twice: it reads which library your project uses, and it carries a [rule file on the differences](https://github.com/shadcn-ui/ui/blob/main/skills/shadcn/rules/base-vs-radix.md). We ran into the same split while building motion for both, and wrote it up in [Base UI vs Radix](/docs/base-ui-vs-radix).
+The two libraries don't share an API. Radix swaps a trigger's element with `asChild`, and Base UI does it with `render`. An agent that copied the `asChild` example into a Base UI project would write code for the wrong library. The skill covers that case twice: it reads which library your project uses, and it carries a [rule file on the differences](https://github.com/shadcn-ui/ui/blob/main/skills/shadcn/rules/base-vs-radix.md). We ran into the same split while building motion for both, and that split is part of why Keyframery now builds on [Vercel's UI SDK](/blog/what-is-vercel-ui-sdk) instead.
 
 We ran the same calls on 4.21.3, the version installed in our repository, and got the same Radix results. Version 4.23.0 came out on 27 October 2026 and moved the server to version 2 of the MCP TypeScript SDK ([release notes](https://github.com/shadcn-ui/ui/releases/tag/shadcn%404.23.0)). The tool output differed in one way. On 4.21.3 the list and search results printed `Add command: [object Promise]` under every item, and 4.23.0 prints the real command.
 
@@ -183,7 +185,7 @@ We made a smaller version of this choice for Keyframery. On 8 October 2026 we la
 
 On 4 November 2026 we removed the server and kept the skill. Everything the docs tools returned was already public as Markdown: every docs page has a `.mdx` address, and [`/llms.txt`](/llms.txt) indexes them. The skill tells the agent which page to read, and the agent fetches it like any other URL. With the skill in place, the server no longer gave an agent anything it couldn't already read.
 
-We did give up the theme tool. A motion theme now comes from the [theme builder](/theme), which copies a prompt for your agent.
+We did give up the theme tool. A motion style now comes from one attribute; see [motion styles](/docs/motion-styles).
 
 The shadcn MCP server is in a different position. It searches registries, which a page of Markdown can't do, so our decision doesn't apply to it. Before adding a server now, we list what it would return and check whether the agent can already read or run the same thing.
 

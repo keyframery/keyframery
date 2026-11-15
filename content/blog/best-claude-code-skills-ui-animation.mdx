@@ -3,6 +3,7 @@ title: "Best animation skills for Claude Code: we tested 4 on one shadcn/ui app"
 seoTitle: "Best animation skills for Claude Code, tested"
 description: "We ran frontend-design, Emil Kowalski's skills, impeccable and Keyframery through 15 Claude Code runs on one shadcn/ui app. What each wrote, and which to use."
 published: "2026-11-06"
+updated: "2026-11-15"
 author: "Briyan Hingrajiya"
 archived: "This test ran on the first Keyframery, a motion layer for shadcn/ui built around a <Cuts /> component. That version has been replaced by Keyframery for UI SDK, 60 components with the motion in plain CSS, so the Keyframery results below describe the old product. The other skills and the method are unchanged."
 tags: ["Claude Code skills", "UI animation", "shadcn/ui", "frontend design skill", "React"]
@@ -110,9 +111,9 @@ Its motion avoided height animation, but it wrote 469 lines over three runs, the
 
 ### Keyframery
 
-[Keyframery](/docs) is a motion layer for shadcn/ui, and the skill tells the agent to install it rather than write motion by hand. In every run the agent installed it with the shadcn CLI, rendered `<Cuts />` once in the layout, and, on prompts 1 and 3, wrapped the list in [`ListCut`](/docs/helpers/list-cut) and the revenue in [`ValueCut`](/docs/helpers/value-cut). That came to 52 lines of app code across three runs.
+[Keyframery](/docs) is a motion layer for shadcn/ui, and the skill tells the agent to install it rather than write motion by hand. In every run the agent installed it with the shadcn CLI, rendered `<Cuts />` once in the layout, and, on prompts 1 and 3, wrapped the list in `ListCut` and the revenue in `ValueCut`. That came to 52 lines of app code across three runs.
 
-Each run also copied between 2,100 and 2,600 lines of library code into `components/keyframery/` and `lib/keyframery/`. You own that code the way you own shadcn/ui components, but the agent did not write it, so the line count above is not a like-for-like comparison of effort. Keyframery only works with shadcn/ui, and you get [its set of motions](/cuts); a one-off animation of your own design is still hand-written work. In the code these runs installed, the list and dialog motion uses `transform` and `opacity`, plus a blur on the dialog. The number does too, but it also animates its own width when the number of digits changes, for example when the revenue drops from $274 to $64. Elsewhere the library animates `height`, for collapsible panels and for tab panels of different heights, which this app doesn't have.
+Each run also copied between 2,100 and 2,600 lines of library code into `components/keyframery/` and `lib/keyframery/`. You own that code the way you own shadcn/ui components, but the agent did not write it, so the line count above is not a like-for-like comparison of effort. Keyframery only works with shadcn/ui, and you got its set of motions; a one-off animation of your own design is still hand-written work. In the code these runs installed, the list and dialog motion uses `transform` and `opacity`, plus a blur on the dialog. The number does too, but it also animates its own width when the number of digits changes, for example when the revenue drops from $274 to $64. Elsewhere the library animates `height`, for collapsible panels and for tab panels of different heights, which this app doesn't have.
 
 The dialog code differs too. The other four setups set the dialog to scale up from 95 or 96% in the middle of the screen. Keyframery's dialog [starts partway toward the button that opened it](/docs/components/dialog), slightly small and blurred, and returns there when it closes; we read that from the code and docs, since nobody watched these runs on screen.
 
@@ -124,7 +125,7 @@ We did not watch any of the motion. Every result builds, and we read every diff 
 
 Line counts also say little about quality on their own. Fewer lines can mean less to maintain, or a library doing the work, and impeccable's extra lines bought polish some teams would want.
 
-We used one model, Opus 5.5, on one small page built on Radix. A larger app, [Base UI instead of Radix](/docs/base-ui-vs-radix) or another model could change the results.
+We used one model, Opus 5.5, on one small page built on Radix. A larger app, Base UI instead of Radix or another model could change the results.
 
 Keyframery is our product, as the disclosure at the top says. The prompts stayed the same from the first batch to the last. The app, the list of allowed commands and two checks changed along the way, and the method section above covers each change. The two checks: we counted Tailwind's `motion-safe:` classes as reduced-motion support, and we left the library files Keyframery copied in out of the line counts.
 

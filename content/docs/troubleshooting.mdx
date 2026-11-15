@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting
-heading: "Troubleshooting"
+heading: "Troubleshooting Keyframery and UI SDK"
 description: "Fixes for what most often goes wrong: an unknown registry, a serif font after shadcn init, Next.js stopping on Date.now(), and motion that doesn't play."
 ---
 
@@ -57,6 +57,8 @@ Check these in order:
 1. **Reduced motion.** Keyframery stops moving when your operating system asks for reduced motion. On macOS: System Settings, Accessibility, Display, Reduce motion.
 2. **The motion tokens.** Your global CSS should contain `--kf-speed` and `--ease-spring`. If it doesn't, run the install command again; the CLI adds them.
 3. **The browser.** See [Browser support](/docs/browser-support).
+
+For UI SDK's own causes (exits on the wrong attribute, the tab indicator's first click, reduced motion that leaves popups open), see [UI SDK animations not working](/docs/guides/animations-not-working).
 
 ## A button shows two spinners while pending
 
