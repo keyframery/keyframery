@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="t d" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif">
+  <title id="t">How UI SDK fits together</title>
+  <desc id="d">Behaviors such as createPopup, createRovingFocus, createSelection and createTypeahead combine into a primitive with definePrimitive in @ui-sdk/core. createParts turns the primitive into unstyled parts for React, Vue, Svelte, Solid or Web Components. Your CSS styles and animates the parts through data-slot, state attributes and CSS variables.</desc>
+  <rect width="1200" height="560" rx="28" fill="#0b0c10"/>
+  <g font-size="15" fill="#9aa0ad">
+    <text x="60" y="64" font-size="13" letter-spacing="2" fill="#7d8494">1 · BEHAVIORS (@ui-sdk/core)</text>
+    <text x="60" y="230" font-size="13" letter-spacing="2" fill="#7d8494">2 · PRIMITIVE</text>
+    <text x="60" y="358" font-size="13" letter-spacing="2" fill="#7d8494">3 · PARTS, PER FRAMEWORK</text>
+    <text x="60" y="480" font-size="13" letter-spacing="2" fill="#7d8494">4 · YOUR STYLES AND MOTION</text>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" fill="#e8eaf0">
+    <rect x="60" y="84" width="250" height="60" rx="12" fill="#161922" stroke="#2a2f3b"/><text x="185" y="120" text-anchor="middle">createPopup</text>
+    <rect x="330" y="84" width="250" height="60" rx="12" fill="#161922" stroke="#2a2f3b"/><text x="455" y="120" text-anchor="middle">createRovingFocus</text>
+    <rect x="600" y="84" width="250" height="60" rx="12" fill="#161922" stroke="#2a2f3b"/><text x="725" y="120" text-anchor="middle">createSelection</text>
+    <rect x="870" y="84" width="270" height="60" rx="12" fill="#161922" stroke="#2a2f3b"/><text x="1005" y="120" text-anchor="middle">createTypeahead</text>
+    <rect x="360" y="248" width="480" height="64" rx="14" fill="#1a2140" stroke="#4d63d8"/><text x="600" y="287" text-anchor="middle" fill="#dfe5ff">definePrimitive({ state, api, slots })</text>
+  </g>
+  <g stroke="#4d63d8" stroke-width="2" fill="none" opacity="0.8">
+    <path d="M185 144 C185 200 520 200 560 248"/><path d="M455 144 C455 200 570 210 585 248"/><path d="M725 144 C725 200 630 210 615 248"/><path d="M1005 144 C1005 200 680 200 640 248"/>
+    <path d="M600 312 L600 340"/><path d="M600 340 L160 372"/><path d="M600 340 L380 372"/><path d="M600 340 L600 372"/><path d="M600 340 L820 372"/><path d="M600 340 L1040 372"/>
+  </g>
+  <g font-size="17" fill="#e8eaf0" text-anchor="middle">
+    <rect x="70" y="372" width="180" height="52" rx="12" fill="#161922" stroke="#2a2f3b"/><text x="160" y="404">React</text>
+    <rect x="290" y="372" width="180" height="52" rx="12" fill="#161922" stroke="#2a2f3b"/><text x="380" y="404">Vue</text>
+    <rect x="510" y="372" width="180" height="52" rx="12" fill="#161922" stroke="#2a2f3b"/><text x="600" y="404">Svelte</text>
+    <rect x="730" y="372" width="180" height="52" rx="12" fill="#161922" stroke="#2a2f3b"/><text x="820" y="404">Solid</text>
+    <rect x="950" y="372" width="180" height="52" rx="12" fill="#161922" stroke="#2a2f3b"/><text x="1040" y="404">Web Components</text>
+  </g>
+  <rect x="60" y="494" width="1080" height="44" rx="12" fill="#12151c" stroke="#2a2f3b" stroke-dasharray="5 5"/>
+  <text x="600" y="522" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" fill="#b8c2ff">[data-slot] · data-open · data-starting-style · data-ending-style · --transform-origin · --active-tab-left</text>
+</svg>

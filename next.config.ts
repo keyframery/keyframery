@@ -68,8 +68,19 @@ const config: NextConfig = {
       { key: "X-Frame-Options", value: "SAMEORIGIN" },
       { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" },
     ]
+    // The home page points agents at its machine-readable files (RFC 8288 Link headers, RFC 9727 api-catalog).
+    const link = [
+      '</.well-known/api-catalog>; rel="api-catalog"',
+      '</docs>; rel="service-doc"',
+      '</llms.txt>; rel="describedby"; type="text/plain"',
+      '</index.md>; rel="alternate"; type="text/markdown"',
+    ].join(", ")
+    // Pages with a Markdown twin vary by Accept, so a cache never hands Markdown to a browser.
+    const vary = [{ key: "Vary", value: "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept" }]
     return [
       { source: "/:path*", headers: security },
+      ...["/", "/docs", "/docs/:path*", "/blog/:slug"].map((source) => ({ source, headers: vary })),
+      { source: "/", headers: [{ key: "Link", value: link }] },
       { source: "/r/:path*", headers: [{ key: "Access-Control-Allow-Origin", value: "*" }] },
     ]
   },

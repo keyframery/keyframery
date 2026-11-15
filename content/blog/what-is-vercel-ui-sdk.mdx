@@ -1,0 +1,178 @@
+---
+title: "What is Vercel's UI SDK? A practical guide to @ui-sdk/react"
+seoTitle: "Vercel UI SDK explained: what it is, how to use it"
+description: "Vercel's UI SDK is a beta library of accessible UI behaviors for coding agents. What it ships, how it compares with Radix and Base UI, and how to animate it."
+published: "2026-11-15"
+author: "Briyan Hingrajiya"
+tags: ["Vercel UI SDK", "@ui-sdk/react", "headless UI", "React components", "UI animation", "AI coding agents"]
+about: ["UI SDK", "Headless UI libraries", "AI coding agents"]
+disclosure: "Keyframery, which publishes this blog, makes animated components for UI SDK. The facts below come from UI SDK's own docs, its GitHub repository and npm, read on 15 November 2026 against version 0.1.0-beta.2. The post was drafted with AI assistance and checked against those sources."
+tldr:
+  - "UI SDK is a beta library from Vercel Labs, published to npm on 12 November 2026 under the Apache-2.0 license. It gives you the behavior of a UI (keyboard, focus, selection, popups and the ARIA that goes with them) and leaves the look to you."
+  - "One framework-neutral core, @ui-sdk/core, has adapters for React, Vue, Svelte, Solid and Web Components. The React package needs React 19 and lists 55 ready-made components, from Accordion to Waterfall."
+  - "It is written for coding agents first. An agent skill teaches your agent to build components from behaviors like createPopup and createRovingFocus, and a createAgent bridge lets an agent read and operate the finished UI."
+  - "Parts render unstyled and expose state as data attributes. Animation is yours to write: popups get data-starting-style and data-ending-style, and tabs expose the selected tab's position as CSS variables."
+faq:
+  - q: "Who makes UI SDK?"
+    a: "Vercel Labs. The source is on GitHub at vercel-labs/ui and the docs are at ui-sdk.dev. It is in beta, and the docs say some APIs may still change."
+  - q: "Is UI SDK free to use?"
+    a: "Yes. The npm packages are licensed Apache-2.0. The docs also note that the beta is covered by Vercel's beta terms, so read those before you depend on it in production."
+  - q: "Is UI SDK a replacement for shadcn/ui?"
+    a: "Not directly. shadcn/ui gives you styled components you copy into your project. UI SDK gives you unstyled behaviors and components, and you, or your agent, add the styles. The two can sit side by side: a shadcn-style registry can ship components built on UI SDK."
+  - q: "How is UI SDK different from Radix or Base UI?"
+    a: "Radix Primitives and Base UI ship a fixed set of headless components. UI SDK ships components too, but its main unit is the behavior, such as createPopup, createSelection or createTypeahead, which an agent combines into components the library never shipped. It also runs on five frameworks from one core, and it includes an agent bridge for operating the UI."
+  - q: "Does UI SDK animate components?"
+    a: "It gives you the hooks, not the motion. Popup content gets data-starting-style before it enters and data-ending-style while it leaves, and stays mounted until its exit transition ends. Collapsible can animate its height. The transitions themselves are CSS you write, or a library you add."
+  - q: "Which React version does UI SDK need?"
+    a: "React 19 or newer. The @ui-sdk/react package declares react and react-dom >=19 as peer dependencies."
+sources:
+  - title: "UI SDK docs: Get Started"
+    url: "https://ui-sdk.dev/docs"
+  - title: "UI SDK docs: React components"
+    url: "https://ui-sdk.dev/docs/react/components"
+  - title: "vercel-labs/ui on GitHub"
+    url: "https://github.com/vercel-labs/ui"
+  - title: "@ui-sdk/react on npm"
+    url: "https://www.npmjs.com/package/@ui-sdk/react"
+  - title: "Built by Agents, Used by Agents: Vercel's UI SDK (azukiazusa.dev)"
+    url: "https://azukiazusa.dev/en/blog/ui-sdk-agent-ready-behaviors/"
+  - title: "MDN: prefers-reduced-motion"
+    url: "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion"
+  - title: "WCAG 2.2: Animation from Interactions (2.3.3)"
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html"
+---
+
+This guide covers what UI SDK ships, how it works, how it compares with Radix, Base UI and shadcn/ui, and how to style and animate it. We checked every claim against version `0.1.0-beta.2`, the version the components on this site run on.
+
+## What is UI SDK?
+
+**UI SDK** is a library of user-interface behaviors from Vercel Labs. Its README calls it "a library of behaviors for agents to build the next generation of user interfaces."
+
+A **behavior** is one job a component has to do well. Examples are moving focus with the arrow keys, finding an option as you type, and placing a popup next to its button and closing it on Escape. UI SDK does those jobs, with the ARIA attributes screen readers need, and leaves the visual design to you.
+
+The first public beta, `0.1.0-beta.1`, reached npm on 12 November 2026, and `0.1.0-beta.2` followed a day later. The packages are Apache-2.0. The [repository](https://github.com/vercel-labs/ui) had about 4,700 stars when this was written, three days after launch.
+
+Three things set it apart from the headless libraries most React developers already know:
+
+- **One core, five frameworks.** The behaviors live in `@ui-sdk/core`, which has no framework in it. Adapters bring it to React (`@ui-sdk/react`), Vue, Svelte, Solid and Web Components.
+- **Behaviors first, components second.** You can use the 55 components the React package ships, or build your own from the same behaviors the library uses internally.
+- **Agents as the main audience.** The setup is a prompt you paste into your coding agent, and the docs ship inside the npm package for the agent to read.
+
+## What do you get in the box?
+
+Install the React adapter and the core:
+
+```bash
+npm install @ui-sdk/react @ui-sdk/core
+```
+
+The React package needs React 19 or newer; it declares `react` and `react-dom` `>=19` as peer dependencies.
+
+The [component list](https://ui-sdk.dev/docs/react/components) has 55 entries in beta.2. You get the usual Dialog, Menu, Select, Tabs and Tooltip. You also get components other headless libraries often leave out, such as a Date Picker with ranges, an OTP Input, a Color Picker and an Image Cropper. There is a Tree, a Resizable layout, a Drawer you can drag from any edge, and a Waterfall chart for request timings.
+
+Each component is imported from its own path, the same way Radix and Base UI work:
+
+```tsx
+import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/react/tabs"
+```
+
+Every part renders with a `data-slot` attribute, like `tabs-tab`, and state attributes, like `data-selected` or `data-disabled`. That is how you style it.
+
+## How do behaviors work?
+
+A component in UI SDK is a primitive: state, the operations that change it, and the parts that render it. You describe one with `definePrimitive` from `@ui-sdk/core`, then turn it into components for your framework with `createParts`:
+
+```tsx
+import { createParts } from "@ui-sdk/react/primitive"
+
+const { Root: MuteButton } = createParts(muteButton, { root: "button" })
+```
+
+The Vue adapter has the same `createParts` call, so one primitive serves every framework.
+
+Behaviors are the pieces a primitive is built from. The docs walk through an icon picker made from two of them:
+
+- `createPopup` with the popover preset opens the picker beside its button, moves focus into the search field, and closes on Escape or an outside click.
+- `createRovingFocus` gives the grid one Tab stop. The arrow keys move between icons, and the next Tab leaves.
+
+Others include `createSelection` and `createTypeahead`.
+
+![Diagram of UI SDK's layers: behaviors such as createPopup and createRovingFocus combine into a primitive with definePrimitive; createParts turns the primitive into unstyled parts for React, Vue, Svelte, Solid or Web Components; your CSS styles and animates those parts through data attributes.](/blog/vercel-ui-sdk/layers.svg)
+
+The README is frank about who writes this code: "Don't worry, you don't need to learn how to write this. Your agents will."
+
+## Why is it built for coding agents?
+
+When an agent builds a custom component today, it usually rewrites focus handling, arrow-key navigation and screen-reader announcements from scratch, and small mistakes slip in. [azukiazusa's write-up](https://azukiazusa.dev/en/blog/ui-sdk-agent-ready-behaviors/) describes exactly that gap: a headless library only helps with the components it already ships. UI SDK's answer is to hand the agent tested behaviors and let it assemble the component.
+
+The setup is aimed at that workflow:
+
+1. Add the skill: `npx skills add vercel-labs/ui --skill ui-sdk`.
+2. Tell the agent, in `AGENTS.md`, to follow the skill and read `node_modules/@ui-sdk/react/docs/llms.txt`.
+3. Ask for the component you want.
+
+The docs folder in the npm package is generated from the same source as the website, for the exact release you installed, so the agent reads the API of the version in your lockfile.
+
+The second half is the agent as a user. `createAgent` from `@ui-sdk/react/agent` connects an agent to the UI SDK components on a page. `agent.snapshot()` lists the components, their state and the actions each one supports. `agent.act()` then calls an action through the component's API, so an agent can set a field's value in one call instead of clicking and typing like a person. Component authors decide which actions agents may call.
+
+## UI SDK vs Radix, Base UI and shadcn/ui
+
+| | UI SDK | Radix Primitives | Base UI | shadcn/ui |
+|---|---|---|---|---|
+| What you get | Behaviors plus 55 unstyled components | Unstyled components | Unstyled components | Styled components you copy in |
+| Frameworks | React, Vue, Svelte, Solid, Web Components | React | React | React |
+| Main building block | Behavior (`createPopup`, `createSelection` and others) | Component | Component | Styled component |
+| Agent tooling | Skill, docs bundled in the npm package, `createAgent` bridge | None built in | None built in | Skill and MCP server, installed separately |
+| Status (15 November 2026) | Beta | Stable | Stable | Stable |
+
+If you already use shadcn/ui, nothing forces a move. Its components sit on Radix or Base UI, and they keep working. UI SDK matters most if you build components shadcn/ui doesn't have, if you target more than React, or if agents write most of your UI code. We compared the two ways agents learn a component library, skills and MCP servers, in [shadcn skill vs MCP server](/blog/shadcn-skill-vs-mcp).
+
+## How do you style and animate UI SDK components?
+
+Parts render without styles. You target `data-slot` and the state attributes with plain CSS, CSS Modules or Tailwind. With Tailwind, attribute variants read naturally:
+
+```tsx
+<Toggle className="rounded-md border px-2.5 py-1.5 data-pressed:bg-neutral-100 data-disabled:opacity-50">
+  Bold
+</Toggle>
+```
+
+A few behaviors need a little CSS of their own, such as keeping a closed popup hidden, so UI SDK adds it in a cascade layer named `ui-sdk`. Declare that layer at the top of your global stylesheet, above `@import "tailwindcss"` if you use Tailwind, so your styles win:
+
+```css
+@layer ui-sdk;
+```
+
+Motion is where you do the most work yourself. UI SDK gives you the hooks:
+
+- **Entry and exit.** Popup content gets `data-starting-style` before it enters and `data-ending-style` while it leaves, and it stays mounted until the exit transition finishes. Put exit styles on `data-ending-style`; `data-closed` describes the state but doesn't keep the element on the page.
+- **Origin.** Popups expose `--transform-origin`, so a menu can grow out of the button that opened it.
+- **Indicators.** Tabs measure the selected tab into CSS variables (`--active-tab-left`, `--active-tab-width` and the rest) and set `data-activation-direction` to `left`, `right`, `up` or `down`, so a panel can slide in from the side you moved toward.
+- **Height.** Collapsible can animate its height while keeping its contents.
+
+Here is the docs' own popover example, a short scale and fade that switches off for people who ask for reduced motion:
+
+```tsx
+<PopoverContent
+  aria-label="Project details"
+  className="origin-(--transform-origin) transition-[opacity,scale] duration-150 data-starting-style:scale-96 data-starting-style:opacity-0 data-ending-style:scale-96 data-ending-style:opacity-0 motion-reduce:transition-none"
+>
+  Last updated today.
+</PopoverContent>
+```
+
+That works for one popover. For a whole app you want the same timing and easing everywhere, an indicator that stretches between tabs, numbers that roll, checks that draw, and a single place to respect [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). The [WCAG guidance on animation from interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html) asks for a way to turn non-essential motion off, so build that in from the start.
+
+This is the gap we built Keyframery for: 60 components for UI SDK with the motion already written in plain CSS, which keep UI SDK's parts and props so you change one import. The [installation guide](/docs/installation) has the details, and [swap the import](/docs/swap-the-import) shows the one-line change.
+
+## Should you use UI SDK now?
+
+It is three days old and labelled beta, and the docs say some APIs may still change. Two releases shipped in the first two days. That suggests three sensible uses today:
+
+- **Prototypes and internal tools**, where an API change costs an afternoon.
+- **Agent-heavy codebases**, where the skill and bundled docs save the most time.
+- **Components your current library lacks**, built from UI SDK's behaviors while the rest of your app stays where it is.
+
+For a production design system with many contributors, pin the exact version (`0.1.0-beta.2` at the time of writing), read the changelog before each upgrade, and keep an eye on the [GitHub repository](https://github.com/vercel-labs/ui) for the first stable release.
+
+The quickest way to judge it is to try one component you need this week. Install the two packages, add the skill, and ask your agent to build it.

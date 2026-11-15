@@ -42,6 +42,16 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
   - fixed the hero board overflowing on phones
   - fixed the hero headline re-wrapping on phones
 - The old blog is ported: `/blog`, both posts, `/authors/briyan-hingrajiya`, RSS, social images and `.md` copies, at the old URLs. The skills benchmark post carries an `archived` note, because it tested the old Cuts product.
+- Agent readiness (Cloudflare isitagentready checks):
+  - robots.txt has Content-Signal plus named AI crawlers
+  - Link headers on `/`
+  - Markdown negotiation on `/`, docs and blog (`/index.md`)
+  - `/.well-known/api-catalog`, `ai-catalog.json` and `agent-skills/index.json`, plus `/auth.md`
+  - `/llms.txt` lists the blog
+  - Content-Signal costs Lighthouse SEO 8 points ("unknown directive"). That's a deliberate trade-off; Google ignores unknown directives.
+- Tracking: GA4 `G-R8KDF02XF8` is in `app/layout.tsx` (production only). Search Console is a domain property (no meta tag needed). Cloudflare Web Analytics is auto-injected by the Cloudflare proxy. Clarity from the old site was not ported (it was opt-in only).
+- New post: `/blog/what-is-vercel-ui-sdk`, targeting "Vercel UI SDK". Scored with ~/.claude/skills (blog analyzer, 79/100 on the MDX alone; schema is added by the page template). It's linked from the docs intro.
+- SEO crawl (scratchpad audit.mjs logic: titles, descriptions, canonicals, h1, heading order, JSON-LD, alt, broken and orphan links): 80 pages, 0 critical/high/medium.
 - Vercel project `briyanpatels-projects/keyframery`, which serves keyframery.com, still has Root Directory `apps/web` and the old build command. Change them to root `.`, `pnpm build` and the pnpm install, and reconnect git, before deploying.
 
 ## Restart point (2026-11-15, paused by the user)

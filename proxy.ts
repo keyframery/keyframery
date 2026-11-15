@@ -15,6 +15,9 @@ const { rewrite: rewriteBlog } = rewritePath("/blog/:slug", "/llms.mdx/blog/:slu
 
 export default function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname
+  if (path === "/") {
+    return isMarkdownPreferred(request) ? NextResponse.rewrite(new URL("/index.md", request.nextUrl), { headers: { Vary: "Accept" } }) : NextResponse.next()
+  }
   if (path.startsWith("/blog/")) {
     const md = rewriteBlogMd(path) || (path !== "/blog/rss.xml" && isMarkdownPreferred(request) && rewriteBlog(path))
     return md ? NextResponse.rewrite(new URL(md, request.nextUrl)) : NextResponse.next()
@@ -28,4 +31,4 @@ export default function proxy(request: NextRequest) {
   return NextResponse.next()
 }
 
-export const config = { matcher: ["/docs", "/docs/:path*", "/blog/:path*"] }
+export const config = { matcher: ["/", "/docs", "/docs/:path*", "/blog/:path*"] }
