@@ -16,6 +16,7 @@ import {
 } from "@/components/primitives/listbox"
 import * as React from "react"
 
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 function CheckIcon() {
@@ -29,28 +30,31 @@ function CheckIcon() {
 /* The frame is a field that holds rows. It takes the field's focus ring while a row inside
    has keyboard focus. */
 function Listbox<T = string, Multiple extends boolean | undefined = false>({
+  speed,
   className,
   ...props
-}: ListboxProps<T, Multiple>) {
+}: ListboxProps<T, Multiple> & SpeedProps) {
   return (
-    <ListboxRoot<T, Multiple>
-      {...({
-        ...props,
-        className: cn(
-          "group/listbox flex max-h-72 flex-col gap-px overflow-y-auto overscroll-contain rounded-[12px] bg-background p-1.5 text-[13px] outline-none scroll-py-1.5",
-          "data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:overflow-x-auto data-[orientation=horizontal]:overflow-y-hidden",
-          "shadow-[0_0_0_1px_rgb(0_0_0/0.09),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.1)]",
-          "transition-shadow duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none!",
-          "before:rounded-[8px] before:bg-accent",
-          "hover:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.16)]",
-          "has-focus-visible:shadow-[0_0_0_1px_var(--ring)] has-focus-visible:ring-[3px] has-focus-visible:ring-ring/25 dark:has-focus-visible:shadow-[0_0_0_1px_var(--ring)]",
-          "focus-visible:shadow-[0_0_0_1px_var(--ring)] focus-visible:ring-[3px] focus-visible:ring-ring/25 dark:focus-visible:shadow-[0_0_0_1px_var(--ring)]",
-          "aria-invalid:shadow-[0_0_0_1px_var(--destructive)] dark:aria-invalid:shadow-[0_0_0_1px_var(--destructive)]",
-          "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:bg-muted/40",
-          className,
-        ),
-      } as ListboxProps<T, Multiple>)}
-    />
+    <Speed speed={speed}>
+      <ListboxRoot<T, Multiple>
+        {...({
+          ...props,
+          className: cn(
+            "group/listbox flex max-h-72 flex-col gap-px overflow-y-auto overscroll-contain rounded-[12px] bg-background p-1.5 text-[13px] outline-none scroll-py-1.5",
+            "data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:overflow-x-auto data-[orientation=horizontal]:overflow-y-hidden",
+            "shadow-[0_0_0_1px_rgb(0_0_0/0.09),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.1)]",
+            "transition-shadow duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none!",
+            "before:rounded-[8px] before:bg-accent",
+            "hover:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.16)]",
+            "has-focus-visible:shadow-[0_0_0_1px_var(--ring)] has-focus-visible:ring-[3px] has-focus-visible:ring-ring/25 dark:has-focus-visible:shadow-[0_0_0_1px_var(--ring)]",
+            "focus-visible:shadow-[0_0_0_1px_var(--ring)] focus-visible:ring-[3px] focus-visible:ring-ring/25 dark:focus-visible:shadow-[0_0_0_1px_var(--ring)]",
+            "aria-invalid:shadow-[0_0_0_1px_var(--destructive)] dark:aria-invalid:shadow-[0_0_0_1px_var(--destructive)]",
+            "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:bg-muted/40",
+            className,
+          ),
+        } as ListboxProps<T, Multiple>)}
+      />
+    </Speed>
   )
 }
 

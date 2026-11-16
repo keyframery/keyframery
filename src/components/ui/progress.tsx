@@ -11,18 +11,21 @@ import {
 } from "@/components/primitives/progress"
 import * as React from "react"
 
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* Label and value share the first row; the track spans the row below. */
-function Progress({ className, ...props }: React.ComponentProps<typeof ProgressRoot>) {
+function Progress({ speed, className, ...props }: React.ComponentProps<typeof ProgressRoot> & SpeedProps) {
   return (
-    <ProgressRoot
-      className={cn(
-        "group/progress grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-2",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <ProgressRoot
+        className={cn(
+          "group/progress grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-2",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

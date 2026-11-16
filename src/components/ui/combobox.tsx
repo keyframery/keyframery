@@ -34,6 +34,7 @@ import {
 } from "@/components/primitives/combobox"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* A row in the list. Shared by items, the select-all row and the create row. */
@@ -68,9 +69,13 @@ function CheckIcon() {
 }
 
 function Combobox<T = string, Multiple extends boolean | undefined = false>(
-  props: ComboboxProps<T, Multiple>,
+  { speed, ...props }: ComboboxProps<T, Multiple> & SpeedProps,
 ) {
-  return <ComboboxRoot<T, Multiple> {...props} />
+  return (
+    <Speed speed={speed}>
+      <ComboboxRoot<T, Multiple> {...(props as ComboboxProps<T, Multiple>)} />
+    </Speed>
+  )
 }
 
 function ComboboxLabel({
@@ -176,6 +181,7 @@ function ComboboxContent({
   className,
   children,
   sideOffset = 6,
+  style,
   ...props
 }: React.ComponentProps<typeof ComboboxContentPart>) {
   return (
@@ -188,7 +194,7 @@ function ComboboxContent({
         "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     >
       {children ?? <ComboboxList />}
     </ComboboxContentPart>

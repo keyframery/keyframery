@@ -29,6 +29,7 @@ import {
 } from "@/components/primitives/select"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The sheet. Its motion (unfold, cascade, the gliding highlight) comes from the primitive. */
@@ -92,9 +93,13 @@ function SearchIcon() {
 }
 
 function Select<T = string, Multiple extends boolean | undefined = false>(
-  props: SelectProps<T, Multiple>,
+  { speed, ...props }: SelectProps<T, Multiple> & SpeedProps,
 ) {
-  return <SelectRoot<T, Multiple> {...props} />
+  return (
+    <Speed speed={speed}>
+      <SelectRoot<T, Multiple> {...(props as SelectProps<T, Multiple>)} />
+    </Speed>
+  )
 }
 
 function SelectLabel({
@@ -195,13 +200,14 @@ function SelectContent({
   className,
   children,
   sideOffset = 6,
+  style,
   ...props
 }: React.ComponentProps<typeof SelectContentPart>) {
   return (
     <SelectContentPart
       sideOffset={sideOffset}
       className={cn(sheet, className)}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     >
       {children ?? <SelectList />}
     </SelectContentPart>

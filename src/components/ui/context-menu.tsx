@@ -25,15 +25,17 @@ import {
   MenuSubContent,
   MenuSubTrigger,
 } from "@/components/ui/menu"
+import { useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* Opens right at the pointer, so only a hair of offset. */
 function ContextMenuContent<Payload = unknown>({
   className,
   sideOffset = 2,
+  style,
   ...props
 }: React.ComponentProps<typeof MenuContent<Payload>>) {
-  return <MenuContent<Payload> sideOffset={sideOffset} className={cn(contextMenuMotion, className)} {...props} />
+  return <MenuContent<Payload> sideOffset={sideOffset} className={cn(contextMenuMotion, className)} {...props} style={useSpeedStyle(style)} />
 }
 
 export {

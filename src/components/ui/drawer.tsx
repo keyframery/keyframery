@@ -16,6 +16,7 @@ import {
 } from "@/components/primitives/drawer"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 type DrawerCloseVariant = "default" | "primary"
@@ -59,8 +60,12 @@ const grip = cn(
   "motion-reduce:transition-none!",
 )
 
-function Drawer(props: React.ComponentProps<typeof DrawerRoot>) {
-  return <DrawerRoot {...props} />
+function Drawer({ speed, ...props }: React.ComponentProps<typeof DrawerRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <DrawerRoot {...props} />
+    </Speed>
+  )
 }
 
 /* A key by default. Pass `render` to use a button of your own instead. */
@@ -84,6 +89,7 @@ function DrawerTrigger({
    blur behind it follow a drag frame by frame. Only its colour and blur are set here. */
 function DrawerBackdrop({
   className,
+  style,
   ...props
 }: React.ComponentProps<typeof DrawerBackdropPart>) {
   return (
@@ -93,7 +99,7 @@ function DrawerBackdrop({
         "data-interactive:backdrop-blur-none",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }
@@ -103,6 +109,7 @@ function DrawerBackdrop({
 function DrawerContent({
   className,
   children,
+  style,
   ...props
 }: React.ComponentProps<typeof DrawerContentPart>) {
   return (
@@ -123,7 +130,7 @@ function DrawerContent({
         "data-dragging:cursor-grabbing",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     >
       {children}
     </DrawerContentPart>

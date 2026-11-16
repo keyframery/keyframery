@@ -12,6 +12,7 @@ import {
   TabsPanels as TabsPanelsPrimitive,
   TabsTab as TabsTabPrimitive,
 } from "@/components/primitives/tabs"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* One box shared by the real tab and its copy inside the key, so both lay out identically. */
@@ -21,15 +22,17 @@ const tabBox =
 const listLayout =
   "flex items-center gap-0.5 p-1 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch"
 
-function Tabs({ className, ...props }: React.ComponentProps<typeof TabsRoot>) {
+function Tabs({ speed, className, ...props }: React.ComponentProps<typeof TabsRoot> & SpeedProps) {
   return (
-    <TabsRoot
-      className={cn(
-        "flex flex-col data-[orientation=vertical]:flex-row data-[orientation=vertical]:gap-4",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <TabsRoot
+        className={cn(
+          "flex flex-col data-[orientation=vertical]:flex-row data-[orientation=vertical]:gap-4",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

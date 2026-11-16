@@ -123,6 +123,14 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 - **Demos no longer look generated** (reviewed against the stageshow skill's craft rules): CSS-painted "photos" and drawn SVG faces were replaced with real photos in `public/demo/` (Unsplash licence, fetched via picsum.photos). The shared Lisbon cast was replaced by a different setting per demo. Initials in squares were replaced by photos where they acted as logos.
 - Component counts on the site and in the skill now say 61; the changelog has a 1.1 entry.
 
+## Speed, Table and fuller docs (2026-11-16)
+
+- `speed` prop on every component's top-level part (and RadioGroup, CheckboxGroup, ToggleGroup), from `src/lib/keyframery.tsx`: `Speed` wrapper (display: contents span, only when speed is set), `useSpeedStyle` for portal parts, `withSpeed`, `KeyframeryProvider`. Ships with the motion registry item as `lib/keyframery.tsx`.
+- Sidebar highlight glide 460ms -> 260ms.
+- Table: 62nd component (`primitives/table.tsx`, `ui/table.tsx`, demo, 5 examples).
+- Docs pages (scripts/build-docs.mjs): CLI/Manual install tabs, usage from `src/examples/<slug>/usage.tsx`, anatomy tree parsed from it, examples from `src/examples/<slug>/<nn>-<name>.tsx` (first `//` line is the title, the rest the description), Motion with speed, API reference read from the types by `scripts/lib/props.mjs` (missing descriptions in `content/prop-docs.json`), hooks, keyboard from `content/keyboard.json`.
+- The dev server can run out of memory with every example; the production build is fine.
+
 ## Phone layouts (2026-11-16)
 
 - **Demos are fluid.** Roots are `w-full max-w-[N]`; phone layouts use container queries (`@container` on the demo root, `@max-[..]:` inside), so the example code users copy is responsive too. The docs frame (`site/components/demo.tsx`) no longer shrinks demos to fit; zoom is only a fallback for the landing grid's fixed-height cells. On a phone the frame padding drops to 16px.

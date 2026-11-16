@@ -9,31 +9,35 @@ import {
   CheckboxGroup as CheckboxGroupPrimitive,
   CheckboxIndicator as CheckboxIndicatorPrimitive,
 } from "@/components/primitives/checkbox"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 function Checkbox({
+  speed,
   className,
   children,
   ...props
-}: React.ComponentProps<typeof CheckboxPrimitive>) {
+}: React.ComponentProps<typeof CheckboxPrimitive> & SpeedProps) {
   return (
-    <CheckboxPrimitive
-      className={cn(
-        "relative inline-grid size-[18px] shrink-0 cursor-pointer place-items-center rounded-[5px] outline-none select-none",
-        /* Unchecked: a small field. The primary key is the indicator, which pops in on top. */
-        "bg-background shadow-[0_0_0_1px_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.05)]",
-        "dark:bg-accent/40 dark:shadow-[0_0_0_1px_rgb(255_255_255/0.14)]",
-        "not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.24),0_1px_2px_rgb(0_0_0/0.06)]",
-        "dark:not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.24)]",
-        "transition-[box-shadow,scale] motion-reduce:transition-none!",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-default",
-        className as string,
-      )}
-      {...props}
-    >
-      {children ?? <CheckboxIndicator />}
-    </CheckboxPrimitive>
+    <Speed speed={speed}>
+      <CheckboxPrimitive
+        className={cn(
+          "relative inline-grid size-[18px] shrink-0 cursor-pointer place-items-center rounded-[5px] outline-none select-none",
+          /* Unchecked: a small field. The primary key is the indicator, which pops in on top. */
+          "bg-background shadow-[0_0_0_1px_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.05)]",
+          "dark:bg-accent/40 dark:shadow-[0_0_0_1px_rgb(255_255_255/0.14)]",
+          "not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.24),0_1px_2px_rgb(0_0_0/0.06)]",
+          "dark:not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.24)]",
+          "transition-[box-shadow,scale] motion-reduce:transition-none!",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-default",
+          className as string,
+        )}
+        {...props}
+      >
+        {children ?? <CheckboxIndicator />}
+      </CheckboxPrimitive>
+    </Speed>
   )
 }
 
@@ -78,10 +82,15 @@ function CheckboxIndicator({
 }
 
 function CheckboxGroup({
+  speed,
   className,
   ...props
-}: React.ComponentProps<typeof CheckboxGroupPrimitive>) {
-  return <CheckboxGroupPrimitive className={cn("flex flex-col gap-2.5", className as string)} {...props} />
+}: React.ComponentProps<typeof CheckboxGroupPrimitive> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <CheckboxGroupPrimitive className={cn("flex flex-col gap-2.5", className as string)} {...props} />
+    </Speed>
+  )
 }
 
 export { Checkbox, CheckboxGroup, CheckboxIndicator }

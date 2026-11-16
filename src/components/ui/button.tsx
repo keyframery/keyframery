@@ -5,6 +5,7 @@
 import * as React from "react"
 
 import { ButtonArrow, Button as ButtonPart } from "@/components/primitives/button"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 type ButtonVariant = "default" | "primary" | "ghost" | "destructive"
@@ -61,6 +62,7 @@ const sizes: Record<ButtonSize, string> = {
 }
 
 function Button({
+  speed,
   className,
   variant = "default",
   size = "md",
@@ -68,24 +70,26 @@ function Button({
 }: React.ComponentProps<typeof ButtonPart> & {
   variant?: ButtonVariant
   size?: ButtonSize
-}) {
+} & SpeedProps) {
   return (
-    <ButtonPart
-      data-variant={variant}
-      data-size={size}
-      className={cn(
-        "group/button relative inline-flex shrink-0 cursor-pointer items-center justify-center leading-none font-medium whitespace-nowrap outline-none select-none",
-        "[&_svg]:pointer-events-none [&_svg]:shrink-0",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress",
-        /* UI SDK's convention for content that belongs to one state only. */
-        "[&:not([data-pending])_[data-show=pending]]:hidden [&[data-pending]_[data-show=idle]]:hidden",
-        variants[variant],
-        sizes[size],
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <ButtonPart
+        data-variant={variant}
+        data-size={size}
+        className={cn(
+          "group/button relative inline-flex shrink-0 cursor-pointer items-center justify-center leading-none font-medium whitespace-nowrap outline-none select-none",
+          "[&_svg]:pointer-events-none [&_svg]:shrink-0",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress",
+          /* UI SDK's convention for content that belongs to one state only. */
+          "[&:not([data-pending])_[data-show=pending]]:hidden [&[data-pending]_[data-show=idle]]:hidden",
+          variants[variant],
+          sizes[size],
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

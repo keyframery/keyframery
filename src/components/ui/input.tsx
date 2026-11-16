@@ -10,6 +10,7 @@ import {
   InputGroup as InputGroupPrimitive,
   createInputController,
 } from "@/components/primitives/input"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The field look: a hairline and a small drop shadow. The hairline's colour is one
@@ -22,20 +23,22 @@ const fieldBox =
   "shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)] " +
   "hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)]"
 
-function Input({ className, ...props }: React.ComponentProps<typeof InputPrimitive>) {
+function Input({ speed, className, ...props }: React.ComponentProps<typeof InputPrimitive> & SpeedProps) {
   return (
-    <InputPrimitive
-      className={cn(
-        fieldBox,
-        "h-9 w-full min-w-0 px-3 text-foreground placeholder:text-muted-foreground/70",
-        "focus-visible:outline-[3px] focus-visible:outline-ring/30 focus-visible:[--field-line:var(--ring)] dark:focus-visible:[--field-line:var(--ring)]",
-        "aria-invalid:focus-visible:outline-destructive/30 aria-invalid:[--field-line:var(--destructive)] dark:aria-invalid:[--field-line:var(--destructive)]",
-        "data-readonly:bg-muted/50",
-        "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:text-muted-foreground data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <InputPrimitive
+        className={cn(
+          fieldBox,
+          "h-9 w-full min-w-0 px-3 text-foreground placeholder:text-muted-foreground/70",
+          "focus-visible:outline-[3px] focus-visible:outline-ring/30 focus-visible:[--field-line:var(--ring)] dark:focus-visible:[--field-line:var(--ring)]",
+          "aria-invalid:focus-visible:outline-destructive/30 aria-invalid:[--field-line:var(--destructive)] dark:aria-invalid:[--field-line:var(--destructive)]",
+          "data-readonly:bg-muted/50",
+          "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:text-muted-foreground data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

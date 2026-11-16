@@ -14,10 +14,15 @@ import {
   NumberInputScrubAreaCursor as NumberInputScrubAreaCursorPart,
   createNumberInputController,
 } from "@/components/primitives/number-input"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
-function NumberInput({ className, ...props }: React.ComponentProps<typeof NumberInputRoot>) {
-  return <NumberInputRoot className={cn("flex min-w-0 flex-col gap-1.5", className)} {...props} />
+function NumberInput({ speed, className, ...props }: React.ComponentProps<typeof NumberInputRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <NumberInputRoot className={cn("flex min-w-0 flex-col gap-1.5", className)} {...props} />
+    </Speed>
+  )
 }
 
 /* The group is the field: two keys with the value between them. */

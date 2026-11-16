@@ -12,18 +12,21 @@ import {
   SliderTrack as SliderTrackPart,
   SliderValue as SliderValuePart,
 } from "@/components/primitives/slider"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
-function Slider({ className, ...props }: React.ComponentProps<typeof SliderRoot>) {
+function Slider({ speed, className, ...props }: React.ComponentProps<typeof SliderRoot> & SpeedProps) {
   return (
-    <SliderRoot
-      className={cn(
-        "group/slider flex w-full flex-col gap-2 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-auto",
-        "data-disabled:opacity-50",
-        className as string,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <SliderRoot
+        className={cn(
+          "group/slider flex w-full flex-col gap-2 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-auto",
+          "data-disabled:opacity-50",
+          className as string,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

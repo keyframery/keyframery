@@ -15,16 +15,19 @@ import {
   ImageCropperViewport as ImageCropperViewportPrimitive,
   ImageCropperZoom as ImageCropperZoomPrimitive,
 } from "@/components/primitives/image-cropper"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 export { createImageCropperController, type ImageCrop } from "@/components/primitives/image-cropper"
 
-function ImageCropper({ className, ...props }: React.ComponentProps<typeof ImageCropperPrimitive>) {
+function ImageCropper({ speed, className, ...props }: React.ComponentProps<typeof ImageCropperPrimitive> & SpeedProps) {
   return (
-    <ImageCropperPrimitive
-      className={cn("flex flex-col gap-3 data-disabled:opacity-60", className as string)}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <ImageCropperPrimitive
+        className={cn("flex flex-col gap-3 data-disabled:opacity-60", className as string)}
+        {...props}
+      />
+    </Speed>
   )
 }
 

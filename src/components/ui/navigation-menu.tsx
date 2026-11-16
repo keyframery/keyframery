@@ -17,6 +17,7 @@ import {
 } from "@/components/primitives/navigation-menu"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The label look shared by triggers and top-level links. */
@@ -25,17 +26,20 @@ const topLevel =
 
 /* The root is the positioned ancestor the indicator measures from. */
 function NavigationMenu<T extends string = string>({
+  speed,
   className,
   ...props
-}: NavigationMenuProps<T>) {
+}: NavigationMenuProps<T> & SpeedProps) {
   return (
-    <NavigationMenuRoot<T>
-      className={cn(
-        "group/nav relative flex items-center data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <NavigationMenuRoot<T>
+        className={cn(
+          "group/nav relative flex items-center data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 
@@ -100,6 +104,7 @@ function NavigationMenuTrigger({
    takes its size. The primitive slides it in from the side it was reached from. */
 function NavigationMenuContent({
   className,
+  style,
   ...props
 }: React.ComponentProps<typeof NavigationMenuContentPart>) {
   return (
@@ -111,7 +116,7 @@ function NavigationMenuContent({
         "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }
@@ -120,6 +125,7 @@ function NavigationMenuContent({
 function NavigationMenuViewport({
   className,
   sideOffset = 8,
+  style,
   ...props
 }: React.ComponentProps<typeof NavigationMenuViewportPart>) {
   return (
@@ -133,7 +139,7 @@ function NavigationMenuViewport({
         "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }

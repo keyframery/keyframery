@@ -12,6 +12,7 @@ import {
   AvatarImage as AvatarImagePart,
 } from "@/components/primitives/avatar"
 
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 type AvatarSize = "sm" | "md" | "lg"
@@ -32,23 +33,26 @@ const disc = [
 ]
 
 function Avatar({
+  speed,
   className,
   size = "md",
   ...props
-}: React.ComponentProps<typeof AvatarRoot> & { size?: AvatarSize }) {
+}: React.ComponentProps<typeof AvatarRoot> & { size?: AvatarSize } & SpeedProps) {
   return (
-    <AvatarRoot
-      data-size={size}
-      className={cn(
-        disc,
-        sizes[size],
-        /* When rendered as a button or link. */
-        "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "[&:is(button,a)]:cursor-pointer",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <AvatarRoot
+        data-size={size}
+        className={cn(
+          disc,
+          sizes[size],
+          /* When rendered as a button or link. */
+          "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "[&:is(button,a)]:cursor-pointer",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

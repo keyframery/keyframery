@@ -14,6 +14,7 @@ import {
 } from "@/components/primitives/popover"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 const keyBase = cn(
@@ -45,8 +46,12 @@ const sheet = cn(
   "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
 )
 
-function Popover(props: React.ComponentProps<typeof PopoverRoot>) {
-  return <PopoverRoot {...props} />
+function Popover({ speed, ...props }: React.ComponentProps<typeof PopoverRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <PopoverRoot {...props} />
+    </Speed>
+  )
 }
 
 /* A key by default; it stays lit while its popover is open. Pass `render` for your own button.
@@ -78,13 +83,14 @@ function PopoverTrigger({
 function PopoverContent<Payload = unknown>({
   className,
   sideOffset = 8,
+  style,
   ...props
 }: React.ComponentProps<typeof PopoverContentPart<Payload>>) {
   return (
     <PopoverContentPart<Payload>
       sideOffset={sideOffset}
       className={cn(sheet, className)}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }

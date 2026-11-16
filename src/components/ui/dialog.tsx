@@ -14,6 +14,7 @@ import {
 } from "@/components/primitives/dialog"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 type DialogCloseVariant = "default" | "primary" | "destructive" | "icon"
@@ -82,8 +83,12 @@ function XIcon() {
   )
 }
 
-function Dialog(props: React.ComponentProps<typeof DialogRoot>) {
-  return <DialogRoot {...props} />
+function Dialog({ speed, ...props }: React.ComponentProps<typeof DialogRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <DialogRoot {...props} />
+    </Speed>
+  )
 }
 
 /* A key by default. Pass `render` to use a button of your own instead. */
@@ -106,12 +111,13 @@ function DialogTrigger({
 /* The page dims behind the dialog. The primitive blurs it in and out. */
 function DialogBackdrop({
   className,
+  style,
   ...props
 }: React.ComponentProps<typeof DialogBackdropPart>) {
   return (
     <DialogBackdropPart
       className={cn("fixed inset-0 bg-black/25 dark:bg-black/55", className)}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }
@@ -119,6 +125,7 @@ function DialogBackdrop({
 /* The sheet. The primitive unfolds it from below and cascades its sections in. */
 function DialogContent({
   className,
+  style,
   ...props
 }: React.ComponentProps<typeof DialogContentPart>) {
   return (
@@ -131,7 +138,7 @@ function DialogContent({
         "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_24px_56px_-12px_rgb(0_0_0/0.8)]",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }

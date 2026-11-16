@@ -22,6 +22,7 @@ import {
 } from "@/components/primitives/trigger-menu"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The sheet. Its motion comes from the primitive. */
@@ -42,8 +43,12 @@ const row = cn(
   "[[data-has-icons]_&:not([data-has-icon])]:ps-8",
 )
 
-function TriggerMenu<T = string>(props: TriggerMenuProps<T>) {
-  return <TriggerMenuRoot<T> {...props} />
+function TriggerMenu<T = string>({ speed, ...props }: TriggerMenuProps<T> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <TriggerMenuRoot<T> {...props} />
+    </Speed>
+  )
 }
 
 /* The field people type in: a textarea by default, an input through `render`. */
@@ -73,13 +78,14 @@ function TriggerMenuContent({
   className,
   children,
   sideOffset = 6,
+  style,
   ...props
 }: React.ComponentProps<typeof TriggerMenuContentPart>) {
   return (
     <TriggerMenuContentPart
       sideOffset={sideOffset}
       className={cn(sheet, className)}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     >
       {children ?? <TriggerMenuList />}
     </TriggerMenuContentPart>

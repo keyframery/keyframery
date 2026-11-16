@@ -11,10 +11,15 @@ import {
 } from "@/components/primitives/tooltip"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
-function Tooltip(props: React.ComponentProps<typeof TooltipRoot>) {
-  return <TooltipRoot {...props} />
+function Tooltip({ speed, ...props }: React.ComponentProps<typeof TooltipRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <TooltipRoot {...props} />
+    </Speed>
+  )
 }
 
 /* No look of its own: the trigger is usually your button, passed with `render`, or plain
@@ -39,6 +44,7 @@ function TooltipTrigger({
 function TooltipContent<Payload = unknown>({
   className,
   sideOffset = 6,
+  style,
   ...props
 }: React.ComponentProps<typeof TooltipContentPart<Payload>>) {
   return (
@@ -51,7 +57,7 @@ function TooltipContent<Payload = unknown>({
         "dark:shadow-[0_0_0_1px_rgb(0_0_0/0.4),0_6px_16px_-4px_rgb(0_0_0/0.7)]",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }

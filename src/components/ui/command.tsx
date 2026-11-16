@@ -20,20 +20,23 @@ import {
 } from "@/components/primitives/command"
 import * as React from "react"
 
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The palette is a sheet: the search row on top, the commands below. */
-function Command({ className, ...props }: React.ComponentProps<typeof CommandRoot>) {
+function Command({ speed, className, ...props }: React.ComponentProps<typeof CommandRoot> & SpeedProps) {
   return (
-    <CommandRoot
-      className={cn(
-        "group/command flex w-full flex-col overflow-hidden rounded-[14px] bg-popover text-popover-foreground",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
-        "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <CommandRoot
+        className={cn(
+          "group/command flex w-full flex-col overflow-hidden rounded-[14px] bg-popover text-popover-foreground",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
+          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

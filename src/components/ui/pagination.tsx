@@ -18,6 +18,7 @@ import {
   createPaginationController,
   paginationRange,
 } from "@/components/primitives/pagination"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* Every button in the row shares one box. */
@@ -68,8 +69,12 @@ function ChevronsRightIcon() {
   )
 }
 
-function Pagination({ className, ...props }: React.ComponentProps<typeof PaginationRoot>) {
-  return <PaginationRoot className={cn("flex w-fit", className)} {...props} />
+function Pagination({ speed, className, ...props }: React.ComponentProps<typeof PaginationRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <PaginationRoot className={cn("flex w-fit", className)} {...props} />
+    </Speed>
+  )
 }
 
 /* The row is a well, and the current-page key the primitive glides along it is a raised key.

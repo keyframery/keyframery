@@ -11,10 +11,15 @@ import {
   AccordionPanel as AccordionPanelPart,
   AccordionTrigger as AccordionTriggerPart,
 } from "@/components/primitives/accordion"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
-function Accordion({ className, ...props }: React.ComponentProps<typeof AccordionRoot>) {
-  return <AccordionRoot className={cn("flex w-full flex-col", className)} {...props} />
+function Accordion({ speed, className, ...props }: React.ComponentProps<typeof AccordionRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <AccordionRoot className={cn("flex w-full flex-col", className)} {...props} />
+    </Speed>
+  )
 }
 
 /* Rows are separated by one hairline; the last row has none. */

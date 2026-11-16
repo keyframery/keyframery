@@ -24,6 +24,7 @@ import {
   DatePickerTrigger as DatePickerTriggerPrimitive,
   createDatePickerController,
 } from "@/components/primitives/date-picker"
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* What the popup needs from the root: how many months show, and the field box to line up with. */
@@ -97,37 +98,40 @@ function XIcon() {
 
 /* The root. The popup lines up with the field box, so the root shares it with the popup. */
 function DatePicker({
+  speed,
   className,
   children,
   months = 1,
   ...props
-}: React.ComponentProps<typeof DatePickerPrimitive>) {
+}: React.ComponentProps<typeof DatePickerPrimitive> & SpeedProps) {
   const [field, setField] = React.useState<HTMLElement | null>(null)
   const count = Math.max(1, Math.floor(months) || 1)
   return (
-    <PickerContext.Provider value={{ months: count, field, setField }}>
-      <DatePickerPrimitive
-        className={cn("group/picker flex w-full flex-col gap-1.5", className)}
-        months={months}
-        {...props}
-      >
-        {children ?? (
-          <>
-            <DatePickerField>
-              <DatePickerInput />
-              {props.mode === "range" && (
-                <>
-                  <span aria-hidden className="px-1 text-muted-foreground/70">–</span>
-                  <DatePickerInput end />
-                </>
-              )}
-              <DatePickerTrigger />
-            </DatePickerField>
-            <DatePickerContent />
-          </>
-        )}
-      </DatePickerPrimitive>
-    </PickerContext.Provider>
+    <Speed speed={speed}>
+      <PickerContext.Provider value={{ months: count, field, setField }}>
+        <DatePickerPrimitive
+          className={cn("group/picker flex w-full flex-col gap-1.5", className)}
+          months={months}
+          {...props}
+        >
+          {children ?? (
+            <>
+              <DatePickerField>
+                <DatePickerInput />
+                {props.mode === "range" && (
+                  <>
+                    <span aria-hidden className="px-1 text-muted-foreground/70">–</span>
+                    <DatePickerInput end />
+                  </>
+                )}
+                <DatePickerTrigger />
+              </DatePickerField>
+              <DatePickerContent />
+            </>
+          )}
+        </DatePickerPrimitive>
+      </PickerContext.Provider>
+    </Speed>
   )
 }
 
@@ -262,6 +266,7 @@ function DatePickerContent({
   sideOffset = 6,
   collisionPadding = 12,
   anchor,
+  style,
   ...props
 }: React.ComponentProps<typeof DatePickerContentPrimitive>) {
   const picker = React.useContext(PickerContext)
@@ -279,7 +284,7 @@ function DatePickerContent({
         "data-[presentation=sheet]:w-full data-[presentation=sheet]:items-center data-[presentation=sheet]:rounded-b-none data-[presentation=sheet]:pb-6",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     >
       {children ?? (
         <>

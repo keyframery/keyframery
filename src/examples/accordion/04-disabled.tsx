@@ -1,0 +1,22 @@
+// Disabled item
+// Pass `disabled` to an item to keep it shut.
+import { Accordion, AccordionHeader, AccordionItem, AccordionPanel, AccordionTrigger } from "@/components/ui/accordion"
+
+export default function AccordionDisabled() {
+  return (
+    <Accordion className="max-w-[420px]">
+      <AccordionItem value="free">
+        <AccordionHeader>
+          <AccordionTrigger>Free plan</AccordionTrigger>
+        </AccordionHeader>
+        <AccordionPanel>Three projects and one member.</AccordionPanel>
+      </AccordionItem>
+      <AccordionItem value="team" disabled>
+        <AccordionHeader>
+          <AccordionTrigger>Team plan (coming soon)</AccordionTrigger>
+        </AccordionHeader>
+        <AccordionPanel>Unlimited projects and members.</AccordionPanel>
+      </AccordionItem>
+    </Accordion>
+  )
+}

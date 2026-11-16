@@ -8,21 +8,24 @@ import {
   Separator as SeparatorPrimitive,
   SeparatorLabel as SeparatorLabelPrimitive,
 } from "@/components/primitives/separator"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* A hairline in the border colour: full width when horizontal, the row's height when vertical. */
-function Separator({ className, ...props }: React.ComponentProps<typeof SeparatorPrimitive>) {
+function Separator({ speed, className, ...props }: React.ComponentProps<typeof SeparatorPrimitive> & SpeedProps) {
   return (
-    <SeparatorPrimitive
-      className={cn(
-        "shrink-0 bg-border",
-        "data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full",
-        "data-[orientation=vertical]:w-px data-[orientation=vertical]:self-stretch",
-        "[[data-slot=separator-label]+&]:flex-1 has-[+[data-slot=separator-label]]:flex-1",
-        className as string,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <SeparatorPrimitive
+        className={cn(
+          "shrink-0 bg-border",
+          "data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full",
+          "data-[orientation=vertical]:w-px data-[orientation=vertical]:self-stretch",
+          "[[data-slot=separator-label]+&]:flex-1 has-[+[data-slot=separator-label]]:flex-1",
+          className as string,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

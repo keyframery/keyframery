@@ -15,10 +15,15 @@ import {
 } from "@/components/primitives/carousel"
 import * as React from "react"
 
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
-function Carousel({ className, ...props }: React.ComponentProps<typeof CarouselRoot>) {
-  return <CarouselRoot className={cn("relative flex flex-col gap-3", className)} {...props} />
+function Carousel({ speed, className, ...props }: React.ComponentProps<typeof CarouselRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <CarouselRoot className={cn("relative flex flex-col gap-3", className)} {...props} />
+    </Speed>
+  )
 }
 
 /* The scrolling window. UI SDK writes its overflow and snapping inline; the scrollbar is hidden. */

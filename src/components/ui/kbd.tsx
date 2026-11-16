@@ -6,6 +6,7 @@
 import * as React from "react"
 
 import { Kbd as KbdPrimitive, KbdCombo as KbdComboPrimitive } from "@/components/primitives/kbd"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 const key = cn(
@@ -16,8 +17,12 @@ const key = cn(
   "dark:data-pressed:bg-muted dark:data-pressed:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_0_0_rgb(0_0_0/0.6),inset_0_1px_3px_0_rgb(0_0_0/0.5)]",
 )
 
-function Kbd({ className, ...props }: React.ComponentProps<typeof KbdPrimitive>) {
-  return <KbdPrimitive className={cn(key, className)} {...props} />
+function Kbd({ speed, className, ...props }: React.ComponentProps<typeof KbdPrimitive> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <KbdPrimitive className={cn(key, className)} {...props} />
+    </Speed>
+  )
 }
 
 function KbdCombo({ className, kbdClassName, ...props }: React.ComponentProps<typeof KbdComboPrimitive>) {

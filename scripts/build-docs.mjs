@@ -7,6 +7,9 @@
 // (what moves). Hand-written pages live next to them in content/docs and are never touched.
 import fs from "node:fs"
 import path from "node:path"
+import ts from "typescript"
+
+import { readProps } from "./lib/props.mjs"
 
 const root = path.resolve(import.meta.dirname, "..")
 const read = (f) => fs.readFileSync(path.join(root, f), "utf8")
@@ -31,6 +34,101 @@ const example = (slug) =>
     .replace(/\n{3,}/g, "\n\n")
     .trim()
 
+/* ---- examples, props and keyboard for the new page sections ---- */
+
+/* An example file starts with `// Title` and optional `// description` lines. */
+function exampleHeader(code) {
+  const lines = code.match(/^(?:\/\/.*\n)+/)?.[0].split("\n").filter(Boolean).map((l) => l.replace(/^\/\/\s?/, "")) ?? []
+  return { title: lines[0] ?? "Example", about: lines.slice(1).join(" ").trim() }
+}
+const exampleCode = (code) => installed(code.replace(/^(?:\/\/.*\n)+\n*/, "")).trim()
+
+/* The usage example's JSX, cut down to the component's own parts, as a tree. Repeated siblings
+   (three items in a row) show once. */
+function anatomy(code, parts) {
+  const sf = ts.createSourceFile("usage.tsx", code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
+  const build = (node) => {
+    const out = []
+    const visit = (n) => {
+      if (ts.isJsxElement(n) || ts.isJsxSelfClosingElement(n)) {
+        const tag = (ts.isJsxElement(n) ? n.openingElement : n).tagName.getText(sf)
+        const kids = ts.isJsxElement(n) ? n.children.flatMap((c) => build(c)) : []
+        if (parts.has(tag)) {
+          out.push({ tag, kids })
+          return
+        }
+        out.push(...kids)
+        return
+      }
+      ts.forEachChild(n, visit)
+    }
+    visit(node)
+    return out
+  }
+  const fn = sf.statements.find((s) => ts.isFunctionDeclaration(s) && s.modifiers?.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword)) ?? sf
+  const key = (n) => n.tag + "(" + n.kids.map(key).join(",") + ")"
+  const dedupe = (nodes) => nodes.filter((n, i) => i === 0 || key(n) !== key(nodes[i - 1])).map((n) => ({ ...n, kids: dedupe(n.kids) }))
+  const roots = dedupe(build(fn))
+  if (!roots.length) return null
+  const lines = []
+  const draw = (n, prefix, last, top) => {
+    lines.push(top ? n.tag : `${prefix}${last ? "└── " : "├── "}${n.tag}`)
+    const next = top ? "" : prefix + (last ? "    " : "│   ")
+    n.kids.forEach((k, i) => draw(k, next, i === n.kids.length - 1, false))
+  }
+  roots.forEach((r) => draw(r, "", true, true))
+  return lines.join("\n")
+}
+const usageOrder = (tree) => (tree ? [...new Set(tree.split("\n").map((l) => l.replace(/^[\s│├└─]+/, "")))] : [])
+
+const SPEED_TYPE = '"fast" | "normal" | "slow" | number'
+
+function rootPart(slug, api) {
+  return api.parts.find((p) => p.props.some((x) => x.name === "speed"))?.name ?? null
+}
+
+function speedSnippet(slug, root) {
+  if (slug === "toast") return `<ToastRegion speed="fast" />`
+  if (slug === "motion-style") return `<MotionStyleSwitcher speed="fast" />`
+  return `<${root} speed="fast">\n  …\n</${root}>`
+}
+
+/* One table per part that has props of its own, the root first; the rest in one line. */
+function apiSections(api, order) {
+  const rank = (name) => {
+    const i = order.indexOf(name)
+    return i === -1 ? 999 : i
+  }
+  const withProps = api.parts.filter((p) => p.props.length).sort((a, b) => rank(a.name) - rank(b.name))
+  const plain = api.parts.filter((p) => !p.props.length).sort((a, b) => rank(a.name) - rank(b.name))
+  const out = []
+  for (const part of withProps) {
+    const rows = part.props.map((p) => ({ ...p, type: p.name === "speed" ? SPEED_TYPE : p.type, full: p.name === "speed" ? undefined : p.full }))
+    out.push(`### ${part.name}`, "")
+    if (part.element) out.push(`Renders a \`<${part.element}>\`, and takes its props too.`, "")
+    out.push(`<PropsTable rows={${JSON.stringify(rows.map(({ name, type, full, default: d, description, required }) => ({ name, type, full, default: d, description, required })))}} />`, "")
+  }
+  if (plain.length)
+    out.push(
+      withProps.length ? "### Other parts" : "### Parts",
+      "",
+      "These take the props of the element they render, and nothing else:",
+      "",
+      ...plain.map((p) => `- \`${p.name}\`${p.element && p.element !== "element" ? `: a \`<${p.element}>\`` : ""}`),
+      "",
+    )
+  return out
+}
+
+/* What the registry says this component needs, so the Manual tab can list it. */
+const registry = fs.existsSync(path.join(root, "registry.json")) ? JSON.parse(read("registry.json")) : { items: [] }
+function registryItem(slug) {
+  const item = registry.items.find((i) => i.name === slug) ?? {}
+  const npm = [...new Set([...(item.dependencies ?? []), "clsx", "tailwind-merge"])]
+  const local = (item.registryDependencies ?? []).map((d) => d.replace("@keyframery/", "")).filter((d) => d !== "motion")
+  return { npm, local }
+}
+
 /* The names a file exports with `export { A, B }` (types left out). */
 function exportsOf(code) {
   const names = []
@@ -52,6 +150,10 @@ const slugs = fs
   .sort()
 
 for (const f of fs.readdirSync(out)) if (f.endsWith(".mdx") && f !== "index.mdx") fs.rmSync(path.join(out, f))
+
+const props = readProps(root, slugs)
+const keyboard = fs.existsSync(path.join(root, "content/keyboard.json")) ? JSON.parse(read("content/keyboard.json")) : {}
+const hookDocs = JSON.parse(read("content/prop-docs.json"))
 
 for (const slug of slugs) {
   const demo = read(`src/demos/${slug}.tsx`)
@@ -91,6 +193,16 @@ for (const slug of slugs) {
     { q: `What happens to the ${name} when someone turns on reduced motion?`, a: "Nothing moves. State changes happen at once, or with a short fade." },
   ].filter(Boolean)
 
+  const usageFile = `src/examples/${slug}/usage.tsx`
+  const usage = fs.existsSync(path.join(root, usageFile)) ? exampleCode(read(usageFile)) : null
+  const tree = usage ? anatomy(usage, new Set(parts)) : null
+  const exampleFiles = fs.existsSync(path.join(root, "src/examples", slug))
+    ? fs.readdirSync(path.join(root, "src/examples", slug)).filter((f) => /^\d+-[\w-]+\.tsx$/.test(f)).sort()
+    : []
+  const api = props[slug]
+  const keys = keyboard[slug] ?? []
+  const deps = registryItem(slug)
+
   const page = [
     "---",
     `title: ${yaml(name)}`,
@@ -109,68 +221,45 @@ for (const slug of slugs) {
     "",
     "## Installation",
     "",
+    '<Tabs items={["CLI", "Manual"]}>',
+    '<Tab value="CLI">',
+    "",
     fence("npm", `npx shadcn@latest add @keyframery/${slug}`),
     "",
-    `This adds \`components/keyframery/${slug}.tsx\` and its primitive, \`components/keyframery/primitives/${slug}.tsx\`, to your project${sdk ? ", and installs `@ui-sdk/react`" : ""}. The motion tokens are added to your global CSS the first time you install a component.`,
+    `This adds \`components/keyframery/${slug}.tsx\` and its primitive to your project${sdk ? ", and installs UI SDK" : ""}${deps.local.length ? `, along with ${deps.local.map((d) => `[${d}](/docs/components/${d})`).join(", ")}, which it builds on` : ""}. The motion tokens are added to your global CSS the first time you install a component.`,
     "",
-    "## Usage",
+    "</Tab>",
+    '<Tab value="Manual">',
     "",
-    fence("tsx", importLine(`@/components/keyframery/${slug}`)),
+    "<Steps>",
+    "<Step>",
     "",
-    sdk
-      ? `The parts and props are the same as UI SDK's ${sdk === slug ? name : `\`${sdk}\``}. For every prop, see the [UI SDK ${sdk === slug ? lower : sdk} reference](https://ui-sdk.dev/docs/components/${sdk}).`
-      : `UI SDK has no ${lower} component, so this one is built from plain elements with the same two layers as the rest: a primitive that holds the motion, and a finished component on top.`,
+    "**Install the dependencies**",
     "",
-    ...(dateSlugs.includes(slug)
-      ? [
-          '<Callout title="Next.js with cacheComponents">',
-          "",
-          `The ${lower} reads today's date while it renders. With \`cacheComponents\` turned on, render it inside \`<Suspense>\` after \`await connection()\`. [See the fix](/docs/troubleshooting#nextjs-stops-with-unstable-value-datenow).`,
-          "",
-          "</Callout>",
-          "",
-        ]
+    fence("npm", `npm install ${deps.npm.join(" ")}`),
+    "",
+    "</Step>",
+    "<Step>",
+    "",
+    "**Add the motion tokens**",
+    "",
+    "Copy the [motion tokens](/docs/installation#what-the-cli-adds-to-your-css) into your global CSS, and this file into `lib/keyframery.tsx`. Every component shares them.",
+    "",
+    "<Accordions>",
+    '<Accordion title="lib/keyframery.tsx">',
+    "",
+    fence("tsx", read("src/lib/keyframery.tsx")),
+    "",
+    "</Accordion>",
+    "</Accordions>",
+    "",
+    "</Step>",
+    ...(deps.local.length
+      ? ["<Step>", "", "**Add what it builds on**", "", `Install ${deps.local.map((d) => `[${d}](/docs/components/${d})`).join(", ")} the same way first.`, "", "</Step>"]
       : []),
-    ...(moves.length
-      ? [
-          "## What moves",
-          "",
-          "| Move | What you see |",
-          "| --- | --- |",
-          ...moves.map(([m, text]) => `| **${m}** | ${text} |`),
-          "",
-          "Timing and springiness follow the [motion style](/docs/motion-styles) you set, so this component moves like the rest of your app.",
-          "",
-        ]
-      : []),
-    ...(sdk
-      ? [
-          "## Swap the import",
-          "",
-          `Already using UI SDK's ${sdk === slug ? lower : sdk} with your own styles? Keep your markup and change one line. The primitive adds motion and nothing else.`,
-          "",
-          fence(
-            "tsx",
-            `// Before\nimport { … } from "@ui-sdk/react/${sdk}"\n\n// After: same parts, same props, now animated\nimport { … } from "@/components/keyframery/primitives/${slug}"`,
-          ),
-          "",
-        ]
-      : []),
-    "## Parts",
+    "<Step>",
     "",
-    `The finished component exports ${parts.length === 1 ? "one part" : `${parts.length} parts`}:`,
-    "",
-    parts.map((p) => `\`${p}\``).join(", "),
-    "",
-    "## Accessibility",
-    "",
-    sdk
-      ? `Keyboard, focus and screen-reader behaviour come from UI SDK and are not changed. With reduced motion turned on, nothing in the ${lower} moves: changes happen at once or with a short fade. More in [Accessibility](/docs/accessibility).`
-      : `With reduced motion turned on, nothing in the ${lower} moves: changes happen at once or with a short fade. More in [Accessibility](/docs/accessibility).`,
-    "",
-    "## Source",
-    "",
-    "The code that lands in your project. It is yours to change.",
+    "**Copy the component**",
     "",
     "<Accordions>",
     `<Accordion title="components/keyframery/${slug}.tsx">`,
@@ -185,6 +274,108 @@ for (const slug of slugs) {
     "</Accordion>",
     "</Accordions>",
     "",
+    "</Step>",
+    "<Step>",
+    "",
+    "**Check the import paths**",
+    "",
+    "The files import from `@/components/keyframery/…` and `@/lib/…`. Change those if your project's aliases differ.",
+    "",
+    "</Step>",
+    "</Steps>",
+    "",
+    "</Tab>",
+    "</Tabs>",
+    "",
+    "## Usage",
+    "",
+    fence("tsx", usage ?? importLine(`@/components/keyframery/${slug}`)),
+    "",
+    ...(dateSlugs.includes(slug)
+      ? [
+          '<Callout title="Next.js with cacheComponents">',
+          "",
+          `The ${lower} reads today's date while it renders. With \`cacheComponents\` turned on, render it inside \`<Suspense>\` after \`await connection()\`. [See the fix](/docs/troubleshooting#nextjs-stops-with-unstable-value-datenow).`,
+          "",
+          "</Callout>",
+          "",
+        ]
+      : []),
+    ...(tree && tree.split("\n").length > 2
+      ? ["### Anatomy", "", "How the parts fit together:", "", fence("text", tree), ""]
+      : []),
+    ...(exampleFiles.length
+      ? [
+          "## Examples",
+          "",
+          ...exampleFiles.flatMap((f) => {
+            const code = read(`src/examples/${slug}/${f}`)
+            const { title, about } = exampleHeader(code)
+            const key = `${slug}/${f.replace(/^\d+-|\.tsx$/g, "")}`
+            return [`### ${title}`, "", ...(about ? [about, ""] : []), `<ExamplePreview name="${key}">`, "", fence("tsx", exampleCode(code)), "", "</ExamplePreview>", ""]
+          }),
+        ]
+      : []),
+    ...(moves.length
+      ? [
+          "## Motion",
+          "",
+          "| Move | What you see |",
+          "| --- | --- |",
+          ...moves.map(([m, text]) => `| **${m}** | ${text} |`),
+          "",
+          `Timing and springiness follow the [motion style](/docs/motion-styles) you set. To change how fast this ${lower} moves, pass \`speed\`:`,
+          "",
+          fence("tsx", speedSnippet(slug, rootPart(slug, api))),
+          "",
+          '`"fast"` is 0.6×, `"slow"` 1.4×, and a number sets the multiplier. With reduced motion turned on, nothing moves: changes happen at once or with a short fade.',
+          "",
+        ]
+      : []),
+    "## API reference",
+    "",
+    sdk
+      ? `Every part takes \`className\` and \`children\`. Parts from UI SDK also take \`render\`, to draw your own element, and a function of their state for \`className\` and \`style\`. Props not listed here are in the [UI SDK ${sdk === slug ? lower : sdk} reference](https://ui-sdk.dev/docs/components/${sdk}).`
+      : "Every part takes `className` and `children`, along with the props of the element it renders.",
+    "",
+    ...apiSections(api, usageOrder(tree)),
+    ...(api.hooks.length
+      ? [
+          "## Hooks",
+          "",
+          ...api.hooks.flatMap((h) => [
+            `### ${h.name}`,
+            "",
+            hookDocs[h.name] ?? "Call it inside the component to read and change its state.",
+            "",
+            ...(h.fields.length
+              ? [`<PropsTable rows={${JSON.stringify(h.fields.map((f) => ({ name: f.name, type: f.type, description: f.description || hookDocs[`${h.name}.${f.name}`] || "" })))}} />`, ""]
+              : []),
+          ]),
+        ]
+      : []),
+    ...(keys.length
+      ? ["## Keyboard", "", "| Key | What it does |", "| --- | --- |", ...keys.map(([k, what]) => `| ${k.split(" + ").map((x) => `<kbd>${x}</kbd>`).join(" + ")} | ${what} |`), ""]
+      : []),
+    "## Accessibility",
+    "",
+    sdk
+      ? `Keyboard, focus and screen-reader behaviour come from UI SDK and are not changed. More in [Accessibility](/docs/accessibility).`
+      : `Focus is visible on every interactive part, and state is announced through the matching ARIA attributes. More in [Accessibility](/docs/accessibility).`,
+    "",
+    ...(sdk
+      ? [
+          "## Swap the import",
+          "",
+          `Already using UI SDK's ${sdk === slug ? lower : sdk} with your own styles? Keep your markup and change one line. The primitive adds motion and nothing else.`,
+          "",
+          fence(
+            "tsx",
+            `// Before\nimport { … } from "@ui-sdk/react/${sdk}"\n\n// After: same parts, same props, now animated\nimport { … } from "@/components/keyframery/primitives/${slug}"`,
+          ),
+          "",
+        ]
+      : []),
   ].join("\n")
 
   fs.writeFileSync(path.join(out, `${slug}.mdx`), page)

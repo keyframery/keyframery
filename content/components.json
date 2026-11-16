@@ -48,6 +48,7 @@
   "skeleton": "A shimmering placeholder that cross-fades to the real content, which rises in out of a blur.",
   "slider": "The thumb grows while you drag, the fill springs to new values and the digits roll.",
   "switch": "The thumb stretches toward the side it is moving to, then settles.",
+  "table": "Rows cascade in, a sortable header's arrow turns over on a spring, and selected rows fade in. On a phone it scrolls sideways with a soft edge.",
   "tabs": "The key stretches across the list to the tab you pick, and the panel slides in from that side.",
   "textarea": "The focus ring closes in on a spring and the character count rolls.",
   "time-input": "One highlight glides between hours, minutes and AM/PM as you move.",

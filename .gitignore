@@ -16,6 +16,7 @@ shots
 /registry.json
 /public/r
 /site/lib/demo-loaders.ts
+/site/lib/example-loaders.ts
 /content/docs/components/*.mdx
 !/content/docs/components/index.mdx
 .source

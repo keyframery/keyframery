@@ -10,12 +10,17 @@ import {
 } from "@/components/primitives/hover-card"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* Keeps UI SDK's default delays (calc(600ms*var(--kf-speed,1)) to open, 300ms to close), so moving the pointer
    across a page of links never flashes a card at every stop. */
-function HoverCard(props: React.ComponentProps<typeof HoverCardRoot>) {
-  return <HoverCardRoot {...props} />
+function HoverCard({ speed, ...props }: React.ComponentProps<typeof HoverCardRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <HoverCardRoot {...props} />
+    </Speed>
+  )
 }
 
 /* A link. Its underline firms up on hover and stays firm while its card is showing. */
@@ -42,6 +47,7 @@ function HoverCardTrigger({
 function HoverCardContent<Payload = unknown>({
   className,
   sideOffset = 8,
+  style,
   ...props
 }: React.ComponentProps<typeof HoverCardContentPart<Payload>>) {
   return (
@@ -54,7 +60,7 @@ function HoverCardContent<Payload = unknown>({
         "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }

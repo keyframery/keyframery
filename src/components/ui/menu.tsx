@@ -24,6 +24,7 @@ import {
 } from "@/components/primitives/menu"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The sheet. Its motion (unfold, cascade, the gliding highlight) comes from the primitive;
@@ -85,8 +86,12 @@ function Check() {
   )
 }
 
-function Menu(props: React.ComponentProps<typeof MenuRoot>) {
-  return <MenuRoot {...props} />
+function Menu({ speed, ...props }: React.ComponentProps<typeof MenuRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <MenuRoot {...props} />
+    </Speed>
+  )
 }
 
 /* A key by default. Pass `render` to use a button of your own instead. */
@@ -133,13 +138,14 @@ function MenuContextTrigger({
 function MenuContent<Payload = unknown>({
   className,
   sideOffset = 6,
+  style,
   ...props
 }: React.ComponentProps<typeof MenuContentPart<Payload>>) {
   return (
     <MenuContentPart<Payload>
       sideOffset={sideOffset}
       className={cn(sheet, className)}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }
@@ -295,13 +301,14 @@ function MenuSubTrigger({
 function MenuSubContent<Payload = unknown>({
   className,
   sideOffset = 8,
+  style,
   ...props
 }: React.ComponentProps<typeof MenuSubContentPart<Payload>>) {
   return (
     <MenuSubContentPart<Payload>
       sideOffset={sideOffset}
       className={cn(sheet, className)}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }

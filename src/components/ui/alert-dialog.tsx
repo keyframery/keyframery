@@ -14,6 +14,7 @@ import {
 } from "@/components/primitives/alert-dialog"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 type AlertDialogCloseVariant = "default" | "primary" | "destructive"
@@ -62,8 +63,12 @@ const closeVariants: Record<AlertDialogCloseVariant, string> = {
 
 const swap = "transition-[opacity,scale,filter] duration-[calc(200ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none!"
 
-function AlertDialog(props: React.ComponentProps<typeof AlertDialogRoot>) {
-  return <AlertDialogRoot {...props} />
+function AlertDialog({ speed, ...props }: React.ComponentProps<typeof AlertDialogRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <AlertDialogRoot {...props} />
+    </Speed>
+  )
 }
 
 /* A key by default, in red for `variant="destructive"`. Pass `render` to use your own button. */
@@ -97,6 +102,7 @@ function AlertDialogTrigger({
 
 function AlertDialogBackdrop({
   className,
+  style,
   ...props
 }: React.ComponentProps<typeof AlertDialogBackdropPart>) {
   return (
@@ -105,7 +111,7 @@ function AlertDialogBackdrop({
         "fixed inset-0 bg-black/25 dark:bg-black/55",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }
@@ -113,6 +119,7 @@ function AlertDialogBackdrop({
 /* The same sheet as the dialog. The primitive unfolds it from below and cascades its sections in. */
 function AlertDialogContent({
   className,
+  style,
   ...props
 }: React.ComponentProps<typeof AlertDialogContentPart>) {
   return (
@@ -125,7 +132,7 @@ function AlertDialogContent({
         "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_24px_56px_-12px_rgb(0_0_0/0.8)]",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }

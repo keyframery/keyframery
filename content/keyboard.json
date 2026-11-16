@@ -1,0 +1,877 @@
+{
+  "$comment": "Keyboard table for each component's docs page: [keys, what it does]. Join keys pressed together with ' + '.",
+  "accordion": [
+    [
+      "Enter",
+      "Opens or closes the focused item."
+    ],
+    [
+      "Space",
+      "Opens or closes the focused item."
+    ],
+    [
+      "↓",
+      "Moves to the next item's trigger."
+    ],
+    [
+      "↑",
+      "Moves to the previous item's trigger."
+    ],
+    [
+      "Home",
+      "Moves to the first trigger."
+    ],
+    [
+      "End",
+      "Moves to the last trigger."
+    ]
+  ],
+  "alert-dialog": [
+    [
+      "Enter",
+      "Presses the focused button."
+    ],
+    [
+      "Tab",
+      "Moves between the dialog's buttons. Focus stays inside."
+    ],
+    [
+      "Escape",
+      "Does nothing: an alert dialog needs an answer."
+    ]
+  ],
+  "autocomplete": [
+    [
+      "↓",
+      "Opens the list, or moves to the next suggestion."
+    ],
+    [
+      "↑",
+      "Moves to the previous suggestion."
+    ],
+    [
+      "Enter",
+      "Accepts the highlighted suggestion."
+    ],
+    [
+      "Escape",
+      "Closes the list, or clears the field if it's already closed."
+    ],
+    [
+      "Tab",
+      "Accepts the inline completion, when there is one."
+    ]
+  ],
+  "avatar": [],
+  "badge": [],
+  "button": [
+    [
+      "Enter",
+      "Presses the button."
+    ],
+    [
+      "Space",
+      "Presses the button."
+    ]
+  ],
+  "calendar": [
+    [
+      "← →",
+      "Moves a day back or forward."
+    ],
+    [
+      "↑ ↓",
+      "Moves a week back or forward."
+    ],
+    [
+      "Page Up",
+      "Moves to the previous month."
+    ],
+    [
+      "Page Down",
+      "Moves to the next month."
+    ],
+    [
+      "Home",
+      "Moves to the start of the week."
+    ],
+    [
+      "End",
+      "Moves to the end of the week."
+    ],
+    [
+      "Enter",
+      "Selects the focused day."
+    ]
+  ],
+  "card": [],
+  "carousel": [
+    [
+      "←",
+      "Moves to the previous slide."
+    ],
+    [
+      "→",
+      "Moves to the next slide."
+    ],
+    [
+      "Tab",
+      "Moves between the buttons and indicators."
+    ]
+  ],
+  "checkbox": [
+    [
+      "Space",
+      "Checks or unchecks it."
+    ]
+  ],
+  "collapsible": [
+    [
+      "Enter",
+      "Opens or closes the panel."
+    ],
+    [
+      "Space",
+      "Opens or closes the panel."
+    ]
+  ],
+  "color-picker": [
+    [
+      "← →",
+      "Moves the focused thumb a step."
+    ],
+    [
+      "↑ ↓",
+      "Moves the area's thumb up and down a step."
+    ],
+    [
+      "Shift + ←",
+      "Moves ten steps at a time."
+    ],
+    [
+      "Home",
+      "Moves the slider to its start."
+    ],
+    [
+      "End",
+      "Moves the slider to its end."
+    ],
+    [
+      "Escape",
+      "Closes the popover."
+    ]
+  ],
+  "combobox": [
+    [
+      "↓",
+      "Opens the list, or moves to the next item."
+    ],
+    [
+      "↑",
+      "Moves to the previous item."
+    ],
+    [
+      "Enter",
+      "Selects the highlighted item."
+    ],
+    [
+      "Backspace",
+      "With several values, removes the last chip when the field is empty."
+    ],
+    [
+      "Escape",
+      "Closes the list."
+    ]
+  ],
+  "command": [
+    [
+      "↓",
+      "Moves to the next item."
+    ],
+    [
+      "↑",
+      "Moves to the previous item."
+    ],
+    [
+      "Enter",
+      "Runs the highlighted item."
+    ],
+    [
+      "Backspace",
+      "Goes back a page when the search is empty."
+    ],
+    [
+      "Escape",
+      "Clears the search, or goes back a page."
+    ]
+  ],
+  "context-menu": [
+    [
+      "Shift + F10",
+      "Opens the menu on the focused area."
+    ],
+    [
+      "↓ ↑",
+      "Moves between items."
+    ],
+    [
+      "→",
+      "Opens a submenu."
+    ],
+    [
+      "←",
+      "Closes a submenu."
+    ],
+    [
+      "Enter",
+      "Chooses the highlighted item."
+    ],
+    [
+      "Escape",
+      "Closes the menu."
+    ]
+  ],
+  "date-input": [
+    [
+      "← →",
+      "Moves between day, month and year."
+    ],
+    [
+      "↑ ↓",
+      "Steps the focused part."
+    ],
+    [
+      "Backspace",
+      "Clears the focused part."
+    ]
+  ],
+  "date-picker": [
+    [
+      "Alt + ↓",
+      "Opens the calendar."
+    ],
+    [
+      "← → ↑ ↓",
+      "Moves between days in the calendar."
+    ],
+    [
+      "Enter",
+      "Picks the focused day."
+    ],
+    [
+      "Escape",
+      "Closes the calendar."
+    ]
+  ],
+  "dialog": [
+    [
+      "Tab",
+      "Moves between the dialog's controls. Focus stays inside."
+    ],
+    [
+      "Escape",
+      "Closes the dialog."
+    ]
+  ],
+  "drawer": [
+    [
+      "Tab",
+      "Moves between the drawer's controls. Focus stays inside."
+    ],
+    [
+      "Escape",
+      "Closes the drawer."
+    ]
+  ],
+  "field": [],
+  "file-input": [
+    [
+      "Enter",
+      "Opens the file chooser from the trigger or the dropzone."
+    ],
+    [
+      "Space",
+      "Opens the file chooser."
+    ],
+    [
+      "Delete",
+      "Removes the focused file."
+    ]
+  ],
+  "hover-card": [
+    [
+      "Tab",
+      "Opens the card when the link gets focus."
+    ],
+    [
+      "Escape",
+      "Closes the card."
+    ]
+  ],
+  "image-cropper": [
+    [
+      "← → ↑ ↓",
+      "Moves the selection, or resizes it from a focused handle."
+    ],
+    [
+      "Shift + ←",
+      "Moves ten pixels at a time."
+    ],
+    [
+      "+",
+      "Zooms in."
+    ],
+    [
+      "-",
+      "Zooms out."
+    ]
+  ],
+  "input": [
+    [
+      "Escape",
+      "Clears the field, when it has a clear button."
+    ]
+  ],
+  "kbd": [],
+  "label": [],
+  "listbox": [
+    [
+      "↓ ↑",
+      "Moves between items, and selects with one choice."
+    ],
+    [
+      "Space",
+      "Toggles the focused item with several choices."
+    ],
+    [
+      "Shift + ↓",
+      "Extends the selection."
+    ],
+    [
+      "Home",
+      "Moves to the first item."
+    ],
+    [
+      "End",
+      "Moves to the last item."
+    ],
+    [
+      "A–Z",
+      "Jumps to the next item starting with that letter."
+    ]
+  ],
+  "menu": [
+    [
+      "Enter",
+      "Opens the menu from its trigger, or chooses an item."
+    ],
+    [
+      "↓ ↑",
+      "Moves between items."
+    ],
+    [
+      "→",
+      "Opens a submenu."
+    ],
+    [
+      "←",
+      "Closes a submenu."
+    ],
+    [
+      "A–Z",
+      "Jumps to the next item starting with that letter."
+    ],
+    [
+      "Escape",
+      "Closes the menu."
+    ]
+  ],
+  "menubar": [
+    [
+      "← →",
+      "Moves between the bar's menus, and opens the next one if a menu is open."
+    ],
+    [
+      "↓",
+      "Opens the focused menu."
+    ],
+    [
+      "Enter",
+      "Chooses the highlighted item."
+    ],
+    [
+      "Escape",
+      "Closes the menu."
+    ]
+  ],
+  "meter": [],
+  "motion-style": [
+    [
+      "← →",
+      "Moves to the previous or next style."
+    ]
+  ],
+  "navigation-menu": [
+    [
+      "Enter",
+      "Opens the focused trigger's panel."
+    ],
+    [
+      "← →",
+      "Moves between triggers."
+    ],
+    [
+      "↓",
+      "Moves into the open panel."
+    ],
+    [
+      "Tab",
+      "Moves through the panel's links."
+    ],
+    [
+      "Escape",
+      "Closes the panel."
+    ]
+  ],
+  "number-input": [
+    [
+      "↑",
+      "Adds a step."
+    ],
+    [
+      "↓",
+      "Takes a step away."
+    ],
+    [
+      "Shift + ↑",
+      "Adds ten steps."
+    ],
+    [
+      "Page Up",
+      "Adds ten steps."
+    ],
+    [
+      "Home",
+      "Jumps to the minimum."
+    ],
+    [
+      "End",
+      "Jumps to the maximum."
+    ]
+  ],
+  "otp-input": [
+    [
+      "0–9",
+      "Fills the slot and moves to the next."
+    ],
+    [
+      "Backspace",
+      "Clears the slot and moves back."
+    ],
+    [
+      "← →",
+      "Moves between slots."
+    ]
+  ],
+  "pagination": [
+    [
+      "Tab",
+      "Moves between the page links."
+    ],
+    [
+      "Enter",
+      "Goes to the focused page."
+    ]
+  ],
+  "password-input": [
+    [
+      "Enter",
+      "Shows or hides the password, from the toggle."
+    ]
+  ],
+  "popover": [
+    [
+      "Enter",
+      "Opens the popover from its trigger."
+    ],
+    [
+      "Tab",
+      "Moves through the popover's controls."
+    ],
+    [
+      "Escape",
+      "Closes the popover and returns focus to the trigger."
+    ]
+  ],
+  "progress": [],
+  "radio": [
+    [
+      "↓ →",
+      "Selects the next option."
+    ],
+    [
+      "↑ ←",
+      "Selects the previous option."
+    ],
+    [
+      "Space",
+      "Selects the focused option."
+    ]
+  ],
+  "rating": [
+    [
+      "→ ↑",
+      "Adds a star."
+    ],
+    [
+      "← ↓",
+      "Takes a star away."
+    ],
+    [
+      "Home",
+      "Sets the lowest rating."
+    ],
+    [
+      "End",
+      "Sets the highest rating."
+    ]
+  ],
+  "resizable": [
+    [
+      "← →",
+      "Moves the focused handle."
+    ],
+    [
+      "Shift + ←",
+      "Moves ten steps at a time."
+    ],
+    [
+      "Home",
+      "Shrinks the panel before the handle as far as it goes."
+    ],
+    [
+      "End",
+      "Grows it as far as it goes."
+    ],
+    [
+      "Enter",
+      "Collapses or restores a collapsible panel."
+    ]
+  ],
+  "scroll-area": [
+    [
+      "↓ ↑",
+      "Scrolls, once the area has focus."
+    ],
+    [
+      "Page Down",
+      "Scrolls a page."
+    ],
+    [
+      "Home",
+      "Scrolls to the start."
+    ],
+    [
+      "End",
+      "Scrolls to the end."
+    ]
+  ],
+  "segmented-control": [
+    [
+      "← →",
+      "Selects the previous or next option."
+    ],
+    [
+      "Home",
+      "Selects the first option."
+    ],
+    [
+      "End",
+      "Selects the last option."
+    ]
+  ],
+  "select": [
+    [
+      "Enter",
+      "Opens the list, or chooses the highlighted item."
+    ],
+    [
+      "↓ ↑",
+      "Moves between items."
+    ],
+    [
+      "A–Z",
+      "Jumps to an item starting with that letter."
+    ],
+    [
+      "Escape",
+      "Closes the list."
+    ]
+  ],
+  "separator": [],
+  "sidebar": [
+    [
+      "Tab",
+      "Moves between the trigger and the items."
+    ],
+    [
+      "Enter",
+      "Opens the focused item, or folds a collapsible group from its label."
+    ],
+    [
+      "Escape",
+      "Closes the sidebar while it is a sheet on a phone."
+    ]
+  ],
+  "skeleton": [],
+  "slider": [
+    [
+      "← →",
+      "Moves the focused thumb a step."
+    ],
+    [
+      "Shift + ←",
+      "Moves ten steps at a time."
+    ],
+    [
+      "Page Up",
+      "Moves ten steps."
+    ],
+    [
+      "Home",
+      "Moves to the minimum."
+    ],
+    [
+      "End",
+      "Moves to the maximum."
+    ]
+  ],
+  "switch": [
+    [
+      "Space",
+      "Turns it on or off."
+    ],
+    [
+      "Enter",
+      "Turns it on or off."
+    ]
+  ],
+  "table": [
+    [
+      "Tab",
+      "Moves between the sort buttons, checkboxes and links in the table."
+    ],
+    [
+      "Enter",
+      "Sorts by the focused column."
+    ],
+    [
+      "Space",
+      "Ticks the focused row's checkbox."
+    ],
+    [
+      "Shift + scroll",
+      "Scrolls a wide table sideways."
+    ]
+  ],
+  "tabs": [
+    [
+      "← →",
+      "Moves to the previous or next tab."
+    ],
+    [
+      "Home",
+      "Moves to the first tab."
+    ],
+    [
+      "End",
+      "Moves to the last tab."
+    ],
+    [
+      "Enter",
+      "Selects the focused tab, with manual activation."
+    ]
+  ],
+  "textarea": [
+    [
+      "Enter",
+      "Sends, when `submitShortcut` is `\"enter\"`. Shift + Enter adds a line."
+    ],
+    [
+      "Mod + Enter",
+      "Sends, when `submitShortcut` is `\"mod+enter\"`."
+    ]
+  ],
+  "time-input": [
+    [
+      "← →",
+      "Moves between hours and minutes."
+    ],
+    [
+      "↑ ↓",
+      "Steps the focused part."
+    ],
+    [
+      "Backspace",
+      "Clears the focused part."
+    ]
+  ],
+  "timeline": [
+    [
+      "↓ ↑",
+      "Moves between events, in a feed."
+    ],
+    [
+      "Page Down",
+      "Moves to the next event."
+    ]
+  ],
+  "toast": [
+    [
+      "F6",
+      "Moves focus to the toasts."
+    ],
+    [
+      "Tab",
+      "Moves between a toast's buttons."
+    ],
+    [
+      "Escape",
+      "Dismisses the focused toast."
+    ]
+  ],
+  "toggle": [
+    [
+      "Space",
+      "Turns it on or off."
+    ],
+    [
+      "Enter",
+      "Turns it on or off."
+    ],
+    [
+      "← →",
+      "Moves between toggles in a group."
+    ]
+  ],
+  "token-input": [
+    [
+      "Enter",
+      "Sends, when `onSubmit` is set."
+    ],
+    [
+      "Backspace",
+      "Removes the token before the caret."
+    ],
+    [
+      "← →",
+      "Moves past tokens."
+    ],
+    [
+      "Mod + Z",
+      "Undoes the last change."
+    ]
+  ],
+  "toolbar": [
+    [
+      "← →",
+      "Moves between the toolbar's controls."
+    ],
+    [
+      "Home",
+      "Moves to the first control."
+    ],
+    [
+      "End",
+      "Moves to the last control."
+    ],
+    [
+      "Tab",
+      "Leaves the toolbar."
+    ]
+  ],
+  "tooltip": [
+    [
+      "Tab",
+      "Opens the tooltip when its trigger gets focus."
+    ],
+    [
+      "Escape",
+      "Closes the tooltip."
+    ]
+  ],
+  "tree": [
+    [
+      "↓ ↑",
+      "Moves between visible items."
+    ],
+    [
+      "→",
+      "Opens a folder, or moves into it."
+    ],
+    [
+      "←",
+      "Closes a folder, or moves to its parent."
+    ],
+    [
+      "Enter",
+      "Selects the focused item."
+    ],
+    [
+      "Space",
+      "Checks the focused item, when checkable."
+    ],
+    [
+      "A–Z",
+      "Jumps to an item starting with that letter."
+    ]
+  ],
+  "trigger-menu": [
+    [
+      "@",
+      "Opens the menu, for each trigger character you set."
+    ],
+    [
+      "↓ ↑",
+      "Moves between items."
+    ],
+    [
+      "Enter",
+      "Inserts the highlighted item."
+    ],
+    [
+      "Tab",
+      "Inserts the highlighted item."
+    ],
+    [
+      "Ctrl + Space",
+      "Opens the menu where the caret is."
+    ],
+    [
+      "Escape",
+      "Closes the menu."
+    ]
+  ],
+  "waterfall": [
+    [
+      "↓ ↑",
+      "Moves between rows."
+    ],
+    [
+      "→",
+      "Opens a span with children."
+    ],
+    [
+      "←",
+      "Closes a span."
+    ],
+    [
+      "Home",
+      "Moves to the first row."
+    ],
+    [
+      "End",
+      "Moves to the last row."
+    ]
+  ]
+}

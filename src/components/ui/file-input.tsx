@@ -15,10 +15,15 @@ import {
   formatFileSize,
   relativePath,
 } from "@/components/primitives/file-input"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
-function FileInput({ className, ...props }: React.ComponentProps<typeof FileInputRoot>) {
-  return <FileInputRoot className={cn("flex min-w-0 flex-col gap-3", className)} {...props} />
+function FileInput({ speed, className, ...props }: React.ComponentProps<typeof FileInputRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <FileInputRoot className={cn("flex min-w-0 flex-col gap-3", className)} {...props} />
+    </Speed>
+  )
 }
 
 /* A dashed hairline at rest. While files are over it the line turns solid and the zone

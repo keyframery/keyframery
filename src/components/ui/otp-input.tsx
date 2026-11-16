@@ -11,23 +11,26 @@ import {
   OTPInputSlot as OTPInputSlotPrimitive,
   createOTPInputController,
 } from "@/components/primitives/otp-input"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* One invisible native input spans the root and takes every key, paste and autofill.
    The slots only draw it. The focus ring is the primitive's gliding ring, given the
    field's ring look here; it turns destructive while the code is invalid. */
-function OTPInput({ className, ...props }: React.ComponentProps<typeof OTPInputPrimitive>) {
+function OTPInput({ speed, className, ...props }: React.ComponentProps<typeof OTPInputPrimitive> & SpeedProps) {
   return (
-    <OTPInputPrimitive
-      className={cn(
-        "group/otp flex w-fit items-center gap-2",
-        "before:rounded-[10px] before:shadow-[0_0_0_1px_var(--ring),0_0_0_4px_color-mix(in_oklch,var(--ring)_25%,transparent)]",
-        "has-aria-invalid:before:shadow-[0_0_0_1px_var(--destructive),0_0_0_4px_color-mix(in_oklch,var(--destructive)_20%,transparent)]",
-        "data-disabled:cursor-not-allowed data-disabled:opacity-50",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <OTPInputPrimitive
+        className={cn(
+          "group/otp flex w-fit items-center gap-2",
+          "before:rounded-[10px] before:shadow-[0_0_0_1px_var(--ring),0_0_0_4px_color-mix(in_oklch,var(--ring)_25%,transparent)]",
+          "has-aria-invalid:before:shadow-[0_0_0_1px_var(--destructive),0_0_0_4px_color-mix(in_oklch,var(--destructive)_20%,transparent)]",
+          "data-disabled:cursor-not-allowed data-disabled:opacity-50",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

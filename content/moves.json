@@ -251,6 +251,12 @@
       ["Stretch", "The thumb stretches toward the side it is moving to, then settles."],
       ["Press", "It widens while you hold it."]
     ],
+    "table": [
+      ["Cascade", "Rows arrive one after another, and new rows do the same when the page or filter changes. Rows that only move, like after a sort, stay put."],
+      ["Spring", "A sortable header's arrow turns over when the direction flips."],
+      ["Fade", "Hover and selected rows fade their colour in and out."],
+      ["Direction", "Too wide for the screen, it scrolls sideways and the edge you can scroll toward softens."]
+    ],
     "tabs": [
       ["Stretch", "The key stretches across the list toward the tab you pick, then closes up."],
       ["Fade", "Label colours flip exactly at the key's edge as it passes."],

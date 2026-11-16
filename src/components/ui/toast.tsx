@@ -16,6 +16,7 @@ import {
 } from "@/components/primitives/toast"
 import * as React from "react"
 
+import { type SpeedProps, withSpeed } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* Every toast renders this unless the region is given children of its own. */
@@ -35,10 +36,12 @@ function defaultRenderToast(item: ToastData<React.ReactNode>) {
 
 /* The region: the primitive pins it and sizes it for the stack; this adds a focus ring. */
 function ToastRegion({
+  speed,
+  style,
   className,
   children = defaultRenderToast,
   ...props
-}: React.ComponentProps<typeof ToastRegionPrimitive>) {
+}: React.ComponentProps<typeof ToastRegionPrimitive> & SpeedProps) {
   return (
     <ToastRegionPrimitive
       className={cn(
@@ -47,6 +50,7 @@ function ToastRegion({
         className,
       )}
       {...props}
+      style={withSpeed(style, speed)}
     >
       {children}
     </ToastRegionPrimitive>

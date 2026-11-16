@@ -11,26 +11,30 @@ import {
 } from "@/components/primitives/meter"
 import * as React from "react"
 
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* Label and value share the first row; the track spans the row below.
    `high` works like the native meter's: a reading above it is the bad range,
    and only then does the meter use the destructive colour. */
 function Meter({
+  speed,
   className,
   high,
   ...props
-}: React.ComponentProps<typeof MeterRoot> & { high?: number }) {
+}: React.ComponentProps<typeof MeterRoot> & { high?: number } & SpeedProps) {
   const over = high !== undefined && props.value > high
   return (
-    <MeterRoot
-      data-high={over ? "" : undefined}
-      className={cn(
-        "group/meter grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-2",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <MeterRoot
+        data-high={over ? "" : undefined}
+        className={cn(
+          "group/meter grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-2",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

@@ -9,6 +9,7 @@ import {
   DateInputSegment as DateInputSegmentPrimitive,
   createDateInputController,
 } from "@/components/primitives/date-input"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The field look, as in Input: one hairline variable that hover, focus and invalid change. */
@@ -21,31 +22,34 @@ const fieldBox =
 
 /* The field. The ring follows whichever segment has focus; invalid wins over focus. */
 function DateInput({
+  speed,
   className,
   children,
   ...props
-}: React.ComponentProps<typeof DateInputPrimitive>) {
+}: React.ComponentProps<typeof DateInputPrimitive> & SpeedProps) {
   return (
-    <DateInputPrimitive
-      className={cn(
-        fieldBox,
-        "inline-flex h-9 w-fit min-w-0 cursor-text items-center px-2 text-foreground tabular-nums",
-        "has-[input:focus-visible]:ring-[3px] has-[input:focus-visible]:ring-ring/25 has-[input:focus-visible]:[--field-line:var(--ring)] dark:has-[input:focus-visible]:[--field-line:var(--ring)]",
-        "data-invalid:ring-destructive/25! data-invalid:[--field-line:var(--destructive)]!",
-        "data-readonly:bg-muted/50",
-        /* The highlight the primitive glides under the focused segment. */
-        "before:rounded-[6px] before:bg-accent",
-        "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:text-muted-foreground data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
-        className,
-      )}
-      {...props}
-    >
-      {children ??
-        ((state) =>
-          state.segments.map((segment) => (
-            <DateInputSegment key={segment.key} segment={segment} />
-          )))}
-    </DateInputPrimitive>
+    <Speed speed={speed}>
+      <DateInputPrimitive
+        className={cn(
+          fieldBox,
+          "inline-flex h-9 w-fit min-w-0 cursor-text items-center px-2 text-foreground tabular-nums",
+          "has-[input:focus-visible]:ring-[3px] has-[input:focus-visible]:ring-ring/25 has-[input:focus-visible]:[--field-line:var(--ring)] dark:has-[input:focus-visible]:[--field-line:var(--ring)]",
+          "data-invalid:ring-destructive/25! data-invalid:[--field-line:var(--destructive)]!",
+          "data-readonly:bg-muted/50",
+          /* The highlight the primitive glides under the focused segment. */
+          "before:rounded-[6px] before:bg-accent",
+          "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:text-muted-foreground data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+          className,
+        )}
+        {...props}
+      >
+        {children ??
+          ((state) =>
+            state.segments.map((segment) => (
+              <DateInputSegment key={segment.key} segment={segment} />
+            )))}
+      </DateInputPrimitive>
+    </Speed>
   )
 }
 

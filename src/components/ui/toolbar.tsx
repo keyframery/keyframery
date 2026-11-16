@@ -14,6 +14,7 @@ import {
   ToolbarToggle as TogglePart,
   ToolbarToggleGroup as ToggleGroupPart,
 } from "@/components/primitives/toolbar"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* One box for everything you can press in the bar: buttons, links and toggles. */
@@ -30,22 +31,25 @@ const row =
   "flex items-center gap-0.5 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch"
 
 function Toolbar({
+  speed,
   className,
   ...props
-}: React.ComponentProps<typeof ToolbarRoot>) {
+}: React.ComponentProps<typeof ToolbarRoot> & SpeedProps) {
   return (
-    <ToolbarRoot
-      className={cn(
-        row,
-        "w-fit rounded-[12px] bg-popover p-1 text-popover-foreground",
-        /* The gliding highlight. */
-        "before:rounded-[8px] before:bg-accent dark:before:bg-accent/70",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
-        "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <ToolbarRoot
+        className={cn(
+          row,
+          "w-fit rounded-[12px] bg-popover p-1 text-popover-foreground",
+          /* The gliding highlight. */
+          "before:rounded-[8px] before:bg-accent dark:before:bg-accent/70",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
+          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

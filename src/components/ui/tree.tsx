@@ -16,6 +16,7 @@ import {
   type TreeMode,
   type TreeProps,
 } from "@/components/primitives/tree"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 const icon = {
@@ -31,30 +32,33 @@ const icon = {
 const CheckableContext = React.createContext(false)
 
 function Tree<Mode extends TreeMode = "single">({
+  speed,
   className,
   children,
   ...props
-}: TreeProps<Mode>) {
+}: TreeProps<Mode> & SpeedProps) {
   const { items, paths } = props
   const data = React.useMemo(
     () => items ?? (paths ? treeFromPaths(paths) : undefined),
     [items, paths],
   )
   return (
-    <CheckableContext.Provider value={!!props.checkable}>
-      <TreeRoot
-        className={cn(
-          "flex min-w-0 flex-col text-[13px] outline-none",
-          /* The two gliding surfaces: a light one under the pointer, the selected row's key. */
-          "before:rounded-[8px] before:bg-accent/45 dark:before:bg-accent/40",
-          "after:rounded-[8px] after:bg-accent dark:after:bg-accent",
-          className,
-        )}
-        {...props}
-      >
-        {children ?? (data ? <TreeItems items={data} /> : null)}
-      </TreeRoot>
-    </CheckableContext.Provider>
+    <Speed speed={speed}>
+      <CheckableContext.Provider value={!!props.checkable}>
+        <TreeRoot
+          className={cn(
+            "flex min-w-0 flex-col text-[13px] outline-none",
+            /* The two gliding surfaces: a light one under the pointer, the selected row's key. */
+            "before:rounded-[8px] before:bg-accent/45 dark:before:bg-accent/40",
+            "after:rounded-[8px] after:bg-accent dark:after:bg-accent",
+            className,
+          )}
+          {...props}
+        >
+          {children ?? (data ? <TreeItems items={data} /> : null)}
+        </TreeRoot>
+      </CheckableContext.Provider>
+    </Speed>
   )
 }
 

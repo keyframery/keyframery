@@ -16,6 +16,7 @@
 
 import * as React from "react"
 
+import { type SpeedProps, withSpeed } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 type SidebarState = {
@@ -45,16 +46,22 @@ function SidebarProvider({
   collapsed: collapsedProp,
   onCollapsedChange,
   mobileBreakpoint = 640,
+  speed,
+  style,
   className,
   ref,
   ...props
-}: React.ComponentProps<"div"> & {
-  defaultCollapsed?: boolean
-  collapsed?: boolean
-  onCollapsedChange?: (collapsed: boolean) => void
-  /** Below this width (of the provider, in px) the sidebar becomes a sheet. */
-  mobileBreakpoint?: number
-}) {
+}: React.ComponentProps<"div"> &
+  SpeedProps & {
+    /** Whether the sidebar starts narrowed to the icon rail, when uncontrolled. */
+    defaultCollapsed?: boolean
+    /** Whether the sidebar is narrowed to the icon rail. Pass it to control the sidebar. */
+    collapsed?: boolean
+    /** Runs when the sidebar wants to narrow to the rail or widen again. */
+    onCollapsedChange?: (collapsed: boolean) => void
+    /** Below this width (of the provider, in px) the sidebar becomes a sheet that slides in over the page. */
+    mobileBreakpoint?: number
+  }) {
   const [own, setOwn] = React.useState(defaultCollapsed)
   const collapsed = collapsedProp ?? own
   const setCollapsed = React.useCallback(
@@ -111,6 +118,7 @@ function SidebarProvider({
         data-open={(isMobile && openMobile) || undefined}
         className={cn("group/sidebar-provider relative flex", className)}
         {...props}
+        style={withSpeed(style, speed)}
       />
     </SidebarContext.Provider>
   )
@@ -200,7 +208,7 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
         "[&_[data-slot=sidebar-menu-button][data-active]]:[anchor-name:--kf-sidebar-key]",
         "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
         "before:[position-anchor:--kf-sidebar-key] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-        "data-kf-glide:before:[transition:top_calc(460ms*var(--kf-speed,1))_var(--ease-spring),right_calc(460ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(460ms*var(--kf-speed,1))_var(--ease-spring),left_calc(460ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)]",
+        "data-kf-glide:before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)]",
         "not-has-[[data-slot=sidebar-menu-button][data-active]]:before:opacity-0 has-[[hidden]_[data-active]]:before:opacity-0",
         "motion-reduce:before:[transition:none]!",
         className,

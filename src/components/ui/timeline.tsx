@@ -14,20 +14,23 @@ import {
   TimelineTitle as TimelineTitlePart,
   createTimelineController,
 } from "@/components/primitives/timeline"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The events, one above the other, or side by side in a row of equal columns. */
-function Timeline({ className, ...props }: React.ComponentProps<typeof TimelineRoot>) {
+function Timeline({ speed, className, ...props }: React.ComponentProps<typeof TimelineRoot> & SpeedProps) {
   return (
-    <TimelineRoot
-      className={cn(
-        "flex flex-col text-[13px]",
-        "data-[orientation=horizontal]:grid data-[orientation=horizontal]:grid-cols-[repeat(var(--timeline-count,1),minmax(0,1fr))]",
-        "data-busy:opacity-70",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <TimelineRoot
+        className={cn(
+          "flex flex-col text-[13px]",
+          "data-[orientation=horizontal]:grid data-[orientation=horizontal]:grid-cols-[repeat(var(--timeline-count,1),minmax(0,1fr))]",
+          "data-busy:opacity-70",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

@@ -17,6 +17,7 @@ import {
   WaterfallRowHeader as WaterfallRowHeaderPrimitive,
   WaterfallTick as WaterfallTickPrimitive,
 } from "@/components/primitives/waterfall"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 export { createWaterfallController, visibleWaterfallRows, type WaterfallData } from "@/components/primitives/waterfall"
@@ -25,17 +26,19 @@ const focusRing = "outline-none focus-visible:ring-2 focus-visible:ring-ring foc
 
 /* A sheet laid out as a grid; every row is a subgrid, so columns line up. Set the columns with
    a `grid-cols-[…]` class: the default is a name column and a timeline. */
-function Waterfall({ className, ...props }: React.ComponentProps<typeof WaterfallRoot>) {
+function Waterfall({ speed, className, ...props }: React.ComponentProps<typeof WaterfallRoot> & SpeedProps) {
   return (
-    <WaterfallRoot
-      className={cn(
-        "relative grid grid-cols-[minmax(8rem,auto)_minmax(0,1fr)] overflow-hidden rounded-[14px] bg-card py-1 text-[12.5px] text-card-foreground",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.12)]",
-        "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
-        className as string,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <WaterfallRoot
+        className={cn(
+          "relative grid grid-cols-[minmax(8rem,auto)_minmax(0,1fr)] overflow-hidden rounded-[14px] bg-card py-1 text-[12.5px] text-card-foreground",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.12)]",
+          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          className as string,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

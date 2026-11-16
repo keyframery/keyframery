@@ -1,8 +1,17 @@
 ---
 title: Changelog
 heading: "Changelog"
-description: "What changed in Keyframery, newest first: the 1.0 release for UI SDK, and what happened to the earlier Cuts motion layer."
+description: "What changed in Keyframery, newest first: speed props, Table and fuller docs, phone layouts, the 1.0 release for UI SDK, and the earlier Cuts motion layer."
 ---
+
+## 1.3: Speed, Table and fuller docs
+
+November 2026
+
+- **`speed` on every component.** Pass `speed="fast"`, `"slow"` or a multiplier like `0.8` to change how fast one component moves, popups included. `KeyframeryProvider` sets it, and the motion style, for a whole app. Both come from a new shared file, `lib/keyframery.tsx`, installed with the motion tokens.
+- **Table**, the 62nd component, with shadcn's part names. Rows cascade in, a sortable header's arrow turns over on a spring, selected rows fade in, and a wide table scrolls sideways on a phone with a soft edge.
+- **Sidebar highlight is quicker:** the key now glides to the item you click in 260ms instead of 460ms.
+- **Every component page has more to it:** a short usage snippet, how the parts fit together, small live examples you can open as code, a props table for each part (read from the types), a keyboard table, and manual install steps next to the CLI.
 
 ## 1.2: Phone layouts
 

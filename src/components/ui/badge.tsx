@@ -6,6 +6,7 @@
 import * as React from "react"
 
 import { Badge as BadgePrimitive } from "@/components/primitives/badge"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 const variants = {
@@ -19,22 +20,25 @@ const variants = {
 } as const
 
 function Badge({
+  speed,
   className,
   variant = "default",
   ...props
-}: React.ComponentProps<typeof BadgePrimitive> & { variant?: keyof typeof variants }) {
+}: React.ComponentProps<typeof BadgePrimitive> & { variant?: keyof typeof variants } & SpeedProps) {
   return (
-    <BadgePrimitive
-      data-variant={variant}
-      className={cn(
-        "inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1.5 rounded-full px-2 text-[11px] leading-none font-medium whitespace-nowrap tabular-nums",
-        "transition-[background-color,color,box-shadow] duration-[calc(200ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none!",
-        "[&>svg]:size-3 [&>svg]:shrink-0 [&_[data-slot=roll]]:leading-[15px] has-data-[slot=roll]:min-w-5 has-data-[slot=roll]:px-1.5",
-        variants[variant],
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <BadgePrimitive
+        data-variant={variant}
+        className={cn(
+          "inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1.5 rounded-full px-2 text-[11px] leading-none font-medium whitespace-nowrap tabular-nums",
+          "transition-[background-color,color,box-shadow] duration-[calc(200ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none!",
+          "[&>svg]:size-3 [&>svg]:shrink-0 [&_[data-slot=roll]]:leading-[15px] has-data-[slot=roll]:min-w-5 has-data-[slot=roll]:px-1.5",
+          variants[variant],
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

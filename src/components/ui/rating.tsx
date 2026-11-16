@@ -5,24 +5,28 @@
 import * as React from "react"
 
 import { Rating as RatingRoot, RatingItem as RatingItemPart } from "@/components/primitives/rating"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 function Rating({
+  speed,
   className,
   children,
   ...props
-}: React.ComponentProps<typeof RatingRoot>) {
+}: React.ComponentProps<typeof RatingRoot> & SpeedProps) {
   return (
-    <RatingRoot
-      className={cn(
-        "inline-flex items-center gap-0.5 outline-none",
-        "data-disabled:opacity-50",
-        className as string,
-      )}
-      {...props}
-    >
-      {children ?? <RatingItem />}
-    </RatingRoot>
+    <Speed speed={speed}>
+      <RatingRoot
+        className={cn(
+          "inline-flex items-center gap-0.5 outline-none",
+          "data-disabled:opacity-50",
+          className as string,
+        )}
+        {...props}
+      >
+        {children ?? <RatingItem />}
+      </RatingRoot>
+    </Speed>
   )
 }
 

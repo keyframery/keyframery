@@ -9,10 +9,15 @@ import {
   CollapsiblePanel as CollapsiblePanelPart,
   CollapsibleTrigger as CollapsibleTriggerPart,
 } from "@/components/primitives/collapsible"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
-function Collapsible({ className, ...props }: React.ComponentProps<typeof CollapsibleRoot>) {
-  return <CollapsibleRoot className={cn("flex w-full flex-col", className)} {...props} />
+function Collapsible({ speed, className, ...props }: React.ComponentProps<typeof CollapsibleRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <CollapsibleRoot className={cn("flex w-full flex-col", className)} {...props} />
+    </Speed>
+  )
 }
 
 /* A quiet row: muted text that wakes up on hover, with a chevron that turns when the panel opens. */

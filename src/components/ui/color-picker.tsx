@@ -22,6 +22,7 @@ import {
 } from "@/components/primitives/color-picker"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* A hairline inside anything filled with the colour, so white and black still have an edge. */
@@ -52,12 +53,14 @@ const fieldLook =
   "aria-invalid:ring-destructive/25 aria-invalid:[--field-line:var(--destructive)] " +
   "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:text-muted-foreground data-readonly:bg-muted/50"
 
-function ColorPicker({ className, ...props }: React.ComponentProps<typeof ColorPickerRoot>) {
+function ColorPicker({ speed, className, ...props }: React.ComponentProps<typeof ColorPickerRoot> & SpeedProps) {
   return (
-    <ColorPickerRoot
-      className={cn("flex flex-col gap-3 data-disabled:opacity-60", className)}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <ColorPickerRoot
+        className={cn("flex flex-col gap-3 data-disabled:opacity-60", className)}
+        {...props}
+      />
+    </Speed>
   )
 }
 
@@ -235,8 +238,12 @@ function ColorPickerSwatchItem({
 }
 
 /* With a popover inside the picker, a swatch button opens the parts in a sheet. */
-function ColorPickerPopover(props: React.ComponentProps<typeof ColorPickerPopoverPart>) {
-  return <ColorPickerPopoverPart {...props} />
+function ColorPickerPopover({ speed, ...props }: React.ComponentProps<typeof ColorPickerPopoverPart> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <ColorPickerPopoverPart {...props} />
+    </Speed>
+  )
 }
 
 function ColorPickerTrigger({
@@ -263,6 +270,7 @@ function ColorPickerTrigger({
 function ColorPickerContent({
   className,
   sideOffset = 8,
+  style,
   ...props
 }: React.ComponentProps<typeof ColorPickerContentPart>) {
   return (
@@ -274,7 +282,7 @@ function ColorPickerContent({
         "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }

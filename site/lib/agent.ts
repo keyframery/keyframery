@@ -20,7 +20,7 @@ export function agentPrompt(site = "https://keyframery.com"): string {
     "   npx shadcn@latest add @keyframery/tabs @keyframery/dialog @keyframery/menu",
     `   Everything at once: ${INSTALL_ALL}`,
     `   If the CLI answers Unknown registry "@keyframery", run this once, then install again: ${REGISTER}`,
-    `   The list of all 61 components: ${site}/docs/components.mdx`,
+    `   The list of all 62 components: ${site}/docs/components.mdx`,
     "",
     "3. Use them. Each component lands in two files:",
     '   - "@/components/keyframery/<name>": the finished component, styled with the shadcn/ui colour tokens.',

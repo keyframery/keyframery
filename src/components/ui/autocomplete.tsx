@@ -24,6 +24,7 @@ import {
 } from "@/components/primitives/autocomplete"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 function ChevronIcon() {
@@ -43,8 +44,12 @@ function XIcon() {
 }
 
 /* Renders no element of its own. */
-function Autocomplete(props: React.ComponentProps<typeof AutocompleteRoot>) {
-  return <AutocompleteRoot {...props} />
+function Autocomplete({ speed, ...props }: React.ComponentProps<typeof AutocompleteRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <AutocompleteRoot {...props} />
+    </Speed>
+  )
 }
 
 function AutocompleteLabel({
@@ -153,6 +158,7 @@ function AutocompleteContent({
   className,
   children,
   sideOffset = 6,
+  style,
   ...props
 }: React.ComponentProps<typeof AutocompleteContentPart>) {
   return (
@@ -165,7 +171,7 @@ function AutocompleteContent({
         "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
         className,
       )}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     >
       {children ?? <AutocompleteList />}
     </AutocompleteContentPart>

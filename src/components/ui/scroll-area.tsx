@@ -14,23 +14,27 @@ import {
   ScrollAreaViewport as ScrollAreaViewportPart,
 } from "@/components/primitives/scroll-area"
 export { createScrollAreaController } from "@/components/primitives/scroll-area"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* Give it a size. The focus ring of the viewport is drawn here, outside the fades. */
 function ScrollArea({
+  speed,
   className,
   ...props
-}: React.ComponentProps<typeof ScrollAreaRoot>) {
+}: React.ComponentProps<typeof ScrollAreaRoot> & SpeedProps) {
   return (
-    <ScrollAreaRoot
-      className={cn(
-        "relative isolate",
-        "has-[[data-slot=scroll-area-viewport]:focus-visible]:ring-2 has-[[data-slot=scroll-area-viewport]:focus-visible]:ring-ring",
-        "has-[[data-slot=scroll-area-viewport]:focus-visible]:ring-offset-2 has-[[data-slot=scroll-area-viewport]:focus-visible]:ring-offset-background",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <ScrollAreaRoot
+        className={cn(
+          "relative isolate",
+          "has-[[data-slot=scroll-area-viewport]:focus-visible]:ring-2 has-[[data-slot=scroll-area-viewport]:focus-visible]:ring-ring",
+          "has-[[data-slot=scroll-area-viewport]:focus-visible]:ring-offset-2 has-[[data-slot=scroll-area-viewport]:focus-visible]:ring-offset-background",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

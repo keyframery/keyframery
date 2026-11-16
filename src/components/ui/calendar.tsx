@@ -17,6 +17,7 @@ import {
   CalendarWeeks as CalendarWeeksPrimitive,
   CalendarYearSelect as CalendarYearSelectPrimitive,
 } from "@/components/primitives/calendar"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* A small key: the month buttons. The primitive springs them back after a press. */
@@ -58,36 +59,39 @@ function ChevronRightIcon() {
 
 /* The card. Without children it lays out the heading, the month keys and a grid per month. */
 function Calendar({
+  speed,
   className,
   children,
   ...props
-}: React.ComponentProps<typeof CalendarPrimitive>) {
+}: React.ComponentProps<typeof CalendarPrimitive> & SpeedProps) {
   const months = Math.max(1, Math.floor(props.months ?? 1) || 1)
   return (
-    <CalendarPrimitive
-      className={cn(
-        "flex w-fit flex-col gap-2 rounded-[14px] bg-card p-3 text-card-foreground",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04),0_6px_16px_-6px_rgb(0_0_0/0.1)]",
-        "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_6px_16px_-6px_rgb(0_0_0/0.6)]",
-        className,
-      )}
-      {...props}
-    >
-      {children ?? (
-        <>
-          <CalendarHeader>
-            <CalendarPrevious />
-            <CalendarHeading />
-            <CalendarNext />
-          </CalendarHeader>
-          <div className="flex gap-4">
-            {Array.from({ length: months }, (_, offset) => (
-              <CalendarGrid key={offset} offset={offset} />
-            ))}
-          </div>
-        </>
-      )}
-    </CalendarPrimitive>
+    <Speed speed={speed}>
+      <CalendarPrimitive
+        className={cn(
+          "flex w-fit flex-col gap-2 rounded-[14px] bg-card p-3 text-card-foreground",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04),0_6px_16px_-6px_rgb(0_0_0/0.1)]",
+          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_6px_16px_-6px_rgb(0_0_0/0.6)]",
+          className,
+        )}
+        {...props}
+      >
+        {children ?? (
+          <>
+            <CalendarHeader>
+              <CalendarPrevious />
+              <CalendarHeading />
+              <CalendarNext />
+            </CalendarHeader>
+            <div className="flex gap-4">
+              {Array.from({ length: months }, (_, offset) => (
+                <CalendarGrid key={offset} offset={offset} />
+              ))}
+            </div>
+          </>
+        )}
+      </CalendarPrimitive>
+    </Speed>
   )
 }
 

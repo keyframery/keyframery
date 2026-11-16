@@ -15,6 +15,7 @@ import {
   FieldSet as FieldSetPart,
   useFieldControl,
 } from "@/components/primitives/field"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The field look, for a native control rendered through FieldControl. The hairline's
@@ -30,8 +31,12 @@ const fieldBox =
   "aria-invalid:[--field-line:var(--destructive)] dark:aria-invalid:[--field-line:var(--destructive)] " +
   "disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:[--field-line:rgb(0_0_0/0.06)] dark:disabled:[--field-line:rgb(255_255_255/0.06)]"
 
-function Field({ className, ...props }: React.ComponentProps<typeof FieldRoot>) {
-  return <FieldRoot className={cn("flex min-w-0 flex-col gap-1.5", className)} {...props} />
+function Field({ speed, className, ...props }: React.ComponentProps<typeof FieldRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <FieldRoot className={cn("flex min-w-0 flex-col gap-1.5", className)} {...props} />
+    </Speed>
+  )
 }
 
 function FieldLabel({ className, ...props }: React.ComponentProps<typeof FieldLabelPart>) {

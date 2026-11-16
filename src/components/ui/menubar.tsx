@@ -25,6 +25,7 @@ import {
 } from "@/components/primitives/menubar"
 import * as React from "react"
 
+import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The sheet. Its motion (unfold, cascade, the gliding highlight) comes from the primitive;
@@ -88,19 +89,22 @@ function Check() {
 
 /* The bar: plain, one tab stop. Its triggers sit flat on it until hovered or open. */
 function Menubar({
+  speed,
   className,
   ...props
-}: React.ComponentProps<typeof MenubarRoot>) {
+}: React.ComponentProps<typeof MenubarRoot> & SpeedProps) {
   return (
-    <MenubarRoot
-      className={cn(
-        "flex items-center gap-0.5 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
-        "before:rounded-[8px] before:bg-accent",
-        "data-disabled:opacity-50",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <MenubarRoot
+        className={cn(
+          "flex items-center gap-0.5 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
+          "before:rounded-[8px] before:bg-accent",
+          "data-disabled:opacity-50",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 
@@ -147,6 +151,7 @@ function MenuContent<Payload = unknown>({
   className,
   sideOffset = 6,
   align = "start",
+  style,
   ...props
 }: React.ComponentProps<typeof MenuContentPart<Payload>>) {
   return (
@@ -154,7 +159,7 @@ function MenuContent<Payload = unknown>({
       sideOffset={sideOffset}
       align={align}
       className={cn(sheet, className)}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }
@@ -310,13 +315,14 @@ function MenuSubTrigger({
 function MenuSubContent<Payload = unknown>({
   className,
   sideOffset = 8,
+  style,
   ...props
 }: React.ComponentProps<typeof MenuSubContentPart<Payload>>) {
   return (
     <MenuSubContentPart<Payload>
       sideOffset={sideOffset}
       className={cn(sheet, className)}
-      {...props}
+      {...props} style={useSpeedStyle(style)}
     />
   )
 }

@@ -10,27 +10,30 @@ import {
   PasswordInputToggle as PasswordInputTogglePrimitive,
   createPasswordInputController,
 } from "@/components/primitives/password-input"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The root is the field: the native input, a Caps Lock mark and the toggle sit inside one box.
    The hairline's colour is one variable, so hover, focus and invalid each change a single value. */
-function PasswordInput({ className, ...props }: React.ComponentProps<typeof PasswordInputPrimitive>) {
+function PasswordInput({ speed, className, ...props }: React.ComponentProps<typeof PasswordInputPrimitive> & SpeedProps) {
   return (
-    <PasswordInputPrimitive
-      className={cn(
-        "group/password flex h-9 w-full min-w-0 cursor-text items-center gap-1 rounded-[10px] bg-background ps-3 pe-1 text-[13px] text-muted-foreground",
-        "outline-0 outline-ring",
-        "[--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)]",
-        "shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)]",
-        "hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)]",
-        "has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-ring/30 has-[input:focus-visible]:[--field-line:var(--ring)] dark:has-[input:focus-visible]:[--field-line:var(--ring)]",
-        "has-aria-invalid:outline-destructive has-aria-invalid:has-[input:focus-visible]:outline-destructive/30 has-aria-invalid:[--field-line:var(--destructive)] dark:has-aria-invalid:[--field-line:var(--destructive)]",
-        "data-readonly:bg-muted/50",
-        "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
-        className,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <PasswordInputPrimitive
+        className={cn(
+          "group/password flex h-9 w-full min-w-0 cursor-text items-center gap-1 rounded-[10px] bg-background ps-3 pe-1 text-[13px] text-muted-foreground",
+          "outline-0 outline-ring",
+          "[--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)]",
+          "shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)]",
+          "hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)]",
+          "has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-ring/30 has-[input:focus-visible]:[--field-line:var(--ring)] dark:has-[input:focus-visible]:[--field-line:var(--ring)]",
+          "has-aria-invalid:outline-destructive has-aria-invalid:has-[input:focus-visible]:outline-destructive/30 has-aria-invalid:[--field-line:var(--destructive)] dark:has-aria-invalid:[--field-line:var(--destructive)]",
+          "data-readonly:bg-muted/50",
+          "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+          className,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

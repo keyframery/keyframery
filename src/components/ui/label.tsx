@@ -5,20 +5,23 @@
 import * as React from "react"
 
 import { Label as LabelPrimitive, LabelMarker as LabelMarkerPrimitive } from "@/components/primitives/label"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* Quiet at rest, full ink while its control has focus, destructive while the control is invalid. */
-function Label({ className, ...props }: React.ComponentProps<typeof LabelPrimitive>) {
+function Label({ speed, className, ...props }: React.ComponentProps<typeof LabelPrimitive> & SpeedProps) {
   return (
-    <LabelPrimitive
-      className={cn(
-        "inline-flex items-center gap-1.5 text-[13px] leading-none font-medium text-muted-foreground select-none",
-        "data-focused:text-foreground data-invalid:text-destructive",
-        "has-[[data-disabled]]:opacity-50",
-        className as string,
-      )}
-      {...props}
-    />
+    <Speed speed={speed}>
+      <LabelPrimitive
+        className={cn(
+          "inline-flex items-center gap-1.5 text-[13px] leading-none font-medium text-muted-foreground select-none",
+          "data-focused:text-foreground data-invalid:text-destructive",
+          "has-[[data-disabled]]:opacity-50",
+          className as string,
+        )}
+        {...props}
+      />
+    </Speed>
   )
 }
 

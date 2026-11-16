@@ -10,13 +10,19 @@ import {
   ResizableHandle as ResizableHandlePart,
   ResizablePanel as ResizablePanelPart,
 } from "@/components/primitives/resizable"
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 function Resizable({
+  speed,
   className,
   ...props
-}: React.ComponentProps<typeof ResizableRoot>) {
-  return <ResizableRoot className={cn("size-full", className)} {...props} />
+}: React.ComponentProps<typeof ResizableRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <ResizableRoot className={cn("size-full", className)} {...props} />
+    </Speed>
+  )
 }
 
 function ResizablePanel({

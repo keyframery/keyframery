@@ -16,6 +16,7 @@ import {
 } from "@/components/primitives/token-input"
 import * as React from "react"
 
+import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 function XIcon() {
@@ -38,10 +39,15 @@ function defaultRenderToken(token: Token) {
 
 /* Renders no element of its own. */
 function TokenInput({
+  speed,
   renderToken = defaultRenderToken,
   ...props
-}: React.ComponentProps<typeof TokenInputRoot>) {
-  return <TokenInputRoot renderToken={renderToken} {...props} />
+}: React.ComponentProps<typeof TokenInputRoot> & SpeedProps) {
+  return (
+    <Speed speed={speed}>
+      <TokenInputRoot renderToken={renderToken} {...props} />
+    </Speed>
+  )
 }
 
 /* The field: text and tokens wrap inside one box that grows with them. */
