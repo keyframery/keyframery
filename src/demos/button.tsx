@@ -63,7 +63,7 @@ export default function ButtonDemo() {
   const [hovered, setHovered] = React.useState(false)
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Button variant="primary" data-play="book" onClick={() => wait(2200)} pendingAnnouncement="Booking">
           <ButtonIcon>
             <CalendarIcon />
@@ -88,7 +88,7 @@ export default function ButtonDemo() {
         <Button variant="destructive">Cancel trip</Button>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Button size="sm">
           <PlusIcon />
           Add guest
@@ -103,7 +103,7 @@ export default function ButtonDemo() {
         </Button>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Button size="icon-sm" aria-label="Search trips">
           <SearchIcon />
         </Button>

@@ -77,7 +77,7 @@ export default function PasswordInputDemo() {
   const [password, setPassword] = React.useState("")
 
   return (
-    <form className="flex w-[340px] flex-col gap-5" onSubmit={(event) => event.preventDefault()}>
+    <form className="flex w-full max-w-[340px] flex-col gap-5" onSubmit={(event) => event.preventDefault()}>
       <div>
         <h3 className="text-[15px] font-semibold tracking-tight">Create your account</h3>
         <p className="mt-1 text-[13px] text-muted-foreground">One login for every trip you plan.</p>

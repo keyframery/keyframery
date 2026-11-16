@@ -38,7 +38,7 @@ const playlists = ["Road trip", "Late night focus", "Sunday cooking"]
 
 export default function MenuDemo() {
   return (
-    <div className="flex w-[380px] items-center gap-3 rounded-[14px] bg-background p-2.5 pr-3 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
+    <div className="flex w-full max-w-[380px] items-center gap-3 rounded-[14px] bg-background p-2.5 pr-3 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
       <img src="/demo/gig.jpg" alt="" className="size-12 shrink-0 rounded-[9px] bg-muted object-cover" />
       <div className="min-w-0 flex-1">
         <div className="truncate text-[14px] font-medium tracking-tight">Slow Morning</div>

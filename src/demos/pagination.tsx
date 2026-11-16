@@ -39,7 +39,7 @@ export default function PaginationDemo() {
   const first = (page - 1) * pageSize + 1
 
   return (
-    <div className="flex w-[420px] flex-col">
+    <div className="flex w-full max-w-[420px] flex-col">
       <div className="flex items-baseline justify-between">
         <h3 className="text-[15px] font-semibold tracking-tight">Stays in Lisbon</h3>
         <span className="text-[12px] text-muted-foreground tabular-nums">

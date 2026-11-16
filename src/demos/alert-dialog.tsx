@@ -37,7 +37,7 @@ function TrashIcon() {
 
 export default function AlertDialogDemo() {
   return (
-    <div className="flex w-[340px] items-center gap-3.5 rounded-[14px] bg-muted/60 p-3">
+    <div className="flex w-full max-w-[340px] items-center gap-3.5 rounded-[14px] bg-muted/60 p-3">
       <img src="/demo/canal.jpg" alt="" className="size-12 shrink-0 rounded-[10px] bg-muted object-cover" />
       <div className="min-w-0 flex-1">
         <div className="text-[14px] font-semibold tracking-tight">Bruges, 2024</div>

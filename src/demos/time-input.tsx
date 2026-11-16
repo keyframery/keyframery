@@ -21,7 +21,7 @@ export const play = [
 
 export default function TimeInputDemo() {
   return (
-    <div className="w-[380px]">
+    <div className="w-full max-w-[380px]">
       <h3 className="text-[15px] font-semibold tracking-tight">Opening hours</h3>
       <p className="mt-1 text-[13px] text-muted-foreground">Little Fern Bakery</p>
 

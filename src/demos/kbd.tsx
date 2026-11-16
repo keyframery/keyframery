@@ -49,7 +49,7 @@ function Row({ id, label, keys }: (typeof shortcuts)[number]) {
 
 export default function KbdDemo() {
   return (
-    <div className="w-[340px] rounded-[16px] bg-background p-2 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04),0_8px_24px_-12px_rgb(0_0_0/0.12)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
+    <div className="w-full max-w-[340px] rounded-[16px] bg-background p-2 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04),0_8px_24px_-12px_rgb(0_0_0/0.12)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
       <div className="px-3 pt-2 pb-1.5 text-[11px] font-medium text-muted-foreground">Keyboard shortcuts</div>
       <ul>
         {shortcuts.map((s) => (

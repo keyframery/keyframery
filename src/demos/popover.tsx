@@ -74,7 +74,7 @@ export default function PopoverDemo() {
   }
 
   return (
-    <div className="flex w-[340px] items-center gap-3 rounded-[14px] bg-muted/60 p-3 pl-4">
+    <div className="flex w-full max-w-[340px] items-center gap-3 rounded-[14px] bg-muted/60 p-3 pl-4">
       <div className="min-w-0 flex-1">
         <div className="text-[14px] font-semibold tracking-tight">Cabin by the lake</div>
         <div className="mt-0.5 text-[12px] text-muted-foreground tabular-nums">Fri 6 to Sun 8 June</div>

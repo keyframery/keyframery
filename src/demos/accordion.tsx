@@ -50,7 +50,7 @@ const questions = [
 
 export default function AccordionDemo() {
   return (
-    <div className="h-[392px] w-[440px]">
+    <div className="h-[392px] w-full max-w-[440px]">
       <div className="flex items-baseline justify-between gap-4">
         <h3 className="text-[15px] font-semibold tracking-tight">Glasgow to Rome</h3>
         <p className="text-[12px] text-muted-foreground tabular-nums">Booking K7M2QX</p>

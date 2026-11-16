@@ -27,7 +27,7 @@ export default function MeterDemo() {
   ]
 
   return (
-    <div className="w-[400px]">
+    <div className="w-full max-w-[400px]">
       <div className="flex items-baseline justify-between gap-4">
         <h3 className="text-[15px] font-semibold tracking-tight">Storage</h3>
         <p className="text-[12px] text-muted-foreground">Family plan</p>

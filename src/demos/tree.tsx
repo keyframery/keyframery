@@ -113,7 +113,7 @@ function Albums({ albums }: { albums: Album[] }) {
 export default function TreeDemo() {
   return (
     /* A fixed height, so the card grows down as folders open and nothing moves under the pointer. */
-    <div className="h-[464px] w-[300px]">
+    <div className="h-[464px] w-full max-w-[300px]">
       <div className="rounded-[14px] bg-card p-2 text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
         <div className="flex items-baseline justify-between px-2 pt-2 pb-2.5">
           <h3 className="text-[15px] font-semibold tracking-tight">Photos</h3>

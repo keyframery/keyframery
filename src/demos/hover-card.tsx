@@ -29,7 +29,7 @@ function Icon({ d, className = "size-3.5" }: { d: string; className?: string }) 
 
 export default function HoverCardDemo() {
   return (
-    <div className="w-[380px] rounded-[14px] bg-muted/60 p-4">
+    <div className="w-full max-w-[380px] rounded-[14px] bg-muted/60 p-4">
       <div className="flex items-center gap-2.5">
         <img src="/demo/face-3.jpg" alt="" className="size-7 rounded-full bg-muted object-cover" />
         <span data-play="away" className="text-[13px] font-medium">Priya Shah</span>

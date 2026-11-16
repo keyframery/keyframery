@@ -71,7 +71,7 @@ export default function ContextMenuDemo() {
   const [active, setActive] = React.useState(0)
 
   return (
-    <div className="w-[440px]">
+    <div className="w-full max-w-[440px]">
       <div className="mb-3 flex items-baseline justify-between">
         <h3 className="text-[15px] font-semibold tracking-tight">Sunday kitchen</h3>
         <span className="text-[12px] text-muted-foreground tabular-nums">6 photos</span>

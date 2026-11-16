@@ -40,7 +40,7 @@ export default function SliderDemo() {
   }, 0)
 
   return (
-    <div className="w-[380px]">
+    <div className="w-full max-w-[380px]">
       <Slider
         value={price}
         onValueChange={(next) => setPrice(next as number[])}

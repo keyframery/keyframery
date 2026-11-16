@@ -119,9 +119,26 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 
 ## Sidebar and demo clean-up (2026-11-15, late)
 
-- **Sidebar** is component 61: `primitives/sidebar.tsx`, `ui/sidebar.tsx`, `demos/sidebar.tsx`. UI SDK has no sidebar, so it is plain elements with shadcn's part names (like Card). Moves: Glide (the active key, anchored to `[data-active]`), Height (collapsible groups reuse the collapsible primitive), the rail collapse, Press. No mobile sheet yet.
+- **Sidebar** is component 61: `primitives/sidebar.tsx`, `ui/sidebar.tsx`, `demos/sidebar.tsx`. UI SDK has no sidebar, so it is plain elements with shadcn's part names (like Card). Moves: Glide (the active key, anchored to `[data-active]`), Height (collapsible groups reuse the collapsible primitive), the rail collapse, Press. The mobile sheet came in 1.2 (below).
 - **Demos no longer look generated** (reviewed against the stageshow skill's craft rules): CSS-painted "photos" and drawn SVG faces were replaced with real photos in `public/demo/` (Unsplash licence, fetched via picsum.photos). The shared Lisbon cast was replaced by a different setting per demo. Initials in squares were replaced by photos where they acted as logos.
 - Component counts on the site and in the skill now say 61; the changelog has a 1.1 entry.
+
+## Phone layouts (2026-11-16)
+
+- **Demos are fluid.** Roots are `w-full max-w-[N]`; phone layouts use container queries (`@container` on the demo root, `@max-[..]:` inside), so the example code users copy is responsive too. The docs frame (`site/components/demo.tsx`) no longer shrinks demos to fit; zoom is only a fallback for the landing grid's fixed-height cells. On a phone the frame padding drops to 16px.
+- **Real phone designs**, not squeezes:
+  - navigation-menu: breadcrumb plus a menu button that drops the sections down as an accordion
+  - card: stacks
+  - listbox: stacks
+  - waterfall: drops the time column and keeps three axis ticks
+  - resizable: splits top and bottom
+  - command: hides keyboard hints
+  - button: rows wrap
+- **Sidebar sheet:** `SidebarProvider mobileBreakpoint` (640 by default, measured on the provider). Below it, the sidebar is an off-canvas sheet with a scrim; `useSidebar` adds `isMobile`, `openMobile` and `setOpenMobile`. The demo uses 480 because its window is only 600px wide.
+- **Autoplay:** a `PlayStep` can be `only: "wide" | "narrow"` (narrow is under 520px), so a demo plays its own phone flow.
+- **Docs:** a Desktop/Mobile switch on each component preview (hidden on phones) draws the demo in a 390px frame.
+- **Lab:** `?w=390` draws the stage at phone width with 16px gutters, for checking.
+- All 59 demos were checked at 390px, including every popup while playing, plus dark mode for the redesigned ones.
 
 ## Fixed during the launch review
 

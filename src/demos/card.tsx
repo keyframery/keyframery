@@ -58,8 +58,9 @@ export default function CardDemo() {
   const [pressed, flash] = usePressFlash()
 
   return (
-    <div className="flex w-[640px] items-start gap-4">
-      <Card interactive spotlight data-play="trip" className="w-[316px]">
+    <div className="@container w-full max-w-[640px]">
+      <div className="flex items-start gap-4 @max-[36rem]:flex-col @max-[36rem]:gap-3">
+      <Card interactive spotlight data-play="trip" className="w-[316px] shrink-0 @max-[36rem]:w-full">
         <CardHeader>
           <CardTitle>Ski week</CardTitle>
           <CardDescription>Les Arcs, 8 to 15 Feb</CardDescription>
@@ -83,7 +84,7 @@ export default function CardDemo() {
         </CardFooter>
       </Card>
 
-      <div role="radiogroup" aria-label="Plan" className="flex flex-1 flex-col gap-3">
+      <div role="radiogroup" aria-label="Plan" className="flex flex-1 flex-col gap-3 @max-[36rem]:w-full">
         {plans.map((p) => {
           const checked = plan === p.id
           return (
@@ -151,6 +152,7 @@ export default function CardDemo() {
             </Card>
           )
         })}
+      </div>
       </div>
     </div>
   )

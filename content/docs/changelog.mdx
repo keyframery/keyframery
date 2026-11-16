@@ -4,6 +4,14 @@ heading: "Changelog"
 description: "What changed in Keyframery, newest first: the 1.0 release for UI SDK, and what happened to the earlier Cuts motion layer."
 ---
 
+## 1.2: Phone layouts
+
+November 2026
+
+- **Every demo has a phone layout.** Demos are fluid and respond to their own width with container queries, so on a phone they rearrange instead of shrinking. The navigation menu turns into a breadcrumb and a menu button, panels stack, and keyboard hints step aside.
+- **Sidebar sheet:** below `mobileBreakpoint` (640px by default) the sidebar slides in over the page, over a scrim. The trigger opens it, and the scrim, Escape or choosing a page closes it. `useSidebar()` now also returns `isMobile`, `openMobile` and `setOpenMobile`.
+- **Mobile preview in the docs:** each component page can show its demo at a phone's width, next to the desktop view.
+
 ## 1.1: Sidebar
 
 November 2026

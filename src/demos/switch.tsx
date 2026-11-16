@@ -19,7 +19,7 @@ const settings = [
 
 export default function SwitchDemo() {
   return (
-    <div className="w-[360px]">
+    <div className="w-full max-w-[360px]">
       <h3 className="text-[15px] font-semibold tracking-tight">Notifications</h3>
       <p className="mt-1 text-[12px] text-muted-foreground">Choose what we email you about</p>
       <ul className="mt-4 divide-y divide-border">

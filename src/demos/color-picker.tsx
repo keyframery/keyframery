@@ -41,7 +41,7 @@ export default function ColorPickerDemo() {
   const [color, setColor] = React.useState("#0090ff")
 
   return (
-    <div className="w-[340px]">
+    <div className="w-full max-w-[340px]">
       <ColorPicker aria-label="Work calendar colour" value={color} onValueChange={setColor} format="hex">
         <div className="flex items-center justify-between">
           <div>

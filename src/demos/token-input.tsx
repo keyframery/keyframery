@@ -71,7 +71,7 @@ export default function TokenInputDemo() {
   const typo = people.some((token) => token.status === "unresolved")
 
   return (
-    <div className="w-[420px]">
+    <div className="w-full max-w-[420px]">
       <div className="mb-2 flex items-baseline justify-between">
         <span id="invite-label" className="text-[13px] leading-none font-medium">
           Invite to “Ski week”

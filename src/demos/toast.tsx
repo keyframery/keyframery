@@ -26,7 +26,7 @@ export default function ToastDemo() {
   React.useEffect(() => () => void toast.dismiss(), [toast])
 
   return (
-    <div className="flex w-[380px] flex-col items-center gap-5 text-center">
+    <div className="flex w-full max-w-[380px] flex-col items-center gap-5 text-center">
       <div>
         <div className="text-[15px] font-semibold tracking-tight">The Zetter, Clerkenwell</div>
         <div className="mt-1 text-[13px] text-muted-foreground">3 nights from Friday, €412</div>

@@ -64,7 +64,7 @@ export default function ImageCropperDemo() {
   const zoomBy = (step: number) => controller.setZoom(Math.min(3, Math.max(1, controller.getZoom() + step)))
 
   return (
-    <div className="w-[420px]">
+    <div className="w-full max-w-[420px]">
       <div className="mb-3 flex items-center justify-between">
         <div>
           <h3 className="text-[15px] font-semibold tracking-tight">Cover photo</h3>

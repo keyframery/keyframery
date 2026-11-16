@@ -20,16 +20,25 @@ import {
 
 export const meta = { name: "Sidebar", group: "Navigation" }
 
-/* The key glides down and across groups, a group folds, and the sidebar narrows to a rail and back. */
+/* The key glides down and across groups, a group folds, and the sidebar narrows to a rail and back.
+   On a phone the sidebar is a sheet: it opens from the page's menu button and closes on a choice. */
 export const play = [
-  { click: '[data-page="today"]', wait: 1300 },
-  { click: '[data-page="kitchen"]', wait: 1500 },
-  { click: '[data-page="inbox"]', wait: 1400 },
-  { click: '[data-slot="sidebar-trigger"]', wait: 1600 },
-  { click: '[data-page="garden"]', wait: 1300 },
-  { click: '[data-slot="sidebar-trigger"]', wait: 1600 },
-  { click: '[data-group="projects"]', wait: 1200 },
-  { click: '[data-group="projects"]', wait: 1400 },
+  { click: '[data-page="today"]', wait: 1300, only: "wide" as const },
+  { click: '[data-page="kitchen"]', wait: 1500, only: "wide" as const },
+  { click: '[data-page="inbox"]', wait: 1400, only: "wide" as const },
+  { click: '[data-slot="sidebar-trigger"]', wait: 1600, only: "wide" as const },
+  { click: '[data-page="garden"]', wait: 1300, only: "wide" as const },
+  { click: '[data-slot="sidebar-trigger"]', wait: 1600, only: "wide" as const },
+  { click: '[data-group="projects"]', wait: 1200, only: "wide" as const },
+  { click: '[data-group="projects"]', wait: 1400, only: "wide" as const },
+  { click: "[data-open-lists]", wait: 1100, only: "narrow" as const },
+  { click: '[data-page="today"]', wait: 1700, only: "narrow" as const },
+  { click: "[data-open-lists]", wait: 1100, only: "narrow" as const },
+  { click: '[data-page="kitchen"]', wait: 1700, only: "narrow" as const },
+  { click: "[data-open-lists]", wait: 1000, only: "narrow" as const },
+  { click: '[data-group="projects"]', wait: 1000, only: "narrow" as const },
+  { click: '[data-group="projects"]', wait: 900, only: "narrow" as const },
+  { click: '[data-page="inbox"]', wait: 1700, only: "narrow" as const },
 ]
 
 const icons = {
@@ -136,7 +145,9 @@ export default function SidebarDemo() {
   )
 
   return (
-    <SidebarProvider className="h-[380px] w-[600px] overflow-hidden rounded-[16px] bg-background shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_2px_4px_-2px_rgb(0_0_0/0.06),0_16px_40px_-16px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_16px_40px_-16px_rgb(0_0_0/0.7)]">
+    /* This window is only 600px wide, so it becomes a sheet below 480px. A full-screen app shell can
+       keep the default, 640px. */
+    <SidebarProvider mobileBreakpoint={480} className="h-[380px] w-full max-w-[600px] overflow-hidden rounded-[16px] bg-background shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_2px_4px_-2px_rgb(0_0_0/0.06),0_16px_40px_-16px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_16px_40px_-16px_rgb(0_0_0/0.7)]">
       <Sidebar aria-label="Lists">
         <SidebarHeader>
           <SidebarTrigger className="h-8 w-10" />
@@ -172,17 +183,24 @@ export default function SidebarDemo() {
         </SidebarFooter>
       </Sidebar>
 
-      <SidebarInset className="flex flex-col px-6 py-5">
+      <SidebarInset className="flex flex-col px-6 py-5 group-data-mobile/sidebar-provider:px-4 group-data-mobile/sidebar-provider:py-3">
         <style href="kf-sidebar-demo" precedence="default">
           {"@keyframes kf-sidebar-page{from{opacity:0;translate:0 8px;filter:blur(4px)}}"}
         </style>
+        {/* Only on a phone, where the sidebar is a sheet: the page's own way back to it. */}
+        <div className="-mx-1.5 mb-2 hidden items-center justify-between group-data-mobile/sidebar-provider:flex">
+          <SidebarTrigger data-open-lists aria-label="Lists">
+            <Icon d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11" />
+          </SidebarTrigger>
+          <span className="px-1.5 text-[12px] text-muted-foreground">Personal</span>
+        </div>
         <div
           key={page.id}
           className="animate-[kf-sidebar-page_calc(420ms*var(--kf-speed,1))_var(--ease-spring)] motion-reduce:animate-none"
         >
           <div className="flex items-baseline justify-between gap-4">
-            <div className="text-[17px] font-semibold tracking-tight">{page.title}</div>
-            <span className="text-[12px] text-muted-foreground tabular-nums">
+            <div className="truncate text-[17px] font-semibold tracking-tight">{page.title}</div>
+            <span className="shrink-0 text-[12px] text-muted-foreground tabular-nums">
               {page.tasks.filter(([t]) => !done[t]).length} left
             </span>
           </div>

@@ -34,7 +34,7 @@ const tiles = [28, 29, 15, 17, 18, 19]
 
 export default function MenubarDemo() {
   return (
-    <div className="w-[440px] overflow-hidden rounded-[14px] bg-background shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04),0_8px_24px_-12px_rgb(0_0_0/0.12)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),0_8px_24px_-12px_rgb(0_0_0/0.6)]">
+    <div className="w-full max-w-[440px] overflow-hidden rounded-[14px] bg-background shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04),0_8px_24px_-12px_rgb(0_0_0/0.12)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),0_8px_24px_-12px_rgb(0_0_0/0.6)]">
       <div className="flex items-center gap-2 border-b border-border px-1.5 py-1.5">
         <Menubar aria-label="Photos">
           <Menu>

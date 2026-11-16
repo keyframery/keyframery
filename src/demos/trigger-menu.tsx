@@ -56,7 +56,7 @@ const initials = (name: string) =>
 export default function TriggerMenuDemo() {
   const [menu] = React.useState(createTriggerMenuController)
   return (
-    <div className="w-[400px]">
+    <div className="w-full max-w-[400px]">
       <div className="mb-2 flex items-baseline justify-between">
         <label htmlFor="trip-reply" className="text-[13px] leading-none font-medium">
           Reply to moving day

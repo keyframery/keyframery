@@ -45,12 +45,12 @@ export default function ListboxDemo() {
   const total = base + toppings.filter((t) => picked.includes(t.value)).reduce((sum, t) => sum + t.price, 0)
 
   return (
-    <div className="w-[460px]">
+    <div className="@container w-full max-w-[460px]">
       <div className="flex items-baseline justify-between">
         <h3 className="text-[15px] font-semibold tracking-tight">Build your pizza</h3>
         <span className="text-[13px] font-medium tabular-nums">{euro(total)}</span>
       </div>
-      <div className="mt-4 grid grid-cols-[160px_1fr] gap-3">
+      <div className="mt-4 grid grid-cols-[160px_1fr] gap-3 @max-[26rem]:grid-cols-1 @max-[26rem]:gap-4">
         <div>
           <div id="crust-label" className="mb-2 text-[12px] font-medium text-muted-foreground">
             Crust

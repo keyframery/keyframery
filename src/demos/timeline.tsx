@@ -34,7 +34,7 @@ export default function TimelineDemo() {
   const finished = current >= stages.length
 
   return (
-    <div className="w-[380px]">
+    <div className="w-full max-w-[380px]">
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <h3 className="text-[15px] font-semibold tracking-tight">

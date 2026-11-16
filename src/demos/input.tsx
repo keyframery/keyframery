@@ -37,7 +37,7 @@ function SearchIcon() {
 
 export default function InputDemo() {
   return (
-    <div className="flex w-[340px] flex-col gap-4">
+    <div className="flex w-full max-w-[340px] flex-col gap-4">
       <Field name="destination">
         <FieldLabel>Where to?</FieldLabel>
         <InputGroup>

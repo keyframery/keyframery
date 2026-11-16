@@ -22,7 +22,7 @@ const row = "flex cursor-pointer items-start gap-3 rounded-[10px] px-2.5 py-2 tr
 
 export default function CheckboxDemo() {
   return (
-    <div className="w-[340px]">
+    <div className="w-full max-w-[340px]">
       <h3 className="px-2.5 text-[15px] font-semibold tracking-tight">Packing for Crete</h3>
       <p className="mt-1 px-2.5 text-[12px] text-muted-foreground">Flight leaves Friday at 07:40</p>
       <CheckboxGroup

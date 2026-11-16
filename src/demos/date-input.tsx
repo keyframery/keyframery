@@ -27,7 +27,7 @@ export default function DateInputDemo() {
   const expiresTooSoon = expiry !== null && expiry < sixMonthsOut
 
   return (
-    <div className="w-[340px]">
+    <div className="w-full max-w-[340px]">
       <h3 className="text-[15px] font-semibold tracking-tight">Passenger 1</h3>
       <p className="mt-1 text-[13px] text-muted-foreground">As shown on the passport</p>
 

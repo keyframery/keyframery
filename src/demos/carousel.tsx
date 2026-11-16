@@ -30,7 +30,7 @@ const photos = [
 
 export default function CarouselDemo() {
   return (
-    <div className="w-[420px]">
+    <div className="w-full max-w-[420px]">
       <div className="flex items-baseline justify-between gap-4">
         <h3 className="text-[15px] font-semibold tracking-tight">Coast road</h3>
         <p className="text-[12px] text-muted-foreground">Shared by Dan</p>

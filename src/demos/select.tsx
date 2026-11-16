@@ -50,7 +50,7 @@ function Symbol({ children }: { children: string }) {
 
 export default function SelectDemo() {
   return (
-    <div className="w-[400px] rounded-[16px] bg-background p-5 shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
+    <div className="w-full max-w-[400px] rounded-[16px] bg-background p-5 shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
       <div className="flex items-baseline justify-between">
         <h3 className="text-[15px] font-semibold tracking-tight">London to Singapore</h3>
         <span className="text-[12px] text-muted-foreground tabular-nums">Thu 9 Oct · 1 stop</span>

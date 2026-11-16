@@ -71,7 +71,7 @@ export default function ScrollAreaDemo() {
   /* Scripted pointer events cannot set :hover, so the demo mirrors it as data-hovered. */
   const [overBar, setOverBar] = React.useState(false)
   return (
-    <div className="w-[320px] rounded-[14px] bg-card p-1.5 text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
+    <div className="w-full max-w-[320px] rounded-[14px] bg-card p-1.5 text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
       <div className="flex items-center justify-between gap-3 py-1.5 pr-1 pl-2.5">
         <div>
           <h3 className="text-[15px] font-semibold tracking-tight">Garden party</h3>

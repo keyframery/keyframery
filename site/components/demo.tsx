@@ -10,8 +10,9 @@ import type { DemoModule } from "@site/lib/demo-types"
 /* A live demo that plays itself while it is on screen, the same as in the lab. It pauses while the
    pointer is over it, so a visitor can take over.
 
-   Demos are designed at their natural width. When the box is narrower (a grid cell, a phone), the demo
-   is scaled down with CSS zoom instead of being cut off. */
+   Demos are fluid: in a narrow box (a phone) each one switches to its own narrow layout through
+   container queries. Only if a demo still cannot fit (a fixed-height grid cell) is it scaled down
+   with CSS zoom instead of being cut off. On a phone the box's padding tightens to 16px. */
 export function DemoFrame({
   demo,
   slug,
@@ -35,9 +36,11 @@ export function DemoFrame({
     const inner = fit.current
     if (!outer || !inner || !demo) return
     const measure = () => {
+      const p = outer.clientWidth < 440 ? Math.min(pad, 16) : pad
+      outer.style.padding = `${p}px`
       inner.style.zoom = "1"
-      const wide = (outer.clientWidth - pad * 2) / inner.scrollWidth
-      const tall = fitHeight ? (outer.clientHeight - pad * 2) / inner.scrollHeight : 1
+      const wide = (outer.clientWidth - p * 2) / inner.scrollWidth
+      const tall = fitHeight ? (outer.clientHeight - p * 2) / inner.scrollHeight : 1
       inner.style.zoom = String(Math.max(0.5, Math.min(1, wide, tall)))
     }
     measure()
@@ -50,7 +53,7 @@ export function DemoFrame({
   return (
     <div ref={box} data-demo={slug} className={cn("relative flex items-center justify-center overflow-hidden", className)} style={{ padding: pad }}>
       {Component ? (
-        <div ref={fit} className="w-max max-w-none">
+        <div ref={fit} className="flex w-full min-w-0 justify-center">
           <Component />
         </div>
       ) : (

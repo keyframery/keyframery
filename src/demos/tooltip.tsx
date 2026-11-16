@@ -62,7 +62,7 @@ export default function TooltipDemo() {
   const [repeat, setRepeat] = React.useState(false)
 
   return (
-    <div className="w-[340px] rounded-[16px] bg-muted/60 p-4">
+    <div className="w-full max-w-[340px] rounded-[16px] bg-muted/60 p-4">
       <div className="flex items-center gap-3">
         <img src="/demo/cup.jpg" alt="" className="size-11 shrink-0 rounded-[10px] bg-muted object-cover" />
         <div className="min-w-0 flex-1">

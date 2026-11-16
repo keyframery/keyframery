@@ -27,7 +27,7 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 export default function TabsDemo() {
   return (
-    <Tabs defaultValue="overview" className="w-[420px]">
+    <Tabs defaultValue="overview" className="w-full max-w-[420px]">
       <TabsList aria-label="Event">
         <TabsTab value="overview">Overview</TabsTab>
         <TabsTab value="activity">Activity</TabsTab>

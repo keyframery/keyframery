@@ -30,7 +30,7 @@ export default function ProgressDemo() {
   const minutes = Math.ceil((total - done) / 6)
 
   return (
-    <div className="w-[400px]">
+    <div className="w-full max-w-[400px]">
       <div className="flex items-baseline justify-between gap-4">
         <h3 className="text-[15px] font-semibold tracking-tight">Grandad’s 80th</h3>
         <p className="text-[12px] text-muted-foreground tabular-nums">Shared album</p>

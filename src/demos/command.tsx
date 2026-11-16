@@ -106,7 +106,7 @@ export default function CommandDemo() {
       pages={pages}
       onPagesChange={setPages}
       onAction={() => setPages([])}
-      className="h-[424px] w-[460px]"
+      className="@container h-[424px] w-full max-w-[460px] @max-[26rem]:h-[344px]"
     >
       <CommandSearch>
         {icons.search}
@@ -128,12 +128,12 @@ export default function CommandDemo() {
             <CommandItem data-play="new" value="new" label="New note" shortcut="mod+n">
               <CommandItemIcon>{icons.plus}</CommandItemIcon>
               <CommandItemText>New note</CommandItemText>
-              <CommandShortcut />
+              <CommandShortcut className="@max-[26rem]:hidden" />
             </CommandItem>
             <CommandItem data-play="pin" value="pin" label="Pin to top" shortcut="mod+shift+p">
               <CommandItemIcon>{icons.pin}</CommandItemIcon>
               <CommandItemText>Pin to top</CommandItemText>
-              <CommandShortcut />
+              <CommandShortcut className="@max-[26rem]:hidden" />
             </CommandItem>
             <CommandItem data-play="move" value="move" label="Move to notebook" page="move">
               <CommandItemIcon>{icons.folder}</CommandItemIcon>
@@ -143,7 +143,7 @@ export default function CommandDemo() {
             <CommandItem data-play="share" value="share" label="Share with" keywords={["send", "invite"]} shortcut="mod+shift+s">
               <CommandItemIcon>{icons.share}</CommandItemIcon>
               <CommandItemText>Share with…</CommandItemText>
-              <CommandShortcut />
+              <CommandShortcut className="@max-[26rem]:hidden" />
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
@@ -178,7 +178,8 @@ export default function CommandDemo() {
           </CommandGroup>
         </CommandPage>
       </CommandList>
-      <CommandFooter>
+      {/* Keyboard hints mean nothing on a phone, so the footer and shortcuts step aside there. */}
+      <CommandFooter className="@max-[26rem]:hidden">
         <span>↑↓ to move</span>
         <span>↵ to run</span>
         <span className="ml-auto">{onMovePage ? "⌫ to go back" : "esc to clear"}</span>

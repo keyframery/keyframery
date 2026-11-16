@@ -31,7 +31,7 @@ export const play = [
 
 export default function FieldDemo() {
   return (
-    <form className="w-[360px]" onSubmit={(event) => event.preventDefault()}>
+    <form className="w-full max-w-[360px]" onSubmit={(event) => event.preventDefault()}>
       <FieldSet>
         <FieldLegend>Reserve a table</FieldLegend>
         <FieldDescription>Padella, Borough. Friday 14 June, 2 guests</FieldDescription>

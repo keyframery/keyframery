@@ -89,7 +89,7 @@ function SignIn() {
 export default function SeparatorDemo() {
   const [view, setView] = React.useState<(typeof views)[number]["id"]>("profile")
   return (
-    <div className="flex w-[340px] flex-col items-center gap-4">
+    <div className="flex w-full max-w-[340px] flex-col items-center gap-4">
       <div className="flex gap-1 rounded-full bg-muted p-1 shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]">
         {views.map((v) => (
           <button

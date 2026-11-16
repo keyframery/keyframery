@@ -68,7 +68,7 @@ export default function ToggleDemo() {
   const has = (f: string) => formats.includes(f)
 
   return (
-    <div className="w-[400px]">
+    <div className="w-full max-w-[400px]">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <ToggleGroup multiple aria-label="Text style" value={formats} onValueChange={setFormats}>

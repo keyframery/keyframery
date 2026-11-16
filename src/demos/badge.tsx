@@ -38,7 +38,7 @@ export default function BadgeDemo() {
   const readAll = () => setUnread(Object.fromEntries(threads.map((t) => [t.id, 0])))
 
   return (
-    <div className="w-[420px] rounded-[16px] bg-card text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04),0_4px_12px_-6px_rgb(0_0_0/0.08)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_6px_16px_-6px_rgb(0_0_0/0.6)]">
+    <div className="w-full max-w-[420px] rounded-[16px] bg-card text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04),0_4px_12px_-6px_rgb(0_0_0/0.08)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_6px_16px_-6px_rgb(0_0_0/0.6)]">
       <div className="flex items-center gap-2 px-4 pt-4 pb-3">
         <h3 className="text-[15px] font-semibold tracking-tight">Inbox</h3>
         <Badge count={total} max={99} />

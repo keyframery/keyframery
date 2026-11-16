@@ -40,9 +40,13 @@ function useHash() {
   return hash
 }
 
+/* ?w=390 draws the stage at a phone's width (16px gutters), to check each demo's narrow layout. */
+const phoneWidth = Number(new URLSearchParams(window.location.search).get("w")) || 0
+
 function Stage({ children, tall }: { children: React.ReactNode; tall?: boolean }) {
   return (
     <div
+      style={phoneWidth ? { width: phoneWidth, padding: 16, marginInline: "auto", borderRadius: 0 } : undefined}
       className={
         "flex items-center justify-center rounded-[18px] bg-background p-10 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)] " +
         (tall ? "min-h-[560px]" : "min-h-[320px]")
@@ -71,7 +75,7 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[oklch(0.975_0_0)] text-foreground dark:bg-[oklch(0.125_0_0)]">
-      <header className="mx-auto flex max-w-[1180px] items-center gap-4 px-8 pt-8 pb-6 text-[13px]">
+      <header className={"mx-auto flex max-w-[1180px] items-center gap-4 px-8 pt-8 pb-6 text-[13px]" + (phoneWidth ? " hidden" : "")}>
         <a href="#/" className="font-semibold tracking-tight">
           Keyframery UI
         </a>
@@ -99,7 +103,7 @@ export function App() {
           {dark ? "Light" : "Dark"}
         </button>
       </header>
-      <main className="mx-auto max-w-[1180px] px-8 pb-24">
+      <main className={phoneWidth ? "pb-24" : "mx-auto max-w-[1180px] px-8 pb-24"}>
         {single ? (
           <Playing key={single.slug} demo={single} tall />
         ) : (

@@ -83,7 +83,7 @@ function Recipe({ name, recentRow }: { name: string; recentRow?: boolean }) {
 
 export default function AutocompleteDemo() {
   return (
-    <div className="flex w-[340px] flex-col gap-2">
+    <div className="flex w-full max-w-[340px] flex-col gap-2">
       <Autocomplete items={recipes} emptyItems={recentGroup} openOnFocus autoHighlight>
         <AutocompleteLabel>Find a recipe</AutocompleteLabel>
         <AutocompleteControl>

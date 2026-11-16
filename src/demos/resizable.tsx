@@ -42,9 +42,19 @@ export default function ResizableDemo() {
     controller.setLayout(wide ? [42, 58] : [30, 70])
     setWide(!wide)
   }
+  /* On a phone two columns are too narrow to read: the inbox sits above the message instead. */
+  const root = React.useRef<HTMLDivElement>(null)
+  const [stacked, setStacked] = React.useState(false)
+  React.useLayoutEffect(() => {
+    const el = root.current
+    if (!el) return
+    const ro = new ResizeObserver(() => setStacked(el.clientWidth < 420))
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
   return (
-    <div className="h-[332px] w-[468px] overflow-hidden rounded-[14px] bg-card text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
-      <Resizable controller={controller}>
+    <div ref={root} data-stacked={stacked || undefined} className="h-[332px] w-full max-w-[468px] overflow-hidden data-stacked:h-[440px] rounded-[14px] bg-card text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
+      <Resizable key={stacked ? "stacked" : "side"} controller={controller} orientation={stacked ? "vertical" : "horizontal"}>
         <ResizablePanel defaultSize={42} minSize={30} maxSize={62}>
           <div className="flex items-baseline justify-between px-4 pt-3.5 pb-2">
             <h3 className="text-[15px] font-semibold tracking-tight">Inbox</h3>

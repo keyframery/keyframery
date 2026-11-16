@@ -17,7 +17,7 @@ export default function RatingDemo() {
   const [score, setScore] = React.useState<number | null>(null)
 
   return (
-    <div className="w-[360px]">
+    <div className="w-full max-w-[360px]">
       <div className="flex items-center gap-3">
         <img src="/demo/coast-4.jpg" alt="" className="size-11 shrink-0 rounded-[10px] bg-muted object-cover" />
         <div className="min-w-0">

@@ -43,7 +43,7 @@ export default function AvatarDemo() {
   const [hovered, setHovered] = React.useState<number | null>(null)
 
   return (
-    <div className="w-[400px]">
+    <div className="w-full max-w-[400px]">
       <div className="flex items-center justify-between gap-4">
         <div>
           <h3 className="text-[15px] font-semibold tracking-tight">Book club</h3>

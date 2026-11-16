@@ -37,6 +37,8 @@ function Sidebar({ className, ...props }: React.ComponentProps<typeof SidebarRoo
     <SidebarRoot
       className={cn(
         "bg-muted/45 text-foreground shadow-[inset_-1px_0_0_rgb(0_0_0/0.07)] dark:bg-card dark:shadow-[inset_-1px_0_0_rgb(255_255_255/0.07)]",
+        /* As a sheet over the page it is the same tone, made opaque, and lifts off with a shadow. */
+        "data-mobile:bg-[color-mix(in_oklab,var(--muted)_45%,var(--background))] data-mobile:shadow-[inset_-1px_0_0_rgb(0_0_0/0.07),16px_0_40px_-16px_rgb(0_0_0/0.3)] dark:data-mobile:bg-card dark:data-mobile:shadow-[inset_-1px_0_0_rgb(255_255_255/0.07),16px_0_40px_-12px_rgb(0_0_0/0.7)]",
         className,
       )}
       {...props}

@@ -26,7 +26,7 @@ export default function SegmentedControlDemo() {
   const plan = plans[period]
 
   return (
-    <div className="flex w-[360px] flex-col items-center text-center">
+    <div className="flex w-full max-w-[360px] flex-col items-center text-center">
       <SegmentedControl
         aria-label="Billing period"
         value={period}

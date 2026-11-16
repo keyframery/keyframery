@@ -29,7 +29,7 @@ export default function TextareaDemo() {
   const [note, setNote] = React.useState(start)
 
   return (
-    <div className="flex w-[380px] flex-col gap-4">
+    <div className="flex w-full max-w-[380px] flex-col gap-4">
       <Field name="note">
         <FieldLabel>Note for your host</FieldLabel>
         <Textarea

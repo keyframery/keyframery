@@ -31,7 +31,7 @@ export const play = [
 export default function MotionStyleDemo() {
   return (
     <MotionStyle preference={demoMotion}>
-      <div className="flex w-[380px] flex-col items-center gap-5">
+      <div className="flex w-full max-w-[380px] flex-col items-center gap-5">
         <MotionStyleSwitcher preference={demoMotion} />
         <div className="w-full rounded-[18px] bg-background p-5 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04),0_8px_24px_-12px_rgb(0_0_0/0.12)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
           <div className="flex items-center justify-between">

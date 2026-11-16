@@ -32,7 +32,7 @@ export default function OTPInputDemo() {
   const [wrong, setWrong] = React.useState(false)
 
   return (
-    <div className="flex w-[340px] flex-col gap-5">
+    <div className="flex w-full max-w-[340px] flex-col gap-5">
       <div>
         <h3 className="text-[15px] font-semibold tracking-tight">Check your phone</h3>
         <p className="mt-1 text-[13px] text-muted-foreground">

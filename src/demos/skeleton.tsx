@@ -40,7 +40,7 @@ export default function SkeletonDemo() {
   const [loading, reload] = useLoad(1700)
 
   return (
-    <div className="w-[360px] rounded-[16px] bg-card p-5 text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04),0_4px_12px_-6px_rgb(0_0_0/0.08)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_6px_16px_-6px_rgb(0_0_0/0.6)]">
+    <div className="w-full max-w-[360px] rounded-[16px] bg-card p-5 text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04),0_4px_12px_-6px_rgb(0_0_0/0.08)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_6px_16px_-6px_rgb(0_0_0/0.6)]">
       <div className="mb-4 flex items-center justify-between">
         <span className="text-[12px] font-medium text-muted-foreground">Traveller profile</span>
         <button type="button" data-play="reload" className={key} disabled={loading} onClick={reload}>

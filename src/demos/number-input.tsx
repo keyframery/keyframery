@@ -59,7 +59,7 @@ export default function NumberInputDemo() {
   const total = (nights ?? 0) * nightly
 
   return (
-    <div className="flex w-[340px] flex-col gap-5">
+    <div className="flex w-full max-w-[340px] flex-col gap-5">
       <div>
         <h3 className="text-[15px] font-semibold tracking-tight">Hollow Farm cottage</h3>
         <p className="mt-1 text-[13px] text-muted-foreground">Sleeps 4, €{nightly} a night</p>

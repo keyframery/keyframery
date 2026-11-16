@@ -59,7 +59,7 @@ export default function FileInputDemo() {
     ])
 
   return (
-    <div className="flex w-[380px] flex-col gap-4">
+    <div className="flex w-full max-w-[380px] flex-col gap-4">
       <div>
         <h3 className="text-[15px] font-semibold tracking-tight">Wedding photos</h3>
         <p className="mt-1 text-[13px] text-muted-foreground">Everyone who was there can add theirs.</p>

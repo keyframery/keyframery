@@ -48,7 +48,7 @@ export default function ToolbarDemo() {
   const [align, setAlign] = React.useState("left")
 
   return (
-    <div className="relative mb-5 w-[400px]">
+    <div className="relative mb-5 w-full max-w-[400px]">
       <article className="rounded-[14px] bg-card px-6 pt-5 pb-10 text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
         <h3 className="text-[15px] font-semibold tracking-tight">Allotment, Saturday</h3>
         <p className="mt-1 text-[12px] text-muted-foreground">Edited just now</p>

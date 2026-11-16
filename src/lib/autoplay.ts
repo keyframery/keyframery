@@ -12,7 +12,12 @@ export type PlayStep = {
   type?: string
   into?: string
   wait?: number
+  /** Run this step only at one size: a demo's narrow (phone) layout can need its own steps. */
+  only?: "wide" | "narrow"
 }
+
+/* Below this the demo is showing its phone layout. */
+const NARROW = 520
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
@@ -27,6 +32,7 @@ function pointer(el: HTMLElement, types: string[]) {
 }
 
 async function runStep(root: HTMLElement, step: PlayStep) {
+  if (step.only && (root.clientWidth < NARROW ? "narrow" : "wide") !== step.only) return
   if (step.click) find(root, step.click)?.click()
   if (step.hover) {
     const el = find(root, step.hover)

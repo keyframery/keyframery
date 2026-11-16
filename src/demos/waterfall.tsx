@@ -67,9 +67,20 @@ export default function WaterfallDemo() {
   const rows = React.useMemo(() => visibleWaterfallRows(items, ["app", "feed"]), [items])
   const total = Math.max(...Object.values(timings[load]).map(([s, d]) => s + d))
 
+  /* On a phone the time column goes, the bars carry the timing, and the axis keeps three ticks. */
+  const root = React.useRef<HTMLDivElement>(null)
+  const [narrow, setNarrow] = React.useState(false)
+  React.useLayoutEffect(() => {
+    const el = root.current
+    if (!el) return
+    const ro = new ResizeObserver(() => setNarrow(el.clientWidth < 480))
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
   return (
-    <div className="w-[560px]">
-      <div className="mb-3 flex items-end justify-between">
+    <div ref={root} className="@container w-full max-w-[560px]">
+      <div className="mb-3 flex items-end justify-between gap-3 @max-[30rem]:flex-col @max-[30rem]:items-start">
         <div>
           <h3 className="text-[15px] font-semibold tracking-tight">lume.shop / home</h3>
           <p className="mt-1 text-[12px] text-muted-foreground tabular-nums">
@@ -95,12 +106,12 @@ export default function WaterfallDemo() {
         </div>
       </div>
 
-      <Waterfall aria-label="Network requests" items={items} format={ms} className="grid-cols-[140px_56px_minmax(0,1fr)]">
+      <Waterfall aria-label="Network requests" items={items} format={ms} className="grid-cols-[140px_56px_minmax(0,1fr)] @max-[30rem]:grid-cols-[108px_minmax(0,1fr)]">
         <WaterfallHeaderRow>
           <WaterfallColumnHeader>Request</WaterfallColumnHeader>
-          <WaterfallColumnHeader className="justify-end">Time</WaterfallColumnHeader>
+          <WaterfallColumnHeader className="justify-end @max-[30rem]:hidden">Time</WaterfallColumnHeader>
           <WaterfallColumnHeader aria-label="Timeline">
-            <WaterfallAxis maxTicks={5} />
+            <WaterfallAxis maxTicks={narrow ? 3 : 5} />
             <WaterfallMark time={loadedAt[load]}>DOMContentLoaded</WaterfallMark>
           </WaterfallColumnHeader>
         </WaterfallHeaderRow>
@@ -110,7 +121,7 @@ export default function WaterfallDemo() {
               {item.children && <WaterfallIndicator />}
               {item.label}
             </WaterfallRowHeader>
-            <WaterfallCell className="justify-end">{item.duration} ms</WaterfallCell>
+            <WaterfallCell className="justify-end @max-[30rem]:hidden">{item.duration} ms</WaterfallCell>
             <WaterfallBar />
           </WaterfallRow>
         ))}

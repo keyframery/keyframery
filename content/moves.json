@@ -235,7 +235,8 @@
       ["Glide", "The current page's key slides from the old item to the new one, even across groups."],
       ["Height", "A collapsible group opens to its real height and its items rise in one after another."],
       ["Fade", "On the rail, labels leave at once; on the way back they wait for the width, then rise in out of a blur."],
-      ["Press", "Items sink a little and spring back on release."]
+      ["Press", "Items sink a little and spring back on release."],
+      ["Direction", "Below its mobile breakpoint the sidebar slides in over the page from the left, over a fading scrim, and slides away when you choose a page."]
     ],
     "skeleton": [
       ["Fade", "A light band sweeps across each placeholder, then pauses."],

@@ -33,7 +33,7 @@ export default function LabelDemo() {
 
   return (
     <form
-      className="w-[400px]"
+      className="w-full max-w-[400px]"
       onSubmit={(e) => {
         e.preventDefault()
         setSent(true)

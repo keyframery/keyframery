@@ -18,7 +18,7 @@ const speeds = [
 
 export default function RadioDemo() {
   return (
-    <div className="w-[380px]">
+    <div className="w-full max-w-[380px]">
       <h3 id="delivery" className="text-[15px] font-semibold tracking-tight">Delivery</h3>
       <p className="mt-1 text-[12px] text-muted-foreground">Pour-over set and a linen apron</p>
       <RadioGroup
