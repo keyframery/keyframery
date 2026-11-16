@@ -17,8 +17,8 @@ export const MOVES = motion.moves
 /* `sdk` is the UI SDK component a Keyframery component wraps, or null when UI SDK has none. */
 export type Entry = { slug: string; name: string; group: string; description: string; sdk: string | null; moves: [string, string][] }
 
-/* Components built on a UI SDK part with a different name. None today: every component is UI SDK's own. */
-const sdkPart: Record<string, string> = {}
+/* Components built on a UI SDK part with a different name. */
+const sdkPart: Record<string, string> = { "context-menu": "menu", "motion-style": "preferences" }
 
 /* The order groups appear in, from the most used to the most specialised. */
 export const groupOrder = ["Actions", "Forms", "Menus", "Overlays", "Navigation", "Disclosure", "Display", "Feedback", "Dates", "Layout", "Media", "Data", "Motion"]
@@ -28,7 +28,7 @@ function entryOf(slug: string): Entry {
   const primitive = `src/components/primitives/${slug}.tsx`
   const part = sdkPart[slug] ?? slug
   const code = fs.existsSync(path.join(root, primitive)) ? read(primitive) : ""
-  const sdk = code.includes(`"@ui-sdk/react/${part}"`) || (part === "menu" && code.includes('"@/components/primitives/menu"')) ? part : null
+  const sdk = code.includes(`"@ui-sdk/react/${part}"`) || (part !== slug && code.includes(`"@/components/primitives/${part}"`)) ? part : null
   return { slug, name: meta?.[1] ?? slug, group: meta?.[2] ?? "Other", description: descriptions[slug] ?? "", sdk, moves: motion.components[slug] ?? [] }
 }
 

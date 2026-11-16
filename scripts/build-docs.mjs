@@ -18,7 +18,7 @@ const motion = JSON.parse(read("content/moves.json"))
 const out = path.join(root, "content/docs/components")
 fs.mkdirSync(out, { recursive: true })
 
-const sdkPart = {}
+const sdkPart = { "context-menu": "menu", "motion-style": "preferences" }
 const dateSlugs = ["calendar", "date-picker", "date-input"]
 
 /* Paths as they land in a user's project after `npx shadcn add`. */
@@ -90,6 +90,7 @@ function rootPart(slug, api) {
 function speedSnippet(slug, root) {
   if (slug === "toast") return `<ToastRegion speed="fast" />`
   if (slug === "preferences") return `<PreferenceSwitcher preference={view} speed="fast" />`
+  if (slug === "motion-style") return `<MotionStyleSwitcher speed="fast" />`
   return `<${root} speed="fast">\n  …\n</${root}>`
 }
 
@@ -161,7 +162,7 @@ for (const slug of slugs) {
   const ui = read(`src/components/ui/${slug}.tsx`)
   const primitive = read(`src/components/primitives/${slug}.tsx`)
   const part = sdkPart[slug] ?? slug
-  const sdk = primitive.includes(`"@ui-sdk/react/${part}"`) || (part === "menu" && primitive.includes('"@/components/primitives/menu"')) ? part : null
+  const sdk = primitive.includes(`"@ui-sdk/react/${part}"`) || (part !== slug && primitive.includes(`"@/components/primitives/${part}"`)) ? part : null
   const parts = exportsOf(ui)
   const moves = motion.components[slug] ?? []
   const description = descriptions[slug] ?? ""

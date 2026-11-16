@@ -5,7 +5,7 @@ description: Use when adding animated UI components or motion to a React app tha
 
 # Keyframery
 
-Keyframery is 55 animated React components, one for every UI SDK component, built on UI SDK (`@ui-sdk/react`). UI SDK supplies the behaviour (keyboard, focus, positioning, screen readers). Keyframery adds the motion in plain CSS, and a finished look if wanted. The shadcn CLI copies the source into the project, like the rest of shadcn.
+Keyframery is 63 animated React components built on UI SDK (`@ui-sdk/react`). UI SDK supplies the behaviour (keyboard, focus, positioning, screen readers). Keyframery adds the motion in plain CSS, and a finished look if wanted. The shadcn CLI copies the source into the project, like the rest of shadcn.
 
 The docs are public Markdown; read them for exact parts and props instead of guessing. Start with the index at https://keyframery.com/llms.txt. Add `.mdx` to any docs URL to get that page as Markdown, for example https://keyframery.com/docs/components/tabs.mdx or https://keyframery.com/docs/motion-styles.mdx. Every page in one file: https://keyframery.com/llms-full.txt.
 
@@ -42,7 +42,7 @@ components/keyframery/primitives/<name>.tsx   UI SDK's component with motion onl
 
 Nothing in `components/ui` is touched. Never overwrite files there.
 
-The component names, the same as UI SDK's: accordion, alert-dialog, autocomplete, avatar, button, calendar, carousel, checkbox, collapsible, color-picker, combobox, command, date-input, date-picker, dialog, drawer, field, file-input, hover-card, image-cropper, input, label, listbox, menu, menubar, meter, navigation-menu, number-input, otp-input, pagination, password-input, popover, preferences, progress, radio, rating, resizable, scroll-area, segmented-control, select, separator, slider, switch, tabs, textarea, time-input, timeline, toast, toggle, token-input, toolbar, tooltip, tree, trigger-menu, waterfall.
+The component names: accordion, alert-dialog, autocomplete, avatar, badge, button, calendar, card, carousel, checkbox, collapsible, color-picker, combobox, command, context-menu, date-input, date-picker, dialog, drawer, field, file-input, hover-card, image-cropper, input, kbd, label, listbox, menu, menubar, meter, motion-style, navigation-menu, number-input, otp-input, pagination, password-input, popover, preferences, progress, radio, rating, resizable, scroll-area, segmented-control, select, separator, sidebar, skeleton, slider, switch, table, tabs, textarea, time-input, timeline, toast, toggle, token-input, toolbar, tooltip, tree, trigger-menu, waterfall.
 
 ## 3. Choose the layer
 
@@ -76,7 +76,7 @@ One attribute on `<html>` changes how every component moves:
 <html data-motion="calm">
 ```
 
-When the user asks for the app to feel calmer, faster or more playful, change this attribute. To let people choose in the app, install `@keyframery/preferences` and render `<MotionStyleSwitcher />`.
+When the user asks for the app to feel calmer, faster or more playful, change this attribute. To let people choose in the app, install `@keyframery/motion-style` and render `<MotionStyleSwitcher />`.
 
 A custom style is three variables under a new value:
 

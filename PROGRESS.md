@@ -12,13 +12,22 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
   - Keep `/r/registry.json` valid: shadcn health-checks the registry.
 - **Tonight's launch is the core launch.** It covers 60 components, the 4 motion styles, docs for every component, a working registry install, and a style switcher on the site.
 
-## Decision (2026-11-16): UI SDK's components only
+## Decisions on 2026-11-16, in order
 
-The owner's words: "we need all ui sdk component only as we are motion for ui sdk", then "support of all ui sdk features and its apis with latest version". So the set is exactly UI SDK's 55 components, under UI SDK's names, on the newest published UI SDK. Anything UI SDK has no component for is out. Later sections that mention 60, 61 or 62 components, Sidebar, Table, Card, Badge, Kbd, Skeleton, Context Menu or Motion Style as components describe the site before this.
+1. Evening: "we need all ui sdk component only as we are motion for ui sdk", then "support of all ui sdk features and its apis with latest version". The eight components UI SDK has no name for were removed, and that went live (commit 2559677) with 301 redirects.
+2. About an hour later, after seeing it: "lets bring back what we had", plus a bigger plan (below). The eight are back, so the set is **63: all 55 of UI SDK's, and 8 more** (Badge, Card, Kbd, Sidebar, Skeleton, Table, Context Menu, Motion Style). The redirects for those pages are gone again.
 
-## UI SDK's 55, on 0.1.0-beta.5 (2026-11-16)
+**The bigger plan he asked for the same evening (not built yet):**
+- More components: "add 30 more ... get remaining component from shadcn". shadcn's registry has fewer than 30 that Keyframery lacks, so the real list has to be read from shadcn's registry first.
+- A badge next to the name of every component that is built on UI SDK (he sent a picture of React Bits' "Updated" pill); components UI SDK has no part for get no badge.
+- A Customize section at the bottom of every component page, like React Bits', with sliders ("use this preview slider"), following the four motion styles.
+- Demos made with the stageshow skill so they do not look generated.
+- Builders: Opus 5.5 at medium effort.
+- Then he asked whether Keyframery supports "all language" (UI SDK's other frameworks: Vue, Svelte, Solid, web components) and said he wants the three bases shadcn supports (Radix UI, Base UI, React Aria) as an option too. Today it is React and UI SDK only.
 
-- **Removed:** Badge, Card, Kbd, Sidebar, Skeleton, Table, and Context Menu and Motion Style as separate components.
+## Every UI SDK component, on 0.1.0-beta.5 (2026-11-16)
+
+- **Removed, then restored the same evening:** Badge, Card, Kbd, Sidebar, Skeleton, Table, Context Menu and Motion Style. Motion Style's two files now only pass through from Preferences, so there is one `motionStyle` object.
   - Context menus are part of Menu (`MenuContextTrigger`). The styled Menu notices a menu that only opens from a right-click area and unfolds it from the pointer; the primitive exports `contextMenuMotion` for the same thing by hand.
   - The motion style switcher lives in the new **Preferences** component (`MotionStyle`, `MotionStyleSwitcher`, `motionStyle`, `createMotionStyle`), next to a generic `PreferenceSwitcher`.
 - **UI SDK 0.1.0-beta.5** in `package.json`; the registry pins it. npm tags on the day: `latest` = beta.3, `beta` = beta.5; GitHub main was already at beta.6 with the same 68 entries.
@@ -27,7 +36,7 @@ The owner's words: "we need all ui sdk component only as we are motion for ui sd
   - `mapChildren` in `src/lib/keyframery.tsx` lets a styled part that adds its own element (chevron, key) take `children` as a function of state: AccordionPanel, MenuSubTrigger (menu and menubar), NavigationMenuTrigger, SelectTrigger, SegmentedControl, TabsList.
   - Data mode (`items`): Menu and Menubar render their own styled content, Listbox and CommandList render styled rows.
 - **Not components, so not wrapped:** UI SDK's helper entries (`date`, `color`, `number`, `image`, `gesture`, `text-match`, `primitive`, `agent`, `observe`, `history`, `shortcuts`, `async-options`, `overlays`). They are used straight from `@ui-sdk/react/*`. One known gap (read in UI SDK's source, not yet built): UI SDK's `OverlayHost` draws the shared `confirm()` with its own unstyled alert dialog, so that call does not get Keyframery's look. `createConfirm()` with Keyframery's AlertDialog does, and `toast()` shows in Keyframery's `ToastRegion` once one is placed, because a placed region takes over from the host. A Keyframery `OverlayHost` would close it; it needs `toasterInternals` from `@ui-sdk/core/renderer` to know whether a region is already placed.
-- **Redirects, all 301 now** (`statusCode: 301` in `next.config.ts`, old Cuts URLs included): the six retired pages go to `/docs/components`, `context-menu` to `menu`, `motion-style` to `preferences`, with their `.mdx` and `.md` copies; `/r/context-menu.json` and `/r/motion-style.json` go to the new items. The six retired registry items return 404.
+- **Redirects are all 301 now** (`statusCode: 301` in `next.config.ts`), for the old Cuts URLs. The redirects added for the eight removed pages were taken out again when the pages came back.
 - **Checked:** both type-checks, the production build, every redirect and key page on a local `next start`, all 55 demos played in the lab with no console errors, and the new examples (context menu, menu, command and listbox as data, tabs with icons) looked at in the built docs.
 - **Version text left alone on purpose:** the guide and blog sentences that report tests run on beta.2 still say beta.2, because those tests were not re-run.
 

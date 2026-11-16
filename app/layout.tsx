@@ -15,7 +15,7 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", pre
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: { default: "Keyframery: animated components for UI SDK", template: "%s | Keyframery" },
-  description: "All 55 UI SDK components as animated drop-ins, built with plain CSS. Same parts and props as UI SDK: swap the import, keep your code.",
+  description: "63 animated drop-in components for UI SDK, built with plain CSS. Same parts and props as UI SDK: swap the import, keep your code.",
   applicationName: "Keyframery",
   authors: [{ name: "Briyan Hingrajiya" }],
   creator: "Briyan Hingrajiya",
