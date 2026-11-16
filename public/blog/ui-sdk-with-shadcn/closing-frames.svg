@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="t d" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif">
+  <title id="t">Closing frames of a UI SDK dialog styled with shadcn's classes</title>
+  <desc id="d">Two rows of frames, one per frame after Escape. Top row, shadcn's classes pasted as they are: the dialog fades from 100 percent to 0, then shows at 100 percent again for one frame before UI SDK removes it. Bottom row, with data-closed:fill-mode-forwards added: the dialog fades to 0 and stays there until it is removed.</desc>
+  <rect width="1200" height="520" rx="28" fill="#0b0c10"/>
+  <text x="60" y="52" font-size="17" font-weight="600" fill="#e6e8ee">shadcn's dialog classes pasted onto UI SDK's dialog</text>
+  <rect x="60" y="74" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="1.000"><rect x="81" y="92" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="89" y="101" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="89" y="112" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="113.0" y="176" font-size="14" text-anchor="middle" fill="#9aa0ad">100%</text>
+  <rect x="180" y="74" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.781"><rect x="201" y="92" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="209" y="101" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="209" y="112" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="233.0" y="176" font-size="14" text-anchor="middle" fill="#9aa0ad">78%</text>
+  <rect x="300" y="74" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.425"><rect x="321" y="92" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="329" y="101" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="329" y="112" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="353.0" y="176" font-size="14" text-anchor="middle" fill="#9aa0ad">43%</text>
+  <rect x="420" y="74" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.199"><rect x="441" y="92" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="449" y="101" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="449" y="112" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="473.0" y="176" font-size="14" text-anchor="middle" fill="#9aa0ad">20%</text>
+  <rect x="540" y="74" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.076"><rect x="561" y="92" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="569" y="101" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="569" y="112" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="593.0" y="176" font-size="14" text-anchor="middle" fill="#9aa0ad">8%</text>
+  <rect x="660" y="74" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.017"><rect x="681" y="92" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="689" y="101" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="689" y="112" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="713.0" y="176" font-size="14" text-anchor="middle" fill="#9aa0ad">2%</text>
+  <rect x="780" y="74" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.000"><rect x="801" y="92" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="809" y="101" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="809" y="112" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="833.0" y="176" font-size="14" text-anchor="middle" fill="#9aa0ad">0%</text>
+  <rect x="900" y="74" width="106" height="78" rx="10" fill="#14161d" stroke="#f59e0b" stroke-width="2.5"/>
+  <g opacity="1.000"><rect x="921" y="92" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="929" y="101" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="929" y="112" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="953.0" y="176" font-size="14" text-anchor="middle" fill="#f59e0b" font-weight="600">100%</text>
+  <text x="953.0" y="196" font-size="12.5" text-anchor="middle" fill="#f59e0b">back for one frame</text>
+  <rect x="1020" y="74" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <line x1="1058" y1="113.0" x2="1088" y2="113.0" stroke="#3a3f4d" stroke-width="2" stroke-dasharray="3 5"/>
+  <text x="1073.0" y="176" font-size="14" text-anchor="middle" fill="#9aa0ad">removed</text>
+  <text x="60" y="274" font-size="17" font-weight="600" fill="#e6e8ee">The same classes plus data-closed:fill-mode-forwards</text>
+  <rect x="60" y="296" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="1.000"><rect x="81" y="314" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="89" y="323" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="89" y="334" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="113.0" y="398" font-size="14" text-anchor="middle" fill="#9aa0ad">100%</text>
+  <rect x="180" y="296" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.779"><rect x="201" y="314" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="209" y="323" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="209" y="334" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="233.0" y="398" font-size="14" text-anchor="middle" fill="#9aa0ad">78%</text>
+  <rect x="300" y="296" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.425"><rect x="321" y="314" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="329" y="323" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="329" y="334" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="353.0" y="398" font-size="14" text-anchor="middle" fill="#9aa0ad">43%</text>
+  <rect x="420" y="296" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.198"><rect x="441" y="314" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="449" y="323" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="449" y="334" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="473.0" y="398" font-size="14" text-anchor="middle" fill="#9aa0ad">20%</text>
+  <rect x="540" y="296" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.075"><rect x="561" y="314" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="569" y="323" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="569" y="334" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="593.0" y="398" font-size="14" text-anchor="middle" fill="#9aa0ad">8%</text>
+  <rect x="660" y="296" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.017"><rect x="681" y="314" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="689" y="323" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="689" y="334" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="713.0" y="398" font-size="14" text-anchor="middle" fill="#9aa0ad">2%</text>
+  <rect x="780" y="296" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <g opacity="0.000"><rect x="801" y="314" width="64" height="42" rx="6" fill="#f4f4f5"/><rect x="809" y="323" width="30" height="5" rx="2.5" fill="#18181b"/><rect x="809" y="334" width="46" height="4" rx="2" fill="#a1a1aa"/></g>
+  <text x="833.0" y="398" font-size="14" text-anchor="middle" fill="#9aa0ad">0%</text>
+  <rect x="900" y="296" width="106" height="78" rx="10" fill="#14161d" stroke="#262a35" stroke-width="1"/>
+  <line x1="938" y1="335.0" x2="968" y2="335.0" stroke="#3a3f4d" stroke-width="2" stroke-dasharray="3 5"/>
+  <text x="953.0" y="398" font-size="14" text-anchor="middle" fill="#9aa0ad">removed</text>
+  <text x="60" y="490" font-size="13" fill="#7d8494">Opacity of the dialog on each frame after Escape. Chrome 157, @ui-sdk/react 0.1.0-beta.5, tw-animate-css 1.4.0, 16 November 2026.</text>
+</svg>

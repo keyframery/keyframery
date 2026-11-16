@@ -1,0 +1,425 @@
+/* kf-author: the scene sits on the page, in either site theme. Light by
+   default; a `.dark` class on any ancestor switches it, with CSS alone. */
+
+.kfe-scene {
+  /* Light tokens */
+  & .ss-stage {
+    --kfe-page: #ffffff;
+    --kfe-muted: #f1f1f1;
+    --kfe-side: #f7f7f7;
+    --ss-canvas: #f7f7f7;
+    --ss-surface: #ffffff;
+    --ss-chrome: #ffffff;
+    --ss-raised: #ffffff;
+    --ss-well: #f1f1f1;
+    --ss-text-strong: #0b0b0b;
+    --ss-text: #696969;
+    --ss-text-faint: #9a9a9a;
+    --ss-line: #e3e3e3;
+    --ss-line-faint: #ededed;
+    --ss-accent: #2447f5;
+    --ss-accent-soft: rgba(36, 71, 245, 0.12);
+    --ss-font: Geist, ui-sans-serif, system-ui, sans-serif;
+    --ss-mono: "Geist Mono", ui-monospace, monospace;
+    --kfe-key: #ffffff;
+    --kfe-key-edge: 0 0 0 1px #e3e3e3, 0 1px 2px rgba(0, 0, 0, 0.06);
+    --kfe-term-bg: #111214;
+
+    overflow: hidden;
+    background: transparent;
+    font-family: var(--ss-font);
+  }
+
+  /* ---- The app window: corner bleed, off the right and the bottom ---- */
+
+  & .kfe-app {
+    position: absolute;
+    top: 24px;
+    left: 150px;
+    width: 720px;
+    height: 380px;
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  & .kfe-app .ss-window__side {
+    background: var(--kfe-side);
+  }
+
+  & .kfe-side {
+    display: grid;
+    gap: 6px;
+    padding: 14px 12px;
+  }
+
+  & .kfe-side__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 7px;
+  }
+
+  & .kfe-side__item[data-on] {
+    background: var(--kfe-muted);
+  }
+
+  & .kfe-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 16px 24px 0;
+    background: var(--ss-surface);
+  }
+
+  & .kfe-tools {
+    display: flex;
+    gap: 8px;
+  }
+
+  & .kfe-head {
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+    margin-bottom: 20px;
+  }
+
+  /* ---- The product's tabs ---- */
+
+  & .kfe-tabs {
+    position: relative;
+    display: inline-flex;
+    align-self: flex-start;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 10px;
+    background: var(--kfe-muted);
+  }
+
+  & .kfe-tab {
+    position: relative;
+    z-index: 1;
+    padding: 6px 14px;
+    color: var(--ss-text);
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.3;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  & .kfe-tab[data-on] {
+    color: var(--ss-text-strong);
+  }
+
+  & .kfe-tabs__key {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    border-radius: 7px;
+    background: var(--kfe-key);
+    box-shadow: var(--kfe-key-edge);
+  }
+
+  /* The leading edge goes first and quick; the trailing edge follows on the
+     long settle, so the key stretches across and draws back in */
+  & .kfe-tabs__key[data-ready][data-dir="1"] {
+    transition:
+      right 0.4s cubic-bezier(0.3, 0.7, 0.2, 1),
+      left 0.72s cubic-bezier(0.45, 0, 0.1, 1) 0.1s;
+  }
+
+  & .kfe-tabs__key[data-ready][data-dir="-1"] {
+    transition:
+      left 0.4s cubic-bezier(0.3, 0.7, 0.2, 1),
+      right 0.72s cubic-bezier(0.45, 0, 0.1, 1) 0.1s;
+  }
+
+  /* ---- Panels: the new one slides in from its tab's side ---- */
+
+  /* The panels' mask stands 4px off the column so the cards' hairlines are whole */
+  & .kfe-panels {
+    position: relative;
+    flex: 1;
+    margin: 12px -4px 0;
+    overflow: hidden;
+  }
+
+  & .kfe-panel {
+    position: absolute;
+    inset: 4px 4px 0;
+    transition:
+      transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1),
+      opacity 0.4s ease;
+  }
+
+  & .kfe-panel[data-pos="1"] {
+    transform: translateX(40px);
+    opacity: 0;
+    transition-duration: 0.45s, 0.25s;
+  }
+
+  & .kfe-panel[data-pos="-1"] {
+    transform: translateX(-40px);
+    opacity: 0;
+    transition-duration: 0.45s, 0.25s;
+  }
+
+  & .kfe-overview {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+
+  & .kfe-card {
+    display: grid;
+    justify-items: start;
+    gap: 8px;
+    padding: 14px 16px 12px;
+    border-radius: 10px;
+    background: var(--ss-surface);
+    box-shadow: 0 0 0 1px var(--ss-line);
+  }
+
+  & .kfe-card--row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+  }
+
+  & .kfe-chart {
+    margin-top: 4px;
+  }
+
+  & .kfe-activity {
+    display: grid;
+    align-content: start;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px var(--ss-line);
+  }
+
+  & .kfe-act {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--ss-line-faint);
+  }
+
+  & .kfe-act:first-child {
+    border-top: 0;
+  }
+
+  & .kfe-act__text {
+    display: grid;
+    gap: 7px;
+  }
+
+  /* Rows follow their panel in, a beat apart */
+  & .kfe-panel .kfe-act {
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) calc(var(--i) * 50ms);
+  }
+
+  & .kfe-panel[data-pos="1"] .kfe-act {
+    transform: translateX(calc(10px + var(--i) * 6px));
+  }
+
+  & .kfe-rest {
+    position: absolute;
+    left: 676px;
+    top: 150px;
+  }
+
+  /* ---- The terminal: a satellite over the app's sidebar ---- */
+
+  & .kfe-term {
+    position: absolute;
+    top: 136px;
+    left: 24px;
+    width: 304px;
+    height: 180px;
+    --ss-term-bg: var(--kfe-term-bg);
+    --ss-term-path: #7d808a;
+    --ss-term-sigil: #8098ff;
+    --ss-term-ok: #5fd49a;
+    --ss-term-dim: #5c5f68;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07), var(--ss-shadow-satellite);
+  }
+
+  & .kfe-term__body.ss-term {
+    padding: 2px 14px 14px;
+    font-size: 11px;
+  }
+
+  & .kfe-term__screen {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    transition: opacity 0.18s ease;
+  }
+
+  & .kfe-term__screen[data-cleared] {
+    opacity: 0;
+  }
+
+  & .kfe-term__line {
+    white-space: pre;
+  }
+
+  & .kfe-term__result {
+    display: flex;
+    gap: 1ch;
+    opacity: 0;
+  }
+
+  & .kfe-term__result:not([data-phase="idle"]) {
+    opacity: 1;
+  }
+
+  /* The spinner and the tick share one 1ch cell */
+  & .kfe-term__mark {
+    position: relative;
+    display: inline-block;
+    width: 1ch;
+  }
+
+  & .kfe-term__spin,
+  & .kfe-term__tick {
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  & .kfe-term__spin {
+    color: #9d9da6;
+    opacity: 0;
+  }
+
+  & .kfe-term__spin::before {
+    content: "⠋";
+    animation: kfe-spin 0.8s steps(1) infinite;
+  }
+
+  & .kfe-term__result[data-phase="running"] .kfe-term__spin {
+    opacity: 1;
+  }
+
+  & .kfe-term__tick {
+    color: var(--ss-term-ok);
+    opacity: 0;
+  }
+
+  & .kfe-term__done {
+    color: #e6e6ea;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  & .kfe-term__result[data-phase="done"] :is(.kfe-term__tick, .kfe-term__done) {
+    opacity: 1;
+  }
+
+  & .kfe-term__file {
+    display: flex;
+    align-items: center;
+    height: 18px;
+    padding-left: 3ch;
+    opacity: 0;
+    transform: translateY(3px);
+    transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  & .kfe-term__file[data-show] {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(80ms + var(--i) * 70ms);
+  }
+
+  & .kfe-term__next {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  & .kfe-term__next[data-show] {
+    opacity: 1;
+    transition-delay: 0.36s;
+  }
+
+  /* ---- Compact: the terminal on top, the app below it, off right and bottom ---- */
+
+  /* The app pinned top-left, off the right; the terminal over the foot of
+     its panel, running off the bottom */
+  & .ss-stage[data-layout="compact"] .kfe-app {
+    top: 16px;
+    left: 16px;
+    width: 400px;
+    height: 400px;
+  }
+
+  & .ss-stage[data-layout="compact"] .kfe-page {
+    padding: 16px 20px 0;
+  }
+
+  & .ss-stage[data-layout="compact"] .kfe-term {
+    top: 204px;
+    left: 16px;
+    width: 384px;
+    height: 170px;
+  }
+
+  & .ss-stage[data-layout="compact"] .kfe-rest {
+    left: 292px;
+    top: 58px;
+  }
+}
+
+/* Dark: any ancestor with .dark */
+.dark .kfe-scene .ss-stage {
+  --kfe-page: #0f1012;
+  --kfe-muted: #1b1c1f;
+  --kfe-side: #131416;
+  --ss-canvas: #131416;
+  --ss-surface: #16171a;
+  --ss-chrome: #16171a;
+  --ss-raised: #17181b;
+  --ss-well: #1b1c1f;
+  --ss-ink-1: rgba(255, 255, 255, 0.05);
+  --ss-ink-2: rgba(255, 255, 255, 0.07);
+  --ss-ink-3: rgba(255, 255, 255, 0.1);
+  --ss-ink-4: rgba(255, 255, 255, 0.13);
+  --ss-ink-5: rgba(255, 255, 255, 0.2);
+  --ss-fill: #2a2b2f;
+  --ss-text-strong: #f2f2f2;
+  --ss-text: #9b9b9b;
+  --ss-text-faint: #6c6c70;
+  --ss-icon: #9b9b9b;
+  --ss-icon-faint: #4a4a50;
+  --ss-line: rgba(255, 255, 255, 0.1);
+  --ss-line-faint: rgba(255, 255, 255, 0.06);
+  --ss-accent: #8098ff;
+  --ss-accent-soft: rgba(128, 152, 255, 0.18);
+  --ss-shadow-hero: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+  --ss-shadow-window: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 16px rgba(0, 0, 0, 0.4);
+  --ss-shadow-satellite: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 14px 32px -8px rgba(0, 0, 0, 0.6);
+  --ss-shadow-float: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 16px rgba(0, 0, 0, 0.4);
+  --ss-shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --kfe-key: #26272b;
+  --kfe-key-edge: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --kfe-term-bg: #0b0c0e;
+  color-scheme: dark;
+}
+
+@keyframes kfe-spin {
+  0% { content: "⠋"; }
+  10% { content: "⠙"; }
+  20% { content: "⠹"; }
+  30% { content: "⠸"; }
+  40% { content: "⠼"; }
+  50% { content: "⠴"; }
+  60% { content: "⠦"; }
+  70% { content: "⠧"; }
+  80% { content: "⠇"; }
+  90% { content: "⠏"; }
+}

@@ -5,6 +5,8 @@ import { notFound } from "next/navigation"
 import { PreviewLink } from "@site/components/blog/preview-link"
 import { ReadingRing } from "@site/components/blog/reading-ring"
 import { UiSdkRecipeDemo } from "@site/components/blog/ui-sdk-recipe-demo"
+import { Cover } from "@site/components/stageshow/cover"
+import { hasCover } from "@site/components/stageshow/covers"
 import { getMDXComponents } from "@site/components/mdx"
 import { AUTHORS, authorPath, blog, longDate, readingTime, type Post } from "@site/lib/blog"
 import { blogPostData, faqData, JsonLd, pageMetadata } from "@site/lib/seo"
@@ -12,7 +14,7 @@ import { SITE } from "@site/lib/shared"
 
 const image = (post: Post) => `/og/blog/${post.slugs[0]}/image.png`
 
-/** `code` in a FAQ answer, as inline code. */
+/** `code` in a TL;DR line or a FAQ answer, as inline code. */
 function inline(text: string) {
   return text.split(/`([^`]+)`/).map((part, i) => (i % 2 ? <code key={i}>{part}</code> : part))
 }
@@ -45,7 +47,7 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
           author,
           words,
           minutes,
-          tldr,
+          tldr: tldr.map((line) => line.replaceAll("`", "")),
           tags,
           sources,
           about: about ?? tags.slice(0, 1),
@@ -99,6 +101,9 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
         </p>
       </header>
 
+      {/* The post's main finding as a short self-playing illustration. */}
+      {hasCover(slug) && <Cover name={slug} className="mt-10 overflow-hidden rounded-2xl border lg:col-start-1" />}
+
       {archived && (
         <p role="note" className="mt-8 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-[15px] leading-relaxed lg:col-start-1">
           <span className="font-semibold">An earlier version of Keyframery. </span>
@@ -116,7 +121,7 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
         </h2>
         <ul className="mt-3 grid list-disc gap-2 pl-5 text-[16px] leading-relaxed marker:text-muted-foreground">
           {tldr.map((line) => (
-            <li key={line}>{line}</li>
+            <li key={line}>{inline(line)}</li>
           ))}
         </ul>
       </aside>
@@ -124,7 +129,7 @@ export default async function Page(props: PageProps<"/blog/[slug]">) {
       {/* One list, in the reading order on phones; on wide screens it sits beside the article and stays in view. */}
       <nav
         aria-labelledby="contents"
-        className="mt-8 border-l pl-4 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-6 lg:row-start-1 lg:mt-16 lg:self-start"
+        className="mt-8 border-l pl-4 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-8 lg:row-start-1 lg:mt-16 lg:self-start"
       >
         <h2 id="contents" className="text-sm font-semibold">
           Contents

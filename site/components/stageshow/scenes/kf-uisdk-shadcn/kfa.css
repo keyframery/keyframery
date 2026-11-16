@@ -1,0 +1,260 @@
+/* kf-uisdk-shadcn. Every rule is scoped under .kfa; classes are kfa-.
+   Light by default; .dark on any ancestor switches to the dark tokens. */
+
+.kfa {
+  & .ss-stage {
+    --ss-canvas: #ffffff;
+    --ss-surface: #ffffff;
+    --ss-chrome: #ffffff;
+    --ss-raised: #ffffff;
+    --ss-well: #f1f1f1;
+    --ss-text-strong: #0b0b0b;
+    --ss-text: #696969;
+    --ss-text-faint: #9a9a9a;
+    --ss-icon: #696969;
+    --ss-icon-faint: #c4c4c4;
+    --ss-line: #e3e3e3;
+    --ss-line-faint: #eeeeee;
+    --ss-accent: #2447f5;
+    --ss-accent-soft: rgba(36, 71, 245, 0.12);
+    --ss-font: Geist, ui-sans-serif, system-ui, sans-serif;
+    --ss-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --kfa-muted: #f1f1f1;
+    --kfa-on-accent: #ffffff;
+    --kfa-select: rgba(36, 71, 245, 0.2);
+    overflow: hidden;
+    background: transparent;
+    font-family: var(--ss-font);
+  }
+
+  /* The window: inset one gutter top and left, off the bottom */
+  .kfa-app {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 760px;
+    height: 420px;
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  .kfa-page {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    padding: 22px 24px;
+    background: var(--ss-surface);
+  }
+
+  .kfa-head {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  /* shadcn's TabsList: a muted track; the selected tab has no fill until
+     the variant matches */
+  .kfa-tabs {
+    --ss-row: 30px;
+    width: 216px;
+    background: var(--kfa-muted);
+  }
+
+  .kfa-tabs .ss-seg__thumb {
+    background: transparent;
+    box-shadow: none;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.22s ease;
+  }
+
+  .kfa-tabs .ss-seg__option {
+    font-size: 13px;
+    color: var(--ss-text);
+    transition: color 0.22s ease;
+  }
+
+  .kfa-tabs .ss-seg__option[data-on] {
+    color: var(--ss-text-strong);
+  }
+
+  .kfa-tabs[data-styled] .ss-seg__thumb {
+    background: var(--ss-accent);
+  }
+
+  .kfa-tabs[data-styled] .ss-seg__option[data-on] {
+    color: var(--kfa-on-accent);
+  }
+
+  .kfa-panel {
+    flex: none;
+  }
+
+  .kfa-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .kfa-input {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: var(--ss-radius-md);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+  }
+
+  /* The editor: a card straddling the window's right edge, over filler */
+  .kfa-editor {
+    position: absolute;
+    top: 124px;
+    right: 24px;
+    width: 328px;
+    background: var(--ss-raised);
+    box-shadow: inset 0 0 0 1px var(--ss-line), var(--ss-shadow-satellite);
+  }
+
+  .kfa-editor > .kfa-file {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .kfa-name {
+    font-family: var(--ss-mono);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--ss-text);
+  }
+
+  .kfa-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ss-text);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.15s ease, transform 0.2s ease;
+  }
+
+  .kfa-dot[data-show] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .kfa-code {
+    font-family: var(--ss-mono);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--ss-text-strong);
+    white-space: pre;
+  }
+
+  .kfa-ln {
+    height: 20px;
+  }
+
+  .kfa-tag { color: var(--ss-text); }
+  .kfa-attr { color: var(--ss-text); }
+  .kfa-str { color: var(--ss-text-strong); }
+
+  .kfa-cls {
+    position: relative;
+  }
+
+  .kfa-val {
+    border-radius: 2px;
+    transition: background-color 0.12s ease;
+  }
+
+  .kfa-val[data-sel] {
+    background: var(--kfa-select);
+  }
+
+  .kfa-brk {
+    font-weight: inherit;
+    color: var(--ss-accent);
+  }
+
+  .kfa-caret {
+    display: inline-block;
+    vertical-align: -3px;
+    width: 1.5px;
+    height: 15px;
+    margin-right: -1.5px;
+    background: var(--ss-accent);
+    visibility: hidden;
+  }
+
+  .kfa-caret[data-show] {
+    visibility: visible;
+    animation: ss-caret 1.06s steps(1) 0.5s infinite;
+  }
+
+  /* Phone column: the window across the top, the editor in front below */
+  & .ss-stage[data-layout='compact'] .kfa-app {
+    /* 18, so what shows of the bled window stays square */
+    top: 18px;
+    left: 16px;
+    width: 400px;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfa-page {
+    padding: 20px;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfa-head {
+    display: none;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfa-editor {
+    top: auto;
+    bottom: 16px;
+    right: 16px;
+    width: 326px;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfa-code {
+    font-size: 11.5px;
+  }
+}
+
+/* Dark: any ancestor with .dark */
+.dark .kfa {
+  & .ss-stage {
+    --ss-canvas: #0f1012;
+    --ss-surface: #16171a;
+    --ss-chrome: #16171a;
+    --ss-raised: #17181b;
+    --ss-well: #1b1c1f;
+    --ss-text-strong: #f2f2f2;
+    --ss-text: #9b9b9b;
+    --ss-text-faint: #6c6c6c;
+    --ss-icon: #9b9b9b;
+    --ss-icon-faint: #4a4a4e;
+    --ss-line: rgba(255, 255, 255, 0.1);
+    --ss-line-faint: rgba(255, 255, 255, 0.06);
+    --ss-accent: #8098ff;
+    --ss-accent-soft: rgba(128, 152, 255, 0.18);
+    --ss-ink-1: rgba(255, 255, 255, 0.05);
+    --ss-ink-2: rgba(255, 255, 255, 0.07);
+    --ss-ink-3: rgba(255, 255, 255, 0.1);
+    --ss-ink-4: rgba(255, 255, 255, 0.13);
+    --ss-ink-5: rgba(255, 255, 255, 0.2);
+    --ss-fill: #2a2b2e;
+    --ss-shadow-window: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.4);
+    --ss-shadow-float: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 16px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.3);
+    --ss-shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --ss-shadow-hero: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+    --ss-shadow-satellite: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 14px 32px -8px rgba(0, 0, 0, 0.7), 0 4px 10px -4px rgba(0, 0, 0, 0.5);
+    --ss-shadow-ground: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 24px 48px -24px rgba(0, 0, 0, 0.6);
+    --kfa-muted: #1b1c1f;
+    --kfa-on-accent: #0f1012;
+    --kfa-select: rgba(128, 152, 255, 0.28);
+  }
+
+  /* Line cursors invert on a dark surface, as macOS's do */
+  & .ss-cursor {
+    --ss-cursor-line: #fff;
+    --ss-cursor-edge: rgba(0, 0, 0, 0.75);
+  }
+}

@@ -1,0 +1,275 @@
+/* shadcn skill vs MCP server. Every selector sits under .kfc; the theme is
+   tokens only: light by default, `.dark` on any ancestor for dark. */
+
+.kfc .ss-stage {
+  --ss-canvas: #f1f1f1;
+  --ss-surface: #ffffff;
+  --ss-chrome: #ffffff;
+  --ss-raised: #ffffff;
+  --ss-well: #f1f1f1;
+  --ss-line: #e3e3e3;
+  --ss-line-faint: #ececec;
+  --ss-text-strong: #0b0b0b;
+  --ss-text: #696969;
+  --ss-text-faint: #8f8f8f;
+  --ss-icon: #696969;
+  --ss-icon-faint: #b5b5b5;
+  --ss-accent: #2447f5;
+  --ss-accent-2: #2447f5;
+  --ss-accent-soft: rgba(36, 71, 245, 0.1);
+  --ss-accent-text: #1d39c4;
+  --ss-font: Geist, ui-sans-serif, system-ui, sans-serif;
+  --ss-mono: "Geist Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --ss-shadow-hero: 0 0 0 1px #e3e3e3, 0 30px 60px -18px rgba(11, 11, 11, 0.16), 0 14px 28px -16px rgba(11, 11, 11, 0.14);
+  --ss-shadow-satellite: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 18px 36px -10px rgba(11, 11, 11, 0.32), 0 6px 12px -6px rgba(11, 11, 11, 0.2);
+  --kfc-term-bg: #0f1012;
+  --kfc-shimmer: rgb(255 255 255 / 0.6);
+  overflow: hidden;
+  background: transparent;
+  font-family: var(--ss-font);
+}
+
+.dark .kfc .ss-stage {
+  --ss-canvas: #1b1c1f;
+  --ss-surface: #16171a;
+  --ss-chrome: #16171a;
+  --ss-raised: #17181b;
+  --ss-well: #1b1c1f;
+  --ss-ink-1: rgba(255, 255, 255, 0.05);
+  --ss-ink-2: rgba(255, 255, 255, 0.07);
+  --ss-ink-3: rgba(255, 255, 255, 0.1);
+  --ss-ink-4: rgba(255, 255, 255, 0.13);
+  --ss-ink-5: rgba(255, 255, 255, 0.2);
+  --ss-fill: #2a2b2f;
+  --ss-line: rgba(255, 255, 255, 0.1);
+  --ss-line-faint: rgba(255, 255, 255, 0.06);
+  --ss-text-strong: #f2f2f2;
+  --ss-text: #9b9b9b;
+  --ss-text-faint: #6f6f6f;
+  --ss-icon: #9b9b9b;
+  --ss-icon-faint: #4d4d52;
+  --ss-accent: #8098ff;
+  --ss-accent-2: #8098ff;
+  --ss-accent-soft: rgba(128, 152, 255, 0.16);
+  --ss-accent-text: #a9b9ff;
+  --ss-success-soft: rgba(34, 197, 94, 0.16);
+  --ss-success-text: #4ade80;
+  --ss-shadow-hero: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+  --ss-shadow-window: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 16px rgba(0, 0, 0, 0.4);
+  --ss-shadow-satellite: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 18px 36px -10px rgba(0, 0, 0, 0.75), 0 6px 12px -6px rgba(0, 0, 0, 0.5);
+  --kfc-term-bg: #1b1c1f;
+  --kfc-shimmer: rgb(255 255 255 / 0.06);
+}
+
+/* The hero: the panel, corner bleed, off the right and the bottom */
+.kfc .kfc-win {
+  position: absolute;
+  top: 32px;
+  left: 104px;
+  width: 696px;
+  height: 420px;
+  box-shadow: var(--ss-shadow-hero);
+}
+
+.kfc .ss-stage[data-layout='compact'] .kfc-win {
+  top: 18px;
+  left: 16px;
+  width: 400px;
+}
+
+.kfc .kfc-body {
+  padding: 18px 24px 0;
+  background: var(--ss-surface);
+}
+
+.kfc .ss-stage[data-layout='compact'] .kfc-body {
+  padding: 16px 16px 0;
+}
+
+.kfc .kfc-title {
+  color: var(--ss-text-strong);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+}
+
+.kfc .kfc-list {
+  margin-top: 12px;
+  width: 560px;
+}
+
+.kfc .ss-stage[data-layout='compact'] .kfc-list {
+  width: 310px;
+}
+
+/* One grid for every row, filler included: name, meter, figure */
+.kfc .kfc-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px 84px;
+  align-items: center;
+  gap: 16px;
+  height: 40px;
+  border-top: 1px solid var(--ss-line-faint);
+  color: var(--ss-text-strong);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Compact: the meter drops under the name, full width */
+.kfc .ss-stage[data-layout='compact'] .kfc-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'name fig' 'meter meter';
+  row-gap: 8px;
+  align-content: center;
+  height: 48px;
+}
+
+.kfc .ss-stage[data-layout='compact'] .kfc-name { grid-area: name; }
+.kfc .ss-stage[data-layout='compact'] .kfc-fig { grid-area: fig; }
+.kfc .ss-stage[data-layout='compact'] .kfc-row > .kfc-meter,
+.kfc .ss-stage[data-layout='compact'] .kfc-row > .kfc-meter-slot { grid-area: meter; }
+
+.kfc .kfc-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.kfc .kfc-fig {
+  justify-items: end;
+  text-align: right;
+}
+
+.kfc .kfc-figure {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.kfc .kfc-figure .ss-count__unit {
+  color: var(--ss-text);
+  font-weight: 400;
+}
+
+.kfc .kfc-row--fill .kfc-fig {
+  display: grid;
+}
+
+/* A bar and its words share one cell: the bar fades as the words arrive */
+.kfc .kfc-slot {
+  display: grid;
+  align-items: center;
+}
+
+.kfc .kfc-slot > * {
+  grid-area: 1 / 1;
+}
+
+.kfc .kfc-meter-slot {
+  width: 100%;
+}
+
+.kfc .kfc-meter {
+  width: 100%;
+}
+
+/* Filler rows: the meter in ink, so only the story's rows carry the accent */
+.kfc .kfc-row--fill .ss-meter__fill {
+  background: var(--ss-ink-4);
+}
+
+.kfc .kfc-sk {
+  overflow: hidden;
+  position: relative;
+  transition: opacity 0.3s ease calc(var(--kfc-i) * 90ms);
+}
+
+.kfc .kfc-sk::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--kfc-shimmer), transparent);
+  translate: -100% 0;
+  animation: kfc-shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes kfc-shimmer {
+  to { translate: 100% 0; }
+}
+
+.kfc .kfc-real {
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.kfc .kfc-row[data-ready] .kfc-sk {
+  opacity: 0;
+}
+
+.kfc .kfc-row[data-ready] .kfc-real {
+  opacity: 1;
+  transition: opacity 0.4s ease calc(var(--kfc-i) * 90ms + 80ms);
+}
+
+/* The advice arrives whole beside the name, from just above */
+.kfc .kfc-badge {
+  display: inline-flex;
+  will-change: transform;
+  opacity: 0;
+  translate: 0 -3px;
+  transition: opacity 0.25s ease, translate 0.25s ease;
+}
+
+.kfc .kfc-badge[data-show] {
+  opacity: 1;
+  translate: 0 0;
+  transition: opacity 0.45s cubic-bezier(0.25, 0.8, 0.25, 1), translate 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* The satellite: a terminal straddling the hero's left edge */
+.kfc .kfc-term {
+  --ss-term-bg: var(--kfc-term-bg);
+  --ss-term-path: #7d8cff;
+  --ss-term-sigil: #8fa0ff;
+  position: absolute;
+  top: 223px;
+  left: 32px;
+  width: 316px;
+  box-shadow: var(--ss-shadow-satellite);
+}
+
+.kfc .ss-stage[data-layout='compact'] .kfc-term {
+  top: 217px;
+  left: 40px;
+  width: 302px;
+}
+
+.kfc .kfc-term-body {
+  min-height: 64px;
+  padding: 2px 16px 14px;
+  font-size: 12px;
+  font-family: var(--ss-mono);
+}
+
+.kfc .kfc-term-body > .ss-term__line {
+  transition: opacity 0.25s ease;
+}
+
+.kfc .kfc-term-body[data-clear] > .ss-term__line {
+  opacity: 0;
+}
+
+.kfc .kfc-term-body > .kfc-next {
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.kfc .kfc-term-body > .kfc-next[data-show] {
+  opacity: 1;
+}
+
+.kfc .kfc-term-body[data-clear] > .kfc-next {
+  opacity: 0;
+}

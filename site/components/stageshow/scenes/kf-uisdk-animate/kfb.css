@@ -1,0 +1,237 @@
+/* kf-uisdk-animate. Every rule is scoped under .kfb; classes are kfb-.
+   Light by default; .dark on any ancestor switches to the dark tokens. */
+
+.kfb {
+  & .ss-stage {
+    --ss-canvas: #ffffff;
+    --ss-surface: #ffffff;
+    --ss-chrome: #ffffff;
+    --ss-raised: #ffffff;
+    --ss-well: #f1f1f1;
+    --ss-text-strong: #0b0b0b;
+    --ss-text: #696969;
+    --ss-text-faint: #9a9a9a;
+    --ss-icon: #696969;
+    --ss-icon-faint: #c4c4c4;
+    --ss-line: #e3e3e3;
+    --ss-line-faint: #eeeeee;
+    --ss-accent: #2447f5;
+    --ss-accent-soft: rgba(36, 71, 245, 0.12);
+    --ss-font: Geist, ui-sans-serif, system-ui, sans-serif;
+    --ss-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    overflow: hidden;
+    background: transparent;
+    font-family: var(--ss-font);
+  }
+
+  .kfb-app {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 760px;
+    height: 420px;
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  .kfb-page {
+    height: 100%;
+    padding: 20px 24px;
+    background: var(--ss-surface);
+  }
+
+  .kfb-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 280px;
+    margin-bottom: 12px;
+  }
+
+  .kfb-options[data-open] {
+    background: color-mix(in srgb, var(--ss-surface), #000 4%);
+  }
+
+  .kfb-list {
+    width: 292px;
+    margin-inline: -6px;
+  }
+
+  .kfb-row {
+    position: relative;
+    font-size: 13px;
+    color: var(--ss-text-strong);
+  }
+
+  .kfb-row::before {
+    content: '';
+    position: absolute;
+    inset: 2px 0;
+    border-radius: var(--ss-radius-md);
+    background: var(--ss-accent-soft);
+    opacity: 0;
+    transition: opacity 0.9s ease;
+    pointer-events: none;
+  }
+
+  .kfb-row[data-wash]::before {
+    opacity: 1;
+    transition-duration: 0.15s;
+  }
+
+  .kfb-tile {
+    display: block;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: var(--ss-ink-4);
+  }
+
+  .kfb-tile[data-faint] {
+    background: var(--ss-ink-3);
+  }
+
+  .kfb-menu {
+    width: 168px;
+  }
+
+  .kfb-editor {
+    position: absolute;
+    top: 122px;
+    right: 24px;
+    width: 336px;
+    background: var(--ss-raised);
+    box-shadow: inset 0 0 0 1px var(--ss-line), var(--ss-shadow-satellite);
+  }
+
+  .kfb-editor > .kfb-file {
+    display: flex;
+    align-items: center;
+  }
+
+  .kfb-name {
+    font-family: var(--ss-mono);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--ss-text);
+  }
+
+  .kfb-code {
+    font-family: var(--ss-mono);
+    font-size: 11.5px;
+    line-height: 20px;
+    color: var(--ss-text-strong);
+    white-space: pre;
+  }
+
+  .kfb-ln {
+    position: relative;
+    height: 20px;
+    transition: color 0.25s ease;
+  }
+
+  /* The rule that is running lights across the card's full width */
+  .kfb-ln::before {
+    content: '';
+    position: absolute;
+    inset: 0 -12px;
+    z-index: -1;
+    background: var(--ss-accent-soft);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .kfb-code {
+    position: relative;
+    z-index: 0;
+  }
+
+  .kfb-ln[data-on] {
+    color: var(--ss-accent);
+    transition-duration: 0.12s;
+  }
+
+  .kfb-ln[data-on]::before {
+    opacity: 1;
+    transition-duration: 0.12s;
+  }
+
+  /* Phone column: the window across the top, the rule card straddling its foot */
+  & .ss-stage[data-layout='compact'] .kfb-app {
+    /* 18, so what shows of the bled window stays square */
+    top: 18px;
+    left: 16px;
+    width: 400px;
+    height: 420px;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfb-page {
+    padding: 20px;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfb-head,
+  & .ss-stage[data-layout='compact'] .kfb-list {
+    width: 306px;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfb-list {
+    width: 318px;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfb-editor {
+    top: auto;
+    bottom: 16px;
+    right: 16px;
+    width: 326px;
+  }
+
+  /* No file bar in the phone card: the rule alone, clear of the open menu */
+  & .ss-stage[data-layout='compact'] .kfb-editor > .kfb-file {
+    display: none;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfb-editor > .kfb-code {
+    border-top: 0;
+  }
+
+  & .ss-stage[data-layout='compact'] .kfb-ln[data-wide-only] {
+    display: none;
+  }
+}
+
+/* Dark: any ancestor with .dark */
+.dark .kfb {
+  & .ss-stage {
+    --ss-canvas: #0f1012;
+    --ss-surface: #16171a;
+    --ss-chrome: #16171a;
+    --ss-raised: #17181b;
+    --ss-well: #1b1c1f;
+    --ss-text-strong: #f2f2f2;
+    --ss-text: #9b9b9b;
+    --ss-text-faint: #6c6c6c;
+    --ss-icon: #9b9b9b;
+    --ss-icon-faint: #4a4a4e;
+    --ss-line: rgba(255, 255, 255, 0.1);
+    --ss-line-faint: rgba(255, 255, 255, 0.06);
+    --ss-accent: #8098ff;
+    --ss-accent-soft: rgba(128, 152, 255, 0.18);
+    --ss-ink-1: rgba(255, 255, 255, 0.05);
+    --ss-ink-2: rgba(255, 255, 255, 0.07);
+    --ss-ink-3: rgba(255, 255, 255, 0.1);
+    --ss-ink-4: rgba(255, 255, 255, 0.13);
+    --ss-ink-5: rgba(255, 255, 255, 0.2);
+    --ss-fill: #2a2b2e;
+    --ss-shadow-window: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.4);
+    --ss-shadow-float: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 16px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.3);
+    --ss-shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --ss-shadow-hero: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+    --ss-shadow-satellite: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 14px 32px -8px rgba(0, 0, 0, 0.7), 0 4px 10px -4px rgba(0, 0, 0, 0.5);
+    --ss-shadow-ground: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 24px 48px -24px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Line cursors invert on a dark surface, as macOS's do */
+  & .ss-cursor {
+    --ss-cursor-line: #fff;
+    --ss-cursor-edge: rgba(0, 0, 0, 0.75);
+  }
+}

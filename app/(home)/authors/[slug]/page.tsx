@@ -2,8 +2,10 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
+import { PostCard } from "@site/components/blog/post-card"
 import { PreviewLink } from "@site/components/blog/preview-link"
-import { allPosts, AUTHORS, authorPath, longDate } from "@site/lib/blog"
+import { Cover } from "@site/components/stageshow/cover"
+import { allPosts, AUTHORS, authorPath } from "@site/lib/blog"
 import { authorPageData, JsonLd, pageMetadata } from "@site/lib/seo"
 
 const bySlug = (slug: string) => Object.values(AUTHORS).find((a) => a.slug === slug)
@@ -55,6 +57,9 @@ export default async function Page(props: PageProps<"/authors/[slug]">) {
           </p>
         </div>
       </header>
+
+      {/* What he builds, shown rather than described: one command installs a component, and the component moves. */}
+      <Cover name="author" className="mt-10 overflow-hidden rounded-2xl border" />
 
       <div className="mt-10 grid gap-4 text-[17px] leading-relaxed">
         {author.about.map((p) => (
@@ -111,15 +116,10 @@ export default async function Page(props: PageProps<"/authors/[slug]">) {
           <h2 id="posts" className="text-[21px] font-semibold tracking-tight">
             Posts by {author.name.split(" ")[0]}
           </h2>
-          <ol className="mt-4 grid gap-3">
+          <ol className="mt-5 grid gap-4 sm:grid-cols-2">
             {posts.map((p) => (
               <li key={p.url}>
-                <PreviewLink href={p.url} className="font-medium underline-offset-4 hover:underline">
-                  {p.data.title}
-                </PreviewLink>
-                <p className="text-sm text-muted-foreground">
-                  <time dateTime={p.data.published}>{longDate(p.data.published)}</time>
-                </p>
+                <PostCard post={p} as="h3" />
               </li>
             ))}
           </ol>

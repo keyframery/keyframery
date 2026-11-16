@@ -1,0 +1,22 @@
+/* The box an illustration plays in. It holds the scene's shape before the scene's code arrives:
+   the wide design from 600px up, the phone design below (the same switch the stage itself makes). */
+.kf-cover {
+  container-type: inline-size;
+  position: relative;
+  background: var(--background);
+}
+
+.kf-cover-stage {
+  aspect-ratio: var(--kf-cw) / var(--kf-ch);
+  width: 100%;
+  max-width: calc(var(--kf-cw) * 1px);
+  margin-inline: auto;
+  pointer-events: none;
+}
+
+@container (min-width: 600px) {
+  .kf-cover-stage {
+    aspect-ratio: var(--kf-w) / var(--kf-h);
+    max-width: none;
+  }
+}
