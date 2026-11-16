@@ -8,10 +8,10 @@ import { JsonLd, pageMetadata, projectData } from "@site/lib/seo"
 const display = Inter({ subsets: ["latin"], axes: ["opsz"], variable: "--font-lp-display", display: "swap" })
 
 const description =
-  "Keyframery is an open-source set of 61 animated components for UI SDK, built with plain CSS. They keep UI SDK's parts and props: swap one import, or let your coding agent do it with the Keyframery skill. Four motion styles change how the whole app moves."
+  "Keyframery is an open-source set of 55 animated components, one for every UI SDK component, built with plain CSS. They keep UI SDK's parts and props: swap one import, or let your coding agent do it with the Keyframery skill. Four motion styles change how the whole app moves."
 
 /** The search snippet: Google cuts descriptions at about 155 characters. */
-const metaDescription = "61 animated components for Vercel's UI SDK (@ui-sdk/react), in plain CSS. Same parts and props: swap one import, or let your coding agent do it. Four motion styles."
+const metaDescription = "All 55 components of Vercel's UI SDK (@ui-sdk/react), animated in plain CSS. Same parts and props: swap one import, or let your coding agent do it. Four motion styles."
 
 export const metadata = pageMetadata({ absolute: "Keyframery: Animated UI SDK Components for React", description: metaDescription, path: "/" })
 

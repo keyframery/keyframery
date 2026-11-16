@@ -98,3 +98,6 @@ function ResizableHandle({
 
 export { createResizableController } from "@/components/primitives/resizable"
 export { Resizable, ResizableHandle, ResizablePanel }
+
+/* UI SDK's helpers for this component, passed through. */
+export { resizableStorageKey } from "@/components/primitives/resizable"

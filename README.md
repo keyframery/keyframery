@@ -2,7 +2,7 @@
 
 **Animated components for [UI SDK](https://ui-sdk.dev), built with plain CSS.**
 
-Keyframery is 60 drop-in components with motion built in. They keep UI SDK's parts and props, so you swap one import and keep your code. Tabs stretch toward the tab you pick, menus unfold from the button that opened them, checks draw themselves and numbers roll.
+Keyframery is all 55 UI SDK components with motion built in. They keep UI SDK's parts and props, so you swap one import and keep your code. Tabs stretch toward the tab you pick, menus unfold from the button that opened them, checks draw themselves and numbers roll.
 
 - Website and docs: https://keyframery.com
 - Installation: https://keyframery.com/docs/installation
@@ -37,7 +37,7 @@ Four styles change how everything moves. Set one on `<html>`:
 <html data-motion="calm">  <!-- calm | springy (default) | snappy | playful -->
 ```
 
-Or let people pick with `npx shadcn add @keyframery/motion-style`.
+Or let people pick with `npx shadcn add @keyframery/preferences`, which includes the motion style switcher.
 
 ## Why plain CSS
 

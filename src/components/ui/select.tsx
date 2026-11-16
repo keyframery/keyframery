@@ -29,7 +29,7 @@ import {
 } from "@/components/primitives/select"
 import * as React from "react"
 
-import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
+import { mapChildren, Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The sheet. Its motion (unfold, cascade, the gliding highlight) comes from the primitive. */
@@ -122,9 +122,7 @@ function SelectTrigger({
   className,
   children,
   ...props
-}: Omit<React.ComponentProps<typeof SelectTriggerPart>, "children"> & {
-  children?: React.ReactNode
-}) {
+}: React.ComponentProps<typeof SelectTriggerPart>) {
   return (
     <SelectTriggerPart
       className={cn(
@@ -142,8 +140,12 @@ function SelectTrigger({
       )}
       {...props}
     >
-      {children}
-      <ChevronIcon />
+      {mapChildren(children, (content) => (
+        <>
+          {content}
+          <ChevronIcon />
+        </>
+      ))}
     </SelectTriggerPart>
   )
 }

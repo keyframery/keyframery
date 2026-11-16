@@ -39,6 +39,10 @@ function Listbox<T = string, Multiple extends boolean | undefined = false>({
       <ListboxRoot<T, Multiple>
         {...({
           ...props,
+          /* With no children, the root's `items` render as styled rows. */
+          children:
+            props.children ??
+            (props.items ? (state: { items?: ListData<unknown> }) => <ListboxItems items={state.items} /> : undefined),
           className: cn(
             "group/listbox flex max-h-72 flex-col gap-px overflow-y-auto overscroll-contain rounded-[12px] bg-background p-1.5 text-[13px] outline-none scroll-py-1.5",
             "data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:overflow-x-auto data-[orientation=horizontal]:overflow-y-hidden",

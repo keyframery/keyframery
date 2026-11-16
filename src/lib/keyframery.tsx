@@ -65,6 +65,16 @@ export function withSpeed<S>(style: S, speed: Speed | undefined): S {
   return { "--kf-speed": value, ...(style as React.CSSProperties | undefined) } as S
 }
 
+/* UI SDK parts take `children` as content or as a function of the part's state. A styled part
+   that adds elements of its own (a chevron, a moving key) wraps either form with this, so the
+   function form keeps working. */
+export function mapChildren<State>(
+  children: React.ReactNode | ((state: State) => React.ReactNode),
+  wrap: (content: React.ReactNode) => React.ReactNode,
+): React.ReactNode | ((state: State) => React.ReactNode) {
+  return typeof children === "function" ? (state: State) => wrap(children(state)) : wrap(children)
+}
+
 /* Sets speed and motion style for the whole app, popups included. A component's own `speed` prop
    still wins inside that component. Server-rendered pages can put `data-motion` on <html> directly
    to avoid a change after hydration. */

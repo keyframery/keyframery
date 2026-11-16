@@ -235,3 +235,6 @@ export {
   DialogTitle,
   DialogTrigger,
 }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createDialogController } from "@/components/primitives/dialog"

@@ -73,6 +73,17 @@ function MenuContent<Payload = unknown>({
   return <MenuContentPart<Payload> className={cn(sheet, className)} {...props} />
 }
 
+/* For a menu opened by a `MenuContextTrigger` (a right-click, a long press or Shift+F10). It has no
+   trigger to grow out of: UI SDK anchors it to the press point and puts that point in
+   `--transform-origin`. So the sheet starts smaller, does not slide toward a trigger, and grows
+   straight out of the pointer. Add it to the content: `<MenuContent className={contextMenuMotion}>`. */
+const contextMenuMotion = cn(
+  "data-starting-style:[translate:0_0] data-starting-style:scale-[0.6] data-starting-style:blur-[8px]",
+  "data-ending-style:scale-[0.94]",
+  /* Reduced motion: appear in place, no scale or blur. */
+  "motion-reduce:data-starting-style:scale-100 motion-reduce:data-starting-style:blur-none motion-reduce:data-ending-style:scale-100",
+)
+
 function MenuSubContent<Payload = unknown>({
   className,
   ...props
@@ -128,6 +139,7 @@ function MenuItemIndicator({ className, ...props }: React.ComponentProps<typeof 
 }
 
 export {
+  contextMenuMotion,
   MenuCheckboxItem,
   MenuContent,
   MenuItem,

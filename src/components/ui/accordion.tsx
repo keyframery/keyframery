@@ -11,7 +11,7 @@ import {
   AccordionPanel as AccordionPanelPart,
   AccordionTrigger as AccordionTriggerPart,
 } from "@/components/primitives/accordion"
-import { Speed, type SpeedProps } from "@/lib/keyframery"
+import { mapChildren, Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 function Accordion({ speed, className, ...props }: React.ComponentProps<typeof AccordionRoot> & SpeedProps) {
@@ -100,9 +100,7 @@ function AccordionPanel({
   className,
   children,
   ...props
-}: Omit<React.ComponentProps<typeof AccordionPanelPart>, "children"> & {
-  children?: React.ReactNode
-}) {
+}: React.ComponentProps<typeof AccordionPanelPart>) {
   return (
     <AccordionPanelPart
       className={cn(
@@ -111,11 +109,16 @@ function AccordionPanel({
       )}
       {...props}
     >
-      {React.Children.map(children, (child) =>
-        typeof child === "string" || typeof child === "number" ? <p>{child}</p> : child,
+      {mapChildren(children, (content) =>
+        React.Children.map(content, (child) =>
+          typeof child === "string" || typeof child === "number" ? <p>{child}</p> : child,
+        ),
       )}
     </AccordionPanelPart>
   )
 }
 
 export { Accordion, AccordionHeader, AccordionItem, AccordionPanel, AccordionTrigger }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createAccordionController } from "@/components/primitives/accordion"

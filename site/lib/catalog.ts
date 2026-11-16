@@ -17,8 +17,8 @@ export const MOVES = motion.moves
 /* `sdk` is the UI SDK component a Keyframery component wraps, or null when UI SDK has none. */
 export type Entry = { slug: string; name: string; group: string; description: string; sdk: string | null; moves: [string, string][] }
 
-/* Components built on a UI SDK part with a different name. */
-const sdkPart: Record<string, string> = { "context-menu": "menu", "motion-style": "preferences" }
+/* Components built on a UI SDK part with a different name. None today: every component is UI SDK's own. */
+const sdkPart: Record<string, string> = {}
 
 /* The order groups appear in, from the most used to the most specialised. */
 export const groupOrder = ["Actions", "Forms", "Menus", "Overlays", "Navigation", "Disclosure", "Display", "Feedback", "Dates", "Layout", "Media", "Data", "Motion"]

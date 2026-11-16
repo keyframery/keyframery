@@ -5,8 +5,8 @@
 import Link from "next/link"
 import * as React from "react"
 
-import { MotionStyle, motionStyle, type MotionStyleValue, usePreference } from "@/components/primitives/motion-style"
-import { MotionStyleSwitcher } from "@/components/ui/motion-style"
+import { MotionStyle, motionStyle, type MotionStyleValue, usePreference } from "@/components/primitives/preferences"
+import { MotionStyleSwitcher } from "@/components/ui/preferences"
 import * as accordion from "@/demos/accordion"
 import * as button from "@/demos/button"
 import * as carousel from "@/demos/carousel"

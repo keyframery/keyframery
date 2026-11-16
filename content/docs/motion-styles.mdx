@@ -31,14 +31,14 @@ Put `data-motion` on `<html>`. Popups render at the end of `<body>`, so setting 
 
 ## Let people choose
 
-The switcher is a component like the others. It applies the style to the page and remembers the choice.
+The switcher comes with [Preferences](/docs/components/preferences). It applies the style to the page and remembers the choice.
 
 ```npm
-npx shadcn@latest add @keyframery/motion-style
+npx shadcn@latest add @keyframery/preferences
 ```
 
 ```tsx
-import { MotionStyleSwitcher } from "@/components/keyframery/motion-style"
+import { MotionStyleSwitcher } from "@/components/keyframery/preferences"
 
 export function Settings() {
   return <MotionStyleSwitcher />

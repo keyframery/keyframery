@@ -9,7 +9,7 @@ import {
   SegmentedControlIndicator as SegmentedControlIndicatorPrimitive,
   SegmentedControlItem as SegmentedControlItemPrimitive,
 } from "@/components/primitives/segmented-control"
-import { Speed, type SpeedProps } from "@/lib/keyframery"
+import { mapChildren, Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* One box shared by the real item and its copy inside the key, so both lay out identically. */
@@ -26,9 +26,7 @@ function SegmentedControl({
   children,
   orientation,
   ...props
-}: Omit<React.ComponentProps<typeof SegmentedControlRoot>, "children"> & {
-  children?: React.ReactNode
-} & SpeedProps) {
+}: React.ComponentProps<typeof SegmentedControlRoot> & SpeedProps) {
   return (
     <Speed speed={speed}>
       <SegmentedControlRoot
@@ -43,30 +41,34 @@ function SegmentedControl({
         )}
         {...props}
       >
-        {children}
-        {/* The key: a raised surface that stretches toward the item you pick. */}
-        <SegmentedControlIndicator>
-          {/* A copy of the labels in the selected colour, clipped to the key. It is offset by the
-              key's own moving edges, so it stays still while the key passes over it. */}
-          <span className="absolute inset-0 overflow-hidden rounded-[inherit]">
-            <span
-              data-orientation={orientation ?? "horizontal"}
-              className={cn(
-                rowLayout,
-                "absolute text-foreground",
-                "top-[calc(min(var(--kf-ta),var(--kf-tb))*-1)] left-[calc(min(var(--kf-la),var(--kf-lb))*-1)]",
-                "h-[calc(var(--segmented-control-indicator-top,0px)+var(--segmented-control-indicator-height,0px)+var(--segmented-control-indicator-bottom,0px))]",
-                "w-[calc(var(--segmented-control-indicator-left,0px)+var(--segmented-control-indicator-width,0px)+var(--segmented-control-indicator-right,0px))]",
-              )}
-            >
-              {React.Children.map(children, (child) =>
-                React.isValidElement<{ children?: React.ReactNode }>(child) ? (
-                  <span className={itemBox}>{child.props.children}</span>
-                ) : null,
-              )}
-            </span>
-          </span>
-        </SegmentedControlIndicator>
+        {mapChildren(children, (content) => (
+          <>
+            {content}
+            {/* The key: a raised surface that stretches toward the item you pick. */}
+            <SegmentedControlIndicator>
+              {/* A copy of the labels in the selected colour, clipped to the key. It is offset by the
+                  key's own moving edges, so it stays still while the key passes over it. */}
+              <span className="absolute inset-0 overflow-hidden rounded-[inherit]">
+                <span
+                  data-orientation={orientation ?? "horizontal"}
+                  className={cn(
+                    rowLayout,
+                    "absolute text-foreground",
+                    "top-[calc(min(var(--kf-ta),var(--kf-tb))*-1)] left-[calc(min(var(--kf-la),var(--kf-lb))*-1)]",
+                    "h-[calc(var(--segmented-control-indicator-top,0px)+var(--segmented-control-indicator-height,0px)+var(--segmented-control-indicator-bottom,0px))]",
+                    "w-[calc(var(--segmented-control-indicator-left,0px)+var(--segmented-control-indicator-width,0px)+var(--segmented-control-indicator-right,0px))]",
+                  )}
+                >
+                  {React.Children.map(content, (child) =>
+                    React.isValidElement<{ children?: React.ReactNode }>(child) ? (
+                      <span className={itemBox}>{child.props.children}</span>
+                    ) : null,
+                  )}
+                </span>
+              </span>
+            </SegmentedControlIndicator>
+          </>
+        ))}
       </SegmentedControlRoot>
     </Speed>
   )
@@ -110,3 +112,6 @@ function SegmentedControlItem({
 }
 
 export { SegmentedControl, SegmentedControlIndicator, SegmentedControlItem }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createSegmentedControlController } from "@/components/primitives/segmented-control"

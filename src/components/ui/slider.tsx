@@ -121,3 +121,6 @@ function SliderThumb({
 }
 
 export { Slider, SliderControl, SliderIndicator, SliderThumb, SliderTrack, SliderValue }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createSliderController } from "@/components/primitives/slider"

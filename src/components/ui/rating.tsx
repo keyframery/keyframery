@@ -79,3 +79,6 @@ function RatingItem({
 }
 
 export { Rating, RatingItem }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createRatingController } from "@/components/primitives/rating"

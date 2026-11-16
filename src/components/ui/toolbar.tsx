@@ -159,3 +159,6 @@ export {
   ToolbarToggle,
   ToolbarToggleGroup,
 }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createToolbarController } from "@/components/primitives/toolbar"

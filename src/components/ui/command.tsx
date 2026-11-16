@@ -4,6 +4,7 @@
 
 import {
   Command as CommandRoot,
+  type CommandData,
   CommandEmpty as CommandEmptyPart,
   CommandGroup as CommandGroupPart,
   CommandGroupLabel as CommandGroupLabelPart,
@@ -74,8 +75,10 @@ function CommandInput({
   )
 }
 
+/* With no children it renders the commands passed to `<Command items>` as styled rows. */
 function CommandList({
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof CommandListPart>) {
   return (
@@ -88,7 +91,9 @@ function CommandList({
         className,
       )}
       {...props}
-    />
+    >
+      {children ?? ((state) => (state.items ? <CommandItems items={state.items} /> : null))}
+    </CommandListPart>
   )
 }
 
@@ -240,6 +245,37 @@ function CommandFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/* Renders commands written as data with the styled parts above: plain strings, commands, groups
+   and separators. A command with `items` opens a page of its own, as in UI SDK. */
+function CommandItems({ items }: { items: CommandData }) {
+  return items.map((entry, index) => {
+    if (typeof entry !== "string" && "type" in entry) {
+      if (entry.type === "separator") return <CommandSeparator key={`separator-${index}`} />
+      return (
+        <CommandGroup key={`group-${entry.label ?? index}`}>
+          {entry.label && <CommandGroupLabel>{entry.label}</CommandGroupLabel>}
+          <CommandItems items={entry.items} />
+        </CommandGroup>
+      )
+    }
+    const command = typeof entry === "string" ? { value: entry, label: entry } : entry
+    return (
+      <CommandItem
+        key={command.value}
+        value={command.value}
+        label={command.label}
+        keywords={command.keywords}
+        disabled={command.disabled}
+        shortcut={command.shortcut}
+      >
+        <CommandItemText>{command.label}</CommandItemText>
+        {command.shortcut && <CommandShortcut />}
+      </CommandItem>
+    )
+  })
+}
+
+export type { CommandData } from "@/components/primitives/command"
 export {
   Command,
   CommandEmpty,
@@ -249,6 +285,7 @@ export {
   CommandInput,
   CommandItem,
   CommandItemIcon,
+  CommandItems,
   CommandItemText,
   CommandList,
   CommandPage,

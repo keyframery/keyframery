@@ -1,14 +1,18 @@
 "use client"
 
-/* Keyframery's four motion styles, on top of `@ui-sdk/react/preferences`.
+/* Drop-in for `@ui-sdk/react/preferences`, plus Keyframery's own preference: the motion style.
 
-   Every Keyframery duration is written as calc(Nms * var(--kf-speed, 1)) and every easing reads
-   --ease-house, --ease-spring or --ease-pop, so one `data-motion` attribute changes how the whole set
-   moves: calm (slower, no bounce), springy (the default), snappy (fast, crisp) and playful (more spring).
+   `Preferences` and `usePreference` pass through untouched. A preference only puts a value on a
+   `data-*` attribute; what moves is whatever your CSS styles by it.
 
-   `motionStyle` is the preference: global (on <html>, so popups at the end of <body> follow it too)
-   and saved in localStorage. Mount `MotionStyle` once to apply it. `createMotionStyle({ global: false })`
-   makes a scoped one: its attribute goes on the MotionStyle element (display: contents) and only the
+   The motion style is the preference every Keyframery component already follows. Each duration is
+   written as calc(Nms * var(--kf-speed, 1)) and each easing reads --ease-house, --ease-spring or
+   --ease-pop, so one `data-motion` attribute changes how the whole set moves: calm (slower, no
+   bounce), springy (the default), snappy (fast, crisp) and playful (more spring).
+
+   `motionStyle` is global (on <html>, so popups at the end of <body> follow it too) and saved in
+   localStorage. Mount `MotionStyle` once to apply it. `createMotionStyle({ global: false })` makes a
+   scoped one: its attribute goes on the MotionStyle element (display: contents) and only the
    content inside follows it. */
 
 import { createLocalStorage, createPreference } from "@ui-sdk/core"

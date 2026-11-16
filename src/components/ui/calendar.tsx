@@ -284,3 +284,6 @@ export {
   CalendarWeeks,
   CalendarYearSelect,
 }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createCalendarController } from "@/components/primitives/calendar"

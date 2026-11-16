@@ -103,3 +103,6 @@ function TooltipShortcut({
 }
 
 export { Tooltip, TooltipArrow, TooltipContent, TooltipShortcut, TooltipTrigger }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createTooltipController } from "@/components/primitives/tooltip"

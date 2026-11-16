@@ -17,7 +17,7 @@ import {
 } from "@/components/primitives/navigation-menu"
 import * as React from "react"
 
-import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
+import { mapChildren, Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The label look shared by triggers and top-level links. */
@@ -70,9 +70,7 @@ function NavigationMenuTrigger({
   className,
   children,
   ...props
-}: Omit<React.ComponentProps<typeof NavigationMenuTriggerPart>, "children"> & {
-  children?: React.ReactNode
-}) {
+}: React.ComponentProps<typeof NavigationMenuTriggerPart>) {
   return (
     <NavigationMenuTriggerPart
       className={cn(
@@ -83,19 +81,23 @@ function NavigationMenuTrigger({
       )}
       {...props}
     >
-      {children}
-      <svg
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden
-        className="-me-1 size-3.5 shrink-0 opacity-60 in-data-open:opacity-100"
-      >
-        <path d="m4.5 6.5 3.5 3.5 3.5-3.5" />
-      </svg>
+      {mapChildren(children, (content) => (
+        <>
+          {content}
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+            className="-me-1 size-3.5 shrink-0 opacity-60 in-data-open:opacity-100"
+          >
+            <path d="m4.5 6.5 3.5 3.5 3.5-3.5" />
+          </svg>
+        </>
+      ))}
     </NavigationMenuTriggerPart>
   )
 }

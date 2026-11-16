@@ -69,3 +69,6 @@ function CollapsiblePanel({ className, ...props }: React.ComponentProps<typeof C
 }
 
 export { Collapsible, CollapsiblePanel, CollapsibleTrigger }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createCollapsibleController } from "@/components/primitives/collapsible"

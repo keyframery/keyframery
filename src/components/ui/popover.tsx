@@ -203,3 +203,6 @@ export {
   PopoverTitle,
   PopoverTrigger,
 }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createPopoverController } from "@/components/primitives/popover"

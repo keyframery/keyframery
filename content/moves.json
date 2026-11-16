@@ -35,11 +35,6 @@
       ["Fade", "The photo clears out of a blur once it has loaded."],
       ["Spring", "In a group, the avatar you point at rises and its neighbours make room."]
     ],
-    "badge": [
-      ["Pop", "A badge pops in from 60% of its size."],
-      ["Roll", "A count rolls its digits up or down; a new leading digit rises in."],
-      ["Pop", "A status dot sends out one ring when its value changes."]
-    ],
     "button": [
       ["Press", "The button sinks to 96% and springs back on release."],
       ["Direction", "While pending, the label lifts away and a spinner rises in from below."],
@@ -49,12 +44,6 @@
       ["Glide", "One key glides from the old selected day to the new one."],
       ["Direction", "Weeks slide in from the side you turned to."],
       ["Press", "Days and arrows press in."]
-    ],
-    "card": [
-      ["Cascade", "The card fades up, then its header, content and footer arrive in order."],
-      ["Spring", "An interactive card lifts 2px on hover and its shadow grows."],
-      ["Press", "It presses down when clicked."],
-      ["Fade", "An optional soft light follows the pointer."]
     ],
     "carousel": [
       ["Direction", "Slides travel on a spring in the direction you moved."],
@@ -86,11 +75,6 @@
       ["Cascade", "Results arrive one after another, on open and on every page change."],
       ["Glide", "One highlight glides between results."],
       ["Direction", "Pages slide sideways as you go deeper."]
-    ],
-    "context-menu": [
-      ["Unfold", "The menu grows from the exact point you pressed."],
-      ["Cascade", "Rows arrive one after another."],
-      ["Glide", "One highlight glides between items; submenus unfold sideways."]
     ],
     "date-input": [
       ["Glide", "One highlight glides between day, month and year as you move through them."]
@@ -134,10 +118,6 @@
       ["Fade", "The hairline changes colour."],
       ["Pop", "A clear button pops in when there is text."]
     ],
-    "kbd": [
-      ["Press", "A pressed key sinks 1px with an inner shadow and pops back."],
-      ["Cascade", "In a combination, the keys sink left to right."]
-    ],
     "label": [
       ["Fade", "The label's colour follows its control: quiet, full ink when focused, red when invalid."],
       ["Pop", "A Required or Optional marker pops in."]
@@ -147,7 +127,7 @@
       ["Pop", "A check pops in as you choose."]
     ],
     "menu": [
-      ["Unfold", "The sheet unfolds from the button that opened it."],
+      ["Unfold", "The sheet unfolds from the button that opened it. Opened by a right-click, it grows from the exact point you pressed."],
       ["Cascade", "Rows arrive one after another."],
       ["Glide", "One highlight glides between items."],
       ["Draw", "Checks draw themselves; submenus unfold sideways."]
@@ -161,9 +141,6 @@
       ["Spring", "The bar springs to its value; the track clips the overshoot."],
       ["Roll", "The reading rolls to the new number."],
       ["Fade", "The bar changes colour as it crosses a threshold."]
-    ],
-    "motion-style": [
-      ["Stretch", "The switcher's key stretches between the four styles."]
     ],
     "navigation-menu": [
       ["Stretch", "The marker stretches from one item to the next."],
@@ -192,6 +169,9 @@
     "popover": [
       ["Unfold", "The popover unfolds from the button that opened it."],
       ["Cascade", "Its contents arrive one after another."]
+    ],
+    "preferences": [
+      ["Stretch", "A preference switcher's key stretches to the value you pick, as the motion style switcher's does between the four styles."]
     ],
     "progress": [
       ["Spring", "The bar fills on a spring."],
@@ -231,17 +211,6 @@
       ["Draw", "The line draws itself from the centre outward; vertical lines draw top to bottom."],
       ["Fade", "A label in the middle fades in after the line."]
     ],
-    "sidebar": [
-      ["Glide", "The current page's key slides from the old item to the new one, even across groups."],
-      ["Height", "A collapsible group opens to its real height and its items rise in one after another."],
-      ["Fade", "On the rail, labels leave at once; on the way back they wait for the width, then rise in out of a blur."],
-      ["Press", "Items sink a little and spring back on release."],
-      ["Direction", "Below its mobile breakpoint the sidebar slides in over the page from the left, over a fading scrim, and slides away when you choose a page."]
-    ],
-    "skeleton": [
-      ["Fade", "A light band sweeps across each placeholder, then pauses."],
-      ["Cascade", "When loading ends, the real content rises in out of a blur, one piece after another."]
-    ],
     "slider": [
       ["Pop", "The thumb grows while you hold it."],
       ["Spring", "The fill and thumbs travel on a spring when the value jumps."],
@@ -250,12 +219,6 @@
     "switch": [
       ["Stretch", "The thumb stretches toward the side it is moving to, then settles."],
       ["Press", "It widens while you hold it."]
-    ],
-    "table": [
-      ["Cascade", "Rows arrive one after another, and new rows do the same when the page or filter changes. Rows that only move, like after a sort, stay put."],
-      ["Spring", "A sortable header's arrow turns over when the direction flips."],
-      ["Fade", "Hover and selected rows fade their colour in and out."],
-      ["Direction", "Too wide for the screen, it scrolls sideways and the edge you can scroll toward softens."]
     ],
     "tabs": [
       ["Stretch", "The key stretches across the list toward the tab you pick, then closes up."],

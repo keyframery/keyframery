@@ -282,3 +282,6 @@ export {
   AlertDialogTitle,
   AlertDialogTrigger,
 }
+
+/* UI SDK's helpers for this component, passed through. */
+export { confirm, createAlertDialogController, createConfirm } from "@/components/primitives/alert-dialog"

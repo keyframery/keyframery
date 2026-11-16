@@ -61,3 +61,6 @@ function SwitchThumb({ className, ...props }: React.ComponentProps<typeof Switch
 }
 
 export { Switch, SwitchThumb }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createSwitchController } from "@/components/primitives/switch"

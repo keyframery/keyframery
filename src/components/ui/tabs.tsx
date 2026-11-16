@@ -11,8 +11,9 @@ import {
   TabsPanel as TabsPanelPrimitive,
   TabsPanels as TabsPanelsPrimitive,
   TabsTab as TabsTabPrimitive,
+  TabsTabIcon as TabsTabIconPrimitive,
 } from "@/components/primitives/tabs"
-import { Speed, type SpeedProps } from "@/lib/keyframery"
+import { mapChildren, Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* One box shared by the real tab and its copy inside the key, so both lay out identically. */
@@ -40,9 +41,7 @@ function TabsList({
   className,
   children,
   ...props
-}: Omit<React.ComponentProps<typeof TabsListPrimitive>, "children"> & {
-  children?: React.ReactNode
-}) {
+}: React.ComponentProps<typeof TabsListPrimitive>) {
   return (
     <TabsListPrimitive
       className={cn(
@@ -54,38 +53,52 @@ function TabsList({
       )}
       {...props}
     >
-      {children}
-      {/* The key: a raised surface that stretches toward the tab you pick. */}
-      <TabsIndicatorPrimitive
-        aria-hidden
-        className={cn(
-          "group/key z-10 rounded-[9px] bg-background",
-          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
-          "dark:bg-accent dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
-        )}
-      >
-        {/* A copy of the labels in the selected colour, clipped to the key. It is offset by the
-            key's own moving edges, so it stays still while the key passes over it. */}
-        <span className="absolute inset-0 overflow-hidden rounded-[inherit]">
-          <span
-            className={cn(
-              listLayout,
-              "absolute text-foreground",
-              "group-data-[orientation=vertical]/key:flex-col group-data-[orientation=vertical]/key:items-stretch",
-              "top-[calc(min(var(--kf-ta),var(--kf-tb))*-1)] left-[calc(min(var(--kf-la),var(--kf-lb))*-1)]",
-              "h-[calc(var(--active-tab-top,0px)+var(--active-tab-height,0px)+var(--active-tab-bottom,0px))]",
-              "w-[calc(var(--active-tab-left,0px)+var(--active-tab-width,0px)+var(--active-tab-right,0px))]",
-            )}
-          >
-            {React.Children.map(children, (child) =>
-              React.isValidElement<{ children?: React.ReactNode }>(child) ? (
-                <span className={tabBox}>{child.props.children}</span>
-              ) : null,
-            )}
-          </span>
-        </span>
-      </TabsIndicatorPrimitive>
+      {mapChildren(children, (content) => (
+        <>
+          {content}
+          {/* The key: a raised surface that stretches toward the tab you pick. */}
+          <TabsIndicator>
+            {/* A copy of the labels in the selected colour, clipped to the key. It is offset by the
+                key's own moving edges, so it stays still while the key passes over it. */}
+            <span className="absolute inset-0 overflow-hidden rounded-[inherit]">
+              <span
+                className={cn(
+                  listLayout,
+                  "absolute text-foreground",
+                  "group-data-[orientation=vertical]/key:flex-col group-data-[orientation=vertical]/key:items-stretch",
+                  "top-[calc(min(var(--kf-ta),var(--kf-tb))*-1)] left-[calc(min(var(--kf-la),var(--kf-lb))*-1)]",
+                  "h-[calc(var(--active-tab-top,0px)+var(--active-tab-height,0px)+var(--active-tab-bottom,0px))]",
+                  "w-[calc(var(--active-tab-left,0px)+var(--active-tab-width,0px)+var(--active-tab-right,0px))]",
+                )}
+              >
+                {React.Children.map(content, (child) =>
+                  React.isValidElement<{ children?: React.ReactNode }>(child) ? (
+                    <span className={tabBox}>{child.props.children}</span>
+                  ) : null,
+                )}
+              </span>
+            </span>
+          </TabsIndicator>
+        </>
+      ))}
     </TabsListPrimitive>
+  )
+}
+
+/* The key on its own. TabsList already renders one, so add this only to a list you build from the
+   primitive parts yourself. */
+function TabsIndicator({ className, ...props }: React.ComponentProps<typeof TabsIndicatorPrimitive>) {
+  return (
+    <TabsIndicatorPrimitive
+      aria-hidden
+      className={cn(
+        "group/key z-10 rounded-[9px] bg-background",
+        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
+        "dark:bg-accent dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+        className as string,
+      )}
+      {...props}
+    />
   )
 }
 
@@ -105,6 +118,11 @@ function TabsTab({ className, ...props }: React.ComponentProps<typeof TabsTabPri
   )
 }
 
+/* An icon inside a tab. A tab with only an icon needs an `aria-label`. */
+function TabsTabIcon({ className, ...props }: React.ComponentProps<typeof TabsTabIconPrimitive>) {
+  return <TabsTabIconPrimitive className={cn("inline-flex shrink-0 items-center justify-center [&_svg]:size-3.5", className as string)} {...props} />
+}
+
 function TabsPanels({ className, ...props }: React.ComponentProps<typeof TabsPanelsPrimitive>) {
   return <TabsPanelsPrimitive className={cn("mt-3 flex-1", className)} {...props} />
 }
@@ -122,4 +140,7 @@ function TabsPanel({ className, ...props }: React.ComponentProps<typeof TabsPane
   )
 }
 
-export { Tabs, TabsList, TabsPanel, TabsPanels, TabsTab }
+export { Tabs, TabsIndicator, TabsList, TabsPanel, TabsPanels, TabsTab, TabsTabIcon }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createTabsController } from "@/components/primitives/tabs"

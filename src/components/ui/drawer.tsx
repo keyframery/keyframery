@@ -269,3 +269,6 @@ export {
   DrawerTitle,
   DrawerTrigger,
 }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createDrawerController, sheetPhysics } from "@/components/primitives/drawer"

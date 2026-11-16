@@ -258,7 +258,7 @@ Look at each file's `target` and at `dependencies`. We tried two registries.
 
 Our own registry, `@keyframery`, went first. `npx shadcn@latest add @keyframery/tabs` found it with no setup. It wrote three files, into `components/keyframery/` and `lib/`, and left shadcn's `components/ui/tabs.tsx` alone. Both sets of tabs then built on one page.
 
-The problem: the item pins UI SDK `0.1.0-beta.2`, so the install moved our project back from beta.3 to beta.2. We reinstalled beta.5 afterwards and the tabs still type-checked and built. Until the pin moves, run your UI SDK install again after adding one of our components. The [installation guide](/docs/installation) has the rest.
+The problem: in this test the item pinned UI SDK `0.1.0-beta.2`, so the install moved our project back from beta.3 to beta.2. We reinstalled beta.5 afterwards and the tabs still type-checked and built. We have since moved the pin to `0.1.0-beta.5`. If your project is on a newer release than the pin, run your UI SDK install again after adding one of our components. The [installation guide](/docs/installation) has the rest.
 
 The second was SPEC-01, a hardware-style kit from the [shuding/spec-01](https://github.com/shuding/spec-01) repository. Its slider item writes to `components/ui/slider.tsx`, the path shadcn's own slider uses. On 16 November it also asked for a UI SDK build (`0.0.0-20261111125312.ga16c1d57`) that npm doesn't have, so the install stopped at the dependency step and wrote nothing. shadcn's slider was untouched. Both things may have changed by the time you read this.
 

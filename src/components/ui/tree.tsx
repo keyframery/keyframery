@@ -249,3 +249,6 @@ export {
   TreeItemLabel,
   TreeItems,
 }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createTreeController, toggleTreeChecked, treeCheckedStates, treeFromPaths, visibleTreeRows } from "@/components/primitives/tree"

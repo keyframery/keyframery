@@ -18,7 +18,7 @@ const motion = JSON.parse(read("content/moves.json"))
 const out = path.join(root, "content/docs/components")
 fs.mkdirSync(out, { recursive: true })
 
-const sdkPart = { "context-menu": "menu", "motion-style": "preferences" }
+const sdkPart = {}
 const dateSlugs = ["calendar", "date-picker", "date-input"]
 
 /* Paths as they land in a user's project after `npx shadcn add`. */
@@ -89,7 +89,7 @@ function rootPart(slug, api) {
 
 function speedSnippet(slug, root) {
   if (slug === "toast") return `<ToastRegion speed="fast" />`
-  if (slug === "motion-style") return `<MotionStyleSwitcher speed="fast" />`
+  if (slug === "preferences") return `<PreferenceSwitcher preference={view} speed="fast" />`
   return `<${root} speed="fast">\n  …\n</${root}>`
 }
 

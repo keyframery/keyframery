@@ -18,6 +18,21 @@ const renamed: Record<string, string> = {
   "input-group": "input",
   "button-group": "button",
 }
+/* Components retired on 2026-11-16 because UI SDK has no component of that name: Keyframery now
+   ships UI SDK's own 55 and nothing else. Each page goes to the closest one that still exists. */
+const retired: Record<string, string> = {
+  badge: "/docs/components",
+  card: "/docs/components",
+  kbd: "/docs/components",
+  sidebar: "/docs/components",
+  skeleton: "/docs/components",
+  table: "/docs/components",
+  "context-menu": "/docs/components/menu",
+  "motion-style": "/docs/components/preferences",
+}
+/* Registry items that moved into another item, so an old `shadcn add` still installs something. */
+const movedItems: Record<string, string> = { "context-menu": "menu", "motion-style": "preferences" }
+
 const oldUrls = fs
   .readFileSync(path.join(process.cwd(), "content/old-urls.txt"), "utf8")
   .split("\n")
@@ -32,6 +47,7 @@ function target(url: string): string | null {
   if (component) {
     const name = component[1]
     if (slugs.has(name)) return null
+    if (retired[name]) return retired[name]
     return renamed[name] ? `/docs/components/${renamed[name]}` : "/docs/components"
   }
   if (url === "/theme" || url === "/docs/motion-themes" || url === "/docs/customize") return "/docs/motion-styles"
@@ -40,10 +56,21 @@ function target(url: string): string | null {
   return "/"
 }
 
-const redirects = oldUrls.flatMap((source) => {
+/* Every one is a 301, so search engines move the old address's standing to the new page. */
+const moved = new Map<string, string>()
+for (const source of oldUrls) {
   const destination = target(source)
-  return destination === null ? [] : [{ source, destination, permanent: true }]
-})
+  if (destination !== null) moved.set(source, destination)
+}
+for (const [name, destination] of Object.entries(retired)) {
+  moved.set(`/docs/components/${name}`, destination)
+  // The Markdown copies of the page, for agents.
+  moved.set(`/docs/components/${name}.mdx`, `${destination}.mdx`)
+  moved.set(`/docs/components/${name}.md`, `${destination}.md`)
+}
+for (const [name, item] of Object.entries(movedItems)) moved.set(`/r/${name}.json`, `/r/${item}.json`)
+
+const redirects = [...moved].map(([source, destination]) => ({ source, destination, statusCode: 301 as const }))
 
 const config: NextConfig = {
   reactStrictMode: true,

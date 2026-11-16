@@ -94,3 +94,6 @@ function CheckboxGroup({
 }
 
 export { Checkbox, CheckboxGroup, CheckboxIndicator }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createCheckboxController, createCheckboxGroupController } from "@/components/primitives/checkbox"

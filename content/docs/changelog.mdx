@@ -1,8 +1,21 @@
 ---
 title: Changelog
 heading: "Changelog"
-description: "What changed in Keyframery, newest first: speed props, Table and fuller docs, phone layouts, the 1.0 release for UI SDK, and the earlier Cuts motion layer."
+description: "What changed in Keyframery, newest first: all 55 UI SDK components on 0.1.0-beta.5, speed props, phone layouts, the 1.0 release for UI SDK, and the earlier Cuts motion layer."
 ---
+
+## 2.0: Every UI SDK component, and only those
+
+November 2026
+
+Keyframery is the motion for UI SDK, so the set is now exactly UI SDK's: all 55 components, under the same names, and nothing else.
+
+- **Preferences** is new, the last UI SDK component Keyframery was missing. It comes with `PreferenceSwitcher`, a segmented control for any preference, and with the motion style switcher.
+- **Built and tested on UI SDK `0.1.0-beta.5`.** The registry pins that version.
+- **Every UI SDK part, prop and helper works from both layers.** The finished components gain `TabsTabIcon`, `TabsIndicator` and `CommandItems`, and pass through every controller (`createTabsController` and the rest), `confirm`, `sheetPhysics` and the tree helpers. Parts that add an element of their own (a chevron, the moving key) now take `children` as a function of their state too.
+- **Menus, listboxes and command lists written as data** (`items`) render with Keyframery's rows. A data menu renders its own content, as in UI SDK.
+- **Context menus are part of Menu.** Use `MenuContextTrigger`, as in UI SDK. A menu that opens from a right-click still unfolds from the pointer.
+- **Retired: Badge, Card, Kbd, Sidebar, Skeleton and Table.** UI SDK has no component of those names. Files already in your project are yours and keep working; they are no longer in the registry. The old `@keyframery/context-menu` and `@keyframery/motion-style` addresses redirect to Menu and Preferences.
 
 ## 1.3: Speed, Table and fuller docs
 

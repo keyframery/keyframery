@@ -90,3 +90,6 @@ function ToggleGroup({ speed, className, ...props }: React.ComponentProps<typeof
 }
 
 export { Toggle, ToggleGroup, ToggleIcon }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createToggleController, createToggleGroupController } from "@/components/primitives/toggle"

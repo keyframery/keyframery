@@ -3,7 +3,7 @@
 import { Monitor, RotateCcw, Smartphone } from "lucide-react"
 import * as React from "react"
 
-import { MotionStyleSwitcher } from "@/components/ui/motion-style"
+import { MotionStyleSwitcher } from "@/components/ui/preferences"
 import { SegmentedControl, SegmentedControlItem } from "@/components/ui/segmented-control"
 import { cn } from "@/lib/utils"
 import { Demo } from "@site/components/demo"

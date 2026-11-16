@@ -75,3 +75,6 @@ function RadioIndicator({ className, ...props }: React.ComponentProps<typeof Rad
 }
 
 export { Radio, RadioGroup, RadioIndicator }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createRadioGroupController } from "@/components/primitives/radio"

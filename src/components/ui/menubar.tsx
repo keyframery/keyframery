@@ -25,7 +25,7 @@ import {
 } from "@/components/primitives/menubar"
 import * as React from "react"
 
-import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
+import { mapChildren, Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
 /* The sheet. Its motion (unfold, cascade, the gliding highlight) comes from the primitive;
@@ -108,8 +108,29 @@ function Menubar({
   )
 }
 
-function Menu(props: React.ComponentProps<typeof MenuRoot>) {
-  return <MenuRoot {...props} />
+/* The menu as data, shared with its content. */
+const MenuDataContext = React.createContext<{ items: MenuData | undefined; place: () => () => void } | null>(null)
+
+/* Pass `items` to write a menu as data. Like UI SDK, the root then renders the content for you,
+   unless you place a MenuContent of your own. */
+function Menu({ children, ...props }: React.ComponentProps<typeof MenuRoot>) {
+  const { items } = props
+  const [placed, setPlaced] = React.useState(0)
+  const place = React.useCallback(() => {
+    setPlaced((n) => n + 1)
+    return () => setPlaced((n) => n - 1)
+  }, [])
+  const data = React.useMemo(() => ({ items, place }), [items, place])
+  const hasContent =
+    placed > 0 || React.Children.toArray(children).some((child) => React.isValidElement(child) && child.type === MenuContent)
+  return (
+    <MenuDataContext value={data}>
+      <MenuRoot {...props}>
+        {children}
+        {items && !hasContent ? <MenuSheet /> : null}
+      </MenuRoot>
+    </MenuDataContext>
+  )
 }
 
 /* A flat label on the bar. The bar's highlight glides under it on hover and while it is open. */
@@ -147,21 +168,33 @@ function MenuContextTrigger({
   )
 }
 
-function MenuContent<Payload = unknown>({
+/* The sheet itself. With no children it renders the root's `items`. */
+function MenuSheet<Payload = unknown>({
   className,
   sideOffset = 6,
   align = "start",
   style,
+  children,
   ...props
 }: React.ComponentProps<typeof MenuContentPart<Payload>>) {
+  const data = React.useContext(MenuDataContext)
   return (
     <MenuContentPart<Payload>
       sideOffset={sideOffset}
       align={align}
       className={cn(sheet, className)}
-      {...props} style={useSpeedStyle(style)}
-    />
+      {...props}
+      style={useSpeedStyle(style)}
+    >
+      {children ?? (data?.items ? <MenuItems items={data.items} /> : undefined)}
+    </MenuContentPart>
   )
+}
+
+function MenuContent<Payload = unknown>(props: React.ComponentProps<typeof MenuContentPart<Payload>>) {
+  const place = React.useContext(MenuDataContext)?.place
+  React.useLayoutEffect(() => place?.(), [place])
+  return <MenuSheet<Payload> {...props} />
 }
 
 function MenuItem({
@@ -294,9 +327,7 @@ function MenuSubTrigger({
   className,
   children,
   ...props
-}: Omit<React.ComponentProps<typeof MenuSubTriggerPart>, "children"> & {
-  children?: React.ReactNode
-}) {
+}: React.ComponentProps<typeof MenuSubTriggerPart>) {
   return (
     <MenuSubTriggerPart
       className={cn(
@@ -306,8 +337,12 @@ function MenuSubTrigger({
       )}
       {...props}
     >
-      {children}
-      <Chevron className="ms-auto -me-0.5 size-4 shrink-0 text-muted-foreground rtl:-scale-x-100" />
+      {mapChildren(children, (content) => (
+        <>
+          {content}
+          <Chevron className="ms-auto -me-0.5 size-4 shrink-0 text-muted-foreground rtl:-scale-x-100" />
+        </>
+      ))}
     </MenuSubTriggerPart>
   )
 }

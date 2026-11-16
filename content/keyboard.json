@@ -63,7 +63,6 @@
     ]
   ],
   "avatar": [],
-  "badge": [],
   "button": [
     [
       "Enter",
@@ -104,7 +103,6 @@
       "Selects the focused day."
     ]
   ],
-  "card": [],
   "carousel": [
     [
       "←",
@@ -203,32 +201,6 @@
     [
       "Escape",
       "Clears the search, or goes back a page."
-    ]
-  ],
-  "context-menu": [
-    [
-      "Shift + F10",
-      "Opens the menu on the focused area."
-    ],
-    [
-      "↓ ↑",
-      "Moves between items."
-    ],
-    [
-      "→",
-      "Opens a submenu."
-    ],
-    [
-      "←",
-      "Closes a submenu."
-    ],
-    [
-      "Enter",
-      "Chooses the highlighted item."
-    ],
-    [
-      "Escape",
-      "Closes the menu."
     ]
   ],
   "date-input": [
@@ -332,7 +304,6 @@
       "Clears the field, when it has a clear button."
     ]
   ],
-  "kbd": [],
   "label": [],
   "listbox": [
     [
@@ -364,6 +335,10 @@
     [
       "Enter",
       "Opens the menu from its trigger, or chooses an item."
+    ],
+    [
+      "Shift + F10",
+      "Opens a context menu on the focused area."
     ],
     [
       "↓ ↑",
@@ -405,12 +380,6 @@
     ]
   ],
   "meter": [],
-  "motion-style": [
-    [
-      "← →",
-      "Moves to the previous or next style."
-    ]
-  ],
   "navigation-menu": [
     [
       "Enter",
@@ -501,6 +470,12 @@
     [
       "Escape",
       "Closes the popover and returns focus to the trigger."
+    ]
+  ],
+  "preferences": [
+    [
+      "← →",
+      "In a preference switcher, moves to the previous or next value."
     ]
   ],
   "progress": [],
@@ -609,21 +584,6 @@
     ]
   ],
   "separator": [],
-  "sidebar": [
-    [
-      "Tab",
-      "Moves between the trigger and the items."
-    ],
-    [
-      "Enter",
-      "Opens the focused item, or folds a collapsible group from its label."
-    ],
-    [
-      "Escape",
-      "Closes the sidebar while it is a sheet on a phone."
-    ]
-  ],
-  "skeleton": [],
   "slider": [
     [
       "← →",
@@ -654,24 +614,6 @@
     [
       "Enter",
       "Turns it on or off."
-    ]
-  ],
-  "table": [
-    [
-      "Tab",
-      "Moves between the sort buttons, checkboxes and links in the table."
-    ],
-    [
-      "Enter",
-      "Sorts by the focused column."
-    ],
-    [
-      "Space",
-      "Ticks the focused row's checkbox."
-    ],
-    [
-      "Shift + scroll",
-      "Scrolls a wide table sideways."
     ]
   ],
   "tabs": [

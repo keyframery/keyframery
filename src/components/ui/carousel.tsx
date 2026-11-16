@@ -186,3 +186,6 @@ export {
   CarouselProgress,
   CarouselViewport,
 }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createCarouselController } from "@/components/primitives/carousel"

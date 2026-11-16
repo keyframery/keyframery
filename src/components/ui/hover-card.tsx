@@ -95,3 +95,6 @@ function HoverCardArrow({
 }
 
 export { HoverCard, HoverCardArrow, HoverCardContent, HoverCardTrigger }
+
+/* UI SDK's helpers for this component, passed through. */
+export { createHoverCardController } from "@/components/primitives/hover-card"
