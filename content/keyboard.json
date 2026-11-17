@@ -1102,5 +1102,35 @@
       "A–Z / 1–9",
       "Chooses an answer when matching shortcuts are enabled."
     ]
+  ],
+  "chart": [
+    [
+      "Tab",
+      "Moves focus to the legend's toggles, then to the chart's points as one tab stop."
+    ],
+    [
+      "ArrowRight",
+      "Moves to the next point and shows its values (Down for horizontal bars)."
+    ],
+    [
+      "ArrowLeft",
+      "Moves to the previous point (Up for horizontal bars)."
+    ],
+    [
+      "Home",
+      "Moves to the first point."
+    ],
+    [
+      "End",
+      "Moves to the last point."
+    ],
+    [
+      "Escape",
+      "Hides the tooltip; any arrow brings it back."
+    ],
+    [
+      "Space",
+      "Switches the focused legend series off or on."
+    ]
   ]
 }

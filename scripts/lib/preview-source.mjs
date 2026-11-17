@@ -31,7 +31,7 @@ export function createPreviewSource(code, filename = "example.tsx") {
   for (const edit of edits.sort((a, b) => b.start - a.start)) code = code.slice(0, edit.start) + edit.text + code.slice(edit.end)
   code = code
     .replaceAll('"@/components/primitives/', '"@/components/keyframery/primitives/')
-    .replaceAll('"@/components/core/', '"@/components/keyframery/core/')
+    .replace(/"@\/components\/core\/([a-z0-9-]+)"/g, '"@/components/keyframery/core/$1-core"')
     .replaceAll('"@/components/ui/', '"@/components/keyframery/')
     .replace(/\n{3,}/g, "\n\n")
     .trim()

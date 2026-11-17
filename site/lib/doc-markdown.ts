@@ -29,8 +29,8 @@ export function typeTableToMarkdown(typeAttr: string): string {
 
 const PREVIEW_OPEN = /^<HiddenFromMarkdown(\s[^>]*)?>$/
 const DEMO = /^<(LiveDemo|MotionStylePlayground|ComponentGrid|MovesGrid)(\s[^>]*)?\/>$/
-const WRAPPER_OPEN = /^<(Steps|Step|Tabs|Tab|Accordions|Accordion|Callout|ComponentPreview)(\s[^>]*)?>$/
-const WRAPPER_CLOSE = /^<\/(Steps|Step|Tabs|Tab|Accordions|Accordion|Callout|ComponentPreview)>$/
+const WRAPPER_OPEN = /^<(Steps|Step|Tabs|Tab|Accordions|Accordion|Callout|Note|ComponentPreview)(\s[^>]*)?>$/
+const WRAPPER_CLOSE = /^<\/(Steps|Step|Tabs|Tab|Accordions|Accordion|Callout|Note|ComponentPreview)>$/
 
 /** A page's own questions, shared by the Markdown routes and llms-full.txt. */
 function faqMarkdown(faq: { q: string; a: string }[] | undefined): string {
@@ -112,7 +112,7 @@ export function cleanDocMarkdown(md: string): string {
     const open = WRAPPER_OPEN.exec(text)
     if (open) {
       // A tab's name, or a callout's title, becomes a bold line; CutCards keeps the Markdown table it wraps.
-      const label = open[1] === "Tab" ? /value="([^"]*)"/.exec(text)?.[1] : open[1] === "Callout" || open[1] === "Accordion" ? /title="([^"]*)"/.exec(text)?.[1] : undefined
+      const label = open[1] === "Tab" ? /value="([^"]*)"/.exec(text)?.[1] : open[1] === "Callout" || open[1] === "Note" || open[1] === "Accordion" ? /title="([^"]*)"/.exec(text)?.[1] : undefined
       if (label) out.push(`**${decode(label)}**`, "")
       depth++
       continue

@@ -115,9 +115,9 @@ export default function DateInputDemo({
         <span id="expiry" className="text-[13px] font-medium">
           {expiryLabel}
         </span>
-        <DateInput granularity={granularity} hourCycle={hourCycle === "locale" ? undefined : hourCycle === "12" ? 12 : 24} locale={locale || undefined} disabled={disabled} readOnly={readOnly} required={required} aria-labelledby="dob" defaultValue="1991-04-23" max={iso(today)} className="w-full" />
+        <DateInput granularity={granularity} hourCycle={hourCycle === "locale" ? undefined : hourCycle === "12" ? 12 : 24} locale={validLocale(locale)} disabled={disabled} readOnly={readOnly} required={required} aria-labelledby="dob" defaultValue="1991-04-23" max={iso(today)} className="w-full" />
         <DateInput
-          granularity={granularity} hourCycle={hourCycle === "locale" ? undefined : hourCycle === "12" ? 12 : 24} locale={locale || undefined} disabled={disabled} readOnly={readOnly} required={required}
+          granularity={granularity} hourCycle={hourCycle === "locale" ? undefined : hourCycle === "12" ? 12 : 24} locale={validLocale(locale)} disabled={disabled} readOnly={readOnly} required={required}
           aria-labelledby="expiry"
           value={expiry}
           onValueChange={setExpiry}
@@ -135,4 +135,11 @@ export default function DateInputDemo({
       </div>
     </div>
   )
+}
+
+/* A locale typed into Customize is only used once it is a real language tag, so "de-" on the way to
+   "de-DE" doesn't throw. */
+function validLocale(locale: string) {
+  if (!locale) return undefined
+  try { return Intl.getCanonicalLocales(locale)[0] } catch { return undefined }
 }

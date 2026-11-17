@@ -1,6 +1,14 @@
 # Keyframery: progress and plan
 
 
+## Create, presets and Chart (2026-11-17)
+
+- **Create** (`/create`, `app/(app)/create`): a standalone page that builds a preset (base colour, theme colour, chart colours, radius, font, motion style, speed, bounce, gentler reduced motion) on a sideways-scrolling wall of 19 real-component cards, with a "+ Create" key in the site header. Codes are `k` + base62 (default `k0`; `site/lib/preset.ts`, tests in `scripts/tests/preset.test.mjs`). `app/r/[name]/route.ts` serves `/r/preset-<code>.json` (a `registry:theme`) and `/r/font-<name>.json`, so `npx shadcn@latest add @keyframery/preset-<code>` installs it. Docs: `content/docs/presets.mdx`, green `<Note>` (`site/components/docs/note.tsx`) on Introduction, Installation and Theming.
+- **Chart** on UI SDK's core (83 components): own SVG/HTML, no chart library; bar, line, area, donut, pie; `--chart-1..5` tokens that presets override.
+- **Install bugs fixed (were live):** the shadcn CLI rewrote core imports to `primitives/` because both files share a stem, so all 25 core-built components broke on install; the registry now installs core files as `core/<slug>-core.ts`. Code Block listed a comment ("Define a Primitive") as an npm dependency; the registry builder now reads only real import/export lines. Calendar and Date Input crashed on a half-typed locale in Customize.
+- shadcn-name redirects: `/docs/components/{sheet,sonner,dropdown-menu,input-otp,radio-group,toggle-group}` → drawer, toast, menu, otp-input, radio, toggle.
+- **Verified:** fresh create-next-app + shadcn init + preset + 31 components (all 25 core-built, Chart) type-checks, builds and renders with the preset's font, colours and motion; 23-step browser test of /create; every Customize control (1,438) changes the render or, for popups, the opened render, and behaviour-only controls are wired (sampled by hand: dialog, menu, tabs, button, rating). Not tested: Safari/Firefox (Safari does not tween line/area chart paths).
+
 ## Claude handoff completed locally (2026-11-16)
 
 - **82 components, all built on UI SDK:** 55 native SDK entries, 25 UI SDK core definitions and 2 aliases/compositions. Integrated 19 new components from the interrupted Claude session. Both animated and styled layers preserve every native SDK export.
@@ -252,4 +260,4 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 - Rollback target, the deployment that was live before: `dpl_6Na8DtVGECafzyamwrAs45R5zzUM` (16 Nov, 63 components).
 - Checked on the live domain: home, docs, a component page, `/docs/templates`, `/docs/templates/round`, `/templates/round`, `/r/round.json` and the sitemap return 200; the template and both docs pages were looked at in headless Chrome with no console errors; the registry lists 85 items.
 - The install was tested against the live registry in a new project: `create-next-app`, `shadcn init`, `npx shadcn@latest add @keyframery/round`, then `tsc` and `next build` all passed. It was not opened in a browser there.
-- Not done after this deploy: IndexNow, the sitemap resubmit and Search Console indexing requests for the new pages.
+- IndexNow: all 108 sitemap URLs submitted on 2026-11-17 (response 200). The sitemap resubmit and the Search Console indexing requests are with the owner; the first ten to request are the two template pages, the home page, `/docs/components` and the breadcrumb, spinner, alert, form, code-block and input-group pages.

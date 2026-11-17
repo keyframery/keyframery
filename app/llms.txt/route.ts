@@ -12,6 +12,7 @@ const HEADER = `# Keyframery
 - Every docs page is also Markdown: add .mdx to its URL (or send Accept: text/markdown)
 - Home page as Markdown: ${SITE}/index.md
 - Skill for coding agents: ${SITE}/.well-known/agent-skills/keyframery/SKILL.md (in Claude Code: /plugin marketplace add keyframery/keyframery)
+- Theme builder: ${SITE}/create (a preset installs with npx shadcn add @keyframery/preset-<code>; docs: ${SITE}/docs/presets.mdx)
 - Registry index: ${SITE}/r/registry.json
 - Source: https://github.com/keyframery/keyframery`
 

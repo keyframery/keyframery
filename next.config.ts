@@ -61,6 +61,15 @@ const config: NextConfig = {
         ? [{ source: "/:path*", has: [{ type: "host" as const, value: "(?<sub>.*)\\.vercel\\.app" }], destination: "https://keyframery.com/:path*", permanent: true }]
         : []),
       ...redirects,
+      // shadcn/ui's names for components Keyframery ships under another name.
+      ...[
+        ["sheet", "drawer"],
+        ["sonner", "toast"],
+        ["dropdown-menu", "menu"],
+        ["input-otp", "otp-input"],
+        ["radio-group", "radio"],
+        ["toggle-group", "toggle"],
+      ].map(([from, to]) => ({ source: `/docs/components/${from}`, destination: `/docs/components/${to}`, statusCode: 301 as const })),
     ]
   },
   async headers() {

@@ -17,13 +17,13 @@ for (const slug of slugs) {
   assert.ok(targets.has(`components/keyframery/${slug}.tsx`), `Missing styled file for ${slug}`)
   assert.ok(targets.has(`components/keyframery/primitives/${slug}.tsx`), `Missing primitive for ${slug}`)
   const core = fs.existsSync(path.join(root, "src/components/core", `${slug}.ts`))
-  if (core) assert.ok(targets.has(`components/keyframery/core/${slug}.ts`), `Missing core definition for ${slug}`)
+  if (core) assert.ok(targets.has(`components/keyframery/core/${slug}-core.ts`), `Missing core definition for ${slug}`)
   for (const file of generated.files) {
-    const relative = file.target.replace("components/keyframery/", "")
+    const relative = file.target.replace("components/keyframery/", "").replace(/^core\/(.+)-core\.ts$/, "core/$1.ts")
     const original = relative.startsWith("core/") || relative.startsWith("primitives/") ? `src/components/${relative}` : `src/components/ui/${relative}`
     const current = fs.readFileSync(path.join(root, original), "utf8")
       .replaceAll('"@/components/primitives/', '"@/components/keyframery/primitives/')
-      .replaceAll('"@/components/core/', '"@/components/keyframery/core/')
+      .replace(/"@\/components\/core\/([a-z0-9-]+)"/g, '"@/components/keyframery/core/$1-core"')
       .replaceAll('"@/components/ui/', '"@/components/keyframery/')
     assert.equal(file.content, current, `${slug} registry contains stale ${original}; regenerate it`)
   }
@@ -36,7 +36,7 @@ for (const slug of slugs) {
     if (dependency.startsWith("@keyframery/")) assert.ok(items.has(dependency.slice(12)), `${slug} refers to missing ${dependency}`)
   }
   for (const match of source.matchAll(/"@\/components\/keyframery\/(?:primitives\/|core\/)?([a-z-]+)"/g)) {
-    const dependency = match[1]
+    const dependency = match[1].replace(/-core$/, "")
     if (dependency !== slug) assert.ok(item.registryDependencies.includes(`@keyframery/${dependency}`), `${slug} does not install its ${dependency} dependency`)
   }
 }

@@ -1,0 +1,59 @@
+{
+  "description": "Bar, line, area and donut charts in plain SVG and CSS, no charting library: bars grow from the baseline one after another, lines draw themselves, rings sweep round, and every change of data tweens on a spring. The tooltip glides with rolling numbers, the legend folds series away, and the arrow keys walk the points.",
+  "moves": [
+    ["Cascade", "Bars grow from the baseline one after another, left to right; a ring's slices sweep round from the top, and the others fade back from the slice under the pointer."],
+    ["Draw", "Lines draw themselves from the left, with their area unrolling under them, and their dots pop in after."],
+    ["Spring", "New data, stacking or hidden series tween every bar, line, slice, tick and grid line to its new place, with a small overshoot."],
+    ["Glide", "The cursor band or hairline, the tooltip and each line's dot travel to the active point, and the tooltip swings to the other side near the edge."],
+    ["Roll", "The tooltip's values, the axis ticks and a donut's total roll to each new number."],
+    ["Height", "A series switched off in the legend folds into its baseline while the others widen into its room."],
+    ["Press", "Legend items sink a little and pop back."]
+  ],
+  "keyboard": [
+    ["Tab", "Moves focus to the legend's toggles, then to the chart's points as one tab stop."],
+    ["ArrowRight", "Moves to the next point and shows its values (Down for horizontal bars)."],
+    ["ArrowLeft", "Moves to the previous point (Up for horizontal bars)."],
+    ["Home", "Moves to the first point."],
+    ["End", "Moves to the last point."],
+    ["Escape", "Hides the tooltip; any arrow brings it back."],
+    ["Space", "Switches the focused legend series off or on."]
+  ],
+  "propDocs": {
+    "Chart.data": "The rows. Each has its category under `categoryKey` and a number under each series' key.",
+    "Chart.config": "The series by key, shaped like shadcn's `ChartConfig`: `{ revenue: { label, color?, icon? } }`. Config order is stack and legend order; a series without a colour takes the next of `--chart-1` … `--chart-5`. For a pie or donut, label each slice by its category here too.",
+    "Chart.categoryKey": "The key that names each row: the category for bars, lines and areas, the slice for a ring. Add it to the config with a `label` to name it in the data table.",
+    "Chart.type": "\"bar\", \"line\", \"area\", \"donut\" or \"pie\". Defaults to \"bar\".",
+    "Chart.stacked": "Stacks bars or areas on one another instead of side by side.",
+    "Chart.orientation": "For bars: \"vertical\" (standing, the default) or \"horizontal\" (lying, categories down the side).",
+    "Chart.curve": "For lines and areas: \"smooth\" (the default, never overshooting a point) or \"linear\".",
+    "Chart.dots": "Shows a dot on every point of a line or area, not only on the active one.",
+    "Chart.categoryGap": "The share of each category left empty between bar groups, 0 to 0.9. Defaults to 0.3.",
+    "Chart.innerRadius": "The donut's hole as a share of its radius, 0 to 0.9. Defaults to 0.6 for a donut, 0 for a pie.",
+    "Chart.padAngle": "Degrees of space between slices. Defaults to 1.5.",
+    "Chart.formatValue": "Formats a value for the tooltip, the point names and the data table: `(value, seriesKey) => string`.",
+    "Chart.formatTick": "Formats a value on the value axis. Defaults to compact numbers, like 12k.",
+    "Chart.formatCategory": "Formats a category on the category axis, like `(month) => month.slice(0, 3)`. The tooltip keeps the full name.",
+    "Chart.activeIndex": "The row that is active (hovered, focused or pressed), controlled. `null` for none.",
+    "Chart.defaultActiveIndex": "The row active at first, when you don't control it.",
+    "Chart.onActiveIndexChange": "Runs when the active row changes, with details.reason \"item-hover\", \"item-press\", \"list-navigation\", \"focus-in\", \"focus-out\", \"escape-key\" or \"pointer-leave\".",
+    "Chart.hiddenSeries": "The series keys (slice categories for a ring) that are hidden, controlled. The last one shown can't be hidden.",
+    "Chart.defaultHiddenSeries": "The series hidden at first, when you don't control them.",
+    "Chart.onHiddenSeriesChange": "Runs when a legend item is pressed, with the next list of hidden keys.",
+    "Chart.speed": "How fast the chart moves: \"fast\", \"normal\", \"slow\" or a multiplier.",
+    "ChartLegend.side": "\"top\" or \"bottom\" (the default) of the plot.",
+    "ChartTooltip.indicator": "The swatch beside each value: \"dot\" (the default), \"line\" or \"dashed\".",
+    "ChartTooltip.hideLabel": "Leaves out the category at the top of the tooltip."
+  },
+  "cssVars": [
+    ["--chart-1", "The series palette, --chart-1 to --chart-5 in config order (theme tokens a preset sets)", "cobalt, sky, slate, amber, mist"],
+    ["--chart-height", "The chart's height, legend and axes included", "16rem"],
+    ["--chart-grid", "Grid rules (75% on all but the zero line)", "--border"],
+    ["--chart-axis", "Axis labels", "--muted-foreground"],
+    ["--chart-cursor", "The band or hairline on the active point", "--foreground at 5% (band) or 22% (hairline)"],
+    ["--chart-tooltip", "Tooltip surface", "--popover"],
+    ["--chart-radius", "Bar corners", "--radius less 6px"],
+    ["--chart-stroke", "Line width", "2px"],
+    ["--chart-dot", "Dot size", "8px"],
+    ["--chart-bar-gap", "Space between bars in a group (never more than a third of a bar)", "4px"]
+  ]
+}

@@ -1,5 +1,6 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared"
 
+import { CreateNavButton } from "@site/components/create-nav-button"
 import { GitHubIcon } from "@site/components/github-icon"
 import { LogoMark } from "@site/components/logo"
 
@@ -14,6 +15,8 @@ export function baseOptions(): BaseLayoutProps {
           Keyframery
         </span>
       ),
+      /* On a phone the header keeps only search and the menu, so the plus sits beside them. */
+      children: <CreateNavButton className="absolute top-1/2 right-[88px] -translate-y-1/2 sm:hidden" />,
     },
     links: [
       { text: "Docs", url: "/docs", active: "url" },
@@ -22,6 +25,8 @@ export function baseOptions(): BaseLayoutProps {
       { text: "Motion styles", url: "/docs/motion-styles" },
       { text: "AI tools", url: "/docs/ai-tools" },
       { text: "Blog", url: "/blog", active: "nested-url" },
+      // The way into /create, a small key on the right beside GitHub and the theme toggle.
+      { type: "custom", secondary: true, children: <CreateNavButton /> },
       // Fumadocs' own githubUrl icon is an <svg role="img"> with no title, which fails axe; this one is decorative.
       { type: "icon", url: REPO, text: "GitHub", label: "GitHub", external: true, icon: <GitHubIcon /> },
     ],

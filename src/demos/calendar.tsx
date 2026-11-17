@@ -132,7 +132,7 @@ export default function CalendarDemo({
       disabled={disabled} readOnly={readOnly} deselectable={deselectable}
       fixedWeeks={fixedWeeks} showOutsideDays={showOutsideDays} minDays={minDays || undefined}
       pageBy={pageBy} weekdayFormat={weekdayFormat} monthFormat={monthFormat}
-      locale={locale || undefined} weekStartsOn={weekStartsOn < 0 ? undefined : weekStartsOn} months={months}
+      locale={validLocale(locale)} weekStartsOn={weekStartsOn < 0 ? undefined : weekStartsOn} months={months}
       min={daysFromToday(0)}
       aria-label="Stay at Hollow Farm"
     >
@@ -152,4 +152,11 @@ export default function CalendarDemo({
       </div>
     </Calendar>
   )
+}
+
+/* A locale typed into Customize is only used once it is a real language tag, so "de-" on the way to
+   "de-DE" doesn't throw. */
+function validLocale(locale: string) {
+  if (!locale) return undefined
+  try { return Intl.getCanonicalLocales(locale)[0] } catch { return undefined }
 }

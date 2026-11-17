@@ -29,7 +29,7 @@ const dateSlugs = ["calendar", "date-picker", "date-input"]
 const installed = (code) =>
   code
     .replaceAll('"@/components/primitives/', '"@/components/keyframery/primitives/')
-    .replaceAll('"@/components/core/', '"@/components/keyframery/core/')
+    .replace(/"@\/components\/core\/([a-z0-9-]+)"/g, '"@/components/keyframery/core/$1-core"')
     .replaceAll('"@/components/ui/', '"@/components/keyframery/')
 
 /* Code and edit positions come from the demo itself, never a separate hand-written snippet. */
@@ -201,7 +201,7 @@ for (const slug of slugs) {
     core
       ? {
           q: `UI SDK has no ${lower}. How is this one built on UI SDK?`,
-          a: `Its behaviour is one definition written with UI SDK's core (\`definePrimitive\`), in \`components/keyframery/core/${slug}.ts\`. Its parts are rendered by UI SDK's adapter, so they take \`render\`, state-based class names and \`data-slot\`, like every UI SDK component.`,
+          a: `Its behaviour is one definition written with UI SDK's core (\`definePrimitive\`), in \`components/keyframery/core/${slug}-core.ts\`. Its parts are rendered by UI SDK's adapter, so they take \`render\`, state-based class names and \`data-slot\`, like every UI SDK component.`,
         }
       : null,
     { q: `What happens to the ${name} when someone turns on reduced motion?`, a: "Nothing moves. State changes happen at once, or with a short fade." },
@@ -282,7 +282,7 @@ for (const slug of slugs) {
     fence("tsx", installed(primitive)),
     "",
     "</Accordion>",
-    ...(core ? [`<Accordion title="components/keyframery/core/${slug}.ts">`, "", fence("ts", installed(core)), "", "</Accordion>"] : []),
+    ...(core ? [`<Accordion title="components/keyframery/core/${slug}-core.ts">`, "", fence("ts", installed(core)), "", "</Accordion>"] : []),
     "</Accordions>",
     "",
     "</Step>",
@@ -394,7 +394,7 @@ for (const slug of slugs) {
       ? [
           "## Built on UI SDK's core",
           "",
-          `UI SDK doesn't ship a ${lower}, so this one is defined with its core: one \`definePrimitive\` in \`components/keyframery/core/${slug}.ts\`, with no React in it. UI SDK's adapters can render that same definition in Vue, Svelte, Solid and web components. To keep your own styling and take only the motion, import from \`@/components/keyframery/primitives/${slug}\`.`,
+          `UI SDK doesn't ship a ${lower}, so this one is defined with its core: one \`definePrimitive\` in \`components/keyframery/core/${slug}-core.ts\`, with no React in it. UI SDK's adapters can render that same definition in Vue, Svelte, Solid and web components. To keep your own styling and take only the motion, import from \`@/components/keyframery/primitives/${slug}\`.`,
           "",
         ]
       : []),

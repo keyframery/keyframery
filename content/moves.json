@@ -1153,6 +1153,36 @@
         "Height",
         "Validation errors open beneath the answers."
       ]
+    ],
+    "chart": [
+      [
+        "Cascade",
+        "Bars grow from the baseline one after another, left to right; a ring's slices sweep round from the top, and the others fade back from the slice under the pointer."
+      ],
+      [
+        "Draw",
+        "Lines draw themselves from the left, with their area unrolling under them, and their dots pop in after."
+      ],
+      [
+        "Spring",
+        "New data, stacking or hidden series tween every bar, line, slice, tick and grid line to its new place, with a small overshoot."
+      ],
+      [
+        "Glide",
+        "The cursor band or hairline, the tooltip and each line's dot travel to the active point, and the tooltip swings to the other side near the edge."
+      ],
+      [
+        "Roll",
+        "The tooltip's values, the axis ticks and a donut's total roll to each new number."
+      ],
+      [
+        "Height",
+        "A series switched off in the legend folds into its baseline while the others widen into its room."
+      ],
+      [
+        "Press",
+        "Legend items sink a little and pop back."
+      ]
     ]
   }
 }

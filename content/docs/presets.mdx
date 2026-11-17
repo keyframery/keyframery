@@ -1,0 +1,64 @@
+---
+title: Presets
+heading: "Presets: your colours, corners, font and motion as one code"
+description: "Build a Keyframery preset at /create and install it with one shadcn CLI command. What a preset code holds, what it changes in your CSS and what it leaves alone."
+faq:
+  - q: "Do I need a CLI of Keyframery's own?"
+    a: "No. A preset is an ordinary shadcn registry item at keyframery.com/r/preset-<code>.json, so `npx shadcn@latest add @keyframery/preset-<code>` installs it."
+  - q: "Does a preset change my components' code?"
+    a: "No. It writes CSS variables into your global stylesheet. The components already read them."
+  - q: "Can I go back to the default look?"
+    a: "Yes. The default preset, `k0`, is exactly the tokens the components ship with."
+---
+
+[Create](/create) lets you pick a base colour, a theme colour, chart colours, a radius, a font and how everything moves, and shows the result on real Keyframery components in light and dark. Everything you pick becomes one short code, like `k18OWX`.
+
+## Install a preset
+
+Copy the command from the Create page. It installs with the shadcn CLI you already use:
+
+```npm
+npx shadcn@latest add @keyframery/preset-k18OWX
+```
+
+The CLI writes the preset into your global CSS file. Run it again with another code to switch. The address `keyframery.com/create?preset=k18OWX` opens the same preset on the Create page, so you can share it or change it later.
+
+No shadcn CLI? **Copy CSS** on the Create page gives you the same rules to paste into your stylesheet.
+
+## What a preset sets
+
+| Part | What changes in your CSS |
+| --- | --- |
+| **Base colour** | The neutral tokens (`--background`, `--foreground`, `--muted`, `--border` and the rest) in light and dark, tinted towards stone, zinc, slate, gray, mauve or olive |
+| **Theme colour** | `--primary`, `--primary-foreground` and `--ring`. Switches, checkboxes, sliders, progress bars, badges and primary buttons follow |
+| **Tint highlights** | `--accent`, the surface under a hovered menu row or the selected tab, takes the theme colour |
+| **Chart colours** | `--chart-1` to `--chart-5` |
+| **Radius** | `--radius`, plus each component's own corner variable (`--dialog-radius`, `--menu-item-radius` and so on), scaled together. Pills stay pills |
+| **Font** | Installs the font the way your project loads fonts: `next/font` in a Next.js app, `@fontsource-variable` anywhere else. "Your font" leaves your font alone |
+| **Motion** | Your app's own motion: one of the four [motion styles](/docs/motion-styles), faster or slower, with more or less bounce |
+| **Reduced motion** | Optional: for people who ask their system for less motion, no overshoot and shorter moves in every style |
+
+Every colour is written in oklch, with a full light set on `:root` and a full dark set on `.dark`.
+
+### How the motion part works
+
+The motion lands on `:root:not([data-motion])`, so a page without a `data-motion` attribute moves the preset's way. A `data-motion` attribute still picks one of the four stock styles, which means the [motion style switcher](/docs/motion-styles#let-people-choose) keeps working: once a visitor picks a style, their choice wins.
+
+```css
+@layer base {
+  :root:not([data-motion]) {
+    --kf-speed: 1.08;
+    --ease-spring: linear(0, 0.020, 0.072, …, 1);
+  }
+}
+```
+
+## What a preset doesn't cover
+
+- **Your components' code.** A preset is only CSS variables, so it never overwrites a file in `components/keyframery/`.
+- **Every corner.** The radius scales the corner variable each component exposes. A few small inner shapes, like a clear button inside a field, keep their size.
+- **Specials.** Some components are showcase pieces with a look of their own. They may read a preset token where it makes sense, always with their own value as the fallback (`var(--primary, #2447f5)`), so a preset never breaks them and never has to know about them.
+
+## Codes
+
+A code is the letter `k` (the format's version) followed by the choices packed into a base-62 number. `k0` is the default preset. The order of the choices is fixed, and new choices are only ever added at the end, so a code you share today opens the same preset in a year. An invalid code returns a 404 from the registry rather than a guess.

@@ -12,6 +12,7 @@ import { ComponentPreview, MotionStylePlayground } from "@site/components/docs/c
 import { ExamplePreview } from "@site/components/docs/example-preview"
 import { PropsTable } from "@site/components/docs/props-table"
 import { Heading } from "@site/components/docs/heading"
+import { Note } from "@site/components/docs/note"
 import { TemplateGrid } from "@site/components/templates/template-grid"
 import { TemplateStage } from "@site/components/templates/template-stage"
 
@@ -34,6 +35,7 @@ export function getMDXComponents(components?: MDXComponents) {
     ExamplePreview,
     PropsTable,
     MotionStylePlayground,
+    Note,
     TemplateGrid,
     TemplateStage,
     ...components,

@@ -24,6 +24,13 @@
   --input: oklch(0.885 0 0);
   --ring: oklch(0.62 0.17 255);
   --radius: 0.625rem;
+  /* Chart series, in order. A cobalt lead, two quieter blues, a slate and one warm counterpoint.
+     Presets overwrite these five; charts read nothing else. */
+  --chart-1: oklch(0.56 0.19 263);
+  --chart-2: oklch(0.74 0.1 228);
+  --chart-3: oklch(0.4 0.08 262);
+  --chart-4: oklch(0.72 0.12 62);
+  --chart-5: oklch(0.85 0.035 250);
 }
 
 .dark {
@@ -45,6 +52,11 @@
   --border: oklch(1 0 0 / 0.1);
   --input: oklch(1 0 0 / 0.16);
   --ring: oklch(0.7 0.15 255);
+  --chart-1: oklch(0.66 0.17 263);
+  --chart-2: oklch(0.8 0.09 228);
+  --chart-3: oklch(0.56 0.07 260);
+  --chart-4: oklch(0.76 0.11 64);
+  --chart-5: oklch(0.9 0.025 250);
 }
 
 @theme inline {
@@ -67,6 +79,11 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
 }
 
 /* Motion tokens. Two springs written as CSS easings, so nothing needs an animation library.

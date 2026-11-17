@@ -41,13 +41,14 @@ const title = (slug) =>
 function rewrite(code) {
   return code
     .replaceAll('"@/components/primitives/', '"@/components/keyframery/primitives/')
-    .replaceAll('"@/components/core/', '"@/components/keyframery/core/')
+    .replace(/"@\/components\/core\/([a-z0-9-]+)"/g, '"@/components/keyframery/core/$1-core"')
     .replaceAll('"@/components/ui/', '"@/components/keyframery/')
 }
 
 function npmDeps(code) {
   const deps = new Set()
-  for (const [, spec] of code.matchAll(/from "([^"]+)"/g)) {
+  /* Only real import/export statements: a comment or a string that says `from "…"` is not a package. */
+  for (const [, spec] of code.matchAll(/^\s*(?:import|export)\b[^;]*?\bfrom\s+["']([^"']+)["']/gm)) {
     if (spec.startsWith("@ui-sdk/")) {
       deps.add(pin("@ui-sdk/react"))
       deps.add(pin("@ui-sdk/core"))
@@ -113,7 +114,7 @@ for (const slug of slugs) {
   const reg = new Set(["@keyframery/motion"])
   /* A component UI SDK doesn't ship has a third file: its behaviour, defined on UI SDK's core. */
   for (const [kind, rel, ext] of [
-    ["core", `components/keyframery/core/${slug}.ts`, "ts"],
+    ["core", `components/keyframery/core/${slug}-core.ts`, "ts"],
     ["primitives", `components/keyframery/primitives/${slug}.tsx`, "tsx"],
     ["ui", `components/keyframery/${slug}.tsx`, "tsx"],
   ]) {

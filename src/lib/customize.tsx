@@ -38,6 +38,9 @@ const focus = "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring/60 foc
 const name = "pointer-events-none relative z-10 truncate ps-3 pe-2 text-muted-foreground"
 const amount = "pointer-events-none relative z-10 ms-auto shrink-0 pe-3 font-medium text-foreground tabular-nums"
 
+/* The row's parts, for panels that build their own rows in the same shape (the /create page). */
+export const rowStyles = { well, focus, name, amount }
+
 /* A slider you scrub: the whole row is the track, and the fill behind the words is the value. A
    thin grip shows at the fill's edge while the pointer or the keyboard is on it. */
 export function PreviewSlider({

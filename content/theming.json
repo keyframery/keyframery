@@ -3042,5 +3042,57 @@
       "Stroke caps",
       "round"
     ]
+  ],
+  "chart": [
+    [
+      "--chart-1",
+      "The series palette, --chart-1 to --chart-5 in config order (theme tokens a preset sets)",
+      "cobalt, sky, slate, amber, mist"
+    ],
+    [
+      "--chart-height",
+      "The chart's height, legend and axes included",
+      "16rem"
+    ],
+    [
+      "--chart-grid",
+      "Grid rules (75% on all but the zero line)",
+      "--border"
+    ],
+    [
+      "--chart-axis",
+      "Axis labels",
+      "--muted-foreground"
+    ],
+    [
+      "--chart-cursor",
+      "The band or hairline on the active point",
+      "--foreground at 5% (band) or 22% (hairline)"
+    ],
+    [
+      "--chart-tooltip",
+      "Tooltip surface",
+      "--popover"
+    ],
+    [
+      "--chart-radius",
+      "Bar corners",
+      "--radius less 6px"
+    ],
+    [
+      "--chart-stroke",
+      "Line width",
+      "2px"
+    ],
+    [
+      "--chart-dot",
+      "Dot size",
+      "8px"
+    ],
+    [
+      "--chart-bar-gap",
+      "Space between bars in a group (never more than a third of a bar)",
+      "4px"
+    ]
   ]
 }

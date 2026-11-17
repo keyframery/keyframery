@@ -6,9 +6,9 @@ import { getDocsNavigation } from "@site/lib/docs-navigation"
 export default function Layout({ children }: { children: React.ReactNode }) {
   const options = baseOptions()
   // The page tree already contains the docs destinations; keep only site-level exits here.
-  const links = options.links?.filter((item) => !("url" in item) || !item.url?.startsWith("/docs"))
+  const links = options.links?.filter((item) => item.type !== "custom" && (!("url" in item) || !item.url?.startsWith("/docs")))
   return (
-    <DocsLayout tree={getDocsNavigation()} {...options} links={links} sidebar={{ defaultOpenLevel: 0 }}>
+    <DocsLayout tree={getDocsNavigation()} {...options} nav={{ ...options.nav, children: undefined }} links={links} sidebar={{ defaultOpenLevel: 0 }}>
       {children}
     </DocsLayout>
   )

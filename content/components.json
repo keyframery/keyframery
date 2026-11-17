@@ -80,5 +80,6 @@
   "direction": "A UI SDK core reading-direction boundary and toggle that mirror content between left-to-right and right-to-left layouts.",
   "message-scroller": "A conversation scroller that follows new messages, preserves reading position and counts unread messages, composed from UI SDK scroll area and core.",
   "message": "Sender-aware chat messages with avatars, headers and read receipts that arrive in sequence, built on UI SDK core.",
-  "questionnaire": "A step-by-step form with selectable answers, keyboard shortcuts, validation and progress, built on UI SDK core and its radio, checkbox and input components."
+  "questionnaire": "A step-by-step form with selectable answers, keyboard shortcuts, validation and progress, built on UI SDK core and its radio, checkbox and input components.",
+  "chart": "Bar, line, area and donut charts in plain SVG and CSS, no charting library: bars grow from the baseline one after another, lines draw themselves, rings sweep round, and every change of data tweens on a spring. The tooltip glides with rolling numbers, the legend folds series away, and the arrow keys walk the points."
 }
