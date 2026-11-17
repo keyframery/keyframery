@@ -12,7 +12,7 @@
 
 **Verification:**207 SDK checks pass; 82 customization and 82 registry entries pass; five metadata/parser regression tests pass; lab and Next type checks pass. Lab and website production builds pass. Browser audit: 328 light/dark/390px/reduced-motion renders and 82 customized-color renders without page exceptions or overflow. Detailed focused captures cover the 19 new components and docs; native slider labels, keyboard/pointer speed, reset, catalog filtering and Preview/Code behavior verified. Final production preview is served locally at `http://localhost:4640`.
 
-**Not committed or deployed.** The public site still serves the earlier deployment. Other frameworks/bases, the proposed admin panel block, Chart and a styled OverlayHost remain follow-on work. Safari/Firefox, a screen-reader session and exhaustive combinations of every control were not tested. Vite's eager lab gallery still emits a large-bundle warning; website demos load on demand. No new project dependency or CI was added.
+**Live since 2026-11-17** (see the last section). Other frameworks/bases, the proposed admin panel block, Chart and a styled OverlayHost remain follow-on work. Safari/Firefox, a screen-reader session and exhaustive combinations of every control were not tested. Vite's eager lab gallery still emits a large-bundle warning; website demos load on demand. No new project dependency or CI was added.
 
 
 Keyframery is now **Keyframery UI**: animated drop-in primitives for UI SDK (`@ui-sdk/react`), built with plain CSS. Swap the import, keep your UI SDK components.
@@ -244,4 +244,12 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 - **Live preview route.** `/templates/<slug>` (`app/templates/[slug]/page.tsx`): the template alone, forced to light, not indexed, with a small link back to its docs page.
 - **Registry.** `scripts/build-registry.mjs` now builds every folder in `src/templates/` as a `registry:block` (`npx shadcn@latest add @keyframery/round`), with its component dependencies and `motion`. Photos point at keyframery.com in the installed copy.
 - **Checked:** `pnpm check` passes (both type-checks, 26 tests, 207 SDK checks, customization, registry) and `pnpm build` passes. Looked at in headless Chrome on the production build: the loading sequence frame by frame, the whole page at 1440px and 390px, dragging a handle, adding a person, the tip, the currency switch, tapping items, switching bills, the odometer at four scroll points, billing switch, questions, and the docs pages at 1440px and 390px. No console errors, no horizontal overflow.
-- **Not checked or not done:** Safari and Firefox; reduced motion by eye; keyboard use of the ring handles; the registry install in a fresh project; with JavaScript off the hero stays in its loading state. The ring's handles are plain buttons with slider semantics, not yet a UI SDK core definition. Nothing is committed or deployed.
+- **Not checked or not done:** Safari and Firefox; reduced motion by eye; keyboard use of the ring handles; with JavaScript off the hero stays in its loading state. The ring's handles are plain buttons with slider semantics, not yet a UI SDK core definition. Committed and deployed on 2026-11-17 (see the next section).
+
+## Live (2026-11-17, 13:50 IST)
+
+- Everything above is live on keyframery.com: commit `ba75e11` on `main` (pushed as BriyanPatel), deployed from a clean checkout of that commit with `vercel deploy --prod --scope briyanpatels-projects`. Deployment `dpl_717CAgX1iQARTnaKM6KpFruQD49B`. The CLI timed out on its status poll again; `vercel inspect` showed Ready.
+- Rollback target, the deployment that was live before: `dpl_6Na8DtVGECafzyamwrAs45R5zzUM` (16 Nov, 63 components).
+- Checked on the live domain: home, docs, a component page, `/docs/templates`, `/docs/templates/round`, `/templates/round`, `/r/round.json` and the sitemap return 200; the template and both docs pages were looked at in headless Chrome with no console errors; the registry lists 85 items.
+- The install was tested against the live registry in a new project: `create-next-app`, `shadcn init`, `npx shadcn@latest add @keyframery/round`, then `tsc` and `next build` all passed. It was not opened in a browser there.
+- Not done after this deploy: IndexNow, the sitemap resubmit and Search Console indexing requests for the new pages.
