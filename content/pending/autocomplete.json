@@ -1,0 +1,42 @@
+{
+  "cssVars": [
+    [
+      "--autocomplete-face",
+      "Input and popup surfaces",
+      "--background / --popover"
+    ],
+    [
+      "--autocomplete-ink",
+      "Input, label, matched and popup text",
+      "--foreground / --popover-foreground"
+    ],
+    [
+      "--autocomplete-accent",
+      "Highlighted suggestion surface",
+      "--accent"
+    ],
+    [
+      "--autocomplete-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--autocomplete-height",
+      "Input height",
+      "2.25rem"
+    ]
+  ],
+  "propDocs": {
+    "Autocomplete.filter": "Match suggestions by contains, startsWith or fuzzy search.",
+    "Autocomplete.inlineComplete": "Select the untyped suffix of the first matching suggestion.",
+    "Autocomplete.autoHighlight": "Highlight the first match while typing.",
+    "Autocomplete.openOnFocus": "Show recent recipes when the empty field gains focus.",
+    "Autocomplete.loop": "Wrap arrow navigation at the ends.",
+    "Autocomplete.disabled": "Disable input and selection.",
+    "Autocomplete.readOnly": "Keep the input focusable while preventing edits.",
+    "Autocomplete.required": "Require a nonempty value in form submission.",
+    "AutocompleteContent.side": "Preferred popup side, subject to collisions.",
+    "AutocompleteContent.align": "Align the suggestions with the field.",
+    "AutocompleteContent.sideOffset": "Space from field to popup in pixels."
+  }
+}

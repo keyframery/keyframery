@@ -1,0 +1,36 @@
+{
+  "cssVars": [
+    [
+      "--accordion-border",
+      "Row dividers",
+      "--border"
+    ],
+    [
+      "--accordion-radius",
+      "Trigger corners",
+      "8px"
+    ],
+    [
+      "--accordion-padding",
+      "Trigger vertical padding",
+      "0.875rem"
+    ],
+    [
+      "--accordion-ink",
+      "Trigger and active icon text",
+      "--foreground"
+    ],
+    [
+      "--accordion-muted",
+      "Panel and resting icon text",
+      "--muted-foreground"
+    ]
+  ],
+  "propDocs": {
+    "Accordion.multiple": "Allow several answers to stay open.",
+    "Accordion.collapsible": "Allow the last open answer to close.",
+    "Accordion.disabled": "Prevent all trigger changes.",
+    "Accordion.keepMounted": "Retain closed panels as hidden elements.",
+    "Accordion.hiddenUntilFound": "Keep answers searchable by browser find."
+  }
+}

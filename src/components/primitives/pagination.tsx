@@ -21,18 +21,25 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/pagination"
 
 function PaginationList({ className, ...props }: React.ComponentProps<typeof PaginationListPart>) {
   return (
     <PaginationListPart
-      className={cn(
-        "relative isolate [anchor-scope:--kf-page]",
-        "before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:content-[''] before:[position-anchor:--kf-page]",
-        "before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
-        "before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-        "before:[transition:top_calc(340ms*var(--kf-speed,1))_var(--ease-spring),right_calc(340ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(340ms*var(--kf-speed,1))_var(--ease-spring),left_calc(340ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)]",
-        "has-[[data-slot=pagination-link][data-current]]:before:opacity-100 motion-reduce:before:[transition:none]!",
+      className={withClass(
+        cn(
+          "relative isolate [anchor-scope:--kf-page]",
+          "before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:content-[''] before:[position-anchor:--kf-page]",
+          "before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
+          "before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
+          "before:[transition:top_calc(340ms*var(--kf-speed,1))_var(--ease-spring),right_calc(340ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(340ms*var(--kf-speed,1))_var(--ease-spring),left_calc(340ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)]",
+          "has-[[data-slot=pagination-link][data-current]]:before:opacity-100 motion-reduce:before:[transition:none]!",
+        ),
         className,
       )}
       {...props}
@@ -44,10 +51,7 @@ function PaginationList({ className, ...props }: React.ComponentProps<typeof Pag
 function PaginationItem({ className, ...props }: React.ComponentProps<typeof PaginationItemPart>) {
   return (
     <PaginationItemPart
-      className={cn(
-        "transition-[opacity,scale,filter] duration-[calc(300ms*var(--kf-speed,1))] ease-spring starting:scale-75 starting:opacity-0 starting:blur-[3px] motion-reduce:transition-none!",
-        className,
-      )}
+      className={withClass("transition-[opacity,scale,filter] duration-[calc(300ms*var(--kf-speed,1))] ease-spring starting:scale-75 starting:opacity-0 starting:blur-[3px] motion-reduce:transition-none!", className)}
       {...props}
     />
   )
@@ -60,26 +64,31 @@ const press =
 function PaginationLink({ className, ...props }: React.ComponentProps<typeof PaginationLinkPart>) {
   return (
     <PaginationLinkPart
-      className={cn("data-current:[anchor-name:--kf-page]", press, className)}
+      className={withClass(
+        cn(
+          "data-current:[anchor-name:--kf-page]", press,
+        ),
+        className,
+      )}
       {...props}
     />
   )
 }
 
 function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof PaginationPreviousPart>) {
-  return <PaginationPreviousPart className={cn(press, className)} {...props} />
+  return <PaginationPreviousPart className={withClass(press, className)} {...props} />
 }
 
 function PaginationNext({ className, ...props }: React.ComponentProps<typeof PaginationNextPart>) {
-  return <PaginationNextPart className={cn(press, className)} {...props} />
+  return <PaginationNextPart className={withClass(press, className)} {...props} />
 }
 
 function PaginationFirst({ className, ...props }: React.ComponentProps<typeof PaginationFirstPart>) {
-  return <PaginationFirstPart className={cn(press, className)} {...props} />
+  return <PaginationFirstPart className={withClass(press, className)} {...props} />
 }
 
 function PaginationLast({ className, ...props }: React.ComponentProps<typeof PaginationLastPart>) {
-  return <PaginationLastPart className={cn(press, className)} {...props} />
+  return <PaginationLastPart className={withClass(press, className)} {...props} />
 }
 
 /* Roll: each digit is a column of 0 to 9 that slides to its value on a spring. Screen readers

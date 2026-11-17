@@ -1,0 +1,68 @@
+{
+  "cssVars": [
+    [
+      "--bubble-face",
+      "Incoming surface",
+      "bg-muted"
+    ],
+    [
+      "--bubble-ink",
+      "Incoming text",
+      "text-foreground"
+    ],
+    [
+      "--bubble-radius",
+      "Bubble corners",
+      "rounded-[18px]"
+    ],
+    [
+      "--bubble-font",
+      "Message size",
+      "text-[14px]"
+    ],
+    [
+      "--bubble-inset-x",
+      "Side padding",
+      "px-3.5"
+    ],
+    [
+      "--bubble-inset-y",
+      "Vertical padding",
+      "py-2"
+    ],
+    [
+      "--bubble-max-width",
+      "Bubble width",
+      "max-w-[80%]"
+    ]
+  ],
+  "description": "Chat bubbles that grow from their sender’s corner, with grouped messages, reply actions and delayed reactions, built on UI SDK core.",
+  "moves": [
+    [
+      "Unfold",
+      "A new bubble grows from 60% at its sender’s corner while its blur clears."
+    ],
+    [
+      "Cascade",
+      "Grouped bubbles arrive in order, with reactions following their bubble."
+    ],
+    [
+      "Press",
+      "A bubble rendered as a button or link presses in and springs back."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves to interactive bubbles and reaction controls."
+    ],
+    [
+      "Enter",
+      "Follows a focused bubble link or activates a bubble button."
+    ],
+    [
+      "Space",
+      "Activates a bubble rendered as a button."
+    ]
+  ]
+}

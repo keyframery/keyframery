@@ -1,0 +1,69 @@
+{
+  "description": "A quiet line in a stream whose rules draw out from its words, with a light that sweeps across it while the work it names is still going.",
+  "moves": [
+    [
+      "Draw",
+      "A separator marker's rules draw outward from its words; a border marker's rule draws from the start of the line."
+    ],
+    [
+      "Pop",
+      "The icon lands with a little overshoot once the work it marks is done."
+    ],
+    [
+      "Direction",
+      "The words rise out of a soft blur; when a pending marker finishes, its new text rises in again."
+    ],
+    [
+      "Fade",
+      "While pending, a light sweeps across the words, then stops when the work is done."
+    ]
+  ],
+  "keyboard": [],
+  "propDocs": {
+    "Marker.variant": "`\"separator\"` draws a rule on each side of the content, `\"border\"` a rule under it, `\"default\"` neither.",
+    "Marker.live": "Reads the marker out when its text changes, as a status.",
+    "Marker.pending": "The work the marker names is still going on: a light sweeps across the words, and a live marker is marked busy."
+  },
+  "cssVars": [
+    [
+      "--marker-ink",
+      "Marker text",
+      "text-muted-foreground"
+    ],
+    [
+      "--marker-link",
+      "Marker links",
+      "text-foreground"
+    ],
+    [
+      "--marker-line",
+      "Rule colour",
+      "bg-border"
+    ],
+    [
+      "--marker-font",
+      "Marker size",
+      "text-[12px]"
+    ],
+    [
+      "--marker-gap",
+      "Content gap",
+      "gap-2"
+    ],
+    [
+      "--marker-icon-size",
+      "Marker icon",
+      "size-3.5"
+    ],
+    [
+      "--marker-line-width",
+      "Rule thickness",
+      "h-px"
+    ],
+    [
+      "--marker-height",
+      "Minimum height",
+      "min-h-4"
+    ]
+  ]
+}

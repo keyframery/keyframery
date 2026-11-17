@@ -1,0 +1,43 @@
+{
+  "cssVars": [
+    [
+      "--time-input-face",
+      "Time field surface",
+      "--background; --muted at 50% read-only; --muted disabled"
+    ],
+    [
+      "--time-input-ink",
+      "Time segment text",
+      "--foreground; --accent-foreground focused; --muted-foreground disabled"
+    ],
+    [
+      "--time-input-accent",
+      "Focused segment tile",
+      "--accent"
+    ],
+    [
+      "--time-input-height",
+      "Field height",
+      "2.25rem"
+    ],
+    [
+      "--time-input-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--time-input-segment-radius",
+      "Segment tile corners",
+      "6px"
+    ]
+  ],
+  "propDocs": {
+    "TimeInput.hourCycle": "12-hour or 24-hour clock.",
+    "TimeInput.granularity": "Smallest visible unit: hour, minute, or second.",
+    "TimeInput.min": "Earliest valid ISO time.",
+    "TimeInput.max": "Latest valid ISO time.",
+    "TimeInput.disabled": "Prevents focusing and editing.",
+    "TimeInput.readOnly": "Keeps focus while preventing edits.",
+    "TimeInput.required": "Requires a complete time for form submission."
+  }
+}

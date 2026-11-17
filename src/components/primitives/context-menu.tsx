@@ -31,6 +31,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@/components/primitives/menu"
 
 /* Unfold from the point: no travel, a deeper scale and blur, the same spring in and quick fade out. */
@@ -45,7 +50,7 @@ function ContextMenuContent<Payload = unknown>({
   className,
   ...props
 }: React.ComponentProps<typeof MenuContentPart<Payload>>) {
-  return <MenuContentPart<Payload> className={cn(contextMenuMotion, className)} {...props} />
+  return <MenuContentPart<Payload> className={withClass(contextMenuMotion, className)} {...props} />
 }
 
 export {

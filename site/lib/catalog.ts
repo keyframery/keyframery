@@ -14,8 +14,9 @@ const motion: { moves: Record<string, string>; components: Record<string, [strin
 
 export const MOVES = motion.moves
 
-/* `sdk` is the UI SDK component a Keyframery component wraps, or null when UI SDK has none. */
-export type Entry = { slug: string; name: string; group: string; description: string; sdk: string | null; moves: [string, string][] }
+/* `sdk` is the UI SDK component a Keyframery component wraps, or null when UI SDK has none.
+   `core` is true for a component UI SDK doesn't ship, defined on its core with `definePrimitive`. */
+export type Entry = { slug: string; name: string; group: string; description: string; sdk: string | null; core: boolean; moves: [string, string][] }
 
 /* Components built on a UI SDK part with a different name. */
 const sdkPart: Record<string, string> = { "context-menu": "menu", "motion-style": "preferences" }
@@ -29,7 +30,8 @@ function entryOf(slug: string): Entry {
   const part = sdkPart[slug] ?? slug
   const code = fs.existsSync(path.join(root, primitive)) ? read(primitive) : ""
   const sdk = code.includes(`"@ui-sdk/react/${part}"`) || (part !== slug && code.includes(`"@/components/primitives/${part}"`)) ? part : null
-  return { slug, name: meta?.[1] ?? slug, group: meta?.[2] ?? "Other", description: descriptions[slug] ?? "", sdk, moves: motion.components[slug] ?? [] }
+  const core = fs.existsSync(path.join(root, "src/components/core", `${slug}.ts`))
+  return { slug, name: meta?.[1] ?? slug, group: meta?.[2] ?? "Other", description: descriptions[slug] ?? "", sdk, core, moves: motion.components[slug] ?? [] }
 }
 
 export const entries: Entry[] = fs

@@ -1,0 +1,88 @@
+{
+  "cssVars": [
+    [
+      "--questionnaire-face",
+      "Answer surface",
+      "bg-background"
+    ],
+    [
+      "--questionnaire-accent",
+      "Progress and selection",
+      "bg-primary"
+    ],
+    [
+      "--questionnaire-muted",
+      "Hints and progress",
+      "text-muted-foreground"
+    ],
+    [
+      "--questionnaire-radius",
+      "Answer corners",
+      "rounded-[12px]"
+    ],
+    [
+      "--questionnaire-font",
+      "Answer size",
+      "text-[13px]"
+    ],
+    [
+      "--questionnaire-gap",
+      "Section spacing",
+      "gap-5"
+    ],
+    [
+      "--questionnaire-inset-x",
+      "Answer padding",
+      "px-3"
+    ]
+  ],
+  "description": "A step-by-step form with selectable answers, keyboard shortcuts, validation and progress, built on UI SDK core and its radio, checkbox and input components.",
+  "moves": [
+    [
+      "Direction",
+      "Questions enter from the navigation direction while the previous question leaves."
+    ],
+    [
+      "Cascade",
+      "Each question’s title, description, answers and error arrive in order."
+    ],
+    [
+      "Glide",
+      "A single selection ring moves between radio answer cards."
+    ],
+    [
+      "Roll",
+      "The question number rolls and the progress fill grows on a spring."
+    ],
+    [
+      "Height",
+      "Validation errors open beneath the answers."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves through answers and navigation actions."
+    ],
+    [
+      "Arrow Up / Arrow Down",
+      "Moves between radio answers; moves focus between checkbox answers."
+    ],
+    [
+      "Arrow Left / Arrow Right",
+      "Goes back or forward outside radio and text controls, following reading direction."
+    ],
+    [
+      "Enter",
+      "Continues from a selected answer."
+    ],
+    [
+      "Ctrl + Enter / Cmd + Enter",
+      "Continues, or submits the last question."
+    ],
+    [
+      "A–Z / 1–9",
+      "Chooses an answer when matching shortcuts are enabled."
+    ]
+  ]
+}

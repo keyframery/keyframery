@@ -12,6 +12,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/progress"
 
 /* Roll: every digit is a column of 0 to 9 that slides to its value on a spring; other characters
@@ -58,7 +63,7 @@ function ProgressValue({ children, ...props }: React.ComponentProps<typeof Progr
 
 /* The track clips the fill, so its spring overshoot never shows outside. */
 function ProgressTrack({ className, ...props }: React.ComponentProps<typeof ProgressTrackPart>) {
-  return <ProgressTrackPart className={cn("overflow-hidden", className)} {...props} />
+  return <ProgressTrackPart className={withClass("overflow-hidden", className)} {...props} />
 }
 
 /* The fill moves to each new width on a spring (it overshoots a little and settles). While the
@@ -70,10 +75,12 @@ function ProgressIndicator({ className, ...props }: React.ComponentProps<typeof 
         {"@keyframes kf-progress-slide{from{translate:-100% 0}to{translate:250% 0}}"}
       </style>
       <ProgressIndicatorPart
-        className={cn(
-          "block h-full [transition:width_calc(700ms*var(--kf-speed,1))_var(--ease-spring),background-color_calc(300ms*var(--kf-speed,1))_var(--ease-house)]",
-          "data-indeterminate:w-2/5 data-indeterminate:animate-[kf-progress-slide_1.3s_cubic-bezier(0.65,0,0.35,1)_infinite]",
-          "motion-reduce:transition-none! motion-reduce:data-indeterminate:w-full motion-reduce:data-indeterminate:animate-none!",
+        className={withClass(
+          cn(
+            "block h-full [transition:width_calc(700ms*var(--kf-speed,1))_var(--ease-spring),background-color_calc(300ms*var(--kf-speed,1))_var(--ease-house)]",
+            "data-indeterminate:w-2/5 data-indeterminate:animate-[kf-progress-slide_1.3s_cubic-bezier(0.65,0,0.35,1)_infinite]",
+            "motion-reduce:transition-none! motion-reduce:data-indeterminate:w-full motion-reduce:data-indeterminate:animate-none!",
+          ),
           className,
         )}
         {...props}

@@ -1,0 +1,73 @@
+{
+  "cssVars": [
+    [
+      "--message-scroller-face",
+      "Jump button surface",
+      "bg-background"
+    ],
+    [
+      "--message-scroller-ink",
+      "Jump button text",
+      "text-foreground"
+    ],
+    [
+      "--message-scroller-unread-face",
+      "Unread surface",
+      "bg-primary"
+    ],
+    [
+      "--message-scroller-font",
+      "Jump label size",
+      "text-[12.5px]"
+    ],
+    [
+      "--message-scroller-height",
+      "Jump button height",
+      "h-8"
+    ],
+    [
+      "--message-scroller-icon-size",
+      "Jump icon",
+      "size-3.5"
+    ],
+    [
+      "--message-scroller-gap",
+      "Message spacing",
+      "gap-4"
+    ],
+    [
+      "--message-scroller-padding",
+      "Conversation inset",
+      "p-4"
+    ]
+  ],
+  "description": "A conversation scroller that follows new messages, preserves reading position and counts unread messages, composed from UI SDK scroll area and core.",
+  "moves": [
+    [
+      "Direction",
+      "Messages added after the first frame rise 16px into place."
+    ],
+    [
+      "Unfold",
+      "Jump to latest rises from the bottom edge after the reader scrolls away."
+    ],
+    [
+      "Roll",
+      "The unread count rolls as new messages arrive."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves to the scroll viewport and jump-to-latest button."
+    ],
+    [
+      "Page Up / Page Down",
+      "Scrolls a focused conversation viewport."
+    ],
+    [
+      "Enter",
+      "Activates the focused jump-to-latest button."
+    ]
+  ]
+}

@@ -27,6 +27,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/menu"
 export * from "@ui-sdk/react/menubar"
 
@@ -62,13 +67,15 @@ const row = "data-highlighted:[anchor-name:--kf-hl]"
 function Menubar({ className, ...props }: React.ComponentProps<typeof MenubarPart>) {
   return (
     <MenubarPart
-      className={cn(
-        "relative isolate [anchor-scope:--kf-bar]",
-        "before:pointer-events-none before:absolute before:-z-10 before:hidden before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
-        "before:[position-anchor:--kf-bar] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-        "before:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
-        "has-[>[data-slot=menu-trigger]:hover,>[data-slot=menu-trigger][data-open],>[data-slot=menu-trigger]:focus-visible]:before:block starting:before:opacity-0",
-        "motion-reduce:before:[transition:none]!",
+      className={withClass(
+        cn(
+          "relative isolate [anchor-scope:--kf-bar]",
+          "before:pointer-events-none before:absolute before:-z-10 before:hidden before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
+          "before:[position-anchor:--kf-bar] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
+          "before:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
+          "has-[>[data-slot=menu-trigger]:hover,>[data-slot=menu-trigger][data-open],>[data-slot=menu-trigger]:focus-visible]:before:block starting:before:opacity-0",
+          "motion-reduce:before:[transition:none]!",
+        ),
         className,
       )}
       {...props}
@@ -79,9 +86,11 @@ function Menubar({ className, ...props }: React.ComponentProps<typeof MenubarPar
 function MenuTrigger({ className, ...props }: React.ComponentProps<typeof MenuTriggerPart>) {
   return (
     <MenuTriggerPart
-      className={cn(
-        "hover:[anchor-name:--kf-bar] focus-visible:[anchor-name:--kf-bar] data-open:[anchor-name:--kf-bar]",
-        "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "hover:[anchor-name:--kf-bar] focus-visible:[anchor-name:--kf-bar] data-open:[anchor-name:--kf-bar]",
+          "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -93,37 +102,39 @@ function MenuContent<Payload = unknown>({
   className,
   ...props
 }: React.ComponentProps<typeof MenuContentPart<Payload>>) {
-  return <MenuContentPart<Payload> className={cn(sheet, className)} {...props} />
+  return <MenuContentPart<Payload> className={withClass(sheet, className)} {...props} />
 }
 
 function MenuSubContent<Payload = unknown>({
   className,
   ...props
 }: React.ComponentProps<typeof MenuSubContentPart<Payload>>) {
-  return <MenuSubContentPart<Payload> className={cn(sheet, className)} {...props} />
+  return <MenuSubContentPart<Payload> className={withClass(sheet, className)} {...props} />
 }
 
 function MenuItem({ className, ...props }: React.ComponentProps<typeof MenuItemPart>) {
-  return <MenuItemPart className={cn(row, className)} {...props} />
+  return <MenuItemPart className={withClass(row, className)} {...props} />
 }
 
 function MenuCheckboxItem({ className, ...props }: React.ComponentProps<typeof MenuCheckboxItemPart>) {
-  return <MenuCheckboxItemPart className={cn(row, className)} {...props} />
+  return <MenuCheckboxItemPart className={withClass(row, className)} {...props} />
 }
 
 function MenuRadioItem({ className, ...props }: React.ComponentProps<typeof MenuRadioItemPart>) {
-  return <MenuRadioItemPart className={cn(row, className)} {...props} />
+  return <MenuRadioItemPart className={withClass(row, className)} {...props} />
 }
 
 /* Keeps the highlight while its submenu is open; its chevron (the last svg) nudges toward it. */
 function MenuSubTrigger({ className, ...props }: React.ComponentProps<typeof MenuSubTriggerPart>) {
   return (
     <MenuSubTriggerPart
-      className={cn(
-        row,
-        "data-open:[anchor-name:--kf-hl]",
-        "[&>svg:last-child]:transition-[translate] [&>svg:last-child]:duration-[calc(380ms*var(--kf-speed,1))] [&>svg:last-child]:ease-spring data-open:[&>svg:last-child]:translate-x-0.5 rtl:data-open:[&>svg:last-child]:-translate-x-0.5",
-        "motion-reduce:[&>svg:last-child]:transition-none",
+      className={withClass(
+        cn(
+          row,
+          "data-open:[anchor-name:--kf-hl]",
+          "[&>svg:last-child]:transition-[translate] [&>svg:last-child]:duration-[calc(380ms*var(--kf-speed,1))] [&>svg:last-child]:ease-spring data-open:[&>svg:last-child]:translate-x-0.5 rtl:data-open:[&>svg:last-child]:-translate-x-0.5",
+          "motion-reduce:[&>svg:last-child]:transition-none",
+        ),
         className,
       )}
       {...props}
@@ -136,13 +147,15 @@ function MenuSubTrigger({ className, ...props }: React.ComponentProps<typeof Men
 function MenuItemIndicator({ className, ...props }: React.ComponentProps<typeof MenuItemIndicatorPart>) {
   return (
     <MenuItemIndicatorPart
-      className={cn(
-        "[&_:is(path,polyline)]:[stroke-dasharray:24] [&_:is(path,polyline)]:[stroke-dashoffset:24]",
-        "[&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1))] [&_:is(path,polyline)]:ease-house",
-        "data-checked:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-checked:[&_:is(path,polyline)]:delay-[calc(100ms*var(--kf-speed,1))]",
-        "data-checked:[&_:is(path,polyline)]:starting:[stroke-dashoffset:24]",
-        "group-data-starting-style/kf-menu:[&_:is(path,polyline)]:[stroke-dashoffset:24]!",
-        "motion-reduce:[&_:is(path,polyline)]:transition-none",
+      className={withClass(
+        cn(
+          "[&_:is(path,polyline)]:[stroke-dasharray:24] [&_:is(path,polyline)]:[stroke-dashoffset:24]",
+          "[&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1))] [&_:is(path,polyline)]:ease-house",
+          "data-checked:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-checked:[&_:is(path,polyline)]:delay-[calc(100ms*var(--kf-speed,1))]",
+          "data-checked:[&_:is(path,polyline)]:starting:[stroke-dashoffset:24]",
+          "group-data-starting-style/kf-menu:[&_:is(path,polyline)]:[stroke-dashoffset:24]!",
+          "motion-reduce:[&_:is(path,polyline)]:transition-none",
+        ),
         className,
       )}
       {...props}

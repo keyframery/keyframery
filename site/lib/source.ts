@@ -19,6 +19,8 @@ const docs = defineDocs({
       seoTitle: z.string().optional(),
       /** A component page: its slug, so the page can show the component's facts under the title. */
       component: z.string().optional(),
+      /** A template page: its slug, so the page can show the live preview actions under the title. */
+      template: z.string().optional(),
       faq: faqSchema.optional(),
     }),
     postprocess: { includeProcessedMarkdown: true },

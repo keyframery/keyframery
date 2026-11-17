@@ -1,24 +1,61 @@
 import * as React from "react"
+import { RotateCw } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
 import { type PlayStep, useAutoplay } from "@/lib/autoplay"
+import { type Controls, type ControlValues, parseValues } from "@/lib/controls"
+import { Customize } from "@/lib/customize"
+import { Speed } from "@/lib/keyframery"
 
 export type { PlayStep }
 
 type DemoModule = {
-  default: React.ComponentType
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- each demo types its own optional props
+  default: React.ComponentType<any>
   meta: { name: string; group: string }
   play?: PlayStep[]
+  controls?: Controls
 }
+
+/* `?controls=variant:primary,disabled:true` starts the single view with those values, for
+   screenshots. `?speed=0.6` does the same for the duration slider. */
+const query = new URLSearchParams(window.location.search)
 
 function Playing({ demo, tall }: { demo: (typeof demos)[number]; tall?: boolean }) {
   const ref = React.useRef<HTMLDivElement>(null)
-  useAutoplay(ref, demo.play)
+  const [run, setRun] = React.useState(0)
+  useAutoplay(ref, demo.play, run)
+  const [values, setValues] = React.useState<ControlValues>(() => parseValues(demo.controls, tall ? query.get("controls") : null))
+  const [speed, setSpeed] = React.useState(() => (tall && Number(query.get("speed"))) || 1)
   return (
-    <div ref={ref} data-demo={demo.slug}>
-      <Stage tall={tall}>
-        <demo.default />
-      </Stage>
-    </div>
+    <>
+      <div ref={ref} data-demo={demo.slug} className="relative">
+        <Button variant="ghost" size="icon" onClick={() => setRun((now) => now + 1)} aria-label="Replay the demo" title="Replay animation"
+          className="absolute top-3 right-3 z-20 size-8 rounded-[10px] border border-border/70 bg-background/90 text-muted-foreground shadow-sm hover:text-foreground">
+          <RotateCw aria-hidden className="size-3.5" />
+        </Button>
+        <Stage tall={tall}>
+          <Speed speed={speed === 1 ? undefined : speed}>
+            <demo.default key={run} {...values} />
+          </Speed>
+        </Stage>
+      </div>
+      {/* The single view shows the same Customize panel the docs page does. */}
+      {tall && !phoneWidth ? (
+        <Customize
+          className="mt-4 rounded-[18px] bg-background px-6 py-4 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]"
+          controls={demo.controls}
+          values={values}
+          onChange={(name, value) => setValues((now) => ({ ...now, [name]: value }))}
+          speed={speed}
+          onSpeedChange={setSpeed}
+          onReset={() => {
+            setValues(parseValues(demo.controls, null))
+            setSpeed(1)
+          }}
+        />
+      ) : null}
+    </>
   )
 }
 

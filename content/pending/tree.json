@@ -1,0 +1,46 @@
+{
+  "cssVars": [
+    [
+      "--tree-ink",
+      "Tree label, selected label and muted details",
+      "--foreground; --accent-foreground selected; --muted-foreground on indicators"
+    ],
+    [
+      "--tree-accent",
+      "Row highlights and checked checkbox",
+      "--accent; --primary on checked boxes; hover at 45% light / 40% dark"
+    ],
+    [
+      "--tree-guide",
+      "Nested branch guide",
+      "--border"
+    ],
+    [
+      "--tree-height",
+      "Row height",
+      "1.75rem"
+    ],
+    [
+      "--tree-radius",
+      "Row and highlight corners",
+      "8px"
+    ],
+    [
+      "--tree-indent",
+      "Branch indentation",
+      "22px"
+    ]
+  ],
+  "propDocs": {
+    "Tree.mode": "Single selection, multiple selection, or no selection.",
+    "Tree.activation": "Automatic selects focused items; manual waits for activation.",
+    "Tree.expandOnPress": "Lets a branch row toggle expansion.",
+    "Tree.checkable": "Adds independent tri-state checkboxes.",
+    "Tree.checkStrategy": "Reports checked leaves, trunks, all branches, or independent items.",
+    "Tree.disabled": "Disables selection, expansion and checking.",
+    "Tree.focusableWhenDisabled": "Keeps disabled items discoverable.",
+    "Tree.keepMounted": "Keeps collapsed groups mounted and hidden.",
+    "Tree.hiddenUntilFound": "Lets browser find in page expand a hidden branch.",
+    "Tree.current": "Marks the current page and expands its ancestors."
+  }
+}

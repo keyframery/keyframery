@@ -1,0 +1,48 @@
+{
+  "cssVars": [
+    [
+      "--input-surface",
+      "Field surface",
+      "--background"
+    ],
+    [
+      "--input-ink",
+      "Input text",
+      "--foreground"
+    ],
+    [
+      "--input-hint",
+      "Placeholder",
+      "--muted-foreground at 70%"
+    ],
+    [
+      "--input-focus",
+      "Focus ring and hairline",
+      "--ring"
+    ],
+    [
+      "--input-invalid",
+      "Invalid ring and hairline",
+      "--destructive"
+    ],
+    [
+      "--input-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--input-height",
+      "Field height",
+      "2.25rem"
+    ]
+  ],
+  "propDocs": {
+    "Input.disabled": "Prevents editing and removes the input from the tab order.",
+    "Input.readOnly": "Prevents editing while permitting focus and selection.",
+    "Input.required": "Requires a value for native form validation.",
+    "Input.type": "Native input type, such as text, search, email or url.",
+    "Input.placeholder": "Hint shown while empty.",
+    "Input.defaultValue": "Initial editable value; the demo remounts when its destination control changes.",
+    "InputGroup.children": "Input, optional text or icons, and an optional InputClear button."
+  }
+}

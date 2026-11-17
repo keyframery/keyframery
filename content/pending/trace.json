@@ -1,0 +1,80 @@
+{
+  "description": "Steps rise in one after another, a running title has a light passing through it, a finished step's tick pops in and draws itself, and a row opens to its real height with its detail cascading in.",
+  "moves": [
+    [
+      "Cascade",
+      "Lines rise in one after another as they arrive."
+    ],
+    [
+      "Fade",
+      "A running title has a soft light passing through it; it stops for reduced motion."
+    ],
+    [
+      "Draw",
+      "When a step finishes, its tick pops in and draws itself."
+    ],
+    [
+      "Height",
+      "A row that expands opens to its real height."
+    ],
+    [
+      "Cascade",
+      "The detail's paragraphs rise in one after another as it opens."
+    ],
+    [
+      "Spring",
+      "The chevron turns down on a spring."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves to the next row that expands, or link."
+    ],
+    [
+      "Enter or Space",
+      "Opens or closes the focused row."
+    ]
+  ],
+  "propDocs": {
+    "TraceLine.status": "\"running\", \"error\" or \"pending\". Leave it out once the step is done.",
+    "TraceIcon.children": "Your own icon. Without one, the icon shows the line's status."
+  },
+  "cssVars": [
+    [
+      "--trace-ink",
+      "Step text",
+      "text-muted-foreground"
+    ],
+    [
+      "--trace-error",
+      "Failed step",
+      "text-destructive"
+    ],
+    [
+      "--trace-font",
+      "Step size",
+      "text-[13px]"
+    ],
+    [
+      "--trace-detail-font",
+      "Detail size",
+      "text-[12.5px]"
+    ],
+    [
+      "--trace-gap",
+      "Step spacing",
+      "gap-2.5"
+    ],
+    [
+      "--trace-icon-size",
+      "Status icon size",
+      "size-4"
+    ],
+    [
+      "--trace-indent",
+      "Detail indent",
+      "ps-4"
+    ]
+  ]
+}

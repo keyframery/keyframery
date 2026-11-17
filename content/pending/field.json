@@ -1,0 +1,45 @@
+{
+  "cssVars": [
+    [
+      "--field-height",
+      "Native control height",
+      "2.25rem"
+    ],
+    [
+      "--field-radius",
+      "Native control corners",
+      "10px"
+    ],
+    [
+      "--field-face",
+      "Native control surface",
+      "--background"
+    ],
+    [
+      "--field-ink",
+      "Labels, legends and native control text",
+      "--foreground"
+    ],
+    [
+      "--field-muted",
+      "Descriptions and placeholders",
+      "--muted-foreground, placeholders 70%"
+    ],
+    [
+      "--field-error",
+      "Errors and invalid control hairline",
+      "--destructive"
+    ],
+    [
+      "--field-gap",
+      "Label, control and message spacing",
+      "0.375rem"
+    ]
+  ],
+  "propDocs": {
+    "Field.invalid": "Force invalid or valid display; omit for browser validation after submission.",
+    "Field.disabled": "Disable the control and mark every part.",
+    "FieldSet.disabled": "Disable all controls except those in its legend.",
+    "FieldError.match": "Validity key for displaying an error, or true/false to force it."
+  }
+}

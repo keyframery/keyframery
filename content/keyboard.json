@@ -104,7 +104,12 @@
       "Selects the focused day."
     ]
   ],
-  "card": [],
+  "card": [
+    [
+      "Space or Enter",
+      "On an interactive card you made focusable (with `tabIndex` and a `role`), sinks the card while the key is held, unless your own `onKeyDown` calls `preventDefault()`. What the press does is yours, in `onClick` or `onKeyDown`."
+    ]
+  ],
   "carousel": [
     [
       "←",
@@ -630,7 +635,7 @@
     ],
     [
       "Escape",
-      "Closes the sidebar while it is a sheet on a phone."
+      "Closes the sidebar while it is a sheet on a phone, and puts focus back on the page's trigger."
     ]
   ],
   "skeleton": [],
@@ -673,11 +678,11 @@
     ],
     [
       "Enter",
-      "Sorts by the focused column."
+      "Sorts by the focused column, or turns its sort over."
     ],
     [
       "Space",
-      "Ticks the focused row's checkbox."
+      "Sorts by the focused column, or ticks the focused row's checkbox."
     ],
     [
       "Shift + scroll",
@@ -882,6 +887,220 @@
     [
       "End",
       "Moves to the last row."
+    ]
+  ],
+  "alert": [
+    [
+      "Tab",
+      "Moves focus to the dismiss button, when there is one."
+    ],
+    [
+      "Enter",
+      "Dismisses the alert from its dismiss button."
+    ],
+    [
+      "Space",
+      "Dismisses the alert from its dismiss button."
+    ]
+  ],
+  "aspect-ratio": [],
+  "breadcrumb": [
+    [
+      "Tab",
+      "Moves between the links in the trail; the current page is skipped."
+    ],
+    [
+      "Enter",
+      "Follows the focused link."
+    ]
+  ],
+  "button-group": [
+    [
+      "Tab",
+      "Moves to the next control in the group; each one is its own tab stop."
+    ],
+    [
+      "Shift + Tab",
+      "Moves to the previous control."
+    ],
+    [
+      "Enter",
+      "Presses the focused button."
+    ],
+    [
+      "Space",
+      "Presses the focused button."
+    ]
+  ],
+  "code-block": [
+    [
+      "Tab",
+      "Moves focus to the code, then to the copy button."
+    ],
+    [
+      "← → ↑ ↓",
+      "Scroll the code while it has focus."
+    ],
+    [
+      "Enter or Space",
+      "Copies the code from the copy button."
+    ]
+  ],
+  "empty": [],
+  "form": [
+    [
+      "Enter",
+      "In a text field, submits the form. Fields are checked first and the first invalid one takes focus."
+    ],
+    [
+      "Tab",
+      "Moves between the fields and the submit button."
+    ]
+  ],
+  "input-group": [
+    [
+      "Tab",
+      "Moves between the field and the buttons in the group; each is its own tab stop."
+    ],
+    [
+      "Enter",
+      "Presses the focused button."
+    ],
+    [
+      "Space",
+      "Presses the focused button."
+    ]
+  ],
+  "item": [
+    [
+      "Tab",
+      "Moves to the next row that is a link or a button; the highlight follows."
+    ],
+    [
+      "Enter",
+      "Opens the focused row's link or presses its button."
+    ]
+  ],
+  "marker": [],
+  "native-select": [
+    [
+      "Tab",
+      "Moves focus to the select."
+    ],
+    [
+      "Space",
+      "Opens the browser's picker."
+    ],
+    [
+      "↓ ↑",
+      "Changes the option, or moves through the open picker."
+    ],
+    [
+      "A–Z",
+      "Jumps to an option starting with that letter."
+    ],
+    [
+      "Escape",
+      "Closes the picker."
+    ]
+  ],
+  "spinner": [],
+  "trace": [
+    [
+      "Tab",
+      "Moves to the next row that expands, or link."
+    ],
+    [
+      "Enter or Space",
+      "Opens or closes the focused row."
+    ]
+  ],
+  "attachment": [
+    [
+      "Tab",
+      "Moves between each file’s preview and actions."
+    ],
+    [
+      "Enter",
+      "Activates the focused preview or action."
+    ],
+    [
+      "Space",
+      "Presses a focused file action."
+    ]
+  ],
+  "bubble": [
+    [
+      "Tab",
+      "Moves to interactive bubbles and reaction controls."
+    ],
+    [
+      "Enter",
+      "Follows a focused bubble link or activates a bubble button."
+    ],
+    [
+      "Space",
+      "Activates a bubble rendered as a button."
+    ]
+  ],
+  "direction": [
+    [
+      "Tab",
+      "Moves focus to the direction toggle and controls inside the boundary."
+    ],
+    [
+      "Enter",
+      "Switches the focused direction toggle."
+    ],
+    [
+      "Space",
+      "Switches the focused direction toggle."
+    ]
+  ],
+  "message-scroller": [
+    [
+      "Tab",
+      "Moves to the scroll viewport and jump-to-latest button."
+    ],
+    [
+      "Page Up / Page Down",
+      "Scrolls a focused conversation viewport."
+    ],
+    [
+      "Enter",
+      "Activates the focused jump-to-latest button."
+    ]
+  ],
+  "message": [
+    [
+      "Tab",
+      "Moves between links, actions and other interactive content inside a message."
+    ]
+  ],
+  "questionnaire": [
+    [
+      "Tab",
+      "Moves through answers and navigation actions."
+    ],
+    [
+      "Arrow Up / Arrow Down",
+      "Moves between radio answers; moves focus between checkbox answers."
+    ],
+    [
+      "Arrow Left / Arrow Right",
+      "Goes back or forward outside radio and text controls, following reading direction."
+    ],
+    [
+      "Enter",
+      "Continues from a selected answer."
+    ],
+    [
+      "Ctrl + Enter / Cmd + Enter",
+      "Continues, or submits the last question."
+    ],
+    [
+      "A–Z / 1–9",
+      "Chooses an answer when matching shortcuts are enabled."
     ]
   ]
 }

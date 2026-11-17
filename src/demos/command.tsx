@@ -17,6 +17,29 @@ import {
   CommandShortcut,
 } from "@/components/ui/command"
 
+export const controls = {
+  autoHighlight: { type: "switch", label: "Auto highlight", default: true, group: "Behaviour" },
+  loop: { type: "switch", label: "Loop", default: true, group: "Behaviour" },
+  disabled: { type: "switch", label: "Disable commands", default: false, group: "Behaviour" },
+  filter: { type: "select", label: "Filter", default: "fuzzy", options: ["fuzzy", "contains", "startsWith"], group: "Behaviour" },
+  notebookCount: { type: "slider", label: "Notebook count", default: 5, min: 1, max: 5, step: 1 },
+  placeholder: { type: "text", label: "Placeholder", default: "Search notes or run an action…" },
+  pagePlaceholder: { type: "text", label: "Page placeholder", default: "Choose a notebook…" },
+  empty: { type: "text", label: "Empty", default: "No notes or actions match." },
+  actionsLabel: { type: "text", label: "Actions label", default: "Actions" },
+  notesLabel: { type: "text", label: "Notes label", default: "Recent notes" },
+  notebooksLabel: { type: "text", label: "Notebooks label", default: "Notebooks" },
+  newLabel: { type: "text", label: "New label", default: "New note" },
+  moveLabel: { type: "text", label: "Move label", default: "Move to notebook…" },
+  width: { type: "slider", label: "Width", default: 460, min: 300, max: 600, step: 1, unit: "px", group: "Layout" },
+  height: { type: "slider", label: "Height", default: 424, min: 300, max: 500, step: 1, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Radius", default: 14, min: 0, max: 28, step: 1, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Gap", default: 10, min: 0, max: 24, step: 1, unit: "px", group: "Layout" },
+  face: { type: "color", label: "Face", default: "", group: "Colours" },
+  ink: { type: "color", label: "Ink", default: "", group: "Colours" },
+  accent: { type: "color", label: "Accent", default: "", group: "Colours" },
+} as const
+
 export const meta = { name: "Command", group: "Overlays" }
 
 /* The demo plays itself: the highlight glides down the actions, "Move to notebook" opens a page
@@ -94,15 +117,66 @@ const icons = {
 
 const notebooks = ["Recipes", "Travel", "Reading list", "Home projects", "Journal"]
 
-export default function CommandDemo() {
+export default function CommandDemo({
+  autoHighlight = true,
+  loop = true,
+  disabled = false,
+  filter = "fuzzy",
+  notebookCount = 5,
+  placeholder = "Search notes or run an action…",
+  pagePlaceholder = "Choose a notebook…",
+  empty = "No notes or actions match.",
+  actionsLabel = "Actions",
+  notesLabel = "Recent notes",
+  notebooksLabel = "Notebooks",
+  newLabel = "New note",
+  moveLabel = "Move to notebook…",
+  width = 460,
+  height = 424,
+  radius = 14,
+  gap = 10,
+  face = "",
+  ink = "",
+  accent = "",
+}: {
+  autoHighlight?: boolean
+  loop?: boolean
+  disabled?: boolean
+  filter?: "fuzzy" | "contains" | "startsWith"
+  notebookCount?: number
+  placeholder?: string
+  pagePlaceholder?: string
+  empty?: string
+  actionsLabel?: string
+  notesLabel?: string
+  notebooksLabel?: string
+  newLabel?: string
+  moveLabel?: string
+  width?: number
+  height?: number
+  radius?: number
+  gap?: number
+  face?: string
+  ink?: string
+  accent?: string
+}) {
+  const theme = {
+    "--command-radius": `${radius}px`,
+    "--command-gap": `${gap}px`,
+    ...(face ? { "--command-face": face } : null),
+    ...(ink ? { "--command-ink": ink } : null),
+    ...(accent ? { "--command-accent": accent } : null),
+  } as React.CSSProperties
   const [pages, setPages] = React.useState<string[]>([])
   const onMovePage = pages.at(-1) === "move"
 
   return (
     <Command
       aria-label="Notes commands"
-      autoHighlight
-      loop
+      autoHighlight={autoHighlight}
+      loop={loop}
+      filter={filter}
+      style={{ ...theme, maxWidth: width, ...(height !== 424 ? { height } : null) }}
       pages={pages}
       onPagesChange={setPages}
       onAction={() => setPages([])}
@@ -117,30 +191,30 @@ export default function CommandDemo() {
         )}
         <CommandInput
           aria-label="Search notes and actions"
-          placeholder={onMovePage ? "Choose a notebook…" : "Search notes or run an action…"}
+          placeholder={onMovePage ? pagePlaceholder : placeholder}
         />
       </CommandSearch>
-      <CommandEmpty className="flex-1">No notes or actions match.</CommandEmpty>
+      <CommandEmpty className="flex-1">{empty}</CommandEmpty>
       <CommandList className="max-h-none flex-1">
         <CommandPage>
           <CommandGroup>
-            <CommandGroupLabel>Actions</CommandGroupLabel>
-            <CommandItem data-play="new" value="new" label="New note" shortcut="mod+n">
+            <CommandGroupLabel>{actionsLabel}</CommandGroupLabel>
+            <CommandItem disabled={disabled} data-play="new" value="new" label={newLabel} shortcut="mod+n">
               <CommandItemIcon>{icons.plus}</CommandItemIcon>
-              <CommandItemText>New note</CommandItemText>
+              <CommandItemText>{newLabel}</CommandItemText>
               <CommandShortcut className="@max-[26rem]:hidden" />
             </CommandItem>
-            <CommandItem data-play="pin" value="pin" label="Pin to top" shortcut="mod+shift+p">
+            <CommandItem disabled={disabled} data-play="pin" value="pin" label="Pin to top" shortcut="mod+shift+p">
               <CommandItemIcon>{icons.pin}</CommandItemIcon>
               <CommandItemText>Pin to top</CommandItemText>
               <CommandShortcut className="@max-[26rem]:hidden" />
             </CommandItem>
-            <CommandItem data-play="move" value="move" label="Move to notebook" page="move">
+            <CommandItem disabled={disabled} data-play="move" value="move" label={moveLabel} page="move">
               <CommandItemIcon>{icons.folder}</CommandItemIcon>
-              <CommandItemText>Move to notebook…</CommandItemText>
+              <CommandItemText>{moveLabel}</CommandItemText>
               <span className="ml-auto text-muted-foreground [&_svg]:size-3.5">{icons.chevron}</span>
             </CommandItem>
-            <CommandItem data-play="share" value="share" label="Share with" keywords={["send", "invite"]} shortcut="mod+shift+s">
+            <CommandItem disabled={disabled} data-play="share" value="share" label="Share with" keywords={["send", "invite"]} shortcut="mod+shift+s">
               <CommandItemIcon>{icons.share}</CommandItemIcon>
               <CommandItemText>Share with…</CommandItemText>
               <CommandShortcut className="@max-[26rem]:hidden" />
@@ -148,18 +222,18 @@ export default function CommandDemo() {
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup>
-            <CommandGroupLabel>Recent notes</CommandGroupLabel>
-            <CommandItem data-play="note-crete" value="note-crete" label="Crete packing list">
+            <CommandGroupLabel>{notesLabel}</CommandGroupLabel>
+            <CommandItem disabled={disabled} data-play="note-crete" value="note-crete" label="Crete packing list">
               <CommandItemIcon>{icons.note}</CommandItemIcon>
               <CommandItemText>Crete packing list</CommandItemText>
               <span className="ml-auto text-[12px] text-muted-foreground">Travel</span>
             </CommandItem>
-            <CommandItem data-play="note-ragu" value="note-ragu" label="Sunday ragù">
+            <CommandItem disabled={disabled} data-play="note-ragu" value="note-ragu" label="Sunday ragù">
               <CommandItemIcon>{icons.note}</CommandItemIcon>
               <CommandItemText>Sunday ragù</CommandItemText>
               <span className="ml-auto text-[12px] text-muted-foreground">Recipes</span>
             </CommandItem>
-            <CommandItem data-play="note-week" value="note-week" label="Plan for the week" keywords={["calendar"]}>
+            <CommandItem disabled={disabled} data-play="note-week" value="note-week" label="Plan for the week" keywords={["calendar"]}>
               <CommandItemIcon>{icons.calendar}</CommandItemIcon>
               <CommandItemText>Plan for the week</CommandItemText>
               <span className="ml-auto text-[12px] text-muted-foreground">Journal</span>
@@ -168,9 +242,9 @@ export default function CommandDemo() {
         </CommandPage>
         <CommandPage value="move">
           <CommandGroup>
-            <CommandGroupLabel>Notebooks</CommandGroupLabel>
-            {notebooks.map((name) => (
-              <CommandItem key={name} data-play={`move-${name}`} value={`move-${name}`} label={name}>
+            <CommandGroupLabel>{notebooksLabel}</CommandGroupLabel>
+            {notebooks.slice(0, notebookCount).map((name) => (
+              <CommandItem disabled={disabled} key={name} data-play={`move-${name}`} value={`move-${name}`} label={name}>
                 <CommandItemIcon>{icons.folder}</CommandItemIcon>
                 <CommandItemText>{name}</CommandItemText>
               </CommandItem>

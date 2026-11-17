@@ -1,0 +1,62 @@
+{
+  "description": "Spinners pop in where the work starts, then the ring turns at a steady pace while its arc stretches and shrinks, the one part allowed to keep moving.",
+  "moves": [
+    [
+      "Pop",
+      "It lands with a pop from 0.4 when it appears, usually in place of a label."
+    ],
+    [
+      "Turn",
+      "The ring turns at a steady pace while its arc stretches and shrinks; the spokes fade one after another around the dial."
+    ]
+  ],
+  "keyboard": [],
+  "propDocs": {
+    "Spinner.label": "What a screen reader hears. Defaults to \"Loading\".",
+    "Spinner.variant": "The drawing: \"ring\", an arc that turns and stretches, or \"spokes\", eight spokes fading round.",
+    "Spinner.size": "\"sm\" (14px), \"md\" (16px) or \"lg\" (24px).",
+    "Spinner.speed": "How fast it turns: \"fast\", \"normal\", \"slow\" or a multiplier."
+  },
+  "cssVars": [
+    [
+      "--spinner-ink",
+      "Spinner colour",
+      "currentColor"
+    ],
+    [
+      "--spinner-track",
+      "Ring track colour",
+      "currentColor"
+    ],
+    [
+      "--spinner-ring-stroke",
+      "Ring thickness",
+      "2.5"
+    ],
+    [
+      "--spinner-spoke-stroke",
+      "Spoke thickness",
+      "2.25"
+    ],
+    [
+      "--spinner-diameter",
+      "Custom diameter",
+      "14px / 16px / 24px by size"
+    ],
+    [
+      "--spinner-opacity",
+      "Spinner opacity",
+      "1"
+    ],
+    [
+      "--spinner-track-opacity",
+      "Track opacity",
+      "0.16"
+    ],
+    [
+      "--spinner-cap",
+      "Stroke caps",
+      "round"
+    ]
+  ]
+}

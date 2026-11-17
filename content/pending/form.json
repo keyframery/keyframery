@@ -1,0 +1,84 @@
+{
+  "description": "Fields that settle back while the form sends, a submit button whose label rises through sending to a drawn check, and server errors that open in place under the field they belong to.",
+  "moves": [
+    [
+      "Height",
+      "An error, from the browser or from your server, opens its own height under its field and rises in out of a blur."
+    ],
+    [
+      "Direction",
+      "The submit button's label rises out to the pending label with a spinner, then to the success label; refused, it comes back down."
+    ],
+    [
+      "Draw",
+      "The check in the success label strokes itself in."
+    ],
+    [
+      "Fade",
+      "While the form sends, its fields settle back a little and come forward again when it is done."
+    ],
+    [
+      "Press",
+      "The submit button sinks and springs back."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Enter",
+      "In a text field, submits the form. Fields are checked first and the first invalid one takes focus."
+    ],
+    [
+      "Tab",
+      "Moves between the fields and the submit button."
+    ]
+  ],
+  "propDocs": {
+    "Form.submit": "Runs when the form is submitted and every field is valid, with the form's data. Return `{ errors: { name: message } }` to show your messages on those fields, and `{ message }` for one line about the whole form. Throwing refuses the submission with the error's message. Leave it out to submit the browser's way.",
+    "Form.onStatusChange": "Called as the submission moves between `idle`, `submitting`, `success` and `error`, with the reason.",
+    "Form.resetOnSuccess": "Clears the fields once a submission succeeds. The success stays until the next edit.",
+    "FormSubmit.pendingLabel": "What the button says while the form submits.",
+    "FormSubmit.successLabel": "What the button says once the submission succeeds."
+  },
+  "cssVars": [
+    [
+      "--form-face",
+      "Submit surface",
+      "bg-primary"
+    ],
+    [
+      "--form-ink",
+      "Submit label",
+      "text-primary-foreground"
+    ],
+    [
+      "--form-muted",
+      "Status colour",
+      "text-muted-foreground"
+    ],
+    [
+      "--form-radius",
+      "Submit corners",
+      "rounded-[10px]"
+    ],
+    [
+      "--form-font",
+      "Submit size",
+      "text-[13px]"
+    ],
+    [
+      "--form-gap",
+      "Form section gap",
+      "gap-4"
+    ],
+    [
+      "--form-height",
+      "Submit height",
+      "h-9"
+    ],
+    [
+      "--form-inset-x",
+      "Submit padding",
+      "px-4"
+    ]
+  ]
+}

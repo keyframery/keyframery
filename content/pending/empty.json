@@ -1,0 +1,61 @@
+{
+  "description": "Empty states arrive part by part: the icon tile pops and its strokes draw, then the title, the description and each action rise in out of a blur.",
+  "moves": [
+    [
+      "Draw",
+      "The media pops in from 0.6 and the strokes of the icon inside it draw themselves."
+    ],
+    [
+      "Cascade",
+      "The title, the description and then each action rise 10px out of a blur, one after another."
+    ]
+  ],
+  "keyboard": [],
+  "propDocs": {
+    "Empty.announce": "Reads the title and description to screen readers when the empty state appears, as after a search that finds nothing.",
+    "EmptyMedia.variant": "\"icon\" puts an icon in a raised tile; \"default\" holds anything, like photos.",
+    "Empty.speed": "How fast the empty state moves: \"fast\", \"normal\", \"slow\" or a multiplier."
+  },
+  "cssVars": [
+    [
+      "--empty-face",
+      "Icon surface",
+      "bg-background"
+    ],
+    [
+      "--empty-ink",
+      "Icon and links",
+      "text-foreground"
+    ],
+    [
+      "--empty-muted",
+      "Description colour",
+      "text-muted-foreground"
+    ],
+    [
+      "--empty-radius",
+      "Icon corners",
+      "rounded-[13px]"
+    ],
+    [
+      "--empty-font",
+      "Title size",
+      "text-[15px]"
+    ],
+    [
+      "--empty-gap",
+      "Section gap",
+      "gap-5"
+    ],
+    [
+      "--empty-padding",
+      "Empty-state padding",
+      "p-8"
+    ],
+    [
+      "--empty-media-size",
+      "Icon tile size",
+      "size-12"
+    ]
+  ]
+}

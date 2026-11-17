@@ -1,6 +1,7 @@
 "use client"
 
-/* Animated sidebar. UI SDK has no sidebar, so these are plain elements with the shadcn part names
+/* Animated sidebar, on UI SDK's core. UI SDK ships no sidebar, so the behaviour is defined once in
+   `@/components/core/sidebar` with `definePrimitive` and rendered here with shadcn's part names
    (SidebarProvider, Sidebar, SidebarTrigger, SidebarHeader, SidebarContent, SidebarGroup,
    SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton,
    SidebarMenuBadge, SidebarFooter, SidebarInset): swap the import and keep your markup.
@@ -12,242 +13,195 @@
    - Press: items give under the pointer and spring back with a small pop.
    - Sheet: below `mobileBreakpoint` (the provider's own width, 640px by default) the sidebar leaves
      the layout and slides in over the page from the left, over a scrim. The trigger opens it; the
-     scrim, Escape or choosing an item closes it. The provider should be the full-height app shell. */
+     scrim, Escape or choosing an item closes it. The provider should be the full-height app shell.
+   Every part takes `render`, and a `className`, `style` or `children` that is a function of its state. */
 
+import { createParts, type PartProps, usePart, usePrimitive } from "@ui-sdk/react/primitive"
+import type { PrimitiveHandle } from "@ui-sdk/react/primitive"
+import type { StateOf } from "@ui-sdk/core"
 import * as React from "react"
 
-import { type SpeedProps, withSpeed } from "@/lib/keyframery"
+import { sidebar, type SidebarMenuButtonOptions, type SidebarOptions, type SidebarState } from "@/components/core/sidebar"
 import { cn } from "@/lib/utils"
 
-type SidebarState = {
-  collapsed: boolean
-  setCollapsed: (next: boolean) => void
-  /** Collapses to the rail, or on a narrow screen opens and closes the sheet. */
-  toggle: () => void
-  /** The provider is narrower than its `mobileBreakpoint`: the sidebar is a sheet over the page. */
-  isMobile: boolean
-  openMobile: boolean
-  setOpenMobile: (open: boolean) => void
+const parts = createParts(sidebar, {
+  header: "div",
+  footer: "div",
+  content: "div",
+  group: "div",
+  "group-label": "div",
+  "group-content": "div",
+  menu: "ul",
+  "menu-item": "li",
+  label: "span",
+  "menu-badge": "span",
+  inset: "main",
+})
+
+type ClassName<S> = string | ((state: S) => string | undefined) | undefined
+
+/* Adds this file's motion classes to a `className` that may be a function of the part's state. */
+function motion<S>(base: string, className: ClassName<S>): string | ((state: S) => string) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
 }
 
-const useIsoLayoutEffect = typeof window === "undefined" ? React.useEffect : React.useLayoutEffect
-
-const SidebarContext = React.createContext<SidebarState | null>(null)
+/* The instance, for `useSidebar`. It carries no state of its own: the hook reads the primitive's. */
+const SidebarHandle = React.createContext<PrimitiveHandle<typeof sidebar> | null>(null)
 
 /** Collapsed state for the sidebar, its trigger and the page beside it. */
 function useSidebar() {
-  const ctx = React.useContext(SidebarContext)
-  if (!ctx) throw new Error("useSidebar must be used inside <SidebarProvider>.")
-  return ctx
+  const handle = React.useContext(SidebarHandle)
+  if (!handle) throw new Error("useSidebar must be used inside <SidebarProvider>.")
+  const { instance, api } = handle
+  const read = () => instance.get() as SidebarState
+  const state = React.useSyncExternalStore(instance.subscribe, read, read)
+  return React.useMemo(
+    () => ({
+      collapsed: state.collapsed,
+      setCollapsed: (next: boolean) => void api.setCollapsed(next),
+      /** Collapses to the rail, or on a narrow screen opens and closes the sheet. */
+      toggle: () => void api.toggle(),
+      /** The provider is narrower than its `mobileBreakpoint`: the sidebar is a sheet over the page. */
+      isMobile: state.isMobile,
+      openMobile: state.openMobile,
+      setOpenMobile: (open: boolean) => void api.setOpenMobile(open),
+    }),
+    [api, state.collapsed, state.isMobile, state.openMobile],
+  )
 }
 
 function SidebarProvider({
-  defaultCollapsed = false,
-  collapsed: collapsedProp,
+  collapsed,
+  defaultCollapsed,
   onCollapsedChange,
+  openMobile,
+  defaultOpenMobile,
+  onOpenMobileChange,
   mobileBreakpoint = 640,
-  speed,
-  style,
   className,
-  ref,
   ...props
-}: React.ComponentProps<"div"> &
-  SpeedProps & {
-    /** Whether the sidebar starts narrowed to the icon rail, when uncontrolled. */
-    defaultCollapsed?: boolean
-    /** Whether the sidebar is narrowed to the icon rail. Pass it to control the sidebar. */
-    collapsed?: boolean
-    /** Runs when the sidebar wants to narrow to the rail or widen again. */
-    onCollapsedChange?: (collapsed: boolean) => void
-    /** Below this width (of the provider, in px) the sidebar becomes a sheet that slides in over the page. */
-    mobileBreakpoint?: number
-  }) {
-  const [own, setOwn] = React.useState(defaultCollapsed)
-  const collapsed = collapsedProp ?? own
-  const setCollapsed = React.useCallback(
-    (next: boolean) => {
-      if (collapsedProp === undefined) setOwn(next)
-      onCollapsedChange?.(next)
-    },
-    [collapsedProp, onCollapsedChange],
-  )
-  const [isMobile, setIsMobile] = React.useState(false)
-  const [openMobile, setOpenMobile] = React.useState(false)
-  const node = React.useRef<HTMLDivElement | null>(null)
-  useIsoLayoutEffect(() => {
-    const el = node.current
-    if (!el) return
-    const measure = () => {
-      const narrow = el.clientWidth < mobileBreakpoint
-      setIsMobile(narrow)
-      if (!narrow) setOpenMobile(false)
-    }
-    measure()
-    const ro = new ResizeObserver(measure)
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [mobileBreakpoint])
-  React.useEffect(() => {
-    if (!openMobile) return
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenMobile(false)
-    document.addEventListener("keydown", onKey)
-    return () => document.removeEventListener("keydown", onKey)
-  }, [openMobile])
-  const value = React.useMemo(
-    () => ({
-      collapsed,
-      setCollapsed,
-      toggle: () => (isMobile ? setOpenMobile(!openMobile) : setCollapsed(!collapsed)),
-      isMobile,
-      openMobile,
-      setOpenMobile,
-    }),
-    [collapsed, setCollapsed, isMobile, openMobile],
-  )
-  return (
-    <SidebarContext.Provider value={value}>
-      <div
-        ref={(el) => {
-          node.current = el
-          if (typeof ref === "function") ref(el)
-          else if (ref) ref.current = el
-        }}
-        data-slot="sidebar-provider"
-        data-collapsed={(!isMobile && collapsed) || undefined}
-        data-mobile={isMobile || undefined}
-        data-open={(isMobile && openMobile) || undefined}
-        className={cn("group/sidebar-provider relative flex", className)}
-        {...props}
-        style={withSpeed(style, speed)}
-      />
-    </SidebarContext.Provider>
-  )
+}: SidebarOptions & Omit<PartProps<"div", StateOf<typeof sidebar, "provider">>, "defaultValue">) {
+  const handle = usePrimitive(sidebar, {
+    collapsed,
+    defaultCollapsed,
+    onCollapsedChange,
+    openMobile,
+    defaultOpenMobile,
+    onOpenMobileChange,
+    mobileBreakpoint,
+  })
+  const shell = usePart(handle, "provider", {}, { ...props, className: motion("group/sidebar-provider relative flex", className) }, "div")
+  return <SidebarHandle value={handle}>{shell}</SidebarHandle>
 }
 
 /* The width eases without overshoot, so nothing beside it bounces. Closing is a little quicker.
    As a sheet it slides rather than narrows, and the scrim behind it fades with it. */
-function Sidebar({ className, ...props }: React.ComponentProps<"aside">) {
-  const { collapsed, isMobile, openMobile, setOpenMobile } = useSidebar()
-  const sheetOpen = isMobile && openMobile
-  return (
-    <>
-      {isMobile && (
-        <div
-          aria-hidden
-          data-slot="sidebar-scrim"
-          data-open={sheetOpen || undefined}
-          onClick={() => setOpenMobile(false)}
-          className="pointer-events-none absolute inset-0 z-30 bg-black/25 opacity-0 transition-opacity duration-[calc(260ms*var(--kf-speed,1))] ease-house data-open:pointer-events-auto data-open:opacity-100 data-open:duration-[calc(360ms*var(--kf-speed,1))] motion-reduce:transition-none dark:bg-black/50"
-        />
-      )}
-      <aside
-        data-slot="sidebar"
-        data-collapsed={(!isMobile && collapsed) || undefined}
-        data-mobile={isMobile || undefined}
-        data-open={sheetOpen || undefined}
-        inert={isMobile && !openMobile ? true : undefined}
-        className={cn(
+function Sidebar({ className, ...props }: PartProps<"aside", StateOf<typeof sidebar, "root">>) {
+  const scrim = usePart(
+    sidebar,
+    "scrim",
+    {},
+    {
+      className:
+        "pointer-events-none absolute inset-0 z-30 bg-black/25 opacity-0 transition-opacity duration-[calc(260ms*var(--kf-speed,1))] ease-house data-open:pointer-events-auto data-open:opacity-100 data-open:duration-[calc(360ms*var(--kf-speed,1))] motion-reduce:transition-none dark:bg-black/50",
+    },
+    "div",
+  )
+  const aside = usePart(
+    sidebar,
+    "root",
+    {},
+    {
+      ...props,
+      className: motion(
+        cn(
           "group/sidebar flex w-(--sidebar-width,15rem) shrink-0 flex-col overflow-hidden",
           "data-collapsed:w-(--sidebar-width-collapsed,3.5rem)",
           "transition-[width] duration-[calc(420ms*var(--kf-speed,1))] ease-house data-collapsed:duration-[calc(340ms*var(--kf-speed,1))]",
           "data-mobile:absolute data-mobile:inset-y-0 data-mobile:left-0 data-mobile:z-40 data-mobile:w-(--sidebar-width-mobile,17rem) data-mobile:max-w-[85%] data-mobile:-translate-x-[calc(100%+48px)]",
           "data-mobile:transition-[translate] data-mobile:duration-[calc(280ms*var(--kf-speed,1))] data-mobile:data-open:translate-x-0 data-mobile:data-open:duration-[calc(440ms*var(--kf-speed,1))]",
           "motion-reduce:transition-none!",
-          className,
-        )}
-        {...props}
-      />
+        ),
+        className,
+      ),
+    },
+    "aside",
+  )
+  return (
+    <>
+      {scrim}
+      {aside}
     </>
   )
 }
 
-function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<"button">) {
-  const { collapsed, toggle, isMobile, openMobile } = useSidebar()
-  const open = isMobile ? openMobile : !collapsed
-  return (
-    <button
-      type="button"
-      data-slot="sidebar-trigger"
-      aria-expanded={open}
-      aria-label={isMobile ? (open ? "Close sidebar" : "Open sidebar") : open ? "Collapse sidebar" : "Expand sidebar"}
-      className={cn(
+function SidebarTrigger({ className, ...props }: PartProps<"button", StateOf<typeof sidebar, "trigger">>) {
+  return usePart(
+    sidebar,
+    "trigger",
+    {},
+    {
+      ...props,
+      className: motion(
         "transition-[scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop active:scale-[0.9] active:duration-[calc(100ms*var(--kf-speed,1))] motion-reduce:transition-none!",
         className,
-      )}
-      onClick={(event) => {
-        onClick?.(event)
-        if (!event.defaultPrevented) toggle()
-      }}
-      {...props}
-    />
+      ),
+    },
+    "button",
   )
 }
 
-function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="sidebar-header" className={cn(className)} {...props} />
-}
-
-function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="sidebar-footer" className={cn(className)} {...props} />
+const SidebarHeader = parts.Header
+const SidebarFooter = parts.Footer
+const SidebarGroup = parts.Group
+const SidebarGroupContent = parts.GroupContent
+const SidebarMenu = parts.Menu
+const SidebarMenuItem = parts.MenuItem
+/** Wrap the words of a menu button in this so they fold away on the rail. */
+const SidebarLabel = parts.Label
+/* The page beside the sidebar. */
+function SidebarInset({ className, ...props }: React.ComponentProps<typeof parts.Inset>) {
+  return <parts.Inset className={motion("min-w-0 flex-1", className)} {...props} />
 }
 
 /* Glide: the key is anchored to whichever button has data-active. While that button sits inside a
-   closed group there is nothing to hold on to, so the key fades out where it was. */
-function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
-  const [ready, setReady] = React.useState(false)
-  React.useEffect(() => {
-    const id = setTimeout(() => setReady(true), 60)
-    return () => clearTimeout(id)
-  }, [])
+   closed group there is nothing to hold on to, so the key fades out where it was. It waits for
+   `data-ready` so it doesn't slide in from the corner on the first paint. */
+function SidebarContent({ className, ...props }: React.ComponentProps<typeof parts.Content>) {
   return (
-    <div
-      data-slot="sidebar-content"
-      data-kf-glide={ready || undefined}
-      className={cn(
-        "relative isolate min-h-0 flex-1 [anchor-scope:--kf-sidebar-key]",
-        "[&_[data-slot=sidebar-menu-button][data-active]]:[anchor-name:--kf-sidebar-key]",
-        "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
-        "before:[position-anchor:--kf-sidebar-key] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-        "data-kf-glide:before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)]",
-        "not-has-[[data-slot=sidebar-menu-button][data-active]]:before:opacity-0 has-[[hidden]_[data-active]]:before:opacity-0",
-        "motion-reduce:before:[transition:none]!",
+    <parts.Content
+      className={motion(
+        cn(
+          "relative isolate min-h-0 flex-1 [anchor-scope:--kf-sidebar-key]",
+          "[&_[data-slot=sidebar-menu-button][data-active]]:[anchor-name:--kf-sidebar-key]",
+          "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
+          "before:[position-anchor:--kf-sidebar-key] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
+          "data-ready:before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)]",
+          "not-has-[[data-slot=sidebar-menu-button][data-active]]:before:opacity-0 has-[[hidden]_[data-active]]:before:opacity-0",
+          "motion-reduce:before:[transition:none]!",
+        ),
         className,
       )}
       {...props}
     />
   )
-}
-
-function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="sidebar-group" className={cn(className)} {...props} />
 }
 
 /* Group labels have nothing to show on the rail: they fold to nothing with the labels. */
-function SidebarGroupLabel({ className, ...props }: React.ComponentProps<"div">) {
+function SidebarGroupLabel({ className, ...props }: React.ComponentProps<typeof parts.GroupLabel>) {
   return (
-    <div
-      data-slot="sidebar-group-label"
-      className={cn(
-        "transition-[opacity,filter,translate] duration-[calc(300ms*var(--kf-speed,1))] ease-house",
-        "group-data-collapsed/sidebar:pointer-events-none group-data-collapsed/sidebar:-translate-x-1 group-data-collapsed/sidebar:opacity-0 group-data-collapsed/sidebar:blur-[3px] group-data-collapsed/sidebar:duration-[calc(140ms*var(--kf-speed,1))]",
-        "motion-reduce:transition-none!",
+    <parts.GroupLabel
+      className={motion(
+        cn(
+          "transition-[opacity,filter,translate] duration-[calc(300ms*var(--kf-speed,1))] ease-house",
+          "group-data-collapsed/sidebar:pointer-events-none group-data-collapsed/sidebar:-translate-x-1 group-data-collapsed/sidebar:opacity-0 group-data-collapsed/sidebar:blur-[3px] group-data-collapsed/sidebar:duration-[calc(140ms*var(--kf-speed,1))]",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
     />
   )
-}
-
-function SidebarGroupContent({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="sidebar-group-content" className={cn(className)} {...props} />
-}
-
-function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
-  return <ul data-slot="sidebar-menu" className={cn(className)} {...props} />
-}
-
-function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
-  return <li data-slot="sidebar-menu-item" className={cn(className)} {...props} />
 }
 
 /* Text inside a button collapses with the sidebar. On the way out it leaves at once; on the way
@@ -260,76 +214,67 @@ const label = cn(
   "motion-reduce:[&>[data-slot=sidebar-label]]:transition-none!",
 )
 
-type MenuButtonProps = {
-  /** Marks the current page. The key glides to it. */
-  isActive?: boolean
-  /** Shown as a native tooltip while the sidebar is a rail. */
-  tooltip?: string
-}
+type MenuButtonState = StateOf<typeof sidebar, "menu-button">
 
+/* A page in the sidebar: a button, or a link when it has `href`. */
 function SidebarMenuButton({
-  className,
+  id,
   isActive,
   tooltip,
   href,
-  onClick,
+  className,
   ...props
-}: MenuButtonProps & React.ComponentProps<"button"> & { href?: string }) {
-  const { collapsed, isMobile, setOpenMobile } = useSidebar()
-  const shared = {
-    "data-slot": "sidebar-menu-button",
-    "data-active": isActive || undefined,
-    "aria-current": isActive ? ("page" as const) : undefined,
-    title: collapsed && !isMobile ? tooltip : undefined,
-    /* On a narrow screen, choosing a page closes the sheet over it. */
-    onClick: (event: React.MouseEvent<HTMLElement>) => {
-      onClick?.(event as React.MouseEvent<HTMLButtonElement>)
-      if (isMobile && !event.defaultPrevented) setOpenMobile(false)
-    },
-    className: cn(
-      "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)]",
-      "active:scale-[0.97] active:[transition-duration:calc(100ms*var(--kf-speed,1))]",
-      "motion-reduce:[transition:none]!",
-      label,
-      className,
-    ),
-  }
-  if (href !== undefined)
-    return <a href={href} {...shared} {...(props as unknown as React.ComponentProps<"a">)} />
-  return <button type="button" {...shared} {...props} />
-}
-
-/** Wrap the words of a menu button in this so they fold away on the rail. */
-function SidebarLabel({ className, ...props }: React.ComponentProps<"span">) {
-  return <span data-slot="sidebar-label" className={cn(className)} {...props} />
+}: SidebarMenuButtonOptions & Omit<PartProps<"button", MenuButtonState>, "id"> & { id?: string }) {
+  return usePart(
+    sidebar,
+    "menu-button",
+    { id, isActive, tooltip, href },
+    {
+      ...props,
+      className: motion(
+        cn(
+          "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)]",
+          "active:scale-[0.97] active:[transition-duration:calc(100ms*var(--kf-speed,1))]",
+          "motion-reduce:[transition:none]!",
+          label,
+        ),
+        className,
+      ),
+    } as PartProps<"button", MenuButtonState>,
+    (href === undefined ? "button" : "a") as "button",
+  )
 }
 
 /* A count that pops when its number changes, and steps aside on the rail. */
-function SidebarMenuBadge({ className, children, ...props }: React.ComponentProps<"span">) {
-  return (
-    <span
-      data-slot="sidebar-menu-badge"
-      className={cn(
-        "transition-[opacity,scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop",
-        "group-data-collapsed/sidebar:scale-50 group-data-collapsed/sidebar:opacity-0 group-data-collapsed/sidebar:duration-[calc(120ms*var(--kf-speed,1))]",
-        "motion-reduce:transition-none!",
-        className,
-      )}
-      {...props}
-    >
-      <span key={String(children)} className="inline-block animate-[kf-sidebar-badge_calc(320ms*var(--kf-speed,1))_var(--ease-pop)] motion-reduce:animate-none">
-        {children}
+function SidebarMenuBadge({ className, children, ...props }: React.ComponentProps<typeof parts.MenuBadge>) {
+  const pop = (content: React.ReactNode) => (
+    <>
+      <span
+        key={typeof content === "string" || typeof content === "number" ? String(content) : undefined}
+        className="inline-block animate-[kf-sidebar-badge_calc(320ms*var(--kf-speed,1))_var(--ease-pop)] motion-reduce:animate-none"
+      >
+        {content}
       </span>
       <style href="kf-sidebar" precedence="default">
         {"@keyframes kf-sidebar-badge{from{scale:.6;opacity:0}}"}
       </style>
-    </span>
+    </>
   )
-}
-
-/* The page beside the sidebar. */
-function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
-  return <main data-slot="sidebar-inset" className={cn("min-w-0 flex-1", className)} {...props} />
+  return (
+    <parts.MenuBadge
+      className={motion(
+        cn(
+          "transition-[opacity,scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop",
+          "group-data-collapsed/sidebar:scale-50 group-data-collapsed/sidebar:opacity-0 group-data-collapsed/sidebar:duration-[calc(120ms*var(--kf-speed,1))]",
+          "motion-reduce:transition-none!",
+        ),
+        className,
+      )}
+      {...props}
+    >
+      {typeof children === "function" ? (state: {}) => pop(children(state)) : pop(children)}
+    </parts.MenuBadge>
+  )
 }
 
 export {
@@ -350,3 +295,4 @@ export {
   SidebarTrigger,
   useSidebar,
 }
+export { sidebar } from "@/components/core/sidebar"

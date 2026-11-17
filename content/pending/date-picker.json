@@ -1,0 +1,48 @@
+{
+  "cssVars": [
+    [
+      "--date-picker-face",
+      "Field, month keys and popup surface",
+      "--background / --accent (dark keys) / --popover"
+    ],
+    [
+      "--date-picker-ink",
+      "Input and calendar text",
+      "--foreground / --popover-foreground"
+    ],
+    [
+      "--date-picker-accent",
+      "Selected day keys",
+      "--primary"
+    ],
+    [
+      "--date-picker-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--date-picker-height",
+      "Field height",
+      "2.25rem"
+    ],
+    [
+      "--date-picker-day-size",
+      "Day cell size and weekday width",
+      "2rem"
+    ]
+  ],
+  "propDocs": {
+    "DatePicker.mode": "One date or a start/end range with two inputs.",
+    "DatePicker.months": "Number of visible month grids.",
+    "DatePicker.disabled": "Prevent focus and date edits.",
+    "DatePicker.readOnly": "Allow focus without choosing dates.",
+    "DatePicker.required": "Require a date before form submission.",
+    "DatePicker.closeOnSelect": "Close after choosing a date or complete range.",
+    "DatePicker.dismissible": "Allow Escape and outside presses to dismiss.",
+    "DatePicker.showOutsideDays": "Show adjacent-month dates.",
+    "DatePicker.presentation": "Show a popover, bottom sheet, or adapt to small touch screens.",
+    "DatePickerContent.side": "Preferred side of the date field.",
+    "DatePickerContent.align": "Align popup with the field.",
+    "DatePickerContent.sideOffset": "Field-to-popup gap in pixels."
+  }
+}

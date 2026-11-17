@@ -1,0 +1,51 @@
+{
+  "cssVars": [
+    [
+      "--scroll-area-thumb",
+      "Thumb pigment (30%, 45% hover, 60% drag)",
+      "--foreground"
+    ],
+    [
+      "--scroll-area-key",
+      "Jump button surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--scroll-area-ink",
+      "Jump button text",
+      "--foreground"
+    ],
+    [
+      "--scroll-area-focus",
+      "Viewport focus ring",
+      "--ring"
+    ],
+    [
+      "--scroll-area-thickness",
+      "Full thumb thickness",
+      "0.5rem"
+    ],
+    [
+      "--scroll-area-scrollbar-size",
+      "Scrollbar hit area",
+      "0.875rem"
+    ],
+    [
+      "--scroll-area-fade",
+      "Maximum edge fade",
+      "24px"
+    ],
+    [
+      "--scroll-area-radius",
+      "Thumb and jump button corners",
+      "9999px"
+    ]
+  ],
+  "propDocs": {
+    "ScrollArea.type": "Hover, scroll, auto or always visibility for the custom scrollbars.",
+    "ScrollArea.scrollHideDelay": "Milliseconds before hover or scroll bars hide after activity.",
+    "ScrollArea.stickToEnd": "Starts at the end and follows growing content until the user scrolls away.",
+    "ScrollAreaScrollbar.orientation": "Vertical or horizontal scrolling axis.",
+    "ScrollAreaViewport.aria-label": "Accessible name for the scrollable region."
+  }
+}

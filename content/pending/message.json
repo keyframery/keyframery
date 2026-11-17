@@ -1,0 +1,56 @@
+{
+  "cssVars": [
+    [
+      "--message-face",
+      "Incoming bubble surface",
+      "--muted"
+    ],
+    [
+      "--message-muted",
+      "Sender and receipt",
+      "text-muted-foreground"
+    ],
+    [
+      "--message-font",
+      "Sender size",
+      "text-[12px]"
+    ],
+    [
+      "--message-gap",
+      "Avatar gap",
+      "gap-2.5"
+    ],
+    [
+      "--message-turn-gap",
+      "Turn spacing",
+      "gap-4"
+    ],
+    [
+      "--message-content-gap",
+      "Bubble spacing",
+      "gap-1"
+    ],
+    [
+      "--message-avatar-size",
+      "Avatar size",
+      "size-8"
+    ]
+  ],
+  "description": "Sender-aware chat messages with avatars, headers and read receipts that arrive in sequence, built on UI SDK core.",
+  "moves": [
+    [
+      "Cascade",
+      "A new message’s header, content and footer rise in order, with its receipt last."
+    ],
+    [
+      "Unfold",
+      "The avatar pops into place as the first line arrives."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves between links, actions and other interactive content inside a message."
+    ]
+  ]
+}

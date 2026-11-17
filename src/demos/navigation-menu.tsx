@@ -77,7 +77,7 @@ function Row({ title, hint, icon }: { title: string; hint: string; icon?: string
 }
 
 /* The phone menu: the same sections, each one opening in place. */
-function MobileMenu({ open }: { open: boolean }) {
+function MobileMenu({ open, items }: { open: boolean; items: number }) {
   const sections = [
     { value: "destinations", label: "Destinations", links: destinations },
     { value: "stays", label: "Stays", links: stays },
@@ -99,7 +99,7 @@ function MobileMenu({ open }: { open: boolean }) {
             </AccordionHeader>
             <AccordionPanel>
               <ul className="-mt-1 grid gap-3 pb-1">
-                {s.links.map((l) => (
+                {s.links.slice(0, items).map((l) => (
                   <li key={l.title}>
                     <a href="#" className="flex flex-col rounded-[6px] outline-none focus-visible:ring-2 focus-visible:ring-ring">
                       <span className="font-medium text-foreground">{l.title}</span>
@@ -119,58 +119,132 @@ function MobileMenu({ open }: { open: boolean }) {
   )
 }
 
-export default function NavigationMenuDemo() {
+export const controls = {
+  orientation: { type: "select", label: "Orientation", default: "horizontal", options: ["horizontal", "vertical"] },
+  side: { type: "select", label: "Panel side", default: "auto", options: ["auto", "top", "right", "bottom", "left"] },
+  align: { type: "select", label: "Panel alignment", default: "start", options: ["start", "center", "end"] },
+  openOnHover: { type: "switch", label: "Open on hover", default: true, group: "Behaviour" },
+  closeOnSelect: { type: "switch", label: "Close on link", default: true, group: "Behaviour" },
+  disabled: { type: "switch", label: "Disabled triggers", default: false, group: "Behaviour" },
+  current: { type: "switch", label: "Current Trips link", default: true, group: "Behaviour" },
+  keepMounted: { type: "switch", label: "Keep panels mounted", default: false, group: "Behaviour" },
+  hiddenUntilFound: { type: "switch", label: "Find closed panels", default: false, group: "Behaviour" },
+  brand: { type: "text", label: "Brand", default: "Wayfare" },
+  headline: { type: "text", label: "Headline", default: "Twelve quiet places to spend October." },
+  action: { type: "text", label: "Action", default: "Plan a trip" },
+  items: { type: "slider", label: "Links per section", default: 4, min: 1, max: 4, step: 1, unit: "", group: "Layout" },
+  width: { type: "slider", label: "Width", default: 640, min: 340, max: 720, step: 1, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Trigger gap", default: 2, min: 0, max: 12, step: 1, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Panel corners", default: 14, min: 0, max: 28, step: 1, unit: "px", group: "Layout" },
+  surface: { type: "color", label: "Panel", default: "", group: "Colours" },
+  ink: { type: "color", label: "Text", default: "", group: "Colours" },
+  muted: { type: "color", label: "Trigger text", default: "", group: "Colours" },
+  highlight: { type: "color", label: "Highlight", default: "", group: "Colours" },
+} as const
+
+export default function NavigationMenuDemo({
+  orientation = "horizontal",
+  side = "auto",
+  align = "start",
+  openOnHover = true,
+  closeOnSelect = true,
+  disabled = false,
+  current = true,
+  keepMounted = false,
+  hiddenUntilFound = false,
+  brand = "Wayfare",
+  headline = "Twelve quiet places to spend October.",
+  action = "Plan a trip",
+  items = 4,
+  width = 640,
+  gap = 2,
+  radius = 14,
+  surface = "",
+  ink = "",
+  muted = "",
+  highlight = "",
+}: {
+  orientation?: "horizontal" | "vertical"
+  side?: "auto" | "top" | "right" | "bottom" | "left"
+  align?: "start" | "center" | "end"
+  openOnHover?: boolean
+  closeOnSelect?: boolean
+  disabled?: boolean
+  current?: boolean
+  keepMounted?: boolean
+  hiddenUntilFound?: boolean
+  brand?: string
+  headline?: string
+  action?: string
+  items?: number
+  width?: number
+  gap?: number
+  radius?: number
+  surface?: string
+  ink?: string
+  muted?: string
+  highlight?: string
+}) {
+  const theme = {
+    "--navigation-menu-radius": `${radius}px`,
+    "--navigation-menu-item-radius": `${radius * 9 / 14}px`,
+    "--navigation-menu-gap": `${gap}px`,
+    ...(surface ? { "--navigation-menu-surface": surface } : {}),
+    ...(ink ? { "--navigation-menu-ink": ink } : {}),
+    ...(muted ? { "--navigation-menu-muted": muted } : {}),
+    ...(highlight ? { "--navigation-menu-highlight": highlight } : {}),
+  } as React.CSSProperties
   const [menu, setMenu] = React.useState(false)
   return (
-    <div className="@container relative flex h-[420px] w-full max-w-[640px] flex-col">
+    <div style={{ ...theme, maxWidth: width }} className="@container relative flex h-[420px] w-full max-w-[640px] flex-col">
       <header className="flex h-12 items-center gap-4 rounded-[14px] bg-background px-2 ps-4 shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_1px_2px_rgb(0_0_0/0.04)] dark:bg-card dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
-        <span className="text-[15px] font-semibold tracking-tight">Wayfare</span>
-        <NavigationMenu aria-label="Main" className="@max-[36rem]:hidden">
+        <span className="text-[15px] font-semibold tracking-tight">{brand}</span>
+        <NavigationMenu orientation={orientation} openOnHover={openOnHover} closeOnSelect={closeOnSelect} aria-label="Main" className="@max-[36rem]:hidden">
           <NavigationMenuList>
             <NavigationMenuItem value="destinations">
-              <NavigationMenuTrigger>Destinations</NavigationMenuTrigger>
-              <NavigationMenuContent>
+              <NavigationMenuTrigger disabled={disabled}>Destinations</NavigationMenuTrigger>
+              <NavigationMenuContent keepMounted={keepMounted} hiddenUntilFound={hiddenUntilFound}>
                 <Panel className="w-[440px] grid-cols-2">
-                  {destinations.map((d) => (
+                  {destinations.slice(0, items).map((d) => (
                     <Row key={d.title} {...d} />
                   ))}
                 </Panel>
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem value="stays">
-              <NavigationMenuTrigger>Stays</NavigationMenuTrigger>
-              <NavigationMenuContent>
+              <NavigationMenuTrigger disabled={disabled}>Stays</NavigationMenuTrigger>
+              <NavigationMenuContent keepMounted={keepMounted} hiddenUntilFound={hiddenUntilFound}>
                 <Panel className="w-[300px]">
-                  {stays.map((s) => (
+                  {stays.slice(0, items).map((s) => (
                     <Row key={s.title} {...s} />
                   ))}
                 </Panel>
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem value="about">
-              <NavigationMenuTrigger>About</NavigationMenuTrigger>
-              <NavigationMenuContent>
+              <NavigationMenuTrigger disabled={disabled}>About</NavigationMenuTrigger>
+              <NavigationMenuContent keepMounted={keepMounted} hiddenUntilFound={hiddenUntilFound}>
                 <Panel className="w-[240px]">
-                  {about.map((a) => (
+                  {about.slice(0, items).map((a) => (
                     <Row key={a.title} {...a} />
                   ))}
                 </Panel>
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink href="#" current>
+              <NavigationMenuLink href="#" current={current}>
                 Trips
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
           <NavigationMenuIndicator />
-          <NavigationMenuViewport />
+          <NavigationMenuViewport side={side === "auto" ? undefined : side} align={align} />
         </NavigationMenu>
         <a
           href="#"
-          className="ms-auto inline-flex h-8 items-center rounded-[9px] bg-primary px-3 text-[13px] leading-none font-medium text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] outline-none transition-[translate,scale] duration-100 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px active:scale-[0.985]"
+          className="ms-auto inline-flex h-8 items-center rounded-[9px] bg-primary px-3 text-[13px] leading-none font-medium text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] outline-none transition-[translate,scale] duration-[calc(100ms*var(--kf-speed,1))] ease-house focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px active:scale-[0.985]"
         >
-          Plan a trip
+          {action}
         </a>
         <button
           type="button"
@@ -205,11 +279,11 @@ export default function NavigationMenuDemo() {
           </li>
         </ol>
       </nav>
-      <MobileMenu open={menu} />
+      <MobileMenu open={menu} items={items} />
       <div className="flex flex-1 flex-col justify-end px-4 pb-6 @max-[36rem]:px-1 @max-[36rem]:pb-2">
         <p className="text-[12px] font-medium text-muted-foreground @max-[36rem]:hidden">Autumn, slowly</p>
         <h2 className="mt-1.5 max-w-[420px] text-[28px] leading-[1.1] font-semibold tracking-tight @max-[36rem]:text-[24px]">
-          Twelve quiet places to spend October.
+          {headline}
         </h2>
         <p className="mt-2.5 max-w-[400px] text-[14px] text-muted-foreground">
           Small hotels, long trains and one good meal a day, planned around the light.

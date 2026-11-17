@@ -1,0 +1,74 @@
+{
+  "description": "An app sidebar whose current-page key glides between items, that narrows to an icon rail, and that slides in over the page on a phone.",
+  "keyboard": [
+    [
+      "Tab",
+      "Moves between the trigger and the items."
+    ],
+    [
+      "Enter",
+      "Opens the focused item, or folds a collapsible group from its label."
+    ],
+    [
+      "Escape",
+      "Closes the sidebar while it is a sheet on a phone, and puts focus back on the page's trigger."
+    ]
+  ],
+  "propDocs": {
+    "SidebarProvider.collapsed": "Whether the sidebar is narrowed to the icon rail. Pass it to control the sidebar.",
+    "SidebarProvider.defaultCollapsed": "Starts as a compact rail.",
+    "SidebarProvider.onCollapsedChange": "Runs when the sidebar wants to narrow or widen, with `details.reason` (`\"trigger-press\"` or `\"imperative\"`).",
+    "SidebarProvider.openMobile": "Whether the sheet is open on a narrow screen. Pass it to control the sheet.",
+    "SidebarProvider.defaultOpenMobile": "Starts the mobile sheet open.",
+    "SidebarProvider.onOpenMobileChange": "Runs when the sheet wants to open or close, with `details.reason`: `\"trigger-press\"`, `\"item-press\"`, `\"escape-key\"`, `\"outside-press\"` or `\"breakpoint\"`.",
+    "SidebarProvider.mobileBreakpoint": "Provider width below which the sidebar becomes a sheet.",
+    "SidebarProvider.speed": "How fast the sidebar moves: `\"fast\"`, `\"normal\"`, `\"slow\"` or a multiplier like `0.8`.",
+    "SidebarMenuButton.isActive": "Marks the current page for the moving highlight.",
+    "SidebarMenuButton.tooltip": "Names the item with a native tooltip while the sidebar is a rail.",
+    "SidebarGroup.collapsible": "Lets the group label fold its content.",
+    "SidebarGroup.defaultOpen": "Initial expanded state of a collapsible group.",
+    "SidebarMenuButton.disabled": "Disables this menu button."
+  },
+  "cssVars": [
+    [
+      "--sidebar-face",
+      "Sidebar surface",
+      "--muted at 45%; --card in dark"
+    ],
+    [
+      "--sidebar-ink",
+      "Labels and text",
+      "--muted-foreground; --foreground for active text"
+    ],
+    [
+      "--sidebar-key",
+      "Selected page surface",
+      "--background; --accent in dark"
+    ],
+    [
+      "--sidebar-radius",
+      "Menu key corners",
+      "9px"
+    ],
+    [
+      "--sidebar-height",
+      "Menu item height",
+      "2rem"
+    ],
+    [
+      "--sidebar-width",
+      "Expanded sidebar width",
+      "15rem"
+    ],
+    [
+      "--sidebar-width-collapsed",
+      "Collapsed rail width",
+      "3.5rem"
+    ],
+    [
+      "--sidebar-width-mobile",
+      "Mobile sheet width",
+      "17rem"
+    ]
+  ]
+}

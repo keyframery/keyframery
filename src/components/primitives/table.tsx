@@ -1,6 +1,7 @@
 "use client"
 
-/* Animated table. UI SDK has no table, so these are plain table elements with the shadcn part names
+/* Animated table, on UI SDK's core. UI SDK ships no table, so the behaviour is defined in
+   `@/components/core/table` with `definePrimitive` and rendered here, with shadcn's part names
    (Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption): swap
    the import and keep your markup. This file adds motion only. Colours, borders and spacing stay yours.
 
@@ -11,9 +12,26 @@
    - Direction: on a narrow screen the table scrolls sideways inside its container, and a soft
      edge shows there is more to the side you can scroll toward. */
 
+import type { StateOf } from "@ui-sdk/core"
+import { createParts, type PartProps, usePart, usePrimitive } from "@ui-sdk/react/primitive"
 import * as React from "react"
 
+import { type SortDirection, table, tableHead, type TableHeadOptions } from "@/components/core/table"
 import { cn } from "@/lib/utils"
+
+const {
+  Header: TableHeader,
+  Body: TableBodyPart,
+  Footer: TableFooter,
+  Row: TableRowPart,
+  Cell: TableCell,
+  Caption: TableCaption,
+} = createParts(table, { header: "thead", body: "tbody", footer: "tfoot", row: "tr", cell: "td", caption: "caption" })
+
+/* Adds this file's classes to the caller's, which may be a function of the part's state. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
 
 /* Keyframes with a backwards fill, so a row is hidden on its first frame and the delay never
    slows a later hover. The first twelve rows are staggered; the rest arrive with the twelfth. */
@@ -22,68 +40,42 @@ const keyframes =
   Array.from({ length: 12 }, (_, i) => `[data-slot=table-body]>tr:nth-child(${i + 1}){--kf-row:${i}}`).join("") +
   "[data-slot=table-body]>tr:nth-child(n+13){--kf-row:12}"
 
-type Edges = { start: boolean; end: boolean }
+/* The edge the container can still scroll toward fades out. */
+const containerMotion = cn(
+  "relative w-full overflow-x-auto overscroll-x-contain",
+  "data-scroll-end:[mask-image:linear-gradient(to_right,#000_calc(100%-28px),transparent)]",
+  "data-scroll-start:[mask-image:linear-gradient(to_right,transparent,#000_28px)]",
+  "data-scroll-start:data-scroll-end:[mask-image:linear-gradient(to_right,transparent,#000_28px,#000_calc(100%-28px),transparent)]",
+)
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
-  /* The container scrolls sideways when the table is wider than it. The edges it can scroll toward
-     are marked, so the styled table can fade them. */
-  const scroller = React.useRef<HTMLDivElement>(null)
-  const [edges, setEdges] = React.useState<Edges>({ start: false, end: false })
-  React.useEffect(() => {
-    const el = scroller.current
-    if (!el) return
-    const measure = () => {
-      const max = el.scrollWidth - el.clientWidth
-      const at = Math.abs(el.scrollLeft)
-      setEdges({ start: at > 1, end: max - at > 1 })
-    }
-    measure()
-    const ro = new ResizeObserver(measure)
-    ro.observe(el)
-    if (el.firstElementChild) ro.observe(el.firstElementChild)
-    el.addEventListener("scroll", measure, { passive: true })
-    return () => {
-      ro.disconnect()
-      el.removeEventListener("scroll", measure)
-    }
-  }, [])
+/* The table sits in a container that scrolls sideways when the table is wider than it. The
+   container is a part too (`table-container`), and marks the sides it can scroll toward with
+   `data-scroll-start` and `data-scroll-end`. */
+function Table({ className, ...props }: PartProps<"table", StateOf<typeof table, "root">>) {
+  const handle = usePrimitive(table, {})
+  const inner = usePart(handle, "root", {}, { ...props, className: withClass("w-full caption-bottom", className) }, "table")
+  const container = usePart(handle, "container", {}, { className: containerMotion, children: inner }, "div")
   return (
     <>
       <style href="kf-table" precedence="default">
         {keyframes}
       </style>
-      <div
-        ref={scroller}
-        data-slot="table-container"
-        data-scroll-start={edges.start || undefined}
-        data-scroll-end={edges.end || undefined}
-        className={cn(
-          "relative w-full overflow-x-auto overscroll-x-contain",
-          "data-scroll-end:[mask-image:linear-gradient(to_right,#000_calc(100%-28px),transparent)]",
-          "data-scroll-start:[mask-image:linear-gradient(to_right,transparent,#000_28px)]",
-          "data-scroll-start:data-scroll-end:[mask-image:linear-gradient(to_right,transparent,#000_28px,#000_calc(100%-28px),transparent)]",
-        )}
-      >
-        <table data-slot="table" className={cn("w-full caption-bottom", className)} {...props} />
-      </div>
+      {container}
     </>
   )
 }
 
-function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
-  return <thead data-slot="table-header" className={cn(className)} {...props} />
-}
-
 /* Rows cascade in. The animation runs once per row element, so a row React keeps (a sort, an
    edit) doesn't replay; a row with a new key (a new page) does. */
-function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+function TableBody({ className, ...props }: React.ComponentProps<typeof TableBodyPart>) {
   return (
-    <tbody
-      data-slot="table-body"
-      className={cn(
-        "[&>tr]:animate-[kf-table-row_calc(380ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-        "[&>tr]:[animation-delay:calc(var(--kf-row,0)*28ms*var(--kf-speed,1))]",
-        "motion-reduce:[&>tr]:animate-none",
+    <TableBodyPart
+      className={withClass(
+        cn(
+          "[&>tr]:animate-[kf-table-row_calc(380ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
+          "[&>tr]:[animation-delay:calc(var(--kf-row,0)*28ms*var(--kf-speed,1))]",
+          "motion-reduce:[&>tr]:animate-none",
+        ),
         className,
       )}
       {...props}
@@ -91,25 +83,11 @@ function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
   )
 }
 
-function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
-  return <tfoot data-slot="table-footer" className={cn(className)} {...props} />
-}
-
-/* Hover and selection fade. `selected` sets aria-selected and data-selected for the styles. */
-function TableRow({
-  className,
-  selected,
-  ...props
-}: React.ComponentProps<"tr"> & {
-  /** Marks the row as selected: sets `aria-selected` and `data-selected`, and its colour fades in. */
-  selected?: boolean
-}) {
+/* Hover and selection fade. `selected` sets `aria-selected` and `data-selected` for the styles. */
+function TableRow({ className, ...props }: React.ComponentProps<typeof TableRowPart>) {
   return (
-    <tr
-      data-slot="table-row"
-      data-selected={selected || undefined}
-      aria-selected={selected}
-      className={cn(
+    <TableRowPart
+      className={withClass(
         "transition-[background-color] duration-[calc(160ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none",
         className,
       )}
@@ -118,65 +96,58 @@ function TableRow({
   )
 }
 
-type SortDirection = "ascending" | "descending" | "none"
-
 /* A sortable header holds a button, so the whole label is the target. The arrow turns over on a
    spring when the direction flips, and fades in when the column becomes the sorted one. */
 function TableHead({
+  sort,
+  defaultSort,
+  onSort,
+  onSortChange,
   className,
   children,
-  sort,
-  onSort,
   ...props
-}: React.ComponentProps<"th"> & {
-  /** How this column is sorted. Pass it with `onSort` to make the header a sort button. */
-  sort?: SortDirection
-  /** Runs when the header is pressed. Flip `sort` here. */
-  onSort?: () => void
-}) {
-  const sortable = onSort !== undefined
-  return (
-    <th
-      data-slot="table-head"
-      data-sort={sortable ? (sort ?? "none") : undefined}
-      aria-sort={sortable ? (sort ?? "none") : undefined}
-      className={cn(className)}
-      {...props}
-    >
-      {sortable ? (
-        <button type="button" data-slot="table-sort" onClick={onSort}>
-          {children}
-          <svg
-            data-slot="table-sort-arrow"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-            className={cn(
-              "transition-[rotate,opacity] duration-[calc(420ms*var(--kf-speed,1))] ease-spring motion-reduce:transition-none",
-              sort === "descending" && "rotate-180",
-              (!sort || sort === "none") && "opacity-0",
-            )}
-          >
-            <path d="M8 12.5v-9M4.5 7 8 3.5 11.5 7" />
-          </svg>
-        </button>
-      ) : (
-        children
-      )}
-    </th>
+}: TableHeadOptions & Omit<PartProps<"th", StateOf<typeof tableHead, "head">>, "children"> & { children?: React.ReactNode }) {
+  const handle = usePrimitive(tableHead, { sort, defaultSort, onSort, onSortChange })
+  const arrow = usePart(
+    handle,
+    "sort-arrow",
+    {},
+    {
+      viewBox: "0 0 16 16",
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: 1.5,
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      className: cn(
+        "transition-[rotate,opacity] duration-[calc(420ms*var(--kf-speed,1))] ease-spring motion-reduce:transition-none",
+        "data-[sort=descending]:rotate-180 data-[sort=none]:opacity-0",
+      ),
+      children: <path d="M8 12.5v-9M4.5 7 8 3.5 11.5 7" />,
+    },
+    "svg",
   )
-}
-
-function TableCell({ className, ...props }: React.ComponentProps<"td">) {
-  return <td data-slot="table-cell" className={cn(className)} {...props} />
-}
-
-function TableCaption({ className, ...props }: React.ComponentProps<"caption">) {
-  return <caption data-slot="table-caption" className={cn(className)} {...props} />
+  const button = usePart(
+    handle,
+    "sort",
+    {},
+    {
+      children: (
+        <>
+          {children}
+          {arrow}
+        </>
+      ),
+    },
+    "button",
+  )
+  return usePart(
+    handle,
+    "head",
+    {},
+    { ...props, className, children: (state) => (state.sortable ? button : children) },
+    "th",
+  )
 }
 
 export { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, type SortDirection }

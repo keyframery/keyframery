@@ -3,7 +3,7 @@ import * as React from "react"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Pagination, PaginationList } from "@/components/ui/pagination"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export const meta = { name: "Table", group: "Data" }
 
@@ -19,6 +19,8 @@ export const play = [
   { click: "[data-slot=pagination-previous]", wait: 1400 },
   { click: "[data-play=sort-date] button", wait: 1600 },
 ]
+
+/* What the Customize panel under the preview offers. The demo takes the same names as props. */
 
 type Status = "Paid" | "Pending" | "Refunded"
 type Order = { id: string; customer: string; city: string; date: string; status: Status; total: number }
@@ -38,16 +40,92 @@ const orders: Order[] = [
   { id: "1031", customer: "Nia Evans", city: "Cardiff", date: "2026-11-06", status: "Paid", total: 151 },
 ]
 
-const pageSize = 6
 const euro = (n: number) => n.toLocaleString("en-GB", { style: "currency", currency: "EUR" })
 const day = (iso: string) => new Date(iso + "T12:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" })
 const badge: Record<Status, React.ComponentProps<typeof Badge>["variant"]> = { Paid: "success", Pending: "outline", Refunded: "secondary" }
 
 type SortKey = "date" | "total"
 
-export default function TableDemo() {
+export const controls = {
+  sortable: { type: "switch", label: "Sortable", default: true, group: "Behaviour" },
+  selectable: { type: "switch", label: "Selectable", default: true, group: "Behaviour" },
+  footer: { type: "switch", label: "Footer", default: false, group: "Behaviour" },
+  sortKey: { type: "select", label: "Sort key", options: ["date", "total"], default: "date" },
+  direction: { type: "select", label: "Direction", options: ["ascending", "descending"], default: "descending" },
+  align: { type: "select", label: "Customer alignment", options: ["left", "center", "right"], default: "left" },
+  pageSize: { type: "slider", label: "Rows per page", min: 1, max: 12, step: 1, default: 6, unit: "", group: "Layout" },
+  title: { type: "text", label: "Title", default: "Orders" },
+  customerLabel: { type: "text", label: "Customer label", default: "Customer" },
+  totalLabel: { type: "text", label: "Total label", default: "Page total" },
+  width: { type: "slider", label: "Width", min: 340, max: 760, step: 1, default: 620, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Gap", min: 4, max: 24, step: 1, default: 12, unit: "px", group: "Layout" },
+  height: { type: "slider", label: "Row height", min: 32, max: 60, step: 1, default: 44, unit: "px", group: "Layout" },
+  padding: { type: "slider", label: "Cell padding", min: 4, max: 24, step: 1, default: 12, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Sort corners", min: 0, max: 16, step: 1, default: 7, unit: "px", group: "Layout" },
+  ink: { type: "color", label: "Ink", default: "", group: "Colours" },
+  muted: { type: "color", label: "Muted", default: "", group: "Colours" },
+  border: { type: "color", label: "Border", default: "", group: "Colours" },
+  accent: { type: "color", label: "Accent", default: "", group: "Colours" },
+  footerFill: { type: "color", label: "Footer", default: "", group: "Colours" },
+} as const
+
+export default function TableDemo({
+  sortable = true,
+  selectable = true,
+  footer = false,
+  sortKey = "date",
+  direction = "descending",
+  align = "left",
+  pageSize = 6,
+  title = "Orders",
+  customerLabel = "Customer",
+  totalLabel = "Page total",
+  width = 620,
+  gap = 12,
+  height = 44,
+  padding = 12,
+  radius = 7,
+  ink = "",
+  muted = "",
+  border = "",
+  accent = "",
+  footerFill = "",
+}: {
+  sortable?: boolean
+  selectable?: boolean
+  footer?: boolean
+  sortKey?: "date" | "total"
+  direction?: "ascending" | "descending"
+  align?: "left" | "center" | "right"
+  pageSize?: number
+  title?: string
+  customerLabel?: string
+  totalLabel?: string
+  width?: number
+  gap?: number
+  height?: number
+  padding?: number
+  radius?: number
+  ink?: string
+  muted?: string
+  border?: string
+  accent?: string
+  footerFill?: string
+} = {}) {
+  const theme = {
+    "--table-height": `${height}px`,
+    "--table-padding": `${padding}px`,
+    "--table-radius": `${radius}px`,
+    ...(ink ? { "--table-ink": ink } : {}),
+    ...(muted ? { "--table-muted": muted } : {}),
+    ...(border ? { "--table-border": border } : {}),
+    ...(accent ? { "--table-accent": accent } : {}),
+    ...(footerFill ? { "--table-footer": footerFill } : {}),
+  } as React.CSSProperties
   const [sort, setSort] = React.useState<{ key: SortKey; dir: "ascending" | "descending" }>({ key: "date", dir: "descending" })
+  React.useEffect(() => { setSort({ key: sortKey, dir: direction }) }, [sortKey, direction])
   const [page, setPage] = React.useState(1)
+  React.useEffect(() => setPage(1), [pageSize])
   const [selected, setSelected] = React.useState<string[]>([])
 
   const sorted = React.useMemo(() => {
@@ -65,12 +143,12 @@ export default function TableDemo() {
     setSelected((s) => (allOnPage ? s.filter((id) => !rows.some((r) => r.id === id)) : [...new Set([...s, ...rows.map((r) => r.id)])]))
 
   return (
-    <div className="@container flex w-full max-w-[620px] flex-col gap-3">
+    <div style={{ ...theme, maxWidth: width, gap }} className="@container flex w-full flex-col">
       <div className="flex items-baseline justify-between gap-4">
         <div>
-          <h3 className="text-[15px] font-semibold tracking-tight">Orders</h3>
+          <h3 className="text-[15px] font-semibold tracking-tight">{title}</h3>
           <p className="mt-1 text-[12px] text-muted-foreground tabular-nums">
-            {selected.length ? `${selected.length} selected` : `${orders.length} this week`}
+            {selectable && selected.length ? `${selected.length} selected` : `${orders.length} this week`}
           </p>
         </div>
       </div>
@@ -78,29 +156,31 @@ export default function TableDemo() {
         <Table aria-label="Orders">
           <TableHeader>
             <TableRow>
-              <TableHead className="pl-4">
-                <Checkbox
-                  aria-label="Select every order on this page"
-                  checked={allOnPage ? true : someOnPage ? "indeterminate" : false}
-                  onCheckedChange={togglePage}
-                />
-              </TableHead>
-              <TableHead>Order</TableHead>
-              <TableHead>Customer</TableHead>
+              {selectable && (
+                <TableHead className="pl-4">
+                  <Checkbox
+                    aria-label="Select every order on this page"
+                    checked={allOnPage ? true : someOnPage ? "indeterminate" : false}
+                    onCheckedChange={togglePage}
+                  />
+                </TableHead>
+              )}
+              <TableHead className={selectable ? undefined : "pl-4"}>Order</TableHead>
+              <TableHead style={{ textAlign: align }}>{customerLabel}</TableHead>
               <TableHead
                 data-play="sort-date"
                 className="@max-[30rem]:hidden"
-                sort={sort.key === "date" ? sort.dir : "none"}
-                onSort={() => toggleSort("date")}
+                sort={sortable ? (sort.key === "date" ? sort.dir : "none") : undefined}
+                onSort={sortable ? () => toggleSort("date") : undefined}
               >
                 Date
               </TableHead>
               <TableHead className="@max-[24rem]:hidden">Status</TableHead>
               <TableHead
                 data-play="sort-total"
-                className="pr-3 text-right [&_button]:ml-auto"
-                sort={sort.key === "total" ? sort.dir : "none"}
-                onSort={() => toggleSort("total")}
+                className={sortable ? "pr-3 text-right [&_button]:ml-auto" : "pr-4 text-right"}
+                sort={sortable ? (sort.key === "total" ? sort.dir : "none") : undefined}
+                onSort={sortable ? () => toggleSort("total") : undefined}
               >
                 Total
               </TableHead>
@@ -108,12 +188,14 @@ export default function TableDemo() {
           </TableHeader>
           <TableBody>
             {rows.map((o) => (
-              <TableRow key={o.id} data-row={o.id} selected={selected.includes(o.id)}>
-                <TableCell className="pl-4">
-                  <Checkbox aria-label={`Select order ${o.id}`} checked={selected.includes(o.id)} onCheckedChange={() => toggleRow(o.id)} />
-                </TableCell>
-                <TableCell className="font-medium">#{o.id}</TableCell>
-                <TableCell>
+              <TableRow key={o.id} data-row={o.id} selected={selectable ? selected.includes(o.id) : undefined}>
+                {selectable && (
+                  <TableCell className="pl-4">
+                    <Checkbox aria-label={`Select order ${o.id}`} checked={selected.includes(o.id)} onCheckedChange={() => toggleRow(o.id)} />
+                  </TableCell>
+                )}
+                <TableCell className={selectable ? "font-medium" : "pl-4 font-medium"}>#{o.id}</TableCell>
+                <TableCell style={{ textAlign: align }}>
                   <span className="block">{o.customer}</span>
                   <span className="block text-[12px] text-muted-foreground @max-[30rem]:hidden">{o.city}</span>
                 </TableCell>
@@ -125,6 +207,16 @@ export default function TableDemo() {
               </TableRow>
             ))}
           </TableBody>
+          {footer && (
+            <TableFooter>
+              <TableRow>
+                <TableCell colSpan={selectable ? 5 : 4} className="pl-4 text-muted-foreground">
+                  {totalLabel}
+                </TableCell>
+                <TableCell className="pr-4 text-right">{euro(rows.reduce((sum, o) => sum + o.total, 0))}</TableCell>
+              </TableRow>
+            </TableFooter>
+          )}
         </Table>
       </div>
       <Pagination aria-label="Order pages" total={orders.length} pageSize={pageSize} page={page} onPageChange={setPage} className="self-end">

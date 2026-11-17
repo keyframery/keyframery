@@ -1,0 +1,49 @@
+{
+  "cssVars": [
+    [
+      "--image-cropper-canvas",
+      "Editor canvas",
+      "oklch(0.24 0 0), --muted in dark"
+    ],
+    [
+      "--image-cropper-handle",
+      "Resize handles",
+      "white"
+    ],
+    [
+      "--image-cropper-grid",
+      "Thirds grid",
+      "rgb(255 255 255 / 0.5)"
+    ],
+    [
+      "--image-cropper-key",
+      "Rotate and flip surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--image-cropper-radius",
+      "Viewport corners",
+      "14px"
+    ],
+    [
+      "--image-cropper-padding",
+      "Viewport padding",
+      "0.625rem"
+    ],
+    [
+      "--image-cropper-gap",
+      "Cropper section gap",
+      "0.75rem"
+    ]
+  ],
+  "propDocs": {
+    "ImageCropper.mode": "Box moves a crop over the image; frame pans the image under a fixed crop.",
+    "ImageCropper.shape": "Rectangle or circle selection.",
+    "ImageCropper.aspectRatio": "Locks width divided by height; omit for a free crop.",
+    "ImageCropper.disabled": "Disables crop dragging, keyboard controls, zoom, rotate and flip.",
+    "ImageCropper.minWidth": "Smallest crop width in image pixels.",
+    "ImageCropper.minHeight": "Smallest crop height in image pixels.",
+    "ImageCropper.maxZoom": "Largest allowed zoom factor.",
+    "ImageCropperFlip.direction": "Mirrors horizontally or vertically."
+  }
+}

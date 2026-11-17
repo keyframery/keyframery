@@ -1,5 +1,16 @@
 "use client"
 
+export * from "@/components/primitives/drawer"
+
+/* Theming: set on a part or its ancestor; unset variables preserve the original theme.
+   --drawer-face: Drawer sheet and overscroll strip (default: --popover).
+   --drawer-ink: Drawer body text (default: --popover-foreground).
+   --drawer-accent: Primary action and hover mix (default: --primary).
+   --drawer-width: Sheet maximum width (default: 480px top/bottom; 380px left/right).
+   --drawer-radius: Free-edge corners (default: 18px).
+   --drawer-gap: Footer key spacing (default: 0.5rem).
+ */
+
 /* Styled drawer: the animated primitive plus the Keyframery look. */
 
 import {
@@ -18,6 +29,11 @@ import * as React from "react"
 
 import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
+
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
 
 type DrawerCloseVariant = "default" | "primary"
 
@@ -43,10 +59,10 @@ const keySurface = cn(
 )
 
 const primarySurface = cn(
-  "bg-primary text-primary-foreground",
+  "bg-[var(--drawer-accent,var(--primary))] text-primary-foreground",
   "shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
   "dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)]",
-  "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--primary),var(--background)_14%)]",
+  "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--drawer-accent,var(--primary)),var(--background)_14%)]",
   "not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
 )
 
@@ -75,9 +91,11 @@ function DrawerTrigger({
 }: React.ComponentProps<typeof DrawerTriggerPart>) {
   return (
     <DrawerTriggerPart
-      className={cn(
-        !props.render && [keyBase, keySurface, "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4"],
-        props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      className={withClass(
+        cn(
+          !props.render && [keyBase, keySurface, "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4"],
+          props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        ),
         className,
       )}
       {...props}
@@ -94,9 +112,11 @@ function DrawerBackdrop({
 }: React.ComponentProps<typeof DrawerBackdropPart>) {
   return (
     <DrawerBackdropPart
-      className={cn(
-        "fixed inset-0 bg-black/30 backdrop-blur-[3px] dark:bg-black/60",
-        "data-interactive:backdrop-blur-none",
+      className={withClass(
+        cn(
+          "fixed inset-0 bg-black/30 backdrop-blur-[3px] dark:bg-black/60",
+          "data-interactive:backdrop-blur-none",
+        ),
         className,
       )}
       {...props} style={useSpeedStyle(style)}
@@ -114,20 +134,22 @@ function DrawerContent({
 }: React.ComponentProps<typeof DrawerContentPart>) {
   return (
     <DrawerContentPart
-      className={cn(
-        "group/drawer flex flex-col border-0 bg-popover text-popover-foreground outline-none",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_-8px_32px_-8px_rgb(0_0_0/0.18)]",
-        "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_-8px_32px_-8px_rgb(0_0_0/0.7)]",
-        /* Bottom and top: a centred sheet, rounded on its free edge. A strip below the edge
-           covers the gap when it is pulled past its rest. */
-        "data-[side=bottom]:mx-auto data-[side=bottom]:max-h-[calc(100dvh-48px)] data-[side=bottom]:w-full data-[side=bottom]:max-w-[480px] data-[side=bottom]:rounded-t-[18px] data-[side=bottom]:pb-[max(20px,env(safe-area-inset-bottom))]",
-        "data-[side=bottom]:after:absolute data-[side=bottom]:after:inset-x-0 data-[side=bottom]:after:top-full data-[side=bottom]:after:h-24 data-[side=bottom]:after:bg-popover",
-        "data-[side=top]:mx-auto data-[side=top]:max-h-[calc(100dvh-48px)] data-[side=top]:w-full data-[side=top]:max-w-[480px] data-[side=top]:rounded-b-[18px]",
-        "data-[side=left]:h-full data-[side=left]:w-[min(380px,calc(100vw-48px))] data-[side=left]:rounded-r-[18px]",
-        "data-[side=right]:h-full data-[side=right]:w-[min(380px,calc(100vw-48px))] data-[side=right]:rounded-l-[18px]",
-        /* A sheet opened from this one rises over it: this one steps back. */
-        "origin-top scale-[calc(1-var(--drawer-stack,0)*0.04)]",
-        "data-dragging:cursor-grabbing",
+      className={withClass(
+        cn(
+          "group/drawer flex flex-col border-0 bg-[var(--drawer-face,var(--popover))] text-[color:var(--drawer-ink,var(--popover-foreground))] outline-none",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_-8px_32px_-8px_rgb(0_0_0/0.18)]",
+          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_-8px_32px_-8px_rgb(0_0_0/0.7)]",
+          /* Bottom and top: a centred sheet, rounded on its free edge. A strip below the edge
+             covers the gap when it is pulled past its rest. */
+          "data-[side=bottom]:mx-auto data-[side=bottom]:max-h-[calc(100dvh-48px)] data-[side=bottom]:w-full data-[side=bottom]:max-w-[var(--drawer-width,480px)] data-[side=bottom]:rounded-t-[var(--drawer-radius,18px)] data-[side=bottom]:pb-[max(20px,env(safe-area-inset-bottom))]",
+          "data-[side=bottom]:after:absolute data-[side=bottom]:after:inset-x-0 data-[side=bottom]:after:top-full data-[side=bottom]:after:h-24 data-[side=bottom]:after:bg-[var(--drawer-face,var(--popover))]",
+          "data-[side=top]:mx-auto data-[side=top]:max-h-[calc(100dvh-48px)] data-[side=top]:w-full data-[side=top]:max-w-[var(--drawer-width,480px)] data-[side=top]:rounded-b-[var(--drawer-radius,18px)]",
+          "data-[side=left]:h-full data-[side=left]:w-[min(var(--drawer-width,380px),calc(100vw-48px))] data-[side=left]:rounded-r-[var(--drawer-radius,18px)]",
+          "data-[side=right]:h-full data-[side=right]:w-[min(var(--drawer-width,380px),calc(100vw-48px))] data-[side=right]:rounded-l-[var(--drawer-radius,18px)]",
+          /* A sheet opened from this one rises over it: this one steps back. */
+          "origin-top scale-[calc(1-var(--drawer-stack,0)*0.04)]",
+          "data-dragging:cursor-grabbing",
+        ),
         className,
       )}
       {...props} style={useSpeedStyle(style)}
@@ -154,10 +176,12 @@ function DrawerHandle({
 }: React.ComponentProps<typeof DrawerHandlePart>) {
   return (
     <DrawerHandlePart
-      className={cn(
-        "group/handle mx-auto mt-1 block cursor-grab rounded-full px-4 pt-1.5 pb-2 outline-none",
-        "focus-visible:ring-2 focus-visible:ring-ring",
-        "hover:[&>span]:bg-foreground/25",
+      className={withClass(
+        cn(
+          "group/handle mx-auto mt-1 block cursor-grab rounded-full px-4 pt-1.5 pb-2 outline-none",
+          "focus-visible:ring-2 focus-visible:ring-ring",
+          "hover:[&>span]:bg-foreground/25",
+        ),
         className,
       )}
       {...props}
@@ -177,7 +201,7 @@ function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="drawer-footer"
-      className={cn("mt-auto flex flex-col gap-2 px-5 pt-4", className)}
+      className={cn("mt-auto flex flex-col gap-[var(--drawer-gap,0.5rem)] px-5 pt-4", className)}
       {...props}
     />
   )
@@ -189,7 +213,7 @@ function DrawerTitle({
 }: React.ComponentProps<typeof DrawerTitlePart>) {
   return (
     <DrawerTitlePart
-      className={cn("text-[15px] leading-5 font-semibold tracking-tight", className)}
+      className={withClass("text-[15px] leading-5 font-semibold tracking-tight", className)}
       {...props}
     />
   )
@@ -201,7 +225,7 @@ function DrawerDescription({
 }: React.ComponentProps<typeof DrawerDescriptionPart>) {
   return (
     <DrawerDescriptionPart
-      className={cn("text-[13px] leading-5 text-muted-foreground", className)}
+      className={withClass("text-[13px] leading-5 text-muted-foreground", className)}
       {...props}
     />
   )
@@ -216,13 +240,15 @@ function DrawerClose({
   return (
     <DrawerClosePart
       data-variant={variant}
-      className={cn(
-        !props.render && [
-          keyBase,
-          "h-9 rounded-[10px] px-4 text-[14px] [&_svg]:size-4",
-          variant === "primary" ? primarySurface : keySurface,
-        ],
-        props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      className={withClass(
+        cn(
+          !props.render && [
+            keyBase,
+            "h-9 rounded-[10px] px-4 text-[14px] [&_svg]:size-4",
+            variant === "primary" ? primarySurface : keySurface,
+          ],
+          props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        ),
         className,
       )}
       {...props}
@@ -236,10 +262,7 @@ function DrawerShortcut({
 }: React.ComponentProps<typeof DrawerShortcutPart>) {
   return (
     <DrawerShortcutPart
-      className={cn(
-        "ms-1 text-[12px] leading-none tracking-[0.04em] text-muted-foreground tabular-nums",
-        className,
-      )}
+      className={withClass("ms-1 text-[12px] leading-none tracking-[0.04em] text-muted-foreground tabular-nums", className)}
       {...props}
     />
   )
@@ -251,7 +274,7 @@ function DrawerOutlet({
   className,
   ...props
 }: React.ComponentProps<typeof DrawerOutletPart>) {
-  return <DrawerOutletPart className={cn("origin-top", className)} {...props} />
+  return <DrawerOutletPart className={withClass("origin-top", className)} {...props} />
 }
 
 export {

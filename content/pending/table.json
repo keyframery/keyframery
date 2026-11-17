@@ -1,0 +1,70 @@
+{
+  "description": "Rows cascade in, a sortable header's arrow turns over on a spring and reports the sort to screen readers, and selected rows fade in. On a phone it scrolls sideways with a soft edge.",
+  "keyboard": [
+    [
+      "Tab",
+      "Moves between the sort buttons, checkboxes and links in the table."
+    ],
+    [
+      "Enter",
+      "Sorts by the focused column, or turns its sort over."
+    ],
+    [
+      "Space",
+      "Sorts by the focused column, or ticks the focused row's checkbox."
+    ],
+    [
+      "Shift + scroll",
+      "Scrolls a wide table sideways."
+    ]
+  ],
+  "propDocs": {
+    "TableHead.sort": "Controlled ascending, descending, or none; undefined makes the header static.",
+    "TableHead.defaultSort": "How this column is sorted at first, when you don't control `sort`. Makes the header a sort button that keeps its own sort.",
+    "TableHead.onSort": "Called when the sort button is pressed.",
+    "TableHead.onSortChange": "Runs when the sort changes, with the next direction and the change's details (`reason`, `source`, `cancel()`). Makes the header a sort button.",
+    "TableRow.selected": "Marks the row selected and applies its selection tint."
+  },
+  "cssVars": [
+    [
+      "--table-ink",
+      "Table text",
+      "--foreground"
+    ],
+    [
+      "--table-muted",
+      "Headers and caption text",
+      "--muted-foreground"
+    ],
+    [
+      "--table-border",
+      "Row and footer rules",
+      "--border; 70% on rows"
+    ],
+    [
+      "--table-accent",
+      "Hover and selection tint",
+      "--foreground at 3% on hover and 6% when selected"
+    ],
+    [
+      "--table-footer",
+      "Footer fill",
+      "--muted at 40%"
+    ],
+    [
+      "--table-height",
+      "Body cell height",
+      "2.75rem"
+    ],
+    [
+      "--table-padding",
+      "Cell horizontal padding",
+      "0.75rem"
+    ],
+    [
+      "--table-radius",
+      "Sort button corners",
+      "7px"
+    ]
+  ]
+}

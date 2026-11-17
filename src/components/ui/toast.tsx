@@ -1,6 +1,19 @@
 "use client"
 
+export * from "@/components/primitives/toast"
+
 /* Styled toast: the animated primitive plus the Keyframery look. */
+
+/* Theming: inherit these optional variables; unset values retain the original light/dark tokens.
+   --toast-face: Toast sheet and action surfaces (default: --popover; --background on action; --accent on action in dark).
+   --toast-ink: Title and description text (default: --foreground; --muted-foreground for description; --popover-foreground on sheet).
+   --toast-accent: Status icon colour (default: success green; --destructive for error; --foreground for info/warning).
+   --toast-radius: Toast corners (default: 14px).
+   --toast-padding: Toast padding (default: 0.75rem).
+   --toast-gap: Space between toast contents (default: 0.75rem).
+   --toast-width: Region width (default: 360px).
+   --toast-action-height: Action button height (default: 1.75rem).
+ */
 
 import {
   Toast as ToastPrimitive,
@@ -18,6 +31,11 @@ import * as React from "react"
 
 import { type SpeedProps, withSpeed } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
+
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
 
 /* Every toast renders this unless the region is given children of its own. */
 function defaultRenderToast(item: ToastData<React.ReactNode>) {
@@ -44,9 +62,11 @@ function ToastRegion({
 }: React.ComponentProps<typeof ToastRegionPrimitive> & SpeedProps) {
   return (
     <ToastRegionPrimitive
-      className={cn(
-        "group/region outline-none",
-        "focus-visible:rounded-[16px] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background",
+      className={withClass(
+        cn(
+          "group/region w-[var(--toast-width,360px)] outline-none",
+          "focus-visible:rounded-[16px] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background",
+        ),
         className,
       )}
       {...props}
@@ -61,11 +81,13 @@ function ToastRegion({
 function Toast({ className, ...props }: React.ComponentProps<typeof ToastPrimitive>) {
   return (
     <ToastPrimitive
-      className={cn(
-        "group/toast flex items-start gap-3 rounded-[14px] bg-popover p-3 pr-2.5 text-popover-foreground outline-none",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
-        "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      className={withClass(
+        cn(
+          "group/toast flex items-start gap-[var(--toast-gap,0.75rem)] rounded-[var(--toast-radius,14px)] bg-[var(--toast-face,var(--popover))] p-[var(--toast-padding,0.75rem)] pr-[calc(var(--toast-padding,0.75rem)-2px)] text-[color:var(--toast-ink,var(--popover-foreground))] outline-none",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
+          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        ),
         className,
       )}
       {...props}
@@ -76,7 +98,7 @@ function Toast({ className, ...props }: React.ComponentProps<typeof ToastPrimiti
 function ToastTitle({ className, ...props }: React.ComponentProps<typeof ToastTitlePart>) {
   return (
     <ToastTitlePart
-      className={cn("text-[13px] leading-[18px] font-medium text-foreground", className)}
+      className={withClass("text-[13px] leading-[18px] font-medium text-[color:var(--toast-ink,var(--foreground))]", className)}
       {...props}
     />
   )
@@ -88,7 +110,7 @@ function ToastDescription({
 }: React.ComponentProps<typeof ToastDescriptionPart>) {
   return (
     <ToastDescriptionPart
-      className={cn("text-[12px] leading-[17px] text-muted-foreground", className)}
+      className={withClass("text-[12px] leading-[17px] text-[color:var(--toast-ink,var(--muted-foreground))]", className)}
       {...props}
     />
   )
@@ -98,14 +120,16 @@ function ToastDescription({
 function ToastAction({ className, ...props }: React.ComponentProps<typeof ToastActionPart>) {
   return (
     <ToastActionPart
-      className={cn(
-        "inline-flex h-7 shrink-0 cursor-pointer items-center self-center rounded-[8px] bg-background px-2.5 text-[12px] leading-none font-medium text-foreground outline-none",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
-        "dark:bg-accent dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
-        "hover:bg-accent dark:hover:bg-muted",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover",
-        "data-pending:pointer-events-none data-pending:opacity-60",
-        "disabled:pointer-events-none disabled:opacity-50",
+      className={withClass(
+        cn(
+          "inline-flex h-[var(--toast-action-height,1.75rem)] shrink-0 cursor-pointer items-center self-center rounded-[8px] bg-[var(--toast-face,var(--background))] px-2.5 text-[12px] leading-none font-medium text-[color:var(--toast-ink,var(--foreground))] outline-none",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
+          "dark:bg-[var(--toast-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+          "hover:bg-[var(--toast-face,var(--accent))] dark:hover:bg-[var(--toast-face,var(--muted))]",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover",
+          "data-pending:pointer-events-none data-pending:opacity-60",
+          "disabled:pointer-events-none disabled:opacity-50",
+        ),
         className,
       )}
       {...props}
@@ -121,12 +145,14 @@ function ToastClose({
   return (
     <ToastClosePart
       aria-label="Dismiss"
-      className={cn(
-        "grid size-6 shrink-0 cursor-pointer place-items-center self-start rounded-[7px] text-muted-foreground outline-none",
-        "hover:bg-foreground/[0.06] hover:text-foreground",
-        "focus-visible:ring-2 focus-visible:ring-ring",
-        "data-pending:pointer-events-none data-pending:opacity-50",
-        "[&_svg]:size-3.5",
+      className={withClass(
+        cn(
+          "grid size-6 shrink-0 cursor-pointer place-items-center self-start rounded-[7px] text-muted-foreground outline-none",
+          "hover:bg-foreground/[0.06] hover:text-foreground",
+          "focus-visible:ring-2 focus-visible:ring-ring",
+          "data-pending:pointer-events-none data-pending:opacity-50",
+          "[&_svg]:size-3.5",
+        ),
         className,
       )}
       {...props}
@@ -165,10 +191,10 @@ function ToastIcon({
         className={cn(
           "grid size-[18px] place-items-center rounded-full [&_svg]:size-3.5",
           "transition-[scale] delay-[calc(100ms*var(--kf-speed,1))] duration-[calc(480ms*var(--kf-speed,1))] ease-pop group-data-starting-style/toast:scale-[0.5] group-data-starting-style/toast:transition-none motion-reduce:transition-none!",
-          "group-data-[type=success]/icon:bg-[oklch(0.62_0.16_150/0.14)] group-data-[type=success]/icon:text-[oklch(0.62_0.16_150)]",
-          "group-data-[type=error]/icon:bg-destructive/12 group-data-[type=error]/icon:text-destructive",
-          "group-data-[type=info]/icon:bg-muted group-data-[type=info]/icon:text-foreground",
-          "group-data-[type=warning]/icon:bg-muted group-data-[type=warning]/icon:text-foreground",
+          "group-data-[type=success]/icon:bg-[color-mix(in_oklab,var(--toast-accent,oklch(0.62_0.16_150))_14%,transparent)] group-data-[type=success]/icon:text-[color:var(--toast-accent,oklch(0.62_0.16_150))]",
+          "group-data-[type=error]/icon:bg-[color-mix(in_oklab,var(--toast-accent,var(--destructive))_12%,transparent)] group-data-[type=error]/icon:text-[color:var(--toast-accent,var(--destructive))]",
+          "group-data-[type=info]/icon:bg-muted group-data-[type=info]/icon:text-[color:var(--toast-accent,var(--foreground))]",
+          "group-data-[type=warning]/icon:bg-muted group-data-[type=warning]/icon:text-[color:var(--toast-accent,var(--foreground))]",
           "group-data-[type=loading]/icon:text-muted-foreground",
         )}
       >

@@ -2,6 +2,29 @@ import * as React from "react"
 
 import { Button, ButtonArrow, ButtonIcon } from "@/components/ui/button"
 
+export const controls = {
+  variant: { type: "select", label: "Variant", default: "primary", options: ["default", "primary", "ghost", "destructive"] },
+  size: { type: "select", label: "Size", default: "md", options: ["sm", "md", "lg", "icon-sm", "icon", "icon-lg"], group: "Layout" },
+  disabled: { type: "switch", label: "Disabled", default: false, group: "Behaviour" },
+  focusableWhenDisabled: { type: "switch", label: "Focusable when disabled", default: false, group: "Behaviour" },
+  leadingIcon: { type: "switch", label: "Leading icon", default: true, group: "Behaviour" },
+  trailingArrow: { type: "switch", label: "Trailing arrow", default: true, group: "Behaviour" },
+  book: { type: "text", label: "Book", default: "Book trip" },
+  seats: { type: "text", label: "Seats", default: "Choose seats" },
+  share: { type: "text", label: "Share", default: "Share" },
+  cancel: { type: "text", label: "Cancel", default: "Cancel trip" },
+  guest: { type: "text", label: "Guest", default: "Add guest" },
+  soldOut: { type: "text", label: "Sold out", default: "Sold out" },
+  pay: { type: "text", label: "Pay", default: "Pay now" },
+  rows: { type: "slider", label: "Rows", default: 3, min: 1, max: 3, step: 1 },
+  width: { type: "slider", label: "Minimum row width", default: 0, min: 0, max: 480, step: 1, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Gap", default: 8, min: 0, max: 20, step: 1, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Radius", default: 9, min: 0, max: 24, step: 1, unit: "px", group: "Layout" },
+  font: { type: "slider", label: "Font", default: 13, min: 10, max: 18, step: 1, unit: "px", group: "Layout" },
+  face: { type: "color", label: "Face", default: "", group: "Colours" },
+  ink: { type: "color", label: "Ink", default: "", group: "Colours" },
+} as const
+
 export const meta = { name: "Button", group: "Actions" }
 
 /* The demo plays itself: book the trip, watch the label rise out for the spinner, and back. */
@@ -58,17 +81,65 @@ function SearchIcon() {
   )
 }
 
-export default function ButtonDemo() {
+export default function ButtonDemo({
+  variant = "primary",
+  size = "md",
+  disabled = false,
+  focusableWhenDisabled = false,
+  leadingIcon = true,
+  trailingArrow = true,
+  book = "Book trip",
+  seats = "Choose seats",
+  share = "Share",
+  cancel = "Cancel trip",
+  guest = "Add guest",
+  soldOut = "Sold out",
+  pay = "Pay now",
+  rows = 3,
+  width = 0,
+  gap = 8,
+  radius = 9,
+  font = 13,
+  face = "",
+  ink = "",
+}: {
+  variant?: "default" | "primary" | "ghost" | "destructive"
+  size?: "sm" | "md" | "lg" | "icon-sm" | "icon" | "icon-lg"
+  disabled?: boolean
+  focusableWhenDisabled?: boolean
+  leadingIcon?: boolean
+  trailingArrow?: boolean
+  book?: string
+  seats?: string
+  share?: string
+  cancel?: string
+  guest?: string
+  soldOut?: string
+  pay?: string
+  rows?: number
+  width?: number
+  gap?: number
+  radius?: number
+  font?: number
+  face?: string
+  ink?: string
+}) {
+  const theme = {
+    ...(radius !== 9 ? { "--button-radius": `${radius}px` } : null),
+    ...(font !== 13 ? { "--button-font": `${font}px` } : null),
+    ...(face ? { "--button-face": face } : null),
+    ...(ink ? { "--button-ink": ink } : null),
+  } as React.CSSProperties
   /* Scripted pointer events cannot set :hover, so the demo mirrors hover as data-hovered. */
   const [hovered, setHovered] = React.useState(false)
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center gap-2">
-        <Button variant="primary" data-play="book" onClick={() => wait(2200)} pendingAnnouncement="Booking">
-          <ButtonIcon>
+    <div style={{ ...theme, minWidth: width || undefined }} className="flex flex-col gap-6">
+      <div style={{ gap }} className="flex flex-wrap items-center gap-2">
+        <Button variant={variant} size={size} disabled={disabled} focusableWhenDisabled={focusableWhenDisabled} aria-label={book} data-play="book" onClick={() => wait(2200)} pendingAnnouncement="Booking">
+          {leadingIcon && <ButtonIcon>
             <CalendarIcon />
-          </ButtonIcon>
-          Book trip
+          </ButtonIcon>}
+          <span className={size.startsWith("icon") ? "sr-only" : undefined}>{book}</span>
         </Button>
         <Button
           data-play="continue"
@@ -78,32 +149,32 @@ export default function ButtonDemo() {
           onClick={() => wait(1800)}
           pendingAnnouncement="Loading seats"
         >
-          Choose seats
-          <ButtonArrow />
+          {seats}
+          {trailingArrow && <ButtonArrow />}
         </Button>
         <Button variant="ghost">
           <UploadIcon />
-          Share
+          {share}
         </Button>
-        <Button variant="destructive">Cancel trip</Button>
+        <Button variant="destructive">{cancel}</Button>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
+      {rows >= 2 && <div style={{ gap }} className="flex flex-wrap items-center gap-2">
         <Button size="sm">
           <PlusIcon />
-          Add guest
+          {guest}
         </Button>
         <Button size="md">
           <PlusIcon />
-          Add guest
+          {guest}
         </Button>
         <Button size="lg">
           <PlusIcon />
-          Add guest
+          {guest}
         </Button>
-      </div>
+      </div>}
 
-      <div className="flex flex-wrap items-center gap-2">
+      {rows >= 3 && <div style={{ gap }} className="flex flex-wrap items-center gap-2">
         <Button size="icon-sm" aria-label="Search trips">
           <SearchIcon />
         </Button>
@@ -114,11 +185,11 @@ export default function ButtonDemo() {
           <PlusIcon />
         </Button>
         <span className="mx-1 h-4 w-px bg-border" />
-        <Button disabled>Sold out</Button>
+        <Button disabled>{soldOut}</Button>
         <Button variant="primary" disabled>
-          Pay now
+          {pay}
         </Button>
-      </div>
+      </div>}
     </div>
   )
 }

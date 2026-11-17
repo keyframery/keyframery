@@ -1,0 +1,54 @@
+{
+  "cssVars": [
+    [
+      "--token-input-face",
+      "Editor surface",
+      "--background; --muted at 50% read-only; --muted disabled"
+    ],
+    [
+      "--token-input-ink",
+      "Editor and token text",
+      "--foreground; --primary-foreground selected"
+    ],
+    [
+      "--token-input-token",
+      "Token surface",
+      "--background; --accent in dark"
+    ],
+    [
+      "--token-input-accent",
+      "Selected token surface",
+      "--primary"
+    ],
+    [
+      "--token-input-error",
+      "Unresolved token colour",
+      "--destructive"
+    ],
+    [
+      "--token-input-radius",
+      "Editor corners",
+      "10px"
+    ],
+    [
+      "--token-input-token-radius",
+      "Token corners",
+      "7px"
+    ],
+    [
+      "--token-input-height",
+      "Editor line height including padding; token height follows",
+      "2.25rem"
+    ]
+  ],
+  "propDocs": {
+    "TokenInput.disabled": "Disables editing and form submission.",
+    "TokenInput.readOnly": "Allows focus and copying while preventing editing.",
+    "TokenInput.required": "Requires a nonempty value for form submission.",
+    "TokenInput.tokenDeletion": "Backspace removes, selects first, or reverts a token to text.",
+    "TokenInput.copy": "Copies codec text or the human-readable label.",
+    "TokenInput.submitShortcut": "Enter or Mod+Enter submits.",
+    "TokenInputEditor.placeholder": "Shown while the editor has no text or tokens.",
+    "TokenInput.renderToken": "Renders each token including its optional status."
+  }
+}

@@ -11,6 +11,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/button"
 
 /* Old content leaves fast and flat; new content arrives on a spring. */
@@ -44,13 +49,15 @@ function Button({
 }) {
   return (
     <ButtonPart
-      className={cn(
-        "group/kf-button relative",
-        /* Colours and shadows ease as the pointer arrives; the press springs back with a pop. */
-        "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)]",
-        "not-data-disabled:not-data-pending:active:scale-[0.96] not-data-disabled:not-data-pending:active:[transition-duration:calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(90ms*var(--kf-speed,1))]",
-        "not-data-disabled:hover:[--kf-nudge:1] not-data-disabled:data-hovered:[--kf-nudge:1] focus-visible:[--kf-nudge:1]",
-        "motion-reduce:[transition:none]!",
+      className={withClass(
+        cn(
+          "group/kf-button relative",
+          /* Colours and shadows ease as the pointer arrives; the press springs back with a pop. */
+          "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)]",
+          "not-data-disabled:not-data-pending:active:scale-[0.96] not-data-disabled:not-data-pending:active:[transition-duration:calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(90ms*var(--kf-speed,1))]",
+          "not-data-disabled:hover:[--kf-nudge:1] not-data-disabled:data-hovered:[--kf-nudge:1] focus-visible:[--kf-nudge:1]",
+          "motion-reduce:[transition:none]!",
+        ),
         className,
       )}
       {...props}

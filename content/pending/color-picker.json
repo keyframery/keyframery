@@ -1,0 +1,50 @@
+{
+  "cssVars": [
+    [
+      "--color-picker-face",
+      "Fields, keys and popup surface",
+      "--background / --accent (dark keys) / --popover"
+    ],
+    [
+      "--color-picker-ink",
+      "Field, key and popup text",
+      "--foreground / --popover-foreground"
+    ],
+    [
+      "--color-picker-gap",
+      "Picker part spacing",
+      "0.75rem"
+    ],
+    [
+      "--color-picker-width",
+      "Popup width",
+      "16rem"
+    ],
+    [
+      "--color-picker-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--color-picker-area-height",
+      "Colour area height",
+      "9rem"
+    ],
+    [
+      "--color-picker-thumb-size",
+      "Area and slider thumbs",
+      "18px"
+    ]
+  ],
+  "propDocs": {
+    "ColorPicker.space": "Channel space: hsv, hsl, srgb or oklch.",
+    "ColorPicker.format": "CSS syntax used when reporting edited values.",
+    "ColorPicker.gamut": "Limit to sRGB, Display P3 or no gamut limit (false).",
+    "ColorPicker.disabled": "Disable colour editing and focus.",
+    "ColorPicker.readOnly": "Keep focus while preventing colour changes.",
+    "ColorPickerSlider.orientation": "Horizontal or vertical slider.",
+    "ColorPickerSlider.channel": "The colour channel edited by the slider.",
+    "ColorPickerContent.side": "Preferred popover side.",
+    "ColorPickerContent.align": "Alignment relative to the trigger."
+  }
+}

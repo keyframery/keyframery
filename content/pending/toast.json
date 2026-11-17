@@ -1,0 +1,53 @@
+{
+  "cssVars": [
+    [
+      "--toast-face",
+      "Toast sheet and action surfaces",
+      "--popover; --background on action; --accent on action in dark"
+    ],
+    [
+      "--toast-ink",
+      "Title and description text",
+      "--foreground; --muted-foreground for description; --popover-foreground on sheet"
+    ],
+    [
+      "--toast-accent",
+      "Status icon colour",
+      "success green; --destructive for error; --foreground for info/warning"
+    ],
+    [
+      "--toast-radius",
+      "Toast corners",
+      "14px"
+    ],
+    [
+      "--toast-padding",
+      "Toast padding",
+      "0.75rem"
+    ],
+    [
+      "--toast-gap",
+      "Space between toast contents",
+      "0.75rem"
+    ],
+    [
+      "--toast-width",
+      "Region width",
+      "360px"
+    ],
+    [
+      "--toast-action-height",
+      "Action button height",
+      "1.75rem"
+    ]
+  ],
+  "propDocs": {
+    "ToastRegion.side": "Top or bottom edge of the viewport.",
+    "ToastRegion.align": "Start, centre, or end alignment along the edge.",
+    "ToastRegion.expanded": "Keeps the stack spread out.",
+    "ToastRegion.maxVisible": "Maximum simultaneously visible toasts.",
+    "Toast.dismissible": "Allows swipe, Escape and Close to dismiss.",
+    "Toast.type": "Controls the status icon and announcement priority.",
+    "ToastAction.dismiss": "Dismisses after the action is used."
+  }
+}

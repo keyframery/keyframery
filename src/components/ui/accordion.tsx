@@ -1,5 +1,15 @@
 "use client"
 
+export * from "@/components/primitives/accordion"
+
+/* Theming: set on a part or its ancestor; unset variables preserve the original theme.
+   --accordion-border: Row dividers (default: --border).
+   --accordion-radius: Trigger corners (default: 8px).
+   --accordion-padding: Trigger vertical padding (default: 0.875rem).
+   --accordion-ink: Trigger and active icon text (default: --foreground).
+   --accordion-muted: Panel and resting icon text (default: --muted-foreground).
+ */
+
 /* Styled accordion: the animated primitive plus the Keyframery look. */
 
 import * as React from "react"
@@ -14,10 +24,15 @@ import {
 import { mapChildren, Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 function Accordion({ speed, className, ...props }: React.ComponentProps<typeof AccordionRoot> & SpeedProps) {
   return (
     <Speed speed={speed}>
-      <AccordionRoot className={cn("flex w-full flex-col", className)} {...props} />
+      <AccordionRoot className={withClass("flex w-full flex-col", className)} {...props} />
     </Speed>
   )
 }
@@ -29,7 +44,7 @@ function AccordionItem({
 }: React.ComponentProps<typeof AccordionItemPart>) {
   return (
     <AccordionItemPart
-      className={cn("border-b border-border last:border-b-0", className)}
+      className={withClass("border-b border-[color:var(--accordion-border,var(--border))] last:border-b-0", className)}
       {...props}
     />
   )
@@ -39,7 +54,7 @@ function AccordionHeader({
   className,
   ...props
 }: React.ComponentProps<typeof AccordionHeaderPart>) {
-  return <AccordionHeaderPart className={cn("m-0 flex", className)} {...props} />
+  return <AccordionHeaderPart className={withClass("m-0 flex", className)} {...props} />
 }
 
 function AccordionTrigger({
@@ -49,10 +64,12 @@ function AccordionTrigger({
 }: React.ComponentProps<typeof AccordionTriggerPart>) {
   return (
     <AccordionTriggerPart
-      className={cn(
-        "group/accordion-trigger flex w-full cursor-pointer items-center gap-4 rounded-[8px] py-3.5 text-left text-[14px] leading-5 font-medium text-foreground outline-none select-none",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "aria-disabled:cursor-default data-disabled:cursor-not-allowed data-disabled:opacity-40",
+      className={withClass(
+        cn(
+          "group/accordion-trigger flex w-full cursor-pointer items-center gap-4 rounded-[var(--accordion-radius,8px)] py-[var(--accordion-padding,0.875rem)] text-left text-[14px] leading-5 font-medium text-[color:var(--accordion-ink,var(--foreground))] outline-none select-none",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "aria-disabled:cursor-default data-disabled:cursor-not-allowed data-disabled:opacity-40",
+        ),
         className,
       )}
       {...props}
@@ -66,12 +83,12 @@ function AccordionTrigger({
           <span
             aria-hidden
             className={cn(
-              "grid size-6 shrink-0 place-items-center rounded-full text-muted-foreground",
+              "grid size-6 shrink-0 place-items-center rounded-full text-[color:var(--accordion-muted,var(--muted-foreground))]",
               "[transition:background-color_calc(150ms*var(--kf-speed,1)),color_calc(150ms*var(--kf-speed,1)),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)]",
-              "group-hover/accordion-trigger:bg-foreground/[0.06] group-hover/accordion-trigger:text-foreground",
+              "group-hover/accordion-trigger:bg-foreground/[0.06] group-hover/accordion-trigger:text-[color:var(--accordion-ink,var(--foreground))]",
               "group-active/accordion-trigger:scale-90 group-active/accordion-trigger:bg-foreground/[0.1]",
-              "group-data-open/accordion-trigger:text-foreground",
-              "group-data-disabled/accordion-trigger:bg-transparent group-data-disabled/accordion-trigger:scale-100 group-data-disabled/accordion-trigger:text-muted-foreground",
+              "group-data-open/accordion-trigger:text-[color:var(--accordion-ink,var(--foreground))]",
+              "group-data-disabled/accordion-trigger:bg-transparent group-data-disabled/accordion-trigger:scale-100 group-data-disabled/accordion-trigger:text-[color:var(--accordion-muted,var(--muted-foreground))]",
               "motion-reduce:transition-none!",
             )}
           >
@@ -103,10 +120,7 @@ function AccordionPanel({
 }: React.ComponentProps<typeof AccordionPanelPart>) {
   return (
     <AccordionPanelPart
-      className={cn(
-        "text-[13px] leading-[1.55] text-muted-foreground *:pr-10 [&>:last-child]:pb-4",
-        className,
-      )}
+      className={withClass("text-[13px] leading-[1.55] text-[color:var(--accordion-muted,var(--muted-foreground))] *:pr-10 [&>:last-child]:pb-4", className)}
       {...props}
     >
       {mapChildren(children, (content) =>

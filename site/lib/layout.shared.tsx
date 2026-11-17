@@ -18,6 +18,7 @@ export function baseOptions(): BaseLayoutProps {
     links: [
       { text: "Docs", url: "/docs", active: "url" },
       { text: "Components", url: "/docs/components", active: "nested-url" },
+      { text: "Templates", url: "/docs/templates", active: "nested-url" },
       { text: "Motion styles", url: "/docs/motion-styles" },
       { text: "AI tools", url: "/docs/ai-tools" },
       { text: "Blog", url: "/blog", active: "nested-url" },

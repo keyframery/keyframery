@@ -1,0 +1,49 @@
+{
+  "cssVars": [
+    [
+      "--rating-fill-colour",
+      "Filled stars",
+      "--foreground"
+    ],
+    [
+      "--rating-empty",
+      "Empty stars",
+      "--muted-foreground at 25%, 30% in dark"
+    ],
+    [
+      "--rating-preview",
+      "Additional preview stars",
+      "--foreground at 50%"
+    ],
+    [
+      "--rating-size",
+      "Star hit area",
+      "1.5rem"
+    ],
+    [
+      "--rating-icon-size",
+      "Star drawing size",
+      "1.25rem"
+    ],
+    [
+      "--rating-gap",
+      "Star gap",
+      "0.125rem"
+    ],
+    [
+      "--rating-radius",
+      "Focus corners",
+      "6px"
+    ]
+  ],
+  "propDocs": {
+    "Rating.value": "Controlled score, or null before a score is chosen.",
+    "Rating.max": "Number of stars in the interactive rating.",
+    "Rating.step": "Smallest selectable fraction of a star.",
+    "Rating.disabled": "Disables every star and excludes the value from forms.",
+    "Rating.readOnly": "Displays a non-interactive image labelled with the rating.",
+    "Rating.required": "Requires a rating before submitting a form.",
+    "Rating.loop": "Wraps keyboard navigation at either end.",
+    "Rating.deselectable": "Pressing the chosen score again clears it."
+  }
+}

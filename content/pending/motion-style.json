@@ -1,0 +1,52 @@
+{
+  "cssVars": [
+    [
+      "--motion-style-track",
+      "Switcher well",
+      "--muted"
+    ],
+    [
+      "--motion-style-key",
+      "Selected key",
+      "--background, --accent in dark"
+    ],
+    [
+      "--motion-style-ink",
+      "Unselected text",
+      "--muted-foreground"
+    ],
+    [
+      "--motion-style-selected-ink",
+      "Selected text",
+      "--foreground"
+    ],
+    [
+      "--motion-style-height",
+      "Option height",
+      "2rem"
+    ],
+    [
+      "--motion-style-radius",
+      "Well corners",
+      "12px"
+    ],
+    [
+      "--motion-style-key-radius",
+      "Key corners",
+      "9px"
+    ],
+    [
+      "--motion-style-gap",
+      "Option gap",
+      "0.125rem"
+    ]
+  ],
+  "propDocs": {
+    "MotionStyleSwitcher.preference": "Motion preference instance; the default applies and saves the choice globally.",
+    "MotionStyleSwitcher.orientation": "Horizontal or vertical arrangement and keyboard navigation.",
+    "MotionStyleSwitcher.disabled": "Disables changes to the selected style.",
+    "MotionStyleSwitcher.readOnly": "Retains focus and browsing while preventing changes.",
+    "MotionStyleSwitcher.loop": "Wraps navigation between style options.",
+    "MotionStyleSwitcher.required": "Requires a selected style when used in a form."
+  }
+}

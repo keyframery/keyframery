@@ -1,0 +1,51 @@
+{
+  "cssVars": [
+    [
+      "--trigger-menu-face",
+      "Popup and editor surface",
+      "--popover; --background on editor"
+    ],
+    [
+      "--trigger-menu-ink",
+      "Popup and editor text",
+      "--popover-foreground; --foreground in editor; --accent-foreground highlighted"
+    ],
+    [
+      "--trigger-menu-accent",
+      "Highlighted row",
+      "--accent"
+    ],
+    [
+      "--trigger-menu-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--trigger-menu-item-radius",
+      "Item and highlight corners",
+      "8px"
+    ],
+    [
+      "--trigger-menu-width",
+      "Popup width",
+      "16rem"
+    ],
+    [
+      "--trigger-menu-height",
+      "Textarea minimum height",
+      "84px"
+    ]
+  ],
+  "propDocs": {
+    "TriggerMenu.autoHighlight": "Highlights the first match so Enter and Tab can choose it.",
+    "TriggerMenu.loop": "Wraps arrow navigation through suggestions.",
+    "TriggerMenu.dismissible": "Allows Escape and outside press to dismiss.",
+    "TriggerMenu.triggers": "Trigger characters, suggestion items, filtering and insertion rules.",
+    "TriggerMenuContent.side": "Preferred side of the caret anchor.",
+    "TriggerMenuContent.align": "Alignment along the caret anchor.",
+    "TriggerMenuContent.sideOffset": "Gap from the text line to the popup.",
+    "TriggerMenuContent.keepMounted": "Retains the closed popup DOM.",
+    "TriggerMenuInput.readOnly": "Prevents text edits.",
+    "TriggerMenuInput.disabled": "Disables the native editor."
+  }
+}

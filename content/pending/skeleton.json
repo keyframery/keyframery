@@ -1,0 +1,26 @@
+{
+  "description": "A shimmering placeholder that cross-fades to the real content, which rises in out of a blur. While it loads the content is hidden from screen readers and can't be tabbed into.",
+  "propDocs": {
+    "Skeleton.shimmer": "Enables the sweeping band; reduced motion keeps it still.",
+    "SkeletonSwap.loading": "Shows the fallback until loading ends.",
+    "SkeletonSwap.fallback": "Placeholder content that shares a grid cell with the loaded content.",
+    "SkeletonSwap.contentClassName": "Classes for the content layer. Its direct children cascade in when loading ends."
+  },
+  "cssVars": [
+    [
+      "--skeleton-face",
+      "Placeholder fill",
+      "--foreground at 7%; 8% in dark"
+    ],
+    [
+      "--skeleton-sweep",
+      "Shimmer band",
+      "--background at 80%; --foreground at 10% in dark"
+    ],
+    [
+      "--skeleton-radius",
+      "Placeholder corners",
+      "8px"
+    ]
+  ]
+}

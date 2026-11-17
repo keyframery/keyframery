@@ -17,14 +17,21 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/resizable"
 
 function ResizablePanel({ className, ...props }: React.ComponentProps<typeof ResizablePanelPart>) {
   return (
     <ResizablePanelPart
-      className={cn(
-        "transition-[flex-basis,flex-grow] duration-[calc(460ms*var(--kf-speed,1))] ease-spring",
-        "in-data-dragging:transition-none motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "transition-[flex-basis,flex-grow] duration-[calc(460ms*var(--kf-speed,1))] ease-spring",
+          "in-data-dragging:transition-none motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -35,16 +42,18 @@ function ResizablePanel({ className, ...props }: React.ComponentProps<typeof Res
 function ResizableHandle({ className, ...props }: React.ComponentProps<typeof ResizableHandlePart>) {
   return (
     <ResizableHandlePart
-      className={cn(
-        "group/kf-handle",
-        "after:pointer-events-none after:opacity-0 after:[scale:var(--kf-line-x,1)_var(--kf-line-y,1)]",
-        "data-[orientation=horizontal]:[--kf-line-y:0] data-[orientation=vertical]:[--kf-line-x:0]",
-        "data-hovering:after:opacity-100 data-dragging:after:opacity-100 focus-visible:after:opacity-100",
-        "data-[orientation=horizontal]:data-hovering:[--kf-line-y:1] data-[orientation=horizontal]:data-dragging:[--kf-line-y:1] data-[orientation=horizontal]:focus-visible:[--kf-line-y:1]",
-        "data-[orientation=vertical]:data-hovering:[--kf-line-x:1] data-[orientation=vertical]:data-dragging:[--kf-line-x:1] data-[orientation=vertical]:focus-visible:[--kf-line-x:1]",
-        "after:[transition:scale_calc(520ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)]",
-        "not-data-hovering:not-data-dragging:after:[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(260ms*var(--kf-speed,1))_var(--ease-house)]",
-        "data-disabled:after:hidden motion-reduce:after:[transition:none]!",
+      className={withClass(
+        cn(
+          "group/kf-handle",
+          "after:pointer-events-none after:opacity-0 after:[scale:var(--kf-line-x,1)_var(--kf-line-y,1)]",
+          "data-[orientation=horizontal]:[--kf-line-y:0] data-[orientation=vertical]:[--kf-line-x:0]",
+          "data-hovering:after:opacity-100 data-dragging:after:opacity-100 focus-visible:after:opacity-100",
+          "data-[orientation=horizontal]:data-hovering:[--kf-line-y:1] data-[orientation=horizontal]:data-dragging:[--kf-line-y:1] data-[orientation=horizontal]:focus-visible:[--kf-line-y:1]",
+          "data-[orientation=vertical]:data-hovering:[--kf-line-x:1] data-[orientation=vertical]:data-dragging:[--kf-line-x:1] data-[orientation=vertical]:focus-visible:[--kf-line-x:1]",
+          "after:[transition:scale_calc(520ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)]",
+          "not-data-hovering:not-data-dragging:after:[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(260ms*var(--kf-speed,1))_var(--ease-house)]",
+          "data-disabled:after:hidden motion-reduce:after:[transition:none]!",
+        ),
         className,
       )}
       {...props}

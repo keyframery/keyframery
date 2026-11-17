@@ -1,6 +1,16 @@
 "use client"
 
+export * from "@/components/primitives/select"
+
 /* Styled select: the animated primitive plus the Keyframery look. */
+
+/* Theming: inherit these optional variables; unset values retain the original light/dark tokens.
+   --select-face: Field and popup surfaces (default: --background; --popover on the popup).
+   --select-ink: Field and popup text (default: --foreground; --popover-foreground on the popup; --accent-foreground when highlighted).
+   --select-accent: Highlighted row (default: --accent).
+   --select-height: Field height (default: 2.25rem).
+   --select-radius: Field corners (default: 10px).
+ */
 
 import {
   createSelectController,
@@ -32,29 +42,34 @@ import * as React from "react"
 import { mapChildren, Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 /* The sheet. Its motion (unfold, cascade, the gliding highlight) comes from the primitive. */
 const sheet = cn(
   "group/content m-0 flex min-w-(--anchor-width) flex-col border-0 p-0 outline-none",
   "[--list-height:var(--available-height)]",
   /* Items placed straight in the sheet get the list's padding and scrolling. */
   "not-has-[[data-slot=select-list]]:max-h-[min(calc(var(--list-height,100vh)-8px),18rem)] not-has-[[data-slot=select-list]]:scroll-py-1.5 not-has-[[data-slot=select-list]]:overflow-y-auto not-has-[[data-slot=select-list]]:overscroll-contain not-has-[[data-slot=select-list]]:p-1.5",
-  "rounded-[14px] bg-popover text-popover-foreground",
+  "rounded-[14px] bg-[var(--select-face,var(--popover))] text-[color:var(--select-ink,var(--popover-foreground))]",
   "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
   "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
-  "before:rounded-[8px] before:bg-accent has-[[data-disabled][data-highlighted]]:before:bg-accent/50",
+  "before:rounded-[8px] before:bg-[var(--select-accent,var(--accent))] has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--select-accent,var(--accent))_50%,transparent)]",
 )
 
 /* One row for items and the select-all row. No background of its own: the gliding highlight sits under it. */
 const row = cn(
   "group/item relative flex min-h-8 cursor-default items-center gap-2 rounded-[8px] px-2 py-1.5 text-[13px] leading-4 outline-none select-none",
-  "data-highlighted:text-accent-foreground",
+  "data-highlighted:text-[color:var(--select-ink,var(--accent-foreground))]",
   "data-disabled:pointer-events-none data-disabled:text-muted-foreground/60",
   /* Rows without an icon keep the icon column when another row in the list has one. */
   "[[data-has-icons]_&:not([data-has-icon])]:ps-8",
 )
 
 const field = cn(
-  "flex h-9 w-full min-w-0 items-center gap-2 rounded-[10px] bg-background px-3 text-[13px] text-foreground outline-none",
+  "flex h-[var(--select-height,2.25rem)] w-full min-w-0 items-center gap-2 rounded-[var(--select-radius,10px)] bg-[var(--select-face,var(--background))] px-3 text-[13px] text-[color:var(--select-ink,var(--foreground))] outline-none",
   "shadow-[0_0_0_1px_rgb(0_0_0/0.09),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.1)]",
   "[transition:box-shadow_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),scale_calc(200ms*var(--kf-speed,1))_var(--ease-pop)] motion-reduce:transition-none!",
 )
@@ -108,10 +123,7 @@ function SelectLabel({
 }: React.ComponentProps<typeof SelectLabelPart>) {
   return (
     <SelectLabelPart
-      className={cn(
-        "mb-2 block text-[13px] leading-none font-medium text-foreground data-disabled:opacity-50",
-        className,
-      )}
+      className={withClass("mb-2 block text-[13px] leading-none font-medium text-foreground data-disabled:opacity-50", className)}
       {...props}
     />
   )
@@ -125,17 +137,19 @@ function SelectTrigger({
 }: React.ComponentProps<typeof SelectTriggerPart>) {
   return (
     <SelectTriggerPart
-      className={cn(
-        field,
-        "cursor-pointer text-start select-none",
-        "hover:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.16)]",
-        "data-open:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:data-open:shadow-[0_0_0_1px_rgb(255_255_255/0.16)]",
-        "focus-visible:shadow-[0_0_0_1px_var(--ring)] focus-visible:ring-[3px] focus-visible:ring-ring/25 dark:focus-visible:shadow-[0_0_0_1px_var(--ring)]",
-        "aria-invalid:shadow-[0_0_0_1px_var(--destructive)] aria-invalid:focus-visible:ring-destructive/25 dark:aria-invalid:shadow-[0_0_0_1px_var(--destructive)]",
-        "data-invalid:shadow-[0_0_0_1px_var(--destructive)] dark:data-invalid:shadow-[0_0_0_1px_var(--destructive)]",
-        "active:bg-[color-mix(in_oklab,var(--background),var(--foreground)_2%)]",
-        "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-default data-readonly:bg-muted/40",
-        "[&>svg:last-child]:ms-auto [&>svg:last-child]:size-4 [&>svg:last-child]:shrink-0 [&>svg:last-child]:text-muted-foreground",
+      className={withClass(
+        cn(
+          field,
+          "cursor-pointer text-start select-none",
+          "hover:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.16)]",
+          "data-open:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:data-open:shadow-[0_0_0_1px_rgb(255_255_255/0.16)]",
+          "focus-visible:shadow-[0_0_0_1px_var(--ring)] focus-visible:ring-[3px] focus-visible:ring-ring/25 dark:focus-visible:shadow-[0_0_0_1px_var(--ring)]",
+          "aria-invalid:shadow-[0_0_0_1px_var(--destructive)] aria-invalid:focus-visible:ring-destructive/25 dark:aria-invalid:shadow-[0_0_0_1px_var(--destructive)]",
+          "data-invalid:shadow-[0_0_0_1px_var(--destructive)] dark:data-invalid:shadow-[0_0_0_1px_var(--destructive)]",
+          "active:bg-[color-mix(in_oklab,var(--select-face,var(--background)),var(--select-ink,var(--foreground))_2%)]",
+          "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-default data-readonly:bg-muted/40",
+          "[&>svg:last-child]:ms-auto [&>svg:last-child]:size-4 [&>svg:last-child]:shrink-0 [&>svg:last-child]:text-muted-foreground",
+        ),
         className,
       )}
       {...props}
@@ -156,7 +170,7 @@ function SelectValue({
 }: React.ComponentProps<typeof SelectValuePart>) {
   return (
     <SelectValuePart
-      className={cn("min-w-0 flex-1 truncate data-placeholder:text-muted-foreground", className)}
+      className={withClass("min-w-0 flex-1 truncate data-placeholder:text-muted-foreground", className)}
       {...props}
     />
   )
@@ -169,10 +183,7 @@ function SelectValueIcon({
 }: React.ComponentProps<typeof SelectValueIconPart>) {
   return (
     <SelectValueIconPart
-      className={cn(
-        "-ms-0.5 grid size-4 shrink-0 place-items-center text-muted-foreground [&_svg]:size-4",
-        className,
-      )}
+      className={withClass("-ms-0.5 grid size-4 shrink-0 place-items-center text-muted-foreground [&_svg]:size-4", className)}
       {...props}
     />
   )
@@ -185,10 +196,12 @@ function SelectClear({
 }: React.ComponentProps<typeof SelectClearPart>) {
   return (
     <SelectClearPart
-      className={cn(
-        "grid size-6 shrink-0 cursor-pointer place-items-center rounded-[6px] text-muted-foreground outline-none [&_svg]:size-3.5",
-        "transition-[color,background-color,scale] duration-[calc(150ms*var(--kf-speed,1))] hover:bg-foreground/[0.06] hover:text-foreground active:scale-[0.94]",
-        "focus-visible:ring-2 focus-visible:ring-ring data-disabled:pointer-events-none data-disabled:opacity-40 motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "grid size-6 shrink-0 cursor-pointer place-items-center rounded-[6px] text-muted-foreground outline-none [&_svg]:size-3.5",
+          "transition-[color,background-color,scale] duration-[calc(150ms*var(--kf-speed,1))] hover:bg-foreground/[0.06] hover:text-foreground active:scale-[0.94]",
+          "focus-visible:ring-2 focus-visible:ring-ring data-disabled:pointer-events-none data-disabled:opacity-40 motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -208,7 +221,7 @@ function SelectContent({
   return (
     <SelectContentPart
       sideOffset={sideOffset}
-      className={cn(sheet, className)}
+      className={withClass(sheet, className)}
       {...props} style={useSpeedStyle(style)}
     >
       {children ?? <SelectList />}
@@ -223,10 +236,12 @@ function SelectList({
 }: React.ComponentProps<typeof SelectListPart>) {
   return (
     <SelectListPart
-      className={cn(
-        "max-h-[min(calc(var(--list-height,100vh)-8px),18rem)] scroll-py-1.5 overflow-y-auto overscroll-contain p-1.5 outline-none",
-        "aria-busy:opacity-60",
-        "group-has-[[data-slot=select-empty][data-empty]]/content:hidden",
+      className={withClass(
+        cn(
+          "max-h-[min(calc(var(--list-height,100vh)-8px),18rem)] scroll-py-1.5 overflow-y-auto overscroll-contain p-1.5 outline-none",
+          "aria-busy:opacity-60",
+          "group-has-[[data-slot=select-empty][data-empty]]/content:hidden",
+        ),
         className,
       )}
       {...props}
@@ -247,10 +262,7 @@ function SelectInput({
         <SearchIcon />
       </span>
       <SelectInputPart
-        className={cn(
-          "h-10 w-full min-w-0 bg-transparent ps-9 pe-3 text-[13px] text-foreground outline-none placeholder:text-muted-foreground",
-          className,
-        )}
+        className={withClass("h-10 w-full min-w-0 bg-transparent ps-9 pe-3 text-[13px] text-[color:var(--select-ink,var(--foreground))] outline-none placeholder:text-muted-foreground", className)}
         {...props}
       />
     </div>
@@ -261,7 +273,7 @@ function SelectItem<T = string>({
   className,
   ...props
 }: React.ComponentProps<typeof SelectItemPart<T>>) {
-  return <SelectItemPart<T> className={cn(row, className)} {...props} />
+  return <SelectItemPart<T> className={withClass(row, className)} {...props} />
 }
 
 /* The label of an item. It takes the free space, so hints and the check line up at the end.
@@ -272,10 +284,7 @@ function SelectItemText({
 }: React.ComponentProps<typeof SelectItemTextPart>) {
   return (
     <SelectItemTextPart
-      className={cn(
-        "min-w-0 flex-1 truncate data-matched:text-muted-foreground [&_mark]:bg-transparent [&_mark]:font-medium [&_mark]:text-foreground",
-        className,
-      )}
+      className={withClass("min-w-0 flex-1 truncate data-matched:text-muted-foreground [&_mark]:bg-transparent [&_mark]:font-medium [&_mark]:text-foreground", className)}
       {...props}
     />
   )
@@ -292,10 +301,7 @@ function SelectItemIndicator({
   return (
     <SelectItemIndicatorPart
       keepMounted={keepMounted}
-      className={cn(
-        "ms-auto grid size-4 shrink-0 place-items-center text-foreground [&_svg]:size-4",
-        className,
-      )}
+      className={withClass("ms-auto grid size-4 shrink-0 place-items-center text-foreground [&_svg]:size-4", className)}
       {...props}
     >
       {children ?? <CheckIcon />}
@@ -309,10 +315,12 @@ function SelectItemIcon({
 }: React.ComponentProps<typeof SelectItemIconPart>) {
   return (
     <SelectItemIconPart
-      className={cn(
-        "grid size-4 shrink-0 place-items-center text-muted-foreground [&_svg]:size-4",
-        "group-data-highlighted/item:text-current",
-        "rtl:data-mirror:-scale-x-100",
+      className={withClass(
+        cn(
+          "grid size-4 shrink-0 place-items-center text-muted-foreground [&_svg]:size-4",
+          "group-data-highlighted/item:text-current",
+          "rtl:data-mirror:-scale-x-100",
+        ),
         className,
       )}
       {...props}
@@ -324,7 +332,7 @@ function SelectGroup({
   className,
   ...props
 }: React.ComponentProps<typeof SelectGroupPart>) {
-  return <SelectGroupPart className={cn("flex flex-col", className)} {...props} />
+  return <SelectGroupPart className={withClass("flex flex-col", className)} {...props} />
 }
 
 function SelectGroupLabel({
@@ -333,9 +341,11 @@ function SelectGroupLabel({
 }: React.ComponentProps<typeof SelectGroupLabelPart>) {
   return (
     <SelectGroupLabelPart
-      className={cn(
-        "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none",
-        "[[data-has-icons]_&]:ps-8",
+      className={withClass(
+        cn(
+          "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none",
+          "[[data-has-icons]_&]:ps-8",
+        ),
         className,
       )}
       {...props}
@@ -349,7 +359,7 @@ function SelectSeparator({
 }: React.ComponentProps<typeof SelectSeparatorPart>) {
   return (
     <SelectSeparatorPart
-      className={cn("-mx-1.5 my-1.5 h-px bg-border", className)}
+      className={withClass("-mx-1.5 my-1.5 h-px bg-border", className)}
       {...props}
     />
   )
@@ -361,10 +371,7 @@ function SelectEmpty({
 }: React.ComponentProps<typeof SelectEmptyPart>) {
   return (
     <SelectEmptyPart
-      className={cn(
-        "hidden px-3 py-6 text-center text-[13px] text-muted-foreground data-empty:block data-loading:block",
-        className,
-      )}
+      className={withClass("hidden px-3 py-6 text-center text-[13px] text-muted-foreground data-empty:block data-loading:block", className)}
       {...props}
     />
   )
@@ -376,7 +383,7 @@ function SelectStatus({
 }: React.ComponentProps<typeof SelectStatusPart>) {
   return (
     <SelectStatusPart
-      className={cn("px-3.5 pt-2.5 pb-0.5 text-[12px] text-muted-foreground empty:hidden", className)}
+      className={withClass("px-3.5 pt-2.5 pb-0.5 text-[12px] text-muted-foreground empty:hidden", className)}
       {...props}
     />
   )
@@ -388,7 +395,12 @@ function SelectSelectAll({
 }: React.ComponentProps<typeof SelectSelectAllPart>) {
   return (
     <SelectSelectAllPart
-      className={cn(row, "font-medium data-unchecked:font-normal", className)}
+      className={withClass(
+        cn(
+          row, "font-medium data-unchecked:font-normal",
+        ),
+        className,
+      )}
       {...props}
     />
   )
@@ -400,7 +412,7 @@ function SelectArrow({
 }: React.ComponentProps<typeof SelectArrowPart>) {
   return (
     <SelectArrowPart
-      className={cn("size-2.5 rotate-45 rounded-[2px] bg-popover", className)}
+      className={withClass("size-2.5 rotate-45 rounded-[2px] bg-[var(--select-face,var(--popover))]", className)}
       {...props}
     />
   )

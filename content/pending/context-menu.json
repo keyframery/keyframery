@@ -1,0 +1,49 @@
+{
+  "cssVars": [
+    [
+      "--context-menu-face",
+      "Menu sheet surface",
+      "--popover"
+    ],
+    [
+      "--context-menu-ink",
+      "Menu text",
+      "--popover-foreground"
+    ],
+    [
+      "--context-menu-accent",
+      "Row highlight",
+      "--accent"
+    ],
+    [
+      "--context-menu-danger",
+      "Destructive row text and highlight",
+      "--destructive"
+    ],
+    [
+      "--context-menu-radius",
+      "Sheet corners",
+      "14px"
+    ],
+    [
+      "--context-menu-item-radius",
+      "Row corners",
+      "8px"
+    ],
+    [
+      "--context-menu-row-height",
+      "Minimum row height",
+      "2rem"
+    ]
+  ],
+  "propDocs": {
+    "ContextMenu.loop": "Wrap arrow navigation at either end.",
+    "ContextMenu.dismissible": "Allow Escape and outside presses to dismiss.",
+    "ContextMenuTrigger.disabled": "Prevent the custom context menu from opening.",
+    "ContextMenuItem.closeOnSelect": "Close after selecting a plain action.",
+    "ContextMenuItem.destructive": "Use destructive action styling.",
+    "ContextMenuContent.side": "Preferred menu side relative to the press point.",
+    "ContextMenuContent.align": "Menu alignment to the press anchor.",
+    "ContextMenuContent.sideOffset": "Space from the press anchor in pixels."
+  }
+}

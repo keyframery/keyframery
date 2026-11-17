@@ -76,6 +76,15 @@ export function cleanDocMarkdown(md: string): string {
       while (i < lines.length - 1 && lines[i].trim() !== "</HiddenFromMarkdown>") i++
       continue
     }
+    // The live playground carries a JSON source/edit map; text exports show its actual example instead.
+    if (text.startsWith("<ComponentPreview ") && text.includes("source={") && text.endsWith("/>")) {
+      const start = text.indexOf("source={") + "source={".length
+      const serialized = text.slice(start, text.lastIndexOf("}"))
+      try {
+        const example = JSON.parse(serialized) as { code?: unknown }
+        if (typeof example.code === "string") { out.push("```tsx", example.code, "```"); continue }
+      } catch { /* A hand-written preview may contain expressions instead of generated JSON. */ }
+    }
     if (DEMO.test(text)) continue
     // Install tabs (npm, pnpm, yarn, bun from a ```npm block): keep the first tab's command, as it was written.
     if (/^<CodeBlockTabs[\s>]/.test(text)) {

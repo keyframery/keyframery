@@ -9,7 +9,9 @@
     "registry": "node scripts/build-registry.mjs",
     "site:dev": "node scripts/build-registry.mjs && node scripts/build-docs.mjs && next dev -p 4640",
     "start": "next start",
-    "docs": "node scripts/build-docs.mjs"
+    "docs": "node scripts/build-docs.mjs",
+    "check": "tsc --noEmit && tsc --noEmit -p tsconfig.next.json && node --test scripts/tests/*.test.mjs && node scripts/check-sdk-contracts.mjs --styled && node scripts/check-customization.mjs && node scripts/check-registry.mjs",
+    "check:browser": "node scripts/check-demos.cjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.5",
@@ -21,6 +23,7 @@
     "fumadocs-mdx": "15.4.6",
     "fumadocs-ui": "npm:@fumadocs/base-ui@16.16.2",
     "lucide-react": "^1.73.0",
+    "motion": "^14.14.0",
     "next": "16.4.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

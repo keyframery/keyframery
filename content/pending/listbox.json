@@ -1,0 +1,50 @@
+{
+  "cssVars": [
+    [
+      "--listbox-surface",
+      "List frame",
+      "--background"
+    ],
+    [
+      "--listbox-ink",
+      "Option text and check",
+      "--foreground"
+    ],
+    [
+      "--listbox-highlight",
+      "Gliding highlight",
+      "--accent"
+    ],
+    [
+      "--listbox-selected",
+      "Multiple-selection box",
+      "--primary"
+    ],
+    [
+      "--listbox-radius",
+      "Frame corners",
+      "12px"
+    ],
+    [
+      "--listbox-item-radius",
+      "Option corners",
+      "8px"
+    ],
+    [
+      "--listbox-row-height",
+      "Minimum option height",
+      "2rem"
+    ]
+  ],
+  "propDocs": {
+    "Listbox.multiple": "Uses an array of selected values; pressing options toggles them by default.",
+    "Listbox.orientation": "Vertical uses Up/Down; horizontal uses Left/Right.",
+    "Listbox.activation": "Automatic follows focus; manual waits for a press. Omit to use the SDK default for the selection mode.",
+    "Listbox.loop": "Wraps keyboard navigation at the first and last enabled option.",
+    "Listbox.deselectable": "Allows pressing the current single selection to clear it.",
+    "Listbox.keepInView": "Scrolls the focused or initially selected option into view.",
+    "Listbox.disabled": "Prevents focus and selection.",
+    "Listbox.readOnly": "Allows browsing while preventing value changes.",
+    "Listbox.required": "Requires a selected value for native form submission."
+  }
+}

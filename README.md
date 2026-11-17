@@ -2,7 +2,7 @@
 
 **Animated components for [UI SDK](https://ui-sdk.dev), built with plain CSS.**
 
-Keyframery is 63 drop-in components with motion built in: all 55 of UI SDK's, and 8 more. They keep UI SDK's parts and props, so you swap one import and keep your code. Tabs stretch toward the tab you pick, menus unfold from the button that opened them, checks draw themselves and numbers roll.
+Keyframery has 82 animated components: all 55 of UI SDK's, plus components defined on UI SDK's core. They keep UI SDK's parts and props, so you swap one import and keep your code. Tabs stretch toward the tab you pick, menus unfold from the button that opened them, checks draw themselves and numbers roll.
 
 - Website and docs: https://keyframery.com
 - Installation: https://keyframery.com/docs/installation
@@ -14,7 +14,7 @@ In a project set up for the shadcn CLI:
 
 ```bash
 npx shadcn add @keyframery/tabs     # one component
-npx shadcn add @keyframery/all      # all 60
+npx shadcn add @keyframery/all      # the collection
 ```
 
 The code lands in `components/keyframery/`, next to (not over) your `components/ui/`. UI SDK is installed for you.
@@ -46,7 +46,7 @@ Or let people pick with `npx shadcn add @keyframery/motion-style`.
 
 ## Accessibility
 
-Keyboard, focus and screen-reader behaviour come from UI SDK, untouched. With reduced motion turned on, nothing moves except loading spinners. Details: https://keyframery.com/docs/accessibility
+Native components retain UI SDK’s keyboard, focus and screen-reader behavior. Additional components declare their behavior and ARIA on UI SDK’s core. With reduced motion turned on, nothing moves except loading spinners. Details: https://keyframery.com/docs/accessibility
 
 ## Working on this repo
 
@@ -55,12 +55,16 @@ pnpm install
 pnpm dev          # the component lab (Vite), http://localhost:4610
 pnpm site:dev     # the website (Next.js), http://localhost:4640
 pnpm build        # builds the shadcn registry into public/r, then the website
+pnpm check        # TypeScript, regression, SDK, customization and registry checks
+pnpm check:browser # demo screenshots/smoke checks; requires the Vite lab on :4610
 ```
 
+- `src/components/core/`: framework-independent UI SDK definitions for additional components
 - `src/components/primitives/`: the motion primitives, with the same parts and props as UI SDK
 - `src/components/ui/`: the finished components
 - `src/demos/`: self-playing demos, used by the lab and the website
-- `HOUSE.md` and `MOTION.md`: the design and motion rules every component follows
+- `HOUSE.md`, `MOTION.md` and `CORE.md`: design, motion, UI SDK and customization rules
+- Every component page opens its Customize panel below the preview, with color, layout and behavior controls plus Animation speed (higher means faster). Leaving colors unset follows the light/dark theme.
 - `PROGRESS.md`: the current state and the plan
 
 ## License

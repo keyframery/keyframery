@@ -1,5 +1,17 @@
 "use client"
 
+export * from "@/components/primitives/alert-dialog"
+
+/* Theming: set on a part or its ancestor; unset variables preserve the original theme.
+   --alert-dialog-face: Sheet surface (default: --popover).
+   --alert-dialog-ink: Sheet text (default: --popover-foreground).
+   --alert-dialog-action: Primary or destructive action and icon (default: --primary / --destructive; destructive dark mixes with --background at 24%).
+   --alert-dialog-radius: Sheet corners (default: 18px).
+   --alert-dialog-width: Sheet maximum width (default: 400px).
+   --alert-dialog-height: Key height (default: 2rem).
+   --alert-dialog-gap: Footer button gap (default: 0.5rem).
+ */
+
 /* Styled alert dialog: the animated primitive plus the Keyframery look. */
 
 import {
@@ -17,11 +29,16 @@ import * as React from "react"
 import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 type AlertDialogCloseVariant = "default" | "primary" | "destructive"
 
 
 const keyBase = cn(
-  "group/key relative inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] px-3 text-[13px] leading-none font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "group/key relative inline-flex h-[var(--alert-dialog-height,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] px-3 text-[13px] leading-none font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   /* The primitive presses the key; colour and shadow ride the same 200ms pop. */
   "transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop",
   "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
@@ -44,19 +61,19 @@ const keySurface = cn(
 const closeVariants: Record<AlertDialogCloseVariant, string> = {
   default: keySurface,
   primary: cn(
-    "bg-primary text-primary-foreground",
+    "bg-[var(--alert-dialog-action,var(--primary))] text-primary-foreground",
     "shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
     "dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)]",
-    "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--primary),var(--background)_14%)]",
+    "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--alert-dialog-action,var(--primary)),var(--background)_14%)]",
     "not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
   ),
   /* The answer that cannot be undone: a solid red key. */
   destructive: cn(
-    "bg-destructive text-background dark:bg-[color-mix(in_oklab,var(--destructive),var(--background)_24%)] dark:text-foreground",
+    "bg-[var(--alert-dialog-action,var(--destructive))] text-background dark:bg-[color-mix(in_oklab,var(--alert-dialog-action,var(--destructive)),var(--background)_24%)] dark:text-foreground",
     "shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_1px_2px_rgb(0_0_0/0.2)]",
     "dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.16),0_1px_2px_rgb(0_0_0/0.5)]",
-    "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--destructive),var(--foreground)_10%)]",
-    "dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--destructive),var(--background)_14%)]",
+    "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--alert-dialog-action,var(--destructive)),var(--foreground)_10%)]",
+    "dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--alert-dialog-action,var(--destructive)),var(--background)_14%)]",
     "not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
   ),
 }
@@ -82,17 +99,19 @@ function AlertDialogTrigger({
   return (
     <AlertDialogTriggerPart
       data-variant={variant}
-      className={cn(
-        !props.render && [
-          keyBase,
-          keySurface,
-          variant === "destructive" && [
-            "text-destructive",
-            "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--background),var(--destructive)_7%)]",
-            "dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--accent),var(--destructive)_14%)]",
+      className={withClass(
+        cn(
+          !props.render && [
+            keyBase,
+            keySurface,
+            variant === "destructive" && [
+              "text-[color:var(--alert-dialog-action,var(--destructive))]",
+              "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--background),var(--alert-dialog-action,var(--destructive))_7%)]",
+              "dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--accent),var(--alert-dialog-action,var(--destructive))_14%)]",
+            ],
           ],
-        ],
-        props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        ),
         className,
       )}
       {...props}
@@ -107,10 +126,7 @@ function AlertDialogBackdrop({
 }: React.ComponentProps<typeof AlertDialogBackdropPart>) {
   return (
     <AlertDialogBackdropPart
-      className={cn(
-        "fixed inset-0 bg-black/25 dark:bg-black/55",
-        className,
-      )}
+      className={withClass("fixed inset-0 bg-black/25 dark:bg-black/55", className)}
       {...props} style={useSpeedStyle(style)}
     />
   )
@@ -124,12 +140,14 @@ function AlertDialogContent({
 }: React.ComponentProps<typeof AlertDialogContentPart>) {
   return (
     <AlertDialogContentPart
-      className={cn(
-        "fixed inset-0 m-auto h-fit max-h-[calc(100dvh-32px)] w-[min(400px,calc(100vw-32px))] max-w-none overflow-y-auto overscroll-contain",
-        "border-0 p-5 outline-none backdrop:bg-transparent",
-        "rounded-[18px] bg-popover text-popover-foreground",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_24px_56px_-12px_rgb(0_0_0/0.28)]",
-        "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_24px_56px_-12px_rgb(0_0_0/0.8)]",
+      className={withClass(
+        cn(
+          "fixed inset-0 m-auto h-fit max-h-[calc(100dvh-32px)] w-[min(var(--alert-dialog-width,400px),calc(100vw-32px))] max-w-none overflow-y-auto overscroll-contain",
+          "border-0 p-5 outline-none backdrop:bg-transparent",
+          "rounded-[var(--alert-dialog-radius,18px)] bg-[var(--alert-dialog-face,var(--popover))] text-[color:var(--alert-dialog-ink,var(--popover-foreground))]",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_24px_56px_-12px_rgb(0_0_0/0.28)]",
+          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_24px_56px_-12px_rgb(0_0_0/0.8)]",
+        ),
         className,
       )}
       {...props} style={useSpeedStyle(style)}
@@ -149,7 +167,7 @@ function AlertDialogMedia({ className, ...props }: React.ComponentProps<"div">) 
         data-slot="alert-dialog-media"
         aria-hidden
         className={cn(
-          "mb-4 grid size-10 place-items-center rounded-full bg-destructive/10 text-destructive dark:bg-destructive/15 [&_svg]:size-5",
+          "mb-4 grid size-10 place-items-center rounded-full bg-[color-mix(in_oklab,var(--alert-dialog-action,var(--destructive))_10%,transparent)] text-[color:var(--alert-dialog-action,var(--destructive))] dark:bg-[color-mix(in_oklab,var(--alert-dialog-action,var(--destructive))_15%,transparent)] [&_svg]:size-5",
           "animate-[kf-cascade_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_backwards,kf-pop_calc(560ms*var(--kf-speed,1))_var(--ease-pop)_backwards]!",
           "motion-reduce:animate-none!",
           className,
@@ -171,7 +189,7 @@ function AlertDialogFooter({ className, ...props }: React.ComponentProps<"div">)
   return (
     <div
       data-slot="alert-dialog-footer"
-      className={cn("mt-5 grid auto-cols-fr grid-flow-col gap-2 *:w-full", className)}
+      className={cn("mt-5 grid auto-cols-fr grid-flow-col gap-[var(--alert-dialog-gap,0.5rem)] *:w-full", className)}
       {...props}
     />
   )
@@ -183,7 +201,7 @@ function AlertDialogTitle({
 }: React.ComponentProps<typeof AlertDialogTitlePart>) {
   return (
     <AlertDialogTitlePart
-      className={cn("text-[15px] leading-5 font-semibold tracking-tight", className)}
+      className={withClass("text-[15px] leading-5 font-semibold tracking-tight", className)}
       {...props}
     />
   )
@@ -195,7 +213,7 @@ function AlertDialogDescription({
 }: React.ComponentProps<typeof AlertDialogDescriptionPart>) {
   return (
     <AlertDialogDescriptionPart
-      className={cn("text-[13px] leading-5 text-muted-foreground", className)}
+      className={withClass("text-[13px] leading-5 text-muted-foreground", className)}
       {...props}
     />
   )
@@ -212,7 +230,7 @@ function AlertDialogClose({
   return (
     <AlertDialogClosePart
       data-variant={variant}
-      className={cn(!props.render && [keyBase, closeVariants[variant]], className)}
+      className={withClass(cn(!props.render && [keyBase, closeVariants[variant]]), className)}
       {...props}
     >
       {props.render || typeof children === "function" ? (
@@ -260,10 +278,7 @@ function AlertDialogShortcut({
 }: React.ComponentProps<typeof AlertDialogShortcutPart>) {
   return (
     <AlertDialogShortcutPart
-      className={cn(
-        "ms-1 text-[12px] leading-none tracking-[0.04em] text-muted-foreground tabular-nums",
-        className,
-      )}
+      className={withClass("ms-1 text-[12px] leading-none tracking-[0.04em] text-muted-foreground tabular-nums", className)}
       {...props}
     />
   )

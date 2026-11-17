@@ -1,0 +1,47 @@
+{
+  "cssVars": [
+    [
+      "--alert-dialog-face",
+      "Sheet surface",
+      "--popover"
+    ],
+    [
+      "--alert-dialog-ink",
+      "Sheet text",
+      "--popover-foreground"
+    ],
+    [
+      "--alert-dialog-action",
+      "Primary or destructive action and icon",
+      "--primary / --destructive; destructive dark mixes with --background at 24%"
+    ],
+    [
+      "--alert-dialog-radius",
+      "Sheet corners",
+      "18px"
+    ],
+    [
+      "--alert-dialog-width",
+      "Sheet maximum width",
+      "400px"
+    ],
+    [
+      "--alert-dialog-height",
+      "Key height",
+      "2rem"
+    ],
+    [
+      "--alert-dialog-gap",
+      "Footer button gap",
+      "0.5rem"
+    ]
+  ],
+  "propDocs": {
+    "AlertDialog.dismissible": "Allow Escape to dismiss the confirmation. Outside presses never dismiss alert dialogs.",
+    "AlertDialogTrigger.variant": "Default or destructive trigger appearance.",
+    "AlertDialogTrigger.disabled": "Disable opening from the trigger.",
+    "AlertDialogTrigger.focusableWhenDisabled": "Keep a disabled trigger keyboard focusable.",
+    "AlertDialogClose.variant": "Default, primary or destructive action appearance.",
+    "AlertDialogContent.keepMounted": "Keep the closed dialog hidden in the DOM."
+  }
+}

@@ -41,6 +41,8 @@ export const play = [
   { click: '[data-page="inbox"]', wait: 1700, only: "narrow" as const },
 ]
 
+/* What the Customize panel under the preview offers. The demo takes the same names as props. */
+
 const icons = {
   inbox: "M2.5 9.5h3l1 1.5h3l1-1.5h3M2.5 9.5l1.6-5.2a1 1 0 0 1 1-.8h5.8a1 1 0 0 1 1 .8l1.6 5.2v3a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z",
   today: "M8 2v1.5M8 12.5V14M2 8h1.5M12.5 8H14M3.8 3.8l1 1M11.2 11.2l1 1M3.8 12.2l1-1M11.2 4.8l1-1M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z",
@@ -129,14 +131,89 @@ const projects: Page[] = [
 
 const pages = [...top, ...projects]
 
-export default function SidebarDemo() {
+export const controls = {
+  defaultCollapsed: { type: "switch", label: "Default collapsed", default: false, group: "Behaviour" },
+  collapsibleGroup: { type: "switch", label: "Collapsible group", default: true, group: "Behaviour" },
+  groupOpen: { type: "switch", label: "Projects expanded", default: true, group: "Behaviour" },
+  defaultOpenMobile: { type: "switch", label: "Default open mobile", default: false, group: "Behaviour" },
+  disabled: { type: "switch", label: "Disabled", default: false, group: "Behaviour" },
+  width: { type: "slider", label: "Width", min: 180, max: 300, step: 1, default: 240, unit: "px", group: "Layout" },
+  collapsedWidth: { type: "slider", label: "Rail width", min: 48, max: 80, step: 1, default: 56, unit: "px", group: "Layout" },
+  mobileWidth: { type: "slider", label: "Sheet width", min: 200, max: 320, step: 1, default: 272, unit: "px", group: "Layout" },
+  mobileBreakpoint: { type: "slider", label: "Sheet below", min: 320, max: 640, step: 1, default: 480, unit: "px", group: "Layout" },
+  itemHeight: { type: "slider", label: "Item height", min: 28, max: 44, step: 1, default: 32, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Gap", min: 0, max: 8, step: 1, default: 1, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Radius", min: 0, max: 18, step: 1, default: 9, unit: "px", group: "Layout" },
+  items: { type: "slider", label: "Projects", min: 1, max: 3, step: 1, default: 3, unit: "", group: "Layout" },
+  tasks: { type: "slider", label: "Tasks", min: 1, max: 3, step: 1, default: 3, unit: "", group: "Layout" },
+  title: { type: "text", label: "Title", default: "Personal" },
+  groupLabel: { type: "text", label: "Group label", default: "Projects" },
+  footer: { type: "text", label: "Footer", default: "Settings" },
+  face: { type: "color", label: "Face", default: "", group: "Colours" },
+  ink: { type: "color", label: "Ink", default: "", group: "Colours" },
+  keyFill: { type: "color", label: "Key", default: "", group: "Colours" },
+} as const
+
+export default function SidebarDemo({
+  defaultCollapsed = false,
+  collapsibleGroup = true,
+  groupOpen = true,
+  defaultOpenMobile = false,
+  disabled = false,
+  width = 240,
+  collapsedWidth = 56,
+  mobileWidth = 272,
+  mobileBreakpoint = 480,
+  itemHeight = 32,
+  gap = 1,
+  radius = 9,
+  items = 3,
+  tasks = 3,
+  title = "Personal",
+  groupLabel = "Projects",
+  footer = "Settings",
+  face = "",
+  ink = "",
+  keyFill = "",
+}: {
+  defaultCollapsed?: boolean
+  collapsibleGroup?: boolean
+  groupOpen?: boolean
+  defaultOpenMobile?: boolean
+  disabled?: boolean
+  width?: number
+  collapsedWidth?: number
+  mobileWidth?: number
+  mobileBreakpoint?: number
+  itemHeight?: number
+  gap?: number
+  radius?: number
+  items?: number
+  tasks?: number
+  title?: string
+  groupLabel?: string
+  footer?: string
+  face?: string
+  ink?: string
+  keyFill?: string
+} = {}) {
+  const theme = {
+    "--sidebar-width": `${width}px`,
+    "--sidebar-width-collapsed": `${collapsedWidth}px`,
+    "--sidebar-width-mobile": `${mobileWidth}px`,
+    "--sidebar-height": `${itemHeight}px`,
+    "--sidebar-radius": `${radius}px`,
+    ...(face ? { "--sidebar-face": face } : {}),
+    ...(ink ? { "--sidebar-ink": ink } : {}),
+    ...(keyFill ? { "--sidebar-key": keyFill } : {}),
+  } as React.CSSProperties
   const [active, setActive] = React.useState("inbox")
   const [done, setDone] = React.useState<Record<string, boolean>>({})
   const page = pages.find((p) => p.id === active) ?? pages[0]
 
   const item = (p: Page) => (
     <SidebarMenuItem key={p.id}>
-      <SidebarMenuButton data-page={p.id} isActive={active === p.id} tooltip={p.title} onClick={() => setActive(p.id)}>
+      <SidebarMenuButton data-page={p.id} disabled={disabled} isActive={active === p.id} tooltip={p.title} onClick={() => setActive(p.id)}>
         <Icon d={p.icon} />
         <SidebarLabel>{p.title}</SidebarLabel>
         {p.count ? <SidebarMenuBadge>{p.count}</SidebarMenuBadge> : null}
@@ -147,26 +224,31 @@ export default function SidebarDemo() {
   return (
     /* This window is only 600px wide, so it becomes a sheet below 480px. A full-screen app shell can
        keep the default, 640px. */
-    <SidebarProvider mobileBreakpoint={480} className="h-[380px] w-full max-w-[600px] overflow-hidden rounded-[16px] bg-background shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_2px_4px_-2px_rgb(0_0_0/0.06),0_16px_40px_-16px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_16px_40px_-16px_rgb(0_0_0/0.7)]">
+    <SidebarProvider
+      key={String(defaultCollapsed) + String(defaultOpenMobile)} defaultOpenMobile={defaultOpenMobile}
+      defaultCollapsed={defaultCollapsed}
+      mobileBreakpoint={mobileBreakpoint}
+      style={theme}
+      className="h-[380px] w-full max-w-[600px] overflow-hidden rounded-[16px] bg-background shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_2px_4px_-2px_rgb(0_0_0/0.06),0_16px_40px_-16px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_16px_40px_-16px_rgb(0_0_0/0.7)]">
       <Sidebar aria-label="Lists">
         <SidebarHeader>
           <SidebarTrigger className="h-8 w-10" />
           <span className="truncate text-[13px] font-semibold tracking-tight transition-[opacity,filter] duration-[calc(240ms*var(--kf-speed,1))] ease-house group-data-collapsed/sidebar-provider:opacity-0 group-data-collapsed/sidebar-provider:blur-[3px] motion-reduce:transition-none">
-            Personal
+            {title}
           </span>
         </SidebarHeader>
 
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupContent>
-              <SidebarMenu>{top.map(item)}</SidebarMenu>
+              <SidebarMenu style={{ gap }}>{top.map(item)}</SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
 
-          <SidebarGroup collapsible>
-            <SidebarGroupLabel data-group="projects">Projects</SidebarGroupLabel>
+          <SidebarGroup key={String(groupOpen)} collapsible={collapsibleGroup} defaultOpen={groupOpen}>
+            <SidebarGroupLabel data-group="projects">{groupLabel}</SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu>{projects.map(item)}</SidebarMenu>
+              <SidebarMenu style={{ gap }}>{projects.slice(0, items).map(item)}</SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
@@ -174,9 +256,9 @@ export default function SidebarDemo() {
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Settings">
+              <SidebarMenuButton tooltip={footer} disabled={disabled}>
                 <Icon d={icons.settings} />
-                <SidebarLabel>Settings</SidebarLabel>
+                <SidebarLabel>{footer}</SidebarLabel>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -192,7 +274,7 @@ export default function SidebarDemo() {
           <SidebarTrigger data-open-lists aria-label="Lists">
             <Icon d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11" />
           </SidebarTrigger>
-          <span className="px-1.5 text-[12px] text-muted-foreground">Personal</span>
+          <span className="px-1.5 text-[12px] text-muted-foreground">{title}</span>
         </div>
         <div
           key={page.id}
@@ -201,11 +283,11 @@ export default function SidebarDemo() {
           <div className="flex items-baseline justify-between gap-4">
             <div className="truncate text-[17px] font-semibold tracking-tight">{page.title}</div>
             <span className="shrink-0 text-[12px] text-muted-foreground tabular-nums">
-              {page.tasks.filter(([t]) => !done[t]).length} left
+              {page.tasks.slice(0, tasks).filter(([t]) => !done[t]).length} left
             </span>
           </div>
           <ul className="mt-4">
-            {page.tasks.map(([task, note]) => (
+            {page.tasks.slice(0, tasks).map(([task, note]) => (
               <li key={task} className="flex items-center gap-3 border-b border-border/70 py-2.5 last:border-0">
                 <button
                   type="button"

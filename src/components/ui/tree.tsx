@@ -1,6 +1,17 @@
 "use client"
 
+export * from "@/components/primitives/tree"
+
 /* Styled tree: the animated primitive plus the Keyframery look. */
+
+/* Theming: inherit these optional variables; unset values retain the original light/dark tokens.
+   --tree-ink: Tree label, selected label and muted details (default: --foreground; --accent-foreground selected; --muted-foreground on indicators).
+   --tree-accent: Row highlights and checked checkbox (default: --accent; --primary on checked boxes; hover at 45% light / 40% dark).
+   --tree-guide: Nested branch guide (default: --border).
+   --tree-height: Row height (default: 1.75rem).
+   --tree-radius: Row and highlight corners (default: 8px).
+   --tree-indent: Branch indentation (default: 22px).
+ */
 
 import * as React from "react"
 
@@ -18,6 +29,11 @@ import {
 } from "@/components/primitives/tree"
 import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
+
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
 
 const icon = {
   viewBox: "0 0 16 16",
@@ -46,11 +62,13 @@ function Tree<Mode extends TreeMode = "single">({
     <Speed speed={speed}>
       <CheckableContext.Provider value={!!props.checkable}>
         <TreeRoot
-          className={cn(
-            "flex min-w-0 flex-col text-[13px] outline-none",
-            /* The two gliding surfaces: a light one under the pointer, the selected row's key. */
-            "before:rounded-[8px] before:bg-accent/45 dark:before:bg-accent/40",
-            "after:rounded-[8px] after:bg-accent dark:after:bg-accent",
+          className={withClass(
+            cn(
+              "flex min-w-0 flex-col text-[13px] outline-none",
+              /* The two gliding surfaces: a light one under the pointer, the selected row's key. */
+              "before:rounded-[var(--tree-radius,8px)] before:bg-[color-mix(in_oklab,var(--tree-accent,var(--accent))_45%,transparent)] dark:before:bg-[color-mix(in_oklab,var(--tree-accent,var(--accent))_40%,transparent)]",
+              "after:rounded-[var(--tree-radius,8px)] after:bg-[var(--tree-accent,var(--accent))] dark:after:bg-[var(--tree-accent,var(--accent))]",
+            ),
             className,
           )}
           {...props}
@@ -85,11 +103,13 @@ function TreeItem({
       branch={
         branch ?? (typeof children === "function" ? undefined : hasGroup(children) || undefined)
       }
-      className={cn(
-        "outline-none",
-        /* Focus stays on the item, and the ring is drawn on its own row. */
-        "[&:focus-visible>[data-slot=tree-label]]:ring-2 [&:focus-visible>[data-slot=tree-label]]:ring-ring",
-        "[&:focus-visible>[data-slot=tree-label]]:ring-offset-2 [&:focus-visible>[data-slot=tree-label]]:ring-offset-background",
+      className={withClass(
+        cn(
+          "outline-none",
+          /* Focus stays on the item, and the ring is drawn on its own row. */
+          "[&:focus-visible>[data-slot=tree-label]]:ring-2 [&:focus-visible>[data-slot=tree-label]]:ring-ring",
+          "[&:focus-visible>[data-slot=tree-label]]:ring-offset-2 [&:focus-visible>[data-slot=tree-label]]:ring-offset-background",
+        ),
         className,
       )}
       {...props}
@@ -106,13 +126,15 @@ function TreeItemLabel({
 }: React.ComponentProps<typeof TreeItemLabelPart>) {
   return (
     <TreeItemLabelPart
-      className={cn(
-        "relative mt-px flex h-7 min-w-0 cursor-pointer items-center gap-2 rounded-[8px] pr-2 pl-2 not-data-branch:pl-8",
-        "text-[13px] leading-[1.35] font-[450] text-foreground no-underline select-none",
-        "[&_svg]:size-4 [&_svg]:shrink-0",
-        "transition-[color] duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none!",
-        "data-selected:text-accent-foreground data-current:text-accent-foreground",
-        "data-disabled:cursor-not-allowed data-disabled:opacity-40 data-pending:cursor-progress",
+      className={withClass(
+        cn(
+          "relative mt-px flex h-[var(--tree-height,1.75rem)] min-w-0 cursor-pointer items-center gap-2 rounded-[var(--tree-radius,8px)] pr-2 pl-2 not-data-branch:pl-8",
+          "text-[13px] leading-[1.35] font-[450] text-[color:var(--tree-ink,var(--foreground))] no-underline select-none",
+          "[&_svg]:size-4 [&_svg]:shrink-0",
+          "transition-[color] duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none!",
+          "data-selected:text-[color:var(--tree-ink,var(--accent-foreground))] data-current:text-[color:var(--tree-ink,var(--accent-foreground))]",
+          "data-disabled:cursor-not-allowed data-disabled:opacity-40 data-pending:cursor-progress",
+        ),
         className,
       )}
       {...props}
@@ -128,9 +150,11 @@ function TreeItemIndicator({
 }: React.ComponentProps<typeof TreeItemIndicatorPart>) {
   return (
     <TreeItemIndicatorPart
-      className={cn(
-        "group/indicator -m-0.5 grid size-5 shrink-0 place-items-center rounded-[6px] text-muted-foreground",
-        "hover:bg-foreground/[0.08] hover:text-foreground data-failed:text-destructive",
+      className={withClass(
+        cn(
+          "group/indicator -m-0.5 grid size-5 shrink-0 place-items-center rounded-[6px] text-[color:var(--tree-ink,var(--muted-foreground))]",
+          "hover:bg-foreground/[0.08] hover:text-[color:var(--tree-ink,var(--foreground))] data-failed:text-destructive",
+        ),
         className,
       )}
       {...props}
@@ -161,17 +185,19 @@ function TreeItemCheckbox({
 }: React.ComponentProps<typeof TreeItemCheckboxPart>) {
   return (
     <TreeItemCheckboxPart
-      className={cn(
-        "group/checkbox grid size-4 shrink-0 place-items-center rounded-[5px] bg-background text-primary-foreground *:[grid-area:1/1]",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.05)]",
-        "dark:bg-accent/40 dark:shadow-[0_0_0_1px_rgb(255_255_255/0.14)]",
-        "not-data-disabled:data-unchecked:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.24),0_1px_2px_rgb(0_0_0/0.06)]",
-        "dark:not-data-disabled:data-unchecked:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.24)]",
-        "transition-[background-color,box-shadow] duration-[calc(150ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none!",
-        "data-checked:bg-primary data-indeterminate:bg-primary dark:data-checked:bg-primary dark:data-indeterminate:bg-primary",
-        "data-checked:shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] data-indeterminate:shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
-        "dark:data-checked:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)] dark:data-indeterminate:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)]",
-        "data-disabled:opacity-50",
+      className={withClass(
+        cn(
+          "group/checkbox grid size-4 shrink-0 place-items-center rounded-[5px] bg-background text-primary-foreground *:[grid-area:1/1]",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.05)]",
+          "dark:bg-accent/40 dark:shadow-[0_0_0_1px_rgb(255_255_255/0.14)]",
+          "not-data-disabled:data-unchecked:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.24),0_1px_2px_rgb(0_0_0/0.06)]",
+          "dark:not-data-disabled:data-unchecked:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.24)]",
+          "transition-[background-color,box-shadow] duration-[calc(150ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none!",
+          "data-checked:bg-[var(--tree-accent,var(--primary))] data-indeterminate:bg-[var(--tree-accent,var(--primary))] dark:data-checked:bg-[var(--tree-accent,var(--primary))] dark:data-indeterminate:bg-[var(--tree-accent,var(--primary))]",
+          "data-checked:shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] data-indeterminate:shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
+          "dark:data-checked:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)] dark:data-indeterminate:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)]",
+          "data-disabled:opacity-50",
+        ),
         className,
       )}
       {...props}
@@ -206,9 +232,11 @@ function TreeGroup({
 }: React.ComponentProps<typeof TreeGroupPart>) {
   return (
     <TreeGroupPart
-      className={cn(
-        "relative ml-[15.5px] flex flex-col pl-[6.5px]",
-        "before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-border",
+      className={withClass(
+        cn(
+          "relative ml-[calc(var(--tree-indent,22px)-6.5px)] flex flex-col pl-[6.5px]",
+          "before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-[var(--tree-guide,var(--border))]",
+        ),
         className,
       )}
       {...props}

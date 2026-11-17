@@ -1,0 +1,36 @@
+{
+  "cssVars": [
+    [
+      "--button-face",
+      "Variant key surface and hover mix",
+      "--background (dark --accent), --primary; ghost transparent"
+    ],
+    [
+      "--button-ink",
+      "Variant label and icons",
+      "--foreground / --primary-foreground / --destructive"
+    ],
+    [
+      "--button-radius",
+      "Corners by size",
+      "8px / 9px / 10px"
+    ],
+    [
+      "--button-height",
+      "Height and icon width by size",
+      "1.75rem / 2rem / 2.25rem"
+    ],
+    [
+      "--button-font",
+      "Label size by size",
+      "12px / 13px / 14px"
+    ]
+  ],
+  "propDocs": {
+    "Button.variant": "Default, primary, ghost or destructive key appearance.",
+    "Button.size": "sm, md, lg, icon-sm, icon or icon-lg dimensions.",
+    "Button.disabled": "Prevent presses.",
+    "Button.focusableWhenDisabled": "Keep a disabled button in the tab order.",
+    "Button.pendingIndicator": "Spinner replacement shown during an asynchronous action; null hides it."
+  }
+}

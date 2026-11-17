@@ -1,0 +1,42 @@
+{
+  "cssVars": [
+    [
+      "--textarea-face",
+      "Field surface",
+      "--background; --muted at 50% when read-only; --muted when disabled"
+    ],
+    [
+      "--textarea-ink",
+      "Field text and placeholder",
+      "--foreground; --muted-foreground at 70% for placeholder"
+    ],
+    [
+      "--textarea-ring",
+      "Focus ring and focused hairline",
+      "--ring"
+    ],
+    [
+      "--textarea-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--textarea-min-height",
+      "Minimum field height",
+      "76px"
+    ],
+    [
+      "--textarea-max-height",
+      "Maximum field height",
+      "220px"
+    ]
+  ],
+  "propDocs": {
+    "Textarea.autoResize": "Grows with content between the minimum and maximum heights.",
+    "Textarea.disabled": "Disables editing and form submission.",
+    "Textarea.readOnly": "Keeps the field focusable while preventing edits.",
+    "Textarea.required": "Requires a value before form submission.",
+    "Textarea.maxLength": "Maximum number of characters.",
+    "Textarea.submitShortcut": "Enter or Mod+Enter can commit; Shift+Enter retains a newline with Enter."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "cssVars": [
+    [
+      "--combobox-face",
+      "Input, chips and popup surfaces",
+      "--background / --accent (dark chips) / --popover"
+    ],
+    [
+      "--combobox-ink",
+      "Label, input, checks and popup text",
+      "--foreground / --popover-foreground"
+    ],
+    [
+      "--combobox-accent",
+      "Highlighted option surface",
+      "--accent"
+    ],
+    [
+      "--combobox-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--combobox-height",
+      "Input and chips minimum height",
+      "2.25rem"
+    ]
+  ],
+  "propDocs": {
+    "Combobox.multiple": "Select several cities; chips show and remove selected values.",
+    "Combobox.keepQuery": "Keep filtering text after choosing in multiple mode.",
+    "Combobox.allowCustomValue": "Accept unmatched text as a value.",
+    "Combobox.autoHighlight": "Always highlight on open, only while typing, or never automatically.",
+    "Combobox.loop": "Wrap arrow-key navigation.",
+    "Combobox.disabled": "Disable focus and changes.",
+    "Combobox.readOnly": "Keep focus but prevent edits.",
+    "Combobox.required": "Require a selected city.",
+    "ComboboxContent.side": "Preferred popup side.",
+    "ComboboxContent.align": "Popup alignment.",
+    "ComboboxContent.sideOffset": "Popup gap in pixels."
+  }
+}

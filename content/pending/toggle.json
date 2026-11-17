@@ -1,0 +1,49 @@
+{
+  "cssVars": [
+    [
+      "--toggle-track",
+      "Group well and standalone pressed fill",
+      "--muted"
+    ],
+    [
+      "--toggle-key",
+      "Pressed key in a group",
+      "--background; --accent in dark"
+    ],
+    [
+      "--toggle-ink",
+      "Toggle text",
+      "--muted-foreground; --foreground when hovered or pressed"
+    ],
+    [
+      "--toggle-radius",
+      "Toggle corners",
+      "8px small; 9px medium"
+    ],
+    [
+      "--toggle-group-radius",
+      "Group corners",
+      "12px"
+    ],
+    [
+      "--toggle-gap",
+      "Space between grouped toggles",
+      "0.125rem"
+    ],
+    [
+      "--toggle-height",
+      "Toggle height and icon width",
+      "1.75rem small; 2rem medium"
+    ]
+  ],
+  "propDocs": {
+    "Toggle.size": "sm, md, icon-sm, or icon; defaults to md.",
+    "Toggle.disabled": "Prevents pressing.",
+    "Toggle.focusableWhenDisabled": "Keeps a disabled standalone toggle discoverable in the tab order.",
+    "ToggleGroup.multiple": "Allows several pressed values.",
+    "ToggleGroup.deselectable": "Allows clearing the last value in a single-select group.",
+    "ToggleGroup.orientation": "Chooses layout and arrow-key axis.",
+    "ToggleGroup.loop": "Wraps keyboard focus.",
+    "ToggleIcon.mirror": "Mirrors directional icons in RTL."
+  }
+}

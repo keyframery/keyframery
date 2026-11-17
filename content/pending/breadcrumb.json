@@ -1,0 +1,82 @@
+{
+  "description": "Crumbs arrive one after another with their chevrons drawing themselves, a crumb for a deeper page slides in from the right, and links underline from their start.",
+  "moves": [
+    [
+      "Cascade",
+      "On first render the crumbs and separators arrive one after another out of a blur."
+    ],
+    [
+      "Direction",
+      "Going one level deeper, the new crumb slides in from the right at once."
+    ],
+    [
+      "Draw",
+      "Each separator's chevron draws itself as it arrives."
+    ],
+    [
+      "Draw",
+      "A link's underline grows from its start on hover or keyboard focus."
+    ],
+    [
+      "Unfold",
+      "In a menu trigger, the ellipsis opens a menu of the pages it stands for."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves between the links in the trail; the current page is skipped."
+    ],
+    [
+      "Enter",
+      "Follows the focused link."
+    ]
+  ],
+  "propDocs": {
+    "Breadcrumb.aria-label": "Names the navigation landmark. Defaults to \"Breadcrumb\".",
+    "BreadcrumbSeparator.children": "Your own mark between crumbs, like \"/\". Defaults to a chevron that draws itself.",
+    "BreadcrumbEllipsis.children": "Your own mark for the pages left out. Defaults to three dots."
+  },
+  "cssVars": [
+    [
+      "--breadcrumb-ink",
+      "Link colour",
+      "text-muted-foreground"
+    ],
+    [
+      "--breadcrumb-current",
+      "Current page",
+      "text-foreground"
+    ],
+    [
+      "--breadcrumb-separator",
+      "Separator colour",
+      "text-muted-foreground/60"
+    ],
+    [
+      "--breadcrumb-font",
+      "Label size",
+      "text-[13px]"
+    ],
+    [
+      "--breadcrumb-gap",
+      "Trail gap",
+      "gap-1"
+    ],
+    [
+      "--breadcrumb-item-gap",
+      "Icon gap",
+      "gap-1.5"
+    ],
+    [
+      "--breadcrumb-icon-size",
+      "Icon size",
+      "size-3.5"
+    ],
+    [
+      "--breadcrumb-radius",
+      "Link corners",
+      "rounded-[4px]"
+    ]
+  ]
+}

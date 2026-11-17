@@ -1,0 +1,3046 @@
+{
+  "accordion": [
+    [
+      "--accordion-border",
+      "Row dividers",
+      "--border"
+    ],
+    [
+      "--accordion-radius",
+      "Trigger corners",
+      "8px"
+    ],
+    [
+      "--accordion-padding",
+      "Trigger vertical padding",
+      "0.875rem"
+    ],
+    [
+      "--accordion-ink",
+      "Trigger and active icon text",
+      "--foreground"
+    ],
+    [
+      "--accordion-muted",
+      "Panel and resting icon text",
+      "--muted-foreground"
+    ]
+  ],
+  "alert-dialog": [
+    [
+      "--alert-dialog-face",
+      "Sheet surface",
+      "--popover"
+    ],
+    [
+      "--alert-dialog-ink",
+      "Sheet text",
+      "--popover-foreground"
+    ],
+    [
+      "--alert-dialog-action",
+      "Primary or destructive action and icon",
+      "--primary / --destructive; destructive dark mixes with --background at 24%"
+    ],
+    [
+      "--alert-dialog-radius",
+      "Sheet corners",
+      "18px"
+    ],
+    [
+      "--alert-dialog-width",
+      "Sheet maximum width",
+      "400px"
+    ],
+    [
+      "--alert-dialog-height",
+      "Key height",
+      "2rem"
+    ],
+    [
+      "--alert-dialog-gap",
+      "Footer button gap",
+      "0.5rem"
+    ]
+  ],
+  "autocomplete": [
+    [
+      "--autocomplete-face",
+      "Input and popup surfaces",
+      "--background / --popover"
+    ],
+    [
+      "--autocomplete-ink",
+      "Input, label, matched and popup text",
+      "--foreground / --popover-foreground"
+    ],
+    [
+      "--autocomplete-accent",
+      "Highlighted suggestion surface",
+      "--accent"
+    ],
+    [
+      "--autocomplete-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--autocomplete-height",
+      "Input height",
+      "2.25rem"
+    ]
+  ],
+  "avatar": [
+    [
+      "--avatar-size",
+      "Disc size by variant",
+      "1.5rem / 2rem / 2.5rem (sm / md / lg)"
+    ],
+    [
+      "--avatar-radius",
+      "Disc corners",
+      "calc(infinity * 1px)"
+    ],
+    [
+      "--avatar-face",
+      "Fallback and count surface",
+      "--muted"
+    ],
+    [
+      "--avatar-ink",
+      "Initials and count text",
+      "--muted-foreground"
+    ],
+    [
+      "--avatar-ring",
+      "Group separator ring",
+      "--background (group)"
+    ],
+    [
+      "--avatar-overlap",
+      "Negative group spacing",
+      "-0.25rem"
+    ]
+  ],
+  "badge": [
+    [
+      "--badge-face",
+      "Variant surface",
+      "--primary / --secondary; destructive 12% (dark 18%); success green 14% (dark 18%)"
+    ],
+    [
+      "--badge-ink",
+      "Variant label",
+      "--primary-foreground / --secondary-foreground / --foreground / --destructive; success green mix 82% (dark green)"
+    ],
+    [
+      "--badge-border",
+      "Outline hairline",
+      "--input"
+    ],
+    [
+      "--badge-height",
+      "Badge height",
+      "1.25rem"
+    ],
+    [
+      "--badge-gap",
+      "Icon and label gap",
+      "0.375rem"
+    ],
+    [
+      "--badge-radius",
+      "Corners",
+      "calc(infinity * 1px)"
+    ],
+    [
+      "--badge-padding",
+      "Horizontal padding",
+      "0.5rem"
+    ],
+    [
+      "--badge-font",
+      "Label size",
+      "11px"
+    ]
+  ],
+  "button": [
+    [
+      "--button-face",
+      "Variant key surface and hover mix",
+      "--background (dark --accent), --primary; ghost transparent"
+    ],
+    [
+      "--button-ink",
+      "Variant label and icons",
+      "--foreground / --primary-foreground / --destructive"
+    ],
+    [
+      "--button-radius",
+      "Corners by size",
+      "8px / 9px / 10px"
+    ],
+    [
+      "--button-height",
+      "Height and icon width by size",
+      "1.75rem / 2rem / 2.25rem"
+    ],
+    [
+      "--button-font",
+      "Label size by size",
+      "12px / 13px / 14px"
+    ]
+  ],
+  "calendar": [
+    [
+      "--calendar-face",
+      "Calendar surface",
+      "--card"
+    ],
+    [
+      "--calendar-ink",
+      "Calendar body and day text",
+      "--card-foreground / --foreground"
+    ],
+    [
+      "--calendar-accent",
+      "Selected day keys",
+      "--primary"
+    ],
+    [
+      "--calendar-radius",
+      "Calendar corners",
+      "14px"
+    ],
+    [
+      "--calendar-size",
+      "Day cell size and weekday width",
+      "2rem"
+    ],
+    [
+      "--calendar-gap",
+      "Vertical day row spacing",
+      "0.125rem"
+    ]
+  ],
+  "card": [
+    [
+      "--card-face",
+      "Card surface",
+      "--card"
+    ],
+    [
+      "--card-ink",
+      "Card text",
+      "--card-foreground"
+    ],
+    [
+      "--card-muted",
+      "Description text",
+      "--muted-foreground"
+    ],
+    [
+      "--card-radius",
+      "Card corners",
+      "16px"
+    ],
+    [
+      "--card-padding",
+      "Card and section padding",
+      "1.25rem"
+    ],
+    [
+      "--card-gap",
+      "Section gap",
+      "1.25rem"
+    ],
+    [
+      "--card-light",
+      "Pointer spotlight wash",
+      "currentColor 13%, transparent"
+    ]
+  ],
+  "carousel": [
+    [
+      "--carousel-gap",
+      "Slide and component spacing",
+      "0.75rem"
+    ],
+    [
+      "--carousel-radius",
+      "Viewport corners",
+      "14px"
+    ],
+    [
+      "--carousel-key-size",
+      "Arrow key size",
+      "2rem"
+    ],
+    [
+      "--carousel-face",
+      "Arrow keys and indicator well",
+      "--background (dark --accent) / --muted"
+    ],
+    [
+      "--carousel-ink",
+      "Arrow icons, dots and progress",
+      "--foreground, opacity 20% / 45% / 10% / 70% by state"
+    ]
+  ],
+  "checkbox": [
+    [
+      "--checkbox-size",
+      "Checkbox size",
+      "18px"
+    ],
+    [
+      "--checkbox-radius",
+      "Box corners",
+      "5px"
+    ],
+    [
+      "--checkbox-face",
+      "Unchecked box surface",
+      "--background; dark --accent 40%"
+    ],
+    [
+      "--checkbox-accent",
+      "Checked box surface and hover mix",
+      "--primary"
+    ],
+    [
+      "--checkbox-ink",
+      "Check and dash",
+      "--primary-foreground"
+    ],
+    [
+      "--checkbox-gap",
+      "Group spacing",
+      "0.625rem"
+    ]
+  ],
+  "collapsible": [
+    [
+      "--collapsible-height",
+      "Trigger height",
+      "2.25rem"
+    ],
+    [
+      "--collapsible-gap",
+      "Label and chevron gap",
+      "0.75rem"
+    ],
+    [
+      "--collapsible-radius",
+      "Trigger corners",
+      "9px"
+    ],
+    [
+      "--collapsible-font",
+      "Trigger label size",
+      "13px"
+    ],
+    [
+      "--collapsible-face",
+      "Trigger surface",
+      "transparent; hover --foreground 4.5%; pressed --foreground 7%"
+    ],
+    [
+      "--collapsible-muted",
+      "Resting trigger text",
+      "--muted-foreground"
+    ],
+    [
+      "--collapsible-ink",
+      "Open and hovered trigger text",
+      "--foreground"
+    ]
+  ],
+  "color-picker": [
+    [
+      "--color-picker-face",
+      "Fields, keys and popup surface",
+      "--background / --accent (dark keys) / --popover"
+    ],
+    [
+      "--color-picker-ink",
+      "Field, key and popup text",
+      "--foreground / --popover-foreground"
+    ],
+    [
+      "--color-picker-gap",
+      "Picker part spacing",
+      "0.75rem"
+    ],
+    [
+      "--color-picker-width",
+      "Popup width",
+      "16rem"
+    ],
+    [
+      "--color-picker-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--color-picker-area-height",
+      "Colour area height",
+      "9rem"
+    ],
+    [
+      "--color-picker-thumb-size",
+      "Area and slider thumbs",
+      "18px"
+    ]
+  ],
+  "combobox": [
+    [
+      "--combobox-face",
+      "Input, chips and popup surfaces",
+      "--background / --accent (dark chips) / --popover"
+    ],
+    [
+      "--combobox-ink",
+      "Label, input, checks and popup text",
+      "--foreground / --popover-foreground"
+    ],
+    [
+      "--combobox-accent",
+      "Highlighted option surface",
+      "--accent"
+    ],
+    [
+      "--combobox-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--combobox-height",
+      "Input and chips minimum height",
+      "2.25rem"
+    ]
+  ],
+  "command": [
+    [
+      "--command-face",
+      "Palette surface",
+      "--popover"
+    ],
+    [
+      "--command-ink",
+      "Palette and search text",
+      "--popover-foreground / --foreground"
+    ],
+    [
+      "--command-accent",
+      "Highlighted command",
+      "--accent"
+    ],
+    [
+      "--command-radius",
+      "Palette corners",
+      "14px"
+    ],
+    [
+      "--command-row-height",
+      "Command row height",
+      "2.25rem"
+    ],
+    [
+      "--command-gap",
+      "Search and command icon spacing",
+      "0.625rem"
+    ]
+  ],
+  "context-menu": [
+    [
+      "--context-menu-face",
+      "Menu sheet surface",
+      "--popover"
+    ],
+    [
+      "--context-menu-ink",
+      "Menu text",
+      "--popover-foreground"
+    ],
+    [
+      "--context-menu-accent",
+      "Row highlight",
+      "--accent"
+    ],
+    [
+      "--context-menu-danger",
+      "Destructive row text and highlight",
+      "--destructive"
+    ],
+    [
+      "--context-menu-radius",
+      "Sheet corners",
+      "14px"
+    ],
+    [
+      "--context-menu-item-radius",
+      "Row corners",
+      "8px"
+    ],
+    [
+      "--context-menu-row-height",
+      "Minimum row height",
+      "2rem"
+    ]
+  ],
+  "date-input": [
+    [
+      "--date-input-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--date-input-face",
+      "Field surface",
+      "--background"
+    ],
+    [
+      "--date-input-font",
+      "Date segment font",
+      "13px"
+    ],
+    [
+      "--date-input-ink",
+      "Date segments",
+      "--foreground"
+    ],
+    [
+      "--date-input-accent",
+      "Focused segment highlight",
+      "--accent"
+    ],
+    [
+      "--date-input-height",
+      "Field height",
+      "2.25rem"
+    ]
+  ],
+  "date-picker": [
+    [
+      "--date-picker-face",
+      "Field, month keys and popup surface",
+      "--background / --accent (dark keys) / --popover"
+    ],
+    [
+      "--date-picker-ink",
+      "Input and calendar text",
+      "--foreground / --popover-foreground"
+    ],
+    [
+      "--date-picker-accent",
+      "Selected day keys",
+      "--primary"
+    ],
+    [
+      "--date-picker-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--date-picker-height",
+      "Field height",
+      "2.25rem"
+    ],
+    [
+      "--date-picker-day-size",
+      "Day cell size and weekday width",
+      "2rem"
+    ]
+  ],
+  "dialog": [
+    [
+      "--dialog-face",
+      "Dialog sheet",
+      "--popover"
+    ],
+    [
+      "--dialog-ink",
+      "Dialog body text",
+      "--popover-foreground"
+    ],
+    [
+      "--dialog-action",
+      "Primary or destructive action",
+      "--primary / --destructive (dark destructive mixed with --background 24%)"
+    ],
+    [
+      "--dialog-radius",
+      "Sheet corners",
+      "18px"
+    ],
+    [
+      "--dialog-width",
+      "Sheet width limit",
+      "440px"
+    ],
+    [
+      "--dialog-padding",
+      "Sheet padding",
+      "1.25rem"
+    ],
+    [
+      "--dialog-gap",
+      "Footer key spacing",
+      "0.5rem"
+    ]
+  ],
+  "drawer": [
+    [
+      "--drawer-face",
+      "Drawer sheet and overscroll strip",
+      "--popover"
+    ],
+    [
+      "--drawer-ink",
+      "Drawer body text",
+      "--popover-foreground"
+    ],
+    [
+      "--drawer-accent",
+      "Primary action and hover mix",
+      "--primary"
+    ],
+    [
+      "--drawer-width",
+      "Sheet maximum width",
+      "480px top/bottom; 380px left/right"
+    ],
+    [
+      "--drawer-radius",
+      "Free-edge corners",
+      "18px"
+    ],
+    [
+      "--drawer-gap",
+      "Footer key spacing",
+      "0.5rem"
+    ]
+  ],
+  "field": [
+    [
+      "--field-height",
+      "Native control height",
+      "2.25rem"
+    ],
+    [
+      "--field-radius",
+      "Native control corners",
+      "10px"
+    ],
+    [
+      "--field-face",
+      "Native control surface",
+      "--background"
+    ],
+    [
+      "--field-ink",
+      "Labels, legends and native control text",
+      "--foreground"
+    ],
+    [
+      "--field-muted",
+      "Descriptions and placeholders",
+      "--muted-foreground, placeholders 70%"
+    ],
+    [
+      "--field-error",
+      "Errors and invalid control hairline",
+      "--destructive"
+    ],
+    [
+      "--field-gap",
+      "Label, control and message spacing",
+      "0.375rem"
+    ]
+  ],
+  "file-input": [
+    [
+      "--file-input-gap",
+      "Dropzone and file list spacing",
+      "0.75rem"
+    ],
+    [
+      "--file-input-radius",
+      "Dropzone corners",
+      "14px"
+    ],
+    [
+      "--file-input-face",
+      "Dropzone, key and row surfaces",
+      "transparent / --background / dark --accent (rows 40%)"
+    ],
+    [
+      "--file-input-ink",
+      "Key and file-row text",
+      "--foreground"
+    ],
+    [
+      "--file-input-accent",
+      "Accepted-drag border, tint and icon",
+      "--ring, tint 7%, outer ring 15%"
+    ],
+    [
+      "--file-input-padding",
+      "Dropzone vertical padding",
+      "1.75rem"
+    ],
+    [
+      "--file-input-icon-size",
+      "Upload icon tile size",
+      "2.25rem"
+    ]
+  ],
+  "hover-card": [
+    [
+      "--hover-card-surface",
+      "Card and arrow surface",
+      "--popover"
+    ],
+    [
+      "--hover-card-ink",
+      "Card text",
+      "--popover-foreground"
+    ],
+    [
+      "--hover-card-link",
+      "Trigger text",
+      "--foreground"
+    ],
+    [
+      "--hover-card-width",
+      "Card width",
+      "18rem"
+    ],
+    [
+      "--hover-card-radius",
+      "Card corners",
+      "14px"
+    ],
+    [
+      "--hover-card-padding",
+      "Card padding",
+      "1rem"
+    ]
+  ],
+  "image-cropper": [
+    [
+      "--image-cropper-canvas",
+      "Editor canvas",
+      "oklch(0.24 0 0), --muted in dark"
+    ],
+    [
+      "--image-cropper-handle",
+      "Resize handles",
+      "white"
+    ],
+    [
+      "--image-cropper-grid",
+      "Thirds grid",
+      "rgb(255 255 255 / 0.5)"
+    ],
+    [
+      "--image-cropper-key",
+      "Rotate and flip surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--image-cropper-radius",
+      "Viewport corners",
+      "14px"
+    ],
+    [
+      "--image-cropper-padding",
+      "Viewport padding",
+      "0.625rem"
+    ],
+    [
+      "--image-cropper-gap",
+      "Cropper section gap",
+      "0.75rem"
+    ]
+  ],
+  "input": [
+    [
+      "--input-surface",
+      "Field surface",
+      "--background"
+    ],
+    [
+      "--input-ink",
+      "Input text",
+      "--foreground"
+    ],
+    [
+      "--input-hint",
+      "Placeholder",
+      "--muted-foreground at 70%"
+    ],
+    [
+      "--input-focus",
+      "Focus ring and hairline",
+      "--ring"
+    ],
+    [
+      "--input-invalid",
+      "Invalid ring and hairline",
+      "--destructive"
+    ],
+    [
+      "--input-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--input-height",
+      "Field height",
+      "2.25rem"
+    ]
+  ],
+  "label": [
+    [
+      "--label-ink",
+      "Resting label text",
+      "--muted-foreground"
+    ],
+    [
+      "--label-focus",
+      "Focused label and marker text",
+      "--foreground"
+    ],
+    [
+      "--label-invalid",
+      "Invalid label and marker text",
+      "--destructive"
+    ],
+    [
+      "--label-marker",
+      "Marker surface",
+      "--muted"
+    ],
+    [
+      "--label-marker-ink",
+      "Resting marker text",
+      "--muted-foreground"
+    ],
+    [
+      "--label-font",
+      "Label text size",
+      "13px"
+    ],
+    [
+      "--label-gap",
+      "Label to marker gap",
+      "0.375rem"
+    ],
+    [
+      "--label-marker-radius",
+      "Marker corners",
+      "9999px"
+    ]
+  ],
+  "listbox": [
+    [
+      "--listbox-surface",
+      "List frame",
+      "--background"
+    ],
+    [
+      "--listbox-ink",
+      "Option text and check",
+      "--foreground"
+    ],
+    [
+      "--listbox-highlight",
+      "Gliding highlight",
+      "--accent"
+    ],
+    [
+      "--listbox-selected",
+      "Multiple-selection box",
+      "--primary"
+    ],
+    [
+      "--listbox-radius",
+      "Frame corners",
+      "12px"
+    ],
+    [
+      "--listbox-item-radius",
+      "Option corners",
+      "8px"
+    ],
+    [
+      "--listbox-row-height",
+      "Minimum option height",
+      "2rem"
+    ]
+  ],
+  "menu": [
+    [
+      "--menu-surface",
+      "Menu sheet",
+      "--popover"
+    ],
+    [
+      "--menu-ink",
+      "Menu text",
+      "--popover-foreground"
+    ],
+    [
+      "--menu-highlight",
+      "Row highlight",
+      "--accent"
+    ],
+    [
+      "--menu-danger",
+      "Destructive text and highlight",
+      "--destructive"
+    ],
+    [
+      "--menu-trigger",
+      "Trigger surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--menu-radius",
+      "Sheet corners",
+      "14px"
+    ],
+    [
+      "--menu-item-radius",
+      "Row corners",
+      "8px"
+    ],
+    [
+      "--menu-row-height",
+      "Minimum row height",
+      "2rem"
+    ]
+  ],
+  "menubar": [
+    [
+      "--menubar-surface",
+      "Menu sheets",
+      "--popover"
+    ],
+    [
+      "--menubar-ink",
+      "Sheet and trigger text",
+      "--popover-foreground; --foreground for triggers"
+    ],
+    [
+      "--menubar-highlight",
+      "Bar and row highlights",
+      "--accent"
+    ],
+    [
+      "--menubar-danger",
+      "Destructive text and highlight",
+      "--destructive"
+    ],
+    [
+      "--menubar-radius",
+      "Sheet corners",
+      "14px"
+    ],
+    [
+      "--menubar-item-radius",
+      "Row and trigger corners",
+      "8px"
+    ],
+    [
+      "--menubar-height",
+      "Trigger height",
+      "1.75rem"
+    ],
+    [
+      "--menubar-gap",
+      "Bar trigger gap",
+      "0.125rem"
+    ]
+  ],
+  "meter": [
+    [
+      "--meter-fill",
+      "Normal fill",
+      "--primary"
+    ],
+    [
+      "--meter-track",
+      "Track surface",
+      "--muted"
+    ],
+    [
+      "--meter-ink",
+      "Label",
+      "--foreground"
+    ],
+    [
+      "--meter-value-ink",
+      "Value text",
+      "--muted-foreground"
+    ],
+    [
+      "--meter-danger",
+      "High reading fill and value",
+      "--destructive"
+    ],
+    [
+      "--meter-height",
+      "Track height",
+      "0.375rem"
+    ],
+    [
+      "--meter-radius",
+      "Track and fill corners",
+      "9999px"
+    ],
+    [
+      "--meter-gap",
+      "Label to track gap",
+      "0.5rem"
+    ]
+  ],
+  "motion-style": [
+    [
+      "--motion-style-track",
+      "Switcher well",
+      "--muted"
+    ],
+    [
+      "--motion-style-key",
+      "Selected key",
+      "--background, --accent in dark"
+    ],
+    [
+      "--motion-style-ink",
+      "Unselected text",
+      "--muted-foreground"
+    ],
+    [
+      "--motion-style-selected-ink",
+      "Selected text",
+      "--foreground"
+    ],
+    [
+      "--motion-style-height",
+      "Option height",
+      "2rem"
+    ],
+    [
+      "--motion-style-radius",
+      "Well corners",
+      "12px"
+    ],
+    [
+      "--motion-style-key-radius",
+      "Key corners",
+      "9px"
+    ],
+    [
+      "--motion-style-gap",
+      "Option gap",
+      "0.125rem"
+    ]
+  ],
+  "navigation-menu": [
+    [
+      "--navigation-menu-surface",
+      "Viewport surface",
+      "--popover"
+    ],
+    [
+      "--navigation-menu-ink",
+      "Panel link text",
+      "--foreground; --popover-foreground for viewport"
+    ],
+    [
+      "--navigation-menu-muted",
+      "Trigger and icon text",
+      "--muted-foreground"
+    ],
+    [
+      "--navigation-menu-highlight",
+      "Indicator and highlighted links",
+      "--accent"
+    ],
+    [
+      "--navigation-menu-radius",
+      "Viewport corners",
+      "14px"
+    ],
+    [
+      "--navigation-menu-item-radius",
+      "Trigger and indicator corners",
+      "9px"
+    ],
+    [
+      "--navigation-menu-height",
+      "Top-level item height",
+      "2rem"
+    ],
+    [
+      "--navigation-menu-gap",
+      "Top-level item gap",
+      "0.125rem"
+    ]
+  ],
+  "number-input": [
+    [
+      "--number-input-surface",
+      "Field surface",
+      "--background"
+    ],
+    [
+      "--number-input-ink",
+      "Value and stepper text",
+      "--foreground"
+    ],
+    [
+      "--number-input-key",
+      "Stepper surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--number-input-focus",
+      "Focused or scrubbing outline",
+      "--ring"
+    ],
+    [
+      "--number-input-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--number-input-height",
+      "Field height",
+      "2.25rem"
+    ],
+    [
+      "--number-input-step-size",
+      "Stepper width and height",
+      "1.75rem"
+    ]
+  ],
+  "otp-input": [
+    [
+      "--otp-input-surface",
+      "Resting slots",
+      "--muted"
+    ],
+    [
+      "--otp-input-active",
+      "Active slot",
+      "--background"
+    ],
+    [
+      "--otp-input-ink",
+      "Digits",
+      "--foreground"
+    ],
+    [
+      "--otp-input-focus",
+      "Gliding focus ring",
+      "--ring"
+    ],
+    [
+      "--otp-input-invalid",
+      "Invalid ring and tint",
+      "--destructive"
+    ],
+    [
+      "--otp-input-width",
+      "Slot width",
+      "2.5rem"
+    ],
+    [
+      "--otp-input-height",
+      "Slot height",
+      "2.75rem"
+    ],
+    [
+      "--otp-input-radius",
+      "Slot and focus corners",
+      "10px"
+    ]
+  ],
+  "pagination": [
+    [
+      "--pagination-track",
+      "Pagination well",
+      "--muted"
+    ],
+    [
+      "--pagination-key",
+      "Current page key",
+      "--background, --accent in dark"
+    ],
+    [
+      "--pagination-ink",
+      "Page labels",
+      "--muted-foreground"
+    ],
+    [
+      "--pagination-selected-ink",
+      "Current and hovered page",
+      "--foreground"
+    ],
+    [
+      "--pagination-size",
+      "Page height and least width",
+      "2rem"
+    ],
+    [
+      "--pagination-radius",
+      "Well corners",
+      "12px"
+    ],
+    [
+      "--pagination-key-radius",
+      "Page corners",
+      "9px"
+    ],
+    [
+      "--pagination-gap",
+      "Page gap",
+      "0.125rem"
+    ]
+  ],
+  "password-input": [
+    [
+      "--password-input-surface",
+      "Field surface",
+      "--background"
+    ],
+    [
+      "--password-input-ink",
+      "Password text",
+      "--foreground"
+    ],
+    [
+      "--password-input-toggle",
+      "Eye toggle text",
+      "--muted-foreground; --foreground on hover/pressed"
+    ],
+    [
+      "--password-input-focus",
+      "Focus ring and hairline",
+      "--ring"
+    ],
+    [
+      "--password-input-invalid",
+      "Invalid ring and hairline",
+      "--destructive"
+    ],
+    [
+      "--password-input-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--password-input-height",
+      "Field height",
+      "2.25rem"
+    ]
+  ],
+  "popover": [
+    [
+      "--popover-surface",
+      "Sheet and arrow",
+      "--popover"
+    ],
+    [
+      "--popover-ink",
+      "Sheet text",
+      "--popover-foreground"
+    ],
+    [
+      "--popover-muted",
+      "Description and shortcut text",
+      "--muted-foreground"
+    ],
+    [
+      "--popover-key",
+      "Trigger and default close surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--popover-primary",
+      "Primary close surface",
+      "--primary"
+    ],
+    [
+      "--popover-width",
+      "Sheet width",
+      "18rem"
+    ],
+    [
+      "--popover-radius",
+      "Sheet corners",
+      "14px"
+    ],
+    [
+      "--popover-padding",
+      "Sheet padding",
+      "1rem"
+    ]
+  ],
+  "preferences": [
+    [
+      "--preferences-track",
+      "Switcher well",
+      "--muted"
+    ],
+    [
+      "--preferences-key",
+      "Selected key",
+      "--background, --accent in dark"
+    ],
+    [
+      "--preferences-ink",
+      "Unselected text",
+      "--muted-foreground"
+    ],
+    [
+      "--preferences-selected-ink",
+      "Selected text",
+      "--foreground"
+    ],
+    [
+      "--preferences-height",
+      "Option height",
+      "2rem"
+    ],
+    [
+      "--preferences-radius",
+      "Well corners",
+      "12px"
+    ],
+    [
+      "--preferences-key-radius",
+      "Option corners",
+      "9px"
+    ],
+    [
+      "--preferences-gap",
+      "Option gap",
+      "0.125rem"
+    ]
+  ],
+  "progress": [
+    [
+      "--progress-fill",
+      "In-progress fill",
+      "--primary"
+    ],
+    [
+      "--progress-track",
+      "Track surface",
+      "--muted"
+    ],
+    [
+      "--progress-ink",
+      "Label and completed value",
+      "--foreground"
+    ],
+    [
+      "--progress-value-ink",
+      "Value text",
+      "--muted-foreground"
+    ],
+    [
+      "--progress-complete",
+      "Completed fill",
+      "oklch(0.62 0.16 150)"
+    ],
+    [
+      "--progress-height",
+      "Track height",
+      "0.375rem"
+    ],
+    [
+      "--progress-radius",
+      "Track and fill corners",
+      "9999px"
+    ],
+    [
+      "--progress-gap",
+      "Label to track gap",
+      "0.5rem"
+    ]
+  ],
+  "radio": [
+    [
+      "--radio-surface",
+      "Unchecked radio",
+      "--background, --accent at 40% in dark"
+    ],
+    [
+      "--radio-selected",
+      "Checked disc",
+      "--primary"
+    ],
+    [
+      "--radio-dot",
+      "Checked dot",
+      "--primary-foreground"
+    ],
+    [
+      "--radio-ring",
+      "Gliding ring, mixed to 28%",
+      "--primary"
+    ],
+    [
+      "--radio-size",
+      "Radio width and height",
+      "18px"
+    ],
+    [
+      "--radio-dot-size",
+      "Dot diameter",
+      "7px"
+    ],
+    [
+      "--radio-gap",
+      "Option gap",
+      "0.625rem"
+    ],
+    [
+      "--radio-radius",
+      "Disc corners",
+      "9999px"
+    ]
+  ],
+  "rating": [
+    [
+      "--rating-fill-colour",
+      "Filled stars",
+      "--foreground"
+    ],
+    [
+      "--rating-empty",
+      "Empty stars",
+      "--muted-foreground at 25%, 30% in dark"
+    ],
+    [
+      "--rating-preview",
+      "Additional preview stars",
+      "--foreground at 50%"
+    ],
+    [
+      "--rating-size",
+      "Star hit area",
+      "1.5rem"
+    ],
+    [
+      "--rating-icon-size",
+      "Star drawing size",
+      "1.25rem"
+    ],
+    [
+      "--rating-gap",
+      "Star gap",
+      "0.125rem"
+    ],
+    [
+      "--rating-radius",
+      "Focus corners",
+      "6px"
+    ]
+  ],
+  "resizable": [
+    [
+      "--resizable-line",
+      "Resting divider",
+      "--border"
+    ],
+    [
+      "--resizable-active",
+      "Hovered, focused or dragged divider",
+      "--ring"
+    ],
+    [
+      "--resizable-key",
+      "Grip surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--resizable-ink",
+      "Grip dots",
+      "--muted-foreground; --foreground while active"
+    ],
+    [
+      "--resizable-radius",
+      "Grip corners",
+      "5px"
+    ],
+    [
+      "--resizable-grip-width",
+      "Grip short axis",
+      "0.75rem"
+    ],
+    [
+      "--resizable-grip-length",
+      "Grip long axis",
+      "1.5rem"
+    ],
+    [
+      "--resizable-thickness",
+      "Divider thickness",
+      "1px"
+    ]
+  ],
+  "scroll-area": [
+    [
+      "--scroll-area-thumb",
+      "Thumb pigment (30%, 45% hover, 60% drag)",
+      "--foreground"
+    ],
+    [
+      "--scroll-area-key",
+      "Jump button surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--scroll-area-ink",
+      "Jump button text",
+      "--foreground"
+    ],
+    [
+      "--scroll-area-focus",
+      "Viewport focus ring",
+      "--ring"
+    ],
+    [
+      "--scroll-area-thickness",
+      "Full thumb thickness",
+      "0.5rem"
+    ],
+    [
+      "--scroll-area-scrollbar-size",
+      "Scrollbar hit area",
+      "0.875rem"
+    ],
+    [
+      "--scroll-area-fade",
+      "Maximum edge fade",
+      "24px"
+    ],
+    [
+      "--scroll-area-radius",
+      "Thumb and jump button corners",
+      "9999px"
+    ]
+  ],
+  "segmented-control": [
+    [
+      "--segmented-control-track",
+      "The recessed track",
+      "--muted"
+    ],
+    [
+      "--segmented-control-key",
+      "The selected key",
+      "--background; --accent in dark"
+    ],
+    [
+      "--segmented-control-ink",
+      "The unselected label",
+      "--muted-foreground"
+    ],
+    [
+      "--segmented-control-selected-ink",
+      "The selected label",
+      "--foreground"
+    ],
+    [
+      "--segmented-control-height",
+      "Item height",
+      "2rem"
+    ],
+    [
+      "--segmented-control-radius",
+      "Track corners",
+      "12px"
+    ],
+    [
+      "--segmented-control-key-radius",
+      "Item and key corners",
+      "9px"
+    ],
+    [
+      "--segmented-control-gap",
+      "Space between items",
+      "0.125rem"
+    ]
+  ],
+  "select": [
+    [
+      "--select-face",
+      "Field and popup surfaces",
+      "--background; --popover on the popup"
+    ],
+    [
+      "--select-ink",
+      "Field and popup text",
+      "--foreground; --popover-foreground on the popup; --accent-foreground when highlighted"
+    ],
+    [
+      "--select-accent",
+      "Highlighted row",
+      "--accent"
+    ],
+    [
+      "--select-height",
+      "Field height",
+      "2.25rem"
+    ],
+    [
+      "--select-radius",
+      "Field corners",
+      "10px"
+    ]
+  ],
+  "separator": [
+    [
+      "--separator-line",
+      "Divider colour",
+      "--border"
+    ],
+    [
+      "--separator-ink",
+      "Divider label",
+      "--muted-foreground"
+    ],
+    [
+      "--separator-thickness",
+      "Line thickness",
+      "1px"
+    ],
+    [
+      "--separator-label-gap",
+      "Space either side of a label",
+      "0.75rem"
+    ],
+    [
+      "--separator-font",
+      "Label size",
+      "12px"
+    ]
+  ],
+  "sidebar": [
+    [
+      "--sidebar-face",
+      "Sidebar surface",
+      "--muted at 45%; --card in dark"
+    ],
+    [
+      "--sidebar-ink",
+      "Labels and text",
+      "--muted-foreground; --foreground for active text"
+    ],
+    [
+      "--sidebar-key",
+      "Selected page surface",
+      "--background; --accent in dark"
+    ],
+    [
+      "--sidebar-radius",
+      "Menu key corners",
+      "9px"
+    ],
+    [
+      "--sidebar-height",
+      "Menu item height",
+      "2rem"
+    ],
+    [
+      "--sidebar-width",
+      "Expanded sidebar width",
+      "15rem"
+    ],
+    [
+      "--sidebar-width-collapsed",
+      "Collapsed rail width",
+      "3.5rem"
+    ],
+    [
+      "--sidebar-width-mobile",
+      "Mobile sheet width",
+      "17rem"
+    ]
+  ],
+  "skeleton": [
+    [
+      "--skeleton-face",
+      "Placeholder fill",
+      "--foreground at 7%; 8% in dark"
+    ],
+    [
+      "--skeleton-sweep",
+      "Shimmer band",
+      "--background at 80%; --foreground at 10% in dark"
+    ],
+    [
+      "--skeleton-radius",
+      "Placeholder corners",
+      "8px"
+    ]
+  ],
+  "slider": [
+    [
+      "--slider-track",
+      "Empty track",
+      "--muted; --accent in dark"
+    ],
+    [
+      "--slider-fill",
+      "Filled range",
+      "--primary"
+    ],
+    [
+      "--slider-thumb",
+      "Thumb face",
+      "--background; foreground mixed with 8% background in dark"
+    ],
+    [
+      "--slider-thickness",
+      "Track thickness",
+      "0.375rem"
+    ],
+    [
+      "--slider-thumb-size",
+      "Thumb diameter",
+      "1rem"
+    ],
+    [
+      "--slider-radius",
+      "Track and thumb corners",
+      "9999px"
+    ]
+  ],
+  "switch": [
+    [
+      "--switch-off",
+      "Unchecked track",
+      "--muted; --accent in dark"
+    ],
+    [
+      "--switch-on",
+      "Checked track",
+      "--primary"
+    ],
+    [
+      "--switch-thumb",
+      "Thumb surface",
+      "--background; foreground mixed with 8% background in dark; --primary-foreground when checked in dark"
+    ],
+    [
+      "--switch-width",
+      "Track width",
+      "38px"
+    ],
+    [
+      "--switch-height",
+      "Track height",
+      "22px"
+    ],
+    [
+      "--switch-thumb-size",
+      "Resting thumb width",
+      "18px"
+    ],
+    [
+      "--switch-radius",
+      "Track and thumb corners",
+      "9999px"
+    ],
+    [
+      "--switch-pad",
+      "Thumb inset",
+      "2px"
+    ]
+  ],
+  "table": [
+    [
+      "--table-ink",
+      "Table text",
+      "--foreground"
+    ],
+    [
+      "--table-muted",
+      "Headers and caption text",
+      "--muted-foreground"
+    ],
+    [
+      "--table-border",
+      "Row and footer rules",
+      "--border; 70% on rows"
+    ],
+    [
+      "--table-accent",
+      "Hover and selection tint",
+      "--foreground at 3% on hover and 6% when selected"
+    ],
+    [
+      "--table-footer",
+      "Footer fill",
+      "--muted at 40%"
+    ],
+    [
+      "--table-height",
+      "Body cell height",
+      "2.75rem"
+    ],
+    [
+      "--table-padding",
+      "Cell horizontal padding",
+      "0.75rem"
+    ],
+    [
+      "--table-radius",
+      "Sort button corners",
+      "7px"
+    ]
+  ],
+  "tabs": [
+    [
+      "--tabs-track",
+      "Tab list well",
+      "--muted"
+    ],
+    [
+      "--tabs-key",
+      "Selected tab surface",
+      "--background; --accent in dark"
+    ],
+    [
+      "--tabs-ink",
+      "Unselected labels",
+      "--muted-foreground"
+    ],
+    [
+      "--tabs-selected-ink",
+      "Selected labels",
+      "--foreground"
+    ],
+    [
+      "--tabs-height",
+      "Tab height",
+      "2rem"
+    ],
+    [
+      "--tabs-radius",
+      "List corners",
+      "12px"
+    ],
+    [
+      "--tabs-key-radius",
+      "Tab key corners",
+      "9px"
+    ],
+    [
+      "--tabs-gap",
+      "Space between tabs",
+      "0.125rem"
+    ]
+  ],
+  "textarea": [
+    [
+      "--textarea-face",
+      "Field surface",
+      "--background; --muted at 50% when read-only; --muted when disabled"
+    ],
+    [
+      "--textarea-ink",
+      "Field text and placeholder",
+      "--foreground; --muted-foreground at 70% for placeholder"
+    ],
+    [
+      "--textarea-ring",
+      "Focus ring and focused hairline",
+      "--ring"
+    ],
+    [
+      "--textarea-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--textarea-min-height",
+      "Minimum field height",
+      "76px"
+    ],
+    [
+      "--textarea-max-height",
+      "Maximum field height",
+      "220px"
+    ]
+  ],
+  "time-input": [
+    [
+      "--time-input-face",
+      "Time field surface",
+      "--background; --muted at 50% read-only; --muted disabled"
+    ],
+    [
+      "--time-input-ink",
+      "Time segment text",
+      "--foreground; --accent-foreground focused; --muted-foreground disabled"
+    ],
+    [
+      "--time-input-accent",
+      "Focused segment tile",
+      "--accent"
+    ],
+    [
+      "--time-input-height",
+      "Field height",
+      "2.25rem"
+    ],
+    [
+      "--time-input-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--time-input-segment-radius",
+      "Segment tile corners",
+      "6px"
+    ]
+  ],
+  "timeline": [
+    [
+      "--timeline-current",
+      "Current step marker",
+      "--primary"
+    ],
+    [
+      "--timeline-complete",
+      "Completed marker",
+      "oklch(0.62 0.16 150)"
+    ],
+    [
+      "--timeline-ink",
+      "Event title",
+      "--foreground"
+    ],
+    [
+      "--timeline-muted",
+      "Time and description",
+      "--muted-foreground"
+    ],
+    [
+      "--timeline-rail",
+      "Connector and completed connector tint",
+      "--border; --foreground at 30% for fill"
+    ],
+    [
+      "--timeline-marker-size",
+      "Current and complete marker diameter",
+      "1rem"
+    ],
+    [
+      "--timeline-gap",
+      "Space beside markers",
+      "0.75rem"
+    ],
+    [
+      "--timeline-radius",
+      "Event focus corners",
+      "10px"
+    ]
+  ],
+  "toast": [
+    [
+      "--toast-face",
+      "Toast sheet and action surfaces",
+      "--popover; --background on action; --accent on action in dark"
+    ],
+    [
+      "--toast-ink",
+      "Title and description text",
+      "--foreground; --muted-foreground for description; --popover-foreground on sheet"
+    ],
+    [
+      "--toast-accent",
+      "Status icon colour",
+      "success green; --destructive for error; --foreground for info/warning"
+    ],
+    [
+      "--toast-radius",
+      "Toast corners",
+      "14px"
+    ],
+    [
+      "--toast-padding",
+      "Toast padding",
+      "0.75rem"
+    ],
+    [
+      "--toast-gap",
+      "Space between toast contents",
+      "0.75rem"
+    ],
+    [
+      "--toast-width",
+      "Region width",
+      "360px"
+    ],
+    [
+      "--toast-action-height",
+      "Action button height",
+      "1.75rem"
+    ]
+  ],
+  "toggle": [
+    [
+      "--toggle-track",
+      "Group well and standalone pressed fill",
+      "--muted"
+    ],
+    [
+      "--toggle-key",
+      "Pressed key in a group",
+      "--background; --accent in dark"
+    ],
+    [
+      "--toggle-ink",
+      "Toggle text",
+      "--muted-foreground; --foreground when hovered or pressed"
+    ],
+    [
+      "--toggle-radius",
+      "Toggle corners",
+      "8px small; 9px medium"
+    ],
+    [
+      "--toggle-group-radius",
+      "Group corners",
+      "12px"
+    ],
+    [
+      "--toggle-gap",
+      "Space between grouped toggles",
+      "0.125rem"
+    ],
+    [
+      "--toggle-height",
+      "Toggle height and icon width",
+      "1.75rem small; 2rem medium"
+    ]
+  ],
+  "token-input": [
+    [
+      "--token-input-face",
+      "Editor surface",
+      "--background; --muted at 50% read-only; --muted disabled"
+    ],
+    [
+      "--token-input-ink",
+      "Editor and token text",
+      "--foreground; --primary-foreground selected"
+    ],
+    [
+      "--token-input-token",
+      "Token surface",
+      "--background; --accent in dark"
+    ],
+    [
+      "--token-input-accent",
+      "Selected token surface",
+      "--primary"
+    ],
+    [
+      "--token-input-error",
+      "Unresolved token colour",
+      "--destructive"
+    ],
+    [
+      "--token-input-radius",
+      "Editor corners",
+      "10px"
+    ],
+    [
+      "--token-input-token-radius",
+      "Token corners",
+      "7px"
+    ],
+    [
+      "--token-input-height",
+      "Editor line height including padding; token height follows",
+      "2.25rem"
+    ]
+  ],
+  "toolbar": [
+    [
+      "--toolbar-face",
+      "Toolbar sheet",
+      "--popover"
+    ],
+    [
+      "--toolbar-ink",
+      "Item text",
+      "--muted-foreground; --foreground active; --popover-foreground on sheet"
+    ],
+    [
+      "--toolbar-accent",
+      "Gliding highlight",
+      "--accent; 70% in dark"
+    ],
+    [
+      "--toolbar-key",
+      "Pressed toggle and input surface",
+      "--background; --accent for pressed toggle in dark"
+    ],
+    [
+      "--toolbar-radius",
+      "Toolbar corners",
+      "12px"
+    ],
+    [
+      "--toolbar-item-radius",
+      "Item and highlight corners",
+      "8px"
+    ],
+    [
+      "--toolbar-height",
+      "Item height and minimum width",
+      "1.75rem"
+    ],
+    [
+      "--toolbar-gap",
+      "Space between items",
+      "0.125rem"
+    ]
+  ],
+  "tooltip": [
+    [
+      "--tooltip-face",
+      "Tooltip surface and arrow",
+      "--foreground"
+    ],
+    [
+      "--tooltip-ink",
+      "Tooltip text and shortcut tint",
+      "--background; 15% shortcut fill and 70% shortcut ink"
+    ],
+    [
+      "--tooltip-radius",
+      "Tooltip corners",
+      "8px"
+    ],
+    [
+      "--tooltip-font",
+      "Tooltip text size",
+      "12px"
+    ],
+    [
+      "--tooltip-width",
+      "Tooltip maximum width",
+      "16rem"
+    ],
+    [
+      "--tooltip-gap",
+      "Label-to-shortcut gap",
+      "0.5rem"
+    ]
+  ],
+  "tree": [
+    [
+      "--tree-ink",
+      "Tree label, selected label and muted details",
+      "--foreground; --accent-foreground selected; --muted-foreground on indicators"
+    ],
+    [
+      "--tree-accent",
+      "Row highlights and checked checkbox",
+      "--accent; --primary on checked boxes; hover at 45% light / 40% dark"
+    ],
+    [
+      "--tree-guide",
+      "Nested branch guide",
+      "--border"
+    ],
+    [
+      "--tree-height",
+      "Row height",
+      "1.75rem"
+    ],
+    [
+      "--tree-radius",
+      "Row and highlight corners",
+      "8px"
+    ],
+    [
+      "--tree-indent",
+      "Branch indentation",
+      "22px"
+    ]
+  ],
+  "trigger-menu": [
+    [
+      "--trigger-menu-face",
+      "Popup and editor surface",
+      "--popover; --background on editor"
+    ],
+    [
+      "--trigger-menu-ink",
+      "Popup and editor text",
+      "--popover-foreground; --foreground in editor; --accent-foreground highlighted"
+    ],
+    [
+      "--trigger-menu-accent",
+      "Highlighted row",
+      "--accent"
+    ],
+    [
+      "--trigger-menu-radius",
+      "Popup corners",
+      "14px"
+    ],
+    [
+      "--trigger-menu-item-radius",
+      "Item and highlight corners",
+      "8px"
+    ],
+    [
+      "--trigger-menu-width",
+      "Popup width",
+      "16rem"
+    ],
+    [
+      "--trigger-menu-height",
+      "Textarea minimum height",
+      "84px"
+    ]
+  ],
+  "waterfall": [
+    [
+      "--waterfall-face",
+      "Grid sheet",
+      "--card"
+    ],
+    [
+      "--waterfall-ink",
+      "Grid text",
+      "--card-foreground; --foreground for selected nested labels"
+    ],
+    [
+      "--waterfall-bar",
+      "Top-level request bars",
+      "--primary at 75%"
+    ],
+    [
+      "--waterfall-muted",
+      "Headers, nested labels and nested bars",
+      "--muted-foreground; 40% level-two bars, 30% level-three bars"
+    ],
+    [
+      "--waterfall-marker-color",
+      "Marker and selected bar",
+      "--ring; marker background 12% and line 50%"
+    ],
+    [
+      "--waterfall-radius",
+      "Grid corners",
+      "14px"
+    ],
+    [
+      "--waterfall-height",
+      "Request row height",
+      "2rem"
+    ],
+    [
+      "--waterfall-gap",
+      "Gap between grid columns",
+      "0.75rem"
+    ]
+  ],
+  "alert": [
+    [
+      "--alert-face",
+      "Alert surface",
+      "bg-card"
+    ],
+    [
+      "--alert-ink",
+      "Alert text",
+      "text-card-foreground"
+    ],
+    [
+      "--alert-muted",
+      "Description",
+      "text-muted-foreground"
+    ],
+    [
+      "--alert-radius",
+      "Corners",
+      "rounded-[14px]"
+    ],
+    [
+      "--alert-font",
+      "Body size",
+      "text-[13px]"
+    ],
+    [
+      "--alert-gap",
+      "Content gap",
+      "gap-y-1"
+    ],
+    [
+      "--alert-inset-x",
+      "Side padding",
+      "px-4"
+    ],
+    [
+      "--alert-inset-y",
+      "Vertical padding",
+      "py-3.5"
+    ]
+  ],
+  "attachment": [
+    [
+      "--attachment-face",
+      "File surface",
+      "bg-background"
+    ],
+    [
+      "--attachment-ink",
+      "File text",
+      "text-foreground"
+    ],
+    [
+      "--attachment-muted",
+      "File details",
+      "text-muted-foreground"
+    ],
+    [
+      "--attachment-radius",
+      "File corners",
+      "rounded-[12px]"
+    ],
+    [
+      "--attachment-font",
+      "Filename size",
+      "text-[13px]"
+    ],
+    [
+      "--attachment-media-size",
+      "Preview size",
+      "size-10"
+    ],
+    [
+      "--attachment-gap",
+      "File gap",
+      "gap-2.5"
+    ],
+    [
+      "--attachment-padding",
+      "File padding",
+      "p-1.5"
+    ]
+  ],
+  "breadcrumb": [
+    [
+      "--breadcrumb-ink",
+      "Link colour",
+      "text-muted-foreground"
+    ],
+    [
+      "--breadcrumb-current",
+      "Current page",
+      "text-foreground"
+    ],
+    [
+      "--breadcrumb-separator",
+      "Separator colour",
+      "text-muted-foreground/60"
+    ],
+    [
+      "--breadcrumb-font",
+      "Label size",
+      "text-[13px]"
+    ],
+    [
+      "--breadcrumb-gap",
+      "Trail gap",
+      "gap-1"
+    ],
+    [
+      "--breadcrumb-item-gap",
+      "Icon gap",
+      "gap-1.5"
+    ],
+    [
+      "--breadcrumb-icon-size",
+      "Icon size",
+      "size-3.5"
+    ],
+    [
+      "--breadcrumb-radius",
+      "Link corners",
+      "rounded-[4px]"
+    ]
+  ],
+  "bubble": [
+    [
+      "--bubble-face",
+      "Incoming surface",
+      "bg-muted"
+    ],
+    [
+      "--bubble-ink",
+      "Incoming text",
+      "text-foreground"
+    ],
+    [
+      "--bubble-radius",
+      "Bubble corners",
+      "rounded-[18px]"
+    ],
+    [
+      "--bubble-font",
+      "Message size",
+      "text-[14px]"
+    ],
+    [
+      "--bubble-inset-x",
+      "Side padding",
+      "px-3.5"
+    ],
+    [
+      "--bubble-inset-y",
+      "Vertical padding",
+      "py-2"
+    ],
+    [
+      "--bubble-max-width",
+      "Bubble width",
+      "max-w-[80%]"
+    ]
+  ],
+  "button-group": [
+    [
+      "--button-group-face",
+      "Counter surface",
+      "bg-muted"
+    ],
+    [
+      "--button-group-ink",
+      "Counter text",
+      "text-muted-foreground"
+    ],
+    [
+      "--button-group-line",
+      "Separator",
+      "bg-border"
+    ],
+    [
+      "--button-group-radius",
+      "Counter corners",
+      "rounded-[9px]"
+    ],
+    [
+      "--button-group-font",
+      "Counter size",
+      "text-[13px]"
+    ],
+    [
+      "--button-group-gap",
+      "Nested group gap",
+      "0.5rem"
+    ],
+    [
+      "--button-group-inset-x",
+      "Counter padding",
+      "px-3"
+    ]
+  ],
+  "code-block": [
+    [
+      "--code-block-face",
+      "Code sheet",
+      "bg-card"
+    ],
+    [
+      "--code-block-ink",
+      "Code text",
+      "text-card-foreground"
+    ],
+    [
+      "--code-block-muted",
+      "Comments and hints",
+      "text-muted-foreground"
+    ],
+    [
+      "--code-block-radius",
+      "Sheet corners",
+      "rounded-[14px]"
+    ],
+    [
+      "--code-block-font",
+      "Code size",
+      "text-[12.5px]"
+    ],
+    [
+      "--code-block-inset-x",
+      "Line padding",
+      "px-3.5"
+    ],
+    [
+      "--code-block-inset-y",
+      "Code padding",
+      "py-3"
+    ]
+  ],
+  "direction": [
+    [
+      "--direction-face",
+      "Toggle surface",
+      "bg-background"
+    ],
+    [
+      "--direction-ink",
+      "Toggle text",
+      "text-foreground"
+    ],
+    [
+      "--direction-radius",
+      "Toggle corners",
+      "rounded-[9px]"
+    ],
+    [
+      "--direction-font",
+      "Toggle label size",
+      "text-[13px]"
+    ],
+    [
+      "--direction-gap",
+      "Toggle gap",
+      "gap-1.5"
+    ],
+    [
+      "--direction-height",
+      "Toggle height",
+      "h-8"
+    ],
+    [
+      "--direction-inset-x",
+      "Toggle padding",
+      "px-3"
+    ],
+    [
+      "--direction-icon-size",
+      "Toggle icon",
+      "size-4"
+    ]
+  ],
+  "empty": [
+    [
+      "--empty-face",
+      "Icon surface",
+      "bg-background"
+    ],
+    [
+      "--empty-ink",
+      "Icon and links",
+      "text-foreground"
+    ],
+    [
+      "--empty-muted",
+      "Description colour",
+      "text-muted-foreground"
+    ],
+    [
+      "--empty-radius",
+      "Icon corners",
+      "rounded-[13px]"
+    ],
+    [
+      "--empty-font",
+      "Title size",
+      "text-[15px]"
+    ],
+    [
+      "--empty-gap",
+      "Section gap",
+      "gap-5"
+    ],
+    [
+      "--empty-padding",
+      "Empty-state padding",
+      "p-8"
+    ],
+    [
+      "--empty-media-size",
+      "Icon tile size",
+      "size-12"
+    ]
+  ],
+  "form": [
+    [
+      "--form-face",
+      "Submit surface",
+      "bg-primary"
+    ],
+    [
+      "--form-ink",
+      "Submit label",
+      "text-primary-foreground"
+    ],
+    [
+      "--form-muted",
+      "Status colour",
+      "text-muted-foreground"
+    ],
+    [
+      "--form-radius",
+      "Submit corners",
+      "rounded-[10px]"
+    ],
+    [
+      "--form-font",
+      "Submit size",
+      "text-[13px]"
+    ],
+    [
+      "--form-gap",
+      "Form section gap",
+      "gap-4"
+    ],
+    [
+      "--form-height",
+      "Submit height",
+      "h-9"
+    ],
+    [
+      "--form-inset-x",
+      "Submit padding",
+      "px-4"
+    ]
+  ],
+  "input-group": [
+    [
+      "--input-group-face",
+      "Field surface",
+      "bg-background"
+    ],
+    [
+      "--input-group-ink",
+      "Field text",
+      "text-foreground"
+    ],
+    [
+      "--input-group-muted",
+      "Addon text",
+      "text-muted-foreground"
+    ],
+    [
+      "--input-group-radius",
+      "Field corners",
+      "rounded-[10px]"
+    ],
+    [
+      "--input-group-font",
+      "Input size",
+      "text-[13px]"
+    ],
+    [
+      "--input-group-height",
+      "Input height",
+      "h-9"
+    ],
+    [
+      "--input-group-inset-x",
+      "Side padding",
+      "px-3"
+    ]
+  ],
+  "item": [
+    [
+      "--item-face",
+      "Muted row surface",
+      "bg-muted/60"
+    ],
+    [
+      "--item-ink",
+      "Row text",
+      "text-foreground"
+    ],
+    [
+      "--item-muted",
+      "Row details",
+      "text-muted-foreground"
+    ],
+    [
+      "--item-radius",
+      "Row corners",
+      "rounded-[12px]"
+    ],
+    [
+      "--item-font",
+      "Title size",
+      "text-[13.5px]"
+    ],
+    [
+      "--item-gap",
+      "Row gap",
+      "gap-3.5"
+    ],
+    [
+      "--item-padding",
+      "Row padding",
+      "p-3.5"
+    ]
+  ],
+  "marker": [
+    [
+      "--marker-ink",
+      "Marker text",
+      "text-muted-foreground"
+    ],
+    [
+      "--marker-link",
+      "Marker links",
+      "text-foreground"
+    ],
+    [
+      "--marker-line",
+      "Rule colour",
+      "bg-border"
+    ],
+    [
+      "--marker-font",
+      "Marker size",
+      "text-[12px]"
+    ],
+    [
+      "--marker-gap",
+      "Content gap",
+      "gap-2"
+    ],
+    [
+      "--marker-icon-size",
+      "Marker icon",
+      "size-3.5"
+    ],
+    [
+      "--marker-line-width",
+      "Rule thickness",
+      "h-px"
+    ],
+    [
+      "--marker-height",
+      "Minimum height",
+      "min-h-4"
+    ]
+  ],
+  "message-scroller": [
+    [
+      "--message-scroller-face",
+      "Jump button surface",
+      "bg-background"
+    ],
+    [
+      "--message-scroller-ink",
+      "Jump button text",
+      "text-foreground"
+    ],
+    [
+      "--message-scroller-unread-face",
+      "Unread surface",
+      "bg-primary"
+    ],
+    [
+      "--message-scroller-font",
+      "Jump label size",
+      "text-[12.5px]"
+    ],
+    [
+      "--message-scroller-height",
+      "Jump button height",
+      "h-8"
+    ],
+    [
+      "--message-scroller-icon-size",
+      "Jump icon",
+      "size-3.5"
+    ],
+    [
+      "--message-scroller-gap",
+      "Message spacing",
+      "gap-4"
+    ],
+    [
+      "--message-scroller-padding",
+      "Conversation inset",
+      "p-4"
+    ]
+  ],
+  "message": [
+    [
+      "--message-face",
+      "Incoming bubble surface",
+      "--muted"
+    ],
+    [
+      "--message-muted",
+      "Sender and receipt",
+      "text-muted-foreground"
+    ],
+    [
+      "--message-font",
+      "Sender size",
+      "text-[12px]"
+    ],
+    [
+      "--message-gap",
+      "Avatar gap",
+      "gap-2.5"
+    ],
+    [
+      "--message-turn-gap",
+      "Turn spacing",
+      "gap-4"
+    ],
+    [
+      "--message-content-gap",
+      "Bubble spacing",
+      "gap-1"
+    ],
+    [
+      "--message-avatar-size",
+      "Avatar size",
+      "size-8"
+    ]
+  ],
+  "native-select": [
+    [
+      "--native-select-face",
+      "Field surface",
+      "bg-background"
+    ],
+    [
+      "--native-select-ink",
+      "Selected value",
+      "text-foreground"
+    ],
+    [
+      "--native-select-muted",
+      "Placeholder and arrow",
+      "text-muted-foreground"
+    ],
+    [
+      "--native-select-radius",
+      "Field corners",
+      "rounded-[10px]"
+    ],
+    [
+      "--native-select-font",
+      "Value size",
+      "text-[13px]"
+    ],
+    [
+      "--native-select-height",
+      "Field height",
+      "h-9"
+    ],
+    [
+      "--native-select-inset-start",
+      "Start padding",
+      "ps-3"
+    ]
+  ],
+  "questionnaire": [
+    [
+      "--questionnaire-face",
+      "Answer surface",
+      "bg-background"
+    ],
+    [
+      "--questionnaire-accent",
+      "Progress and selection",
+      "bg-primary"
+    ],
+    [
+      "--questionnaire-muted",
+      "Hints and progress",
+      "text-muted-foreground"
+    ],
+    [
+      "--questionnaire-radius",
+      "Answer corners",
+      "rounded-[12px]"
+    ],
+    [
+      "--questionnaire-font",
+      "Answer size",
+      "text-[13px]"
+    ],
+    [
+      "--questionnaire-gap",
+      "Section spacing",
+      "gap-5"
+    ],
+    [
+      "--questionnaire-inset-x",
+      "Answer padding",
+      "px-3"
+    ]
+  ],
+  "trace": [
+    [
+      "--trace-ink",
+      "Step text",
+      "text-muted-foreground"
+    ],
+    [
+      "--trace-error",
+      "Failed step",
+      "text-destructive"
+    ],
+    [
+      "--trace-font",
+      "Step size",
+      "text-[13px]"
+    ],
+    [
+      "--trace-detail-font",
+      "Detail size",
+      "text-[12.5px]"
+    ],
+    [
+      "--trace-gap",
+      "Step spacing",
+      "gap-2.5"
+    ],
+    [
+      "--trace-icon-size",
+      "Status icon size",
+      "size-4"
+    ],
+    [
+      "--trace-indent",
+      "Detail indent",
+      "ps-4"
+    ]
+  ],
+  "aspect-ratio": [
+    [
+      "--aspect-ratio-face",
+      "Frame surface",
+      "--muted"
+    ],
+    [
+      "--aspect-ratio-radius",
+      "Frame corners",
+      "14px"
+    ],
+    [
+      "--aspect-ratio-fit",
+      "Image fit",
+      "cover"
+    ],
+    [
+      "--aspect-ratio-position-x",
+      "Horizontal crop",
+      "50%"
+    ],
+    [
+      "--aspect-ratio-position-y",
+      "Vertical crop",
+      "50%"
+    ],
+    [
+      "--aspect-ratio-saturation",
+      "Saturation",
+      "1"
+    ],
+    [
+      "--aspect-ratio-contrast",
+      "Contrast",
+      "1"
+    ],
+    [
+      "--aspect-ratio-brightness",
+      "Brightness",
+      "1"
+    ]
+  ],
+  "kbd": [
+    [
+      "--kbd-face",
+      "The key surface",
+      "--background; --accent in dark"
+    ],
+    [
+      "--kbd-ink",
+      "Key label",
+      "--muted-foreground"
+    ],
+    [
+      "--kbd-size",
+      "Key height and minimum width",
+      "1.5rem"
+    ],
+    [
+      "--kbd-radius",
+      "Key corners",
+      "6px"
+    ],
+    [
+      "--kbd-font",
+      "Label size",
+      "12px"
+    ]
+  ],
+  "spinner": [
+    [
+      "--spinner-ink",
+      "Spinner colour",
+      "currentColor"
+    ],
+    [
+      "--spinner-track",
+      "Ring track colour",
+      "currentColor"
+    ],
+    [
+      "--spinner-ring-stroke",
+      "Ring thickness",
+      "2.5"
+    ],
+    [
+      "--spinner-spoke-stroke",
+      "Spoke thickness",
+      "2.25"
+    ],
+    [
+      "--spinner-diameter",
+      "Custom diameter",
+      "14px / 16px / 24px by size"
+    ],
+    [
+      "--spinner-opacity",
+      "Spinner opacity",
+      "1"
+    ],
+    [
+      "--spinner-track-opacity",
+      "Track opacity",
+      "0.16"
+    ],
+    [
+      "--spinner-cap",
+      "Stroke caps",
+      "round"
+    ]
+  ]
+}

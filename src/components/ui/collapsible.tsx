@@ -1,5 +1,17 @@
 "use client"
 
+export * from "@/components/primitives/collapsible"
+
+/* Theming: set on a part or its ancestor; unset variables preserve the original theme.
+   --collapsible-height: Trigger height (default: 2.25rem).
+   --collapsible-gap: Label and chevron gap (default: 0.75rem).
+   --collapsible-radius: Trigger corners (default: 9px).
+   --collapsible-font: Trigger label size (default: 13px).
+   --collapsible-face: Trigger surface (default: transparent; hover --foreground 4.5%; pressed --foreground 7%).
+   --collapsible-muted: Resting trigger text (default: --muted-foreground).
+   --collapsible-ink: Open and hovered trigger text (default: --foreground).
+ */
+
 /* Styled collapsible: the animated primitive plus the Keyframery look. */
 
 import * as React from "react"
@@ -12,10 +24,15 @@ import {
 import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 function Collapsible({ speed, className, ...props }: React.ComponentProps<typeof CollapsibleRoot> & SpeedProps) {
   return (
     <Speed speed={speed}>
-      <CollapsibleRoot className={cn("flex w-full flex-col", className)} {...props} />
+      <CollapsibleRoot className={withClass("flex w-full flex-col", className)} {...props} />
     </Speed>
   )
 }
@@ -28,14 +45,16 @@ function CollapsibleTrigger({
 }: React.ComponentProps<typeof CollapsibleTriggerPart>) {
   return (
     <CollapsibleTriggerPart
-      className={cn(
-        "group/collapsible-trigger flex h-9 w-full cursor-pointer items-center gap-3 rounded-[9px] px-2.5 text-left text-[13px] leading-none font-medium text-muted-foreground outline-none select-none",
-        "[transition:color_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)] motion-reduce:transition-none!",
-        "not-data-disabled:hover:bg-foreground/[0.045] not-data-disabled:hover:text-foreground",
-        "not-data-disabled:active:scale-[0.98] not-data-disabled:active:bg-foreground/[0.07]",
-        "data-open:text-foreground",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "data-disabled:cursor-not-allowed data-disabled:opacity-40",
+      className={withClass(
+        cn(
+          "group/collapsible-trigger flex h-[var(--collapsible-height,2.25rem)] w-full cursor-pointer items-center gap-[var(--collapsible-gap,0.75rem)] rounded-[var(--collapsible-radius,9px)] bg-[var(--collapsible-face,transparent)] px-2.5 text-left text-[length:var(--collapsible-font,13px)] leading-none font-medium text-[color:var(--collapsible-muted,var(--muted-foreground))] outline-none select-none",
+          "[transition:color_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)] motion-reduce:transition-none!",
+          "not-data-disabled:hover:bg-[var(--collapsible-face,color-mix(in_oklab,var(--foreground)_4.5%,transparent))] not-data-disabled:hover:text-[color:var(--collapsible-ink,var(--foreground))]",
+          "not-data-disabled:active:scale-[0.98] not-data-disabled:active:bg-[color-mix(in_oklab,var(--collapsible-face,transparent),var(--foreground)_7%)]",
+          "data-open:text-[color:var(--collapsible-ink,var(--foreground))]",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "data-disabled:cursor-not-allowed data-disabled:opacity-40",
+        ),
         className,
       )}
       {...props}
@@ -65,7 +84,7 @@ function CollapsibleTrigger({
 
 /* Height and the cascade of the content come from the primitive: put rows straight inside. */
 function CollapsiblePanel({ className, ...props }: React.ComponentProps<typeof CollapsiblePanelPart>) {
-  return <CollapsiblePanelPart className={cn(className)} {...props} />
+  return <CollapsiblePanelPart className={className} {...props} />
 }
 
 export { Collapsible, CollapsiblePanel, CollapsibleTrigger }

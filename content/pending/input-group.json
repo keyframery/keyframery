@@ -1,0 +1,78 @@
+{
+  "description": "Icons, text, buttons and a count around an input or textarea, in one field: the focus ring closes in on the whole group, the count rolls as you type and a send button pops in with the first character.",
+  "moves": [
+    [
+      "Spring",
+      "The focus ring belongs to the group: it starts out wide and closes onto the field on a spring."
+    ],
+    [
+      "Roll",
+      "The count rolls its digits up or down as the text grows and shrinks."
+    ],
+    [
+      "Pop",
+      "Anything marked `data-show=\"filled\"`, like a send button, pops in with the first character and shrinks away when the field is empty."
+    ],
+    [
+      "Press",
+      "Buttons in the group sink and spring back."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves between the field and the buttons in the group; each is its own tab stop."
+    ],
+    [
+      "Enter",
+      "Presses the focused button."
+    ],
+    [
+      "Space",
+      "Presses the focused button."
+    ]
+  ],
+  "propDocs": {
+    "InputGroupAddon.align": "Where the addon sits: `\"inline-start\"` (before the input, the default), `\"inline-end\"` (after it), `\"block-start\"` (above a textarea) or `\"block-end\"` (below it).",
+    "InputGroupCount.show": "`\"used\"` shows how many characters the field holds (with `/maxLength` when it has one); `\"left\"` shows how many are left under its `maxLength`.",
+    "InputGroupButton.size": "`\"xs\"` (24px, the default), `\"sm\"` (28px), `\"icon-xs\"` or `\"icon-sm\"` for a square icon button.",
+    "InputGroupButton.variant": "Which Button look to use. Ghost by default, so it sits quietly inside the field."
+  },
+  "cssVars": [
+    [
+      "--input-group-face",
+      "Field surface",
+      "bg-background"
+    ],
+    [
+      "--input-group-ink",
+      "Field text",
+      "text-foreground"
+    ],
+    [
+      "--input-group-muted",
+      "Addon text",
+      "text-muted-foreground"
+    ],
+    [
+      "--input-group-radius",
+      "Field corners",
+      "rounded-[10px]"
+    ],
+    [
+      "--input-group-font",
+      "Input size",
+      "text-[13px]"
+    ],
+    [
+      "--input-group-height",
+      "Input height",
+      "h-9"
+    ],
+    [
+      "--input-group-inset-x",
+      "Side padding",
+      "px-3"
+    ]
+  ]
+}

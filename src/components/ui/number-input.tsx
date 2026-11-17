@@ -1,5 +1,17 @@
 "use client"
 
+export * from "@/components/primitives/number-input"
+
+/* Theming (inherited; each default preserves the original light/dark appearance):
+   --number-input-surface: Field surface (default: --background)
+   --number-input-ink: Value and stepper text (default: --foreground)
+   --number-input-key: Stepper surface (default: --background, --accent in dark)
+   --number-input-focus: Focused or scrubbing outline (default: --ring)
+   --number-input-radius: Field corners (default: 10px)
+   --number-input-height: Field height (default: 2.25rem)
+   --number-input-step-size: Stepper width and height (default: 1.75rem)
+*/
+
 /* Styled number input: the animated primitive plus the Keyframery look. */
 
 import * as React from "react"
@@ -17,10 +29,15 @@ import {
 import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 function NumberInput({ speed, className, ...props }: React.ComponentProps<typeof NumberInputRoot> & SpeedProps) {
   return (
     <Speed speed={speed}>
-      <NumberInputRoot className={cn("flex min-w-0 flex-col gap-1.5", className)} {...props} />
+      <NumberInputRoot className={withClass("flex min-w-0 flex-col gap-1.5", className)} {...props} />
     </Speed>
   )
 }
@@ -32,17 +49,19 @@ function NumberInputGroup({
 }: React.ComponentProps<typeof NumberInputGroupPrimitive>) {
   return (
     <NumberInputGroupPrimitive
-      className={cn(
-        "flex h-9 w-full min-w-0 items-center gap-1 rounded-[10px] bg-background p-1 text-[13px]",
-        "outline-0 outline-ring",
-        "[--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)]",
-        "shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)]",
-        "hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)]",
-        "has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-ring/30 has-[input:focus-visible]:[--field-line:var(--ring)] dark:has-[input:focus-visible]:[--field-line:var(--ring)]",
-        "data-scrubbing:outline-[3px] data-scrubbing:outline-ring/30 data-scrubbing:[--field-line:var(--ring)] dark:data-scrubbing:[--field-line:var(--ring)]",
-        "has-aria-invalid:outline-destructive has-aria-invalid:has-[input:focus-visible]:outline-destructive/30 has-aria-invalid:[--field-line:var(--destructive)] dark:has-aria-invalid:[--field-line:var(--destructive)]",
-        "data-readonly:bg-muted/50",
-        "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+      className={withClass(
+        cn(
+          "flex h-[var(--number-input-height,2.25rem)] w-full min-w-0 items-center gap-1 rounded-[var(--number-input-radius,10px)] bg-[var(--number-input-surface,var(--background))] p-1 text-[13px]",
+          "outline-0 outline-[color:var(--number-input-focus,var(--ring))]",
+          "[--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)]",
+          "shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)]",
+          "hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)]",
+          "has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[color:color-mix(in_oklab,var(--number-input-focus,var(--ring))_30%,transparent)] has-[input:focus-visible]:[--field-line:var(--number-input-focus,var(--ring))] dark:has-[input:focus-visible]:[--field-line:var(--number-input-focus,var(--ring))]",
+          "data-scrubbing:outline-[3px] data-scrubbing:outline-[color:color-mix(in_oklab,var(--number-input-focus,var(--ring))_30%,transparent)] data-scrubbing:[--field-line:var(--number-input-focus,var(--ring))] dark:data-scrubbing:[--field-line:var(--number-input-focus,var(--ring))]",
+          "has-aria-invalid:outline-destructive has-aria-invalid:has-[input:focus-visible]:outline-destructive/30 has-aria-invalid:[--field-line:var(--destructive)] dark:has-aria-invalid:[--field-line:var(--destructive)]",
+          "data-readonly:bg-muted/50",
+          "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+        ),
         className,
       )}
       {...props}
@@ -56,9 +75,11 @@ function NumberInputControl({
 }: React.ComponentProps<typeof NumberInputControlPrimitive>) {
   return (
     <NumberInputControlPrimitive
-      className={cn(
-        "h-full w-full min-w-0 flex-1 bg-transparent text-center text-[13px] font-medium text-foreground tabular-nums outline-none placeholder:text-muted-foreground/70",
-        "data-disabled:cursor-not-allowed data-disabled:text-muted-foreground",
+      className={withClass(
+        cn(
+          "h-full w-full min-w-0 flex-1 bg-transparent text-center text-[13px] font-medium text-[color:var(--number-input-ink,var(--foreground))] tabular-nums outline-none placeholder:text-muted-foreground/70",
+          "data-disabled:cursor-not-allowed data-disabled:text-muted-foreground",
+        ),
         className,
       )}
       {...props}
@@ -68,10 +89,10 @@ function NumberInputControl({
 
 /* A small key. It goes flat at its bound or when the field is off. */
 const stepKey = cn(
-  "grid size-7 shrink-0 cursor-pointer place-items-center rounded-[7px] bg-background text-foreground outline-none select-none",
+  "grid size-[var(--number-input-step-size,1.75rem)] shrink-0 cursor-pointer place-items-center rounded-[7px] bg-[var(--number-input-key,var(--background))] text-[color:var(--number-input-ink,var(--foreground))] outline-none select-none",
   "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_2px_4px_-2px_rgb(0_0_0/0.1)]",
-  "dark:bg-accent dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
-  "hover:bg-muted/60 dark:hover:bg-accent/80",
+  "dark:bg-[var(--number-input-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+  "hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--muted))_60%,transparent)] dark:hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--accent))_80%,transparent)]",
   "active:translate-y-px active:shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_0_1px_rgb(0_0_0/0.08)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_1px_rgb(0_0_0/0.6)]",
   "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
   "data-disabled:cursor-not-allowed data-disabled:translate-y-0 data-disabled:bg-transparent data-disabled:text-muted-foreground/50 data-disabled:shadow-none dark:data-disabled:bg-transparent dark:data-disabled:shadow-none",
@@ -101,7 +122,7 @@ function NumberInputDecrement({
   ...props
 }: React.ComponentProps<typeof NumberInputDecrementPrimitive>) {
   return (
-    <NumberInputDecrementPrimitive className={cn(stepKey, className)} {...props}>
+    <NumberInputDecrementPrimitive className={withClass(stepKey, className)} {...props}>
       {children ?? <StepIcon />}
     </NumberInputDecrementPrimitive>
   )
@@ -113,7 +134,7 @@ function NumberInputIncrement({
   ...props
 }: React.ComponentProps<typeof NumberInputIncrementPrimitive>) {
   return (
-    <NumberInputIncrementPrimitive className={cn(stepKey, className)} {...props}>
+    <NumberInputIncrementPrimitive className={withClass(stepKey, className)} {...props}>
       {children ?? <StepIcon plus />}
     </NumberInputIncrementPrimitive>
   )
@@ -126,9 +147,11 @@ function NumberInputScrubArea({
 }: React.ComponentProps<typeof NumberInputScrubAreaPart>) {
   return (
     <NumberInputScrubAreaPart
-      className={cn(
-        "w-fit cursor-ew-resize select-none data-[orientation=vertical]:cursor-ns-resize",
-        "data-disabled:cursor-not-allowed data-readonly:cursor-default",
+      className={withClass(
+        cn(
+          "w-fit cursor-ew-resize select-none data-[orientation=vertical]:cursor-ns-resize",
+          "data-disabled:cursor-not-allowed data-readonly:cursor-default",
+        ),
         className,
       )}
       {...props}
@@ -144,10 +167,7 @@ function NumberInputScrubAreaCursor({
 }: React.ComponentProps<typeof NumberInputScrubAreaCursorPart>) {
   return (
     <NumberInputScrubAreaCursorPart
-      className={cn(
-        "pointer-events-none -ms-2 -mt-2 size-4 text-foreground drop-shadow-[0_1px_1px_rgb(0_0_0/0.25)] [&_svg]:size-4",
-        className,
-      )}
+      className={withClass("pointer-events-none -ms-2 -mt-2 size-4 text-[color:var(--number-input-ink,var(--foreground))] drop-shadow-[0_1px_1px_rgb(0_0_0/0.25)] [&_svg]:size-4", className)}
       {...props}
     >
       {children ?? (

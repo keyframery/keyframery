@@ -1,0 +1,45 @@
+{
+  "cssVars": [
+    [
+      "--drawer-face",
+      "Drawer sheet and overscroll strip",
+      "--popover"
+    ],
+    [
+      "--drawer-ink",
+      "Drawer body text",
+      "--popover-foreground"
+    ],
+    [
+      "--drawer-accent",
+      "Primary action and hover mix",
+      "--primary"
+    ],
+    [
+      "--drawer-width",
+      "Sheet maximum width",
+      "480px top/bottom; 380px left/right"
+    ],
+    [
+      "--drawer-radius",
+      "Free-edge corners",
+      "18px"
+    ],
+    [
+      "--drawer-gap",
+      "Footer key spacing",
+      "0.5rem"
+    ]
+  ],
+  "propDocs": {
+    "Drawer.side": "Edge to open from; start and end follow writing direction.",
+    "Drawer.modal": "Modal, focus trap only or non-modal interaction.",
+    "Drawer.driver": "Automatic, pointer spring or native scroll snap movement.",
+    "Drawer.dismissible": "Allow Escape, back and swipe dismissal.",
+    "Drawer.closeOnOutsidePress": "Dismiss after an outside press.",
+    "DrawerTrigger.disabled": "Prevent opening from this trigger.",
+    "DrawerTrigger.focusableWhenDisabled": "Keep the disabled trigger focusable.",
+    "DrawerContent.keepMounted": "Retain closed drawer content, hidden.",
+    "DrawerClose.variant": "Default or primary action appearance."
+  }
+}

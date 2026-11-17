@@ -1,3 +1,5 @@
+import * as React from "react"
+
 import {
   Autocomplete,
   AutocompleteClear,
@@ -13,6 +15,29 @@ import {
   AutocompleteLabel,
   AutocompleteList,
 } from "@/components/ui/autocomplete"
+
+export const controls = {
+  disabled: { type: "switch", label: "Disabled", default: false, group: "Behaviour" },
+  readOnly: { type: "switch", label: "Read only", default: false, group: "Behaviour" },
+  required: { type: "switch", label: "Required", default: false, group: "Behaviour" },
+  openOnFocus: { type: "switch", label: "Open on focus", default: true, group: "Behaviour" },
+  autoHighlight: { type: "switch", label: "Auto highlight", default: true, group: "Behaviour" },
+  inlineComplete: { type: "switch", label: "Inline complete", default: false, group: "Behaviour" },
+  loop: { type: "switch", label: "Loop", default: true, group: "Behaviour" },
+  filter: { type: "select", label: "Filter", default: "contains", options: ["contains", "startsWith", "fuzzy"], group: "Behaviour" },
+  side: { type: "select", label: "Side", default: "bottom", options: ["bottom", "top", "left", "right"], group: "Behaviour" },
+  align: { type: "select", label: "Align", default: "start", options: ["start", "center", "end"], group: "Behaviour" },
+  label: { type: "text", label: "Label", default: "Find a recipe" },
+  placeholder: { type: "text", label: "Placeholder", default: "Pasta, curry, something sweet…" },
+  empty: { type: "text", label: "Empty", default: "No recipes match. Press Enter to search anyway." },
+  items: { type: "slider", label: "Items", default: 12, min: 1, max: 12, step: 1 },
+  width: { type: "slider", label: "Width", default: 340, min: 240, max: 480, step: 1, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Gap", default: 6, min: 0, max: 24, step: 1, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Radius", default: 14, min: 0, max: 24, step: 1, unit: "px", group: "Layout" },
+  face: { type: "color", label: "Face", default: "", group: "Colours" },
+  ink: { type: "color", label: "Ink", default: "", group: "Colours" },
+  accent: { type: "color", label: "Accent", default: "", group: "Colours" },
+} as const
 
 export const meta = { name: "Autocomplete", group: "Menus" }
 
@@ -81,18 +106,66 @@ function Recipe({ name, recentRow }: { name: string; recentRow?: boolean }) {
   )
 }
 
-export default function AutocompleteDemo() {
+export default function AutocompleteDemo({
+  disabled = false,
+  readOnly = false,
+  required = false,
+  openOnFocus = true,
+  autoHighlight = true,
+  inlineComplete = false,
+  loop = true,
+  filter = "contains",
+  side = "bottom",
+  align = "start",
+  label = "Find a recipe",
+  placeholder = "Pasta, curry, something sweet…",
+  empty = "No recipes match. Press Enter to search anyway.",
+  items = 12,
+  width = 340,
+  gap = 6,
+  radius = 14,
+  face = "",
+  ink = "",
+  accent = "",
+}: {
+  disabled?: boolean
+  readOnly?: boolean
+  required?: boolean
+  openOnFocus?: boolean
+  autoHighlight?: boolean
+  inlineComplete?: boolean
+  loop?: boolean
+  filter?: "contains" | "startsWith" | "fuzzy"
+  side?: "bottom" | "top" | "left" | "right"
+  align?: "start" | "center" | "end"
+  label?: string
+  placeholder?: string
+  empty?: string
+  items?: number
+  width?: number
+  gap?: number
+  radius?: number
+  face?: string
+  ink?: string
+  accent?: string
+}) {
+  const theme = {
+    "--autocomplete-radius": `${radius}px`,
+    ...(face ? { "--autocomplete-face": face } : null),
+    ...(ink ? { "--autocomplete-ink": ink } : null),
+    ...(accent ? { "--autocomplete-accent": accent } : null),
+  } as React.CSSProperties
   return (
-    <div className="flex w-full max-w-[340px] flex-col gap-2">
-      <Autocomplete items={recipes} emptyItems={recentGroup} openOnFocus autoHighlight>
-        <AutocompleteLabel>Find a recipe</AutocompleteLabel>
+    <div style={{ ...theme, maxWidth: width }} className="flex w-full flex-col gap-2">
+      <Autocomplete items={recipes.slice(0, items)} emptyItems={recentGroup} openOnFocus={openOnFocus} autoHighlight={autoHighlight} disabled={disabled} readOnly={readOnly} required={required} inlineComplete={inlineComplete} loop={loop} filter={filter}>
+        <AutocompleteLabel>{label}</AutocompleteLabel>
         <AutocompleteControl>
           <SearchIcon />
-          <AutocompleteInput type="search" placeholder="Pasta, curry, something sweet…" />
+          <AutocompleteInput type="search" placeholder={placeholder} />
           <AutocompleteClear aria-label="Clear search" />
         </AutocompleteControl>
-        <AutocompleteContent>
-          <AutocompleteEmpty>No recipes match. Press Enter to search anyway.</AutocompleteEmpty>
+        <AutocompleteContent style={theme} side={side} align={align} sideOffset={gap}>
+          <AutocompleteEmpty>{empty}</AutocompleteEmpty>
           <AutocompleteList>
             {(state) =>
               (state.items as Entry[]).map((entry) =>

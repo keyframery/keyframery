@@ -4,6 +4,10 @@
 
 import Link from "next/link"
 import * as React from "react"
+import { RotateCw } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { type PlayStep, useAutoplay } from "@/lib/autoplay"
 
 import { MotionStyle, motionStyle, type MotionStyleValue, usePreference } from "@/components/primitives/preferences"
 import { MotionStyleSwitcher } from "@/components/ui/preferences"
@@ -110,41 +114,18 @@ export function HeroBoard() {
 /* ---------------------------------------------------------------- The same click, twice */
 
 const TAB_ORDER = [3, 1, 2, 0]
+const comparisonPlay: PlayStep[] = TAB_ORDER.flatMap((index) => [
+  { click: `[data-side="still"] [role="tab"]:nth-of-type(${index + 1})`, wait: 0 },
+  { click: `[data-side="moving"] [role="tab"]:nth-of-type(${index + 1})`, wait: 2200 },
+])
 
 /* Two copies of the same tabs. The left one has every transition and animation turned off, which is what
    UI SDK gives you before you add motion. A script clicks the same tab in both at the same moment. */
 export function SameClick() {
   const root = React.useRef<HTMLDivElement>(null)
+  const [run, setRun] = React.useState(0)
   const still: DemoModule = React.useMemo(() => ({ default: tabs.default, meta: tabs.meta }), [])
-
-  React.useEffect(() => {
-    const el = root.current
-    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    let visible = false
-    let hands = false
-    let step = 0
-    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.5 })
-    io.observe(el)
-    const enter = () => {
-      hands = true
-      el.removeAttribute("data-autoplaying")
-    }
-    const leave = () => (hands = false)
-    el.addEventListener("pointerenter", enter)
-    el.addEventListener("pointerleave", leave)
-    const timer = setInterval(() => {
-      if (!visible || hands) return
-      el.setAttribute("data-autoplaying", "")
-      const index = TAB_ORDER[step++ % TAB_ORDER.length]
-      for (const side of el.querySelectorAll("[data-side]")) side.querySelectorAll<HTMLElement>('[role="tab"]')[index]?.click()
-    }, 2200)
-    return () => {
-      clearInterval(timer)
-      io.disconnect()
-      el.removeEventListener("pointerenter", enter)
-      el.removeEventListener("pointerleave", leave)
-    }
-  }, [])
+  useAutoplay(root, comparisonPlay, run)
 
   return (
     <div ref={root} className="grid gap-5 md:grid-cols-2">
@@ -158,8 +139,12 @@ export function SameClick() {
             <span className="font-medium">{name}</span>
             <span className="lp-muted">{note}</span>
           </p>
-          <div className={cn("lp-card overflow-hidden rounded-2xl", frame)}>
-            <DemoFrame demo={still} slug={`tabs-${side}`} className="lp-stage h-[300px]" pad={24} fitHeight />
+          <div className={cn("lp-card relative overflow-hidden rounded-2xl", frame)}>
+            {side === "moving" && <Button variant="ghost" size="icon" onClick={() => setRun((now) => now + 1)} aria-label="Replay the comparison" title="Replay both examples"
+              className="absolute top-3 right-3 z-20 size-8 rounded-[10px] border border-border/70 bg-background/90 text-muted-foreground shadow-sm hover:text-foreground">
+              <RotateCw aria-hidden className="size-3.5" />
+            </Button>}
+            <DemoFrame key={run} demo={still} slug={`tabs-${side}`} className="lp-stage h-[300px]" pad={24} fitHeight replay={false} />
           </div>
         </div>
       ))}

@@ -1,0 +1,53 @@
+{
+  "cssVars": [
+    [
+      "--tabs-track",
+      "Tab list well",
+      "--muted"
+    ],
+    [
+      "--tabs-key",
+      "Selected tab surface",
+      "--background; --accent in dark"
+    ],
+    [
+      "--tabs-ink",
+      "Unselected labels",
+      "--muted-foreground"
+    ],
+    [
+      "--tabs-selected-ink",
+      "Selected labels",
+      "--foreground"
+    ],
+    [
+      "--tabs-height",
+      "Tab height",
+      "2rem"
+    ],
+    [
+      "--tabs-radius",
+      "List corners",
+      "12px"
+    ],
+    [
+      "--tabs-key-radius",
+      "Tab key corners",
+      "9px"
+    ],
+    [
+      "--tabs-gap",
+      "Space between tabs",
+      "0.125rem"
+    ]
+  ],
+  "propDocs": {
+    "Tabs.orientation": "Controls the layout and arrow-key axis.",
+    "Tabs.activation": "Automatic selects on focus; manual waits for Enter or Space.",
+    "Tabs.loop": "Wraps arrow-key focus at either end.",
+    "Tabs.hiddenUntilFound": "Keeps panels available for find in page.",
+    "Tabs.defaultValue": "Initially selected tab.",
+    "TabsTab.disabled": "Keeps focusable tabs from being selected.",
+    "TabsPanel.keepMounted": "Retains inactive panel DOM."
+  }
+}

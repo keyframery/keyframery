@@ -19,6 +19,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/autocomplete"
 
 const press =
@@ -27,13 +32,15 @@ const press =
 function AutocompleteContent({ className, ...props }: React.ComponentProps<typeof AutocompleteContentPart>) {
   return (
     <AutocompleteContentPart
-      className={cn(
-        "group/kf-content origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
-        "data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
-        "data-[side=bottom]:data-starting-style:-translate-y-2 data-[side=top]:data-starting-style:translate-y-2",
-        "data-[side=left]:data-starting-style:translate-x-2 data-[side=right]:data-starting-style:-translate-x-2",
-        "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
-        "motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "group/kf-content origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
+          "data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
+          "data-[side=bottom]:data-starting-style:-translate-y-2 data-[side=top]:data-starting-style:translate-y-2",
+          "data-[side=left]:data-starting-style:translate-x-2 data-[side=right]:data-starting-style:-translate-x-2",
+          "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -46,13 +53,15 @@ function AutocompleteContent({ className, ...props }: React.ComponentProps<typeo
 function AutocompleteList({ className, ...props }: React.ComponentProps<typeof AutocompleteListPart>) {
   return (
     <AutocompleteListPart
-      className={cn(
-        "relative isolate [anchor-scope:--kf-hl]",
-        "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_9%,transparent)] before:opacity-0",
-        "before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-        "before:transition-[top,right,bottom,left,opacity] before:duration-[calc(260ms*var(--kf-speed,1))] before:ease-spring",
-        "has-[[data-highlighted]]:before:opacity-100",
-        "motion-reduce:before:transition-none!",
+      className={withClass(
+        cn(
+          "relative isolate [anchor-scope:--kf-hl]",
+          "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_9%,transparent)] before:opacity-0",
+          "before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
+          "before:transition-[top,right,bottom,left,opacity] before:duration-[calc(260ms*var(--kf-speed,1))] before:ease-spring",
+          "has-[[data-highlighted]]:before:opacity-100",
+          "motion-reduce:before:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -65,13 +74,15 @@ function AutocompleteList({ className, ...props }: React.ComponentProps<typeof A
 function AutocompleteItem({ className, ...props }: React.ComponentProps<typeof AutocompleteItemPart>) {
   return (
     <AutocompleteItemPart
-      className={cn(
-        "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)))]",
-        "group-data-starting-style/kf-content:translate-y-2 group-data-starting-style/kf-content:opacity-0 group-data-starting-style/kf-content:blur-[4px]",
-        "group-data-ending-style/kf-content:[transition-delay:0ms]",
-        "group-data-starting-style/kf-content:transition-none",
-        "data-highlighted:[anchor-name:--kf-hl]",
-        "motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)))]",
+          "group-data-starting-style/kf-content:translate-y-2 group-data-starting-style/kf-content:opacity-0 group-data-starting-style/kf-content:blur-[4px]",
+          "group-data-ending-style/kf-content:[transition-delay:0ms]",
+          "group-data-starting-style/kf-content:transition-none",
+          "data-highlighted:[anchor-name:--kf-hl]",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -82,9 +93,11 @@ function AutocompleteItem({ className, ...props }: React.ComponentProps<typeof A
 function AutocompleteTrigger({ className, ...props }: React.ComponentProps<typeof AutocompleteTriggerPart>) {
   return (
     <AutocompleteTriggerPart
-      className={cn(
-        press,
-        "[&_svg]:transition-[rotate] [&_svg]:duration-[calc(420ms*var(--kf-speed,1))] [&_svg]:ease-spring data-open:[&_svg]:rotate-180 motion-reduce:[&_svg]:transition-none",
+      className={withClass(
+        cn(
+          press,
+          "[&_svg]:transition-[rotate] [&_svg]:duration-[calc(420ms*var(--kf-speed,1))] [&_svg]:ease-spring data-open:[&_svg]:rotate-180 motion-reduce:[&_svg]:transition-none",
+        ),
         className,
       )}
       {...props}
@@ -96,7 +109,12 @@ function AutocompleteTrigger({ className, ...props }: React.ComponentProps<typeo
 function AutocompleteClear({ className, ...props }: React.ComponentProps<typeof AutocompleteClearPart>) {
   return (
     <AutocompleteClearPart
-      className={cn(press, "duration-[calc(360ms*var(--kf-speed,1))] starting:scale-50 starting:opacity-0", className)}
+      className={withClass(
+        cn(
+          press, "duration-[calc(360ms*var(--kf-speed,1))] starting:scale-50 starting:opacity-0",
+        ),
+        className,
+      )}
       {...props}
     />
   )

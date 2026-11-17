@@ -1,0 +1,45 @@
+{
+  "cssVars": [
+    [
+      "--slider-track",
+      "Empty track",
+      "--muted; --accent in dark"
+    ],
+    [
+      "--slider-fill",
+      "Filled range",
+      "--primary"
+    ],
+    [
+      "--slider-thumb",
+      "Thumb face",
+      "--background; foreground mixed with 8% background in dark"
+    ],
+    [
+      "--slider-thickness",
+      "Track thickness",
+      "0.375rem"
+    ],
+    [
+      "--slider-thumb-size",
+      "Thumb diameter",
+      "1rem"
+    ],
+    [
+      "--slider-radius",
+      "Track and thumb corners",
+      "9999px"
+    ]
+  ],
+  "propDocs": {
+    "Slider.orientation": "Horizontal by default; vertical increases upward.",
+    "Slider.disabled": "Disables all thumbs.",
+    "Slider.readOnly": "Allows focus while preventing value changes.",
+    "Slider.required": "Marks the slider required; it always has a value.",
+    "Slider.min": "Lower bound.",
+    "Slider.max": "Upper bound.",
+    "Slider.step": "Step size from the minimum.",
+    "Slider.minStepsBetweenThumbs": "Minimum separation measured in steps.",
+    "Slider.value": "A number for one thumb, or a number array for a range."
+  }
+}

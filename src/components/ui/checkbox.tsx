@@ -1,5 +1,16 @@
 "use client"
 
+export * from "@/components/primitives/checkbox"
+
+/* Theming: set on a part or its ancestor; unset variables preserve the original theme.
+   --checkbox-size: Checkbox size (default: 18px).
+   --checkbox-radius: Box corners (default: 5px).
+   --checkbox-face: Unchecked box surface (default: --background; dark --accent 40%).
+   --checkbox-accent: Checked box surface and hover mix (default: --primary).
+   --checkbox-ink: Check and dash (default: --primary-foreground).
+   --checkbox-gap: Group spacing (default: 0.625rem).
+ */
+
 /* Styled checkbox: the animated primitive plus the Keyframery look. */
 
 import * as React from "react"
@@ -12,6 +23,11 @@ import {
 import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 function Checkbox({
   speed,
   className,
@@ -21,17 +37,19 @@ function Checkbox({
   return (
     <Speed speed={speed}>
       <CheckboxPrimitive
-        className={cn(
-          "relative inline-grid size-[18px] shrink-0 cursor-pointer place-items-center rounded-[5px] outline-none select-none",
-          /* Unchecked: a small field. The primary key is the indicator, which pops in on top. */
-          "bg-background shadow-[0_0_0_1px_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.05)]",
-          "dark:bg-accent/40 dark:shadow-[0_0_0_1px_rgb(255_255_255/0.14)]",
-          "not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.24),0_1px_2px_rgb(0_0_0/0.06)]",
-          "dark:not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.24)]",
-          "transition-[box-shadow,scale] motion-reduce:transition-none!",
-          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-default",
-          className as string,
+        className={withClass(
+          cn(
+            "relative inline-grid size-[var(--checkbox-size,18px)] shrink-0 cursor-pointer place-items-center rounded-[var(--checkbox-radius,5px)] outline-none select-none",
+            /* Unchecked: a small field. The primary key is the indicator, which pops in on top. */
+            "bg-[var(--checkbox-face,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.05)]",
+            "dark:bg-[var(--checkbox-face,color-mix(in_oklab,var(--accent)_40%,transparent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.14)]",
+            "not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.24),0_1px_2px_rgb(0_0_0/0.06)]",
+            "dark:not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.24)]",
+            "transition-[box-shadow,scale] motion-reduce:transition-none!",
+            "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-default",
+          ),
+          className,
         )}
         {...props}
       >
@@ -51,12 +69,14 @@ function CheckboxIndicator({
   return (
     <CheckboxIndicatorPrimitive
       aria-hidden
-      className={cn(
-        "pointer-events-none absolute inset-0 grid place-items-center rounded-[inherit] [--kf-dash:1] [&_svg]:size-3",
-        "bg-primary text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
-        "dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)]",
-        "[[data-slot=checkbox]:not([data-disabled]):not([data-readonly]):hover>&]:bg-[color-mix(in_oklab,var(--primary),var(--background)_10%)]",
-        className as string,
+      className={withClass(
+        cn(
+          "pointer-events-none absolute inset-0 grid place-items-center rounded-[inherit] [--kf-dash:1] [&_svg]:size-3",
+          "bg-[var(--checkbox-accent,var(--primary))] text-[color:var(--checkbox-ink,var(--primary-foreground))] shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
+          "dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)]",
+          "[[data-slot=checkbox]:not([data-disabled]):not([data-readonly]):hover>&]:bg-[color-mix(in_oklab,var(--checkbox-accent,var(--primary)),var(--background)_10%)]",
+        ),
+        className,
       )}
       {...props}
     >
@@ -88,7 +108,7 @@ function CheckboxGroup({
 }: React.ComponentProps<typeof CheckboxGroupPrimitive> & SpeedProps) {
   return (
     <Speed speed={speed}>
-      <CheckboxGroupPrimitive className={cn("flex flex-col gap-2.5", className as string)} {...props} />
+      <CheckboxGroupPrimitive className={withClass("flex flex-col gap-[var(--checkbox-gap,0.625rem)]", className)} {...props} />
     </Speed>
   )
 }

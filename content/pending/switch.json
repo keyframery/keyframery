@@ -1,0 +1,50 @@
+{
+  "cssVars": [
+    [
+      "--switch-off",
+      "Unchecked track",
+      "--muted; --accent in dark"
+    ],
+    [
+      "--switch-on",
+      "Checked track",
+      "--primary"
+    ],
+    [
+      "--switch-thumb",
+      "Thumb surface",
+      "--background; foreground mixed with 8% background in dark; --primary-foreground when checked in dark"
+    ],
+    [
+      "--switch-width",
+      "Track width",
+      "38px"
+    ],
+    [
+      "--switch-height",
+      "Track height",
+      "22px"
+    ],
+    [
+      "--switch-thumb-size",
+      "Resting thumb width",
+      "18px"
+    ],
+    [
+      "--switch-radius",
+      "Track and thumb corners",
+      "9999px"
+    ],
+    [
+      "--switch-pad",
+      "Thumb inset",
+      "2px"
+    ]
+  ],
+  "propDocs": {
+    "Switch.defaultChecked": "Initial checked state; a form reset restores it.",
+    "Switch.disabled": "Disables pointer, keyboard and form submission.",
+    "Switch.readOnly": "Keeps focus and submission while preventing toggles.",
+    "Switch.required": "Requires the switch to be on for form submission."
+  }
+}

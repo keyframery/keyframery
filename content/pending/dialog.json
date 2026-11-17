@@ -1,0 +1,49 @@
+{
+  "cssVars": [
+    [
+      "--dialog-face",
+      "Dialog sheet",
+      "--popover"
+    ],
+    [
+      "--dialog-ink",
+      "Dialog body text",
+      "--popover-foreground"
+    ],
+    [
+      "--dialog-action",
+      "Primary or destructive action",
+      "--primary / --destructive (dark destructive mixed with --background 24%)"
+    ],
+    [
+      "--dialog-radius",
+      "Sheet corners",
+      "18px"
+    ],
+    [
+      "--dialog-width",
+      "Sheet width limit",
+      "440px"
+    ],
+    [
+      "--dialog-padding",
+      "Sheet padding",
+      "1.25rem"
+    ],
+    [
+      "--dialog-gap",
+      "Footer key spacing",
+      "0.5rem"
+    ]
+  ],
+  "propDocs": {
+    "Dialog.modal": "true blocks the page; trap-focus traps focus only; false allows the page beside the dialog.",
+    "Dialog.presentation": "Dialog, bottom sheet or automatic touch adaptation.",
+    "Dialog.dismissible": "Allow Escape and back gesture dismissal.",
+    "Dialog.closeOnOutsidePress": "Dismiss after an outside press is released.",
+    "DialogTrigger.disabled": "Prevent the trigger opening the dialog.",
+    "DialogTrigger.focusableWhenDisabled": "Keep the disabled trigger keyboard focusable.",
+    "DialogContent.keepMounted": "Keep closed dialog content hidden in the DOM.",
+    "DialogClose.variant": "Default, primary, destructive or corner icon key."
+  }
+}

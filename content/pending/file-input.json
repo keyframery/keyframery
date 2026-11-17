@@ -1,0 +1,50 @@
+{
+  "cssVars": [
+    [
+      "--file-input-gap",
+      "Dropzone and file list spacing",
+      "0.75rem"
+    ],
+    [
+      "--file-input-radius",
+      "Dropzone corners",
+      "14px"
+    ],
+    [
+      "--file-input-face",
+      "Dropzone, key and row surfaces",
+      "transparent / --background / dark --accent (rows 40%)"
+    ],
+    [
+      "--file-input-ink",
+      "Key and file-row text",
+      "--foreground"
+    ],
+    [
+      "--file-input-accent",
+      "Accepted-drag border, tint and icon",
+      "--ring, tint 7%, outer ring 15%"
+    ],
+    [
+      "--file-input-padding",
+      "Dropzone vertical padding",
+      "1.75rem"
+    ],
+    [
+      "--file-input-icon-size",
+      "Upload icon tile size",
+      "2.25rem"
+    ]
+  ],
+  "propDocs": {
+    "FileInput.multiple": "Append multiple accepted files instead of replacing one.",
+    "FileInput.directory": "Choose an entire folder; enables multiple files.",
+    "FileInput.capture": "false for file picker, true/default camera, user/front or environment/back camera.",
+    "FileInput.required": "Require at least one file before form submission.",
+    "FileInput.disabled": "Disable picking, drops, pastes and file actions.",
+    "FileInput.accept": "MIME types, wildcards or extensions to accept.",
+    "FileInput.maxFiles": "Maximum number of files in total.",
+    "FileInput.maxSize": "Maximum accepted file size in bytes.",
+    "FileInput.minSize": "Minimum accepted file size in bytes."
+  }
+}

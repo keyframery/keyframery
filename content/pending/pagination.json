@@ -1,0 +1,53 @@
+{
+  "cssVars": [
+    [
+      "--pagination-track",
+      "Pagination well",
+      "--muted"
+    ],
+    [
+      "--pagination-key",
+      "Current page key",
+      "--background, --accent in dark"
+    ],
+    [
+      "--pagination-ink",
+      "Page labels",
+      "--muted-foreground"
+    ],
+    [
+      "--pagination-selected-ink",
+      "Current and hovered page",
+      "--foreground"
+    ],
+    [
+      "--pagination-size",
+      "Page height and least width",
+      "2rem"
+    ],
+    [
+      "--pagination-radius",
+      "Well corners",
+      "12px"
+    ],
+    [
+      "--pagination-key-radius",
+      "Page corners",
+      "9px"
+    ],
+    [
+      "--pagination-gap",
+      "Page gap",
+      "0.125rem"
+    ]
+  ],
+  "propDocs": {
+    "Pagination.total": "Total results, used with pageSize to derive page count.",
+    "Pagination.pageSize": "Number of results on each page.",
+    "Pagination.page": "Controlled current page, starting at 1.",
+    "Pagination.siblings": "Visible page numbers on either side of the current page.",
+    "Pagination.boundaries": "Visible pages at each end of the range.",
+    "PaginationPrevious.children": "Custom label; omitted content uses the default chevron.",
+    "PaginationNext.children": "Custom label; omitted content uses the default chevron."
+  }
+}

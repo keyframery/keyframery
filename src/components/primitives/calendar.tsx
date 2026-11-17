@@ -24,6 +24,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/calendar"
 
 /* The month the first grid showed when it last rendered, so a month change can tell whether it
@@ -44,7 +49,7 @@ function Calendar({
     <ShownMonthContext.Provider value={shown}>
       <CalendarRoot
         data-direction={direction}
-        className={cn("group/calendar", className)}
+        className={withClass("group/calendar", className)}
         onMonthChange={(month, details) => {
           setDirection(shown.current && month < shown.current ? "previous" : "next")
           onMonthChange?.(month, details)
@@ -70,11 +75,11 @@ const pressable =
   "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.92] data-disabled:active:scale-100 motion-reduce:transition-none!"
 
 function CalendarPrevious({ className, ...props }: React.ComponentProps<typeof CalendarPreviousPart>) {
-  return <CalendarPreviousPart className={cn(pressable, className)} {...props} />
+  return <CalendarPreviousPart className={withClass(pressable, className)} {...props} />
 }
 
 function CalendarNext({ className, ...props }: React.ComponentProps<typeof CalendarNextPart>) {
-  return <CalendarNextPart className={cn(pressable, className)} {...props} />
+  return <CalendarNextPart className={withClass(pressable, className)} {...props} />
 }
 
 /* One month. Its rows are keyed by the month, so a new month arrives as new rows.
@@ -91,21 +96,23 @@ function CalendarGrid({
   return (
     <CalendarGridPart
       offset={offset}
-      className={cn(
-        "relative isolate [anchor-scope:--kf-day-a,--kf-day-b]",
-        "before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:content-[''] before:[position-anchor:--kf-day-a]",
-        "before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
-        "before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-        "before:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house)_calc(180ms*var(--kf-speed,1))]",
-        "motion-reduce:before:[transition:none]!",
-        "after:pointer-events-none after:absolute after:-z-10 after:opacity-0 after:content-[''] after:[position-anchor:--kf-day-b]",
-        "after:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
-        "after:top-[anchor(top)] after:right-[anchor(right)] after:bottom-[anchor(bottom)] after:left-[anchor(left)]",
-        "after:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house)_calc(180ms*var(--kf-speed,1))]",
-        "motion-reduce:after:[transition:none]!",
-        "has-[[data-slot=calendar-day][data-selected]:not([data-range-middle]),[data-slot=calendar-day][data-range-start]]:before:opacity-100",
-        "has-[[data-slot=calendar-day][data-range-end]]:after:opacity-100",
-        "group-data-[mode=multiple]/calendar:before:hidden group-data-[mode=multiple]/calendar:after:hidden",
+      className={withClass(
+        cn(
+          "relative isolate [anchor-scope:--kf-day-a,--kf-day-b]",
+          "before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:content-[''] before:[position-anchor:--kf-day-a]",
+          "before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
+          "before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
+          "before:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house)_calc(180ms*var(--kf-speed,1))]",
+          "motion-reduce:before:[transition:none]!",
+          "after:pointer-events-none after:absolute after:-z-10 after:opacity-0 after:content-[''] after:[position-anchor:--kf-day-b]",
+          "after:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
+          "after:top-[anchor(top)] after:right-[anchor(right)] after:bottom-[anchor(bottom)] after:left-[anchor(left)]",
+          "after:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house)_calc(180ms*var(--kf-speed,1))]",
+          "motion-reduce:after:[transition:none]!",
+          "has-[[data-slot=calendar-day][data-selected]:not([data-range-middle]),[data-slot=calendar-day][data-range-start]]:before:opacity-100",
+          "has-[[data-slot=calendar-day][data-range-end]]:after:opacity-100",
+          "group-data-[mode=multiple]/calendar:before:hidden group-data-[mode=multiple]/calendar:after:hidden",
+        ),
         className,
       )}
       {...props}
@@ -156,10 +163,12 @@ function CalendarWeeks({
 function CalendarDay({ className, ...props }: React.ComponentProps<typeof CalendarDayPart>) {
   return (
     <CalendarDayPart
-      className={cn(
-        "data-selected:not-data-range-middle:not-data-range-end:[anchor-name:--kf-day-a] data-range-start:[anchor-name:--kf-day-a]",
-        "data-range-end:[anchor-name:--kf-day-b] data-range-start:data-range-end:[anchor-name:--kf-day-a,--kf-day-b]",
-        "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.9] data-disabled:active:scale-100 motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "data-selected:not-data-range-middle:not-data-range-end:[anchor-name:--kf-day-a] data-range-start:[anchor-name:--kf-day-a]",
+          "data-range-end:[anchor-name:--kf-day-b] data-range-start:data-range-end:[anchor-name:--kf-day-a,--kf-day-b]",
+          "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.9] data-disabled:active:scale-100 motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}

@@ -1,0 +1,73 @@
+{
+  "cssVars": [
+    [
+      "--attachment-face",
+      "File surface",
+      "bg-background"
+    ],
+    [
+      "--attachment-ink",
+      "File text",
+      "text-foreground"
+    ],
+    [
+      "--attachment-muted",
+      "File details",
+      "text-muted-foreground"
+    ],
+    [
+      "--attachment-radius",
+      "File corners",
+      "rounded-[12px]"
+    ],
+    [
+      "--attachment-font",
+      "Filename size",
+      "text-[13px]"
+    ],
+    [
+      "--attachment-media-size",
+      "Preview size",
+      "size-10"
+    ],
+    [
+      "--attachment-gap",
+      "File gap",
+      "gap-2.5"
+    ],
+    [
+      "--attachment-padding",
+      "File padding",
+      "p-1.5"
+    ]
+  ],
+  "description": "File cards with image previews, upload progress, retry and remove actions, built on UI SDK core.",
+  "moves": [
+    [
+      "Unfold",
+      "New files grow from 80% through a soft blur on a pop spring."
+    ],
+    [
+      "Height",
+      "Removing a file shrinks it and closes the space it occupied."
+    ],
+    [
+      "Roll",
+      "Upload progress fills on a spring and fades once complete."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves between each file’s preview and actions."
+    ],
+    [
+      "Enter",
+      "Activates the focused preview or action."
+    ],
+    [
+      "Space",
+      "Presses a focused file action."
+    ]
+  ]
+}

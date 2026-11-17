@@ -23,6 +23,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/combobox"
 
 const press =
@@ -42,13 +47,15 @@ const row = cn(
 function ComboboxContent({ className, ...props }: React.ComponentProps<typeof ComboboxContentPart>) {
   return (
     <ComboboxContentPart
-      className={cn(
-        "group/kf-content origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
-        "data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
-        "data-[side=bottom]:data-starting-style:-translate-y-2 data-[side=top]:data-starting-style:translate-y-2",
-        "data-[side=left]:data-starting-style:translate-x-2 data-[side=right]:data-starting-style:-translate-x-2",
-        "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
-        "motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "group/kf-content origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
+          "data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
+          "data-[side=bottom]:data-starting-style:-translate-y-2 data-[side=top]:data-starting-style:translate-y-2",
+          "data-[side=left]:data-starting-style:translate-x-2 data-[side=right]:data-starting-style:-translate-x-2",
+          "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -61,13 +68,15 @@ function ComboboxContent({ className, ...props }: React.ComponentProps<typeof Co
 function ComboboxList({ className, ...props }: React.ComponentProps<typeof ComboboxListPart>) {
   return (
     <ComboboxListPart
-      className={cn(
-        "relative isolate [anchor-scope:--kf-hl]",
-        "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_9%,transparent)] before:opacity-0",
-        "before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-        "before:transition-[top,right,bottom,left,opacity] before:duration-[calc(260ms*var(--kf-speed,1))] before:ease-spring",
-        "has-[[data-highlighted]]:before:opacity-100",
-        "motion-reduce:before:transition-none!",
+      className={withClass(
+        cn(
+          "relative isolate [anchor-scope:--kf-hl]",
+          "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_9%,transparent)] before:opacity-0",
+          "before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
+          "before:transition-[top,right,bottom,left,opacity] before:duration-[calc(260ms*var(--kf-speed,1))] before:ease-spring",
+          "has-[[data-highlighted]]:before:opacity-100",
+          "motion-reduce:before:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -76,23 +85,25 @@ function ComboboxList({ className, ...props }: React.ComponentProps<typeof Combo
 }
 
 function ComboboxItem<T = string>({ className, ...props }: React.ComponentProps<typeof ComboboxItemPart<T>>) {
-  return <ComboboxItemPart<T> className={cn(row, className)} {...props} />
+  return <ComboboxItemPart<T> className={withClass(row, className)} {...props} />
 }
 
 function ComboboxCreate({ className, ...props }: React.ComponentProps<typeof ComboboxCreatePart>) {
-  return <ComboboxCreatePart className={cn(row, className)} {...props} />
+  return <ComboboxCreatePart className={withClass(row, className)} {...props} />
 }
 
 function ComboboxSelectAll({ className, ...props }: React.ComponentProps<typeof ComboboxSelectAllPart>) {
-  return <ComboboxSelectAllPart className={cn(row, className)} {...props} />
+  return <ComboboxSelectAllPart className={withClass(row, className)} {...props} />
 }
 
 function ComboboxTrigger({ className, ...props }: React.ComponentProps<typeof ComboboxTriggerPart>) {
   return (
     <ComboboxTriggerPart
-      className={cn(
-        press,
-        "[&_svg]:transition-[rotate] [&_svg]:duration-[calc(420ms*var(--kf-speed,1))] [&_svg]:ease-spring data-open:[&_svg]:rotate-180 motion-reduce:[&_svg]:transition-none",
+      className={withClass(
+        cn(
+          press,
+          "[&_svg]:transition-[rotate] [&_svg]:duration-[calc(420ms*var(--kf-speed,1))] [&_svg]:ease-spring data-open:[&_svg]:rotate-180 motion-reduce:[&_svg]:transition-none",
+        ),
         className,
       )}
       {...props}
@@ -104,7 +115,12 @@ function ComboboxTrigger({ className, ...props }: React.ComponentProps<typeof Co
 function ComboboxClear({ className, ...props }: React.ComponentProps<typeof ComboboxClearPart>) {
   return (
     <ComboboxClearPart
-      className={cn(press, "duration-[calc(360ms*var(--kf-speed,1))] starting:scale-50 starting:opacity-0", className)}
+      className={withClass(
+        cn(
+          press, "duration-[calc(360ms*var(--kf-speed,1))] starting:scale-50 starting:opacity-0",
+        ),
+        className,
+      )}
       {...props}
     />
   )
@@ -114,17 +130,14 @@ function ComboboxClear({ className, ...props }: React.ComponentProps<typeof Comb
 function ComboboxChip<T = string>({ className, ...props }: React.ComponentProps<typeof ComboboxChipPart<T>>) {
   return (
     <ComboboxChipPart<T>
-      className={cn(
-        "transition-[scale,opacity] duration-[calc(380ms*var(--kf-speed,1))] ease-pop starting:scale-50 starting:opacity-0 motion-reduce:transition-none!",
-        className,
-      )}
+      className={withClass("transition-[scale,opacity] duration-[calc(380ms*var(--kf-speed,1))] ease-pop starting:scale-50 starting:opacity-0 motion-reduce:transition-none!", className)}
       {...props}
     />
   )
 }
 
 function ComboboxChipRemove({ className, ...props }: React.ComponentProps<typeof ComboboxChipRemovePart>) {
-  return <ComboboxChipRemovePart className={cn(press, className)} {...props} />
+  return <ComboboxChipRemovePart className={withClass(press, className)} {...props} />
 }
 
 export {

@@ -1,8 +1,11 @@
+import * as React from "react"
+
 import {
   Tree,
   TreeGroup,
   TreeItem,
   TreeItemIndicator,
+  TreeItemCheckbox,
   TreeItemLabel,
 } from "@/components/ui/tree"
 
@@ -90,11 +93,12 @@ function PhotoIcon() {
   )
 }
 
-function Albums({ albums }: { albums: Album[] }) {
+function Albums({ albums, checkable }: { albums: Album[]; checkable: boolean }) {
   return albums.map((album) => (
     <TreeItem key={album.value} value={album.value} data-value={album.value}>
       <TreeItemLabel>
         {album.children && <TreeItemIndicator />}
+        {checkable && <TreeItemCheckbox />}
         {album.children ? <FolderIcon /> : <PhotoIcon />}
         <span className="truncate">{album.label}</span>
         <span className="ml-auto pl-3 text-[12px] font-normal text-muted-foreground tabular-nums">
@@ -103,28 +107,102 @@ function Albums({ albums }: { albums: Album[] }) {
       </TreeItemLabel>
       {album.children && (
         <TreeGroup>
-          <Albums albums={album.children} />
+          <Albums albums={album.children} checkable={checkable} />
         </TreeGroup>
       )}
     </TreeItem>
   ))
 }
 
-export default function TreeDemo() {
+export const controls = {
+  mode: { type: "select", label: "Mode", options: ["single", "multiple", "none"], default: "single" },
+  activation: { type: "select", label: "Activation", options: ["manual", "automatic"], default: "manual" },
+  checkable: { type: "switch", label: "Checkable", default: false, group: "Behaviour" },
+  checkStrategy: { type: "select", label: "Check strategy", options: ["leaf", "trunk", "branch", "independent"], default: "leaf" },
+  expandOnPress: { type: "switch", label: "Expand on press", default: true, group: "Behaviour" },
+  disabled: { type: "switch", label: "Disabled", default: false, group: "Behaviour" },
+  focusableWhenDisabled: { type: "switch", label: "Focusable when disabled", default: true, group: "Behaviour" },
+  keepMounted: { type: "switch", label: "Keep mounted", default: false, group: "Behaviour" },
+  hiddenUntilFound: { type: "switch", label: "Hidden until found", default: false, group: "Behaviour" },
+  current: { type: "select", label: "Current", options: ["none", "lisbon/slopes", "kyoto/market", "favourites"], default: "none" },
+  items: { type: "slider", label: "Top-level albums", min: 1, max: 3, step: 1, default: 3, unit: "", group: "Layout" },
+  title: { type: "text", label: "Title", default: "Photos" },
+  countText: { type: "text", label: "Count text", default: "1,693 items" },
+  width: { type: "slider", label: "Width", min: 260, max: 480, step: 1, default: 300, unit: "px", group: "Layout" },
+  height: { type: "slider", label: "Row height", min: 24, max: 40, step: 1, default: 28, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Radius", min: 0, max: 18, step: 1, default: 8, unit: "px", group: "Layout" },
+  indent: { type: "slider", label: "Indent gap", min: 12, max: 36, step: 1, default: 22, unit: "px", group: "Layout" },
+  ink: { type: "color", label: "Ink", default: "", group: "Colours" },
+  accent: { type: "color", label: "Accent", default: "", group: "Colours" },
+  guide: { type: "color", label: "Guide", default: "", group: "Colours" },
+} as const
+
+export default function TreeDemo({
+  mode = "single",
+  activation = "manual",
+  checkable = false,
+  checkStrategy = "leaf",
+  expandOnPress = true,
+  disabled = false,
+  focusableWhenDisabled = true,
+  keepMounted = false,
+  hiddenUntilFound = false,
+  current = "none",
+  items = 3,
+  title = "Photos",
+  countText = "1,693 items",
+  width = 300,
+  height = 28,
+  radius = 8,
+  indent = 22,
+  ink = "",
+  accent = "",
+  guide = "",
+}: {
+  mode?: "single" | "multiple" | "none"
+  activation?: "manual" | "automatic"
+  checkable?: boolean
+  checkStrategy?: "leaf" | "trunk" | "branch" | "independent"
+  expandOnPress?: boolean
+  disabled?: boolean
+  focusableWhenDisabled?: boolean
+  keepMounted?: boolean
+  hiddenUntilFound?: boolean
+  current?: "none" | "lisbon/slopes" | "kyoto/market" | "favourites"
+  items?: number
+  title?: string
+  countText?: string
+  width?: number
+  height?: number
+  radius?: number
+  indent?: number
+  ink?: string
+  accent?: string
+  guide?: string
+} = {}) {
+  const theme = {
+    "--tree-height": `${height}px`,
+    "--tree-radius": `${radius}px`,
+    "--tree-indent": `${indent}px`,
+    ...(ink ? { "--tree-ink": ink } : {}),
+    ...(accent ? { "--tree-accent": accent } : {}),
+    ...(guide ? { "--tree-guide": guide } : {}),
+  } as React.CSSProperties
+  const [checked, setChecked] = React.useState<string[]>([])
   return (
     /* A fixed height, so the card grows down as folders open and nothing moves under the pointer. */
-    <div className="h-[464px] w-full max-w-[300px]">
+    <div style={{ ...theme, maxWidth: width }} className="h-[464px] w-full">
       <div className="rounded-[14px] bg-card p-2 text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
         <div className="flex items-baseline justify-between px-2 pt-2 pb-2.5">
-          <h3 className="text-[15px] font-semibold tracking-tight">Photos</h3>
-          <span className="text-[12px] text-muted-foreground tabular-nums">1,693 items</span>
+          <h3 className="text-[15px] font-semibold tracking-tight">{title}</h3>
+          <span className="text-[12px] text-muted-foreground tabular-nums">{checkable ? `${checked.length} checked` : countText}</span>
         </div>
-        <Tree
+        <Tree<"single" | "multiple" | "none"> key={mode} mode={mode} activation={activation} checkable={checkable} checked={checked} onCheckedChange={setChecked} checkStrategy={checkStrategy} expandOnPress={expandOnPress} disabled={disabled} focusableWhenDisabled={focusableWhenDisabled} keepMounted={keepMounted} hiddenUntilFound={hiddenUntilFound} current={current === "none" ? null : current}
           aria-label="Photo library"
           defaultExpanded={["2026", "lisbon"]}
-          defaultValue="lisbon/slopes"
+          defaultValue={mode === "multiple" ? ["lisbon/slopes"] : mode === "none" ? undefined : "lisbon/slopes"}
         >
-          <Albums albums={library} />
+          <Albums albums={library.slice(0, items)} checkable={checkable} />
         </Tree>
       </div>
     </div>

@@ -1,0 +1,52 @@
+{
+  "cssVars": [
+    [
+      "--segmented-control-track",
+      "The recessed track",
+      "--muted"
+    ],
+    [
+      "--segmented-control-key",
+      "The selected key",
+      "--background; --accent in dark"
+    ],
+    [
+      "--segmented-control-ink",
+      "The unselected label",
+      "--muted-foreground"
+    ],
+    [
+      "--segmented-control-selected-ink",
+      "The selected label",
+      "--foreground"
+    ],
+    [
+      "--segmented-control-height",
+      "Item height",
+      "2rem"
+    ],
+    [
+      "--segmented-control-radius",
+      "Track corners",
+      "12px"
+    ],
+    [
+      "--segmented-control-key-radius",
+      "Item and key corners",
+      "9px"
+    ],
+    [
+      "--segmented-control-gap",
+      "Space between items",
+      "0.125rem"
+    ]
+  ],
+  "propDocs": {
+    "SegmentedControl.orientation": "Horizontal by default; vertical stacks the items.",
+    "SegmentedControl.disabled": "Disables the whole control.",
+    "SegmentedControl.readOnly": "Keeps focus and the selected value, while preventing changes.",
+    "SegmentedControl.required": "Requires a checked value in a form.",
+    "SegmentedControl.loop": "Wraps arrow-key navigation by default.",
+    "SegmentedControlItem.disabled": "Skips this item during selection and keyboard navigation."
+  }
+}

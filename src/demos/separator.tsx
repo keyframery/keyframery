@@ -30,36 +30,32 @@ function Stat({ value, label }: { value: string; label: string }) {
   )
 }
 
-function Profile() {
+function Profile({ orientation, decorative, name, occupation, items, gap }: { orientation: "horizontal" | "vertical"; decorative: boolean; name: string; occupation: string; items: number; gap: number }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div style={{ gap }} className="flex flex-col">
       <div className="flex items-center gap-3">
         <span className="grid size-10 place-items-center rounded-full bg-muted text-[12px] font-semibold text-muted-foreground">NB</span>
         <div className="flex flex-col gap-1.5">
-          <span className="text-[15px] leading-none font-semibold tracking-tight">Nell Barrow</span>
-          <span className="text-[12px] leading-none text-muted-foreground">Ceramicist, Stroud</span>
+          <span className="text-[15px] leading-none font-semibold tracking-tight">{name}</span>
+          <span className="text-[12px] leading-none text-muted-foreground">{occupation}</span>
         </div>
       </div>
-      <Separator />
+      <Separator decorative={decorative} />
       <p className="text-[13px] leading-relaxed text-muted-foreground">
         Throws stoneware by hand in a small riverside studio, and teaches a Saturday wheel class for beginners.
       </p>
-      <div className="flex items-stretch rounded-[12px] bg-muted/60 py-2">
-        <Stat value="48" label="Pieces" />
-        <Separator orientation="vertical" className="my-1" />
-        <Stat value="1,280" label="Followers" />
-        <Separator orientation="vertical" className="my-1" />
-        <Stat value="312" label="Following" />
+      <div style={{ flexDirection: orientation === "vertical" ? "row" : "column" }} className="flex items-stretch rounded-[12px] bg-muted/60 py-2">
+        {[["48", "Pieces"], ["1,280", "Followers"], ["312", "Following"]].slice(0, items).map(([value, label], i) => <React.Fragment key={label}>{i > 0 && <Separator orientation={orientation} decorative={decorative} className="my-1" />}<Stat value={value} label={label} /></React.Fragment>)}
       </div>
     </div>
   )
 }
 
-function SignIn() {
+function SignIn({ heading, label, gap }: { heading: string; label: string; gap: number }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div style={{ gap }} className="flex flex-col">
       <div className="flex flex-col gap-1.5">
-        <span className="text-[15px] leading-none font-semibold tracking-tight">Welcome back</span>
+        <span className="text-[15px] leading-none font-semibold tracking-tight">{heading}</span>
         <span className="text-[12px] leading-none text-muted-foreground">Sign in to see your orders and saved pieces.</span>
       </div>
       <button
@@ -70,7 +66,7 @@ function SignIn() {
       </button>
       <div className="flex items-center">
         <Separator decorative />
-        <SeparatorLabel>or</SeparatorLabel>
+        <SeparatorLabel>{label}</SeparatorLabel>
         <Separator decorative />
       </div>
       <input
@@ -86,10 +82,67 @@ function SignIn() {
   )
 }
 
-export default function SeparatorDemo() {
+export const controls = {
+  orientation: { type: "select", label: "Stats dividers", options: ["horizontal", "vertical"], default: "vertical" },
+  decorative: { type: "switch", label: "Decorative", default: false, group: "Behaviour" },
+  name: { type: "text", label: "Name", default: "Nell Barrow" },
+  occupation: { type: "text", label: "Occupation", default: "Ceramicist, Stroud" },
+  heading: { type: "text", label: "Heading", default: "Welcome back" },
+  label: { type: "text", label: "Label", default: "or" },
+  items: { type: "slider", label: "Stats", min: 1, max: 3, step: 1, default: 3, unit: "", group: "Layout" },
+  width: { type: "slider", label: "Width", min: 280, max: 480, step: 1, default: 340, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Gap", min: 8, max: 32, step: 1, default: 16, unit: "px", group: "Layout" },
+  corners: { type: "slider", label: "Corners", min: 0, max: 32, step: 1, default: 18, unit: "px", group: "Layout" },
+  thickness: { type: "slider", label: "Thickness", min: 1, max: 6, step: 1, default: 1, unit: "px", group: "Layout" },
+  labelGap: { type: "slider", label: "Label gap", min: 0, max: 24, step: 1, default: 12, unit: "px", group: "Layout" },
+  font: { type: "slider", label: "Font", min: 10, max: 18, step: 1, default: 12, unit: "px", group: "Layout" },
+  line: { type: "color", label: "Line", default: "", group: "Colours" },
+  ink: { type: "color", label: "Ink", default: "", group: "Colours" },
+} as const
+
+export default function SeparatorDemo({
+  orientation = "vertical",
+  decorative = false,
+  name = "Nell Barrow",
+  occupation = "Ceramicist, Stroud",
+  heading = "Welcome back",
+  label = "or",
+  items = 3,
+  width = 340,
+  gap = 16,
+  corners = 18,
+  thickness = 1,
+  labelGap = 12,
+  font = 12,
+  line = "",
+  ink = "",
+}: {
+  orientation?: "horizontal" | "vertical"
+  decorative?: boolean
+  name?: string
+  occupation?: string
+  heading?: string
+  label?: string
+  items?: number
+  width?: number
+  gap?: number
+  corners?: number
+  thickness?: number
+  labelGap?: number
+  font?: number
+  line?: string
+  ink?: string
+} = {}) {
+  const theme = {
+    "--separator-thickness": `${thickness}px`,
+    "--separator-label-gap": `${labelGap}px`,
+    "--separator-font": `${font}px`,
+    ...(line ? { "--separator-line": line } : {}),
+    ...(ink ? { "--separator-ink": ink } : {}),
+  } as React.CSSProperties
   const [view, setView] = React.useState<(typeof views)[number]["id"]>("profile")
   return (
-    <div className="flex w-full max-w-[340px] flex-col items-center gap-4">
+    <div style={{ ...theme, maxWidth: width }} className="flex w-full flex-col items-center gap-4">
       <div className="flex gap-1 rounded-full bg-muted p-1 shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]">
         {views.map((v) => (
           <button
@@ -109,9 +162,10 @@ export default function SeparatorDemo() {
       </div>
       <div
         key={view}
+        style={{ borderRadius: corners }}
         className="w-full rounded-[18px] bg-card p-5 text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.12)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]"
       >
-        {view === "profile" ? <Profile /> : <SignIn />}
+        {view === "profile" ? <Profile {...{ orientation, decorative, name, occupation, items, gap }} /> : <SignIn {...{ heading, label, gap }} />}
       </div>
     </div>
   )

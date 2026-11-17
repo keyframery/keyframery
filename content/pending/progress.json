@@ -1,0 +1,51 @@
+{
+  "cssVars": [
+    [
+      "--progress-fill",
+      "In-progress fill",
+      "--primary"
+    ],
+    [
+      "--progress-track",
+      "Track surface",
+      "--muted"
+    ],
+    [
+      "--progress-ink",
+      "Label and completed value",
+      "--foreground"
+    ],
+    [
+      "--progress-value-ink",
+      "Value text",
+      "--muted-foreground"
+    ],
+    [
+      "--progress-complete",
+      "Completed fill",
+      "oklch(0.62 0.16 150)"
+    ],
+    [
+      "--progress-height",
+      "Track height",
+      "0.375rem"
+    ],
+    [
+      "--progress-radius",
+      "Track and fill corners",
+      "9999px"
+    ],
+    [
+      "--progress-gap",
+      "Label to track gap",
+      "0.5rem"
+    ]
+  ],
+  "propDocs": {
+    "Progress.value": "Numeric progress, or null for an indeterminate task.",
+    "Progress.min": "Minimum reading, default 0.",
+    "Progress.max": "Completion reading, default 100.",
+    "Progress.format": "Intl options or custom formatting function, shared by the visible and accessible value.",
+    "ProgressValue.children": "Optional custom content; omit for the animated formatted value."
+  }
+}

@@ -2,12 +2,12 @@
 title: Introduction
 heading: "Get started with Keyframery for UI SDK"
 seoTitle: "Get started with animated UI SDK components"
-description: "Keyframery is 63 animated components for UI SDK, written in plain CSS: all 55 of UI SDK's own, and 8 more. They keep UI SDK's parts and props, so you swap one import and keep your code."
+description: "Keyframery adds plain CSS motion to every UI SDK component and to additional components built on UI SDK's core. They keep UI SDK's parts and props, so you swap one import and keep your code."
 faq:
   - q: "What is Keyframery, in one sentence?"
-    a: "A free, open-source set of 63 React components built on UI SDK, with the motion already done in plain CSS."
+    a: "A free, open-source React component library built on UI SDK, with the motion already done in plain CSS."
   - q: "Is Keyframery a replacement for UI SDK?"
-    a: "No. Every Keyframery component renders the UI SDK component underneath. UI SDK does the behaviour; Keyframery adds the motion and, if you want it, a finished look."
+    a: "No. Every component uses UI SDK components or a definition built with its core. UI SDK supplies the behavior framework; Keyframery adds the motion and, if you want it, a finished look."
   - q: "Does it need Motion or Framer Motion?"
     a: "No. Springs are written as CSS easings, so there is no animation library to install."
 ---
@@ -20,7 +20,7 @@ Keyframery fills in the motion. Tabs stretch toward the tab you pick, menus unfo
 
 ## Two layers, so you take what you need
 
-Each component is two files:
+Each native UI SDK component has two layers:
 
 ```text
 components/keyframery/
@@ -31,11 +31,13 @@ components/keyframery/
 - **The primitive** is a drop-in for the UI SDK import. It adds motion and nothing else, so your classes, colours and spacing stay yours. See [Swap the import](/docs/swap-the-import).
 - **The finished component** adds a look on the shadcn/ui colour tokens, so it fits a shadcn project out of the box. See [Theming](/docs/theming).
 
+Components UI SDK doesn't ship add a third file in `components/keyframery/core/`: a framework-independent `definePrimitive` definition. The shipped wrappers currently target React. Every component page opens its Customize panel below the preview, with colors, layout, behavior and Animation speed.
+
 ## What you get
 
 | | |
 | --- | --- |
-| **63 components** | All 55 of UI SDK's, plus 8 it doesn't have, from Accordion to Waterfall. [See them all](/docs/components). |
+| **UI SDK throughout** | All 55 native UI SDK components, plus additional definitions built on its core. [See them all](/docs/components). |
 | **Four motion styles** | Calm, Springy, Snappy and Playful change how everything moves with one attribute. [Motion styles](/docs/motion-styles). |
 | **Plain CSS** | No animation library. The motion runs in CSS and works in server-rendered pages. |
 | **Your code** | The shadcn CLI copies the source into your project. It is yours to change. |

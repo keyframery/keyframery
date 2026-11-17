@@ -31,7 +31,12 @@ const dragging =
 function SliderIndicator({ className, ...props }: React.ComponentProps<typeof SliderIndicatorPart>) {
   return (
     <SliderIndicatorPart
-      className={withClass(cn(follow, dragging, "motion-reduce:[transition:none]!"), className)}
+      className={withClass(
+        cn(
+          follow, dragging, "motion-reduce:[transition:none]!",
+        ),
+        className,
+      )}
       {...props}
     />
   )

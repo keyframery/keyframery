@@ -2,7 +2,7 @@
 //
 //   node scripts/build-registry.mjs [outDir]      (default outDir: public/r)
 //
-// Source of truth: src/components/{primitives,ui}/<slug>.tsx, the motion tokens in src/index.css
+// Source of truth: src/components/{core,primitives,ui}/<slug>, the motion tokens in src/index.css
 // and content/components.json (descriptions). The script writes installable copies to
 // registry/components/keyframery/..., a registry.json at the project root, then runs
 // `shadcn build`, which serves each item at https://keyframery.com/r/<slug>.json.
@@ -10,10 +10,12 @@
 // In a user's project every component lands in components/keyframery/, so nothing overwrites
 // the components/ui/ files a shadcn project already has.
 import { execFileSync } from "node:child_process"
+import { integrateContent } from "./integrate-content.mjs"
 import fs from "node:fs"
 import path from "node:path"
 
 const root = path.resolve(import.meta.dirname, "..")
+integrateContent(root)
 const outDir = path.resolve(root, process.argv[2] ?? "public/r")
 const src = (...p) => path.join(root, "src", ...p)
 const descriptions = JSON.parse(fs.readFileSync(path.join(root, "content/components.json"), "utf8"))
@@ -39,6 +41,7 @@ const title = (slug) =>
 function rewrite(code) {
   return code
     .replaceAll('"@/components/primitives/', '"@/components/keyframery/primitives/')
+    .replaceAll('"@/components/core/', '"@/components/keyframery/core/')
     .replaceAll('"@/components/ui/', '"@/components/keyframery/')
 }
 
@@ -57,7 +60,7 @@ function npmDeps(code) {
 
 function localDeps(code, self) {
   const deps = new Set()
-  for (const [, slug] of code.matchAll(/"@\/components\/(?:ui|primitives)\/([a-z-]+)"/g)) if (slug !== self) deps.add(slug)
+  for (const [, slug] of code.matchAll(/"@\/components\/(?:ui|primitives|core)\/([a-z-]+)"/g)) if (slug !== self) deps.add(slug)
   return deps
 }
 
@@ -99,6 +102,7 @@ const motionItem = {
 const genDir = path.join(root, "registry")
 fs.rmSync(genDir, { recursive: true, force: true })
 fs.mkdirSync(path.join(genDir, "components/keyframery/primitives"), { recursive: true })
+fs.mkdirSync(path.join(genDir, "components/keyframery/core"), { recursive: true })
 fs.mkdirSync(path.join(genDir, "lib"), { recursive: true })
 fs.copyFileSync(src("lib/keyframery.tsx"), path.join(genDir, "lib/keyframery.tsx"))
 
@@ -107,11 +111,13 @@ for (const slug of slugs) {
   const files = []
   const deps = new Set()
   const reg = new Set(["@keyframery/motion"])
-  for (const [kind, rel] of [
-    ["primitives", `components/keyframery/primitives/${slug}.tsx`],
-    ["ui", `components/keyframery/${slug}.tsx`],
+  /* A component UI SDK doesn't ship has a third file: its behaviour, defined on UI SDK's core. */
+  for (const [kind, rel, ext] of [
+    ["core", `components/keyframery/core/${slug}.ts`, "ts"],
+    ["primitives", `components/keyframery/primitives/${slug}.tsx`, "tsx"],
+    ["ui", `components/keyframery/${slug}.tsx`, "tsx"],
   ]) {
-    const file = src("components", kind, `${slug}.tsx`)
+    const file = src("components", kind, `${slug}.${ext}`)
     if (!fs.existsSync(file)) continue
     const code = fs.readFileSync(file, "utf8")
     npmDeps(code).forEach((d) => deps.add(d))
@@ -125,6 +131,41 @@ for (const slug of slugs) {
     type: "registry:component",
     title: title(slug),
     description: descriptions[slug] ?? `${title(slug)} for UI SDK, animated.`,
+    dependencies: [...deps].sort(),
+    registryDependencies: [...reg],
+    files,
+  })
+}
+
+/* ---- templates: whole landing pages (src/templates/<slug>), installed into components/<slug>/ ---- */
+const templatesDir = src("templates")
+const templateSlugs = fs.existsSync(templatesDir)
+  ? fs.readdirSync(templatesDir).filter((name) => fs.statSync(path.join(templatesDir, name)).isDirectory()).sort()
+  : []
+const templateFacts = fs.readFileSync(path.join(root, "site/lib/templates.ts"), "utf8")
+for (const slug of templateSlugs) {
+  const files = []
+  const deps = new Set()
+  const reg = new Set(["@keyframery/motion"])
+  fs.mkdirSync(path.join(genDir, "templates", slug), { recursive: true })
+  for (const file of fs.readdirSync(path.join(templatesDir, slug)).sort()) {
+    if (!/\.(tsx|ts|css)$/.test(file)) continue
+    const code = fs.readFileSync(path.join(templatesDir, slug, file), "utf8")
+    if (!file.endsWith(".css")) {
+      npmDeps(code).forEach((d) => deps.add(d))
+      localDeps(code, slug).forEach((d) => reg.add(`@keyframery/${d}`))
+    }
+    // The photos stay on keyframery.com until a project swaps in its own.
+    fs.writeFileSync(path.join(genDir, "templates", slug, file), rewrite(code).replaceAll('"/demo/', '"https://keyframery.com/demo/'))
+    files.push({ path: `registry/templates/${slug}/${file}`, type: "registry:component", target: `components/${slug}/${file}` })
+  }
+  const description = templateFacts.match(new RegExp(`slug: "${slug}"[\\s\\S]*?description:\\s*"([^"]+)"`))?.[1]
+  if (!description) console.warn(`! no description for the ${slug} template in site/lib/templates.ts`)
+  items.push({
+    name: slug,
+    type: "registry:block",
+    title: `${title(slug)} landing page`,
+    description: description ?? `${title(slug)}: a landing page template.`,
     dependencies: [...deps].sort(),
     registryDependencies: [...reg],
     files,
@@ -153,7 +194,7 @@ execFileSync(path.join(root, "node_modules/.bin/shadcn"), ["build", "registry.js
   cwd: root,
   stdio: "inherit",
 })
-console.log(`registry: ${slugs.length} components + motion + all -> ${path.relative(root, outDir)}`)
+console.log(`registry: ${slugs.length} components + ${templateSlugs.length} templates + motion + all -> ${path.relative(root, outDir)}`)
 
 /* The website loads each demo on demand. List them for it (the lab finds them with a glob). */
 const demoSlugs = fs

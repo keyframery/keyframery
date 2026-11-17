@@ -1,0 +1,42 @@
+{
+  "cssVars": [
+    [
+      "--date-input-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--date-input-face",
+      "Field surface",
+      "--background"
+    ],
+    [
+      "--date-input-font",
+      "Date segment font",
+      "13px"
+    ],
+    [
+      "--date-input-ink",
+      "Date segments",
+      "--foreground"
+    ],
+    [
+      "--date-input-accent",
+      "Focused segment highlight",
+      "--accent"
+    ],
+    [
+      "--date-input-height",
+      "Field height",
+      "2.25rem"
+    ]
+  ],
+  "propDocs": {
+    "DateInput.granularity": "Smallest visible unit: day, hour, minute or second.",
+    "DateInput.hourCycle": "12 or 24 hour clock; omit for locale.",
+    "DateInput.locale": "Language, segment order and separators.",
+    "DateInput.disabled": "Prevent focus and editing.",
+    "DateInput.readOnly": "Show and focus the value without editing.",
+    "DateInput.required": "Require a complete date before form submission."
+  }
+}

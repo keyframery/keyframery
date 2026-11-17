@@ -1,0 +1,45 @@
+{
+  "cssVars": [
+    [
+      "--tooltip-face",
+      "Tooltip surface and arrow",
+      "--foreground"
+    ],
+    [
+      "--tooltip-ink",
+      "Tooltip text and shortcut tint",
+      "--background; 15% shortcut fill and 70% shortcut ink"
+    ],
+    [
+      "--tooltip-radius",
+      "Tooltip corners",
+      "8px"
+    ],
+    [
+      "--tooltip-font",
+      "Tooltip text size",
+      "12px"
+    ],
+    [
+      "--tooltip-width",
+      "Tooltip maximum width",
+      "16rem"
+    ],
+    [
+      "--tooltip-gap",
+      "Label-to-shortcut gap",
+      "0.5rem"
+    ]
+  ],
+  "propDocs": {
+    "Tooltip.disabled": "Stops opening while leaving the trigger usable.",
+    "Tooltip.toggleable": "Allows press to show and hide the tooltip.",
+    "Tooltip.closeOnPress": "Closes after pressing its trigger.",
+    "Tooltip.delay": "Hover wait before opening in milliseconds.",
+    "Tooltip.closeDelay": "Delay before closing after leaving.",
+    "Tooltip.type": "Uses the text as a label or a description.",
+    "TooltipContent.side": "Preferred side; flips if space is limited.",
+    "TooltipContent.align": "Start, centre, or end alignment.",
+    "TooltipContent.sideOffset": "Space between tooltip and trigger."
+  }
+}

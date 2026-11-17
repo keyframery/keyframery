@@ -1,0 +1,64 @@
+{
+  "description": "Frames that hold their shape and reshape on a spring when the ratio changes, with photos that fade up out of a blur once they have loaded.",
+  "moves": [
+    [
+      "Spring",
+      "A new ratio is reached on a spring, so the frame reshapes instead of snapping."
+    ],
+    [
+      "Blur in",
+      "The photo fades up out of an 18px blur and a 1.08 zoom once it has loaded; a new photo plays it again."
+    ]
+  ],
+  "keyboard": [],
+  "propDocs": {
+    "AspectRatio.ratio": "Width divided by height, like 16 / 9. Defaults to 1.",
+    "AspectRatio.speed": "How fast the frame and its image move: \"fast\", \"normal\", \"slow\" or a multiplier.",
+    "AspectRatioImage.src": "The image to show.",
+    "AspectRatioImage.alt": "What the image shows. Leave it empty for a decorative image, which hides it from screen readers.",
+    "AspectRatioImage.children": "Shown until the image has loaded, and if it fails, like a colour or a caption.",
+    "AspectRatioImage.onLoadingStatusChange": "Runs when the image starts loading, loads or fails."
+  },
+  "cssVars": [
+    [
+      "--aspect-ratio-face",
+      "Frame surface",
+      "--muted"
+    ],
+    [
+      "--aspect-ratio-radius",
+      "Frame corners",
+      "14px"
+    ],
+    [
+      "--aspect-ratio-fit",
+      "Image fit",
+      "cover"
+    ],
+    [
+      "--aspect-ratio-position-x",
+      "Horizontal crop",
+      "50%"
+    ],
+    [
+      "--aspect-ratio-position-y",
+      "Vertical crop",
+      "50%"
+    ],
+    [
+      "--aspect-ratio-saturation",
+      "Saturation",
+      "1"
+    ],
+    [
+      "--aspect-ratio-contrast",
+      "Contrast",
+      "1"
+    ],
+    [
+      "--aspect-ratio-brightness",
+      "Brightness",
+      "1"
+    ]
+  ]
+}

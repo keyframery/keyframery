@@ -25,6 +25,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/color-picker"
 
 const popKeyframes = "@keyframes kf-pop{from{scale:.7}to{scale:1}}"
@@ -33,17 +38,22 @@ const thumb =
   "transition-[scale,box-shadow] duration-[calc(320ms*var(--kf-speed,1))] ease-pop hover:scale-110 active:scale-[1.35] motion-reduce:transition-none!"
 
 function ColorPickerArea({ className, ...props }: React.ComponentProps<typeof ColorPickerAreaPart>) {
-  return <ColorPickerAreaPart className={cn("group/kf-track", className)} {...props} />
+  return <ColorPickerAreaPart className={withClass("group/kf-track", className)} {...props} />
 }
 
 function ColorPickerSlider({ className, ...props }: React.ComponentProps<typeof ColorPickerSliderPart>) {
-  return <ColorPickerSliderPart className={cn("group/kf-track", className)} {...props} />
+  return <ColorPickerSliderPart className={withClass("group/kf-track", className)} {...props} />
 }
 
 function ColorPickerAreaThumb({ className, ...props }: React.ComponentProps<typeof ColorPickerAreaThumbPart>) {
   return (
     <ColorPickerAreaThumbPart
-      className={cn(thumb, "group-active/kf-track:scale-[1.35]", className)}
+      className={withClass(
+        cn(
+          thumb, "group-active/kf-track:scale-[1.35]",
+        ),
+        className,
+      )}
       {...props}
     />
   )
@@ -52,7 +62,12 @@ function ColorPickerAreaThumb({ className, ...props }: React.ComponentProps<type
 function ColorPickerSliderThumb({ className, ...props }: React.ComponentProps<typeof ColorPickerSliderThumbPart>) {
   return (
     <ColorPickerSliderThumbPart
-      className={cn(thumb, "group-active/kf-track:scale-[1.35]", className)}
+      className={withClass(
+        cn(
+          thumb, "group-active/kf-track:scale-[1.35]",
+        ),
+        className,
+      )}
       {...props}
     />
   )
@@ -65,10 +80,12 @@ function ColorPickerSwatchItem({ className, ...props }: React.ComponentProps<typ
         {popKeyframes}
       </style>
       <ColorPickerSwatchItemPart
-        className={cn(
-          "transition-[scale,box-shadow] duration-[calc(260ms*var(--kf-speed,1))] ease-pop hover:scale-110 active:scale-90",
-          "data-selected:animate-[kf-pop_calc(460ms*var(--kf-speed,1))_var(--ease-pop)] data-selected:hover:scale-100",
-          "motion-reduce:transition-none! motion-reduce:animate-none!",
+        className={withClass(
+          cn(
+            "transition-[scale,box-shadow] duration-[calc(260ms*var(--kf-speed,1))] ease-pop hover:scale-110 active:scale-90",
+            "data-selected:animate-[kf-pop_calc(460ms*var(--kf-speed,1))_var(--ease-pop)] data-selected:hover:scale-100",
+            "motion-reduce:transition-none! motion-reduce:animate-none!",
+          ),
           className,
         )}
         {...props}
@@ -80,10 +97,7 @@ function ColorPickerSwatchItem({ className, ...props }: React.ComponentProps<typ
 function ColorPickerEyeDropper({ className, ...props }: React.ComponentProps<typeof ColorPickerEyeDropperPart>) {
   return (
     <ColorPickerEyeDropperPart
-      className={cn(
-        "transition-[scale,background-color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none!",
-        className,
-      )}
+      className={withClass("transition-[scale,background-color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none!", className)}
       {...props}
     />
   )
@@ -97,9 +111,11 @@ function ColorPickerPopover(props: React.ComponentProps<typeof PopoverRoot>) {
 function ColorPickerTrigger({ className, ...props }: React.ComponentProps<typeof PopoverTriggerPart>) {
   return (
     <PopoverTriggerPart
-      className={cn(
-        "transition-[scale,background-color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none!",
-        "[&>svg]:transition-[rotate] [&>svg]:duration-[calc(420ms*var(--kf-speed,1))] [&>svg]:ease-spring data-open:[&>svg]:rotate-180 motion-reduce:[&>svg]:transition-none",
+      className={withClass(
+        cn(
+          "transition-[scale,background-color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none!",
+          "[&>svg]:transition-[rotate] [&>svg]:duration-[calc(420ms*var(--kf-speed,1))] [&>svg]:ease-spring data-open:[&>svg]:rotate-180 motion-reduce:[&>svg]:transition-none",
+        ),
         className,
       )}
       {...props}
@@ -111,13 +127,15 @@ function ColorPickerTrigger({ className, ...props }: React.ComponentProps<typeof
 function ColorPickerContent({ className, ...props }: React.ComponentProps<typeof PopoverContentPart>) {
   return (
     <PopoverContentPart
-      className={cn(
-        "origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
-        "data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
-        "data-[side=bottom]:data-starting-style:-translate-y-2 data-[side=top]:data-starting-style:translate-y-2",
-        "data-[side=left]:data-starting-style:translate-x-2 data-[side=right]:data-starting-style:-translate-x-2",
-        "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
-        "motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
+          "data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
+          "data-[side=bottom]:data-starting-style:-translate-y-2 data-[side=top]:data-starting-style:translate-y-2",
+          "data-[side=left]:data-starting-style:translate-x-2 data-[side=right]:data-starting-style:-translate-x-2",
+          "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}

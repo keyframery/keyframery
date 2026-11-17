@@ -1,0 +1,52 @@
+{
+  "cssVars": [
+    [
+      "--radio-surface",
+      "Unchecked radio",
+      "--background, --accent at 40% in dark"
+    ],
+    [
+      "--radio-selected",
+      "Checked disc",
+      "--primary"
+    ],
+    [
+      "--radio-dot",
+      "Checked dot",
+      "--primary-foreground"
+    ],
+    [
+      "--radio-ring",
+      "Gliding ring, mixed to 28%",
+      "--primary"
+    ],
+    [
+      "--radio-size",
+      "Radio width and height",
+      "18px"
+    ],
+    [
+      "--radio-dot-size",
+      "Dot diameter",
+      "7px"
+    ],
+    [
+      "--radio-gap",
+      "Option gap",
+      "0.625rem"
+    ],
+    [
+      "--radio-radius",
+      "Disc corners",
+      "9999px"
+    ]
+  ],
+  "propDocs": {
+    "RadioGroup.value": "Controlled selected option value, or null.",
+    "RadioGroup.disabled": "Prevents focus and changes for all radios.",
+    "RadioGroup.readOnly": "Keeps keyboard focus available while preventing selection changes.",
+    "RadioGroup.required": "Requires a selected option on form submission.",
+    "RadioGroup.loop": "Wraps keyboard navigation at either end.",
+    "Radio.disabled": "Skips an individual radio during navigation and prevents checking it."
+  }
+}

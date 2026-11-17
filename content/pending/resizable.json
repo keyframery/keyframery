@@ -1,0 +1,57 @@
+{
+  "cssVars": [
+    [
+      "--resizable-line",
+      "Resting divider",
+      "--border"
+    ],
+    [
+      "--resizable-active",
+      "Hovered, focused or dragged divider",
+      "--ring"
+    ],
+    [
+      "--resizable-key",
+      "Grip surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--resizable-ink",
+      "Grip dots",
+      "--muted-foreground; --foreground while active"
+    ],
+    [
+      "--resizable-radius",
+      "Grip corners",
+      "5px"
+    ],
+    [
+      "--resizable-grip-width",
+      "Grip short axis",
+      "0.75rem"
+    ],
+    [
+      "--resizable-grip-length",
+      "Grip long axis",
+      "1.5rem"
+    ],
+    [
+      "--resizable-thickness",
+      "Divider thickness",
+      "1px"
+    ]
+  ],
+  "propDocs": {
+    "Resizable.orientation": "Horizontal panels sit side by side; vertical panels stack.",
+    "Resizable.disabled": "Disables every handle and removes them from the tab order.",
+    "Resizable.step": "Arrow-key adjustment in percentage points.",
+    "Resizable.largeStep": "Shift-arrow adjustment in percentage points.",
+    "ResizablePanel.defaultSize": "Initial panel size as a percentage or CSS length.",
+    "ResizablePanel.minSize": "Minimum expanded panel size.",
+    "ResizablePanel.maxSize": "Maximum expanded panel size.",
+    "ResizablePanel.collapsible": "Allows dragging, Enter or double-click to collapse below the minimum.",
+    "ResizablePanel.collapsedSize": "Size of the collapsed panel; zero also hides its content from focus and accessibility.",
+    "ResizableHandle.disabled": "Disables only this handle.",
+    "ResizableHandle.children": "Omit for the default grip, or pass null for a bare divider."
+  }
+}

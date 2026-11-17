@@ -1,0 +1,57 @@
+{
+  "cssVars": [
+    [
+      "--menu-surface",
+      "Menu sheet",
+      "--popover"
+    ],
+    [
+      "--menu-ink",
+      "Menu text",
+      "--popover-foreground"
+    ],
+    [
+      "--menu-highlight",
+      "Row highlight",
+      "--accent"
+    ],
+    [
+      "--menu-danger",
+      "Destructive text and highlight",
+      "--destructive"
+    ],
+    [
+      "--menu-trigger",
+      "Trigger surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--menu-radius",
+      "Sheet corners",
+      "14px"
+    ],
+    [
+      "--menu-item-radius",
+      "Row corners",
+      "8px"
+    ],
+    [
+      "--menu-row-height",
+      "Minimum row height",
+      "2rem"
+    ]
+  ],
+  "propDocs": {
+    "Menu.loop": "Wraps arrow-key navigation at the ends of a menu.",
+    "Menu.dismissible": "Allows Escape and outside interactions to dismiss the menu.",
+    "Menu.presentation": "Popover, touch sheet, or automatic presentation.",
+    "Menu.modal": "Pointer mode consumes the outside press; true also traps focus and locks scroll; false allows outside interaction.",
+    "MenuTrigger.disabled": "Prevents the trigger from opening the menu.",
+    "MenuTrigger.focusableWhenDisabled": "Keeps a disabled trigger focusable with aria-disabled.",
+    "MenuContent.side": "Preferred side of the trigger.",
+    "MenuContent.align": "Start, center or end alignment along that side.",
+    "MenuContent.sideOffset": "Gap from the trigger, in pixels.",
+    "MenuItem.closeOnSelect": "Closes the menu after a plain action. Checkboxes retain their original stay-open behaviour.",
+    "MenuItem.destructive": "Marks a dangerous action with destructive styling."
+  }
+}

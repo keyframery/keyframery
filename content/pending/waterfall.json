@@ -1,0 +1,52 @@
+{
+  "cssVars": [
+    [
+      "--waterfall-face",
+      "Grid sheet",
+      "--card"
+    ],
+    [
+      "--waterfall-ink",
+      "Grid text",
+      "--card-foreground; --foreground for selected nested labels"
+    ],
+    [
+      "--waterfall-bar",
+      "Top-level request bars",
+      "--primary at 75%"
+    ],
+    [
+      "--waterfall-muted",
+      "Headers, nested labels and nested bars",
+      "--muted-foreground; 40% level-two bars, 30% level-three bars"
+    ],
+    [
+      "--waterfall-marker-color",
+      "Marker and selected bar",
+      "--ring; marker background 12% and line 50%"
+    ],
+    [
+      "--waterfall-radius",
+      "Grid corners",
+      "14px"
+    ],
+    [
+      "--waterfall-height",
+      "Request row height",
+      "2rem"
+    ],
+    [
+      "--waterfall-gap",
+      "Gap between grid columns",
+      "0.75rem"
+    ]
+  ],
+  "propDocs": {
+    "Waterfall.items": "Nested spans with unique values, starts and durations.",
+    "Waterfall.range": "Visible time interval; omit to fit the data.",
+    "Waterfall.defaultExpanded": "Initially expanded span values.",
+    "Waterfall.defaultValue": "Initially selected span value.",
+    "WaterfallAxis.maxTicks": "Maximum number of round-time ticks; may render fewer.",
+    "WaterfallMark.time": "Time of the mark in milliseconds."
+  }
+}

@@ -1,5 +1,16 @@
 "use client"
 
+export * from "@/components/primitives/command"
+
+/* Theming: set on a part or its ancestor; unset variables preserve the original theme.
+   --command-face: Palette surface (default: --popover).
+   --command-ink: Palette and search text (default: --popover-foreground / --foreground).
+   --command-accent: Highlighted command (default: --accent).
+   --command-radius: Palette corners (default: 14px).
+   --command-row-height: Command row height (default: 2.25rem).
+   --command-gap: Search and command icon spacing (default: 0.625rem).
+ */
+
 /* Styled command palette: the animated primitive plus the Keyframery look. */
 
 import {
@@ -24,15 +35,22 @@ import * as React from "react"
 import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 /* The palette is a sheet: the search row on top, the commands below. */
 function Command({ speed, className, ...props }: React.ComponentProps<typeof CommandRoot> & SpeedProps) {
   return (
     <Speed speed={speed}>
       <CommandRoot
-        className={cn(
-          "group/command flex w-full flex-col overflow-hidden rounded-[14px] bg-popover text-popover-foreground",
-          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
-          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+        className={withClass(
+          cn(
+            "group/command flex w-full flex-col overflow-hidden rounded-[var(--command-radius,14px)] bg-[var(--command-face,var(--popover))] text-[color:var(--command-ink,var(--popover-foreground))]",
+            "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
+            "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          ),
           className,
         )}
         {...props}
@@ -47,8 +65,8 @@ function CommandSearch({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="command-search"
       className={cn(
-        "flex h-12 shrink-0 items-center gap-2.5 border-b border-border px-4 text-muted-foreground",
-        "[&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:transition-colors [&>svg]:duration-[calc(150ms*var(--kf-speed,1))] has-[input:focus-visible]:[&>svg]:text-foreground motion-reduce:[&>svg]:transition-none",
+        "flex h-12 shrink-0 items-center gap-[var(--command-gap,0.625rem)] border-b border-border px-4 text-muted-foreground",
+        "[&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:transition-colors [&>svg]:duration-[calc(150ms*var(--kf-speed,1))] has-[input:focus-visible]:[&>svg]:text-[color:var(--command-ink,var(--foreground))] motion-reduce:[&>svg]:transition-none",
         className,
       )}
       {...props}
@@ -64,10 +82,12 @@ function CommandInput({
 }: React.ComponentProps<typeof CommandInputPart>) {
   return (
     <CommandInputPart
-      className={cn(
-        "h-full min-w-0 flex-1 bg-transparent text-[14px] text-foreground outline-none placeholder:text-muted-foreground",
-        "[&::-webkit-search-cancel-button]:appearance-none",
-        "disabled:cursor-not-allowed disabled:opacity-50",
+      className={withClass(
+        cn(
+          "h-full min-w-0 flex-1 bg-transparent text-[14px] text-[color:var(--command-ink,var(--foreground))] outline-none placeholder:text-muted-foreground",
+          "[&::-webkit-search-cancel-button]:appearance-none",
+          "disabled:cursor-not-allowed disabled:opacity-50",
+        ),
         className,
       )}
       {...props}
@@ -83,11 +103,13 @@ function CommandList({
 }: React.ComponentProps<typeof CommandListPart>) {
   return (
     <CommandListPart
-      className={cn(
-        "max-h-[320px] scroll-py-1.5 overflow-y-auto overscroll-contain p-1.5 outline-none",
-        "group-has-[[data-slot=command-empty][data-empty]]/command:hidden",
-        /* The gliding highlight, in the row's shape and colour. */
-        "before:rounded-[8px] before:bg-accent",
+      className={withClass(
+        cn(
+          "max-h-[320px] scroll-py-1.5 overflow-y-auto overscroll-contain p-1.5 outline-none",
+          "group-has-[[data-slot=command-empty][data-empty]]/command:hidden",
+          /* The gliding highlight, in the row's shape and colour. */
+          "before:rounded-[8px] before:bg-[var(--command-accent,var(--accent))]",
+        ),
         className,
       )}
       {...props}
@@ -108,11 +130,13 @@ function CommandItem({
 }: React.ComponentProps<typeof CommandItemPart>) {
   return (
     <CommandItemPart
-      className={cn(
-        "group/item relative flex h-9 cursor-default items-center gap-2.5 rounded-[8px] px-2.5 text-[13px] leading-none outline-none select-none",
-        "data-highlighted:text-accent-foreground",
-        "data-disabled:pointer-events-none data-disabled:opacity-40",
-        "data-pending:cursor-progress data-pending:opacity-60",
+      className={withClass(
+        cn(
+          "group/item relative flex h-[var(--command-row-height,2.25rem)] cursor-default items-center gap-[var(--command-gap,0.625rem)] rounded-[8px] px-2.5 text-[13px] leading-none outline-none select-none",
+          "data-highlighted:text-accent-foreground",
+          "data-disabled:pointer-events-none data-disabled:opacity-40",
+          "data-pending:cursor-progress data-pending:opacity-60",
+        ),
         className,
       )}
       {...props}
@@ -126,10 +150,7 @@ function CommandItemIcon({
 }: React.ComponentProps<typeof CommandItemIconPart>) {
   return (
     <CommandItemIconPart
-      className={cn(
-        "grid size-4 shrink-0 place-items-center text-muted-foreground transition-colors duration-[calc(100ms*var(--kf-speed,1))] group-data-highlighted/item:text-foreground data-mirror:rtl:-scale-x-100 motion-reduce:transition-none! [&_svg]:size-4",
-        className,
-      )}
+      className={withClass("grid size-4 shrink-0 place-items-center text-muted-foreground transition-colors duration-[calc(100ms*var(--kf-speed,1))] group-data-highlighted/item:text-[color:var(--command-ink,var(--foreground))] data-mirror:rtl:-scale-x-100 motion-reduce:transition-none! [&_svg]:size-4", className)}
       {...props}
     />
   )
@@ -142,9 +163,11 @@ function CommandItemText({
 }: React.ComponentProps<typeof CommandItemTextPart>) {
   return (
     <CommandItemTextPart
-      className={cn(
-        "min-w-0 flex-1 truncate leading-[1.3]",
-        "data-matched:text-foreground/70 [&_mark]:bg-transparent [&_mark]:font-semibold [&_mark]:text-foreground",
+      className={withClass(
+        cn(
+          "min-w-0 flex-1 truncate leading-[1.3]",
+          "data-matched:text-[color:color-mix(in_oklab,var(--command-ink,var(--foreground))_70%,transparent)] [&_mark]:bg-transparent [&_mark]:font-semibold [&_mark]:text-[color:var(--command-ink,var(--foreground))]",
+        ),
         className,
       )}
       {...props}
@@ -158,10 +181,7 @@ function CommandShortcut({
 }: React.ComponentProps<typeof CommandShortcutPart>) {
   return (
     <CommandShortcutPart
-      className={cn(
-        "ml-auto shrink-0 pl-3 text-[12px] tracking-[0.08em] text-muted-foreground tabular-nums",
-        className,
-      )}
+      className={withClass("ml-auto shrink-0 pl-3 text-[12px] tracking-[0.08em] text-muted-foreground tabular-nums", className)}
       {...props}
     />
   )
@@ -171,7 +191,7 @@ function CommandGroup({
   className,
   ...props
 }: React.ComponentProps<typeof CommandGroupPart>) {
-  return <CommandGroupPart className={cn("flex flex-col", className)} {...props} />
+  return <CommandGroupPart className={withClass("flex flex-col", className)} {...props} />
 }
 
 function CommandGroupLabel({
@@ -180,10 +200,7 @@ function CommandGroupLabel({
 }: React.ComponentProps<typeof CommandGroupLabelPart>) {
   return (
     <CommandGroupLabelPart
-      className={cn(
-        "px-2.5 pt-2.5 pb-1.5 text-[11px] leading-none font-medium text-muted-foreground select-none",
-        className,
-      )}
+      className={withClass("px-2.5 pt-2.5 pb-1.5 text-[11px] leading-none font-medium text-muted-foreground select-none", className)}
       {...props}
     />
   )
@@ -195,7 +212,7 @@ function CommandSeparator({
 }: React.ComponentProps<typeof CommandSeparatorPart>) {
   return (
     <CommandSeparatorPart
-      className={cn("-mx-1.5 my-1.5 h-px bg-border", className)}
+      className={withClass("-mx-1.5 my-1.5 h-px bg-border", className)}
       {...props}
     />
   )
@@ -207,10 +224,7 @@ function CommandEmpty({
 }: React.ComponentProps<typeof CommandEmptyPart>) {
   return (
     <CommandEmptyPart
-      className={cn(
-        "hidden px-4 py-10 text-center text-[13px] text-muted-foreground data-empty:block data-loading:block",
-        className,
-      )}
+      className={withClass("hidden px-4 py-10 text-center text-[13px] text-muted-foreground data-empty:block data-loading:block", className)}
       {...props}
     />
   )
@@ -222,10 +236,7 @@ function CommandStatus({
 }: React.ComponentProps<typeof CommandStatusPart>) {
   return (
     <CommandStatusPart
-      className={cn(
-        "px-4 pt-3 pb-1 text-[12px] text-muted-foreground tabular-nums empty:hidden",
-        className,
-      )}
+      className={withClass("px-4 pt-3 pb-1 text-[12px] text-muted-foreground tabular-nums empty:hidden", className)}
       {...props}
     />
   )

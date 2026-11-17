@@ -1,0 +1,52 @@
+{
+  "cssVars": [
+    [
+      "--meter-fill",
+      "Normal fill",
+      "--primary"
+    ],
+    [
+      "--meter-track",
+      "Track surface",
+      "--muted"
+    ],
+    [
+      "--meter-ink",
+      "Label",
+      "--foreground"
+    ],
+    [
+      "--meter-value-ink",
+      "Value text",
+      "--muted-foreground"
+    ],
+    [
+      "--meter-danger",
+      "High reading fill and value",
+      "--destructive"
+    ],
+    [
+      "--meter-height",
+      "Track height",
+      "0.375rem"
+    ],
+    [
+      "--meter-radius",
+      "Track and fill corners",
+      "9999px"
+    ],
+    [
+      "--meter-gap",
+      "Label to track gap",
+      "0.5rem"
+    ]
+  ],
+  "propDocs": {
+    "Meter.value": "Measurement to display; the fill clamps to the range.",
+    "Meter.min": "Lower end of the range, default 0.",
+    "Meter.max": "Upper end of the range, default 100.",
+    "Meter.high": "Styled-wrapper threshold above which the fill and value use the danger colour.",
+    "Meter.format": "Intl number options or a formatting function.",
+    "Meter.locale": "Number-formatting locale; omit for the page or browser locale."
+  }
+}

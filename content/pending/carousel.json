@@ -1,0 +1,39 @@
+{
+  "cssVars": [
+    [
+      "--carousel-gap",
+      "Slide and component spacing",
+      "0.75rem"
+    ],
+    [
+      "--carousel-radius",
+      "Viewport corners",
+      "14px"
+    ],
+    [
+      "--carousel-key-size",
+      "Arrow key size",
+      "2rem"
+    ],
+    [
+      "--carousel-face",
+      "Arrow keys and indicator well",
+      "--background (dark --accent) / --muted"
+    ],
+    [
+      "--carousel-ink",
+      "Arrow icons, dots and progress",
+      "--foreground, opacity 20% / 45% / 10% / 70% by state"
+    ]
+  ],
+  "propDocs": {
+    "Carousel.orientation": "Horizontal or vertical scrolling and arrow-key direction.",
+    "Carousel.align": "Align each page to start, center or end.",
+    "Carousel.slidesPerPage": "Number of slides each next/previous press advances.",
+    "Carousel.loop": "Wrap around between the first and last pages.",
+    "Carousel.skipSnaps": "Let fast swipes pass multiple pages.",
+    "Carousel.dragFree": "Allow dragging to coast between snap points.",
+    "Carousel.drag": "Enable dragging, swiping and wheel scrolling.",
+    "Carousel.playing": "Automatically rotate pages; interaction can pause rotation."
+  }
+}

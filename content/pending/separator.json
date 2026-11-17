@@ -1,0 +1,34 @@
+{
+  "cssVars": [
+    [
+      "--separator-line",
+      "Divider colour",
+      "--border"
+    ],
+    [
+      "--separator-ink",
+      "Divider label",
+      "--muted-foreground"
+    ],
+    [
+      "--separator-thickness",
+      "Line thickness",
+      "1px"
+    ],
+    [
+      "--separator-label-gap",
+      "Space either side of a label",
+      "0.75rem"
+    ],
+    [
+      "--separator-font",
+      "Label size",
+      "12px"
+    ]
+  ],
+  "propDocs": {
+    "Separator.orientation": "Horizontal or vertical; vertical stretches to the row height.",
+    "Separator.decorative": "Uses role none for lines whose meaning is already conveyed.",
+    "SeparatorLabel.children": "The label between two decorative lines."
+  }
+}

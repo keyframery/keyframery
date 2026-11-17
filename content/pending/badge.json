@@ -1,0 +1,52 @@
+{
+  "description": "Badges pop in, a count rolls its digits up or down when the number changes, and a status dot sends out one ring each time the badge's text or count changes.",
+  "propDocs": {
+    "Badge.count": "Render a number with rolling digits.",
+    "Badge.max": "Cap displayed count as max+.",
+    "Badge.dot": "Show a status dot that pulses when its content changes.",
+    "BadgeDot.className": "Classes for the status dot. It carries `data-pulse` (`odd` or `even`) after the first change.",
+    "Badge.variant": "Default, secondary, outline, destructive or success appearance."
+  },
+  "cssVars": [
+    [
+      "--badge-face",
+      "Variant surface",
+      "--primary / --secondary; destructive 12% (dark 18%); success green 14% (dark 18%)"
+    ],
+    [
+      "--badge-ink",
+      "Variant label",
+      "--primary-foreground / --secondary-foreground / --foreground / --destructive; success green mix 82% (dark green)"
+    ],
+    [
+      "--badge-border",
+      "Outline hairline",
+      "--input"
+    ],
+    [
+      "--badge-height",
+      "Badge height",
+      "1.25rem"
+    ],
+    [
+      "--badge-gap",
+      "Icon and label gap",
+      "0.375rem"
+    ],
+    [
+      "--badge-radius",
+      "Corners",
+      "calc(infinity * 1px)"
+    ],
+    [
+      "--badge-padding",
+      "Horizontal padding",
+      "0.5rem"
+    ],
+    [
+      "--badge-font",
+      "Label size",
+      "11px"
+    ]
+  ]
+}

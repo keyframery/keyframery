@@ -10,6 +10,29 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
+export const controls = {
+  interactive: { type: "switch", label: "Interactive", default: true, group: "Behaviour" },
+  spotlight: { type: "switch", label: "Spotlight", default: true, group: "Behaviour" },
+  title: { type: "text", label: "Title", default: "Ski week" },
+  description: { type: "text", label: "Description", default: "Les Arcs, 8 to 15 Feb" },
+  badge: { type: "text", label: "Badge", default: "In 23 days" },
+  footer: { type: "text", label: "Footer", default: "Jo paid the chalet" },
+  action: { type: "text", label: "Action", default: "Itinerary" },
+  solo: { type: "text", label: "Solo", default: "Solo" },
+  team: { type: "text", label: "Team", default: "Team" },
+  price: { type: "text", label: "Price", default: "€24" },
+  plansCount: { type: "slider", label: "Plans count", default: 2, min: 1, max: 2, step: 1 },
+  width: { type: "slider", label: "Width", default: 640, min: 320, max: 760, step: 1, unit: "px", group: "Layout" },
+  cardWidth: { type: "slider", label: "Card width", default: 316, min: 240, max: 400, step: 1, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Gap", default: 16, min: 4, max: 28, step: 1, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Radius", default: 16, min: 0, max: 32, step: 1, unit: "px", group: "Layout" },
+  padding: { type: "slider", label: "Padding", default: 20, min: 8, max: 28, step: 1, unit: "px", group: "Layout" },
+  face: { type: "color", label: "Face", default: "", group: "Colours" },
+  ink: { type: "color", label: "Ink", default: "", group: "Colours" },
+  muted: { type: "color", label: "Muted", default: "", group: "Colours" },
+  light: { type: "color", label: "Light", default: "", group: "Colours" },
+} as const
+
 export const meta = { name: "Card", group: "Layout" }
 
 /* Hovers the trip card so it lifts under the light, then hovers and presses each plan.
@@ -23,6 +46,8 @@ export const play = [
   { click: "[data-play=plan-solo]", wait: 1300 },
   { unhover: "[data-play=plan-solo]", wait: 1200 },
 ]
+
+/* What the Customize panel under the preview offers. The demo takes the same names as props. */
 
 const key =
   "inline-flex h-8 cursor-pointer items-center justify-center rounded-[9px] bg-background px-3 text-[13px] leading-none font-medium text-foreground outline-none select-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:bg-accent dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] motion-reduce:transition-none"
@@ -53,20 +78,73 @@ function usePressFlash() {
   return [pressed, flash] as const
 }
 
-export default function CardDemo() {
+export default function CardDemo({
+  interactive = true,
+  spotlight = true,
+  title = "Ski week",
+  description = "Les Arcs, 8 to 15 Feb",
+  badge = "In 23 days",
+  footer = "Jo paid the chalet",
+  action = "Itinerary",
+  solo = "Solo",
+  team = "Team",
+  price = "€24",
+  plansCount = 2,
+  width = 640,
+  cardWidth = 316,
+  gap = 16,
+  radius = 16,
+  padding = 20,
+  face = "",
+  ink = "",
+  muted = "",
+  light = "",
+}: {
+  interactive?: boolean
+  spotlight?: boolean
+  title?: string
+  description?: string
+  badge?: string
+  footer?: string
+  action?: string
+  solo?: string
+  team?: string
+  price?: string
+  plansCount?: number
+  width?: number
+  cardWidth?: number
+  gap?: number
+  radius?: number
+  padding?: number
+  face?: string
+  ink?: string
+  muted?: string
+  light?: string
+}) {
+  const theme = {
+    "--card-radius": `${radius}px`,
+    "--card-padding": `${padding}px`,
+    ...(face ? { "--card-face": face } : null),
+    ...(ink ? { "--card-ink": ink } : null),
+    ...(muted ? { "--card-muted": muted } : null),
+    ...(light ? { "--card-light": light } : null),
+  } as React.CSSProperties
   const [plan, setPlan] = React.useState("solo")
+  React.useEffect(() => {
+    if (!plans.slice(0, plansCount).some((visible) => visible.id === plan)) setPlan("solo")
+  }, [plansCount, plan])
   const [pressed, flash] = usePressFlash()
 
   return (
-    <div className="@container w-full max-w-[640px]">
-      <div className="flex items-start gap-4 @max-[36rem]:flex-col @max-[36rem]:gap-3">
-      <Card interactive spotlight data-play="trip" className="w-[316px] shrink-0 @max-[36rem]:w-full">
+    <div style={{ ...theme, maxWidth: width }} className="@container w-full">
+      <div style={gap === 16 ? undefined : { gap }} className="flex items-start gap-4 @max-[36rem]:flex-col @max-[36rem]:gap-3">
+      <Card interactive={interactive} spotlight={spotlight} data-play="trip" style={cardWidth === 316 ? undefined : { width: cardWidth }} className="w-[316px] shrink-0 @max-[36rem]:w-full">
         <CardHeader>
-          <CardTitle>Ski week</CardTitle>
-          <CardDescription>Les Arcs, 8 to 15 Feb</CardDescription>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
           <CardAction>
             <span className="inline-flex h-5 items-center rounded-full bg-muted px-2 text-[11px] font-medium text-muted-foreground">
-              In 23 days
+              {badge}
             </span>
           </CardAction>
         </CardHeader>
@@ -77,20 +155,20 @@ export default function CardDemo() {
           <Stat label="Lessons" value="3" />
         </CardContent>
         <CardFooter className="justify-between">
-          <span className="text-[12px] text-muted-foreground">Jo paid the chalet</span>
+          <span className="text-[12px] text-muted-foreground">{footer}</span>
           <button type="button" className={key}>
-            Itinerary
+            {action}
           </button>
         </CardFooter>
       </Card>
 
       <div role="radiogroup" aria-label="Plan" className="flex flex-1 flex-col gap-3 @max-[36rem]:w-full">
-        {plans.map((p) => {
+        {plans.slice(0, plansCount).map((p) => {
           const checked = plan === p.id
           return (
             <Card
               key={p.id}
-              interactive
+              interactive={interactive}
               role="radio"
               aria-checked={checked}
               tabIndex={checked ? 0 : -1}
@@ -113,7 +191,7 @@ export default function CardDemo() {
               }
             >
               <CardHeader className="px-4">
-                <CardTitle>{p.name}</CardTitle>
+                <CardTitle>{p.id === "solo" ? solo : team}</CardTitle>
                 <CardDescription>{p.note}</CardDescription>
                 <CardAction>
                   <span
@@ -144,7 +222,7 @@ export default function CardDemo() {
               </CardHeader>
               <CardContent className="flex items-baseline justify-between px-4">
                 <span>
-                  <span className="text-[22px] font-semibold tracking-tight tabular-nums">{p.price}</span>
+                  <span className="text-[22px] font-semibold tracking-tight tabular-nums">{p.id === "team" ? price : p.price}</span>
                   <span className="ml-1 text-muted-foreground">a month</span>
                 </span>
                 <span className="text-[12px] text-muted-foreground">{p.seats}</span>

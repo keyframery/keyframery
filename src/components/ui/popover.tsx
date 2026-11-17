@@ -1,5 +1,18 @@
 "use client"
 
+export * from "@/components/primitives/popover"
+
+/* Theming (inherited; each default preserves the original light/dark appearance):
+   --popover-surface: Sheet and arrow (default: --popover)
+   --popover-ink: Sheet text (default: --popover-foreground)
+   --popover-muted: Description and shortcut text (default: --muted-foreground)
+   --popover-key: Trigger and default close surface (default: --background, --accent in dark)
+   --popover-primary: Primary close surface (default: --primary)
+   --popover-width: Sheet width (default: 18rem)
+   --popover-radius: Sheet corners (default: 14px)
+   --popover-padding: Sheet padding (default: 1rem)
+*/
+
 /* Styled popover: the animated primitive plus the Keyframery look. */
 
 import {
@@ -17,6 +30,11 @@ import * as React from "react"
 import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 const keyBase = cn(
   "inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 leading-none font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
   /* The primitive presses the key; colour and shadow ride the same 200ms pop. */
@@ -27,11 +45,11 @@ const keyBase = cn(
 )
 
 const keySurface = cn(
-  "bg-background text-foreground dark:bg-accent",
+  "bg-[var(--popover-key,var(--background))] text-foreground dark:bg-[var(--popover-key,var(--accent))]",
   "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
   "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
-  "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--background),var(--foreground)_3%)]",
-  "dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--accent),var(--foreground)_7%)]",
+  "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--background)),var(--foreground)_3%)]",
+  "dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--accent)),var(--foreground)_7%)]",
   "not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)]",
   "dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
   "not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)]",
@@ -40,8 +58,8 @@ const keySurface = cn(
 
 /* The sheet. The primitive unfolds it out of its trigger and cascades its rows in. */
 const sheet = cn(
-  "m-0 max-h-(--available-height) w-72 max-w-[calc(100vw-16px)] overflow-visible border-0 p-4 outline-none",
-  "rounded-[14px] bg-popover text-popover-foreground",
+  "m-0 max-h-(--available-height) w-[var(--popover-width,18rem)] max-w-[calc(100vw-16px)] overflow-visible border-0 p-[var(--popover-padding,1rem)] outline-none",
+  "rounded-[var(--popover-radius,14px)] bg-[var(--popover-surface,var(--popover))] text-[color:var(--popover-ink,var(--popover-foreground))]",
   "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
   "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
 )
@@ -62,17 +80,19 @@ function PopoverTrigger({
 }: React.ComponentProps<typeof PopoverTriggerPart>) {
   return (
     <PopoverTriggerPart
-      className={cn(
-        "group/popover-trigger",
-        !props.render && [
-          keyBase,
-          keySurface,
-          "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4",
-          "data-open:bg-[color-mix(in_oklab,var(--background),var(--foreground)_3%)] dark:data-open:bg-[color-mix(in_oklab,var(--accent),var(--foreground)_7%)]",
-        ],
-        props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-        "[&_[data-slot=popover-chevron]]:text-muted-foreground [&_[data-slot=popover-chevron]]:transition-transform [&_[data-slot=popover-chevron]]:duration-[calc(380ms*var(--kf-speed,1))] [&_[data-slot=popover-chevron]]:ease-spring",
-        "data-open:[&_[data-slot=popover-chevron]]:rotate-180 motion-reduce:[&_[data-slot=popover-chevron]]:transition-none",
+      className={withClass(
+        cn(
+          "group/popover-trigger",
+          !props.render && [
+            keyBase,
+            keySurface,
+            "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4",
+            "data-open:bg-[color-mix(in_oklab,var(--popover-key,var(--background)),var(--foreground)_3%)] dark:data-open:bg-[color-mix(in_oklab,var(--popover-key,var(--accent)),var(--foreground)_7%)]",
+          ],
+          props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          "[&_[data-slot=popover-chevron]]:text-[color:var(--popover-muted,var(--muted-foreground))] [&_[data-slot=popover-chevron]]:transition-transform [&_[data-slot=popover-chevron]]:duration-[calc(380ms*var(--kf-speed,1))] [&_[data-slot=popover-chevron]]:ease-spring",
+          "data-open:[&_[data-slot=popover-chevron]]:rotate-180 motion-reduce:[&_[data-slot=popover-chevron]]:transition-none",
+        ),
         className,
       )}
       {...props}
@@ -89,7 +109,7 @@ function PopoverContent<Payload = unknown>({
   return (
     <PopoverContentPart<Payload>
       sideOffset={sideOffset}
-      className={cn(sheet, className)}
+      className={withClass(sheet, className)}
       {...props} style={useSpeedStyle(style)}
     />
   )
@@ -102,12 +122,14 @@ function PopoverArrow({
 }: React.ComponentProps<typeof PopoverArrowPart>) {
   return (
     <PopoverArrowPart
-      className={cn(
-        "pointer-events-none h-[7px] w-3.5 text-popover",
-        "data-[side=bottom]:bottom-full data-[side=top]:top-full",
-        "data-[side=left]:left-full data-[side=left]:h-3.5 data-[side=left]:w-[7px] data-[side=right]:right-full data-[side=right]:h-3.5 data-[side=right]:w-[7px]",
-        "[&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-1/2 [&>svg]:h-[7px] [&>svg]:w-3.5 [&>svg]:-translate-1/2",
-        "data-[side=top]:[&>svg]:rotate-180 data-[side=left]:[&>svg]:rotate-90 data-[side=right]:[&>svg]:-rotate-90",
+      className={withClass(
+        cn(
+          "pointer-events-none h-[7px] w-3.5 text-[color:var(--popover-surface,var(--popover))]",
+          "data-[side=bottom]:bottom-full data-[side=top]:top-full",
+          "data-[side=left]:left-full data-[side=left]:h-3.5 data-[side=left]:w-[7px] data-[side=right]:right-full data-[side=right]:h-3.5 data-[side=right]:w-[7px]",
+          "[&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-1/2 [&>svg]:h-[7px] [&>svg]:w-3.5 [&>svg]:-translate-1/2",
+          "data-[side=top]:[&>svg]:rotate-180 data-[side=left]:[&>svg]:rotate-90 data-[side=right]:[&>svg]:-rotate-90",
+        ),
         className,
       )}
       {...props}
@@ -130,7 +152,7 @@ function PopoverTitle({
 }: React.ComponentProps<typeof PopoverTitlePart>) {
   return (
     <PopoverTitlePart
-      className={cn("text-[14px] leading-5 font-semibold tracking-tight", className)}
+      className={withClass("text-[14px] leading-5 font-semibold tracking-tight", className)}
       {...props}
     />
   )
@@ -142,7 +164,7 @@ function PopoverDescription({
 }: React.ComponentProps<typeof PopoverDescriptionPart>) {
   return (
     <PopoverDescriptionPart
-      className={cn("text-[12px] leading-4 text-muted-foreground", className)}
+      className={withClass("text-[12px] leading-4 text-[color:var(--popover-muted,var(--muted-foreground))]", className)}
       {...props}
     />
   )
@@ -157,20 +179,22 @@ function PopoverClose({
   return (
     <PopoverClosePart
       data-variant={variant}
-      className={cn(
-        !props.render && [
-          keyBase,
-          "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4",
-          variant === "default" && keySurface,
-          variant === "primary" && [
-            "bg-primary text-primary-foreground",
-            "shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
-            "dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)]",
-            "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--primary),var(--background)_14%)]",
-            "not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
+      className={withClass(
+        cn(
+          !props.render && [
+            keyBase,
+            "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4",
+            variant === "default" && keySurface,
+            variant === "primary" && [
+              "bg-[var(--popover-primary,var(--primary))] text-primary-foreground",
+              "shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
+              "dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)]",
+              "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-primary,var(--primary)),var(--background)_14%)]",
+              "not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
+            ],
           ],
-        ],
-        props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        ),
         className,
       )}
       {...props}
@@ -184,10 +208,7 @@ function PopoverShortcut({
 }: React.ComponentProps<typeof PopoverShortcutPart>) {
   return (
     <PopoverShortcutPart
-      className={cn(
-        "ms-1 text-[12px] leading-none tracking-[0.04em] text-muted-foreground tabular-nums",
-        className,
-      )}
+      className={withClass("ms-1 text-[12px] leading-none tracking-[0.04em] text-[color:var(--popover-muted,var(--muted-foreground))] tabular-nums", className)}
       {...props}
     />
   )

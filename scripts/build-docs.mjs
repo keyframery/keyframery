@@ -5,16 +5,20 @@
 // Each page is built from the component's own source: its demo (the live preview and the example),
 // its exports (the parts table), content/components.json (the description) and content/moves.json
 // (what moves). Hand-written pages live next to them in content/docs and are never touched.
+import { integrateContent } from "./integrate-content.mjs"
 import fs from "node:fs"
 import path from "node:path"
 import ts from "typescript"
 
 import { readProps } from "./lib/props.mjs"
+import { createPreviewSource } from "./lib/preview-source.mjs"
 
 const root = path.resolve(import.meta.dirname, "..")
+integrateContent(root)
 const read = (f) => fs.readFileSync(path.join(root, f), "utf8")
 const descriptions = JSON.parse(read("content/components.json"))
 const motion = JSON.parse(read("content/moves.json"))
+const theming = fs.existsSync(path.join(root, "content/theming.json")) ? JSON.parse(read("content/theming.json")) : {}
 const out = path.join(root, "content/docs/components")
 fs.mkdirSync(out, { recursive: true })
 
@@ -23,16 +27,13 @@ const dateSlugs = ["calendar", "date-picker", "date-input"]
 
 /* Paths as they land in a user's project after `npx shadcn add`. */
 const installed = (code) =>
-  code.replaceAll('"@/components/primitives/', '"@/components/keyframery/primitives/').replaceAll('"@/components/ui/', '"@/components/keyframery/')
+  code
+    .replaceAll('"@/components/primitives/', '"@/components/keyframery/primitives/')
+    .replaceAll('"@/components/core/', '"@/components/keyframery/core/')
+    .replaceAll('"@/components/ui/', '"@/components/keyframery/')
 
-/* The demo, cut down to an example: no `play` script, no `meta`. */
-const example = (slug) =>
-  installed(read(`src/demos/${slug}.tsx`))
-    .replace(/\/\*[^*]*(?:\*(?!\/)[^*]*)*\*\/\s*export const play[\s\S]*?\n\]\n/, "")
-    .replace(/export const play[\s\S]*?\n\]\n/, "")
-    .replace(/export const meta = \{[^}]*\}\n/, "")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim()
+/* Code and edit positions come from the demo itself, never a separate hand-written snippet. */
+const example = (slug) => createPreviewSource(read(`src/demos/${slug}.tsx`), `${slug}.tsx`)
 
 /* ---- examples, props and keyboard for the new page sections ---- */
 
@@ -150,7 +151,9 @@ const slugs = fs
   .filter((s) => fs.existsSync(path.join(root, "src/demos", `${s}.tsx`)))
   .sort()
 
-for (const f of fs.readdirSync(out)) if (f.endsWith(".mdx") && f !== "index.mdx") fs.rmSync(path.join(out, f))
+// Preserve live pages while regenerating: deleting/readding them makes the dev docs loader briefly return 404.
+for (const file of fs.readdirSync(out))
+  if (file.endsWith(".mdx") && file !== "index.mdx" && !slugs.includes(file.slice(0, -4))) fs.rmSync(path.join(out, file))
 
 const props = readProps(root, slugs)
 const keyboard = fs.existsSync(path.join(root, "content/keyboard.json")) ? JSON.parse(read("content/keyboard.json")) : {}
@@ -163,6 +166,10 @@ for (const slug of slugs) {
   const primitive = read(`src/components/primitives/${slug}.tsx`)
   const part = sdkPart[slug] ?? slug
   const sdk = primitive.includes(`"@ui-sdk/react/${part}"`) || (part !== slug && primitive.includes(`"@/components/primitives/${part}"`)) ? part : null
+  /* A component UI SDK doesn't ship is defined on its core, in src/components/core/<slug>.ts. */
+  const coreFile = `src/components/core/${slug}.ts`
+  const core = fs.existsSync(path.join(root, coreFile)) ? read(coreFile) : null
+  const onSdk = Boolean(sdk || core)
   const parts = exportsOf(ui)
   const moves = motion.components[slug] ?? []
   const description = descriptions[slug] ?? ""
@@ -177,18 +184,24 @@ for (const slug of slugs) {
   const faq = [
     moves.length
       ? {
-          q: `How does the animated ${name} for UI SDK move?`,
+          q: onSdk ? `How does the animated ${name} for UI SDK move?` : `How does the animated ${name} move?`,
           a: moves.map(([m, text]) => `${m}: ${text.replace(/\.?$/, ".")}`).join(" "),
         }
       : null,
     {
       q: `Do I need Motion or Framer Motion for the animated ${name}?`,
-      a: `No. Every move is plain CSS, so there is nothing to install besides the component${sdk ? " and UI SDK" : ""}.`,
+      a: `No. Every move is plain CSS, so there is nothing to install besides the component${onSdk ? " and UI SDK" : ""}.`,
     },
     sdk
       ? {
           q: `Can I keep my own styling and only take the motion?`,
           a: `Yes. Import from \`@/components/keyframery/primitives/${slug}\` instead. It has the same parts and props as \`@ui-sdk/react/${sdk}\` and adds motion only.`,
+        }
+      : null,
+    core
+      ? {
+          q: `UI SDK has no ${lower}. How is this one built on UI SDK?`,
+          a: `Its behaviour is one definition written with UI SDK's core (\`definePrimitive\`), in \`components/keyframery/core/${slug}.ts\`. Its parts are rendered by UI SDK's adapter, so they take \`render\`, state-based class names and \`data-slot\`, like every UI SDK component.`,
         }
       : null,
     { q: `What happens to the ${name} when someone turns on reduced motion?`, a: "Nothing moves. State changes happen at once, or with a short fade." },
@@ -207,18 +220,14 @@ for (const slug of slugs) {
   const page = [
     "---",
     `title: ${yaml(name)}`,
-    `heading: ${yaml(`Animated ${name} for UI SDK`)}`,
+    `heading: ${yaml(onSdk ? `Animated ${name} for UI SDK` : `Animated ${name}`)}`,
     `description: ${yaml(description)}`,
     `component: ${yaml(slug)}`,
     "faq:",
     ...faq.flatMap(({ q, a }) => [`  - q: ${yaml(q)}`, `    a: ${yaml(a)}`]),
     "---",
     "",
-    `<ComponentPreview slug="${slug}">`,
-    "",
-    fence("tsx", example(slug), "example.tsx"),
-    "",
-    "</ComponentPreview>",
+    `<ComponentPreview slug="${slug}" source={${JSON.stringify(example(slug))}} />`,
     "",
     "## Installation",
     "",
@@ -227,7 +236,7 @@ for (const slug of slugs) {
     "",
     fence("npm", `npx shadcn@latest add @keyframery/${slug}`),
     "",
-    `This adds \`components/keyframery/${slug}.tsx\` and its primitive to your project${sdk ? ", and installs UI SDK" : ""}${deps.local.length ? `, along with ${deps.local.map((d) => `[${d}](/docs/components/${d})`).join(", ")}, which it builds on` : ""}. The motion tokens are added to your global CSS the first time you install a component.`,
+    `This adds \`components/keyframery/${slug}.tsx\` and its primitive to your project${onSdk ? ", and installs UI SDK" : ""}${deps.local.length ? `, along with ${deps.local.map((d) => `[${d}](/docs/components/${d})`).join(", ")}, which it builds on` : ""}. The motion tokens are added to your global CSS the first time you install a component.`,
     "",
     "</Tab>",
     '<Tab value="Manual">',
@@ -273,6 +282,7 @@ for (const slug of slugs) {
     fence("tsx", installed(primitive)),
     "",
     "</Accordion>",
+    ...(core ? [`<Accordion title="components/keyframery/core/${slug}.ts">`, "", fence("ts", installed(core)), "", "</Accordion>"] : []),
     "</Accordions>",
     "",
     "</Step>",
@@ -333,11 +343,25 @@ for (const slug of slugs) {
           "",
         ]
       : []),
+    ...(theming[slug]?.length
+      ? [
+          "## Theming",
+          "",
+          "Set these CSS variables on the component or a parent. Leave them unset to follow the light and dark theme. The open Customize panel below the preview lets you try these settings.",
+          "",
+          "| Variable | What it changes | Default |",
+          "| --- | --- | --- |",
+          ...theming[slug].map(([name, description, fallback]) => `| \`${name}\` | ${description.replaceAll("|", "\\|")} | ${fallback.replaceAll("|", "\\|")} |`),
+          "",
+        ]
+      : []),
     "## API reference",
     "",
     sdk
       ? `Every part takes \`className\` and \`children\`. Parts from UI SDK also take \`render\`, to draw your own element, and a function of their state for \`className\` and \`style\`. Props not listed here are in the [UI SDK ${sdk === slug ? lower : sdk} reference](https://ui-sdk.dev/docs/components/${sdk}).`
-      : "Every part takes `className` and `children`, along with the props of the element it renders.",
+      : core
+        ? "Every part takes `className` and `children`, along with the props of the element it renders. The parts are rendered by UI SDK, so they also take `render`, to draw your own element, and a function of their state for `className` and `style`."
+        : "Every part takes `className` and `children`, along with the props of the element it renders.",
     "",
     ...apiSections(api, usageOrder(tree)),
     ...(api.hooks.length
@@ -362,8 +386,18 @@ for (const slug of slugs) {
     "",
     sdk
       ? `Keyboard, focus and screen-reader behaviour come from UI SDK and are not changed. More in [Accessibility](/docs/accessibility).`
-      : `Focus is visible on every interactive part, and state is announced through the matching ARIA attributes. More in [Accessibility](/docs/accessibility).`,
+      : core
+        ? `Roles, keyboard and focus are declared on the component's UI SDK primitive, and state is announced through the matching ARIA attributes. More in [Accessibility](/docs/accessibility).`
+        : `Focus is visible on every interactive part, and state is announced through the matching ARIA attributes. More in [Accessibility](/docs/accessibility).`,
     "",
+    ...(core
+      ? [
+          "## Built on UI SDK's core",
+          "",
+          `UI SDK doesn't ship a ${lower}, so this one is defined with its core: one \`definePrimitive\` in \`components/keyframery/core/${slug}.ts\`, with no React in it. UI SDK's adapters can render that same definition in Vue, Svelte, Solid and web components. To keep your own styling and take only the motion, import from \`@/components/keyframery/primitives/${slug}\`.`,
+          "",
+        ]
+      : []),
     ...(sdk
       ? [
           "## Swap the import",
@@ -379,7 +413,8 @@ for (const slug of slugs) {
       : []),
   ].join("\n")
 
-  fs.writeFileSync(path.join(out, `${slug}.mdx`), page)
+  const destination = path.join(out, `${slug}.mdx`)
+  if (!fs.existsSync(destination) || fs.readFileSync(destination, "utf8") !== page) fs.writeFileSync(destination, page)
 }
 
 console.log(`docs: ${slugs.length} component pages -> content/docs/components`)

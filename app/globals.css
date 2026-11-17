@@ -62,31 +62,31 @@
 }
 
 /* ---------- Docs: one clear ladder of sizes ----------
-   Page title 32px, sections 20px with a rule above each so they read as separate steps, sub-sections 16px,
-   text 15px. */
+   Page title 30px, sections 21px, sub-sections 15px and body 15px. Spacing groups each task without
+   making the reader pass through large empty bands. */
 #nd-page .prose {
   font-size: 15px;
-  line-height: 1.75;
+  line-height: 1.65;
 }
 #nd-page .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  margin-top: 3.5rem;
+  margin-top: 2.5rem;
   margin-bottom: 1rem;
-  padding-top: 2.25rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--border);
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 600;
   line-height: 1.35;
   letter-spacing: -0.015em;
 }
 #nd-page .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  margin-top: 2.25rem;
-  margin-bottom: 0.5rem;
-  font-size: 16px;
+  margin-top: 1.75rem;
+  margin-bottom: 0.375rem;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
 }
 #nd-page .prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  font-size: 13.5px;
+  font-size: 13px;
   line-height: 1.6;
 }
 #nd-page .prose :where(thead th):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
@@ -95,6 +95,73 @@
   color: var(--muted-foreground);
 }
 
+/* Docs shell: devote the available center lane to the live component while keeping both rails. */
+#nd-docs-layout {
+  --fd-layout-width: 1760px;
+}
+@media (min-width: 48rem) {
+  #nd-docs-layout {
+    --fd-sidebar-width: 232px;
+  }
+}
+@media (min-width: 80rem) {
+  #nd-docs-layout:has(#nd-toc, #nd-toc-placeholder) {
+    --fd-toc-width: 184px;
+  }
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) a[data-active] {
+  padding-block: 4px;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) p {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  color: var(--muted-foreground);
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) button[aria-expanded]:not([aria-controls="nd-sidebar"]):not([aria-controls="nd-sidebar-mobile"]) {
+  padding-block: 4px;
+  min-height: 28px;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) a[data-active="true"] {
+  color: var(--cut);
+  background: color-mix(in oklab, var(--cut) 8%, transparent);
+  font-weight: 500;
+}
+#nd-docs-layout #nd-page {
+  padding-block-start: 24px;
+  gap: 14px;
+}
+@media (min-width: 48rem) {
+  #nd-docs-layout #nd-page {
+    padding-block-start: 32px;
+  }
+}
+#nd-docs-layout #nd-toc {
+  padding-inline: 8px 16px;
+}
+#nd-docs-layout #nd-toc :is(a, h3) {
+  font-size: 12px;
+  line-height: 1.6;
+}
+/* Prose keeps a comfortable reading measure even when the interactive examples use the full lane. */
+#nd-page[data-component] .prose > :where(p, ul, ol):not(.not-prose) {
+  max-width: 78ch;
+}
+
+.kf-doc-header :is(button, a[aria-label]) {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.1), rgb(0 0 0 / 0.045));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), inset 0 -1px 0 rgb(0 0 0 / 0.04), 0 -1px 2px rgb(0 0 0 / 0.025), 0 2px 3px rgb(0 0 0 / 0.06);
+}
+.dark .kf-doc-header :is(button, a[aria-label]) {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(0 0 0 / 0.1));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.07), inset 0 -1px 0 rgb(0 0 0 / 0.15), 0 -1px 2px rgb(0 0 0 / 0.12), 0 2px 3px rgb(0 0 0 / 0.2);
+}
 /* ---------- Landing (cinematic) ----------
    Always dark, like a film at night: an orbital sunrise behind the hero, translucent cards with real
    components in them, buttons lit from the top. The page carries .dark so components use dark tokens. */

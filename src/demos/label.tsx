@@ -25,26 +25,99 @@ const seats = [
 const key =
   "inline-flex h-8 items-center rounded-[9px] px-3 text-[13px] leading-none font-medium transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none"
 
-export default function LabelDemo() {
+export const controls = {
+  title: { type: "text", label: "Heading", default: "Book a table" },
+  subtitle: { type: "text", label: "Booking", default: "Padella, Friday 22 November at 8pm" },
+  seatingLabel: { type: "text", label: "Seating label", default: "Seating" },
+  partyLabel: { type: "text", label: "Party label", default: "Party size" },
+  requiredText: { type: "text", label: "Required marker", default: "Required" },
+  optionalText: { type: "text", label: "Optional marker", default: "Optional" },
+  markers: { type: "switch", label: "Show markers", default: true, group: "Behaviour" },
+  disabled: { type: "switch", label: "Disable controls", default: false, group: "Behaviour" },
+  forceInvalid: { type: "switch", label: "Invalid seating", default: false, group: "Behaviour" },
+  items: { type: "slider", label: "Seating options", default: 3, min: 2, max: 3, step: 1, unit: "", group: "Layout" },
+  width: { type: "slider", label: "Width", default: 400, min: 320, max: 480, step: 1, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Marker gap", default: 6, min: 0, max: 20, step: 1, unit: "px", group: "Layout" },
+  font: { type: "slider", label: "Label size", default: 13, min: 10, max: 18, step: 1, unit: "px", group: "Layout" },
+  corners: { type: "select", label: "Marker corners", default: "pill", options: ["pill", "soft", "square"] },
+  ink: { type: "color", label: "Label", default: "", group: "Colours" },
+  focus: { type: "color", label: "Focused", default: "", group: "Colours" },
+  errorColour: { type: "color", label: "Invalid", default: "", group: "Colours" },
+  marker: { type: "color", label: "Marker", default: "", group: "Colours" },
+  markerInk: { type: "color", label: "Marker text", default: "", group: "Colours" },
+} as const
+
+export default function LabelDemo({
+  title = "Book a table",
+  subtitle = "Padella, Friday 22 November at 8pm",
+  seatingLabel = "Seating",
+  partyLabel = "Party size",
+  requiredText = "Required",
+  optionalText = "Optional",
+  markers = true,
+  disabled = false,
+  forceInvalid = false,
+  items = 3,
+  width = 400,
+  gap = 6,
+  font = 13,
+  corners = "pill",
+  ink = "",
+  focus = "",
+  errorColour = "",
+  marker = "",
+  markerInk = "",
+}: {
+  title?: string
+  subtitle?: string
+  seatingLabel?: string
+  partyLabel?: string
+  requiredText?: string
+  optionalText?: string
+  markers?: boolean
+  disabled?: boolean
+  forceInvalid?: boolean
+  items?: number
+  width?: number
+  gap?: number
+  font?: number
+  corners?: "pill" | "soft" | "square"
+  ink?: string
+  focus?: string
+  errorColour?: string
+  marker?: string
+  markerInk?: string
+}) {
+  const theme = {
+    "--label-gap": `${gap}px`,
+    "--label-font": `${font}px`,
+    "--label-marker-radius": corners === "pill" ? "9999px" : corners === "soft" ? "6px" : "0px",
+    ...(errorColour ? { "--label-invalid": errorColour } : {}),
+    ...(markerInk ? { "--label-marker-ink": markerInk } : {}),
+    ...(ink ? { "--label-ink": ink } : {}),
+    ...(focus ? { "--label-focus": focus } : {}),
+    ...(marker ? { "--label-marker": marker } : {}),
+  } as React.CSSProperties
   const [seat, setSeat] = React.useState<string | null>(null)
   const [party, setParty] = React.useState(4)
   const [sent, setSent] = React.useState(false)
-  const invalid = sent && !seat
+  const invalid = forceInvalid || (sent && !seat)
 
   return (
     <form
+      style={{ ...theme, maxWidth: width }}
       className="w-full max-w-[400px]"
       onSubmit={(e) => {
         e.preventDefault()
         setSent(true)
       }}
     >
-      <h3 className="text-[15px] font-semibold tracking-tight">Book a table</h3>
-      <p className="mt-1 text-[12px] text-muted-foreground">Padella, Friday 22 November at 8pm</p>
+      <h3 className="text-[15px] font-semibold tracking-tight">{title}</h3>
+      <p className="mt-1 text-[12px] text-muted-foreground">{subtitle}</p>
 
       <div className="mt-5 flex items-center justify-between">
         <Label htmlFor="kf-seating">
-          Seating <LabelMarker>Required</LabelMarker>
+          {seatingLabel} {markers && <LabelMarker>{requiredText}</LabelMarker>}
         </Label>
         <span
           className={[
@@ -57,13 +130,14 @@ export default function LabelDemo() {
         </span>
       </div>
       <RadioGroup
+        disabled={disabled}
         id="kf-seating"
         value={seat}
         onValueChange={(v) => setSeat(v as string)}
         aria-invalid={invalid || undefined}
         className="mt-2.5 grid grid-cols-3 gap-2 [--kf-radio-pad:0px] before:z-10 before:rounded-[12px] before:shadow-[0_0_0_1.5px_var(--primary)]"
       >
-        {seats.map((s) => (
+        {seats.slice(0, items).map((s) => (
           <label
             key={s.value}
             data-seat={s.value}
@@ -86,6 +160,7 @@ export default function LabelDemo() {
       </RadioGroup>
 
       <Slider
+        disabled={disabled}
         id="kf-party"
         value={party}
         onValueChange={(v) => setParty(v as number)}
@@ -95,7 +170,7 @@ export default function LabelDemo() {
       >
         <div className="flex items-center justify-between">
           <Label htmlFor="kf-party">
-            Party size <LabelMarker>Optional</LabelMarker>
+            {partyLabel} {markers && <LabelMarker>{optionalText}</LabelMarker>}
           </Label>
           <span className="text-[13px] text-muted-foreground tabular-nums">
             <SliderValue className="text-foreground" /> {party === 1 ? "guest" : "guests"}

@@ -1,0 +1,50 @@
+{
+  "cssVars": [
+    [
+      "--number-input-surface",
+      "Field surface",
+      "--background"
+    ],
+    [
+      "--number-input-ink",
+      "Value and stepper text",
+      "--foreground"
+    ],
+    [
+      "--number-input-key",
+      "Stepper surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--number-input-focus",
+      "Focused or scrubbing outline",
+      "--ring"
+    ],
+    [
+      "--number-input-radius",
+      "Field corners",
+      "10px"
+    ],
+    [
+      "--number-input-height",
+      "Field height",
+      "2.25rem"
+    ],
+    [
+      "--number-input-step-size",
+      "Stepper width and height",
+      "1.75rem"
+    ]
+  ],
+  "propDocs": {
+    "NumberInput.value": "Controlled number, or null for an empty field.",
+    "NumberInput.min": "Lowest committed value.",
+    "NumberInput.max": "Highest committed value.",
+    "NumberInput.step": "Amount added or removed by one step.",
+    "NumberInput.disabled": "Disables typing, stepping and scrubbing.",
+    "NumberInput.readOnly": "Retains focus and submission while preventing changes.",
+    "NumberInput.required": "Requires a number when submitted in a form.",
+    "NumberInput.wheel": "Allows wheel events to step a focused input.",
+    "NumberInputScrubArea.orientation": "Horizontal scrubbing increases to the right; vertical increases upwards."
+  }
+}

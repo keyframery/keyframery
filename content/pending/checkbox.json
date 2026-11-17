@@ -1,0 +1,41 @@
+{
+  "cssVars": [
+    [
+      "--checkbox-size",
+      "Checkbox size",
+      "18px"
+    ],
+    [
+      "--checkbox-radius",
+      "Box corners",
+      "5px"
+    ],
+    [
+      "--checkbox-face",
+      "Unchecked box surface",
+      "--background; dark --accent 40%"
+    ],
+    [
+      "--checkbox-accent",
+      "Checked box surface and hover mix",
+      "--primary"
+    ],
+    [
+      "--checkbox-ink",
+      "Check and dash",
+      "--primary-foreground"
+    ],
+    [
+      "--checkbox-gap",
+      "Group spacing",
+      "0.625rem"
+    ]
+  ],
+  "propDocs": {
+    "Checkbox.parent": "Control all values in the group and reflect its mixed state.",
+    "Checkbox.checked": "true, false or indeterminate.",
+    "CheckboxGroup.disabled": "Disable all packing items.",
+    "CheckboxGroup.readOnly": "Allow focus without changing checked values.",
+    "CheckboxGroup.required": "Require at least one checked item."
+  }
+}

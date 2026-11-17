@@ -1,5 +1,18 @@
 "use client"
 
+export * from "@/components/primitives/preferences"
+
+/* Theming (inherited; each default preserves the original light/dark appearance):
+   --preferences-track: Switcher well (default: --muted)
+   --preferences-key: Selected key (default: --background, --accent in dark)
+   --preferences-ink: Unselected text (default: --muted-foreground)
+   --preferences-selected-ink: Selected text (default: --foreground)
+   --preferences-height: Option height (default: 2rem)
+   --preferences-radius: Well corners (default: 12px)
+   --preferences-key-radius: Option corners (default: 9px)
+   --preferences-gap: Option gap (default: 0.125rem)
+*/
+
 /* Styled preferences: UI SDK's Preferences and usePreference, a switcher for any preference, and
    the motion style switcher built from it. */
 
@@ -14,6 +27,7 @@ import {
   Preferences,
   usePreference,
 } from "@/components/primitives/preferences"
+import { cn } from "@/lib/utils"
 import { SegmentedControl, SegmentedControlItem } from "@/components/ui/segmented-control"
 
 const words = (value: string) => value.replace(/[-_]+/g, " ").replace(/^./, (first) => first.toUpperCase())
@@ -24,6 +38,8 @@ const words = (value: string) => value.replace(/[-_]+/g, " ").replace(/^./, (fir
 function PreferenceSwitcher<Value extends string>({
   preference,
   labels,
+  className,
+  style,
   ...props
 }: Omit<React.ComponentProps<typeof SegmentedControl>, "value" | "defaultValue" | "onValueChange" | "children"> & {
   /** The preference to show and set, from `createPreference`. */
@@ -32,6 +48,17 @@ function PreferenceSwitcher<Value extends string>({
   labels?: Partial<Record<Value, React.ReactNode>>
 }) {
   const { value } = usePreference(preference)
+  const theme = {
+    "--segmented-control-track": "var(--preferences-track,var(--muted))",
+    "--segmented-control-key": "var(--preferences-key,var(--kf-preferences-key))",
+    "--segmented-control-ink": "var(--preferences-ink,var(--muted-foreground))",
+    "--segmented-control-selected-ink": "var(--preferences-selected-ink,var(--foreground))",
+    "--segmented-control-height": "var(--preferences-height,2rem)",
+    "--segmented-control-radius": "var(--preferences-radius,12px)",
+    "--segmented-control-key-radius": "var(--preferences-key-radius,9px)",
+    "--segmented-control-gap": "var(--preferences-gap,0.125rem)",
+  } as React.CSSProperties
+  const appearance = "[--kf-preferences-key:var(--background)] dark:[--kf-preferences-key:var(--accent)]"
   const control = (
     <SegmentedControl
       value={value}
@@ -39,6 +66,8 @@ function PreferenceSwitcher<Value extends string>({
         if (next) preference.set(next as Value, { reason: "press", event: details.event })
       }}
       {...props}
+      className={typeof className === "function" ? (state) => cn(appearance, className(state)) : cn(appearance, className)}
+      style={typeof style === "function" ? (state) => ({ ...theme, ...style(state) }) : { ...theme, ...style }}
     >
       {preference.values.map((option) => (
         <SegmentedControlItem key={option} value={option}>

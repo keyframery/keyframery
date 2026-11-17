@@ -1,0 +1,52 @@
+{
+  "cssVars": [
+    [
+      "--toolbar-face",
+      "Toolbar sheet",
+      "--popover"
+    ],
+    [
+      "--toolbar-ink",
+      "Item text",
+      "--muted-foreground; --foreground active; --popover-foreground on sheet"
+    ],
+    [
+      "--toolbar-accent",
+      "Gliding highlight",
+      "--accent; 70% in dark"
+    ],
+    [
+      "--toolbar-key",
+      "Pressed toggle and input surface",
+      "--background; --accent for pressed toggle in dark"
+    ],
+    [
+      "--toolbar-radius",
+      "Toolbar corners",
+      "12px"
+    ],
+    [
+      "--toolbar-item-radius",
+      "Item and highlight corners",
+      "8px"
+    ],
+    [
+      "--toolbar-height",
+      "Item height and minimum width",
+      "1.75rem"
+    ],
+    [
+      "--toolbar-gap",
+      "Space between items",
+      "0.125rem"
+    ]
+  ],
+  "propDocs": {
+    "Toolbar.orientation": "Horizontal or vertical layout and keyboard axis.",
+    "Toolbar.loop": "Wraps focus at either end.",
+    "Toolbar.disabled": "Disables every item, keeping the toolbar discoverable.",
+    "ToolbarButton.focusableWhenDisabled": "Keeps disabled items reachable with arrow keys.",
+    "ToolbarToggleGroup.multiple": "Allows several pressed formatting options.",
+    "ToolbarToggleGroup.deselectable": "Allows clearing a single selected alignment."
+  }
+}

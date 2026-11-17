@@ -15,304 +15,1144 @@
   },
   "components": {
     "accordion": [
-      ["Height", "A panel opens to its real height and closes back the same way."],
-      ["Cascade", "The panel's contents rise in one after another as it opens."],
-      ["Spring", "The chevron turns on a spring."]
+      [
+        "Height",
+        "A panel opens to its real height and closes back the same way."
+      ],
+      [
+        "Cascade",
+        "The panel's contents rise in one after another as it opens."
+      ],
+      [
+        "Spring",
+        "The chevron turns on a spring."
+      ]
     ],
     "alert-dialog": [
-      ["Unfold", "The sheet rises from below out of a blur while the backdrop blurs in behind it."],
-      ["Pop", "The warning icon lands first, with a pop."],
-      ["Cascade", "Title, message and buttons follow one after another."],
-      ["Press", "Buttons sink and spring back."]
+      [
+        "Unfold",
+        "The sheet rises from below out of a blur while the backdrop blurs in behind it."
+      ],
+      [
+        "Pop",
+        "The warning icon lands first, with a pop."
+      ],
+      [
+        "Cascade",
+        "Title, message and buttons follow one after another."
+      ],
+      [
+        "Press",
+        "Buttons sink and spring back."
+      ]
     ],
     "autocomplete": [
-      ["Unfold", "Suggestions unfold from the field."],
-      ["Cascade", "Rows arrive one after another."],
-      ["Glide", "One highlight glides between suggestions as you move."],
-      ["Pop", "The clear button pops in once there is something to clear."]
+      [
+        "Unfold",
+        "Suggestions unfold from the field."
+      ],
+      [
+        "Cascade",
+        "Rows arrive one after another."
+      ],
+      [
+        "Glide",
+        "One highlight glides between suggestions as you move."
+      ],
+      [
+        "Pop",
+        "The clear button pops in once there is something to clear."
+      ]
     ],
     "avatar": [
-      ["Fade", "The photo clears out of a blur once it has loaded."],
-      ["Spring", "In a group, the avatar you point at rises and its neighbours make room."]
+      [
+        "Fade",
+        "The photo clears out of a blur once it has loaded."
+      ],
+      [
+        "Spring",
+        "In a group, the avatar you point at rises and its neighbours make room."
+      ]
     ],
     "badge": [
-      ["Pop", "A badge pops in from 60% of its size."],
-      ["Roll", "A count rolls its digits up or down; a new leading digit rises in."],
-      ["Pop", "A status dot sends out one ring when its value changes."]
+      [
+        "Pop",
+        "A badge pops in from 60% of its size."
+      ],
+      [
+        "Roll",
+        "A count rolls its digits up or down; a new leading digit rises in."
+      ],
+      [
+        "Pop",
+        "A status dot sends out one ring when its value changes."
+      ]
     ],
     "button": [
-      ["Press", "The button sinks to 96% and springs back on release."],
-      ["Direction", "While pending, the label lifts away and a spinner rises in from below."],
-      ["Draw", "A trailing arrow nudges forward and draws its stem on hover."]
+      [
+        "Press",
+        "The button sinks to 96% and springs back on release."
+      ],
+      [
+        "Direction",
+        "While pending, the label lifts away and a spinner rises in from below."
+      ],
+      [
+        "Draw",
+        "A trailing arrow nudges forward and draws its stem on hover."
+      ]
     ],
     "calendar": [
-      ["Glide", "One key glides from the old selected day to the new one."],
-      ["Direction", "Weeks slide in from the side you turned to."],
-      ["Press", "Days and arrows press in."]
+      [
+        "Glide",
+        "One key glides from the old selected day to the new one."
+      ],
+      [
+        "Direction",
+        "Weeks slide in from the side you turned to."
+      ],
+      [
+        "Press",
+        "Days and arrows press in."
+      ]
     ],
     "card": [
-      ["Cascade", "The card fades up, then its header, content and footer arrive in order."],
-      ["Spring", "An interactive card lifts 2px on hover and its shadow grows."],
-      ["Press", "It presses down when clicked."],
-      ["Fade", "An optional soft light follows the pointer."]
+      [
+        "Cascade",
+        "The card fades up, then its header, content and footer arrive in order."
+      ],
+      [
+        "Spring",
+        "An interactive card lifts 2px on hover and its shadow grows."
+      ],
+      [
+        "Press",
+        "It sinks while the pointer holds it down, or while Space or Enter is held on it, and pops back on release."
+      ],
+      [
+        "Fade",
+        "An optional soft light follows the pointer."
+      ]
     ],
     "carousel": [
-      ["Direction", "Slides travel on a spring in the direction you moved."],
-      ["Stretch", "The active dot widens into a bar."],
-      ["Press", "The arrows press in."]
+      [
+        "Direction",
+        "Slides travel on a spring in the direction you moved."
+      ],
+      [
+        "Stretch",
+        "The active dot widens into a bar."
+      ],
+      [
+        "Press",
+        "The arrows press in."
+      ]
     ],
     "checkbox": [
-      ["Pop", "The filled box pops in."],
-      ["Draw", "The check draws itself just after; the mixed state draws a dash."],
-      ["Press", "The box shrinks slightly while pressed."]
+      [
+        "Pop",
+        "The filled box pops in."
+      ],
+      [
+        "Draw",
+        "The check draws itself just after; the mixed state draws a dash."
+      ],
+      [
+        "Press",
+        "The box shrinks slightly while pressed."
+      ]
     ],
     "collapsible": [
-      ["Height", "Content opens to its real height."],
-      ["Cascade", "Its rows fall in one after another."],
-      ["Spring", "The chevron turns on a spring."]
+      [
+        "Height",
+        "Content opens to its real height."
+      ],
+      [
+        "Cascade",
+        "Its rows fall in one after another."
+      ],
+      [
+        "Spring",
+        "The chevron turns on a spring."
+      ]
     ],
     "color-picker": [
-      ["Unfold", "The picker unfolds from its swatch."],
-      ["Pop", "A thumb grows while you hold it."],
-      ["Fade", "The chosen colour cross-fades everywhere it is used."]
+      [
+        "Unfold",
+        "The picker unfolds from its swatch."
+      ],
+      [
+        "Pop",
+        "A thumb grows while you hold it."
+      ],
+      [
+        "Fade",
+        "The chosen colour cross-fades everywhere it is used."
+      ]
     ],
     "combobox": [
-      ["Unfold", "The list unfolds from the field."],
-      ["Cascade", "Options arrive one after another."],
-      ["Glide", "One highlight glides between options."],
-      ["Draw", "The check on the chosen option draws itself."]
+      [
+        "Unfold",
+        "The list unfolds from the field."
+      ],
+      [
+        "Cascade",
+        "Options arrive one after another."
+      ],
+      [
+        "Glide",
+        "One highlight glides between options."
+      ],
+      [
+        "Draw",
+        "The check on the chosen option draws itself."
+      ]
     ],
     "command": [
-      ["Cascade", "Results arrive one after another, on open and on every page change."],
-      ["Glide", "One highlight glides between results."],
-      ["Direction", "Pages slide sideways as you go deeper."]
+      [
+        "Cascade",
+        "Results arrive one after another, on open and on every page change."
+      ],
+      [
+        "Glide",
+        "One highlight glides between results."
+      ],
+      [
+        "Direction",
+        "Pages slide sideways as you go deeper."
+      ]
     ],
     "context-menu": [
-      ["Unfold", "The menu grows from the exact point you pressed."],
-      ["Cascade", "Rows arrive one after another."],
-      ["Glide", "One highlight glides between items; submenus unfold sideways."]
+      [
+        "Unfold",
+        "The menu grows from the exact point you pressed."
+      ],
+      [
+        "Cascade",
+        "Rows arrive one after another."
+      ],
+      [
+        "Glide",
+        "One highlight glides between items; submenus unfold sideways."
+      ]
     ],
     "date-input": [
-      ["Glide", "One highlight glides between day, month and year as you move through them."]
+      [
+        "Glide",
+        "One highlight glides between day, month and year as you move through them."
+      ]
     ],
     "date-picker": [
-      ["Unfold", "The calendar unfolds from the field."],
-      ["Glide", "Inside, the selected-day key glides to its new place."],
-      ["Direction", "Months slide in from the side you turned to."]
+      [
+        "Unfold",
+        "The calendar unfolds from the field."
+      ],
+      [
+        "Glide",
+        "Inside, the selected-day key glides to its new place."
+      ],
+      [
+        "Direction",
+        "Months slide in from the side you turned to."
+      ]
     ],
     "dialog": [
-      ["Unfold", "The sheet rises from below out of a blur while the backdrop blurs in."],
-      ["Cascade", "Title, fields and buttons arrive one after another."],
-      ["Press", "The close key and buttons press in."]
+      [
+        "Unfold",
+        "The sheet rises from below out of a blur while the backdrop blurs in."
+      ],
+      [
+        "Cascade",
+        "Title, fields and buttons arrive one after another."
+      ],
+      [
+        "Press",
+        "The close key and buttons press in."
+      ]
     ],
     "drawer": [
-      ["Spring", "The sheet slides in from its edge on a spring and follows your finger while dragged."],
-      ["Cascade", "Its contents arrive one after another once it is open."],
-      ["Stretch", "The grip stretches while you drag."]
+      [
+        "Spring",
+        "The sheet slides in from its edge on a spring and follows your finger while dragged."
+      ],
+      [
+        "Cascade",
+        "Its contents arrive one after another once it is open."
+      ],
+      [
+        "Stretch",
+        "The grip stretches while you drag."
+      ]
     ],
     "field": [
-      ["Height", "An error message opens the space it needs and rises in."],
-      ["Direction", "Hint and error swap places instead of jumping."],
-      ["Fade", "The ring and label turn red together."]
+      [
+        "Height",
+        "An error message opens the space it needs and rises in."
+      ],
+      [
+        "Direction",
+        "Hint and error swap places instead of jumping."
+      ],
+      [
+        "Fade",
+        "The ring and label turn red together."
+      ]
     ],
     "file-input": [
-      ["Spring", "The drop zone lifts and its icon rises while a file is over it."],
-      ["Cascade", "New file rows arrive one after another."],
-      ["Press", "Buttons press in."]
+      [
+        "Spring",
+        "The drop zone lifts and its icon rises while a file is over it."
+      ],
+      [
+        "Cascade",
+        "New file rows arrive one after another."
+      ],
+      [
+        "Press",
+        "Buttons press in."
+      ]
     ],
     "hover-card": [
-      ["Unfold", "The card unfolds from the link you are pointing at."],
-      ["Cascade", "Its contents arrive one after another."]
+      [
+        "Unfold",
+        "The card unfolds from the link you are pointing at."
+      ],
+      [
+        "Cascade",
+        "Its contents arrive one after another."
+      ]
     ],
     "image-cropper": [
-      ["Spring", "The selection springs to a new box when the ratio or zoom changes, and follows the pointer exactly while dragged."],
-      ["Pop", "Handles grow when you reach for them."],
-      ["Fade", "The area outside the crop dims, and lightens while you drag."]
+      [
+        "Spring",
+        "The selection springs to a new box when the ratio or zoom changes, and follows the pointer exactly while dragged."
+      ],
+      [
+        "Pop",
+        "Handles grow when you reach for them."
+      ],
+      [
+        "Fade",
+        "The area outside the crop dims, and lightens while you drag."
+      ]
     ],
     "input": [
-      ["Spring", "The focus ring closes in around the field on a spring."],
-      ["Fade", "The hairline changes colour."],
-      ["Pop", "A clear button pops in when there is text."]
+      [
+        "Spring",
+        "The focus ring closes in around the field on a spring."
+      ],
+      [
+        "Fade",
+        "The hairline changes colour."
+      ],
+      [
+        "Pop",
+        "A clear button pops in when there is text."
+      ]
     ],
     "kbd": [
-      ["Press", "A pressed key sinks 1px with an inner shadow and pops back."],
-      ["Cascade", "In a combination, the keys sink left to right."]
+      [
+        "Press",
+        "A pressed key sinks 1px with an inner shadow and pops back."
+      ],
+      [
+        "Cascade",
+        "In a combination, the keys sink left to right."
+      ]
     ],
     "label": [
-      ["Fade", "The label's colour follows its control: quiet, full ink when focused, red when invalid."],
-      ["Pop", "A Required or Optional marker pops in."]
+      [
+        "Fade",
+        "The label's colour follows its control: quiet, full ink when focused, red when invalid."
+      ],
+      [
+        "Pop",
+        "A Required or Optional marker pops in."
+      ]
     ],
     "listbox": [
-      ["Glide", "One highlight glides between options."],
-      ["Pop", "A check pops in as you choose."]
+      [
+        "Glide",
+        "One highlight glides between options."
+      ],
+      [
+        "Pop",
+        "A check pops in as you choose."
+      ]
     ],
     "menu": [
-      ["Unfold", "The sheet unfolds from the button that opened it. Opened by a right-click, it grows from the exact point you pressed."],
-      ["Cascade", "Rows arrive one after another."],
-      ["Glide", "One highlight glides between items."],
-      ["Draw", "Checks draw themselves; submenus unfold sideways."]
+      [
+        "Unfold",
+        "The sheet unfolds from the button that opened it. Opened by a right-click, it grows from the exact point you pressed."
+      ],
+      [
+        "Cascade",
+        "Rows arrive one after another."
+      ],
+      [
+        "Glide",
+        "One highlight glides between items."
+      ],
+      [
+        "Draw",
+        "Checks draw themselves; submenus unfold sideways."
+      ]
     ],
     "menubar": [
-      ["Glide", "A highlight glides along the bar from one menu to the next."],
-      ["Unfold", "Each menu unfolds from its title."],
-      ["Cascade", "Rows arrive one after another."]
+      [
+        "Glide",
+        "A highlight glides along the bar from one menu to the next."
+      ],
+      [
+        "Unfold",
+        "Each menu unfolds from its title."
+      ],
+      [
+        "Cascade",
+        "Rows arrive one after another."
+      ]
     ],
     "meter": [
-      ["Spring", "The bar springs to its value; the track clips the overshoot."],
-      ["Roll", "The reading rolls to the new number."],
-      ["Fade", "The bar changes colour as it crosses a threshold."]
+      [
+        "Spring",
+        "The bar springs to its value; the track clips the overshoot."
+      ],
+      [
+        "Roll",
+        "The reading rolls to the new number."
+      ],
+      [
+        "Fade",
+        "The bar changes colour as it crosses a threshold."
+      ]
     ],
     "motion-style": [
-      ["Stretch", "The switcher's key stretches between the four styles."]
+      [
+        "Stretch",
+        "The switcher's key stretches between the four styles."
+      ]
     ],
     "navigation-menu": [
-      ["Stretch", "The marker stretches from one item to the next."],
-      ["Spring", "The panel resizes on a spring to fit each menu."],
-      ["Direction", "Content slides in from the side you moved toward, and links arrive in a cascade."]
+      [
+        "Stretch",
+        "The marker stretches from one item to the next."
+      ],
+      [
+        "Spring",
+        "The panel resizes on a spring to fit each menu."
+      ],
+      [
+        "Direction",
+        "Content slides in from the side you moved toward, and links arrive in a cascade."
+      ]
     ],
     "number-input": [
-      ["Roll", "Digits roll up or down as the value changes."],
-      ["Press", "The stepper buttons press in with a pop."]
+      [
+        "Roll",
+        "Digits roll up or down as the value changes."
+      ],
+      [
+        "Press",
+        "The stepper buttons press in with a pop."
+      ]
     ],
     "otp-input": [
-      ["Glide", "One ring glides from slot to slot as you type."],
-      ["Pop", "Each digit pops up into place."],
-      ["Cascade", "When the code is complete, the slots pulse once from left to right."]
+      [
+        "Glide",
+        "One ring glides from slot to slot as you type."
+      ],
+      [
+        "Pop",
+        "Each digit pops up into place."
+      ],
+      [
+        "Cascade",
+        "When the code is complete, the slots pulse once from left to right."
+      ]
     ],
     "pagination": [
-      ["Glide", "One raised key glides between page numbers."],
-      ["Roll", "The range count rolls to the new numbers."],
-      ["Press", "The arrows press in."]
+      [
+        "Glide",
+        "One raised key glides between page numbers."
+      ],
+      [
+        "Roll",
+        "The range count rolls to the new numbers."
+      ],
+      [
+        "Press",
+        "The arrows press in."
+      ]
     ],
     "password-input": [
-      ["Fade", "The text comes into focus out of a blur when revealed."],
-      ["Pop", "The eye icons swap with a pop."],
-      ["Draw", "Requirement ticks draw themselves as each rule is met."]
+      [
+        "Fade",
+        "The text comes into focus out of a blur when revealed."
+      ],
+      [
+        "Pop",
+        "The eye icons swap with a pop."
+      ],
+      [
+        "Draw",
+        "Requirement ticks draw themselves as each rule is met."
+      ]
     ],
     "popover": [
-      ["Unfold", "The popover unfolds from the button that opened it."],
-      ["Cascade", "Its contents arrive one after another."]
+      [
+        "Unfold",
+        "The popover unfolds from the button that opened it."
+      ],
+      [
+        "Cascade",
+        "Its contents arrive one after another."
+      ]
     ],
     "preferences": [
-      ["Stretch", "A preference switcher's key stretches to the value you pick, as the motion style switcher's does between the four styles."]
+      [
+        "Stretch",
+        "A preference switcher's key stretches to the value you pick, as the motion style switcher's does between the four styles."
+      ]
     ],
     "progress": [
-      ["Spring", "The bar fills on a spring."],
-      ["Roll", "The percentage rolls."],
-      ["Fade", "It turns green when complete."]
+      [
+        "Spring",
+        "The bar fills on a spring."
+      ],
+      [
+        "Roll",
+        "The percentage rolls."
+      ],
+      [
+        "Fade",
+        "It turns green when complete."
+      ]
     ],
     "radio": [
-      ["Glide", "One selection ring glides to the chosen option."],
-      ["Pop", "The dot pops in."],
-      ["Press", "The control shrinks slightly while pressed."]
+      [
+        "Glide",
+        "One selection ring glides to the chosen option."
+      ],
+      [
+        "Pop",
+        "The dot pops in."
+      ],
+      [
+        "Press",
+        "The control shrinks slightly while pressed."
+      ]
     ],
     "rating": [
-      ["Cascade", "Stars fill one after another from the left."],
-      ["Pop", "The chosen star pops."]
+      [
+        "Cascade",
+        "Stars fill one after another from the left."
+      ],
+      [
+        "Pop",
+        "The chosen star pops."
+      ]
     ],
     "resizable": [
-      ["Spring", "Panels glide to a new size on a spring after a key press; drags stay instant."],
-      ["Stretch", "The grip stretches while you drag it."],
-      ["Fade", "The handle's line takes the ring colour."]
+      [
+        "Spring",
+        "Panels glide to a new size on a spring after a key press; drags stay instant."
+      ],
+      [
+        "Stretch",
+        "The grip stretches while you drag it."
+      ],
+      [
+        "Fade",
+        "The handle's line takes the ring colour."
+      ]
     ],
     "scroll-area": [
-      ["Fade", "The scrollbar fades in when you scroll."],
-      ["Spring", "The thumb springs thicker when you reach for it."]
+      [
+        "Fade",
+        "The scrollbar fades in when you scroll."
+      ],
+      [
+        "Spring",
+        "The thumb springs thicker when you reach for it."
+      ]
     ],
     "segmented-control": [
-      ["Stretch", "The selected key stretches across toward the new option, then closes up."],
-      ["Fade", "Label colours flip exactly at the key's edge as it passes."],
-      ["Press", "Options press in."]
+      [
+        "Stretch",
+        "The selected key stretches across toward the new option, then closes up."
+      ],
+      [
+        "Fade",
+        "Label colours flip exactly at the key's edge as it passes."
+      ],
+      [
+        "Press",
+        "Options press in."
+      ]
     ],
     "select": [
-      ["Unfold", "The list unfolds from the field."],
-      ["Cascade", "Options arrive one after another."],
-      ["Glide", "One highlight glides between options."],
-      ["Direction", "The chosen value rises into the field."]
+      [
+        "Unfold",
+        "The list unfolds from the field."
+      ],
+      [
+        "Cascade",
+        "Options arrive one after another."
+      ],
+      [
+        "Glide",
+        "One highlight glides between options."
+      ],
+      [
+        "Direction",
+        "The chosen value rises into the field."
+      ]
     ],
     "separator": [
-      ["Draw", "The line draws itself from the centre outward; vertical lines draw top to bottom."],
-      ["Fade", "A label in the middle fades in after the line."]
+      [
+        "Draw",
+        "The line draws itself from the centre outward; vertical lines draw top to bottom."
+      ],
+      [
+        "Fade",
+        "A label in the middle fades in after the line."
+      ]
     ],
     "sidebar": [
-      ["Glide", "The current page's key slides from the old item to the new one, even across groups."],
-      ["Height", "A collapsible group opens to its real height and its items rise in one after another."],
-      ["Fade", "On the rail, labels leave at once; on the way back they wait for the width, then rise in out of a blur."],
-      ["Press", "Items sink a little and spring back on release."],
-      ["Direction", "Below its mobile breakpoint the sidebar slides in over the page from the left, over a fading scrim, and slides away when you choose a page."]
+      [
+        "Glide",
+        "The current page's key slides from the old item to the new one, even across groups."
+      ],
+      [
+        "Height",
+        "A collapsible group opens to its real height and its items rise in one after another."
+      ],
+      [
+        "Fade",
+        "On the rail, labels leave at once; on the way back they wait for the width, then rise in out of a blur."
+      ],
+      [
+        "Press",
+        "Items sink a little and spring back on release."
+      ],
+      [
+        "Direction",
+        "Below its mobile breakpoint the sidebar slides in over the page from the left, over a fading scrim, and slides away when you choose a page."
+      ]
     ],
     "skeleton": [
-      ["Fade", "A light band sweeps across each placeholder, then pauses."],
-      ["Cascade", "When loading ends, the real content rises in out of a blur, one piece after another."]
+      [
+        "Fade",
+        "A light band sweeps across each placeholder, then pauses."
+      ],
+      [
+        "Cascade",
+        "When loading ends, the real content rises in out of a blur, one piece after another."
+      ]
     ],
     "slider": [
-      ["Pop", "The thumb grows while you hold it."],
-      ["Spring", "The fill and thumbs travel on a spring when the value jumps."],
-      ["Roll", "The value rolls to the new number."]
+      [
+        "Pop",
+        "The thumb grows while you hold it."
+      ],
+      [
+        "Spring",
+        "The fill and thumbs travel on a spring when the value jumps."
+      ],
+      [
+        "Roll",
+        "The value rolls to the new number."
+      ]
     ],
     "switch": [
-      ["Stretch", "The thumb stretches toward the side it is moving to, then settles."],
-      ["Press", "It widens while you hold it."]
+      [
+        "Stretch",
+        "The thumb stretches toward the side it is moving to, then settles."
+      ],
+      [
+        "Press",
+        "It widens while you hold it."
+      ]
     ],
     "table": [
-      ["Cascade", "Rows arrive one after another, and new rows do the same when the page or filter changes. Rows that only move, like after a sort, stay put."],
-      ["Spring", "A sortable header's arrow turns over when the direction flips."],
-      ["Fade", "Hover and selected rows fade their colour in and out."],
-      ["Direction", "Too wide for the screen, it scrolls sideways and the edge you can scroll toward softens."]
+      [
+        "Cascade",
+        "Rows arrive one after another, and new rows do the same when the page or filter changes. Rows that only move, like after a sort, stay put."
+      ],
+      [
+        "Spring",
+        "A sortable header's arrow turns over when the direction flips."
+      ],
+      [
+        "Fade",
+        "Hover and selected rows fade their colour in and out."
+      ],
+      [
+        "Direction",
+        "Too wide for the screen, it scrolls sideways and the edge you can scroll toward softens."
+      ]
     ],
     "tabs": [
-      ["Stretch", "The key stretches across the list toward the tab you pick, then closes up."],
-      ["Fade", "Label colours flip exactly at the key's edge as it passes."],
-      ["Direction", "The panel slides in from the side you moved to."]
+      [
+        "Stretch",
+        "The key stretches across the list toward the tab you pick, then closes up."
+      ],
+      [
+        "Fade",
+        "Label colours flip exactly at the key's edge as it passes."
+      ],
+      [
+        "Direction",
+        "The panel slides in from the side you moved to."
+      ]
     ],
     "textarea": [
-      ["Spring", "The focus ring closes in on a spring."],
-      ["Roll", "The character count rolls."]
+      [
+        "Spring",
+        "The focus ring closes in on a spring."
+      ],
+      [
+        "Roll",
+        "The character count rolls."
+      ]
     ],
     "time-input": [
-      ["Glide", "One highlight glides between hours, minutes and AM/PM."]
+      [
+        "Glide",
+        "One highlight glides between hours, minutes and AM/PM."
+      ]
     ],
     "timeline": [
-      ["Cascade", "Events rise in one after another."],
-      ["Draw", "A finished step's check draws itself."],
-      ["Spring", "The rail fills as steps complete."]
+      [
+        "Cascade",
+        "Events rise in one after another."
+      ],
+      [
+        "Draw",
+        "A finished step's check draws itself."
+      ],
+      [
+        "Spring",
+        "The rail fills as steps complete."
+      ]
     ],
     "toast": [
-      ["Spring", "A toast arrives from the edge on a spring."],
-      ["Draw", "Its icon draws itself."],
-      ["Spring", "Toasts behind shrink back into a stack and spread out when you hover."]
+      [
+        "Spring",
+        "A toast arrives from the edge on a spring."
+      ],
+      [
+        "Draw",
+        "Its icon draws itself."
+      ],
+      [
+        "Spring",
+        "Toasts behind shrink back into a stack and spread out when you hover."
+      ]
     ],
     "toggle": [
-      ["Pop", "The pressed surface pops in and shrinks away on release."],
-      ["Glide", "In a group, one hover highlight glides between toggles."],
-      ["Press", "Toggles press in."]
+      [
+        "Pop",
+        "The pressed surface pops in and shrinks away on release."
+      ],
+      [
+        "Glide",
+        "In a group, one hover highlight glides between toggles."
+      ],
+      [
+        "Press",
+        "Toggles press in."
+      ]
     ],
     "token-input": [
-      ["Pop", "Tokens pop into the field as you add them."],
-      ["Press", "The remove buttons press in."]
+      [
+        "Pop",
+        "Tokens pop into the field as you add them."
+      ],
+      [
+        "Press",
+        "The remove buttons press in."
+      ]
     ],
     "toolbar": [
-      ["Glide", "One highlight springs between the toolbar's buttons, following pointer and keyboard."],
-      ["Press", "Buttons press in with a pop."]
+      [
+        "Glide",
+        "One highlight springs between the toolbar's buttons, following pointer and keyboard."
+      ],
+      [
+        "Press",
+        "Buttons press in with a pop."
+      ]
     ],
     "tooltip": [
-      ["Unfold", "The tip pops out of its button."],
-      ["Fade", "Moving to the next button switches instantly, with no second animation."]
+      [
+        "Unfold",
+        "The tip pops out of its button."
+      ],
+      [
+        "Fade",
+        "Moving to the next button switches instantly, with no second animation."
+      ]
     ],
     "tree": [
-      ["Glide", "The selected row's key glides to the new row; a lighter highlight follows the pointer."],
-      ["Height", "A branch opens to its real height."],
-      ["Cascade", "Its rows fall in one after another, and the chevron turns."]
+      [
+        "Glide",
+        "The selected row's key glides to the new row; a lighter highlight follows the pointer."
+      ],
+      [
+        "Height",
+        "A branch opens to its real height."
+      ],
+      [
+        "Cascade",
+        "Its rows fall in one after another, and the chevron turns."
+      ]
     ],
     "trigger-menu": [
-      ["Unfold", "Typing @ or / opens a menu at the cursor."],
-      ["Cascade", "Rows arrive one after another."],
-      ["Glide", "One highlight glides between items."]
+      [
+        "Unfold",
+        "Typing @ or / opens a menu at the cursor."
+      ],
+      [
+        "Cascade",
+        "Rows arrive one after another."
+      ],
+      [
+        "Glide",
+        "One highlight glides between items."
+      ]
     ],
     "waterfall": [
-      ["Cascade", "Rows arrive one after another; opening a span cascades its children."],
-      ["Spring", "Bars grow from their start time, and glide when timings change."],
-      ["Spring", "The chevron turns on a spring."]
+      [
+        "Cascade",
+        "Rows arrive one after another; opening a span cascades its children."
+      ],
+      [
+        "Spring",
+        "Bars grow from their start time, and glide when timings change."
+      ],
+      [
+        "Spring",
+        "The chevron turns on a spring."
+      ]
+    ],
+    "alert": [
+      [
+        "Unfold",
+        "The alert drops 12px into place out of a 6px blur, growing from 0.96 on a spring."
+      ],
+      [
+        "Draw",
+        "The icon pops into its tile, then its strokes draw themselves."
+      ],
+      [
+        "Cascade",
+        "The title and description rise in after the icon, one after the other."
+      ],
+      [
+        "Height",
+        "Dismissed, it fades, blurs and folds its height to nothing, so what sits below closes up."
+      ]
+    ],
+    "aspect-ratio": [
+      [
+        "Spring",
+        "A new ratio is reached on a spring, so the frame reshapes instead of snapping."
+      ],
+      [
+        "Blur in",
+        "The photo fades up out of an 18px blur and a 1.08 zoom once it has loaded; a new photo plays it again."
+      ]
+    ],
+    "breadcrumb": [
+      [
+        "Cascade",
+        "On first render the crumbs and separators arrive one after another out of a blur."
+      ],
+      [
+        "Direction",
+        "Going one level deeper, the new crumb slides in from the right at once."
+      ],
+      [
+        "Draw",
+        "Each separator's chevron draws itself as it arrives."
+      ],
+      [
+        "Draw",
+        "A link's underline grows from its start on hover or keyboard focus."
+      ],
+      [
+        "Unfold",
+        "In a menu trigger, the ellipsis opens a menu of the pages it stands for."
+      ]
+    ],
+    "button-group": [
+      [
+        "Glide",
+        "One highlight springs from segment to segment instead of each button lighting up on its own."
+      ],
+      [
+        "Fade",
+        "The highlight appears where it lands the first time and fades out where it was when the pointer leaves."
+      ],
+      [
+        "Press",
+        "A segment sinks a little and springs back, less than a lone button so the strip stays joined."
+      ],
+      [
+        "Draw",
+        "A separator grows in from its centre."
+      ]
+    ],
+    "code-block": [
+      [
+        "Cascade",
+        "The lines arrive one after another from the left."
+      ],
+      [
+        "Draw",
+        "A highlighted line's band sweeps in from the left; the old band shrinks back as the highlight moves."
+      ],
+      [
+        "Pop",
+        "On copy, the copy icon blurs away and a tick pops in and draws itself."
+      ],
+      [
+        "Press",
+        "The copy key sinks and springs back."
+      ]
+    ],
+    "empty": [
+      [
+        "Draw",
+        "The media pops in from 0.6 and the strokes of the icon inside it draw themselves."
+      ],
+      [
+        "Cascade",
+        "The title, the description and then each action rise 10px out of a blur, one after another."
+      ]
+    ],
+    "form": [
+      [
+        "Height",
+        "An error, from the browser or from your server, opens its own height under its field and rises in out of a blur."
+      ],
+      [
+        "Direction",
+        "The submit button's label rises out to the pending label with a spinner, then to the success label; refused, it comes back down."
+      ],
+      [
+        "Draw",
+        "The check in the success label strokes itself in."
+      ],
+      [
+        "Fade",
+        "While the form sends, its fields settle back a little and come forward again when it is done."
+      ],
+      [
+        "Press",
+        "The submit button sinks and springs back."
+      ]
+    ],
+    "input-group": [
+      [
+        "Spring",
+        "The focus ring belongs to the group: it starts out wide and closes onto the field on a spring."
+      ],
+      [
+        "Roll",
+        "The count rolls its digits up or down as the text grows and shrinks."
+      ],
+      [
+        "Pop",
+        "Anything marked `data-show=\"filled\"`, like a send button, pops in with the first character and shrinks away when the field is empty."
+      ],
+      [
+        "Press",
+        "Buttons in the group sink and spring back."
+      ]
+    ],
+    "item": [
+      [
+        "Cascade",
+        "Rows rise out of a soft blur one after another as the list mounts, and the lines between them draw out from the middle."
+      ],
+      [
+        "Glide",
+        "In a group, one highlight glides to the row under the pointer or the keyboard focus; the lines beside it step aside."
+      ],
+      [
+        "Press",
+        "A row that is a link or a button gives a little when pressed and springs back."
+      ],
+      [
+        "Fade",
+        "A photo in the media slot clears out of a blur as its row arrives."
+      ],
+      [
+        "Spring",
+        "A chevron in the actions leans toward where the row leads while it is hovered."
+      ]
+    ],
+    "marker": [
+      [
+        "Draw",
+        "A separator marker's rules draw outward from its words; a border marker's rule draws from the start of the line."
+      ],
+      [
+        "Pop",
+        "The icon lands with a little overshoot once the work it marks is done."
+      ],
+      [
+        "Direction",
+        "The words rise out of a soft blur; when a pending marker finishes, its new text rises in again."
+      ],
+      [
+        "Fade",
+        "While pending, a light sweeps across the words, then stops when the work is done."
+      ]
+    ],
+    "native-select": [
+      [
+        "Direction",
+        "The chosen label rises in from below while the old one leaves upward."
+      ],
+      [
+        "Pop",
+        "The chevron dips once on every change."
+      ],
+      [
+        "Press",
+        "The field gives a little under the pointer and springs back."
+      ],
+      [
+        "Spring",
+        "The focus ring starts out wide and closes onto the field on a spring."
+      ]
+    ],
+    "spinner": [
+      [
+        "Pop",
+        "It lands with a pop from 0.4 when it appears, usually in place of a label."
+      ],
+      [
+        "Turn",
+        "The ring turns at a steady pace while its arc stretches and shrinks; the spokes fade one after another around the dial."
+      ]
+    ],
+    "trace": [
+      [
+        "Cascade",
+        "Lines rise in one after another as they arrive."
+      ],
+      [
+        "Fade",
+        "A running title has a soft light passing through it; it stops for reduced motion."
+      ],
+      [
+        "Draw",
+        "When a step finishes, its tick pops in and draws itself."
+      ],
+      [
+        "Height",
+        "A row that expands opens to its real height."
+      ],
+      [
+        "Cascade",
+        "The detail's paragraphs rise in one after another as it opens."
+      ],
+      [
+        "Spring",
+        "The chevron turns down on a spring."
+      ]
+    ],
+    "attachment": [
+      [
+        "Unfold",
+        "New files grow from 80% through a soft blur on a pop spring."
+      ],
+      [
+        "Height",
+        "Removing a file shrinks it and closes the space it occupied."
+      ],
+      [
+        "Roll",
+        "Upload progress fills on a spring and fades once complete."
+      ]
+    ],
+    "bubble": [
+      [
+        "Unfold",
+        "A new bubble grows from 60% at its sender’s corner while its blur clears."
+      ],
+      [
+        "Cascade",
+        "Grouped bubbles arrive in order, with reactions following their bubble."
+      ],
+      [
+        "Press",
+        "A bubble rendered as a button or link presses in and springs back."
+      ]
+    ],
+    "direction": [
+      [
+        "Direction",
+        "After a direction change, content arrives from its new reading side with 28px of travel and a soft blur."
+      ],
+      [
+        "Cascade",
+        "Content blocks follow the direction change in order."
+      ],
+      [
+        "Press",
+        "The toggle presses in while its mirror icon flips on a spring."
+      ]
+    ],
+    "message-scroller": [
+      [
+        "Direction",
+        "Messages added after the first frame rise 16px into place."
+      ],
+      [
+        "Unfold",
+        "Jump to latest rises from the bottom edge after the reader scrolls away."
+      ],
+      [
+        "Roll",
+        "The unread count rolls as new messages arrive."
+      ]
+    ],
+    "message": [
+      [
+        "Cascade",
+        "A new message’s header, content and footer rise in order, with its receipt last."
+      ],
+      [
+        "Unfold",
+        "The avatar pops into place as the first line arrives."
+      ]
+    ],
+    "questionnaire": [
+      [
+        "Direction",
+        "Questions enter from the navigation direction while the previous question leaves."
+      ],
+      [
+        "Cascade",
+        "Each question’s title, description, answers and error arrive in order."
+      ],
+      [
+        "Glide",
+        "A single selection ring moves between radio answer cards."
+      ],
+      [
+        "Roll",
+        "The question number rolls and the progress fill grows on a spring."
+      ],
+      [
+        "Height",
+        "Validation errors open beneath the answers."
+      ]
     ]
   }
 }

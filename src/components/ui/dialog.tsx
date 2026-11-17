@@ -1,5 +1,17 @@
 "use client"
 
+export * from "@/components/primitives/dialog"
+
+/* Theming: set on a part or its ancestor; unset variables preserve the original theme.
+   --dialog-face: Dialog sheet (default: --popover).
+   --dialog-ink: Dialog body text (default: --popover-foreground).
+   --dialog-action: Primary or destructive action (default: --primary / --destructive (dark destructive mixed with --background 24%)).
+   --dialog-radius: Sheet corners (default: 18px).
+   --dialog-width: Sheet width limit (default: 440px).
+   --dialog-padding: Sheet padding (default: 1.25rem).
+   --dialog-gap: Footer key spacing (default: 0.5rem).
+ */
+
 /* Styled dialog: the animated primitive plus the Keyframery look. */
 
 import {
@@ -16,6 +28,11 @@ import * as React from "react"
 
 import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
+
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
 
 type DialogCloseVariant = "default" | "primary" | "destructive" | "icon"
 
@@ -45,19 +62,19 @@ const closeVariants: Record<DialogCloseVariant, string> = {
   default: cn(keySurface, "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4"),
   primary: cn(
     "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4",
-    "bg-primary text-primary-foreground",
+    "bg-[var(--dialog-action,var(--primary))] text-primary-foreground",
     "shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)]",
     "dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)]",
-    "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--primary),var(--background)_14%)]",
+    "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--dialog-action,var(--primary)),var(--background)_14%)]",
     "not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
   ),
   destructive: cn(
     "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4",
-    "bg-destructive text-background dark:bg-[color-mix(in_oklab,var(--destructive),var(--background)_24%)] dark:text-foreground",
+    "bg-[var(--dialog-action,var(--destructive))] text-background dark:bg-[color-mix(in_oklab,var(--dialog-action,var(--destructive)),var(--background)_24%)] dark:text-foreground",
     "shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_1px_2px_rgb(0_0_0/0.2)]",
     "dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.16),0_1px_2px_rgb(0_0_0/0.5)]",
-    "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--destructive),var(--foreground)_10%)]",
-    "dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--destructive),var(--background)_14%)]",
+    "not-data-disabled:hover:bg-[color-mix(in_oklab,var(--dialog-action,var(--destructive)),var(--foreground)_10%)]",
+    "dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--dialog-action,var(--destructive)),var(--background)_14%)]",
     "not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
   ),
   /* The small corner key that closes the dialog. */
@@ -98,9 +115,11 @@ function DialogTrigger({
 }: React.ComponentProps<typeof DialogTriggerPart>) {
   return (
     <DialogTriggerPart
-      className={cn(
-        !props.render && [keyBase, keySurface, "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4"],
-        props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      className={withClass(
+        cn(
+          !props.render && [keyBase, keySurface, "h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4"],
+          props.render && "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        ),
         className,
       )}
       {...props}
@@ -116,7 +135,7 @@ function DialogBackdrop({
 }: React.ComponentProps<typeof DialogBackdropPart>) {
   return (
     <DialogBackdropPart
-      className={cn("fixed inset-0 bg-black/25 dark:bg-black/55", className)}
+      className={withClass("fixed inset-0 bg-black/25 dark:bg-black/55", className)}
       {...props} style={useSpeedStyle(style)}
     />
   )
@@ -130,12 +149,14 @@ function DialogContent({
 }: React.ComponentProps<typeof DialogContentPart>) {
   return (
     <DialogContentPart
-      className={cn(
-        "fixed inset-0 m-auto h-fit max-h-[calc(100dvh-32px)] w-[min(440px,calc(100vw-32px))] max-w-none overflow-y-auto overscroll-contain",
-        "border-0 p-5 outline-none backdrop:bg-transparent",
-        "rounded-[18px] bg-popover text-popover-foreground",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_24px_56px_-12px_rgb(0_0_0/0.28)]",
-        "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_24px_56px_-12px_rgb(0_0_0/0.8)]",
+      className={withClass(
+        cn(
+          "fixed inset-0 m-auto h-fit max-h-[calc(100dvh-32px)] w-[min(var(--dialog-width,440px),calc(100vw-32px))] max-w-none overflow-y-auto overscroll-contain",
+          "border-0 p-[var(--dialog-padding,1.25rem)] outline-none backdrop:bg-transparent",
+          "rounded-[var(--dialog-radius,18px)] bg-[var(--dialog-face,var(--popover))] text-[color:var(--dialog-ink,var(--popover-foreground))]",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_24px_56px_-12px_rgb(0_0_0/0.28)]",
+          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_24px_56px_-12px_rgb(0_0_0/0.8)]",
+        ),
         className,
       )}
       {...props} style={useSpeedStyle(style)}
@@ -159,7 +180,7 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn("mt-5 flex items-center justify-end gap-2", className)}
+      className={cn("mt-5 flex items-center justify-end gap-[var(--dialog-gap,0.5rem)]", className)}
       {...props}
     />
   )
@@ -171,7 +192,7 @@ function DialogTitle({
 }: React.ComponentProps<typeof DialogTitlePart>) {
   return (
     <DialogTitlePart
-      className={cn("text-[15px] leading-5 font-semibold tracking-tight", className)}
+      className={withClass("text-[15px] leading-5 font-semibold tracking-tight", className)}
       {...props}
     />
   )
@@ -183,7 +204,7 @@ function DialogDescription({
 }: React.ComponentProps<typeof DialogDescriptionPart>) {
   return (
     <DialogDescriptionPart
-      className={cn("text-[13px] leading-5 text-muted-foreground", className)}
+      className={withClass("text-[13px] leading-5 text-muted-foreground", className)}
       {...props}
     />
   )
@@ -200,7 +221,7 @@ function DialogClose({
     <DialogClosePart
       data-variant={variant}
       aria-label={variant === "icon" && !children ? "Close" : undefined}
-      className={cn(!props.render && [keyBase, closeVariants[variant]], className)}
+      className={withClass(cn(!props.render && [keyBase, closeVariants[variant]]), className)}
       {...props}
     >
       {variant === "icon" && !children ? <XIcon /> : children}
@@ -214,10 +235,7 @@ function DialogShortcut({
 }: React.ComponentProps<typeof DialogShortcutPart>) {
   return (
     <DialogShortcutPart
-      className={cn(
-        "ms-1 text-[12px] leading-none tracking-[0.04em] text-muted-foreground tabular-nums",
-        className,
-      )}
+      className={withClass("ms-1 text-[12px] leading-none tracking-[0.04em] text-muted-foreground tabular-nums", className)}
       {...props}
     />
   )

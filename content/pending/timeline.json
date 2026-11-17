@@ -1,0 +1,51 @@
+{
+  "cssVars": [
+    [
+      "--timeline-current",
+      "Current step marker",
+      "--primary"
+    ],
+    [
+      "--timeline-complete",
+      "Completed marker",
+      "oklch(0.62 0.16 150)"
+    ],
+    [
+      "--timeline-ink",
+      "Event title",
+      "--foreground"
+    ],
+    [
+      "--timeline-muted",
+      "Time and description",
+      "--muted-foreground"
+    ],
+    [
+      "--timeline-rail",
+      "Connector and completed connector tint",
+      "--border; --foreground at 30% for fill"
+    ],
+    [
+      "--timeline-marker-size",
+      "Current and complete marker diameter",
+      "1rem"
+    ],
+    [
+      "--timeline-gap",
+      "Space beside markers",
+      "0.75rem"
+    ],
+    [
+      "--timeline-radius",
+      "Event focus corners",
+      "10px"
+    ]
+  ],
+  "propDocs": {
+    "Timeline.orientation": "Vertical list or horizontal roadmap, with matching arrow keys.",
+    "Timeline.loop": "Wraps focus at the ends.",
+    "Timeline.feed": "Uses a feed of articles instead of a list.",
+    "Timeline.busy": "Marks a feed as loading.",
+    "TimelineItem.status": "Complete, current, upcoming, or undefined for an event."
+  }
+}

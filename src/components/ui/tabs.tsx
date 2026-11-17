@@ -1,6 +1,19 @@
 "use client"
 
+export * from "@/components/primitives/tabs"
+
 /* Styled tabs: the animated primitive plus the Keyframery look. */
+
+/* Theming: inherit these optional variables; unset values retain the original light/dark tokens.
+   --tabs-track: Tab list well (default: --muted).
+   --tabs-key: Selected tab surface (default: --background; --accent in dark).
+   --tabs-ink: Unselected labels (default: --muted-foreground).
+   --tabs-selected-ink: Selected labels (default: --foreground).
+   --tabs-height: Tab height (default: 2rem).
+   --tabs-radius: List corners (default: 12px).
+   --tabs-key-radius: Tab key corners (default: 9px).
+   --tabs-gap: Space between tabs (default: 0.125rem).
+ */
 
 import * as React from "react"
 
@@ -16,21 +29,23 @@ import {
 import { mapChildren, Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 /* One box shared by the real tab and its copy inside the key, so both lay out identically. */
 const tabBox =
-  "inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-[9px] px-3 text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0"
+  "inline-flex h-[var(--tabs-height,2rem)] shrink-0 items-center justify-center gap-1.5 rounded-[var(--tabs-key-radius,9px)] px-3 text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0"
 
 const listLayout =
-  "flex items-center gap-0.5 p-1 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch"
+  "flex items-center gap-[var(--tabs-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch"
 
 function Tabs({ speed, className, ...props }: React.ComponentProps<typeof TabsRoot> & SpeedProps) {
   return (
     <Speed speed={speed}>
       <TabsRoot
-        className={cn(
-          "flex flex-col data-[orientation=vertical]:flex-row data-[orientation=vertical]:gap-4",
-          className,
-        )}
+        className={withClass("flex flex-col data-[orientation=vertical]:flex-row data-[orientation=vertical]:gap-4", className)}
         {...props}
       />
     </Speed>
@@ -44,11 +59,13 @@ function TabsList({
 }: React.ComponentProps<typeof TabsListPrimitive>) {
   return (
     <TabsListPrimitive
-      className={cn(
-        listLayout,
-        "w-fit rounded-[12px] bg-muted",
-        "shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)]",
-        "dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+      className={withClass(
+        cn(
+          listLayout,
+          "w-fit rounded-[var(--tabs-radius,12px)] bg-[var(--tabs-track,var(--muted))]",
+          "shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)]",
+          "dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+        ),
         className,
       )}
       {...props}
@@ -64,7 +81,7 @@ function TabsList({
               <span
                 className={cn(
                   listLayout,
-                  "absolute text-foreground",
+                  "absolute text-[color:var(--tabs-selected-ink,var(--foreground))]",
                   "group-data-[orientation=vertical]/key:flex-col group-data-[orientation=vertical]/key:items-stretch",
                   "top-[calc(min(var(--kf-ta),var(--kf-tb))*-1)] left-[calc(min(var(--kf-la),var(--kf-lb))*-1)]",
                   "h-[calc(var(--active-tab-top,0px)+var(--active-tab-height,0px)+var(--active-tab-bottom,0px))]",
@@ -91,11 +108,13 @@ function TabsIndicator({ className, ...props }: React.ComponentProps<typeof Tabs
   return (
     <TabsIndicatorPrimitive
       aria-hidden
-      className={cn(
-        "group/key z-10 rounded-[9px] bg-background",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
-        "dark:bg-accent dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
-        className as string,
+      className={withClass(
+        cn(
+          "group/key z-10 rounded-[var(--tabs-key-radius,9px)] bg-[var(--tabs-key,var(--background))]",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
+          "dark:bg-[var(--tabs-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+        ),
+        className,
       )}
       {...props}
     />
@@ -105,12 +124,14 @@ function TabsIndicator({ className, ...props }: React.ComponentProps<typeof Tabs
 function TabsTab({ className, ...props }: React.ComponentProps<typeof TabsTabPrimitive>) {
   return (
     <TabsTabPrimitive
-      className={cn(
-        tabBox,
-        "relative cursor-pointer text-muted-foreground outline-none select-none",
-        "transition-[color,background-color,scale] motion-reduce:transition-none! hover:bg-foreground/[0.045] hover:text-foreground",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted",
-        "data-disabled:pointer-events-none data-disabled:opacity-40",
+      className={withClass(
+        cn(
+          tabBox,
+          "relative cursor-pointer text-[color:var(--tabs-ink,var(--muted-foreground))] outline-none select-none",
+          "transition-[color,background-color,scale] motion-reduce:transition-none! hover:bg-[color-mix(in_oklab,var(--tabs-selected-ink,var(--foreground))_4.5%,transparent)] hover:text-[color:var(--tabs-selected-ink,var(--foreground))]",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted",
+          "data-disabled:pointer-events-none data-disabled:opacity-40",
+        ),
         className,
       )}
       {...props}
@@ -120,7 +141,7 @@ function TabsTab({ className, ...props }: React.ComponentProps<typeof TabsTabPri
 
 /* An icon inside a tab. A tab with only an icon needs an `aria-label`. */
 function TabsTabIcon({ className, ...props }: React.ComponentProps<typeof TabsTabIconPrimitive>) {
-  return <TabsTabIconPrimitive className={cn("inline-flex shrink-0 items-center justify-center [&_svg]:size-3.5", className as string)} {...props} />
+  return <TabsTabIconPrimitive className={withClass("inline-flex shrink-0 items-center justify-center [&_svg]:size-3.5", className)} {...props} />
 }
 
 function TabsPanels({ className, ...props }: React.ComponentProps<typeof TabsPanelsPrimitive>) {
@@ -130,9 +151,11 @@ function TabsPanels({ className, ...props }: React.ComponentProps<typeof TabsPan
 function TabsPanel({ className, ...props }: React.ComponentProps<typeof TabsPanelPrimitive>) {
   return (
     <TabsPanelPrimitive
-      className={cn(
-        "min-w-0 outline-none",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      className={withClass(
+        cn(
+          "min-w-0 outline-none",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        ),
         className,
       )}
       {...props}

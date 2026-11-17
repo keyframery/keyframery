@@ -13,6 +13,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/alert-dialog"
 
 /* Press: the key gives under the finger and springs back on release. */
@@ -32,22 +37,24 @@ const cascade = cn(
 )
 
 function AlertDialogTrigger({ className, ...props }: React.ComponentProps<typeof AlertDialogTriggerPart>) {
-  return <AlertDialogTriggerPart className={cn(press, className)} {...props} />
+  return <AlertDialogTriggerPart className={withClass(press, className)} {...props} />
 }
 
 function AlertDialogClose({ className, ...props }: React.ComponentProps<typeof AlertDialogClosePart>) {
-  return <AlertDialogClosePart className={cn(press, className)} {...props} />
+  return <AlertDialogClosePart className={withClass(press, className)} {...props} />
 }
 
 /* The page behind softens into a blur as it dims, and clears faster than it came. */
 function AlertDialogBackdrop({ className, ...props }: React.ComponentProps<typeof AlertDialogBackdropPart>) {
   return (
     <AlertDialogBackdropPart
-      className={cn(
-        "backdrop-blur-[4px] transition-[opacity,backdrop-filter] duration-[calc(380ms*var(--kf-speed,1))] ease-house",
-        "data-starting-style:opacity-0 data-starting-style:backdrop-blur-none",
-        "data-ending-style:opacity-0 data-ending-style:backdrop-blur-none data-ending-style:duration-[calc(180ms*var(--kf-speed,1))]",
-        "motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "backdrop-blur-[4px] transition-[opacity,backdrop-filter] duration-[calc(380ms*var(--kf-speed,1))] ease-house",
+          "data-starting-style:opacity-0 data-starting-style:backdrop-blur-none",
+          "data-ending-style:opacity-0 data-ending-style:backdrop-blur-none data-ending-style:duration-[calc(180ms*var(--kf-speed,1))]",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -67,13 +74,15 @@ function AlertDialogContent<Payload = unknown>({
         {cascadeKeyframes}
       </style>
       <AlertDialogContentPart<Payload>
-        className={cn(
-          "group/alert-dialog transition-[opacity,scale,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring",
-          "data-starting-style:translate-y-6 data-starting-style:scale-[0.9] data-starting-style:opacity-0 data-starting-style:blur-[8px]",
-          "data-ending-style:translate-y-2 data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[4px] data-ending-style:duration-[calc(180ms*var(--kf-speed,1))] data-ending-style:ease-house",
-          "data-nested-open:scale-[0.95] data-nested-open:opacity-70",
-          cascade,
-          "motion-reduce:transition-none!",
+        className={withClass(
+          cn(
+            "group/alert-dialog transition-[opacity,scale,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring",
+            "data-starting-style:translate-y-6 data-starting-style:scale-[0.9] data-starting-style:opacity-0 data-starting-style:blur-[8px]",
+            "data-ending-style:translate-y-2 data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[4px] data-ending-style:duration-[calc(180ms*var(--kf-speed,1))] data-ending-style:ease-house",
+            "data-nested-open:scale-[0.95] data-nested-open:opacity-70",
+            cascade,
+            "motion-reduce:transition-none!",
+          ),
           className,
         )}
         {...props}

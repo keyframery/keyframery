@@ -8,6 +8,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/avatar"
 
 /* Moves on a spring when a group makes room for its neighbour, and dips when pressed
@@ -15,9 +20,11 @@ export * from "@ui-sdk/react/avatar"
 function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarRoot>) {
   return (
     <AvatarRoot
-      className={cn(
-        "[transition:translate_calc(460ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)] [&:is(button,a)]:active:scale-[0.92]",
-        "motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "[transition:translate_calc(460ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)] [&:is(button,a)]:active:scale-[0.92]",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -31,11 +38,13 @@ function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarRoot>
 function AvatarImage({ className, ...props }: React.ComponentProps<typeof AvatarImagePart>) {
   return (
     <AvatarImagePart
-      className={cn(
-        "[transition:opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house),filter_calc(560ms*var(--kf-speed,1))_var(--ease-house),scale_calc(680ms*var(--kf-speed,1))_var(--ease-spring)]",
-        "not-data-[loading-status=loaded]:scale-125 not-data-[loading-status=loaded]:blur-[10px]",
-        "starting:scale-125 starting:opacity-0 starting:blur-[10px]",
-        "motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "[transition:opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house),filter_calc(560ms*var(--kf-speed,1))_var(--ease-house),scale_calc(680ms*var(--kf-speed,1))_var(--ease-spring)]",
+          "not-data-[loading-status=loaded]:scale-125 not-data-[loading-status=loaded]:blur-[10px]",
+          "starting:scale-125 starting:opacity-0 starting:blur-[10px]",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}

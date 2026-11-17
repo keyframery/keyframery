@@ -1,0 +1,1629 @@
+/* Round: a landing page you can operate. Plain CSS, scoped to .rnd.
+   Colours: change the six --rnd-* values. Every section then picks a tone (data-tone) that maps them
+   onto the shadcn tokens, so the UI SDK controls inside each section follow along.
+   Motion: every duration is multiplied by --kf-speed and every easing reads Keyframery's three curves,
+   so the four motion styles (Calm, Springy, Snappy, Playful) change the whole page. */
+
+.rnd {
+  --rnd-blue: #2431e0;
+  --rnd-ink: #0d0f1f;
+  --rnd-paper: #f2f2f5;
+  --rnd-hot: #ff4d24;
+  --rnd-pink: #ffb9d5;
+  --rnd-sky: #a8d4ff;
+
+  --rnd-t: var(--kf-speed, 1);
+  --rnd-house: var(--ease-house, cubic-bezier(0.22, 1, 0.36, 1));
+  --rnd-spring: var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1));
+  --rnd-pop: var(--ease-pop, cubic-bezier(0.34, 1.56, 0.64, 1));
+  --rnd-gutter: clamp(20px, 4vw, 56px);
+  --rnd-round: clamp(26px, 3.2vw, 46px);
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  flex: 1;
+  background: var(--rnd-ink);
+  color: var(--foreground);
+  font-family: var(--rnd-font, "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif);
+  font-size: 17px;
+  line-height: 1.45;
+  font-feature-settings: "ss01", "cv11";
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: border-box;
+  }
+  /* This file is not in a cascade layer, so its rules outrank Tailwind's utilities. The resets below
+     therefore name the page's own elements and leave the UI SDK controls inside it alone. */
+  & :where(h1, h2, h3, p, ul, ol, figure, blockquote) {
+    margin: 0;
+  }
+  & :where(ul, ol) {
+    padding: 0;
+    list-style: none;
+  }
+  & :where(a) {
+    color: inherit;
+    text-decoration: none;
+  }
+  & :where(.rnd-btn, .rnd-tab, .rnd-seat, .rnd-chip, .rnd-ring-handle, .rnd-controls-even) {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+  & :where(img) {
+    display: block;
+    max-width: 100%;
+  }
+  & :where(a, .rnd-btn, .rnd-tab, .rnd-seat, .rnd-chip, .rnd-ring-handle, .rnd-controls-even):focus-visible {
+    outline: 2.5px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  /* ------------------------------------------------------------ tones */
+
+  & [data-tone] {
+    background: var(--background);
+    color: var(--foreground);
+  }
+  & [data-tone="blue"] {
+    --background: var(--rnd-blue);
+    --foreground: #fff;
+    --muted: rgb(255 255 255 / 0.14);
+    --muted-foreground: rgb(255 255 255 / 0.74);
+    --border: rgb(255 255 255 / 0.26);
+    --primary: #fff;
+    --primary-foreground: var(--rnd-blue);
+    --ring: #fff;
+    --rnd-soft: var(--rnd-pink);
+  }
+  & [data-tone="paper"] {
+    --background: var(--rnd-paper);
+    --foreground: var(--rnd-ink);
+    --card: #fff;
+    --muted: #e3e4ea;
+    --muted-foreground: #5a5d70;
+    --accent: #e9eaef;
+    --border: rgb(13 15 31 / 0.13);
+    --primary: var(--rnd-ink);
+    --primary-foreground: #fff;
+    --ring: var(--rnd-blue);
+    --rnd-soft: #a2a4b3;
+  }
+  & [data-tone="ink"] {
+    --background: var(--rnd-ink);
+    --foreground: #fff;
+    --muted: rgb(255 255 255 / 0.1);
+    --muted-foreground: rgb(255 255 255 / 0.62);
+    --border: rgb(255 255 255 / 0.16);
+    --primary: #fff;
+    --primary-foreground: var(--rnd-ink);
+    --ring: #fff;
+    --rnd-soft: rgb(255 255 255 / 0.38);
+  }
+  & [data-tone="pink"] {
+    --background: var(--rnd-pink);
+    --foreground: var(--rnd-ink);
+    --muted: rgb(13 15 31 / 0.08);
+    --muted-foreground: rgb(13 15 31 / 0.68);
+    --border: rgb(13 15 31 / 0.18);
+    --primary: var(--rnd-ink);
+    --primary-foreground: #fff;
+    --ring: var(--rnd-ink);
+    --rnd-soft: rgb(13 15 31 / 0.42);
+  }
+  & [data-tone="hot"] {
+    --background: var(--rnd-hot);
+    --foreground: var(--rnd-ink);
+    --muted: rgb(13 15 31 / 0.1);
+    --muted-foreground: rgb(13 15 31 / 0.72);
+    --border: rgb(13 15 31 / 0.22);
+    --primary: var(--rnd-ink);
+    --primary-foreground: #fff;
+    --ring: var(--rnd-ink);
+    --rnd-soft: #fff;
+  }
+
+  /* ------------------------------------------------------------ type */
+
+  & .rnd-display {
+    font-size: clamp(3.3rem, 10.4vw, 10.25rem);
+    line-height: 0.88;
+    letter-spacing: -0.055em;
+    font-weight: 640;
+  }
+  & .rnd-h2 {
+    font-size: clamp(2.6rem, 7.2vw, 6.75rem);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    font-weight: 640;
+    text-wrap: balance;
+  }
+  & .rnd-soft {
+    color: var(--rnd-soft);
+  }
+  & .rnd-kicker {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75em;
+    font-size: 15px;
+    font-weight: 560;
+    letter-spacing: -0.01em;
+
+    & b {
+      font-weight: 560;
+      font-variant-numeric: tabular-nums;
+      color: var(--muted-foreground);
+    }
+  }
+  & .rnd-lede {
+    max-width: 34ch;
+    font-size: clamp(1.06rem, 1.45vw, 1.31rem);
+    line-height: 1.4;
+    letter-spacing: -0.012em;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+  & .rnd-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  /* A headline line that rises out of its own baseline. */
+  & .rnd-line {
+    display: block;
+    overflow: clip;
+    overflow-clip-margin: 0.14em;
+    padding-bottom: 0.06em;
+
+    & > span {
+      display: block;
+      transition:
+        translate calc(900ms * var(--rnd-t)) var(--rnd-spring),
+        opacity calc(500ms * var(--rnd-t)) var(--rnd-house);
+      transition-delay: calc(var(--i, 0) * 90ms * var(--rnd-t));
+    }
+  }
+
+  /* ------------------------------------------------------------ rolling figures and faces */
+
+  & .rnd-roll {
+    position: relative;
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  & .rnd-roll-row {
+    display: inline-flex;
+    line-height: 1;
+  }
+  & .rnd-roll-digit {
+    display: inline-block;
+    height: 1em;
+    overflow: clip;
+  }
+  & .rnd-roll-strip {
+    display: flex;
+    flex-direction: column;
+    translate: 0 calc(var(--d) * -10%);
+    transition: translate calc(620ms * var(--rnd-t)) var(--rnd-spring);
+
+    & > span {
+      height: 1em;
+    }
+  }
+  & .rnd-face {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: var(--face-size, 32px);
+    height: var(--face-size, 32px);
+    overflow: hidden;
+    border-radius: 50%;
+    background: var(--face);
+    color: var(--face-ink);
+    font-size: calc(var(--face-size, 32px) * 0.42);
+    font-weight: 640;
+    line-height: 1;
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /* ------------------------------------------------------------ buttons */
+
+  & .rnd-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55em;
+    height: 54px;
+    padding: 0 28px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      scale calc(260ms * var(--rnd-t)) var(--rnd-pop),
+      background-color calc(160ms * var(--rnd-t));
+
+    &:hover {
+      background: color-mix(in oklab, var(--primary), var(--background) 12%);
+    }
+    &:active {
+      scale: 0.96;
+    }
+    & svg {
+      width: 1.05em;
+      height: 1.05em;
+      transition: translate calc(320ms * var(--rnd-t)) var(--rnd-spring);
+    }
+    &:hover svg {
+      translate: 3px 0;
+    }
+  }
+  & .rnd-btn[data-size="sm"] {
+    height: 38px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+  & .rnd-btn[data-kind="line"] {
+    background: transparent;
+    color: var(--foreground);
+    box-shadow: inset 0 0 0 1.5px var(--border);
+
+    &:hover {
+      background: var(--muted);
+    }
+  }
+  & .rnd-btn[data-kind="hot"] {
+    background: var(--rnd-hot);
+    color: var(--rnd-ink);
+
+    &:hover {
+      background: color-mix(in oklab, var(--rnd-hot), #fff 14%);
+    }
+  }
+
+  /* ------------------------------------------------------------ nav */
+
+  & .rnd-nav {
+    position: fixed;
+    z-index: 50;
+    top: 14px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: min(calc(100% - 28px), 1080px);
+    height: 58px;
+    padding: 0 10px 0 22px;
+    translate: -50% 0;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--rnd-ink);
+    box-shadow:
+      0 0 0 1px rgb(13 15 31 / 0.06),
+      0 14px 34px -16px rgb(13 15 31 / 0.4);
+    transition:
+      translate calc(800ms * var(--rnd-t)) var(--rnd-spring),
+      opacity calc(400ms * var(--rnd-t)) var(--rnd-house);
+
+    --background: #fff;
+    --foreground: var(--rnd-ink);
+    --muted: #eeeff3;
+    --muted-foreground: #5a5d70;
+    --primary: var(--rnd-ink);
+    --primary-foreground: #fff;
+    --ring: var(--rnd-blue);
+    --segmented-control-height: 30px;
+    --segmented-control-radius: 999px;
+    --segmented-control-key-radius: 999px;
+  }
+  & .rnd-wordmark {
+    margin-right: auto;
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    line-height: 1;
+  }
+  & .rnd-nav-links {
+    display: flex;
+    gap: 2px;
+    margin-right: 8px;
+
+    & a {
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 14.5px;
+      font-weight: 520;
+      letter-spacing: -0.012em;
+      transition: background-color calc(160ms * var(--rnd-t));
+
+      &:hover {
+        background: var(--muted);
+      }
+    }
+  }
+
+  /* ------------------------------------------------------------ sheets: each one sticks while the next slides over it */
+
+  & .rnd-anchor {
+    display: block;
+    height: 0;
+    scroll-margin-top: 0;
+  }
+  & .rnd-sheet {
+    position: sticky;
+    top: var(--stick, 0px);
+
+    &:not(:first-of-type) {
+      border-radius: var(--rnd-round) var(--rnd-round) 0 0;
+    }
+    /* The light going out on the sheet underneath. */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: #05060f;
+      opacity: calc(var(--cover, 0) * 0.5);
+      pointer-events: none;
+    }
+  }
+  & .rnd-sheet-in {
+    border-radius: inherit;
+    transform-origin: 50% calc(100% - 50svh);
+  }
+  & .rnd-sheet[data-under] > .rnd-sheet-in {
+    scale: calc(1 - var(--cover, 0) * 0.07);
+    will-change: scale;
+  }
+  & .rnd-wrap {
+    width: min(100%, 1440px);
+    margin-inline: auto;
+    padding-inline: var(--rnd-gutter);
+  }
+
+  /* Anything marked data-reveal arrives when it scrolls into view (after the page script has started). */
+  &[data-ready] [data-reveal] {
+    transition:
+      opacity calc(700ms * var(--rnd-t)) var(--rnd-house),
+      translate calc(900ms * var(--rnd-t)) var(--rnd-spring),
+      filter calc(700ms * var(--rnd-t)) var(--rnd-house);
+    transition-delay: calc(var(--i, 0) * 80ms * var(--rnd-t));
+  }
+  &[data-ready] [data-reveal]:not([data-in]) {
+    opacity: 0;
+    translate: 0 34px;
+    filter: blur(8px);
+  }
+  &[data-ready] [data-reveal]:not([data-in]) .rnd-line > span {
+    translate: 0 130%;
+  }
+  &[data-ready] [data-reveal="lines"]:not([data-in]) {
+    opacity: 1;
+    translate: none;
+    filter: none;
+  }
+
+  /* ------------------------------------------------------------ hero */
+
+  & .rnd-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, min(45vw, 620px));
+    grid-template-rows: 1fr auto;
+    column-gap: clamp(24px, 4vw, 80px);
+    align-items: center;
+    min-height: 100svh;
+    padding-top: 104px;
+  }
+  & .rnd-hero-copy {
+    display: grid;
+    gap: clamp(20px, 2.4vw, 34px);
+    justify-items: start;
+    padding-block: 12px 28px;
+  }
+  & .rnd-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+  }
+  & .rnd-hero-notes {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    padding-block: 18px 22px;
+    border-top: 1px solid var(--border);
+    font-size: 14.5px;
+    letter-spacing: -0.008em;
+    color: var(--muted-foreground);
+
+    & b {
+      display: block;
+      color: var(--foreground);
+      font-weight: 600;
+    }
+  }
+
+  /* ------------------------------------------------------------ the ring */
+
+  & .rnd-split {
+    display: grid;
+    justify-items: center;
+    gap: clamp(14px, 1.6vw, 22px);
+    padding-bottom: 20px;
+  }
+  & .rnd-ring-slot {
+    position: relative;
+    width: min(100%, max(280px, calc(100svh - 318px)));
+    aspect-ratio: 1;
+  }
+  & .rnd-ring {
+    position: absolute;
+    inset: 0;
+    container-type: inline-size;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  & .rnd-ring-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  & .rnd-ring-slice,
+  & .rnd-ring-cover {
+    fill: none;
+    stroke-width: 300;
+  }
+  & .rnd-ring-slice {
+    transition:
+      stroke-dasharray calc(680ms * var(--rnd-t)) var(--rnd-spring),
+      rotate calc(680ms * var(--rnd-t)) var(--rnd-spring);
+  }
+  /* The white ring of the loading sequence. Hidden once the page has opened. */
+  & .rnd-ring-cover {
+    stroke: #fff;
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: -1;
+    rotate: -150deg;
+    pointer-events: none;
+  }
+  & .rnd-ring-hub {
+    position: absolute;
+    inset: 33%;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1.1cqw;
+    text-align: center;
+    color: #fff;
+    pointer-events: none;
+  }
+  & .rnd-ring-hub-label,
+  & .rnd-ring-hub-note {
+    font-size: clamp(11px, 2.45cqw, 15px);
+    font-weight: 520;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: rgb(255 255 255 / 0.76);
+  }
+  & .rnd-ring-hub-total {
+    font-size: clamp(22px, 7.4cqw, 46px);
+    font-weight: 640;
+    letter-spacing: -0.045em;
+  }
+  & .rnd-ring-label {
+    position: absolute;
+    display: grid;
+    justify-items: center;
+    gap: 0.9cqw;
+    translate: -50% -50%;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    scale: 0.6;
+    transition:
+      left calc(680ms * var(--rnd-t)) var(--rnd-spring),
+      top calc(680ms * var(--rnd-t)) var(--rnd-spring),
+      opacity calc(220ms * var(--rnd-t)) var(--rnd-house),
+      scale calc(520ms * var(--rnd-t)) var(--rnd-pop);
+
+    --face-size: clamp(24px, 7.6cqw, 46px);
+
+    &[data-on] {
+      opacity: 1;
+      scale: 1;
+    }
+    &[data-small] .rnd-ring-label-name {
+      display: none;
+    }
+  }
+  & .rnd-ring-label-name {
+    font-size: clamp(11px, 2.5cqw, 15px);
+    font-weight: 560;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  & .rnd-ring-label-amount {
+    font-size: clamp(13px, 3.7cqw, 23px);
+    font-weight: 640;
+    letter-spacing: -0.035em;
+  }
+  & .rnd-ring-handle {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin: -15px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+      0 0 0 5px var(--rnd-blue),
+      0 8px 18px 2px rgb(5 8 60 / 0.45);
+    cursor: grab;
+    touch-action: none;
+    transition:
+      left calc(680ms * var(--rnd-t)) var(--rnd-spring),
+      top calc(680ms * var(--rnd-t)) var(--rnd-spring),
+      scale calc(300ms * var(--rnd-t)) var(--rnd-pop),
+      opacity calc(240ms * var(--rnd-t)) var(--rnd-house);
+
+    /* A comfortable target for a thumb. */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      background: var(--rnd-blue);
+    }
+    &:hover {
+      scale: 1.14;
+    }
+    &[data-active] {
+      scale: 1.28;
+      cursor: grabbing;
+    }
+    &:focus-visible {
+      outline-color: #fff;
+      outline-offset: 7px;
+    }
+  }
+  /* While a handle is held, the ring follows the hand exactly. Figures keep rolling. */
+  & .rnd-ring[data-dragging] :is(.rnd-ring-slice, .rnd-ring-label, .rnd-ring-handle) {
+    transition-duration: 0s, 0s, calc(300ms * var(--rnd-t)), calc(240ms * var(--rnd-t));
+  }
+  & .rnd-ring-hint {
+    position: absolute;
+    padding: 8px 13px;
+    translate: -50% -50%;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--rnd-blue);
+    font-size: 13.5px;
+    font-weight: 620;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 8px 18px -6px rgb(5 8 60 / 0.5);
+    transition:
+      left calc(680ms * var(--rnd-t)) var(--rnd-spring),
+      top calc(680ms * var(--rnd-t)) var(--rnd-spring),
+      opacity calc(300ms * var(--rnd-t)) var(--rnd-house),
+      scale calc(460ms * var(--rnd-t)) var(--rnd-pop);
+  }
+
+  & .rnd-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 16px;
+    max-width: 100%;
+    padding: 8px 8px 8px 20px;
+    border-radius: 32px;
+    box-shadow: 0 22px 44px -22px rgb(5 8 60 / 0.7);
+    background: #fff;
+
+    --background: #fff;
+    --primary: var(--rnd-blue);
+    --slider-fill: var(--rnd-blue);
+    --slider-track: #e3e4ea;
+    --slider-thumb-size: 20px;
+    --slider-thickness: 6px;
+  }
+  & .rnd-controls-tip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14.5px;
+    font-weight: 560;
+    letter-spacing: -0.01em;
+  }
+  & .rnd-controls-slider {
+    width: 92px;
+  }
+  & .rnd-controls-value {
+    width: 2.3em;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted-foreground);
+  }
+  & .rnd-controls-table {
+    display: flex;
+    gap: 4px;
+  }
+  & .rnd-seat {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    --face-size: 26px;
+
+    &::before {
+      background: transparent;
+      box-shadow: inset 0 0 0 2px var(--rnd-ink);
+    }
+    & .rnd-face {
+      transition:
+        filter calc(300ms * var(--rnd-t)),
+        opacity calc(300ms * var(--rnd-t)),
+        scale calc(420ms * var(--rnd-t)) var(--rnd-pop);
+    }
+    &:not([data-pressed]) .rnd-face {
+      filter: grayscale(1);
+      opacity: 0.42;
+      scale: 0.86;
+    }
+    &:not([data-pressed]):hover .rnd-face {
+      opacity: 0.8;
+    }
+  }
+  & .rnd-controls-even {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 15px;
+    border-radius: 999px;
+    background: var(--rnd-ink);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      opacity calc(200ms * var(--rnd-t)),
+      scale calc(260ms * var(--rnd-t)) var(--rnd-pop);
+
+    &[data-disabled] {
+      opacity: 0.32;
+      cursor: default;
+    }
+  }
+
+  /* ------------------------------------------------------------ claim */
+
+  & .rnd-claim-top {
+    display: grid;
+    gap: clamp(28px, 4vw, 56px);
+    padding-block: clamp(84px, 11vw, 168px) clamp(56px, 7vw, 104px);
+  }
+  /* The statement inks in, word by word, as it is scrolled through. */
+  & .rnd-say {
+    max-width: 22ch;
+    font-size: clamp(2.05rem, 5.5vw, 5.1rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+    font-weight: 620;
+
+    & [data-w] {
+      --on: clamp(0, (var(--p, 1) - var(--w)) * 9, 1);
+      color: color-mix(in oklab, var(--foreground) calc(var(--on) * 100%), rgb(13 15 31 / 0.14));
+    }
+  }
+  & .rnd-say-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.16em;
+    padding: 0.05em 0.36em 0.05em 0.07em;
+    translate: 0 -0.05em;
+    border-radius: 999px;
+    background: var(--chip);
+    color: var(--chip-ink, #fff);
+    font-size: 0.8em;
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+    vertical-align: middle;
+    white-space: nowrap;
+    opacity: calc(0.22 + var(--on) * 0.78);
+    --face-size: 0.92em;
+  }
+  & .rnd-claim {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(28px, 5vw, 88px);
+    align-items: start;
+    padding-bottom: clamp(88px, 11vw, 170px);
+  }
+  & .rnd-claim-side {
+    display: grid;
+    gap: clamp(22px, 2.6vw, 36px);
+  }
+  & .rnd-claim-title {
+    font-size: clamp(1.9rem, 3.5vw, 3.1rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    font-weight: 640;
+  }
+  & .rnd-tabs {
+    display: grid;
+    border-top: 1px solid var(--border);
+  }
+  & .rnd-tab {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    transition:
+      color calc(200ms * var(--rnd-t)),
+      padding calc(520ms * var(--rnd-t)) var(--rnd-spring);
+    --face-size: 46px;
+
+    &::before {
+      background: transparent;
+    }
+    & img {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: grayscale(1);
+      opacity: 0.7;
+      transition:
+        filter calc(300ms * var(--rnd-t)),
+        opacity calc(300ms * var(--rnd-t)),
+        scale calc(520ms * var(--rnd-t)) var(--rnd-pop);
+    }
+    &:hover {
+      color: var(--foreground);
+    }
+    &[aria-pressed="true"] {
+      padding-left: 14px;
+      color: var(--foreground);
+
+      & img {
+        filter: none;
+        opacity: 1;
+        scale: 1.12;
+      }
+    }
+  }
+  & .rnd-tab-name {
+    font-size: clamp(1.2rem, 1.9vw, 1.65rem);
+    font-weight: 620;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+  & .rnd-tab-total {
+    font-size: 15px;
+    font-weight: 560;
+    font-variant-numeric: tabular-nums;
+  }
+
+  & .rnd-bill {
+    display: grid;
+    border-radius: clamp(22px, 2.4vw, 34px);
+    background: #fff;
+    box-shadow:
+      0 0 0 1px rgb(13 15 31 / 0.05),
+      0 2px 4px rgb(13 15 31 / 0.04),
+      0 40px 70px -40px rgb(13 15 31 / 0.35);
+  }
+  & .rnd-bill-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    padding: clamp(20px, 2.4vw, 32px) clamp(20px, 2.4vw, 32px) clamp(16px, 1.8vw, 22px);
+  }
+  & .rnd-bill-title {
+    font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+    font-weight: 640;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+  & .rnd-bill-when {
+    margin-top: 5px;
+    font-size: 14.5px;
+    color: var(--muted-foreground);
+  }
+  & .rnd-bill-total {
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-weight: 640;
+    letter-spacing: -0.05em;
+  }
+  & .rnd-item {
+    display: grid;
+    grid-template-columns: 1fr auto 5.2em;
+    align-items: center;
+    gap: 14px;
+    min-height: 58px;
+    margin-inline: clamp(20px, 2.4vw, 32px);
+    border-top: 1px solid var(--border);
+    font-size: 16px;
+    letter-spacing: -0.012em;
+    animation: rnd-row-in calc(560ms * var(--rnd-t)) var(--rnd-spring) backwards;
+    animation-delay: calc((var(--i) * 45ms + 90ms) * var(--rnd-t));
+  }
+  & .rnd-item-name {
+    font-weight: 540;
+  }
+  & .rnd-item-who {
+    display: flex;
+    gap: 3px;
+  }
+  & .rnd-chip {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    --face-size: 26px;
+
+    &::before {
+      background: transparent;
+      box-shadow: inset 0 0 0 2px var(--who);
+    }
+    & .rnd-face {
+      transition:
+        filter calc(260ms * var(--rnd-t)),
+        opacity calc(260ms * var(--rnd-t)),
+        scale calc(420ms * var(--rnd-t)) var(--rnd-pop);
+    }
+    &:not([data-pressed]) .rnd-face {
+      filter: grayscale(1);
+      opacity: 0.32;
+      scale: 0.84;
+    }
+    &:not([data-pressed]):hover .rnd-face {
+      opacity: 0.75;
+    }
+  }
+  & .rnd-item-price {
+    justify-self: end;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  & .rnd-bill-foot {
+    display: grid;
+    gap: 16px;
+    margin-top: 6px;
+    padding: clamp(18px, 2vw, 26px) clamp(20px, 2.4vw, 32px) clamp(20px, 2.4vw, 30px);
+    border-radius: 0 0 clamp(22px, 2.4vw, 34px) clamp(22px, 2.4vw, 34px);
+    background: #f7f7f9;
+  }
+  & .rnd-bar {
+    display: flex;
+    gap: 3px;
+    height: 14px;
+
+    & span {
+      flex: 0 1 0px;
+      min-width: 6px;
+      border-radius: 999px;
+      background: var(--who);
+      transition: flex-grow calc(680ms * var(--rnd-t)) var(--rnd-spring);
+    }
+  }
+  & .rnd-owes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 26px;
+  }
+  & .rnd-owe {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 15px;
+    --face-size: 26px;
+
+    & b {
+      font-weight: 640;
+      letter-spacing: -0.02em;
+    }
+  }
+  & .rnd-claim-tip {
+    font-size: 14.5px;
+    color: var(--muted-foreground);
+  }
+
+  /* ------------------------------------------------------------ settle: a pinned screen, driven by the scroll */
+
+  & .rnd-settle {
+    height: 290svh;
+
+    & > .rnd-sheet-in {
+      height: 100%;
+    }
+  }
+  & .rnd-pin {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100svh;
+    padding-block: 108px clamp(26px, 4vh, 48px);
+    overflow: clip;
+  }
+  & .rnd-settle-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px 32px;
+  }
+  & .rnd-settle-title {
+    display: grid;
+    font-size: clamp(1.7rem, 3.4vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
+    font-weight: 640;
+
+    & > span {
+      grid-area: 1 / 1;
+      transition:
+        opacity calc(360ms * var(--rnd-t)) var(--rnd-house),
+        translate calc(620ms * var(--rnd-t)) var(--rnd-spring),
+        filter calc(360ms * var(--rnd-t)) var(--rnd-house);
+    }
+    & > span:last-child {
+      color: var(--rnd-hot);
+    }
+  }
+  & .rnd-settle:not([data-done]) .rnd-settle-title > span:last-child,
+  & .rnd-settle[data-done] .rnd-settle-title > span:first-child {
+    opacity: 0;
+    translate: 0 0.5em;
+    filter: blur(6px);
+  }
+  & .rnd-meter {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: clamp(8px, 1.6vh, 18px);
+  }
+  & .rnd-odo {
+    display: flex;
+    font-size: min(21.5vw, 46svh);
+    font-weight: 680;
+    letter-spacing: -0.065em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    transition: color calc(500ms * var(--rnd-t)) var(--rnd-house);
+  }
+  & .rnd-settle[data-done] .rnd-odo {
+    color: var(--rnd-hot);
+  }
+  & .rnd-odo-digit {
+    display: block;
+    height: 1em;
+    overflow: clip;
+    transition:
+      max-width calc(520ms * var(--rnd-t)) var(--rnd-spring),
+      opacity calc(300ms * var(--rnd-t)) var(--rnd-house);
+    max-width: 1em;
+
+    &[data-ghost] {
+      max-width: 0;
+      opacity: 0;
+    }
+    & > span {
+      display: flex;
+      flex-direction: column;
+      translate: 0 calc(var(--d, 0) * -100% / 11);
+      will-change: translate;
+
+      & > span {
+        height: 1em;
+      }
+    }
+  }
+  & .rnd-meter-note {
+    font-size: clamp(15px, 1.5vw, 19px);
+    font-weight: 520;
+    letter-spacing: -0.012em;
+    color: var(--muted-foreground);
+  }
+  & .rnd-debts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--border);
+  }
+  & .rnd-debt {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 18px clamp(12px, 2vw, 28px) 0;
+    --face-size: 44px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+    & + & {
+      border-left: 1px solid var(--border);
+    }
+    & .rnd-face,
+    & .rnd-debt-text {
+      transition: opacity calc(400ms * var(--rnd-t)) var(--rnd-house);
+    }
+    &[data-paid] .rnd-face,
+    &[data-paid] .rnd-debt-text {
+      opacity: 0.45;
+    }
+  }
+  & .rnd-debt-text {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+    font-size: 15px;
+    line-height: 1.25;
+    color: var(--muted-foreground);
+
+    & b {
+      color: var(--foreground);
+      font-size: 17px;
+      font-weight: 620;
+      letter-spacing: -0.02em;
+    }
+  }
+  & .rnd-debt-note {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  & .rnd-debt-state {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1.5px var(--border);
+    transition:
+      background-color calc(260ms * var(--rnd-t)),
+      box-shadow calc(260ms * var(--rnd-t)),
+      scale calc(460ms * var(--rnd-t)) var(--rnd-pop);
+
+    & path {
+      stroke-dasharray: 20;
+      stroke-dashoffset: 20;
+      transition: stroke-dashoffset calc(320ms * var(--rnd-t)) var(--rnd-house) calc(120ms * var(--rnd-t));
+    }
+  }
+  & .rnd-debt[data-paid] .rnd-debt-state {
+    background: var(--rnd-hot);
+    color: var(--rnd-ink);
+    box-shadow: inset 0 0 0 1.5px var(--rnd-hot);
+    scale: 1.08;
+
+    & path {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* ------------------------------------------------------------ table talk */
+
+  & .rnd-talk {
+    display: grid;
+    gap: clamp(56px, 8vw, 120px);
+    padding-block: clamp(84px, 11vw, 168px);
+  }
+  & .rnd-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 48px);
+  }
+  & .rnd-stat {
+    display: grid;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1.5px solid var(--foreground);
+    font-size: 16px;
+    letter-spacing: -0.012em;
+    color: var(--muted-foreground);
+  }
+  & .rnd-stat-figure {
+    display: flex;
+    align-items: baseline;
+    gap: 0.12em;
+    color: var(--foreground);
+    font-size: clamp(3rem, 8vw, 7.4rem);
+    font-weight: 660;
+    letter-spacing: -0.06em;
+    line-height: 0.92;
+
+    & small {
+      font-size: 0.26em;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+  }
+  & .rnd-quotes {
+    display: grid;
+  }
+  & .rnd-quote {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(190px, 0.3fr);
+    gap: 20px clamp(24px, 5vw, 80px);
+    align-items: start;
+    padding-block: clamp(22px, 3vw, 40px);
+    border-top: 1px solid var(--border);
+  }
+  & .rnd-quote-text {
+    font-size: clamp(1.5rem, 3.3vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.042em;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  & .rnd-quote-by {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 6px;
+    font-size: 15px;
+    line-height: 1.3;
+    color: var(--muted-foreground);
+    --face-size: 44px;
+
+    & b {
+      display: block;
+      color: var(--foreground);
+      font-weight: 620;
+    }
+  }
+
+  /* ------------------------------------------------------------ pricing and questions */
+
+  & .rnd-pricing {
+    display: grid;
+    gap: clamp(36px, 5vw, 72px);
+    padding-block: clamp(84px, 11vw, 168px) clamp(64px, 8vw, 120px);
+  }
+  & .rnd-pricing-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px 40px;
+
+    --segmented-control-height: 38px;
+    --segmented-control-radius: 999px;
+    --segmented-control-key-radius: 999px;
+    --segmented-control-track: #e3e4ea;
+  }
+  & .rnd-billing {
+    zoom: 1.18;
+  }
+  & .rnd-plans {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(14px, 1.6vw, 22px);
+  }
+  & .rnd-plan {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: clamp(20px, 2.4vw, 32px);
+    padding: clamp(24px, 3vw, 44px);
+    border-radius: clamp(24px, 2.6vw, 38px);
+
+    &[data-tone="paper"] {
+      background: #fff;
+      box-shadow: 0 0 0 1px rgb(13 15 31 / 0.06);
+    }
+  }
+  & .rnd-plan-name {
+    display: grid;
+    gap: 6px;
+    font-size: 16px;
+    color: var(--muted-foreground);
+
+    & b {
+      color: var(--foreground);
+      font-size: clamp(1.4rem, 2vw, 1.75rem);
+      font-weight: 640;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+    }
+  }
+  & .rnd-plan-price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.16em;
+    font-size: clamp(3.6rem, 8.6vw, 8rem);
+    font-weight: 660;
+    letter-spacing: -0.065em;
+    line-height: 0.9;
+
+    & small {
+      font-size: 0.2em;
+      font-weight: 560;
+      letter-spacing: -0.02em;
+      color: var(--muted-foreground);
+    }
+  }
+  & .rnd-plan-note {
+    min-height: 1.45em;
+    margin-top: 12px;
+    font-size: 15px;
+    color: var(--muted-foreground);
+  }
+  & .rnd-plan-list {
+    display: grid;
+    align-content: start;
+
+    & li {
+      display: flex;
+      gap: 12px;
+      padding-block: 13px;
+      border-top: 1px solid var(--border);
+      font-size: 16.5px;
+      letter-spacing: -0.012em;
+    }
+    & svg {
+      flex: none;
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+    }
+  }
+  & .rnd-plan .rnd-btn {
+    justify-self: start;
+  }
+  & .rnd-faq {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(28px, 5vw, 88px);
+    padding-block: clamp(56px, 7vw, 104px) clamp(96px, 12vw, 180px);
+    border-top: 1px solid var(--border);
+
+    --accordion-padding: 22px;
+    --accordion-radius: 12px;
+
+    & [data-slot="accordion-trigger"] {
+      font-size: clamp(1.12rem, 1.7vw, 1.45rem);
+      line-height: 1.2;
+      font-weight: 620;
+      letter-spacing: -0.03em;
+    }
+    & [data-slot="accordion-panel"] {
+      max-width: 60ch;
+      font-size: 16.5px;
+      line-height: 1.5;
+    }
+  }
+
+  /* ------------------------------------------------------------ last call and footer */
+
+  & .rnd-last {
+    display: grid;
+    gap: clamp(28px, 3.4vw, 48px);
+    justify-items: start;
+    padding-block: clamp(96px, 13vw, 200px) clamp(72px, 9vw, 130px);
+  }
+  & .rnd-foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    padding-block: 34px;
+    border-top: 1.5px solid var(--rnd-ink);
+    font-size: 15.5px;
+    letter-spacing: -0.01em;
+
+    & h3 {
+      margin-bottom: 12px;
+      font-size: 15.5px;
+      font-weight: 640;
+    }
+    & li + li {
+      margin-top: 7px;
+    }
+    & a {
+      color: var(--muted-foreground);
+      transition: color calc(160ms * var(--rnd-t));
+
+      &:hover {
+        color: var(--foreground);
+      }
+    }
+  }
+  & .rnd-foot-brand {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    max-width: 30ch;
+    color: var(--muted-foreground);
+
+    & .rnd-wordmark {
+      color: var(--foreground);
+      font-size: 30px;
+    }
+  }
+  & .rnd-legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding-block: 18px 26px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--muted-foreground);
+
+    & a {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+  }
+
+  /* ------------------------------------------------------------ tablet and phone */
+
+  @media (max-width: 960px) {
+    & .rnd-nav-links {
+      display: none;
+    }
+    & .rnd-hero {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto;
+      row-gap: 28px;
+      padding-top: 112px;
+    }
+    & .rnd-ring-slot {
+      width: min(100%, 520px);
+    }
+    & .rnd-claim,
+    & .rnd-faq {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .rnd-foot {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    & .rnd-foot-brand {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 640px) {
+    font-size: 16px;
+
+    & .rnd-nav {
+      height: 54px;
+      padding-left: 18px;
+    }
+    & .rnd-nav .rnd-btn {
+      display: none;
+    }
+    & .rnd-hero-notes {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+    }
+    & .rnd-controls {
+      padding: 14px 14px 12px;
+      border-radius: 26px;
+    }
+    & .rnd-controls-slider {
+      width: 132px;
+    }
+    & .rnd-item {
+      grid-template-columns: 1fr auto;
+      gap: 6px 12px;
+      padding-block: 12px;
+    }
+    & .rnd-item-who {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+    & .rnd-stats,
+    & .rnd-plans,
+    & .rnd-quote {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .rnd-debts {
+      grid-template-columns: minmax(0, 1fr);
+      border-top: 0;
+    }
+    & .rnd-debt {
+      padding: 10px 0;
+      border-top: 1px solid var(--border);
+
+      & + & {
+        border-left: 0;
+      }
+      --face-size: 34px;
+    }
+    & .rnd-debt-note {
+      display: none;
+    }
+    & .rnd-btn:not([data-size="sm"]) {
+      height: 50px;
+      padding: 0 22px;
+      font-size: 15.5px;
+    }
+    & .rnd-foot {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+/* The page under the template: the colour seen when the scroll bounces at either end. */
+:root:has(.rnd) {
+  background: #2431e0;
+  scroll-behavior: smooth;
+}
+
+/* ---------------------------------------------------------------- the loading sequence
+   A white ring draws itself in the middle of a blue screen while the bill adds up. Then it flies to its
+   place in the hero and the white peels away, leaving one slice per person. The page script moves it
+   (round.tsx); these rules say what each step looks like. Skipped entirely with reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .rnd[data-intro="load"] {
+    & .rnd-ring {
+      position: fixed;
+      z-index: 60;
+      inset: auto;
+      top: 50%;
+      left: 50%;
+      width: min(54vmin, 430px);
+      height: min(54vmin, 430px);
+      translate: -50% -50%;
+    }
+    & .rnd-ring-slice {
+      opacity: 0;
+    }
+    & .rnd-ring-cover {
+      stroke-dashoffset: 0;
+      animation: rnd-ring-draw calc(1250ms * var(--rnd-t)) var(--rnd-house) backwards;
+    }
+    & .rnd-ring-hub {
+      animation: rnd-rise calc(700ms * var(--rnd-t)) var(--rnd-spring) calc(350ms * var(--rnd-t)) backwards;
+    }
+    & .rnd-nav {
+      translate: -50% -140%;
+      opacity: 0;
+    }
+  }
+  .rnd[data-intro="place"] .rnd-ring-cover {
+    stroke-dashoffset: 0;
+  }
+  /* While the white is still on the ring: nothing else has arrived yet. */
+  .rnd[data-intro] {
+    & .rnd-hero .rnd-line > span {
+      translate: 0 130%;
+    }
+    & :is(.rnd-hero-copy > :not(h1), .rnd-hero-notes, .rnd-controls) {
+      opacity: 0;
+      translate: 0 26px;
+    }
+    & :is(.rnd-ring-label, .rnd-ring-label[data-on]) {
+      opacity: 0;
+      scale: 0.5;
+    }
+    & :is(.rnd-ring-handle, .rnd-ring-hint) {
+      opacity: 0;
+      scale: 0.3;
+    }
+  }
+  /* Arrivals, in order, once the ring has landed. */
+  .rnd {
+    & .rnd-ring-cover {
+      transition: stroke-dashoffset calc(1050ms * var(--rnd-t)) var(--rnd-house) calc(380ms * var(--rnd-t));
+    }
+    & :is(.rnd-hero-copy > :not(h1), .rnd-hero-notes, .rnd-controls) {
+      transition:
+        opacity calc(700ms * var(--rnd-t)) var(--rnd-house),
+        translate calc(900ms * var(--rnd-t)) var(--rnd-spring);
+      transition-delay: calc((var(--i, 0) * 90ms + 420ms) * var(--rnd-t));
+    }
+    & .rnd-hero .rnd-line > span {
+      transition-delay: calc((var(--i, 0) * 110ms + 160ms) * var(--rnd-t));
+    }
+    &:not([data-intro]) .rnd-ring-label {
+      transition-delay: 0s, 0s, calc((var(--i, 0) * 160ms + 520ms) * var(--rnd-t)), calc((var(--i, 0) * 160ms + 520ms) * var(--rnd-t));
+    }
+    /* Handles and the hint come last, once the white has peeled away. */
+    &:not([data-intro]) .rnd-ring-handle {
+      transition-delay: 0s, 0s, calc(1250ms * var(--rnd-t)), calc(1250ms * var(--rnd-t));
+    }
+    &:not([data-intro]) .rnd-ring-hint {
+      transition-delay: 0s, 0s, calc(1700ms * var(--rnd-t)), calc(1700ms * var(--rnd-t));
+    }
+    &[data-settled] :is(.rnd-ring-handle, .rnd-ring-hint),
+    &[data-settled] .rnd-ring-label,
+    &[data-settled] :is(.rnd-hero-copy > :not(h1), .rnd-hero-notes, .rnd-controls),
+    &[data-settled] .rnd-hero .rnd-line > span {
+      transition-delay: 0s;
+    }
+  }
+}
+
+@keyframes rnd-ring-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+@keyframes rnd-rise {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+@keyframes rnd-bill-in {
+  from {
+    opacity: 0;
+    translate: 28px 0;
+    filter: blur(6px);
+  }
+}
+@keyframes rnd-row-in {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rnd *,
+  .rnd *::before,
+  .rnd *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .rnd .rnd-sheet[data-under] > .rnd-sheet-in {
+    scale: none;
+  }
+  :root:has(.rnd) {
+    scroll-behavior: auto;
+  }
+}

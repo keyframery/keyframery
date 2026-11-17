@@ -19,6 +19,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/tree"
 
 const ROW = '[data-slot="tree-label"]'
@@ -64,26 +69,28 @@ function Tree<Mode extends TreeMode = "single">({
   return (
     <TreeRoot
       data-kf-ready={ready || undefined}
-      className={cn(
-        "relative isolate [anchor-scope:--kf-tree-hl,--kf-tree-sel]",
-        /* Which row each highlight rests on. A row can hold both. */
-        "[&_[data-kf-tree-hl]]:[anchor-name:--kf-tree-hl]",
-        "[&_[data-slot=tree-label]:is([data-selected],[data-current])]:[anchor-name:--kf-tree-sel]",
-        "[&_[data-slot=tree-label][data-kf-tree-hl]:is([data-selected],[data-current])]:[anchor-name:--kf-tree-hl,--kf-tree-sel]",
-        /* Hover highlight. */
-        "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_6%,transparent)]",
-        "before:[position-anchor:--kf-tree-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-        "before:transition-[opacity,scale] before:duration-[calc(200ms*var(--kf-speed,1))] before:ease-house",
-        "data-kf-glide:before:[transition:top_calc(360ms*var(--kf-speed,1))_var(--ease-spring),right_calc(360ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(360ms*var(--kf-speed,1))_var(--ease-spring),left_calc(360ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),scale_calc(200ms*var(--kf-speed,1))_var(--ease-house)]",
-        "data-kf-idle:before:scale-[0.96] data-kf-idle:before:opacity-0 not-has-[[data-kf-tree-hl]]:before:opacity-0",
-        /* Selection key. It hides while its row is inside a closing branch. */
-        "after:pointer-events-none after:absolute after:-z-10 after:bg-[color-mix(in_oklch,currentColor_10%,transparent)]",
-        "after:[position-anchor:--kf-tree-sel] after:top-[anchor(top)] after:right-[anchor(right)] after:bottom-[anchor(bottom)] after:left-[anchor(left)]",
-        "after:transition-[opacity] after:duration-[calc(200ms*var(--kf-speed,1))] after:ease-house",
-        "data-kf-ready:after:[transition:top_calc(380ms*var(--kf-speed,1))_var(--ease-spring),right_calc(380ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(380ms*var(--kf-speed,1))_var(--ease-spring),left_calc(380ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house)]",
-        "not-has-[[data-slot=tree-label]:is([data-selected],[data-current])]:after:opacity-0",
-        "has-[[data-ending-style]_[data-slot=tree-label]:is([data-selected],[data-current])]:after:opacity-0",
-        "motion-reduce:before:[transition:none]! motion-reduce:after:[transition:none]!",
+      className={withClass(
+        cn(
+          "relative isolate [anchor-scope:--kf-tree-hl,--kf-tree-sel]",
+          /* Which row each highlight rests on. A row can hold both. */
+          "[&_[data-kf-tree-hl]]:[anchor-name:--kf-tree-hl]",
+          "[&_[data-slot=tree-label]:is([data-selected],[data-current])]:[anchor-name:--kf-tree-sel]",
+          "[&_[data-slot=tree-label][data-kf-tree-hl]:is([data-selected],[data-current])]:[anchor-name:--kf-tree-hl,--kf-tree-sel]",
+          /* Hover highlight. */
+          "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_6%,transparent)]",
+          "before:[position-anchor:--kf-tree-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
+          "before:transition-[opacity,scale] before:duration-[calc(200ms*var(--kf-speed,1))] before:ease-house",
+          "data-kf-glide:before:[transition:top_calc(360ms*var(--kf-speed,1))_var(--ease-spring),right_calc(360ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(360ms*var(--kf-speed,1))_var(--ease-spring),left_calc(360ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),scale_calc(200ms*var(--kf-speed,1))_var(--ease-house)]",
+          "data-kf-idle:before:scale-[0.96] data-kf-idle:before:opacity-0 not-has-[[data-kf-tree-hl]]:before:opacity-0",
+          /* Selection key. It hides while its row is inside a closing branch. */
+          "after:pointer-events-none after:absolute after:-z-10 after:bg-[color-mix(in_oklch,currentColor_10%,transparent)]",
+          "after:[position-anchor:--kf-tree-sel] after:top-[anchor(top)] after:right-[anchor(right)] after:bottom-[anchor(bottom)] after:left-[anchor(left)]",
+          "after:transition-[opacity] after:duration-[calc(200ms*var(--kf-speed,1))] after:ease-house",
+          "data-kf-ready:after:[transition:top_calc(380ms*var(--kf-speed,1))_var(--ease-spring),right_calc(380ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(380ms*var(--kf-speed,1))_var(--ease-spring),left_calc(380ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house)]",
+          "not-has-[[data-slot=tree-label]:is([data-selected],[data-current])]:after:opacity-0",
+          "has-[[data-ending-style]_[data-slot=tree-label]:is([data-selected],[data-current])]:after:opacity-0",
+          "motion-reduce:before:[transition:none]! motion-reduce:after:[transition:none]!",
+        ),
         className,
       )}
       onPointerOver={(event) => {
@@ -116,9 +123,11 @@ function Tree<Mode extends TreeMode = "single">({
 function TreeItemIndicator({ className, ...props }: React.ComponentProps<typeof TreeItemIndicatorPart>) {
   return (
     <TreeItemIndicatorPart
-      className={cn(
-        "[transition:rotate_calc(520ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] data-expanded:rotate-90",
-        "motion-reduce:[transition:none]!",
+      className={withClass(
+        cn(
+          "[transition:rotate_calc(520ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] data-expanded:rotate-90",
+          "motion-reduce:[transition:none]!",
+        ),
         className,
       )}
       {...props}
@@ -130,15 +139,17 @@ function TreeItemIndicator({ className, ...props }: React.ComponentProps<typeof 
 function TreeGroup({ className, ...props }: React.ComponentProps<typeof TreeGroupPart>) {
   return (
     <TreeGroupPart
-      className={cn(
-        "h-(--tree-group-height,auto) [clip-path:inset(-4px_-100vw)]",
-        "transition-[height] duration-[calc(380ms*var(--kf-speed,1))] ease-house",
-        "data-starting-style:h-0 data-ending-style:h-0 data-ending-style:duration-[calc(260ms*var(--kf-speed,1))]",
-        "*:transition-[opacity,translate,filter] *:duration-[calc(420ms*var(--kf-speed,1))] *:ease-spring",
-        "*:[transition-delay:calc((min(sibling-index(),10)-1)*calc(36ms*var(--kf-speed,1))+calc(30ms*var(--kf-speed,1)))]",
-        "data-starting-style:*:translate-y-2 data-starting-style:*:opacity-0 data-starting-style:*:blur-[4px] data-starting-style:*:transition-none",
-        "data-ending-style:*:opacity-0 data-ending-style:*:blur-[2px] data-ending-style:*:duration-[calc(200ms*var(--kf-speed,1))] data-ending-style:*:ease-house data-ending-style:*:[transition-delay:0ms]",
-        "motion-reduce:transition-none! motion-reduce:*:transition-none",
+      className={withClass(
+        cn(
+          "h-(--tree-group-height,auto) [clip-path:inset(-4px_-100vw)]",
+          "transition-[height] duration-[calc(380ms*var(--kf-speed,1))] ease-house",
+          "data-starting-style:h-0 data-ending-style:h-0 data-ending-style:duration-[calc(260ms*var(--kf-speed,1))]",
+          "*:transition-[opacity,translate,filter] *:duration-[calc(420ms*var(--kf-speed,1))] *:ease-spring",
+          "*:[transition-delay:calc((min(sibling-index(),10)-1)*calc(36ms*var(--kf-speed,1))+calc(30ms*var(--kf-speed,1)))]",
+          "data-starting-style:*:translate-y-2 data-starting-style:*:opacity-0 data-starting-style:*:blur-[4px] data-starting-style:*:transition-none",
+          "data-ending-style:*:opacity-0 data-ending-style:*:blur-[2px] data-ending-style:*:duration-[calc(200ms*var(--kf-speed,1))] data-ending-style:*:ease-house data-ending-style:*:[transition-delay:0ms]",
+          "motion-reduce:transition-none! motion-reduce:*:transition-none",
+        ),
         className,
       )}
       {...props}

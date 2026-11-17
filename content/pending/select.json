@@ -1,0 +1,43 @@
+{
+  "cssVars": [
+    [
+      "--select-face",
+      "Field and popup surfaces",
+      "--background; --popover on the popup"
+    ],
+    [
+      "--select-ink",
+      "Field and popup text",
+      "--foreground; --popover-foreground on the popup; --accent-foreground when highlighted"
+    ],
+    [
+      "--select-accent",
+      "Highlighted row",
+      "--accent"
+    ],
+    [
+      "--select-height",
+      "Field height",
+      "2.25rem"
+    ],
+    [
+      "--select-radius",
+      "Field corners",
+      "10px"
+    ]
+  ],
+  "propDocs": {
+    "Select.multiple": "Allows several values; the popup stays open while choosing.",
+    "Select.disabled": "Disables selection and form submission.",
+    "Select.readOnly": "Prevents changing the selection.",
+    "Select.required": "Requires a value for form submission.",
+    "Select.loop": "Wraps arrow-key navigation.",
+    "Select.dismissible": "Allows outside presses and Escape to close the popup.",
+    "Select.presentation": "Chooses popover, sheet, or automatic presentation.",
+    "Select.modal": "Controls outside pointer interaction and page modality.",
+    "SelectContent.side": "Preferred popup side, subject to available space.",
+    "SelectContent.align": "Alignment along the trigger.",
+    "SelectContent.sideOffset": "Gap between trigger and popup in pixels.",
+    "SelectContent.alignItemWithTrigger": "Overlaps the chosen row with the trigger."
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "description": "Card parts cascade in, interactive cards lift on hover and sink while pressed, by pointer or by Space and Enter, and an optional light follows the pointer.",
+  "moves": [
+    [
+      "Cascade",
+      "The card fades up, then its header, content and footer arrive in order."
+    ],
+    [
+      "Spring",
+      "An interactive card lifts 2px on hover and its shadow grows."
+    ],
+    [
+      "Press",
+      "It sinks while the pointer holds it down, or while Space or Enter is held on it, and pops back on release."
+    ],
+    [
+      "Fade",
+      "An optional soft light follows the pointer."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Space or Enter",
+      "On an interactive card you made focusable (with `tabIndex` and a `role`), sinks the card while the key is held, unless your own `onKeyDown` calls `preventDefault()`. What the press does is yours, in `onClick` or `onKeyDown`."
+    ]
+  ],
+  "propDocs": {
+    "Card.interactive": "Enable hover lift and press feedback.",
+    "Card.spotlight": "Show a soft wash following the pointer."
+  },
+  "cssVars": [
+    [
+      "--card-face",
+      "Card surface",
+      "--card"
+    ],
+    [
+      "--card-ink",
+      "Card text",
+      "--card-foreground"
+    ],
+    [
+      "--card-muted",
+      "Description text",
+      "--muted-foreground"
+    ],
+    [
+      "--card-radius",
+      "Card corners",
+      "16px"
+    ],
+    [
+      "--card-padding",
+      "Card and section padding",
+      "1.25rem"
+    ],
+    [
+      "--card-gap",
+      "Section gap",
+      "1.25rem"
+    ],
+    [
+      "--card-light",
+      "Pointer spotlight wash",
+      "currentColor 13%, transparent"
+    ]
+  ]
+}

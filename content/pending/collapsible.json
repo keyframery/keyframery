@@ -1,0 +1,45 @@
+{
+  "cssVars": [
+    [
+      "--collapsible-height",
+      "Trigger height",
+      "2.25rem"
+    ],
+    [
+      "--collapsible-gap",
+      "Label and chevron gap",
+      "0.75rem"
+    ],
+    [
+      "--collapsible-radius",
+      "Trigger corners",
+      "9px"
+    ],
+    [
+      "--collapsible-font",
+      "Trigger label size",
+      "13px"
+    ],
+    [
+      "--collapsible-face",
+      "Trigger surface",
+      "transparent; hover --foreground 4.5%; pressed --foreground 7%"
+    ],
+    [
+      "--collapsible-muted",
+      "Resting trigger text",
+      "--muted-foreground"
+    ],
+    [
+      "--collapsible-ink",
+      "Open and hovered trigger text",
+      "--foreground"
+    ]
+  ],
+  "propDocs": {
+    "Collapsible.open": "Control whether the intermediate stops are expanded.",
+    "Collapsible.disabled": "Prevent trigger changes while keeping the trigger focusable.",
+    "CollapsiblePanel.keepMounted": "Keep the closed panel hidden in the DOM.",
+    "CollapsiblePanel.hiddenUntilFound": "Let browser find discover and open hidden stops."
+  }
+}

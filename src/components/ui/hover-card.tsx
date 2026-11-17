@@ -1,5 +1,16 @@
 "use client"
 
+export * from "@/components/primitives/hover-card"
+
+/* Theming (inherited; each default preserves the original light/dark appearance):
+   --hover-card-surface: Card and arrow surface (default: --popover)
+   --hover-card-ink: Card text (default: --popover-foreground)
+   --hover-card-link: Trigger text (default: --foreground)
+   --hover-card-width: Card width (default: 18rem)
+   --hover-card-radius: Card corners (default: 14px)
+   --hover-card-padding: Card padding (default: 1rem)
+*/
+
 /* Styled hover card: the animated primitive plus the Keyframery look. */
 
 import {
@@ -12,6 +23,11 @@ import * as React from "react"
 
 import { Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
+
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
 
 /* Keeps UI SDK's default delays (calc(600ms*var(--kf-speed,1)) to open, 300ms to close), so moving the pointer
    across a page of links never flashes a card at every stop. */
@@ -30,12 +46,14 @@ function HoverCardTrigger({
 }: React.ComponentProps<typeof HoverCardTriggerPart>) {
   return (
     <HoverCardTriggerPart
-      className={cn(
-        "cursor-pointer rounded-[3px] font-medium text-foreground underline decoration-foreground/25 decoration-1 underline-offset-[3px] outline-none",
-        "transition-[text-decoration-color,background-color] duration-[calc(150ms*var(--kf-speed,1))] ease-house",
-        "hover:decoration-foreground/70 data-open:decoration-foreground/70",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "cursor-pointer rounded-[3px] font-medium text-[color:var(--hover-card-link,var(--foreground))] underline decoration-foreground/25 decoration-1 underline-offset-[3px] outline-none",
+          "transition-[text-decoration-color,background-color] duration-[calc(150ms*var(--kf-speed,1))] ease-house",
+          "hover:decoration-foreground/70 data-open:decoration-foreground/70",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -53,11 +71,13 @@ function HoverCardContent<Payload = unknown>({
   return (
     <HoverCardContentPart<Payload>
       sideOffset={sideOffset}
-      className={cn(
-        "m-0 w-72 max-w-[calc(100vw-16px)] border-0 p-4 text-[13px] outline-none",
-        "rounded-[14px] bg-popover text-popover-foreground",
-        "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
-        "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+      className={withClass(
+        cn(
+          "m-0 w-[var(--hover-card-width,18rem)] max-w-[calc(100vw-16px)] border-0 p-[var(--hover-card-padding,1rem)] text-[13px] outline-none",
+          "rounded-[var(--hover-card-radius,14px)] bg-[var(--hover-card-surface,var(--popover))] text-[color:var(--hover-card-ink,var(--popover-foreground))]",
+          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
+          "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+        ),
         className,
       )}
       {...props} style={useSpeedStyle(style)}
@@ -72,12 +92,14 @@ function HoverCardArrow({
 }: React.ComponentProps<typeof HoverCardArrowPart>) {
   return (
     <HoverCardArrowPart
-      className={cn(
-        "pointer-events-none h-[7px] w-3.5 text-popover",
-        "data-[side=bottom]:bottom-full data-[side=top]:top-full",
-        "data-[side=left]:left-full data-[side=left]:h-3.5 data-[side=left]:w-[7px] data-[side=right]:right-full data-[side=right]:h-3.5 data-[side=right]:w-[7px]",
-        "[&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-1/2 [&>svg]:h-[7px] [&>svg]:w-3.5 [&>svg]:-translate-1/2",
-        "data-[side=top]:[&>svg]:rotate-180 data-[side=left]:[&>svg]:rotate-90 data-[side=right]:[&>svg]:-rotate-90",
+      className={withClass(
+        cn(
+          "pointer-events-none h-[7px] w-3.5 text-[color:var(--hover-card-surface,var(--popover))]",
+          "data-[side=bottom]:bottom-full data-[side=top]:top-full",
+          "data-[side=left]:left-full data-[side=left]:h-3.5 data-[side=left]:w-[7px] data-[side=right]:right-full data-[side=right]:h-3.5 data-[side=right]:w-[7px]",
+          "[&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-1/2 [&>svg]:h-[7px] [&>svg]:w-3.5 [&>svg]:-translate-1/2",
+          "data-[side=top]:[&>svg]:rotate-180 data-[side=left]:[&>svg]:rotate-90 data-[side=right]:[&>svg]:-rotate-90",
+        ),
         className,
       )}
       {...props}

@@ -1,5 +1,20 @@
 # Keyframery: progress and plan
 
+
+## Claude handoff completed locally (2026-11-16)
+
+- **82 components, all built on UI SDK:** 55 native SDK entries, 25 UI SDK core definitions and 2 aliases/compositions. Integrated 19 new components from the interrupted Claude session. Both animated and styled layers preserve every native SDK export.
+- **Customization is open below the preview by default.** Preview/Code are the only view choices. Every demo has 10–20 controls for real component options, content, colors or dimensions (1,418 declared controls total), plus shared Animation speed. 1× is normal; higher is faster; Reset restores defaults. 576 documented theme variables keep existing light/dark fallbacks when unset.
+- Fixed dropped function-based className props in 193 primitive and 454 styled merges; state children, image Blob keys, Select sibling keys, Trace live opening, Bubble overflow and InputGroup inheritance. Custom color variables no longer overwrite message-scroller unread counts or Waterfall marker positions.
+- Docs now have searchable categories, SDK badges, focused page headers, related components and theming tables. Landing links lead to useful starting tasks. Aceternity informed the clarity and hierarchy; the site keeps Keyframery's visual language.
+- Registry and docs generation integrate component handoff metadata and include core definitions. New local checks cover SDK contracts, control/default consistency, registry dependencies, URL controls and metadata merging. Run `pnpm check`; `pnpm check:browser` requires the lab on :4610.
+- Stageshow installed for Codex with `npx skills add https://github.com/benjitaylor/skills --skill stageshow --global --agent codex --yes`. AGENTS.md routes component/docs/landing UI work through `~/.agents/skills/stageshow/SKILL.md`.
+
+**Verification:**207 SDK checks pass; 82 customization and 82 registry entries pass; five metadata/parser regression tests pass; lab and Next type checks pass. Lab and website production builds pass. Browser audit: 328 light/dark/390px/reduced-motion renders and 82 customized-color renders without page exceptions or overflow. Detailed focused captures cover the 19 new components and docs; native slider labels, keyboard/pointer speed, reset, catalog filtering and Preview/Code behavior verified. Final production preview is served locally at `http://localhost:4640`.
+
+**Not committed or deployed.** The public site still serves the earlier deployment. Other frameworks/bases, the proposed admin panel block, Chart and a styled OverlayHost remain follow-on work. Safari/Firefox, a screen-reader session and exhaustive combinations of every control were not tested. Vite's eager lab gallery still emits a large-bundle warning; website demos load on demand. No new project dependency or CI was added.
+
+
 Keyframery is now **Keyframery UI**: animated drop-in primitives for UI SDK (`@ui-sdk/react`), built with plain CSS. Swap the import, keep your UI SDK components.
 
 The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discontinued and its GitHub repo will be removed. The new product replaces it on keyframery.com.
@@ -17,7 +32,7 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
 1. Evening: "we need all ui sdk component only as we are motion for ui sdk", then "support of all ui sdk features and its apis with latest version". The eight components UI SDK has no name for were removed, and that went live (commit 2559677) with 301 redirects.
 2. About an hour later, after seeing it: "lets bring back what we had", plus a bigger plan (below). The eight are back, so the set is **63: all 55 of UI SDK's, and 8 more** (Badge, Card, Kbd, Sidebar, Skeleton, Table, Context Menu, Motion Style). The redirects for those pages are gone again.
 
-**The bigger plan he asked for the same evening (not built yet):**
+**Historical expansion plan from earlier that evening (current status above):**
 - More components: "add 30 more ... get remaining component from shadcn". shadcn's registry has fewer than 30 that Keyframery lacks, so the real list has to be read from shadcn's registry first.
 - A badge next to the name of every component that is built on UI SDK (he sent a picture of React Bits' "Updated" pill); components UI SDK has no part for get no badge.
 - A Customize section at the bottom of every component page, like React Bits', with sliders ("use this preview slider"), following the four motion styles.
@@ -209,3 +224,24 @@ The old Keyframery product (the `<Cuts />` motion layer for shadcn/ui) is discon
   - `pnpm site:dev` (port 4640)
   - The lab still runs with `pnpm dev` (port 4610).
 - **Old repo:** `~/keyframery` (being retired). keyframery.com is on a Vercel account or team this machine's CLI isn't logged into.
+
+## Docs completion and live landing restoration (2026-11-17)
+
+- User requested restoring the already-live landing after the design exploration. Compared with keyframery.com and restored the original cinematic layout, Inter display type, sunrise hero, original primary agent-copy and secondary browse actions, six-component board and footer. New landing playground removed. Landing count follows the current82-component catalog. No deployment or commit.
+- Preserved compact docs with14 native collapsible categories, search, right TOC and previous/next navigation; all82 component URLs remain available.
+- Customize stays open, three columns on desktop and one on phones. Controls and speed update both the preview and the displayed/copied installable source. Per-component settings survive browser reload; Reset clears saved overrides.
+- Component demonstrations play one pass on first view and have a top-right UI SDK replay button. Replay keeps the selected customization. Desktop/tablet/mobile presets, measured width and pointer/keyboard resizing retain the mounted preview.
+- UI SDK Button variants keep the requested subtle vertical gradients and upper/lower shadows. All82 components remain backed by UI SDK behavior;55 native SDK component exports remain complete.
+- Verification:26 tests,207 SDK contract checks,82 customization audits and82 install registry entries pass. Both TypeScript configurations pass. Production site and lab builds verified; the lab retains its existing large eager-bundle warning. No separate lint script is configured.
+- Handoff details: `.omx/restored-live-landing.md`. Local site: http://localhost:4640 .
+
+## First landing page template: Round (2026-11-17)
+
+- **What it is.** A free landing page template for a made-up bill-splitting app, built to be operated, not only read. Reference given by the owner: sweet-tape.com (an Awwwards site). Only the general lesson was taken from it (a page feels alive when visitors can operate things and the scroll tells a story). The product, look, copy, colours, type, interactions and motion are original; none of its assets or code is used.
+- **The page** (`src/templates/round/`, 8 files): a loading sequence where a white ring draws, flies into the hero and peels into one slice per person; a live hero ring (drag a line, add or drop a friend, set the tip, split evenly); a statement that inks in word by word; a bill where tapping a face moves an item between people (four bills); a pinned screen where the scroll drives a screen-wide odometer and ticks off each debt; rolling figures and quotes; pricing with monthly or yearly; questions; closing call and footer. One switch in the top bar re-prices every figure in four currencies. Full-colour sheets stack as you scroll.
+- **How it is built.** Controls are Keyframery's UI SDK components (Slider, Toggle, Button, Segmented Control, Accordion). Springs, scroll-linked motion and enter/exit use Motion (`motion` 14.14.0, added at the owner's request: "don't rely only on CSS"). The rest is one scoped CSS file whose durations and easings follow the four motion styles. Copy, people, bills and prices are in `data.ts`; colours are six `--rnd-*` values.
+- **Docs.** New sidebar section and top-nav link **Templates**: `/docs/templates` (all templates) and `/docs/templates/round` (breadcrumb, Free tag, Live preview and Copy-for-your-coding-agent buttons, a live framed preview with desktop, tablet and phone sizes and a replay button, then what is on the page, install, make it yours, how it is built). Files: `site/components/templates/`, `site/lib/templates.ts`, `content/docs/templates/`. A docs page becomes a template page with `template: <slug>` in its frontmatter.
+- **Live preview route.** `/templates/<slug>` (`app/templates/[slug]/page.tsx`): the template alone, forced to light, not indexed, with a small link back to its docs page.
+- **Registry.** `scripts/build-registry.mjs` now builds every folder in `src/templates/` as a `registry:block` (`npx shadcn@latest add @keyframery/round`), with its component dependencies and `motion`. Photos point at keyframery.com in the installed copy.
+- **Checked:** `pnpm check` passes (both type-checks, 26 tests, 207 SDK checks, customization, registry) and `pnpm build` passes. Looked at in headless Chrome on the production build: the loading sequence frame by frame, the whole page at 1440px and 390px, dragging a handle, adding a person, the tip, the currency switch, tapping items, switching bills, the odometer at four scroll points, billing switch, questions, and the docs pages at 1440px and 390px. No console errors, no horizontal overflow.
+- **Not checked or not done:** Safari and Firefox; reduced motion by eye; keyboard use of the ring handles; the registry install in a fresh project; with JavaScript off the hero stays in its loading state. The ring's handles are plain buttons with slider semantics, not yet a UI SDK core definition. Nothing is committed or deployed.

@@ -1,0 +1,57 @@
+{
+  "cssVars": [
+    [
+      "--popover-surface",
+      "Sheet and arrow",
+      "--popover"
+    ],
+    [
+      "--popover-ink",
+      "Sheet text",
+      "--popover-foreground"
+    ],
+    [
+      "--popover-muted",
+      "Description and shortcut text",
+      "--muted-foreground"
+    ],
+    [
+      "--popover-key",
+      "Trigger and default close surface",
+      "--background, --accent in dark"
+    ],
+    [
+      "--popover-primary",
+      "Primary close surface",
+      "--primary"
+    ],
+    [
+      "--popover-width",
+      "Sheet width",
+      "18rem"
+    ],
+    [
+      "--popover-radius",
+      "Sheet corners",
+      "14px"
+    ],
+    [
+      "--popover-padding",
+      "Sheet padding",
+      "1rem"
+    ]
+  ],
+  "propDocs": {
+    "Popover.modal": "False leaves outside content usable; true traps focus and locks scroll; trap-focus traps focus while leaving outside content usable.",
+    "Popover.presentation": "Popover, sheet, or automatic touch presentation.",
+    "Popover.dismissible": "Allows Escape and outside interactions to close the popup.",
+    "Popover.openOnHover": "Opens after resting on the trigger, while retaining press activation.",
+    "PopoverTrigger.disabled": "Prevents the trigger from opening the popup.",
+    "PopoverTrigger.focusableWhenDisabled": "Keeps a disabled trigger in the tab order.",
+    "PopoverContent.side": "Preferred side, subject to collision handling.",
+    "PopoverContent.align": "Alignment with the trigger along that side.",
+    "PopoverContent.sideOffset": "Gap between trigger and popup in pixels.",
+    "PopoverContent.keepMounted": "Keeps closed content in the document, hidden.",
+    "PopoverClose.variant": "Default raised key or primary action styling."
+  }
+}

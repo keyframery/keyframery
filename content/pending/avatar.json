@@ -1,0 +1,39 @@
+{
+  "cssVars": [
+    [
+      "--avatar-size",
+      "Disc size by variant",
+      "1.5rem / 2rem / 2.5rem (sm / md / lg)"
+    ],
+    [
+      "--avatar-radius",
+      "Disc corners",
+      "calc(infinity * 1px)"
+    ],
+    [
+      "--avatar-face",
+      "Fallback and count surface",
+      "--muted"
+    ],
+    [
+      "--avatar-ink",
+      "Initials and count text",
+      "--muted-foreground"
+    ],
+    [
+      "--avatar-ring",
+      "Group separator ring",
+      "--background (group)"
+    ],
+    [
+      "--avatar-overlap",
+      "Negative group spacing",
+      "-0.25rem"
+    ]
+  ],
+  "propDocs": {
+    "Avatar.size": "Disc size: sm (24px), md (32px) or lg (40px); --avatar-size can override it.",
+    "AvatarFallback.delay": "Milliseconds before initials appear while the photo loads.",
+    "AvatarGroupCount.size": "Match the counter disc to the group avatar size."
+  }
+}

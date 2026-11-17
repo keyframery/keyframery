@@ -1,0 +1,86 @@
+{
+  "description": "Lines cascade in from the left, a highlighted line's band sweeps across and follows the highlight when it moves, and copying pops a tick that draws itself.",
+  "moves": [
+    [
+      "Cascade",
+      "The lines arrive one after another from the left."
+    ],
+    [
+      "Draw",
+      "A highlighted line's band sweeps in from the left; the old band shrinks back as the highlight moves."
+    ],
+    [
+      "Pop",
+      "On copy, the copy icon blurs away and a tick pops in and draws itself."
+    ],
+    [
+      "Press",
+      "The copy key sinks and springs back."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves focus to the code, then to the copy button."
+    ],
+    [
+      "← → ↑ ↓",
+      "Scroll the code while it has focus."
+    ],
+    [
+      "Enter or Space",
+      "Copies the code from the copy button."
+    ]
+  ],
+  "propDocs": {
+    "CodeBlock.code": "The code to show and to copy. A trailing newline is ignored.",
+    "CodeBlock.language": "Which tokenizer colours it: \"ts\", \"tsx\", \"js\", \"jsx\", \"json\", \"css\", \"html\", \"bash\" or \"text\".",
+    "CodeBlock.lineNumbers": "Numbers each line.",
+    "CodeBlock.startLine": "The number of the first line.",
+    "CodeBlock.highlight": "Line numbers, counted from startLine, to highlight.",
+    "CodeBlock.added": "Line numbers to mark as added, for a diff.",
+    "CodeBlock.removed": "Line numbers to mark as removed, for a diff.",
+    "CodeBlock.wrap": "Wraps long lines instead of scrolling them.",
+    "CodeBlock.onCopy": "Called with the code after the copy button copied it.",
+    "CodeBlock.variant": "\"destructive\" for an error or failed output.",
+    "CodeBlock.size": "\"sm\" has tighter padding and 12px code, for tool output.",
+    "CodeBlockLine.value": "The line's number, as a string."
+  },
+  "cssVars": [
+    [
+      "--code-block-face",
+      "Code sheet",
+      "bg-card"
+    ],
+    [
+      "--code-block-ink",
+      "Code text",
+      "text-card-foreground"
+    ],
+    [
+      "--code-block-muted",
+      "Comments and hints",
+      "text-muted-foreground"
+    ],
+    [
+      "--code-block-radius",
+      "Sheet corners",
+      "rounded-[14px]"
+    ],
+    [
+      "--code-block-font",
+      "Code size",
+      "text-[12.5px]"
+    ],
+    [
+      "--code-block-inset-x",
+      "Line padding",
+      "px-3.5"
+    ],
+    [
+      "--code-block-inset-y",
+      "Code padding",
+      "py-3"
+    ]
+  ]
+}

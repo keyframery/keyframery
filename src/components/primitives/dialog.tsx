@@ -13,6 +13,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/dialog"
 
 /* Press: the key gives under the finger and springs back on release. */
@@ -32,22 +37,24 @@ const cascade = cn(
 )
 
 function DialogTrigger({ className, ...props }: React.ComponentProps<typeof DialogTriggerPart>) {
-  return <DialogTriggerPart className={cn(press, className)} {...props} />
+  return <DialogTriggerPart className={withClass(press, className)} {...props} />
 }
 
 function DialogClose({ className, ...props }: React.ComponentProps<typeof DialogClosePart>) {
-  return <DialogClosePart className={cn(press, className)} {...props} />
+  return <DialogClosePart className={withClass(press, className)} {...props} />
 }
 
 /* The page behind softens into a blur as it dims, and clears faster than it came. */
 function DialogBackdrop({ className, ...props }: React.ComponentProps<typeof DialogBackdropPart>) {
   return (
     <DialogBackdropPart
-      className={cn(
-        "backdrop-blur-[4px] transition-[opacity,backdrop-filter] duration-[calc(380ms*var(--kf-speed,1))] ease-house",
-        "data-starting-style:opacity-0 data-starting-style:backdrop-blur-none",
-        "data-ending-style:opacity-0 data-ending-style:backdrop-blur-none data-ending-style:duration-[calc(180ms*var(--kf-speed,1))]",
-        "motion-reduce:transition-none!",
+      className={withClass(
+        cn(
+          "backdrop-blur-[4px] transition-[opacity,backdrop-filter] duration-[calc(380ms*var(--kf-speed,1))] ease-house",
+          "data-starting-style:opacity-0 data-starting-style:backdrop-blur-none",
+          "data-ending-style:opacity-0 data-ending-style:backdrop-blur-none data-ending-style:duration-[calc(180ms*var(--kf-speed,1))]",
+          "motion-reduce:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -67,13 +74,15 @@ function DialogContent<Payload = unknown>({
         {cascadeKeyframes}
       </style>
       <DialogContentPart<Payload>
-        className={cn(
-          "group/dialog transition-[opacity,scale,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring",
-          "data-starting-style:translate-y-6 data-starting-style:scale-[0.9] data-starting-style:opacity-0 data-starting-style:blur-[8px]",
-          "data-ending-style:translate-y-2 data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[4px] data-ending-style:duration-[calc(180ms*var(--kf-speed,1))] data-ending-style:ease-house",
-          "data-nested-open:scale-[0.95] data-nested-open:opacity-70",
-          cascade,
-          "motion-reduce:transition-none!",
+        className={withClass(
+          cn(
+            "group/dialog transition-[opacity,scale,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring",
+            "data-starting-style:translate-y-6 data-starting-style:scale-[0.9] data-starting-style:opacity-0 data-starting-style:blur-[8px]",
+            "data-ending-style:translate-y-2 data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[4px] data-ending-style:duration-[calc(180ms*var(--kf-speed,1))] data-ending-style:ease-house",
+            "data-nested-open:scale-[0.95] data-nested-open:opacity-70",
+            cascade,
+            "motion-reduce:transition-none!",
+          ),
           className,
         )}
         {...props}

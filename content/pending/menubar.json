@@ -1,0 +1,55 @@
+{
+  "cssVars": [
+    [
+      "--menubar-surface",
+      "Menu sheets",
+      "--popover"
+    ],
+    [
+      "--menubar-ink",
+      "Sheet and trigger text",
+      "--popover-foreground; --foreground for triggers"
+    ],
+    [
+      "--menubar-highlight",
+      "Bar and row highlights",
+      "--accent"
+    ],
+    [
+      "--menubar-danger",
+      "Destructive text and highlight",
+      "--destructive"
+    ],
+    [
+      "--menubar-radius",
+      "Sheet corners",
+      "14px"
+    ],
+    [
+      "--menubar-item-radius",
+      "Row and trigger corners",
+      "8px"
+    ],
+    [
+      "--menubar-height",
+      "Trigger height",
+      "1.75rem"
+    ],
+    [
+      "--menubar-gap",
+      "Bar trigger gap",
+      "0.125rem"
+    ]
+  ],
+  "propDocs": {
+    "Menubar.orientation": "Horizontal uses Left/Right; vertical uses Up/Down between triggers.",
+    "Menubar.loop": "Wraps between triggers and open menus.",
+    "Menubar.disabled": "Prevents menus from opening while retaining discoverable disabled triggers.",
+    "Menubar.modal": "Shared modality for the menus: pointer, true or false.",
+    "Menu.dismissible": "Allows Escape and outside interactions to close the menu.",
+    "MenuContent.side": "Preferred side for menu placement.",
+    "MenuContent.align": "Start, center or end alignment relative to the trigger.",
+    "MenuItem.closeOnSelect": "Whether a plain menu action closes the menu.",
+    "MenuItem.disabled": "Keeps the menu item discoverable while preventing activation."
+  }
+}

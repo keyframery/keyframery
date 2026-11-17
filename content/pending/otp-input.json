@@ -1,0 +1,54 @@
+{
+  "cssVars": [
+    [
+      "--otp-input-surface",
+      "Resting slots",
+      "--muted"
+    ],
+    [
+      "--otp-input-active",
+      "Active slot",
+      "--background"
+    ],
+    [
+      "--otp-input-ink",
+      "Digits",
+      "--foreground"
+    ],
+    [
+      "--otp-input-focus",
+      "Gliding focus ring",
+      "--ring"
+    ],
+    [
+      "--otp-input-invalid",
+      "Invalid ring and tint",
+      "--destructive"
+    ],
+    [
+      "--otp-input-width",
+      "Slot width",
+      "2.5rem"
+    ],
+    [
+      "--otp-input-height",
+      "Slot height",
+      "2.75rem"
+    ],
+    [
+      "--otp-input-radius",
+      "Slot and focus corners",
+      "10px"
+    ]
+  ],
+  "propDocs": {
+    "OTPInput.maxLength": "Number of characters and visual slots.",
+    "OTPInput.pattern": "Accepts digits, letters, alphanumeric characters or a per-character regular expression.",
+    "OTPInput.inputMode": "Native touch keyboard hint.",
+    "OTPInput.textAlign": "Position of text and caret in the hidden native input; affects native phone popups.",
+    "OTPInput.disabled": "Prevents focus and input.",
+    "OTPInput.readOnly": "Allows focus while preventing code changes.",
+    "OTPInput.required": "Requires a complete code in a form.",
+    "OTPInputSlot.index": "Zero-based character rendered by the slot."
+  }
+}

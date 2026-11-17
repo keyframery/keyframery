@@ -33,7 +33,7 @@ const rows: { kind: Kind; label: string; hint: string; min: number; max: number 
 const stepKey = [
   "grid size-7 cursor-pointer place-items-center rounded-full bg-background text-foreground outline-none dark:bg-accent",
   "shadow-[0_0_0_1px_rgb(0_0_0/0.08),0_1px_2px_rgb(0_0_0/0.06)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),inset_0_1px_0_rgb(255_255_255/0.08)]",
-  "transition-[background-color,translate,scale,opacity] duration-100 ease-[cubic-bezier(0.22,1,0.36,1)]",
+  "transition-[background-color,translate,scale,opacity] duration-[calc(100ms*var(--kf-speed,1))] ease-house",
   "hover:bg-[color-mix(in_oklab,var(--background),var(--foreground)_4%)] dark:hover:bg-[color-mix(in_oklab,var(--accent),var(--foreground)_8%)]",
   "active:translate-y-px active:scale-[0.96]",
   "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover",
@@ -64,7 +64,81 @@ function summary(count: Record<Kind, number>) {
   return parts.join(", ")
 }
 
-export default function PopoverDemo() {
+export const controls = {
+  side: { type: "select", label: "Side", default: "bottom", options: ["top", "right", "bottom", "left"] },
+  align: { type: "select", label: "Alignment", default: "end", options: ["start", "center", "end"] },
+  variant: { type: "select", label: "Done variant", default: "primary", options: ["default", "primary"] },
+  modal: { type: "select", label: "Modality", default: "non-modal", options: ["non-modal", "modal", "trap-focus"] },
+  presentation: { type: "select", label: "Presentation", default: "popover", options: ["popover", "sheet", "auto"] },
+  disabled: { type: "switch", label: "Disabled trigger", default: false, group: "Behaviour" },
+  focusableWhenDisabled: { type: "switch", label: "Focusable disabled trigger", default: false, group: "Behaviour" },
+  dismissible: { type: "switch", label: "Dismissible", default: true, group: "Behaviour" },
+  openOnHover: { type: "switch", label: "Open on hover", default: false, group: "Behaviour" },
+  keepMounted: { type: "switch", label: "Keep mounted", default: false, group: "Behaviour" },
+  title: { type: "text", label: "Popover title", default: "Who's coming?" },
+  items: { type: "slider", label: "Guest categories", default: 3, min: 2, max: 3, step: 1, unit: "", group: "Layout" },
+  width: { type: "slider", label: "Popover width", default: 288, min: 260, max: 380, step: 1, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Corners", default: 14, min: 0, max: 28, step: 1, unit: "px", group: "Layout" },
+  sideOffset: { type: "slider", label: "Trigger gap", default: 8, min: 0, max: 28, step: 1, unit: "px", group: "Layout" },
+  surface: { type: "color", label: "Sheet", default: "", group: "Colours" },
+  ink: { type: "color", label: "Text", default: "", group: "Colours" },
+  muted: { type: "color", label: "Description", default: "", group: "Colours" },
+  keyColour: { type: "color", label: "Trigger", default: "", group: "Colours" },
+  primary: { type: "color", label: "Done button", default: "", group: "Colours" },
+} as const
+
+export default function PopoverDemo({
+  side = "bottom",
+  align = "end",
+  variant = "primary",
+  modal = "non-modal",
+  presentation = "popover",
+  disabled = false,
+  focusableWhenDisabled = false,
+  dismissible = true,
+  openOnHover = false,
+  keepMounted = false,
+  title = "Who's coming?",
+  items = 3,
+  width = 288,
+  radius = 14,
+  sideOffset = 8,
+  surface = "",
+  ink = "",
+  muted = "",
+  keyColour = "",
+  primary = "",
+}: {
+  side?: "top" | "right" | "bottom" | "left"
+  align?: "start" | "center" | "end"
+  variant?: "default" | "primary"
+  modal?: "non-modal" | "modal" | "trap-focus"
+  presentation?: "popover" | "sheet" | "auto"
+  disabled?: boolean
+  focusableWhenDisabled?: boolean
+  dismissible?: boolean
+  openOnHover?: boolean
+  keepMounted?: boolean
+  title?: string
+  items?: number
+  width?: number
+  radius?: number
+  sideOffset?: number
+  surface?: string
+  ink?: string
+  muted?: string
+  keyColour?: string
+  primary?: string
+}) {
+  const theme = {
+    "--popover-width": `${width}px`,
+    "--popover-radius": `${radius}px`,
+    ...(surface ? { "--popover-surface": surface } : {}),
+    ...(ink ? { "--popover-ink": ink } : {}),
+    ...(muted ? { "--popover-muted": muted } : {}),
+    ...(keyColour ? { "--popover-key": keyColour } : {}),
+    ...(primary ? { "--popover-primary": primary } : {}),
+  } as React.CSSProperties
   const [count, setCount] = React.useState<Record<Kind, number>>({ adults: 2, children: 1, infants: 0 })
   const change = (kind: Kind, by: number) => setCount((c) => ({ ...c, [kind]: c[kind] + by }))
   const canAdd = (kind: Kind) => {
@@ -74,13 +148,13 @@ export default function PopoverDemo() {
   }
 
   return (
-    <div className="flex w-full max-w-[340px] items-center gap-3 rounded-[14px] bg-muted/60 p-3 pl-4">
+    <div style={theme} className="flex w-full max-w-[340px] items-center gap-3 rounded-[14px] bg-muted/60 p-3 pl-4">
       <div className="min-w-0 flex-1">
         <div className="text-[14px] font-semibold tracking-tight">Cabin by the lake</div>
         <div className="mt-0.5 text-[12px] text-muted-foreground tabular-nums">Fri 6 to Sun 8 June</div>
       </div>
-      <Popover>
-        <PopoverTrigger className="tabular-nums">
+      <Popover modal={modal === "trap-focus" ? "trap-focus" : modal === "modal"} presentation={presentation} dismissible={dismissible} openOnHover={openOnHover}>
+        <PopoverTrigger disabled={disabled} focusableWhenDisabled={focusableWhenDisabled} className="tabular-nums">
           {summary(count)}
           <svg
             data-slot="popover-chevron"
@@ -96,11 +170,11 @@ export default function PopoverDemo() {
             <path d="m4.5 6.5 3.5 3.5 3.5-3.5" />
           </svg>
         </PopoverTrigger>
-        <PopoverContent align="end">
-          <PopoverTitle>Who's coming?</PopoverTitle>
+        <PopoverContent side={side} align={align} sideOffset={sideOffset} keepMounted={keepMounted}>
+          <PopoverTitle>{title}</PopoverTitle>
           <PopoverDescription className="mt-0.5">The cabin sleeps up to 8.</PopoverDescription>
           <ul className="mt-3 divide-y divide-border">
-            {rows.map((row) => (
+            {rows.slice(0, items).map((row) => (
               <li key={row.kind} className="flex items-center gap-3 py-2.5">
                 <div className="min-w-0 flex-1">
                   <div className="text-[13px] font-medium">{row.label}</div>
@@ -131,7 +205,7 @@ export default function PopoverDemo() {
             ))}
           </ul>
           <div className="mt-2 flex justify-end">
-            <PopoverClose variant="primary">Done</PopoverClose>
+            <PopoverClose variant={variant}>Done</PopoverClose>
           </div>
         </PopoverContent>
       </Popover>

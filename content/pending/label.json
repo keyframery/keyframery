@@ -1,0 +1,49 @@
+{
+  "cssVars": [
+    [
+      "--label-ink",
+      "Resting label text",
+      "--muted-foreground"
+    ],
+    [
+      "--label-focus",
+      "Focused label and marker text",
+      "--foreground"
+    ],
+    [
+      "--label-invalid",
+      "Invalid label and marker text",
+      "--destructive"
+    ],
+    [
+      "--label-marker",
+      "Marker surface",
+      "--muted"
+    ],
+    [
+      "--label-marker-ink",
+      "Resting marker text",
+      "--muted-foreground"
+    ],
+    [
+      "--label-font",
+      "Label text size",
+      "13px"
+    ],
+    [
+      "--label-gap",
+      "Label to marker gap",
+      "0.375rem"
+    ],
+    [
+      "--label-marker-radius",
+      "Marker corners",
+      "9999px"
+    ]
+  ],
+  "propDocs": {
+    "Label.htmlFor": "ID of the control the label names and focuses when pressed.",
+    "Label.children": "The visible label and optional LabelMarker content.",
+    "LabelMarker.children": "Required or optional text shown beside the label."
+  }
+}

@@ -59,4 +59,4 @@ Both are installed by the same command, so you can start with the finished compo
 
 ## A few have no UI SDK part
 
-UI SDK has no card, badge, kbd, skeleton, sidebar or table. Those six are plain elements with the same two layers, so the whole set stays consistent. Context Menu is built on UI SDK's menu, and the Motion Style switcher on its preferences.
+Components such as Card, Badge, Kbd, Sidebar and Table are defined on UI SDK's core with `definePrimitive`, then rendered with its React adapter. They have the same primitive and styled layers, plus an installable core definition. Context Menu composes UI SDK's Menu; Motion Style uses its Preferences. State callbacks and custom `render` elements work across both layers.

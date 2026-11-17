@@ -1,0 +1,55 @@
+{
+  "cssVars": [
+    [
+      "--navigation-menu-surface",
+      "Viewport surface",
+      "--popover"
+    ],
+    [
+      "--navigation-menu-ink",
+      "Panel link text",
+      "--foreground; --popover-foreground for viewport"
+    ],
+    [
+      "--navigation-menu-muted",
+      "Trigger and icon text",
+      "--muted-foreground"
+    ],
+    [
+      "--navigation-menu-highlight",
+      "Indicator and highlighted links",
+      "--accent"
+    ],
+    [
+      "--navigation-menu-radius",
+      "Viewport corners",
+      "14px"
+    ],
+    [
+      "--navigation-menu-item-radius",
+      "Trigger and indicator corners",
+      "9px"
+    ],
+    [
+      "--navigation-menu-height",
+      "Top-level item height",
+      "2rem"
+    ],
+    [
+      "--navigation-menu-gap",
+      "Top-level item gap",
+      "0.125rem"
+    ]
+  ],
+  "propDocs": {
+    "NavigationMenu.orientation": "Controls top-level layout, keyboard directions and the default panel side.",
+    "NavigationMenu.openOnHover": "Resting on a trigger opens its panel; presses always work.",
+    "NavigationMenu.closeOnSelect": "Closes after an ordinary link selection.",
+    "NavigationMenuTrigger.disabled": "Prevents the trigger from opening.",
+    "NavigationMenuContent.keepMounted": "Keeps closed panel content in the document, hidden.",
+    "NavigationMenuContent.hiddenUntilFound": "Allows browser find to open matching closed panels; implies keepMounted.",
+    "NavigationMenuViewport.side": "Preferred side; omit to follow the menu orientation.",
+    "NavigationMenuViewport.align": "Start, center or end alignment with the open trigger.",
+    "NavigationMenuLink.current": "Marks the current page and positions the indicator there while closed."
+  }
+}

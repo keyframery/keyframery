@@ -1,0 +1,42 @@
+{
+  "cssVars": [
+    [
+      "--command-face",
+      "Palette surface",
+      "--popover"
+    ],
+    [
+      "--command-ink",
+      "Palette and search text",
+      "--popover-foreground / --foreground"
+    ],
+    [
+      "--command-accent",
+      "Highlighted command",
+      "--accent"
+    ],
+    [
+      "--command-radius",
+      "Palette corners",
+      "14px"
+    ],
+    [
+      "--command-row-height",
+      "Command row height",
+      "2.25rem"
+    ],
+    [
+      "--command-gap",
+      "Search and command icon spacing",
+      "0.625rem"
+    ]
+  ],
+  "propDocs": {
+    "Command.autoHighlight": "Highlight the first or best matching command automatically.",
+    "Command.loop": "Wrap arrow navigation at either end.",
+    "Command.filter": "Filter commands by fuzzy letters, contains or startsWith.",
+    "CommandItem.disabled": "Skip disabled commands and prevent their actions.",
+    "CommandItem.page": "Name of the nested command page to open.",
+    "Command.pages": "Stack of nested command pages."
+  }
+}

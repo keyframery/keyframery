@@ -1,0 +1,67 @@
+---
+title: Round
+heading: "Round: a landing page people can operate"
+seoTitle: "Round: Free Interactive App Landing Page Template"
+description: "A free landing page for a consumer app. It loads by splitting a bill, the hero is a ring you divide by dragging, and the scroll settles the debts on a screen-wide odometer."
+template: round
+full: true
+faq:
+  - q: "Is Round free?"
+    a: "Yes. It is open source like the components, for personal and commercial projects."
+  - q: "Do I need the rest of Keyframery to use it?"
+    a: "No. Installing Round brings the five components it uses (Slider, Toggle, Button, Segmented Control and Accordion) and nothing else."
+  - q: "Does it need Next.js?"
+    a: "No. The page is plain React with one CSS file and uses ordinary `<img>` tags, so it runs in any React 19 project that has Tailwind CSS v4."
+---
+
+<TemplateStage slug="round" name="Round" />
+
+## What is on the page
+
+Round is a made-up bill-splitting app. The page is built so a visitor uses the product before reading about it.
+
+| Section | What happens |
+| --- | --- |
+| Loading sequence | A white ring draws itself while the bill adds up, flies into the hero and peels into one slice per person. |
+| Hero | The ring is live. Drag a line to move money between two people, tap a face to add or drop someone, set the tip. Every figure rolls to its new value. |
+| Statement and bill | A sentence inks in word by word as you scroll. Then a bill where tapping a face moves an item on or off that person, with four bills to try. |
+| Settle | One pinned screen. The scroll drives an odometer the width of the screen and ticks off each debt as the figure passes it. |
+| Numbers and quotes | Three figures that roll in when they come into view, and three quotes. |
+| Pricing and questions | Monthly or yearly prices, then five questions. |
+| Last call and footer | The closing line, two buttons and the footer. |
+
+The switch in the top bar changes the currency of every figure on the page at once.
+
+## Install
+
+```npm
+npx shadcn@latest add @keyframery/round
+```
+
+That copies the page into `components/round/`, installs the five Keyframery components it uses and adds the `motion` package. Then render it on a route:
+
+```tsx title="app/page.tsx"
+import { RoundLanding } from "@/components/round/round"
+
+export default function Page() {
+  return <RoundLanding />
+}
+```
+
+To have a coding agent do it, and then rewrite it for your product, use **Copy for your coding agent** at the top of this page and paste the result into Claude Code, Cursor or Codex.
+
+## Make it yours
+
+- **Words, people, bills and prices** are all in `data.ts`. The sections read from that file and nothing else.
+- **Colours** are six values at the top of `round.css`: blue, ink, paper, hot, pink and sky. Each section picks a tone with `data-tone`, and the controls inside it follow.
+- **Photos** load from keyframery.com after an install. Replace the paths in `data.ts` with your own.
+- **Motion** follows the [motion style](/docs/motion-styles) of your site. Set `data-motion="calm"`, `"snappy"` or `"playful"` on `<html>` and the whole page changes pace.
+
+## How it is built
+
+- **Controls** are UI SDK components through Keyframery: the tip is a [Slider](/docs/components/slider), the faces are [Toggles](/docs/components/toggle), the currency and billing switches are [Segmented Controls](/docs/components/segmented-control), the questions are an [Accordion](/docs/components/accordion) and every button is a [Button](/docs/components/button). Keyboard and screen-reader behaviour come from UI SDK.
+- **Motion** is in two parts. [Motion](https://motion.dev) drives what needs real springs and the scroll: the ring flying into place, the odometer, the statement, content swapping in the bill and the buttons that lean toward the pointer. Everything else is plain CSS.
+- **Reduced motion** skips the loading sequence and stops every transition. The page stays fully usable.
+- **Phone to desktop.** The layout is designed at 390px and at 1440px, not scaled between them.
+
+The four portraits and four small photos are from Unsplash, under the Unsplash licence.

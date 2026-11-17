@@ -1,0 +1,49 @@
+{
+  "cssVars": [
+    [
+      "--calendar-face",
+      "Calendar surface",
+      "--card"
+    ],
+    [
+      "--calendar-ink",
+      "Calendar body and day text",
+      "--card-foreground / --foreground"
+    ],
+    [
+      "--calendar-accent",
+      "Selected day keys",
+      "--primary"
+    ],
+    [
+      "--calendar-radius",
+      "Calendar corners",
+      "14px"
+    ],
+    [
+      "--calendar-size",
+      "Day cell size and weekday width",
+      "2rem"
+    ],
+    [
+      "--calendar-gap",
+      "Vertical day row spacing",
+      "0.125rem"
+    ]
+  ],
+  "propDocs": {
+    "Calendar.mode": "Select one date, multiple dates or a start/end range.",
+    "Calendar.months": "Number of visible month grids.",
+    "Calendar.pageBy": "Turn one month or a whole page of months.",
+    "Calendar.weekStartsOn": "First weekday from 0 (Sunday) through 6 (Saturday); omit for locale.",
+    "Calendar.weekdayFormat": "Width of weekday names.",
+    "Calendar.monthFormat": "Width of month names.",
+    "Calendar.locale": "Locale for month and weekday labels.",
+    "Calendar.fixedWeeks": "Always render six rows.",
+    "Calendar.showOutsideDays": "Show adjacent-month days.",
+    "Calendar.disabled": "Disable focus and selection.",
+    "Calendar.readOnly": "Allow focus while preventing selection.",
+    "Calendar.deselectable": "Allow pressing a selected single date to clear it.",
+    "Calendar.minDays": "Minimum inclusive span for a range; omit for no additional limit."
+  }
+}

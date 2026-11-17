@@ -12,6 +12,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/input"
 
 /* The focus ring is the outline. It starts 10px out and 0px wide and closes in onto the field
@@ -25,7 +30,12 @@ const ringMotion =
 
 function Input({ className, ...props }: React.ComponentProps<typeof InputPart>) {
   return (
-    <InputPart className={cn(ringMotion, "focus-visible:outline-offset-0 focus-visible:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]", className)} {...props} />
+    <InputPart className={withClass(
+      cn(
+        ringMotion, "focus-visible:outline-offset-0 focus-visible:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
+      ),
+      className,
+    )} {...props} />
   )
 }
 
@@ -33,7 +43,12 @@ function Input({ className, ...props }: React.ComponentProps<typeof InputPart>) 
 function InputGroup({ className, ...props }: React.ComponentProps<typeof InputGroupPart>) {
   return (
     <InputGroupPart
-      className={cn(ringMotion, "has-[input:focus-visible]:outline-offset-0 has-[input:focus-visible]:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]", className)}
+      className={withClass(
+        cn(
+          ringMotion, "has-[input:focus-visible]:outline-offset-0 has-[input:focus-visible]:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
+        ),
+        className,
+      )}
       {...props}
     />
   )
@@ -43,10 +58,12 @@ function InputGroup({ className, ...props }: React.ComponentProps<typeof InputGr
 function InputClear({ className, ...props }: React.ComponentProps<typeof InputClearPart>) {
   return (
     <InputClearPart
-      className={cn(
-        "[transition:scale_calc(300ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),rotate_calc(300ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1))]",
-        "starting:scale-50 starting:-rotate-45 starting:opacity-0 active:scale-[0.85]",
-        "motion-reduce:[transition:none]!",
+      className={withClass(
+        cn(
+          "[transition:scale_calc(300ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),rotate_calc(300ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1))]",
+          "starting:scale-50 starting:-rotate-45 starting:opacity-0 active:scale-[0.85]",
+          "motion-reduce:[transition:none]!",
+        ),
         className,
       )}
       {...props}

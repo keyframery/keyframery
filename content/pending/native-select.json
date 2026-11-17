@@ -1,0 +1,87 @@
+{
+  "description": "The browser's own select in a Keyframery field: each new choice rises in out of a blur as the old one leaves upward, and the chevron dips.",
+  "moves": [
+    [
+      "Direction",
+      "The chosen label rises in from below while the old one leaves upward."
+    ],
+    [
+      "Pop",
+      "The chevron dips once on every change."
+    ],
+    [
+      "Press",
+      "The field gives a little under the pointer and springs back."
+    ],
+    [
+      "Spring",
+      "The focus ring starts out wide and closes onto the field on a spring."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves focus to the select."
+    ],
+    [
+      "Space",
+      "Opens the browser's picker."
+    ],
+    [
+      "↓ ↑",
+      "Changes the option, or moves through the open picker."
+    ],
+    [
+      "A–Z",
+      "Jumps to an option starting with that letter."
+    ],
+    [
+      "Escape",
+      "Closes the picker."
+    ]
+  ],
+  "propDocs": {
+    "NativeSelect.wrapperClassName": "Class names for the wrapper that holds the select, its label and the chevron. Pass `w-full` to fill the row.",
+    "NativeSelect.valueClassName": "Class names for the chosen option's label, drawn over the select.",
+    "NativeSelect.iconClassName": "Class names for the chevron.",
+    "NativeSelect.icon": "Your own chevron, in place of the default one.",
+    "NativeSelectOption.value": "The option's value. Required: it keys the option and is what `value` and `onValueChange` use."
+  },
+  "cssVars": [
+    [
+      "--native-select-face",
+      "Field surface",
+      "bg-background"
+    ],
+    [
+      "--native-select-ink",
+      "Selected value",
+      "text-foreground"
+    ],
+    [
+      "--native-select-muted",
+      "Placeholder and arrow",
+      "text-muted-foreground"
+    ],
+    [
+      "--native-select-radius",
+      "Field corners",
+      "rounded-[10px]"
+    ],
+    [
+      "--native-select-font",
+      "Value size",
+      "text-[13px]"
+    ],
+    [
+      "--native-select-height",
+      "Field height",
+      "h-9"
+    ],
+    [
+      "--native-select-inset-start",
+      "Start padding",
+      "ps-3"
+    ]
+  ]
+}

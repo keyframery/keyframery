@@ -16,6 +16,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 export * from "@ui-sdk/react/command"
 
 /* Only opacity, translate and filter transition here, so the delay never slows a hover. */
@@ -30,13 +35,15 @@ const arrive = cn(
 function CommandList({ className, ...props }: React.ComponentProps<typeof CommandListPart>) {
   return (
     <CommandListPart
-      className={cn(
-        "relative isolate [anchor-scope:--kf-hl]",
-        "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_9%,transparent)] before:opacity-0",
-        "before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-        "before:transition-[top,right,bottom,left,opacity] before:duration-[calc(260ms*var(--kf-speed,1))] before:ease-spring",
-        "has-[[data-highlighted]]:before:opacity-100",
-        "motion-reduce:before:transition-none!",
+      className={withClass(
+        cn(
+          "relative isolate [anchor-scope:--kf-hl]",
+          "before:pointer-events-none before:absolute before:-z-10 before:bg-[color-mix(in_oklch,currentColor_9%,transparent)] before:opacity-0",
+          "before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
+          "before:transition-[top,right,bottom,left,opacity] before:duration-[calc(260ms*var(--kf-speed,1))] before:ease-spring",
+          "has-[[data-highlighted]]:before:opacity-100",
+          "motion-reduce:before:transition-none!",
+        ),
         className,
       )}
       {...props}
@@ -46,12 +53,17 @@ function CommandList({ className, ...props }: React.ComponentProps<typeof Comman
 
 function CommandItem({ className, ...props }: React.ComponentProps<typeof CommandItemPart>) {
   return (
-    <CommandItemPart className={cn(arrive, "data-highlighted:[anchor-name:--kf-hl]", className)} {...props} />
+    <CommandItemPart className={withClass(
+      cn(
+        arrive, "data-highlighted:[anchor-name:--kf-hl]",
+      ),
+      className,
+    )} {...props} />
   )
 }
 
 function CommandGroupLabel({ className, ...props }: React.ComponentProps<typeof CommandGroupLabelPart>) {
-  return <CommandGroupLabelPart className={cn(arrive, className)} {...props} />
+  return <CommandGroupLabelPart className={withClass(arrive, className)} {...props} />
 }
 
 export { CommandGroupLabel, CommandItem, CommandList }

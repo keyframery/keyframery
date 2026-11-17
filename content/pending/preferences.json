@@ -1,0 +1,54 @@
+{
+  "cssVars": [
+    [
+      "--preferences-track",
+      "Switcher well",
+      "--muted"
+    ],
+    [
+      "--preferences-key",
+      "Selected key",
+      "--background, --accent in dark"
+    ],
+    [
+      "--preferences-ink",
+      "Unselected text",
+      "--muted-foreground"
+    ],
+    [
+      "--preferences-selected-ink",
+      "Selected text",
+      "--foreground"
+    ],
+    [
+      "--preferences-height",
+      "Option height",
+      "2rem"
+    ],
+    [
+      "--preferences-radius",
+      "Well corners",
+      "12px"
+    ],
+    [
+      "--preferences-key-radius",
+      "Option corners",
+      "9px"
+    ],
+    [
+      "--preferences-gap",
+      "Option gap",
+      "0.125rem"
+    ]
+  ],
+  "propDocs": {
+    "Preferences.preferences": "Preference instances whose data attributes should apply to the subtree or page.",
+    "PreferenceSwitcher.preference": "Preference instance to read and update.",
+    "PreferenceSwitcher.labels": "Optional visible labels by preference value.",
+    "PreferenceSwitcher.orientation": "Horizontal or vertical arrangement.",
+    "PreferenceSwitcher.disabled": "Disables switching.",
+    "PreferenceSwitcher.readOnly": "Keeps focus available while preventing changes.",
+    "PreferenceSwitcher.required": "Requires a selected value when used in a form.",
+    "PreferenceSwitcher.loop": "Wraps keyboard navigation between options."
+  }
+}

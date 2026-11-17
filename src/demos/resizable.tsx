@@ -35,11 +35,84 @@ const mail = [
   { from: "Fatima Noor", subject: "Housewarming date", time: "Sun" },
 ]
 
-export default function ResizableDemo() {
+export const controls = {
+  orientation: { type: "select", label: "Orientation", default: "auto", options: ["auto", "horizontal", "vertical"] },
+  disabled: { type: "switch", label: "Disabled", default: false, group: "Behaviour" },
+  handleDisabled: { type: "switch", label: "Disabled handle", default: false, group: "Behaviour" },
+  collapsible: { type: "switch", label: "Collapsible inbox", default: false, group: "Behaviour" },
+  grip: { type: "switch", label: "Show grip", default: true, group: "Behaviour" },
+  step: { type: "slider", label: "Keyboard step", default: 1, min: 1, max: 10, step: 1, unit: "%", group: "Behaviour" },
+  largeStep: { type: "slider", label: "Large keyboard step", default: 10, min: 5, max: 25, step: 1, unit: "%", group: "Behaviour" },
+  minSize: { type: "slider", label: "Minimum inbox", default: 30, min: 10, max: 40, step: 1, unit: "%", group: "Behaviour" },
+  maxSize: { type: "slider", label: "Maximum inbox", default: 62, min: 50, max: 80, step: 1, unit: "%", group: "Behaviour" },
+  collapsedSize: { type: "slider", label: "Collapsed inbox", default: 0, min: 0, max: 15, step: 1, unit: "%", group: "Behaviour" },
+  inboxSize: { type: "slider", label: "Inbox share", default: 42, min: 30, max: 62, step: 1, unit: "%", group: "Layout" },
+  title: { type: "text", label: "Inbox title", default: "Inbox" },
+  items: { type: "slider", label: "Messages", default: 5, min: 1, max: 5, step: 1, unit: "", group: "Layout" },
+  width: { type: "slider", label: "Width", default: 468, min: 320, max: 640, step: 1, unit: "px", group: "Layout" },
+  height: { type: "slider", label: "Height", default: 332, min: 300, max: 520, step: 1, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Grip corners", default: 5, min: 0, max: 12, step: 1, unit: "px", group: "Layout" },
+  line: { type: "color", label: "Divider", default: "", group: "Colours" },
+  active: { type: "color", label: "Active divider", default: "", group: "Colours" },
+  keyColour: { type: "color", label: "Grip", default: "", group: "Colours" },
+  ink: { type: "color", label: "Grip dots", default: "", group: "Colours" },
+} as const
+
+export default function ResizableDemo({
+  orientation = "auto",
+  disabled = false,
+  handleDisabled = false,
+  collapsible = false,
+  grip = true,
+  step = 1,
+  largeStep = 10,
+  minSize = 30,
+  maxSize = 62,
+  collapsedSize = 0,
+  inboxSize = 42,
+  title = "Inbox",
+  items = 5,
+  width = 468,
+  height = 332,
+  radius = 5,
+  line = "",
+  active = "",
+  keyColour = "",
+  ink = "",
+}: {
+  orientation?: "auto" | "horizontal" | "vertical"
+  disabled?: boolean
+  handleDisabled?: boolean
+  collapsible?: boolean
+  grip?: boolean
+  step?: number
+  largeStep?: number
+  minSize?: number
+  maxSize?: number
+  collapsedSize?: number
+  inboxSize?: number
+  title?: string
+  items?: number
+  width?: number
+  height?: number
+  radius?: number
+  line?: string
+  active?: string
+  keyColour?: string
+  ink?: string
+}) {
+  const theme = {
+    "--resizable-radius": `${radius}px`,
+    ...(line ? { "--resizable-line": line } : {}),
+    ...(active ? { "--resizable-active": active } : {}),
+    ...(keyColour ? { "--resizable-key": keyColour } : {}),
+    ...(ink ? { "--resizable-ink": ink } : {}),
+  } as React.CSSProperties
   const [controller] = React.useState(createResizableController)
   const [wide, setWide] = React.useState(false)
   const toggle = () => {
-    controller.setLayout(wide ? [42, 58] : [30, 70])
+    if (disabled || handleDisabled) return
+    controller.setLayout(wide ? [inboxSize, 100 - inboxSize] : [minSize, 100 - minSize])
     setWide(!wide)
   }
   /* On a phone two columns are too narrow to read: the inbox sits above the message instead. */
@@ -52,16 +125,18 @@ export default function ResizableDemo() {
     ro.observe(el)
     return () => ro.disconnect()
   }, [])
+  React.useEffect(() => { controller.setLayout([inboxSize, 100 - inboxSize]) }, [controller, inboxSize])
+  const axis = orientation === "auto" ? (stacked ? "vertical" : "horizontal") : orientation
   return (
-    <div ref={root} data-stacked={stacked || undefined} className="h-[332px] w-full max-w-[468px] overflow-hidden data-stacked:h-[440px] rounded-[14px] bg-card text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
-      <Resizable key={stacked ? "stacked" : "side"} controller={controller} orientation={stacked ? "vertical" : "horizontal"}>
-        <ResizablePanel defaultSize={42} minSize={30} maxSize={62}>
+    <div ref={root} data-stacked={stacked || undefined} style={{ ...theme, maxWidth: width, height: height + (stacked ? 108 : 0) }} className="h-[332px] w-full max-w-[468px] overflow-hidden data-stacked:h-[440px] rounded-[14px] bg-card text-card-foreground shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)]">
+      <Resizable key={axis} controller={controller} orientation={axis} disabled={disabled} step={step} largeStep={largeStep}>
+        <ResizablePanel defaultSize={inboxSize} minSize={minSize} maxSize={maxSize} collapsible={collapsible} collapsedSize={collapsedSize}>
           <div className="flex items-baseline justify-between px-4 pt-3.5 pb-2">
-            <h3 className="text-[15px] font-semibold tracking-tight">Inbox</h3>
+            <h3 className="text-[15px] font-semibold tracking-tight">{title}</h3>
             <span className="text-[12px] text-muted-foreground tabular-nums">2 unread</span>
           </div>
           <ul className="px-1.5">
-            {mail.map((message, index) => (
+            {mail.slice(0, items).map((message, index) => (
               <li
                 key={message.subject}
                 className={
@@ -81,7 +156,7 @@ export default function ResizableDemo() {
             ))}
           </ul>
         </ResizablePanel>
-        <ResizableHandle aria-label="Resize inbox" />
+        <ResizableHandle disabled={handleDisabled} aria-label="Resize inbox">{grip ? undefined : null}</ResizableHandle>
         <ResizablePanel minSize={38}>
           <article className="px-5 pt-3.5">
             <div className="flex items-start gap-3">
@@ -90,11 +165,11 @@ export default function ResizableDemo() {
               </h3>
               <button
                 type="button"
-                data-play="focus"
+                disabled={disabled || handleDisabled} data-play="focus"
                 aria-label={wide ? "Show more of the inbox" : "Widen the message"}
                 aria-pressed={wide}
                 onClick={toggle}
-                className="-mt-1 -mr-2 ml-auto grid size-7 shrink-0 cursor-pointer place-items-center rounded-[8px] text-muted-foreground outline-none transition-[background-color,color,scale] duration-150 ease-pop hover:bg-accent hover:text-foreground active:scale-[0.94] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card motion-reduce:transition-none"
+                className="-mt-1 -mr-2 ml-auto grid size-7 shrink-0 cursor-pointer place-items-center rounded-[8px] text-muted-foreground outline-none transition-[background-color,color,scale] duration-[calc(150ms*var(--kf-speed,1))] ease-pop hover:bg-accent hover:text-foreground active:scale-[0.94] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card motion-reduce:transition-none"
               >
                 <ExpandIcon wide={wide} />
               </button>

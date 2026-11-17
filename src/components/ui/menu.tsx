@@ -1,5 +1,18 @@
 "use client"
 
+export * from "@/components/primitives/menu"
+
+/* Theming (inherited; each default preserves the original light/dark appearance):
+   --menu-surface: Menu sheet (default: --popover)
+   --menu-ink: Menu text (default: --popover-foreground)
+   --menu-highlight: Row highlight (default: --accent)
+   --menu-danger: Destructive text and highlight (default: --destructive)
+   --menu-trigger: Trigger surface (default: --background, --accent in dark)
+   --menu-radius: Sheet corners (default: 14px)
+   --menu-item-radius: Row corners (default: 8px)
+   --menu-row-height: Minimum row height (default: 2rem)
+*/
+
 /* Styled menu: the animated primitive plus the Keyframery look. */
 
 import {
@@ -28,23 +41,28 @@ import * as React from "react"
 import { mapChildren, Speed, type SpeedProps, useSpeedStyle } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 /* The sheet. Its motion (unfold, cascade, the gliding highlight) comes from the primitive;
    here the highlight gets its colour and radius, and turns red under a destructive row. */
 const sheet = cn(
   "m-0 max-h-(--available-height) min-w-44 overflow-y-auto overscroll-contain border-0 p-1.5 outline-none",
-  "rounded-[14px] bg-popover text-popover-foreground",
+  "rounded-[var(--menu-radius,14px)] bg-[var(--menu-surface,var(--popover))] text-[color:var(--menu-ink,var(--popover-foreground))]",
   "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
   "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
-  "before:rounded-[8px] before:bg-accent",
-  "has-[[data-destructive][data-highlighted]]:before:bg-destructive/10",
-  "has-[[data-disabled][data-highlighted]]:before:bg-accent/50",
+  "before:rounded-[var(--menu-item-radius,8px)] before:bg-[var(--menu-highlight,var(--accent))]",
+  "has-[[data-destructive][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-danger,var(--destructive))_10%,transparent)]",
+  "has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-highlight,var(--accent))_50%,transparent)]",
 )
 
 /* One row for every kind of item. No background of its own: the sheet's highlight glides under it,
    and that highlight is the focus indicator. */
 const row = cn(
-  "relative flex min-h-8 cursor-default items-center gap-2 rounded-[8px] px-2 py-1.5 text-[13px] leading-4 outline-none select-none",
-  "data-highlighted:text-accent-foreground",
+  "relative flex min-h-[var(--menu-row-height,2rem)] cursor-default items-center gap-2 rounded-[var(--menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none",
+  "data-highlighted:text-[color:var(--menu-ink,var(--accent-foreground))]",
   "data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60",
   /* Rows without an icon keep the icon column when another row in the same menu has one. */
   "[[data-has-icons]>&:not([data-has-icon])]:ps-8 [[data-has-icons]>[role=group]>&:not([data-has-icon])]:ps-8",
@@ -138,17 +156,19 @@ function MenuTrigger({
   useMenuPart("trigger")
   return (
     <MenuTriggerPart
-      className={cn(
-        "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        !props.render && [
-          "inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] bg-background px-3 text-[13px] leading-none font-medium whitespace-nowrap text-foreground select-none [&_svg]:size-4 [&_svg]:shrink-0",
-          "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
-          "dark:bg-accent dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
-          "hover:bg-muted data-open:bg-muted dark:hover:bg-accent/80 dark:data-open:bg-accent/80",
-          "active:shadow-[0_0_0_1px_rgb(0_0_0/0.08),0_1px_1px_rgb(0_0_0/0.04)]",
-          "dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.05),0_1px_2px_rgb(0_0_0/0.5)]",
-          "data-disabled:cursor-not-allowed data-disabled:opacity-40 data-disabled:active:scale-100",
-        ],
+      className={withClass(
+        cn(
+          "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          !props.render && [
+            "inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] bg-[var(--menu-trigger,var(--background))] px-3 text-[13px] leading-none font-medium whitespace-nowrap text-foreground select-none [&_svg]:size-4 [&_svg]:shrink-0",
+            "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
+            "dark:bg-[var(--menu-trigger,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+            "hover:bg-[var(--menu-trigger,var(--muted))] data-open:bg-[var(--menu-trigger,var(--muted))] dark:hover:bg-[color-mix(in_oklab,var(--menu-trigger,var(--accent))_80%,transparent)] dark:data-open:bg-[color-mix(in_oklab,var(--menu-trigger,var(--accent))_80%,transparent)]",
+            "active:shadow-[0_0_0_1px_rgb(0_0_0/0.08),0_1px_1px_rgb(0_0_0/0.04)]",
+            "dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.05),0_1px_2px_rgb(0_0_0/0.5)]",
+            "data-disabled:cursor-not-allowed data-disabled:opacity-40 data-disabled:active:scale-100",
+          ],
+        ),
         className,
       )}
       {...props}
@@ -164,10 +184,7 @@ function MenuContextTrigger({
   useMenuPart("context")
   return (
     <MenuContextTriggerPart
-      className={cn(
-        "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        className,
-      )}
+      className={withClass("outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background", className)}
       {...props}
     />
   )
@@ -187,7 +204,12 @@ function MenuSheet<Payload = unknown>({
   return (
     <MenuContentPart<Payload>
       sideOffset={sideOffset ?? (fromPointer ? 2 : 6)}
-      className={cn(sheet, fromPointer && contextMenuMotion, className)}
+      className={withClass(
+        cn(
+          sheet, fromPointer && contextMenuMotion,
+        ),
+        className,
+      )}
       {...props}
       style={useSpeedStyle(style)}
     >
@@ -207,12 +229,14 @@ function MenuItem({
 }: React.ComponentProps<typeof MenuItemPart>) {
   return (
     <MenuItemPart
-      className={cn(
-        row,
-        "*:data-[slot=menu-shortcut]:ms-auto *:data-[slot=menu-shortcut]:ps-5 *:data-[slot=menu-shortcut]:text-[12px] *:data-[slot=menu-shortcut]:tracking-[0.04em] *:data-[slot=menu-shortcut]:text-muted-foreground",
-        "data-destructive:text-destructive data-destructive:data-highlighted:text-destructive",
-        "data-pending:cursor-progress data-pending:text-muted-foreground",
-        "data-pending:after:ms-auto data-pending:after:size-3 data-pending:after:shrink-0 data-pending:after:animate-spin data-pending:after:rounded-full data-pending:after:border-[1.5px] data-pending:after:border-current data-pending:after:border-t-transparent motion-reduce:data-pending:after:animate-none!",
+      className={withClass(
+        cn(
+          row,
+          "*:data-[slot=menu-shortcut]:ms-auto *:data-[slot=menu-shortcut]:ps-5 *:data-[slot=menu-shortcut]:text-[12px] *:data-[slot=menu-shortcut]:tracking-[0.04em] *:data-[slot=menu-shortcut]:text-muted-foreground",
+          "data-destructive:text-[color:var(--menu-danger,var(--destructive))] data-destructive:data-highlighted:text-[color:var(--menu-danger,var(--destructive))]",
+          "data-pending:cursor-progress data-pending:text-muted-foreground",
+          "data-pending:after:ms-auto data-pending:after:size-3 data-pending:after:shrink-0 data-pending:after:animate-spin data-pending:after:rounded-full data-pending:after:border-[1.5px] data-pending:after:border-current data-pending:after:border-t-transparent motion-reduce:data-pending:after:animate-none!",
+        ),
         className,
       )}
       {...props}
@@ -224,28 +248,28 @@ function MenuShortcut({
   className,
   ...props
 }: React.ComponentProps<typeof MenuShortcutPart>) {
-  return <MenuShortcutPart className={cn(shortcut, className)} {...props} />
+  return <MenuShortcutPart className={withClass(shortcut, className)} {...props} />
 }
 
 function MenuCheckboxItem({
   className,
   ...props
 }: React.ComponentProps<typeof MenuCheckboxItemPart>) {
-  return <MenuCheckboxItemPart className={cn(row, className)} {...props} />
+  return <MenuCheckboxItemPart className={withClass(row, className)} {...props} />
 }
 
 function MenuRadioGroup<T extends string = string>({
   className,
   ...props
 }: React.ComponentProps<typeof MenuRadioGroupPart<T>>) {
-  return <MenuRadioGroupPart<T> className={cn(className)} {...props} />
+  return <MenuRadioGroupPart<T> className={className} {...props} />
 }
 
 function MenuRadioItem({
   className,
   ...props
 }: React.ComponentProps<typeof MenuRadioItemPart>) {
-  return <MenuRadioItemPart className={cn(row, className)} {...props} />
+  return <MenuRadioItemPart className={withClass(row, className)} {...props} />
 }
 
 /* The check of a checkbox or radio item, at the end of its row. It stays mounted so it can draw in and out. */
@@ -258,10 +282,7 @@ function MenuItemIndicator({
   return (
     <MenuItemIndicatorPart
       keepMounted={keepMounted}
-      className={cn(
-        "order-last ms-auto flex size-4 shrink-0 items-center justify-center ps-0 [&>svg]:size-4",
-        className,
-      )}
+      className={withClass("order-last ms-auto flex size-4 shrink-0 items-center justify-center ps-0 [&>svg]:size-4", className)}
       {...props}
     >
       {children ?? <Check />}
@@ -275,10 +296,12 @@ function MenuItemIcon({
 }: React.ComponentProps<typeof MenuItemIconPart>) {
   return (
     <MenuItemIconPart
-      className={cn(
-        "flex size-4 shrink-0 items-center justify-center text-muted-foreground [&>svg]:size-4",
-        "in-data-destructive:text-current in-data-highlighted:text-current",
-        "rtl:data-mirror:-scale-x-100",
+      className={withClass(
+        cn(
+          "flex size-4 shrink-0 items-center justify-center text-muted-foreground [&>svg]:size-4",
+          "in-data-destructive:text-current in-data-highlighted:text-current",
+          "rtl:data-mirror:-scale-x-100",
+        ),
         className,
       )}
       {...props}
@@ -290,7 +313,7 @@ function MenuGroup({
   className,
   ...props
 }: React.ComponentProps<typeof MenuGroupPart>) {
-  return <MenuGroupPart className={cn(className)} {...props} />
+  return <MenuGroupPart className={className} {...props} />
 }
 
 function MenuGroupLabel({
@@ -299,10 +322,12 @@ function MenuGroupLabel({
 }: React.ComponentProps<typeof MenuGroupLabelPart>) {
   return (
     <MenuGroupLabelPart
-      className={cn(
-        "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none",
-        /* Lines up with the item text when the rows carry icons. */
-        "[[data-has-icons]>&]:ps-8 [[data-has-icons]>[role=group]>&]:ps-8",
+      className={withClass(
+        cn(
+          "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none",
+          /* Lines up with the item text when the rows carry icons. */
+          "[[data-has-icons]>&]:ps-8 [[data-has-icons]>[role=group]>&]:ps-8",
+        ),
         className,
       )}
       {...props}
@@ -316,7 +341,7 @@ function MenuSeparator({
 }: React.ComponentProps<typeof MenuSeparatorPart>) {
   return (
     <MenuSeparatorPart
-      className={cn("-mx-1.5 my-1.5 h-px bg-border", className)}
+      className={withClass("-mx-1.5 my-1.5 h-px bg-border", className)}
       {...props}
     />
   )
@@ -334,9 +359,11 @@ function MenuSubTrigger({
 }: React.ComponentProps<typeof MenuSubTriggerPart>) {
   return (
     <MenuSubTriggerPart
-      className={cn(
-        row,
-        "data-open:text-accent-foreground",
+      className={withClass(
+        cn(
+          row,
+          "data-open:text-[color:var(--menu-ink,var(--accent-foreground))]",
+        ),
         className,
       )}
       {...props}
@@ -360,7 +387,7 @@ function MenuSubContent<Payload = unknown>({
   return (
     <MenuSubContentPart<Payload>
       sideOffset={sideOffset}
-      className={cn(sheet, className)}
+      className={withClass(sheet, className)}
       {...props} style={useSpeedStyle(style)}
     />
   )

@@ -1,0 +1,84 @@
+{
+  "description": "Alerts drop into place out of a blur on a spring while their icon pops into its tile and draws, and when dismissed they fade and fold their height away.",
+  "moves": [
+    [
+      "Unfold",
+      "The alert drops 12px into place out of a 6px blur, growing from 0.96 on a spring."
+    ],
+    [
+      "Draw",
+      "The icon pops into its tile, then its strokes draw themselves."
+    ],
+    [
+      "Cascade",
+      "The title and description rise in after the icon, one after the other."
+    ],
+    [
+      "Height",
+      "Dismissed, it fades, blurs and folds its height to nothing, so what sits below closes up."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves focus to the dismiss button, when there is one."
+    ],
+    [
+      "Enter",
+      "Dismisses the alert from its dismiss button."
+    ],
+    [
+      "Space",
+      "Dismisses the alert from its dismiss button."
+    ]
+  ],
+  "propDocs": {
+    "Alert.variant": "How it reads: \"default\" for information, \"destructive\" for a problem.",
+    "Alert.open": "Whether the alert is shown. Set it to control the alert yourself.",
+    "Alert.defaultOpen": "Whether the alert starts shown, when you don't control it. Defaults to true.",
+    "Alert.onOpenChange": "Runs when the alert is dismissed, with details.reason \"close-press\".",
+    "Alert.speed": "How fast the alert moves: \"fast\", \"normal\", \"slow\" or a multiplier."
+  },
+  "cssVars": [
+    [
+      "--alert-face",
+      "Alert surface",
+      "bg-card"
+    ],
+    [
+      "--alert-ink",
+      "Alert text",
+      "text-card-foreground"
+    ],
+    [
+      "--alert-muted",
+      "Description",
+      "text-muted-foreground"
+    ],
+    [
+      "--alert-radius",
+      "Corners",
+      "rounded-[14px]"
+    ],
+    [
+      "--alert-font",
+      "Body size",
+      "text-[13px]"
+    ],
+    [
+      "--alert-gap",
+      "Content gap",
+      "gap-y-1"
+    ],
+    [
+      "--alert-inset-x",
+      "Side padding",
+      "px-4"
+    ],
+    [
+      "--alert-inset-y",
+      "Vertical padding",
+      "py-3.5"
+    ]
+  ]
+}

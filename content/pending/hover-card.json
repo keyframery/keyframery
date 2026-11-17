@@ -1,0 +1,43 @@
+{
+  "cssVars": [
+    [
+      "--hover-card-surface",
+      "Card and arrow surface",
+      "--popover"
+    ],
+    [
+      "--hover-card-ink",
+      "Card text",
+      "--popover-foreground"
+    ],
+    [
+      "--hover-card-link",
+      "Trigger text",
+      "--foreground"
+    ],
+    [
+      "--hover-card-width",
+      "Card width",
+      "18rem"
+    ],
+    [
+      "--hover-card-radius",
+      "Card corners",
+      "14px"
+    ],
+    [
+      "--hover-card-padding",
+      "Card padding",
+      "1rem"
+    ]
+  ],
+  "propDocs": {
+    "HoverCard.disabled": "Disables the preview while retaining the trigger link.",
+    "HoverCard.delay": "Milliseconds before a hovered or focused link opens its preview.",
+    "HoverCard.closeDelay": "Milliseconds before leaving the link and card closes the preview.",
+    "HoverCardContent.side": "Preferred side; collision handling may flip the card.",
+    "HoverCardContent.align": "Aligns the card to the start, center or end of the link.",
+    "HoverCardContent.sideOffset": "Gap in pixels between the link and card.",
+    "HoverCardContent.alignOffset": "Offset in pixels along the alignment axis."
+  }
+}

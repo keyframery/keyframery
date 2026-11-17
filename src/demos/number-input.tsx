@@ -35,7 +35,7 @@ function Roll({ text }: { text: string }) {
           <span
             key={text.length - i}
             style={{ "--d": Number(c) } as React.CSSProperties}
-            className="flex flex-col transition-[translate] duration-500 ease-spring [translate:0_calc(var(--d)*-1.2em)] motion-reduce:transition-none"
+            className="flex flex-col transition-[translate] duration-[calc(500ms*var(--kf-speed,1))] ease-spring [translate:0_calc(var(--d)*-1.2em)] motion-reduce:transition-none"
           >
             {Array.from({ length: 10 }, (_, d) => (
               <span key={d} className="h-[1.2em]">
@@ -53,21 +53,97 @@ function Roll({ text }: { text: string }) {
 
 const nightly = 142
 
-export default function NumberInputDemo() {
-  const [nights, setNights] = React.useState<number | null>(3)
-  const [guests, setGuests] = React.useState<number | null>(2)
+export const controls = {
+  disabled: { type: "switch", label: "Disabled", default: false, group: "Behaviour" },
+  readOnly: { type: "switch", label: "Read only", default: false, group: "Behaviour" },
+  required: { type: "switch", label: "Required", default: false, group: "Behaviour" },
+  wheel: { type: "switch", label: "Wheel stepping", default: false, group: "Behaviour" },
+  orientation: { type: "select", label: "Scrub direction", default: "horizontal", options: ["horizontal", "vertical"] },
+  min: { type: "slider", label: "Minimum", default: 1, min: 0, max: 3, step: 1, unit: "", group: "Behaviour" },
+  maxNights: { type: "slider", label: "Maximum nights", default: 28, min: 6, max: 60, step: 1, unit: "", group: "Behaviour" },
+  maxGuests: { type: "slider", label: "Maximum guests", default: 4, min: 2, max: 12, step: 1, unit: "", group: "Behaviour" },
+  step: { type: "slider", label: "Step", default: 1, min: 0.5, max: 4, step: 0.5, unit: "", group: "Behaviour" },
+  initialNights: { type: "slider", label: "Nights", default: 3, min: 1, max: 28, step: 1, unit: "", group: "Reading" },
+  initialGuests: { type: "slider", label: "Guests", default: 2, min: 1, max: 4, step: 1, unit: "", group: "Reading" },
+  title: { type: "text", label: "Cottage", default: "Hollow Farm cottage" },
+  width: { type: "slider", label: "Width", default: 340, min: 260, max: 480, step: 1, unit: "px", group: "Layout" },
+  gap: { type: "slider", label: "Section gap", default: 20, min: 8, max: 32, step: 1, unit: "px", group: "Layout" },
+  radius: { type: "slider", label: "Corners", default: 10, min: 0, max: 20, step: 1, unit: "px", group: "Layout" },
+  height: { type: "slider", label: "Field height", default: 36, min: 32, max: 52, step: 1, unit: "px", group: "Layout" },
+  surface: { type: "color", label: "Field", default: "", group: "Colours" },
+  ink: { type: "color", label: "Text", default: "", group: "Colours" },
+  keyColour: { type: "color", label: "Steppers", default: "", group: "Colours" },
+  focus: { type: "color", label: "Focus", default: "", group: "Colours" },
+} as const
+
+export default function NumberInputDemo({
+  disabled = false,
+  readOnly = false,
+  required = false,
+  wheel = false,
+  orientation = "horizontal",
+  min = 1,
+  maxNights = 28,
+  maxGuests = 4,
+  step = 1,
+  initialNights = 3,
+  initialGuests = 2,
+  title = "Hollow Farm cottage",
+  width = 340,
+  gap = 20,
+  radius = 10,
+  height = 36,
+  surface = "",
+  ink = "",
+  keyColour = "",
+  focus = "",
+}: {
+  disabled?: boolean
+  readOnly?: boolean
+  required?: boolean
+  wheel?: boolean
+  orientation?: "horizontal" | "vertical"
+  min?: number
+  maxNights?: number
+  maxGuests?: number
+  step?: number
+  initialNights?: number
+  initialGuests?: number
+  title?: string
+  width?: number
+  gap?: number
+  radius?: number
+  height?: number
+  surface?: string
+  ink?: string
+  keyColour?: string
+  focus?: string
+}) {
+  const theme = {
+    "--number-input-height": `${height}px`,
+    "--number-input-step-size": `${height - 8}px`,
+    "--number-input-radius": `${radius}px`,
+    ...(surface ? { "--number-input-surface": surface } : {}),
+    ...(ink ? { "--number-input-ink": ink } : {}),
+    ...(keyColour ? { "--number-input-key": keyColour } : {}),
+    ...(focus ? { "--number-input-focus": focus } : {}),
+  } as React.CSSProperties
+  const [nights, setNights] = React.useState<number | null>(initialNights)
+  const [guests, setGuests] = React.useState<number | null>(initialGuests)
+  React.useEffect(() => setNights(initialNights), [initialNights])
+  React.useEffect(() => setGuests(initialGuests), [initialGuests])
   const total = (nights ?? 0) * nightly
 
   return (
-    <div className="flex w-full max-w-[340px] flex-col gap-5">
+    <div style={{ ...theme, maxWidth: width, gap }} className="flex w-full max-w-[340px] flex-col gap-5">
       <div>
-        <h3 className="text-[15px] font-semibold tracking-tight">Hollow Farm cottage</h3>
-        <p className="mt-1 text-[13px] text-muted-foreground">Sleeps 4, €{nightly} a night</p>
+        <h3 className="text-[15px] font-semibold tracking-tight">{title}</h3>
+        <p className="mt-1 text-[13px] text-muted-foreground">Sleeps {maxGuests}, €{nightly} a night</p>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <Field>
-          <NumberInput value={nights} onValueChange={(value) => setNights(value)} min={1} max={28}>
-            <NumberInputScrubArea pixelsPerStep={6}>
+          <NumberInput value={nights} onValueChange={(value) => setNights(value)} min={min} max={maxNights} step={step} disabled={disabled} readOnly={readOnly} required={required} wheel={wheel}>
+            <NumberInputScrubArea orientation={orientation} pixelsPerStep={6}>
               <FieldLabel>Nights</FieldLabel>
             </NumberInputScrubArea>
             <NumberInputGroup>
@@ -78,8 +154,8 @@ export default function NumberInputDemo() {
           </NumberInput>
         </Field>
         <Field>
-          <NumberInput value={guests} onValueChange={(value) => setGuests(value)} min={1} max={4}>
-            <NumberInputScrubArea pixelsPerStep={10}>
+          <NumberInput value={guests} onValueChange={(value) => setGuests(value)} min={min} max={maxGuests} step={step} disabled={disabled} readOnly={readOnly} required={required} wheel={wheel}>
+            <NumberInputScrubArea orientation={orientation} pixelsPerStep={10}>
               <FieldLabel>Guests</FieldLabel>
             </NumberInputScrubArea>
             <NumberInputGroup>

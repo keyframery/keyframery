@@ -1,5 +1,17 @@
 "use client"
 
+export * from "@/components/primitives/password-input"
+
+/* Theming (inherited; each default preserves the original light/dark appearance):
+   --password-input-surface: Field surface (default: --background)
+   --password-input-ink: Password text (default: --foreground)
+   --password-input-toggle: Eye toggle text (default: --muted-foreground; --foreground on hover/pressed)
+   --password-input-focus: Focus ring and hairline (default: --ring)
+   --password-input-invalid: Invalid ring and hairline (default: --destructive)
+   --password-input-radius: Field corners (default: 10px)
+   --password-input-height: Field height (default: 2.25rem)
+*/
+
 /* Styled password input: the animated primitive plus the Keyframery look. */
 
 import * as React from "react"
@@ -13,22 +25,29 @@ import {
 import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 /* The root is the field: the native input, a Caps Lock mark and the toggle sit inside one box.
    The hairline's colour is one variable, so hover, focus and invalid each change a single value. */
 function PasswordInput({ speed, className, ...props }: React.ComponentProps<typeof PasswordInputPrimitive> & SpeedProps) {
   return (
     <Speed speed={speed}>
       <PasswordInputPrimitive
-        className={cn(
-          "group/password flex h-9 w-full min-w-0 cursor-text items-center gap-1 rounded-[10px] bg-background ps-3 pe-1 text-[13px] text-muted-foreground",
-          "outline-0 outline-ring",
-          "[--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)]",
-          "shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)]",
-          "hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)]",
-          "has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-ring/30 has-[input:focus-visible]:[--field-line:var(--ring)] dark:has-[input:focus-visible]:[--field-line:var(--ring)]",
-          "has-aria-invalid:outline-destructive has-aria-invalid:has-[input:focus-visible]:outline-destructive/30 has-aria-invalid:[--field-line:var(--destructive)] dark:has-aria-invalid:[--field-line:var(--destructive)]",
-          "data-readonly:bg-muted/50",
-          "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+        className={withClass(
+          cn(
+            "group/password flex h-[var(--password-input-height,2.25rem)] w-full min-w-0 cursor-text items-center gap-1 rounded-[var(--password-input-radius,10px)] bg-[var(--password-input-surface,var(--background))] ps-3 pe-1 text-[13px] text-muted-foreground",
+            "outline-0 outline-[color:var(--password-input-focus,var(--ring))]",
+            "[--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)]",
+            "shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)]",
+            "hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)]",
+            "has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[color:color-mix(in_oklab,var(--password-input-focus,var(--ring))_30%,transparent)] has-[input:focus-visible]:[--field-line:var(--password-input-focus,var(--ring))] dark:has-[input:focus-visible]:[--field-line:var(--password-input-focus,var(--ring))]",
+            "has-aria-invalid:outline-[color:var(--password-input-invalid,var(--destructive))] has-aria-invalid:has-[input:focus-visible]:outline-[color:color-mix(in_oklab,var(--password-input-invalid,var(--destructive))_30%,transparent)] has-aria-invalid:[--field-line:var(--password-input-invalid,var(--destructive))] dark:has-aria-invalid:[--field-line:var(--password-input-invalid,var(--destructive))]",
+            "data-readonly:bg-muted/50",
+            "data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+          ),
           className,
         )}
         {...props}
@@ -43,9 +62,11 @@ function PasswordInputControl({
 }: React.ComponentProps<typeof PasswordInputControlPrimitive>) {
   return (
     <PasswordInputControlPrimitive
-      className={cn(
-        "h-full min-w-0 flex-1 bg-transparent text-[13px] text-foreground outline-none select-text placeholder:text-muted-foreground/70",
-        "data-disabled:cursor-not-allowed data-disabled:text-muted-foreground",
+      className={withClass(
+        cn(
+          "h-full min-w-0 flex-1 bg-transparent text-[13px] text-[color:var(--password-input-ink,var(--foreground))] outline-none select-text placeholder:text-muted-foreground/70",
+          "data-disabled:cursor-not-allowed data-disabled:text-muted-foreground",
+        ),
         className,
       )}
       {...props}
@@ -90,12 +111,14 @@ function PasswordInputToggle({
 }: React.ComponentProps<typeof PasswordInputTogglePrimitive>) {
   return (
     <PasswordInputTogglePrimitive
-      className={cn(
-        "grid size-7 shrink-0 cursor-pointer place-items-center rounded-[7px] text-muted-foreground outline-none",
-        "hover:bg-foreground/[0.06] hover:text-foreground aria-pressed:text-foreground",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "data-disabled:pointer-events-none data-disabled:opacity-50",
-        "[&_svg]:shrink-0",
+      className={withClass(
+        cn(
+          "grid size-7 shrink-0 cursor-pointer place-items-center rounded-[7px] text-[color:var(--password-input-toggle,var(--muted-foreground))] outline-none",
+          "hover:bg-foreground/[0.06] hover:text-[color:var(--password-input-toggle,var(--foreground))] aria-pressed:text-[color:var(--password-input-toggle,var(--foreground))]",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "data-disabled:pointer-events-none data-disabled:opacity-50",
+          "[&_svg]:shrink-0",
+        ),
         className,
       )}
       {...props}

@@ -15,13 +15,13 @@ Keyframery adds animation on top of UI SDK and leaves its accessibility exactly 
 
 Every component that has a UI SDK counterpart renders that UI SDK component underneath, with the same parts and props. Keyboard interaction, focus management, ARIA roles and states, typeahead, focus trapping in dialogs and positioning all come from UI SDK. Keyframery adds the motion and the look; it doesn't change any behaviour.
 
-The few components UI SDK doesn't have (card, badge, kbd, skeleton, sidebar and table) are plain elements, with the roles and keyboard support their docs pages list.
+Additional components use UI SDK's `definePrimitive` core and React adapter. Their definitions declare roles, state and keyboard behavior; each component page lists its supported interactions.
 
 ## Reduced motion
 
 When someone turns on reduced motion in their operating system, Keyframery's movement turns off. Things change at once, or with a short fade, instead of sliding, stretching, popping or blurring. Nothing is lost: the component still opens, closes, selects and updates. Shimmering skeletons become still blocks.
 
-One exception is deliberate: loading spinners keep turning, because they are the only sign that something is still happening.
+Loading states remain available through status labels and `aria-busy`, including when decorative animation is disabled.
 
 We test this on every component by loading it with reduced motion on, using it, and checking that nothing else moves.
 

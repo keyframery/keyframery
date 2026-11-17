@@ -1,0 +1,73 @@
+{
+  "cssVars": [
+    [
+      "--direction-face",
+      "Toggle surface",
+      "bg-background"
+    ],
+    [
+      "--direction-ink",
+      "Toggle text",
+      "text-foreground"
+    ],
+    [
+      "--direction-radius",
+      "Toggle corners",
+      "rounded-[9px]"
+    ],
+    [
+      "--direction-font",
+      "Toggle label size",
+      "text-[13px]"
+    ],
+    [
+      "--direction-gap",
+      "Toggle gap",
+      "gap-1.5"
+    ],
+    [
+      "--direction-height",
+      "Toggle height",
+      "h-8"
+    ],
+    [
+      "--direction-inset-x",
+      "Toggle padding",
+      "px-3"
+    ],
+    [
+      "--direction-icon-size",
+      "Toggle icon",
+      "size-4"
+    ]
+  ],
+  "description": "A UI SDK core reading-direction boundary and toggle that mirror content between left-to-right and right-to-left layouts.",
+  "moves": [
+    [
+      "Direction",
+      "After a direction change, content arrives from its new reading side with 28px of travel and a soft blur."
+    ],
+    [
+      "Cascade",
+      "Content blocks follow the direction change in order."
+    ],
+    [
+      "Press",
+      "The toggle presses in while its mirror icon flips on a spring."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves focus to the direction toggle and controls inside the boundary."
+    ],
+    [
+      "Enter",
+      "Switches the focused direction toggle."
+    ],
+    [
+      "Space",
+      "Switches the focused direction toggle."
+    ]
+  ]
+}

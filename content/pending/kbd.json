@@ -1,0 +1,9 @@
+{
+  "cssVars": [
+    ["--kbd-face", "The key surface", "--background; --accent in dark"],
+    ["--kbd-ink", "Key label", "--muted-foreground"],
+    ["--kbd-size", "Key height and minimum width", "1.5rem"],
+    ["--kbd-radius", "Key corners", "6px"],
+    ["--kbd-font", "Label size", "12px"]
+  ]
+}

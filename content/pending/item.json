@@ -1,0 +1,77 @@
+{
+  "description": "Rows of content that arrive one after another, with one highlight gliding between the rows you can open.",
+  "moves": [
+    [
+      "Cascade",
+      "Rows rise out of a soft blur one after another as the list mounts, and the lines between them draw out from the middle."
+    ],
+    [
+      "Glide",
+      "In a group, one highlight glides to the row under the pointer or the keyboard focus; the lines beside it step aside."
+    ],
+    [
+      "Press",
+      "A row that is a link or a button gives a little when pressed and springs back."
+    ],
+    [
+      "Fade",
+      "A photo in the media slot clears out of a blur as its row arrives."
+    ],
+    [
+      "Spring",
+      "A chevron in the actions leans toward where the row leads while it is hovered."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves to the next row that is a link or a button; the highlight follows."
+    ],
+    [
+      "Enter",
+      "Opens the focused row's link or presses its button."
+    ]
+  ],
+  "propDocs": {
+    "Item.variant": "The surface: `\"default\"` is bare, `\"outline\"` has a hairline, `\"muted\"` a soft fill.",
+    "Item.size": "`\"sm\"` tightens the padding and the gap.",
+    "ItemMedia.variant": "`\"icon\"` puts the icon in a small well, `\"image\"` crops a picture to a rounded square, `\"default\"` leaves it as it is."
+  },
+  "cssVars": [
+    [
+      "--item-face",
+      "Muted row surface",
+      "bg-muted/60"
+    ],
+    [
+      "--item-ink",
+      "Row text",
+      "text-foreground"
+    ],
+    [
+      "--item-muted",
+      "Row details",
+      "text-muted-foreground"
+    ],
+    [
+      "--item-radius",
+      "Row corners",
+      "rounded-[12px]"
+    ],
+    [
+      "--item-font",
+      "Title size",
+      "text-[13.5px]"
+    ],
+    [
+      "--item-gap",
+      "Row gap",
+      "gap-3.5"
+    ],
+    [
+      "--item-padding",
+      "Row padding",
+      "p-3.5"
+    ]
+  ]
+}

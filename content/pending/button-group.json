@@ -1,0 +1,81 @@
+{
+  "description": "Buttons join into one strip, and a single highlight glides from segment to segment under the pointer or keyboard focus, taking each segment's corners as it goes.",
+  "moves": [
+    [
+      "Glide",
+      "One highlight springs from segment to segment instead of each button lighting up on its own."
+    ],
+    [
+      "Fade",
+      "The highlight appears where it lands the first time and fades out where it was when the pointer leaves."
+    ],
+    [
+      "Press",
+      "A segment sinks a little and springs back, less than a lone button so the strip stays joined."
+    ],
+    [
+      "Draw",
+      "A separator grows in from its centre."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves to the next control in the group; each one is its own tab stop."
+    ],
+    [
+      "Shift + Tab",
+      "Moves to the previous control."
+    ],
+    [
+      "Enter",
+      "Presses the focused button."
+    ],
+    [
+      "Space",
+      "Presses the focused button."
+    ]
+  ],
+  "propDocs": {
+    "ButtonGroup.orientation": "Lays the buttons out in a row (`\"horizontal\"`, the default) or a column (`\"vertical\"`).",
+    "ButtonGroupSeparator.orientation": "Which way the line runs. Vertical by default, for a group laid out in a row.",
+    "ButtonGroupSeparator.decorative": "Hides the line from assistive technology. On by default: it only joins two halves of one key."
+  },
+  "cssVars": [
+    [
+      "--button-group-face",
+      "Counter surface",
+      "bg-muted"
+    ],
+    [
+      "--button-group-ink",
+      "Counter text",
+      "text-muted-foreground"
+    ],
+    [
+      "--button-group-line",
+      "Separator",
+      "bg-border"
+    ],
+    [
+      "--button-group-radius",
+      "Counter corners",
+      "rounded-[9px]"
+    ],
+    [
+      "--button-group-font",
+      "Counter size",
+      "text-[13px]"
+    ],
+    [
+      "--button-group-gap",
+      "Nested group gap",
+      "0.5rem"
+    ],
+    [
+      "--button-group-inset-x",
+      "Counter padding",
+      "px-3"
+    ]
+  ]
+}

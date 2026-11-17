@@ -1,5 +1,18 @@
 "use client"
 
+export * from "@/components/primitives/pagination"
+
+/* Theming (inherited; each default preserves the original light/dark appearance):
+   --pagination-track: Pagination well (default: --muted)
+   --pagination-key: Current page key (default: --background, --accent in dark)
+   --pagination-ink: Page labels (default: --muted-foreground)
+   --pagination-selected-ink: Current and hovered page (default: --foreground)
+   --pagination-size: Page height and least width (default: 2rem)
+   --pagination-radius: Well corners (default: 12px)
+   --pagination-key-radius: Page corners (default: 9px)
+   --pagination-gap: Page gap (default: 0.125rem)
+*/
+
 /* Styled pagination: the animated primitive plus the Keyframery look. */
 
 import * as React from "react"
@@ -21,20 +34,25 @@ import {
 import { Speed, type SpeedProps } from "@/lib/keyframery"
 import { cn } from "@/lib/utils"
 
+/* UI SDK accepts a class name or a function of state; keep both working. */
+function withClass<S>(base: string, className: string | ((state: S) => string | undefined) | undefined) {
+  return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
+}
+
 /* Every button in the row shares one box. */
 const pageBox =
-  "relative inline-flex h-8 min-w-8 shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[9px] px-2 text-[13px] leading-none font-medium text-muted-foreground tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0"
+  "relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0"
 
 /* The primitive springs a pressed button back; this colours the hover. */
 const press =
-  "transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-foreground " +
+  "transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] " +
   "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none!"
 
 /* A step that has reached its end stays focusable but reads as unavailable. */
 const step = cn(
   pageBox,
   press,
-  "hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-muted-foreground",
+  "hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
 )
 
 function ChevronLeftIcon() {
@@ -72,7 +90,7 @@ function ChevronsRightIcon() {
 function Pagination({ speed, className, ...props }: React.ComponentProps<typeof PaginationRoot> & SpeedProps) {
   return (
     <Speed speed={speed}>
-      <PaginationRoot className={cn("flex w-fit", className)} {...props} />
+      <PaginationRoot className={withClass("flex w-fit", className)} {...props} />
     </Speed>
   )
 }
@@ -86,12 +104,14 @@ function PaginationList({
 }: React.ComponentProps<typeof PaginationListPart>) {
   return (
     <PaginationListPart
-      className={cn(
-        "flex items-center gap-0.5 rounded-[12px] bg-muted p-1",
-        "shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)]",
-        "dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
-        "before:rounded-[9px] before:bg-background before:shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
-        "dark:before:bg-accent dark:before:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+      className={withClass(
+        cn(
+          "flex items-center gap-[var(--pagination-gap,0.125rem)] rounded-[var(--pagination-radius,12px)] bg-[var(--pagination-track,var(--muted))] p-1",
+          "shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)]",
+          "dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+          "before:rounded-[var(--pagination-key-radius,9px)] before:bg-[var(--pagination-key,var(--background))] before:shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
+          "dark:before:bg-[var(--pagination-key,var(--accent))] dark:before:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+        ),
         className,
       )}
       {...props}
@@ -117,17 +137,19 @@ function PaginationList({
 }
 
 function PaginationItem({ className, ...props }: React.ComponentProps<typeof PaginationItemPart>) {
-  return <PaginationItemPart className={cn("flex", className)} {...props} />
+  return <PaginationItemPart className={withClass("flex", className)} {...props} />
 }
 
 /* A page. The current one sits on the key the list glides under it, so it only darkens its number. */
 function PaginationLink({ className, ...props }: React.ComponentProps<typeof PaginationLinkPart>) {
   return (
     <PaginationLinkPart
-      className={cn(
-        pageBox,
-        press,
-        "data-current:text-foreground data-current:cursor-default",
+      className={withClass(
+        cn(
+          pageBox,
+          press,
+          "data-current:text-[color:var(--pagination-selected-ink,var(--foreground))] data-current:cursor-default",
+        ),
         className,
       )}
       {...props}
@@ -143,7 +165,7 @@ function PaginationPrevious({
   return (
     <PaginationPreviousPart
       aria-label={children ? undefined : "Previous page"}
-      className={cn(step, className)}
+      className={withClass(step, className)}
       {...props}
     >
       {children ?? <ChevronLeftIcon />}
@@ -159,7 +181,7 @@ function PaginationNext({
   return (
     <PaginationNextPart
       aria-label={children ? undefined : "Next page"}
-      className={cn(step, className)}
+      className={withClass(step, className)}
       {...props}
     >
       {children ?? <ChevronRightIcon />}
@@ -175,7 +197,7 @@ function PaginationFirst({
   return (
     <PaginationFirstPart
       aria-label={children ? undefined : "First page"}
-      className={cn(step, className)}
+      className={withClass(step, className)}
       {...props}
     >
       {children ?? <ChevronsLeftIcon />}
@@ -191,7 +213,7 @@ function PaginationLast({
   return (
     <PaginationLastPart
       aria-label={children ? undefined : "Last page"}
-      className={cn(step, className)}
+      className={withClass(step, className)}
       {...props}
     >
       {children ?? <ChevronsRightIcon />}
@@ -207,10 +229,7 @@ function PaginationEllipsis({
 }: React.ComponentProps<typeof PaginationEllipsisPart>) {
   return (
     <PaginationEllipsisPart
-      className={cn(
-        "inline-flex h-8 w-6 items-center justify-center text-muted-foreground/70 select-none [&_svg]:size-4",
-        className,
-      )}
+      className={withClass("inline-flex h-[var(--pagination-size,2rem)] w-6 items-center justify-center text-[color:color-mix(in_oklab,var(--pagination-ink,var(--muted-foreground))_70%,transparent)] select-none [&_svg]:size-4", className)}
       {...props}
     >
       {children ?? (
