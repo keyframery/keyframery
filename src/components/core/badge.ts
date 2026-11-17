@@ -7,6 +7,8 @@
 
 import { css, definePrimitive } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
+
 /** What a count reads as: the number, or `max+` above `max`. */
 function countText(count: number, max?: number) {
   return max !== undefined && count > max ? `${max}+` : String(count)
@@ -24,6 +26,8 @@ type BadgeOptions = {
 }
 
 type BadgeState = {
+  /** What the badge says, including capped counts, for read-only agent access. */
+  value: string
   count: number | undefined
   max: number | undefined
   dot: boolean
@@ -37,6 +41,7 @@ const said = (options: BadgeOptions) =>
   options.count === undefined ? (options.text ?? "") : countText(options.count, options.max)
 
 const fromOptions = (options: BadgeOptions) => ({
+  value: said(options),
   count: options.count,
   max: options.max,
   dot: options.dot ?? false,
@@ -47,8 +52,12 @@ const badge = definePrimitive({
   name: "badge",
   options: { count: "number", max: "number", dot: "boolean", text: "string" },
   state: (options: BadgeOptions): BadgeState => ({ ...fromOptions(options), changes: 0 }),
-  sync: (options) => fromOptions(options),
-  controlled: [],
+  sync: (options) => {
+    const next = fromOptions(options)
+    /* Once bound, rendered content owns value, including nested labels beside the count. */
+    return { count: next.count, max: next.max, dot: next.dot, countText: next.countText }
+  },
+  controlled: ["value", "count", "max"],
   api: (context) => {
     /* A change to what it says, from any option, counts once: the dot's pulse follows the count. */
     let last = said(context.options())
@@ -68,6 +77,7 @@ const badge = definePrimitive({
         "data-count": state.count === undefined ? undefined : String(state.count),
         "data-overflow": state.count !== undefined && state.max !== undefined && state.count > state.max ? "" : undefined,
       }),
+      bind: (el, part) => bindAgentContent(el, (value) => part.store.set({ value })),
     }),
     /* The status dot. `data-pulse` flips between "odd" and "even" on each change, so a CSS
        animation keyed on it restarts every time; it is missing until the first change. */
@@ -80,8 +90,8 @@ const badge = definePrimitive({
       }),
     }),
   }),
-  /* A badge is a label. It has nothing for an agent to read or do. */
-  agent: { actions: [], shown: () => false },
+  /* Agents can read the label and count; a badge has no actions. */
+  agent: { actions: [] },
 })
 
 type RollOptions = {
@@ -124,7 +134,7 @@ const roll = definePrimitive({
       },
     }),
   }),
-  agent: { actions: [], shown: () => false },
+  agent: { actions: [] },
 })
 
 export { badge, countText, roll, type BadgeOptions, type RollOptions }

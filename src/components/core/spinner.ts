@@ -20,7 +20,7 @@ const spinner = definePrimitive({
   options: { label: "string", variant: "string" },
   state: (options: SpinnerOptions) => ({ label: options.label ?? "Loading", variant: options.variant ?? "ring" }),
   sync: (options) => ({ label: options.label ?? "Loading", variant: options.variant ?? "ring" }),
-  controlled: [],
+  controlled: ["label"],
   api: () => ({}),
   slots: (slot) => ({
     root: slot<{}, { label: string; variant: SpinnerVariant }>({
@@ -29,8 +29,8 @@ const spinner = definePrimitive({
       attrs: (state) => ({ "aria-label": state.label, "data-variant": state.variant }),
     }),
   }),
-  /* A spinner only shows that something is busy: nothing for an agent to read or do. */
-  agent: { actions: [], shown: () => false },
+  /* Agents read the loading status; the spinner itself has no actions. */
+  agent: { actions: [] },
 })
 
 export { spinner, type SpinnerOptions, type SpinnerVariant }

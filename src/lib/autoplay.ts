@@ -106,6 +106,7 @@ export function useAutoplay(ref: React.RefObject<HTMLDivElement | null>, steps: 
       root.removeEventListener("pointerenter", used)
       document.removeEventListener("pointerdown", used, true)
       document.removeEventListener("keydown", used, true)
+      document.removeEventListener("keyframery:agent-action", agentUsed, true)
     }
     const finish = (state: "complete" | "stopped") => {
       finished = true
@@ -117,6 +118,10 @@ export function useAutoplay(ref: React.RefObject<HTMLDivElement | null>, steps: 
       if (event.type === "keydown") keyboardUser = true
       // Listen on the document as well: a demo's popup can live outside its frame.
       finish("stopped")
+    }
+    const agentUsed = (event: Event) => {
+      const target = event.target as HTMLElement | null
+      if (target && (root.contains(target) || target.contains?.(root))) finish("stopped")
     }
     const advance = () => {
       timer = undefined
@@ -157,6 +162,7 @@ export function useAutoplay(ref: React.RefObject<HTMLDivElement | null>, steps: 
     root.addEventListener("pointerenter", used)
     document.addEventListener("pointerdown", used, true)
     document.addEventListener("keydown", used, true)
+    document.addEventListener("keyframery:agent-action", agentUsed, true)
     io.observe(root)
     if (manual) start()
     return () => {

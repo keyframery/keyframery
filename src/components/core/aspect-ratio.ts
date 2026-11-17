@@ -20,7 +20,7 @@ const aspectRatio = definePrimitive({
   options: { ratio: "number" },
   state: (options: AspectRatioOptions) => ({ ratio: ratioOf(options) }),
   sync: (options) => ({ ratio: ratioOf(options) }),
-  controlled: [],
+  controlled: ["ratio"],
   api: () => ({}),
   slots: (slot) => ({
     root: slot<{}, { ratio: number }>({
@@ -31,8 +31,8 @@ const aspectRatio = definePrimitive({
       }),
     }),
   }),
-  /* A frame for other content: nothing for an agent to read or do. */
-  agent: { actions: [], shown: () => false },
+  /* Agents can read the frame ratio; its content owns any actions. */
+  agent: { actions: [] },
 })
 
 export { aspectRatio, type AspectRatioOptions }

@@ -11,6 +11,7 @@ import { WORKS_WITH } from "@site/lib/logos"
 import { faqData, JsonLd } from "@site/lib/seo"
 
 import horizon from "../../assets/horizon.jpg"
+import { AgentViewDemo } from "./agent-view"
 import { HeroTitle } from "./hero-title"
 import { KeyframeArc } from "./keyframe-arc"
 import { HeroBoard, SameClick, Scene, StylePicker } from "./scenes"
@@ -44,19 +45,19 @@ export function Hero() {
       </div>
 
       <div className={cn(wrap, "flex flex-col items-center pt-32 text-center text-white md:pt-40")}>
-        <Link prefetch={false} href="/docs/components" className="lp-tag group outline-none hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/60">
+        <Link prefetch={false} href="/docs/agent-view" className="lp-tag group outline-none hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/60">
           <span className="rounded-full bg-white px-1.5 py-px text-[10.5px] font-semibold text-black">New</span>
-          Keyframery for UI SDK: {entries.length} animated components
+          Agent view: see what AI agents see
           <ArrowRight aria-hidden="true" className="size-3.5 transition-transform group-hover:translate-x-0.5" />
         </Link>
         <HeroTitle className="lp-display lp-hero-title relative mt-7 text-[34px] min-[380px]:text-[40px] leading-[1.06] text-balance sm:text-[60px] md:text-[76px]" />
         <p className="lp-hero-title mt-6 max-w-[58ch] text-[16px] leading-relaxed text-pretty text-white/80 sm:text-[18px]">
-          Keyframery is a free set of {entries.length} components for{" "}
+          {entries.length} free components on{" "}
           <a href="https://ui-sdk.dev" className="underline decoration-white/40 underline-offset-4 outline-none hover:decoration-white focus-visible:ring-2 focus-visible:ring-white/60">
             Vercel&apos;s UI SDK
-          </a>{" "}
-          (@ui-sdk/react) with the motion already done, in plain CSS. Same parts, same props:
-          change one import, or let your coding agent do it with our skill.
+          </a>
+          , with the motion done in plain CSS. Every component page has Agent view: see exactly what an AI agent reads, and run
+          the actions it can take.
         </p>
         <div className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
           <AgentPromptButton label="Copy prompt for your agent" className="lp-btn lp-btn-primary h-[2.875rem] w-full border-0 sm:w-auto" />
@@ -68,6 +69,7 @@ export function Hero() {
           <li>Free and open source</li>
           <li>MIT licensed</li>
           <li>No animation library</li>
+          <li>Agent view on every component</li>
         </ul>
       </div>
 
@@ -99,9 +101,10 @@ export function Hero() {
 export function WhatItIs() {
   return (
     <section id="see" aria-labelledby="see-title" className={cn(wrap, "scroll-mt-20 py-24 md:py-32")}>
-      <Heading id="see-title" eyebrow="What it is" title="UI SDK gives you the behaviour. Keyframery makes it move.">
-        It isn&apos;t a different component library. Underneath, every component is UI SDK&apos;s own. Here is the same click on the same tabs,
-        twice. New to UI SDK?{" "}
+      <Heading id="see-title" eyebrow="What it is" title="UI SDK does the behaviour. Keyframery does the rest.">
+        UI SDK is a library of behaviours: keyboard, focus, selection and a bridge that lets AI agents read and use your UI. Keyframery is
+        the component library on top. Every component renders UI SDK underneath, then adds a finished look and the motion. Here is the same
+        click on the same tabs, twice. New to UI SDK?{" "}
         <Link prefetch={false} href="/blog/what-is-vercel-ui-sdk" className="underline underline-offset-4 outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-white/60">
           Read what Vercel&apos;s UI SDK is and how to animate it
         </Link>
@@ -112,9 +115,9 @@ export function WhatItIs() {
       </div>
       <ol className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-[var(--lp-line)] md:grid-cols-3">
         {[
-          { n: "1", t: "Build with UI SDK as usual", b: "The same parts, the same props and the same accessibility you get today." },
-          { n: "2", t: "Swap the import", b: "One line per component. Or ask your coding agent, and the skill does it." },
-          { n: "3", t: "Everything that changes, moves", b: "Tabs, menus, dialogs, checks and numbers, all in one motion language." },
+          { n: "1", t: "UI SDK: the behaviour", b: "Keyboard, focus, screen readers and the agent bridge, exactly as UI SDK ships them." },
+          { n: "2", t: "Keyframery: the components", b: `${entries.length} finished components that move. Already on UI SDK? Same parts, same props: swap one import.` },
+          { n: "3", t: "Agent view: the proof", b: "On every component page, see what an AI agent reads and run the actions it can take." },
         ].map((s) => (
           <li key={s.n} className="bg-[var(--lp-bg)] p-6 md:p-7">
             <span className="grid size-7 place-items-center rounded-full text-[12px] font-medium ring-1 ring-[var(--lp-line)]">{s.n}</span>
@@ -123,6 +126,42 @@ export function WhatItIs() {
           </li>
         ))}
       </ol>
+    </section>
+  )
+}
+
+/* ---------------------------------------------------------------- Agent view: what an agent reads, live */
+
+const AGENT_FACTS = [
+  { t: "Read the snapshot", b: "Each component's label, value and state, exactly as UI SDK exposes them, updating as the component changes." },
+  { t: "Run its actions", b: "Pick an action such as setValue or submit, add arguments, and the real component responds." },
+  { t: "Secrets stay redacted", b: "Password values read as [redacted]. Hidden and decorative parts stay out of the snapshot." },
+]
+
+export function AgentView() {
+  return (
+    <section id="agent-view" aria-labelledby="agent-title" className={cn(wrap, "scroll-mt-20 pb-24 md:pb-32")}>
+      <Heading id="agent-title" eyebrow="New: Agent view" title="See what AI agents see.">
+        People see your design. An AI agent reads something else: each component&apos;s label, its state and the actions it accepts. Agent
+        view puts that live UI SDK snapshot beside the component. No model or API key needed. Try it: fill in the form, or run an action.
+      </Heading>
+      <div className="lp-card mt-14 overflow-hidden rounded-2xl">
+        <AgentViewDemo />
+      </div>
+      <ul className="mt-4 grid gap-px overflow-hidden rounded-2xl bg-[var(--lp-line)] md:grid-cols-3">
+        {AGENT_FACTS.map((f) => (
+          <li key={f.t} className="bg-[var(--lp-bg)] p-6 md:p-7">
+            <p className="text-[17px] font-semibold tracking-tight">{f.t}</p>
+            <p className="mt-2 text-[14.5px] leading-relaxed lp-muted">{f.b}</p>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-6 text-center text-[14px] lp-muted">
+        It is on every component page, above the live preview.{" "}
+        <Link prefetch={false} href="/docs/agent-view" className="font-medium text-[var(--lp-ink)] underline underline-offset-4">
+          How Agent view works
+        </Link>
+      </p>
     </section>
   )
 }
@@ -304,11 +343,19 @@ export function ByHand() {
 const QUESTIONS = [
   {
     q: "What is Keyframery, in one sentence?",
-    a: `A free, open-source set of ${entries.length} React components built on UI SDK, with the motion already done in plain CSS.`,
+    a: `The component library for UI SDK: ${entries.length} free, open-source React components with the motion done in plain CSS, and Agent view on every component page.`,
   },
   {
     q: "Is it a replacement for UI SDK?",
-    a: "No. Every Keyframery component renders the UI SDK component underneath. UI SDK does the behaviour; Keyframery adds the motion and, if you want it, a finished look.",
+    a: "No. UI SDK is the behaviour underneath, and every Keyframery component renders it. Keyframery adds the finished look and the motion on top.",
+  },
+  {
+    q: "What is Agent view?",
+    a: "A switch above each component's live preview. Turn it on to see the snapshot UI SDK gives an AI agent: each component's label, state and the actions it accepts. You can run those actions and watch the real component respond.",
+  },
+  {
+    q: "Does Agent view need an AI model or an API key?",
+    a: "No. It reads UI SDK's agent bridge in your browser, the same data an agent would get. Nothing is sent anywhere. Agents that work from screenshots see pixels instead, so their view is different.",
   },
   {
     q: "What does \"swap the import\" mean?",
@@ -362,9 +409,11 @@ export function Closing() {
       <div className="relative isolate mx-auto max-w-[1400px] overflow-hidden rounded-[28px] bg-[#050608] px-5 pt-20 pb-56 text-center ring-1 ring-[var(--lp-line)] md:rounded-[36px] md:pt-28 md:pb-72">
         <KeyframeArc />
         <h2 id="close-title" className="lp-display lp-hero-title mx-auto max-w-[17ch] text-[40px] leading-[1.03] text-balance text-white md:text-[64px]">
-          Give your UI SDK app the motion it&apos;s missing.
+          Components people enjoy. Agents understand.
         </h2>
-        <p className="mx-auto mt-5 max-w-[46ch] text-[17px] leading-relaxed text-white/75">Install the skill and ask for it, or add your first component yourself.</p>
+        <p className="mx-auto mt-5 max-w-[46ch] text-[17px] leading-relaxed text-white/75">
+          The component library for UI SDK. Install the skill and ask for it, or add your first component yourself.
+        </p>
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <AgentPromptButton label="Copy prompt for your agent" className="lp-btn lp-btn-primary h-[2.875rem] w-full border-0 sm:w-auto" />
           <Link prefetch={false} href="/docs/installation" className="lp-btn lp-btn-glass w-full sm:w-auto">

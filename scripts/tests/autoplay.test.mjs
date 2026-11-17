@@ -114,6 +114,24 @@ test("a real pointer takeover cancels the rest of the pass permanently", async (
   assert.equal(f.timers.size, 0)
 })
 
+test("an agent action takes over its own demo before autoplay can overwrite it", async () => {
+  const f = fixture(); f.render(); f.visible(); await f.advance(900)
+  assert.equal(f.first.clicks, 1)
+  f.document.emit("keyframery:agent-action", { target: f.root, isTrusted: false })
+  await f.advance(3000)
+  assert.equal(f.second.clicks, 0)
+  assert.equal(f.root.getAttribute("data-playback"), "stopped")
+  assert.equal(f.document.listeners.get("keyframery:agent-action")?.size ?? 0, 0)
+})
+
+test("an agent action in another preview leaves this demo playing", async () => {
+  const f = fixture(); f.render(); f.visible(); await f.advance(900)
+  f.document.emit("keyframery:agent-action", { target: { contains: () => false }, isTrusted: false })
+  await f.advance(3000)
+  assert.equal(f.second.clicks, 1)
+  assert.equal(f.root.getAttribute("data-playback"), "complete")
+})
+
 test("scripted pointer events do not cancel playback; real popup keyboard input does", async () => {
   const f = fixture(); f.render(); f.visible(); await f.advance(900)
   f.root.emit("pointerenter", { isTrusted: false })

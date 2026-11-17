@@ -63,7 +63,7 @@ const inputGroup = definePrimitive({
     disabled: false,
     multiline: false,
   }),
-  controlled: [],
+  controlled: ["invalid", "disabled", "multiline", "max"],
   api: (context) => {
     const { store } = context
     const update = (next: Partial<InputGroupState>) => {
@@ -155,8 +155,8 @@ const inputGroup = definePrimitive({
       },
     }),
   }),
-  /* The control inside is UI SDK's Input or Textarea, which an agent already finds and fills. */
-  agent: { actions: [], shown: () => false },
+  /* Expose validation and control metadata; the Input or Textarea owns its value and actions. */
+  agent: { actions: [] },
 })
 
 export { type Align as InputGroupAlign, inputGroup }

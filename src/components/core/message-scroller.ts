@@ -143,8 +143,8 @@ const messageScroller = definePrimitive({
       attrs: (state) => ({ "data-unread": state.unread ? String(state.unread) : undefined }),
     }),
   }),
-  /* An agent can bring the view to the end; it only needs to see the scroller while messages wait. */
-  agent: { actions: ["scrollToEnd"], shown: (state) => state.unread > 0 },
+  /* Keep the unread count readable even at zero; an agent can bring the view to the end. */
+  agent: { actions: ["scrollToEnd"] },
 })
 
 export {

@@ -6,6 +6,8 @@
 
 import { definePrimitive } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
+
 const isApple = () => typeof navigator !== "undefined" && /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent)
 
 /* Names a combo takes, how they show, and how the keyboard reports the modifiers. */
@@ -58,18 +60,19 @@ type KbdOptions = {
 const kbd = definePrimitive({
   name: "kbd",
   options: { pressed: "boolean" },
-  state: (options: KbdOptions) => ({ pressed: options.pressed ?? false }),
+  state: (options: KbdOptions) => ({ pressed: options.pressed ?? false, content: "" }),
   sync: (options) => ({ pressed: options.pressed ?? false }),
-  controlled: [],
+  controlled: ["pressed", "content"],
   api: () => ({}),
   slots: (slot) => ({
     root: slot<{}, { pressed: boolean }>({
       state: (state) => ({ pressed: state.pressed }),
       attrs: (state) => ({ "data-pressed": state.pressed ? "" : undefined }),
+      bind: (el, part) => bindAgentContent(el, (content) => part.store.set({ content })),
     }),
   }),
-  /* A keycap is a label. It has nothing for an agent to read or do. */
-  agent: { actions: [], shown: () => false },
+  /* The keycap reports its pressed state without offering a keyboard action. */
+  agent: { actions: [] },
 })
 
 type KbdComboOptions = {
@@ -82,6 +85,7 @@ type KbdComboOptions = {
 }
 
 type KbdComboState = {
+  content: string
   keys: string[]
   pressed: boolean
   /** The names in `keys` the keyboard is holding now. */
@@ -94,13 +98,14 @@ const kbdCombo = definePrimitive({
   name: "kbd-combo",
   options: { keys: "list", pressed: "boolean", listen: "boolean" },
   state: (options: KbdComboOptions): KbdComboState => ({
+    content: "",
     keys: options.keys ?? [],
     pressed: options.pressed ?? false,
     held: [],
     apple: false,
   }),
   sync: (options) => ({ keys: options.keys ?? [], pressed: options.pressed ?? false }),
-  controlled: [],
+  controlled: ["keys", "pressed", "held", "content"],
   api: (context) => {
     const down = new Set<string>()
     const setHeld = (held: string[]) => {
@@ -153,7 +158,14 @@ const kbdCombo = definePrimitive({
         "data-pressed": state.pressed ? "" : undefined,
         "aria-keyshortcuts": state.keys.length ? state.keys.join("+") : undefined,
       }),
-      bind: (_el, part) => part.api.watch(),
+      bind: (el, part) => {
+        const stop = part.api.watch()
+        const stopContent = bindAgentContent(el, (content) => part.store.set({ content }))
+        return () => {
+          stopContent()
+          stop()
+        }
+      },
     }),
     key: slot<{ value: string }, { pressed: boolean; label: string }>({
       props: { value: "key" },
@@ -164,7 +176,7 @@ const kbdCombo = definePrimitive({
       attrs: (state, part) => ({ "data-pressed": state.pressed || state.held.includes(part.key) ? "" : undefined }),
     }),
   }),
-  agent: { actions: [], shown: () => false },
+  agent: { actions: [] },
 })
 
 export { kbd, kbdCombo, type KbdComboOptions, type KbdOptions, keyLabel }

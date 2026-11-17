@@ -1,12 +1,15 @@
 # Keyframery
 
-**Animated components for [UI SDK](https://ui-sdk.dev), built with plain CSS.**
+**The component library for [UI SDK](https://ui-sdk.dev). Built to move, built for agents.**
 
-Keyframery has 82 animated components: all 55 of UI SDK's, plus components defined on UI SDK's core. They keep UI SDK's parts and props, so you swap one import and keep your code. Tabs stretch toward the tab you pick, menus unfold from the button that opened them, checks draw themselves and numbers roll.
+UI SDK is a library of behaviours: keyboard, focus, selection and a bridge that lets AI agents read and use your UI. Keyframery is the component library on top: 83 components with a finished look and the motion done in plain CSS. All 55 of UI SDK's components are here, plus components defined on UI SDK's core. They keep UI SDK's parts and props, so an app already on UI SDK swaps one import and keeps its code. Tabs stretch toward the tab you pick, menus unfold from the button that opened them, checks draw themselves and numbers roll.
+
+Every component page also has **Agent view**: the live UI SDK snapshot an AI agent reads (labels, state and the actions each component accepts), beside the component. Run an action and the real component responds. No model or API key needed.
 
 - Website and docs: https://keyframery.com
 - Installation: https://keyframery.com/docs/installation
 - Motion styles: https://keyframery.com/docs/motion-styles
+- Agent view: https://keyframery.com/docs/agent-view
 
 ## Quick start
 

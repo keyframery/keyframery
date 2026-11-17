@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google"
 
 import { ForceDark } from "@site/components/landing/scenes"
-import { ByHand, Closing, Faq, Hero, Moves, Skill, Styles, WhatItIs } from "@site/components/landing/sections"
+import { AgentView, ByHand, Closing, Faq, Hero, Moves, Skill, Styles, WhatItIs } from "@site/components/landing/sections"
 import { entries } from "@site/lib/catalog"
 import { JsonLd, pageMetadata, projectData } from "@site/lib/seo"
 
@@ -9,12 +9,12 @@ import { JsonLd, pageMetadata, projectData } from "@site/lib/seo"
 const display = Inter({ subsets: ["latin"], axes: ["opsz"], variable: "--font-lp-display", display: "swap" })
 
 const description =
-  `Keyframery is an open-source set of ${entries.length} animated components built on UI SDK components and core, with motion in plain CSS. Keep UI SDK parts and props, customize colours and sizes, and choose from four motion styles.`
+  `Keyframery is the open-source component library for UI SDK: ${entries.length} React components built on UI SDK, with motion in plain CSS, four motion styles, and Agent view on every component page to show what AI agents read.`
 
 /** The search snippet: Google cuts descriptions at about 155 characters. */
-const metaDescription = `Explore ${entries.length} animated components built on Vercel's UI SDK. Customize colours, sizes and motion, then install with one command. Free and open source.`
+const metaDescription = `${entries.length} free, open-source components built on Vercel's UI SDK, animated in plain CSS. Agent view shows what AI agents read on every component.`
 
-export const metadata = pageMetadata({ absolute: "Keyframery: Animated UI SDK Components for React", description: metaDescription, path: "/" })
+export const metadata = pageMetadata({ absolute: "Keyframery: The Component Library for UI SDK", description: metaDescription, path: "/" })
 
 export default function Page() {
   return (
@@ -23,6 +23,7 @@ export default function Page() {
       <JsonLd data={projectData(description)} />
       <Hero />
       <WhatItIs />
+      <AgentView />
       <Moves />
       <Styles />
       <Skill />

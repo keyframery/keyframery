@@ -46,7 +46,7 @@ const form = definePrimitive({
   name: "form",
   options: { submit: "action", onStatusChange: "callback", resetOnSuccess: "boolean" },
   state: (_options: FormOptions): FormState => ({ status: "idle", message: "" }),
-  controlled: [],
+  controlled: ["status", "message"],
   api: (context) => {
     const change = createChange(context)
     let root: HTMLFormElement | null = null

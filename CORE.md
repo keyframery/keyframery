@@ -65,9 +65,13 @@ every decision about behaviour in it: state, roles, keys, focus, what a press do
   `text-match` entries. `create-component.md` step 3 lists them.
 - Anything that touches the DOM goes in a slot's `bind` (client only, return the cleanup). `attrs`
   and slot `state` are pure: they run on the server.
-- Agents: end the definition with `agent`. List the api methods a person would do as `actions`. A
-  component that only shows something (a keycap, a spinner, a skeleton) uses
-  `agent: { actions: [], shown: () => false }` so a page full of them does not flood the snapshot.
+- Agents: end every definition with `agent` and expose the component by default. List the api
+  methods a person would use as `actions`. A read-only component uses `agent: { actions: [] }`;
+  expose meaningful state through `controlled` even when no setter is offered. Do not blanket-hide
+  components with `shown: () => false`: content and status are useful to agents too. Use conditional
+  `shown` only when the component is unavailable, such as a dismissed alert or an inactive sort
+  control. Keep genuinely decorative parts `aria-hidden`, and preserve the SDK's `data-agent-hidden`
+  and secret-value protections. Readable state never implies permission to change it.
 - Collection parts are keyed by a string `value` or `id` prop, never an index.
 
 ## Rendering it

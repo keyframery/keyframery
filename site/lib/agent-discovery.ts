@@ -53,9 +53,9 @@ export const authMd = () =>
 /** The home page as Markdown (/index.md, or / with Accept: text/markdown). */
 export const homeMarkdown = () =>
   [
-    "# Keyframery: animated components for UI SDK",
+    "# Keyframery: the component library for UI SDK",
     "",
-    `> Keyframery is a free, open-source (MIT) set of ${entries.length} animated React components for UI SDK (@ui-sdk/react), with the motion written in plain CSS and no animation library. Every component keeps UI SDK's parts and props, so you swap one import and keep your code.`,
+    `> Keyframery is the free, open-source (MIT) component library for UI SDK (@ui-sdk/react): ${entries.length} React components with the motion written in plain CSS and no animation library. Components keep UI SDK's parts and props, so an app already on UI SDK swaps one import and keeps its code. Every component page has Agent view, which shows what an AI agent reads and can do: ${SITE}/docs/agent-view`,
     "",
     `URL: ${SITE}`,
     "",

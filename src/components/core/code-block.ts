@@ -209,7 +209,7 @@ const codeBlock = definePrimitive({
     wrap: "boolean",
     onCopy: "callback",
   },
-  controlled: [],
+  controlled: ["code", "language", "copied"],
   state: (options: CodeBlockOptions): CodeBlockState => ({ ...fromOptions(options), copied: false }),
   sync: (options) => fromOptions(options),
   api: (context) => {

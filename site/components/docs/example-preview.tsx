@@ -41,14 +41,16 @@ export function ExamplePreview({ name, children }: { name: string; children?: Re
           <RotateCcw aria-hidden="true" className="size-4" />
         </button>
       </div>
-      <div className={cn("stage-grid flex min-h-[200px] items-center justify-center overflow-x-auto p-6 max-sm:p-4", view !== "preview" && "hidden")}>
-        {Example ? (
-          <div key={run} className="flex w-full min-w-0 justify-center">
-            <Example />
-          </div>
-        ) : (
-          <div aria-hidden className="size-5 animate-spin rounded-full border-2 border-foreground/15 border-t-foreground/50 motion-reduce:animate-none" />
-        )}
+      <div className={cn(view !== "preview" && "hidden")}>
+        <div className="stage-grid flex min-h-[240px] items-center justify-center overflow-x-auto p-6 max-sm:p-4">
+          {Example ? (
+            <div key={run} className="flex w-full min-w-0 justify-center">
+              <Example />
+            </div>
+          ) : (
+            <div aria-hidden className="size-5 animate-spin rounded-full border-2 border-foreground/15 border-t-foreground/50 motion-reduce:animate-none" />
+          )}
+        </div>
       </div>
       <div className={cn("max-h-[480px] overflow-auto [&_figure]:my-0 [&_figure]:rounded-none [&_figure]:border-0", view !== "code" && "hidden")}>{children}</div>
     </div>

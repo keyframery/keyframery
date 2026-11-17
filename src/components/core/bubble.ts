@@ -8,6 +8,7 @@
 
 import { definePrimitive } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
 import { enter } from "@/components/core/message-scroller"
 
 type BubbleVariant = "default" | "secondary" | "muted" | "tinted" | "outline" | "ghost" | "destructive"
@@ -19,7 +20,7 @@ type BubbleOptions = {
   align?: "start" | "end"
 }
 
-type BubbleState = { variant: BubbleVariant; align: "start" | "end" }
+type BubbleState = { variant: BubbleVariant; align: "start" | "end"; content: string }
 
 const bubble = definePrimitive({
   name: "bubble",
@@ -27,19 +28,21 @@ const bubble = definePrimitive({
   state: (options: BubbleOptions): BubbleState => ({
     variant: options.variant ?? "default",
     align: options.align ?? "start",
+    content: "",
   }),
   sync: (options) => ({ variant: options.variant ?? "default", align: options.align ?? "start" }),
-  controlled: [],
+  controlled: ["align", "content"],
   api: () => ({}),
   slots: (slot) => ({
-    root: slot<{}, BubbleState>({
+    root: slot<{}, Pick<BubbleState, "variant" | "align">>({
       state: (state) => ({ variant: state.variant, align: state.align }),
       attrs: (state) => ({ "data-variant": state.variant, "data-align": state.align }),
-      bind: (el) => {
+      bind: (el, part) => {
         enter(el)
+        return bindAgentContent(el, (content) => part.store.set({ content }))
       },
     }),
-    content: slot<{}, BubbleState>({
+    content: slot<{}, Pick<BubbleState, "variant" | "align">>({
       state: (state) => ({ variant: state.variant, align: state.align }),
     }),
     reactions: slot<{ side?: "top" | "bottom"; align?: "start" | "end" }, { side: "top" | "bottom"; align: "start" | "end" }>({
@@ -51,8 +54,8 @@ const bubble = definePrimitive({
       },
     }),
   }),
-  /* A bubble shows words. An agent reads them from the page; there is nothing to do with it. */
-  agent: { actions: [], shown: () => false },
+  /* Bubble content is readable; reactions and other controls expose their own actions. */
+  agent: { actions: [] },
 })
 
 const bubbleGroup = definePrimitive({
@@ -63,7 +66,7 @@ const bubbleGroup = definePrimitive({
   slots: (slot) => ({
     root: slot({}),
   }),
-  agent: { actions: [], shown: () => false },
+  agent: { actions: [] },
 })
 
 export { bubble, bubbleGroup, type BubbleOptions, type BubbleVariant }

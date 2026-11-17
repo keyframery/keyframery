@@ -14,8 +14,8 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", pre
 // Pages set their own title, description, canonical URL and social tags (site/lib/seo.tsx); these are the site-wide defaults.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
-  title: { default: "Keyframery: animated components for UI SDK", template: "%s | Keyframery" },
-  description: "63 animated drop-in components for UI SDK, built with plain CSS. Same parts and props as UI SDK: swap the import, keep your code.",
+  title: { default: "Keyframery: the component library for UI SDK", template: "%s | Keyframery" },
+  description: "Open-source components built on UI SDK, animated in plain CSS. Agent view shows what AI agents read on every component page.",
   applicationName: "Keyframery",
   authors: [{ name: "Briyan Hingrajiya" }],
   creator: "Briyan Hingrajiya",

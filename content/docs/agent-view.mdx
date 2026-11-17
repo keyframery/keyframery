@@ -1,0 +1,58 @@
+---
+title: Agent view
+heading: "Agent view: see what AI agents see"
+seoTitle: "Agent view: see what an AI agent reads in a UI SDK component"
+description: "Every Keyframery component page has Agent view: the live UI SDK snapshot an AI agent reads, the actions it can run, and the real component responding, side by side."
+faq:
+  - q: "Does Agent view need an AI model or an API key?"
+    a: "No. It reads UI SDK's agent bridge in your browser, the same data an agent would get. Nothing is sent anywhere."
+  - q: "Is this what every AI agent sees?"
+    a: "It is what an agent sees through UI SDK's agent bridge. Agents that work from screenshots see pixels instead, so their view is different."
+  - q: "Does Agent view ship with the components I install?"
+    a: "No. It is a docs tool for inspecting a component. What it shows comes from UI SDK, which every Keyframery component renders underneath."
+---
+
+People see your design. An AI agent reads something else. [UI SDK](https://ui-sdk.dev/docs/agents) gives agents a snapshot of the page: each component's label, its state and the actions it accepts. Agent view puts that snapshot beside the live component, on every component page.
+
+Turn on the **Agent view** switch above the preview:
+
+<ComponentPreview slug="form" />
+
+## What the snapshot shows
+
+Each entry is one component, as UI SDK exposes it:
+
+```json
+{
+  "ref": "c17",
+  "component": "input",
+  "actions": ["setValue", "clear"],
+  "label": "Email",
+  "value": "",
+  "required": true
+}
+```
+
+- **`ref`** names the component so an action can target it.
+- **`component`** is the kind, such as `input`, `select` or `form`.
+- **`label`** is the name an agent uses to find it.
+- **State** such as `value`, `checked`, `open` or `disabled` follows the component as it changes, whether a person or an agent changed it.
+- **`actions`** lists what an agent can do. A disabled or read-only component lists none.
+
+Password values read as `[redacted]`. Hidden and decorative parts stay out of the snapshot, so a component can expose nothing at all.
+
+## Run an action
+
+Open the **Actions** tab. Pick a component and one of its actions, give the arguments as a JSON array, and press **Run action**. The action runs on the live component through UI SDK, the same way an agent's call would, and the **Tool response** shows what came back.
+
+On the form above, run `setValue` on each input (for example `["maya@okafor.studio"]` on Email), then `submit` on the form, and the viewing is booked, exactly as if a person had filled it in.
+
+For a Select or a Combobox, **Query choices** reads the options it offers, including ones that aren't in the snapshot.
+
+## In your own app
+
+Agent view is a docs tool; it doesn't ship with the components. Agents reach your app through UI SDK's agent bridge, which you create once in the browser with `createAgent` from `@ui-sdk/react/agent`. Read [Agents in UI SDK](https://ui-sdk.dev/docs/agents) for the bridge, its `allow` check, and how to publish its tools to an agent.
+
+<Note title="Agent view shows UI SDK's data.">
+Agents that work from screenshots see pixels, not this snapshot, so their view is different.
+</Note>

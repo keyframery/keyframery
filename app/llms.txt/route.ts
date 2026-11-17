@@ -1,3 +1,4 @@
+import { entries } from "@site/lib/catalog"
 import { SITE } from "@site/lib/shared"
 import { allPosts } from "@site/lib/blog"
 import { docsLlms } from "@site/lib/source"
@@ -6,7 +7,7 @@ export const revalidate = false
 
 const HEADER = `# Keyframery
 
-> Keyframery is an open-source (MIT) set of 63 animated React components for UI SDK (@ui-sdk/react), all 55 of its own and 8 more, written in plain CSS with no animation library. Each component keeps UI SDK's parts and props, so an app can swap one import and keep its code. Components install as source with the shadcn CLI (npx shadcn add @keyframery/tabs) into components/keyframery/. Four motion styles (Calm, Springy, Snappy, Playful) change how every component moves with one attribute, data-motion, on <html>.
+> Keyframery is the open-source (MIT) component library for UI SDK (@ui-sdk/react): ${entries.length} React components built on UI SDK's behaviours, with the motion written in plain CSS and no animation library. Components built on UI SDK's own keep its parts and props, so an app already on UI SDK can swap one import and keep its code. Every component page has Agent view, which shows the live UI SDK snapshot an AI agent reads (labels, state, actions) and runs those actions on the real component (${SITE}/docs/agent-view.mdx). Components install as source with the shadcn CLI (npx shadcn add @keyframery/tabs) into components/keyframery/. Four motion styles (Calm, Springy, Snappy, Playful) change how every component moves with one attribute, data-motion, on <html>.
 
 - Full docs in one file: ${SITE}/llms-full.txt
 - Every docs page is also Markdown: add .mdx to its URL (or send Accept: text/markdown)

@@ -3,6 +3,7 @@
 import { Code2, Eye, Monitor, Smartphone, Tablet } from "lucide-react"
 import * as React from "react"
 
+import { AgentPreview } from "@/components/agent-preview"
 import { Button } from "@/components/ui/button"
 import { MotionStyleSwitcher } from "@/components/ui/preferences"
 import { SegmentedControl, SegmentedControlItem } from "@/components/ui/segmented-control"
@@ -78,9 +79,11 @@ function ComponentPlayground({ slug, source, children }: { slug: string; source?
       </div>
       <div className="min-w-0 overflow-hidden rounded-xl border bg-background">
         <div className={cn(view !== "preview" && "hidden")}>
-          <ResponsivePreview viewport={viewport} onViewportChange={setViewport}>
-            <DemoFrame demo={demo} slug={slug} values={values} speed={speed === 1 ? undefined : speed} className="min-h-[320px] sm:min-h-[360px]" pad={24} />
-          </ResponsivePreview>
+          <AgentPreview label={slug}>
+            <ResponsivePreview viewport={viewport} onViewportChange={setViewport}>
+              <DemoFrame demo={demo} slug={slug} values={values} speed={speed === 1 ? undefined : speed} className="min-h-[320px] sm:min-h-[360px]" pad={24} />
+            </ResponsivePreview>
+          </AgentPreview>
         </div>
         {hasCode && view === "code" && (code
           ? <PreviewCode code={code} changed={customized} />

@@ -8,14 +8,19 @@
 
 import { definePrimitive } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
+
 const breadcrumb = definePrimitive({
   name: "breadcrumb",
-  state: () => ({}),
-  controlled: [],
+  state: () => ({ content: "" }),
+  controlled: ["content"],
   api: () => ({}),
   slots: (slot) => ({
     /* The navigation landmark. Name it with `aria-label`; the React part defaults it to "Breadcrumb". */
-    root: slot({ role: "navigation" }),
+    root: slot({
+      role: "navigation",
+      bind: (el, part) => bindAgentContent(el, (content) => part.store.set({ content })),
+    }),
     list: slot({ role: "list" }),
     item: slot({ role: "listitem" }),
     /* A page above this one. Renders an <a>; pass `render` for your router's link. */
@@ -37,8 +42,8 @@ const breadcrumb = definePrimitive({
       attrs: () => ({ "aria-hidden": "true" }),
     }),
   }),
-  /* A trail of links: an agent follows links by their text, and there's nothing to call. */
-  agent: { actions: [], shown: () => false },
+  /* The trail is readable context; its links retain their native navigation. */
+  agent: { actions: [] },
 })
 
 export { breadcrumb }

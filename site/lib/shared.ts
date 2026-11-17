@@ -4,7 +4,7 @@ export const SITE = "https://keyframery.com"
 export const SITE_NAME = "Keyframery"
 export const REPO = "https://github.com/keyframery/keyframery"
 /** One description everywhere (site, GitHub, directories), so search and AI engines learn one consistent entity. */
-export const TAGLINE = "Keyframery is an open-source set of animated components for UI SDK, built with plain CSS."
+export const TAGLINE = "Keyframery is the open-source component library for UI SDK, animated in plain CSS, with Agent view to show what AI agents read."
 
 export const docsRoute = "/docs"
 export const docsContentRoute = "/llms.mdx/docs"

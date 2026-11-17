@@ -58,7 +58,7 @@ const buttonGroup = definePrimitive({
     gliding: false,
   }),
   sync: (options) => ({ orientation: options.orientation ?? "horizontal" }),
-  controlled: [],
+  controlled: ["orientation"],
   api: (context) => {
     const { store } = context
     let pointerInside = false
@@ -122,8 +122,8 @@ const buttonGroup = definePrimitive({
     /* Words or an icon that belong to the group but don't press, like a unit or a label. */
     text: slot({}),
   }),
-  /* The group only arranges buttons; each button is its own entry for an agent. */
-  agent: { actions: [], shown: () => false },
+  /* Expose the group's layout context; each button owns its actions. */
+  agent: { actions: [] },
 })
 
 export { buttonGroup, type ButtonGroupOptions }

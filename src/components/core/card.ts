@@ -9,6 +9,8 @@
 
 import { definePrimitive } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
+
 type CardOptions = {
   /** Lifts on hover and sinks while pressed. */
   interactive?: boolean
@@ -17,6 +19,7 @@ type CardOptions = {
 }
 
 type CardState = {
+  content: string
   interactive: boolean
   spotlight: boolean
   hovered: boolean
@@ -30,6 +33,7 @@ const card = definePrimitive({
   name: "card",
   options: { interactive: "boolean", spotlight: "boolean" },
   state: (options: CardOptions): CardState => ({
+    content: "",
     interactive: options.interactive ?? false,
     spotlight: options.spotlight ?? false,
     hovered: false,
@@ -38,7 +42,7 @@ const card = definePrimitive({
     y: undefined,
   }),
   sync: (options) => ({ interactive: options.interactive ?? false, spotlight: options.spotlight ?? false }),
-  controlled: [],
+  controlled: ["interactive", "content"],
   live: ["x", "y"],
   api: (context) => {
     const { store } = context
@@ -122,7 +126,12 @@ const card = definePrimitive({
           }
         }
         write()
-        return part.store.subscribe(write)
+        const unsubscribe = part.store.subscribe(write)
+        const stopContent = bindAgentContent(el, (content) => part.store.set({ content }))
+        return () => {
+          unsubscribe()
+          stopContent()
+        }
       },
     }),
     header: slot({}),
@@ -132,8 +141,8 @@ const card = definePrimitive({
     content: slot({}),
     footer: slot({}),
   }),
-  /* A card is a surface. Whatever an agent can do inside it belongs to the parts it holds. */
-  agent: { actions: [], shown: () => false },
+  /* Expose the card's content and interaction mode; its controls own their actions. */
+  agent: { actions: [] },
 })
 
 export { card, type CardOptions }

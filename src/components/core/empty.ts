@@ -9,6 +9,8 @@
 
 import { animateIn, announce, definePrimitive, elements, prepareAnnouncements } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
+
 type EmptyOptions = {
   /** Reads the title and description to screen readers when the empty state appears. Use it when it replaces results someone was looking at. @defaultValue false */
   announce?: boolean
@@ -19,8 +21,8 @@ type EmptyMediaVariant = "default" | "icon"
 const empty = definePrimitive({
   name: "empty",
   options: { announce: "boolean" },
-  state: (_options: EmptyOptions) => ({}),
-  controlled: [],
+  state: (_options: EmptyOptions) => ({ content: "" }),
+  controlled: ["content"],
   api: (context) => ({
     /** Plays the entrance, and with `announce` reads the title and description once it is in. */
     arrive(el: HTMLElement) {
@@ -43,7 +45,15 @@ const empty = definePrimitive({
   }),
   slots: (slot) => ({
     root: slot({
-      bind: (el, part) => part.api.arrive(el),
+      state: () => ({}),
+      bind: (el, part) => {
+        const stopEntrance = part.api.arrive(el)
+        const stopContent = bindAgentContent(el, (content) => part.store.set({ content }))
+        return () => {
+          stopEntrance()
+          stopContent()
+        }
+      },
     }),
     header: slot({}),
     media: slot<{ variant?: EmptyMediaVariant }, { variant: EmptyMediaVariant }>({
@@ -55,8 +65,8 @@ const empty = definePrimitive({
     description: slot({}),
     content: slot({}),
   }),
-  /* It only shows that something is missing: its actions are buttons of their own. */
-  agent: { actions: [], shown: () => false },
+  /* Expose the empty state's title and description; its buttons own their actions. */
+  agent: { actions: [] },
 })
 
 export { empty, type EmptyMediaVariant, type EmptyOptions }

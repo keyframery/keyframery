@@ -67,13 +67,13 @@ export function DemoFrame({
   return (
     <div ref={box} data-demo={slug} className={cn("relative flex items-center justify-center overflow-hidden", className)} style={{ padding: pad }}>
       {demo && replay && (
-        <Button variant="ghost" size="icon" onClick={() => setRun((now) => now + 1)} aria-label="Replay the demo" title="Replay animation"
+        <Button data-agent-hidden variant="ghost" size="icon" onClick={() => setRun((now) => now + 1)} aria-label="Replay the demo" title="Replay animation"
           className="absolute top-3 right-3 z-20 size-8 rounded-[10px] border border-border/70 bg-background/90 text-muted-foreground shadow-sm hover:text-foreground">
           <RotateCw aria-hidden className="size-3.5" />
         </Button>
       )}
       {Component ? (
-        <div ref={fit} className="flex w-full min-w-0 justify-center">
+        <div ref={fit} data-agent-preview-content className="flex w-full min-w-0 justify-center">
           <Speed speed={speed}>
             <Component key={run} {...values} />
           </Speed>

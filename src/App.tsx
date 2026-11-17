@@ -1,6 +1,7 @@
 import * as React from "react"
 import { RotateCw } from "lucide-react"
 
+import { AgentPreview } from "@/components/agent-preview"
 import { Button } from "@/components/ui/button"
 import { type PlayStep, useAutoplay } from "@/lib/autoplay"
 import { type Controls, type ControlValues, parseValues } from "@/lib/controls"
@@ -27,19 +28,22 @@ function Playing({ demo, tall }: { demo: (typeof demos)[number]; tall?: boolean 
   useAutoplay(ref, demo.play, run)
   const [values, setValues] = React.useState<ControlValues>(() => parseValues(demo.controls, tall ? query.get("controls") : null))
   const [speed, setSpeed] = React.useState(() => (tall && Number(query.get("speed"))) || 1)
+  const preview = (
+    <div ref={ref} data-demo={demo.slug} className="relative">
+      <Button data-agent-hidden variant="ghost" size="icon" onClick={() => setRun((now) => now + 1)} aria-label="Replay the demo" title="Replay animation"
+        className="absolute top-3 right-3 z-20 size-8 rounded-[10px] border border-border/70 bg-background/90 text-muted-foreground shadow-sm hover:text-foreground">
+        <RotateCw aria-hidden className="size-3.5" />
+      </Button>
+      <Stage tall={tall}>
+        <Speed speed={speed === 1 ? undefined : speed}>
+          <demo.default key={run} {...values} />
+        </Speed>
+      </Stage>
+    </div>
+  )
   return (
     <>
-      <div ref={ref} data-demo={demo.slug} className="relative">
-        <Button variant="ghost" size="icon" onClick={() => setRun((now) => now + 1)} aria-label="Replay the demo" title="Replay animation"
-          className="absolute top-3 right-3 z-20 size-8 rounded-[10px] border border-border/70 bg-background/90 text-muted-foreground shadow-sm hover:text-foreground">
-          <RotateCw aria-hidden className="size-3.5" />
-        </Button>
-        <Stage tall={tall}>
-          <Speed speed={speed === 1 ? undefined : speed}>
-            <demo.default key={run} {...values} />
-          </Speed>
-        </Stage>
-      </div>
+      {tall ? <AgentPreview label={demo.meta.name} className="overflow-hidden rounded-[18px] border border-border bg-background">{preview}</AgentPreview> : preview}
       {/* The single view shows the same Customize panel the docs page does. */}
       {tall && !phoneWidth ? (
         <Customize
@@ -83,6 +87,7 @@ const phoneWidth = Number(new URLSearchParams(window.location.search).get("w")) 
 function Stage({ children, tall }: { children: React.ReactNode; tall?: boolean }) {
   return (
     <div
+      data-agent-preview-content
       style={phoneWidth ? { width: phoneWidth, padding: 16, marginInline: "auto", borderRadius: 0 } : undefined}
       className={
         "flex items-center justify-center rounded-[18px] bg-background p-10 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07)] " +
@@ -112,14 +117,14 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[oklch(0.975_0_0)] text-foreground dark:bg-[oklch(0.125_0_0)]">
-      <header className={"mx-auto flex max-w-[1180px] items-center gap-4 px-8 pt-8 pb-6 text-[13px]" + (phoneWidth ? " hidden" : "")}>
-        <a href="#/" className="font-semibold tracking-tight">
+      <header className={"mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-4 gap-y-3 px-8 pt-8 pb-6 text-[13px]" + (phoneWidth ? " hidden" : "")}>
+        <a href="#/" className="shrink-0 font-semibold tracking-tight">
           Keyframery UI
         </a>
         <span className="text-muted-foreground">
           {single ? single.meta.name : `${demos.length} components`}
         </span>
-        <div role="group" aria-label="Motion style" className="ml-auto flex gap-0.5 rounded-full bg-foreground/5 p-0.5">
+        <div role="group" aria-label="Motion style" className="order-3 flex gap-0.5 rounded-full bg-foreground/5 p-0.5 sm:order-none sm:ml-auto">
           {["calm", "springy", "snappy", "playful"].map((m) => (
             <button
               key={m}
@@ -135,7 +140,7 @@ export function App() {
         <button
           type="button"
           onClick={() => setDark((d) => !d)}
-          className="rounded-full px-3 py-1.5 font-medium text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
+          className="ml-auto rounded-full px-3 py-1.5 font-medium text-muted-foreground hover:bg-foreground/5 hover:text-foreground sm:ml-0"
         >
           {dark ? "Light" : "Dark"}
         </button>

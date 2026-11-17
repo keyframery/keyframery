@@ -9,6 +9,8 @@
 
 import { announce, definePrimitive } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
+
 /** A line's state. Leave it out for a step that finished. */
 type TraceStatus = "running" | "error" | "pending"
 
@@ -17,11 +19,14 @@ const statusAttr = (status: string | undefined) => (status === "running" || stat
 const trace = definePrimitive({
   name: "trace",
   options: {},
-  state: () => ({}),
-  controlled: [],
+  state: () => ({ content: "" }),
+  controlled: ["content"],
   api: () => ({}),
   slots: (slot) => ({
-    root: slot({}),
+    root: slot({
+      state: () => ({}),
+      bind: (el, part) => bindAgentContent(el, (content) => part.store.set({ content })),
+    }),
     line: slot<{ status?: TraceStatus }, { status: TraceStatus | undefined }>({
       props: { status: "string" },
       state: (_state, part) => ({ status: statusAttr(part.props.status) as TraceStatus | undefined }),
@@ -52,8 +57,8 @@ const trace = definePrimitive({
     title: slot({}),
     description: slot({}),
   }),
-  /* A trace reports; the rows that expand are collapsibles, which an agent already sees. */
-  agent: { actions: [], shown: () => false },
+  /* Expose the trace's titles and descriptions; expanding rows are separate collapsibles. */
+  agent: { actions: [] },
 })
 
 export { trace, type TraceStatus }

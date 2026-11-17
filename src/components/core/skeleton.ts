@@ -18,7 +18,7 @@ const skeleton = definePrimitive({
   options: { shimmer: "boolean" },
   state: (options: SkeletonOptions) => ({ shimmer: options.shimmer ?? true }),
   sync: (options) => ({ shimmer: options.shimmer ?? true }),
-  controlled: [],
+  controlled: ["shimmer"],
   api: () => ({}),
   slots: (slot) => ({
     root: slot<{}, { shimmer: boolean }>({
@@ -26,8 +26,8 @@ const skeleton = definePrimitive({
       attrs: (state) => ({ "aria-hidden": "true", "data-shimmer": state.shimmer ? "" : undefined }),
     }),
   }),
-  /* A placeholder shows nothing yet: nothing for an agent to read or do. */
-  agent: { actions: [], shown: () => false },
+  /* The decorative block remains aria-hidden; SkeletonSwap reports loading. */
+  agent: { actions: [] },
 })
 
 type SkeletonSwapOptions = {
@@ -40,7 +40,7 @@ const skeletonSwap = definePrimitive({
   options: { loading: "boolean" },
   state: (options: SkeletonSwapOptions) => ({ loading: options.loading ?? false }),
   sync: (options) => ({ loading: options.loading ?? false }),
-  controlled: [],
+  controlled: ["loading"],
   api: () => ({}),
   slots: (slot) => ({
     /* `aria-busy` tells a screen reader the region is still filling in. */
@@ -70,8 +70,8 @@ const skeletonSwap = definePrimitive({
       }),
     }),
   }),
-  /* While it loads there is nothing to act on; once loaded, the content's own parts are what count. */
-  agent: { actions: [], shown: () => false },
+  /* Agents can read the loading state; loaded controls keep their own actions. */
+  agent: { actions: [] },
 })
 
 export { skeleton, skeletonSwap, type SkeletonOptions, type SkeletonSwapOptions }

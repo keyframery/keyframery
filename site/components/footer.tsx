@@ -21,7 +21,7 @@ export function SiteFooter() {
             <LogoMark className="size-5" />
             Keyframery
           </Link>
-          <p className="mt-3 max-w-[34ch] text-sm text-muted-foreground">Animated components for UI SDK, built with plain CSS.</p>
+          <p className="mt-3 max-w-[34ch] text-sm text-muted-foreground">The component library for UI SDK. Animated in plain CSS, with Agent view on every component.</p>
           <p className="mt-6 text-sm text-muted-foreground">
             Made by{" "}
             <a href="https://x.com/briyan_dev" className="text-foreground underline underline-offset-4">

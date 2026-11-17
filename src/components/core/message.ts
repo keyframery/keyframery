@@ -8,6 +8,7 @@
 
 import { definePrimitive } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
 import { enter } from "@/components/core/message-scroller"
 
 type MessageOptions = {
@@ -15,21 +16,22 @@ type MessageOptions = {
   align?: "start" | "end"
 }
 
-type MessageState = { align: "start" | "end" }
+type MessageState = { align: "start" | "end"; content: string }
 
 const message = definePrimitive({
   name: "message",
   options: { align: "string" },
-  state: (options: MessageOptions): MessageState => ({ align: options.align ?? "start" }),
+  state: (options: MessageOptions): MessageState => ({ align: options.align ?? "start", content: "" }),
   sync: (options) => ({ align: options.align ?? "start" }),
-  controlled: [],
+  controlled: ["align", "content"],
   api: () => ({}),
   slots: (slot) => ({
-    root: slot<{}, MessageState>({
+    root: slot<{}, Pick<MessageState, "align">>({
       state: (state) => ({ align: state.align }),
       attrs: (state) => ({ "data-align": state.align }),
-      bind: (el) => {
+      bind: (el, part) => {
         enter(el)
+        return bindAgentContent(el, (content) => part.store.set({ content }))
       },
     }),
     avatar: slot({}),
@@ -37,8 +39,8 @@ const message = definePrimitive({
     header: slot({}),
     footer: slot({}),
   }),
-  /* The words are page text an agent already reads; a message has nothing to do. */
-  agent: { actions: [], shown: () => false },
+  /* Messages are readable entries; actions belong to the controls they contain. */
+  agent: { actions: [] },
 })
 
 const messageGroup = definePrimitive({
@@ -49,7 +51,7 @@ const messageGroup = definePrimitive({
   slots: (slot) => ({
     root: slot({}),
   }),
-  agent: { actions: [], shown: () => false },
+  agent: { actions: [] },
 })
 
 export { message, messageGroup, type MessageOptions }

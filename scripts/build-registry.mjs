@@ -108,6 +108,19 @@ fs.mkdirSync(path.join(genDir, "lib"), { recursive: true })
 fs.copyFileSync(src("lib/keyframery.tsx"), path.join(genDir, "lib/keyframery.tsx"))
 
 const items = [motionItem]
+/* Shared core helpers travel with the components that use them, without installing unrelated UI. */
+for (const name of ["agent-content"]) {
+  const rel = `components/keyframery/core/${name}-core.ts`
+  const code = fs.readFileSync(src("components/core", `${name}.ts`), "utf8")
+  fs.writeFileSync(path.join(genDir, rel), rewrite(code))
+  items.push({
+    name,
+    type: "registry:item",
+    title: "Agent content",
+    description: "Read-only content exposure for Keyframery's UI SDK primitives.",
+    files: [{ path: `registry/${rel}`, type: "registry:component", target: rel }],
+  })
+}
 for (const slug of slugs) {
   const files = []
   const deps = new Set()

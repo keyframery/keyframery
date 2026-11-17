@@ -8,10 +8,14 @@
 
 import { type ChangeDetails, createChange, definePrimitive, dispatch } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
+
 /** How a column is sorted, with the values `aria-sort` takes. */
 type SortDirection = "ascending" | "descending" | "none"
 
 type TableState = {
+  /** The readable table content, kept current as rows and cells change. */
+  content: string
   /** The container can scroll back toward the start. */
   scrollStart: boolean
   /** The container can scroll on toward the end. */
@@ -20,7 +24,8 @@ type TableState = {
 
 const table = definePrimitive({
   name: "table",
-  state: (): TableState => ({ scrollStart: false, scrollEnd: false }),
+  state: (): TableState => ({ content: "", scrollStart: false, scrollEnd: false }),
+  controlled: ["content", "scrollStart", "scrollEnd"],
   api: (context) => ({
     /** Reads how far the container is scrolled and marks the sides it can still scroll toward. */
     measure(el: HTMLElement) {
@@ -34,7 +39,7 @@ const table = definePrimitive({
   }),
   slots: (slot) => ({
     /* Scrolls sideways when the table is wider than the space it has. */
-    container: slot<{}, TableState>({
+    container: slot<{}, Pick<TableState, "scrollStart" | "scrollEnd">>({
       state: (state) => ({ scrollStart: state.scrollStart, scrollEnd: state.scrollEnd }),
       attrs: (state) => ({
         "data-scroll-start": state.scrollStart ? "" : undefined,
@@ -53,7 +58,9 @@ const table = definePrimitive({
         }
       },
     }),
-    root: slot({}),
+    root: slot({
+      bind: (el, part) => bindAgentContent(el, (content) => part.store.set({ content })),
+    }),
     header: slot({}),
     body: slot({}),
     footer: slot({}),
@@ -68,8 +75,8 @@ const table = definePrimitive({
     cell: slot({}),
     caption: slot({}),
   }),
-  /* A table only shows data. What an agent can do with it is on its sortable headers. */
-  agent: { actions: [], shown: () => false },
+  /* The table is readable data; sortable headers expose their own actions. */
+  agent: { actions: [] },
 })
 
 type TableHeadOptions = {
@@ -98,7 +105,7 @@ const tableHead = definePrimitive({
   name: "table",
   label: "table-head",
   options: { sort: "string", defaultSort: "string", onSortChange: "callback", onSort: "callback" },
-  controlled: ["sort"],
+  controlled: ["sort", "sortable"],
   state: (options: TableHeadOptions): TableHeadState => ({
     sort: options.sort ?? options.defaultSort ?? "none",
     sortable: isSortable(options),

@@ -9,6 +9,8 @@
 
 import { definePrimitive } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
+
 type MarkerVariant = "default" | "separator" | "border"
 
 type MarkerOptions = {
@@ -20,7 +22,7 @@ type MarkerOptions = {
   pending?: boolean
 }
 
-type MarkerState = { variant: MarkerVariant; live: boolean; pending: boolean }
+type MarkerState = { variant: MarkerVariant; live: boolean; pending: boolean; content: string }
 
 const marker = definePrimitive({
   name: "marker",
@@ -29,13 +31,14 @@ const marker = definePrimitive({
     variant: options.variant ?? "default",
     live: options.live ?? false,
     pending: options.pending ?? false,
+    content: "",
   }),
   sync: (options) => ({
     variant: options.variant ?? "default",
     live: options.live ?? false,
     pending: options.pending ?? false,
   }),
-  controlled: [],
+  controlled: ["pending", "live", "content"],
   api: () => ({}),
   slots: (slot) => ({
     root: slot<{}, { variant: MarkerVariant; pending: boolean }>({
@@ -47,6 +50,7 @@ const marker = definePrimitive({
         "data-pending": state.pending ? "" : undefined,
         "aria-busy": state.live && state.pending ? "true" : undefined,
       }),
+      bind: (el, part) => bindAgentContent(el, (content) => part.store.set({ content })),
     }),
     /* The icon repeats what the words say, so it is hidden from screen readers. */
     icon: slot<{}, { pending: boolean }>({
@@ -58,8 +62,8 @@ const marker = definePrimitive({
       attrs: (state) => ({ "data-pending": state.pending ? "" : undefined }),
     }),
   }),
-  /* A marker is read, not used. */
-  agent: { actions: [], shown: () => false },
+  /* Agents read whether the work is pending; a marker has no actions. */
+  agent: { actions: [] },
 })
 
 export { marker, type MarkerOptions, type MarkerVariant }

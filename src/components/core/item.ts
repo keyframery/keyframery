@@ -10,6 +10,8 @@
 
 import { definePrimitive } from "@ui-sdk/core"
 
+import { bindAgentContent } from "@/components/core/agent-content"
+
 type ItemVariant = "default" | "outline" | "muted"
 type ItemSize = "default" | "sm"
 type ItemMediaVariant = "default" | "icon" | "image"
@@ -22,6 +24,7 @@ type ItemOptions = {
 }
 
 type ItemState = {
+  content: string
   variant: ItemVariant
   size: ItemSize
   /** A pointer is over the item. */
@@ -34,13 +37,14 @@ const item = definePrimitive({
   name: "item",
   options: { variant: "string", size: "string" },
   state: (options: ItemOptions): ItemState => ({
+    content: "",
     variant: options.variant ?? "default",
     size: options.size ?? "default",
     hovered: false,
     listed: false,
   }),
   sync: (options) => ({ variant: options.variant ?? "default", size: options.size ?? "default" }),
-  controlled: [],
+  controlled: ["content"],
   api: (context) => ({
     /** Marks the item hovered or not. A pointer does this; a demo or a test can too. */
     hover(hovered: boolean) {
@@ -67,6 +71,7 @@ const item = definePrimitive({
         const interactive = el.matches("a[href], button, [role=button], [role=link]")
         const listed = !interactive && !!el.parentElement?.closest('[data-slot="item-group"]')
         if (part.store.get().listed !== listed) part.store.set({ listed })
+        return bindAgentContent(el, (content) => part.store.set({ content }))
       },
     }),
     media: slot<{ variant?: ItemMediaVariant }, { variant: ItemMediaVariant }>({
@@ -81,8 +86,8 @@ const item = definePrimitive({
     header: slot({}),
     footer: slot({}),
   }),
-  /* An item is layout. What an agent uses is inside it: its links, buttons and controls. */
-  agent: { actions: [], shown: () => false },
+  /* Expose the item's title and description; its controls own their actions. */
+  agent: { actions: [] },
 })
 
 /* A list of items. Its separators are UI SDK's Separator, composed in the renderer. */
@@ -94,7 +99,7 @@ const itemGroup = definePrimitive({
   slots: (slot) => ({
     root: slot({ role: "list" }),
   }),
-  agent: { actions: [], shown: () => false },
+  agent: { actions: [] },
 })
 
 export { item, itemGroup, type ItemMediaVariant, type ItemOptions, type ItemSize, type ItemVariant }

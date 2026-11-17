@@ -1,20 +1,20 @@
 ---
 title: Introduction
-heading: "Get started with Keyframery for UI SDK"
-seoTitle: "Get started with animated UI SDK components"
-description: "Keyframery adds plain CSS motion to every UI SDK component and to additional components built on UI SDK's core. They keep UI SDK's parts and props, so you swap one import and keep your code."
+heading: "Get started with Keyframery, the component library for UI SDK"
+seoTitle: "Get started with the component library for UI SDK"
+description: "Keyframery is the component library for UI SDK: finished components with motion in plain CSS, built on UI SDK's behaviours, with Agent view on every component page."
 faq:
   - q: "What is Keyframery, in one sentence?"
-    a: "A free, open-source React component library built on UI SDK, with the motion already done in plain CSS."
+    a: "The component library for UI SDK: free, open-source React components with the motion done in plain CSS, and Agent view on every component page."
   - q: "Is Keyframery a replacement for UI SDK?"
-    a: "No. Every component uses UI SDK components or a definition built with its core. UI SDK supplies the behavior framework; Keyframery adds the motion and, if you want it, a finished look."
+    a: "No. Every component uses UI SDK components or a definition built with its core. UI SDK supplies the behaviours; Keyframery adds the finished look and the motion."
   - q: "Does it need Motion or Framer Motion?"
     a: "No. Springs are written as CSS easings, so there is no animation library to install."
 ---
 
-[UI SDK](https://ui-sdk.dev) is a headless component library. It gives you correct, accessible behaviour (keyboard, focus, positioning, screen readers) and leaves the look and the motion to you. New to it? Read [what Vercel's UI SDK is and how it works](/blog/what-is-vercel-ui-sdk).
+[UI SDK](https://ui-sdk.dev) is a library of behaviours. It gives you correct, accessible behaviour (keyboard, focus, positioning, screen readers) and a bridge that lets AI agents read and use your UI, and leaves the look and the motion to you. New to it? Read [what Vercel's UI SDK is and how it works](/blog/what-is-vercel-ui-sdk).
 
-Keyframery fills in the motion. Tabs stretch toward the tab you pick, menus unfold from the button that opened them, checks draw themselves and numbers roll. Nothing about UI SDK's behaviour changes.
+Keyframery is the component library on top. Every component renders UI SDK underneath, then adds a finished look and the motion: tabs stretch toward the tab you pick, menus unfold from the button that opened them, checks draw themselves and numbers roll. Nothing about UI SDK's behaviour changes, and every component page has [Agent view](/docs/agent-view), so you can see exactly what an AI agent reads and can do.
 
 <ComponentPreview slug="tabs" />
 
@@ -46,7 +46,8 @@ Components UI SDK doesn't ship add a third file in `components/keyframery/core/`
 | **Plain CSS** | No animation library. The motion runs in CSS and works in server-rendered pages. |
 | **Your code** | The shadcn CLI copies the source into your project. It is yours to change. |
 | **Accessible** | UI SDK's keyboard and screen-reader behaviour, untouched. Reduced motion is respected. [Accessibility](/docs/accessibility). |
-| **Agent-ready** | A skill for Claude Code and a prompt for any other coding agent. [Use with AI tools](/docs/ai-tools). |
+| **Agent view** | See the UI SDK snapshot an AI agent reads, and run its actions, on every component page. [Agent view](/docs/agent-view). |
+| **AI tools** | A skill for Claude Code and a prompt for any other coding agent. [Use with AI tools](/docs/ai-tools). |
 
 ## Next
 

@@ -65,7 +65,7 @@ const attachment = definePrimitive({
     size: options.size ?? "default",
     orientation: options.orientation ?? "horizontal",
   }),
-  controlled: [],
+  controlled: ["status", "progress", "removing"],
   api: (context) => {
     let stop: (() => void) | undefined
     context.onDestroy(() => stop?.())
@@ -170,7 +170,7 @@ const attachmentGroup = definePrimitive({
   slots: (slot) => ({
     root: slot({}),
   }),
-  agent: { actions: [], shown: () => false },
+  agent: { actions: [] },
 })
 
 export { attachment, attachmentGroup, type AttachmentOptions, type AttachmentStatus }
