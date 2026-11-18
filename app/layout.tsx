@@ -24,6 +24,10 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", creator: "@briyan_dev", images: SITE_IMAGE },
 }
 
+/** Microsoft Clarity (heatmaps and session recordings) runs on production only, with the project ID from Vercel. */
+const clarityId = process.env.VERCEL_ENV === "production" ? process.env.CLARITY_PROJECT_ID?.trim() : undefined
+const clarity = clarityId && /^[a-z0-9]{1,32}$/i.test(clarityId) ? clarityId : null
+
 /* Applied before the first paint: the motion style the visitor picked last time. */
 const boot = `try{var m=localStorage.getItem("kf-motion-style");if(m&&/^(calm|springy|snappy|playful)$/.test(m))document.documentElement.setAttribute("data-motion",m)}catch(e){}`
 
@@ -42,6 +46,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Script id="google-analytics" strategy="lazyOnload">
               {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-R8KDF02XF8');`}
             </Script>
+            {clarity && (
+              <Script id="microsoft-clarity" strategy="afterInteractive">
+                {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script",${JSON.stringify(clarity)});`}
+              </Script>
+            )}
           </>
         )}
       </body>

@@ -3,19 +3,25 @@ import { pageMetadata } from "@site/lib/seo"
 
 export const metadata = pageMetadata({
   title: "Privacy policy",
-  description: "What keyframery.com collects: Google Analytics page views, counts of copy actions, and the hosting provider's request logs. No accounts, nothing sold.",
+  description: "What keyframery.com collects: Google Analytics page views, Microsoft Clarity recordings, copy-action counts and request logs. No accounts, nothing sold.",
   path: "/privacy",
 })
 
 export default function Page() {
   return (
-    <Policy title="Privacy" effective="15 November 2026">
+    <Policy title="Privacy" effective="18 November 2026">
       <PolicySection title="What we collect">
         <ul>
           <li>
             <b>Google Analytics.</b> On the production website, Google Analytics measures page views, visits and interactions. It receives page and
             device information and can use analytics cookies such as <code>_ga</code> to tell browsers apart and connect visits. Google processes this
             information under its <a href="https://policies.google.com/privacy">Privacy Policy</a>.
+          </li>
+          <li>
+            <b>Microsoft Clarity.</b> On the production website, Microsoft Clarity records how pages are used (clicks, scrolling and mouse movement) as
+            heatmaps and session replays, so we can see where the docs confuse people. Text typed into fields is masked before it leaves your browser.
+            Clarity can use cookies such as <code>_clck</code> and <code>_clsk</code>, and Microsoft processes this information under its{" "}
+            <a href="https://privacy.microsoft.com/privacystatement">Privacy Statement</a>.
           </li>
           <li>
             <b>Copy actions.</b> When you copy an install command or the coding-agent prompt, we send the action&apos;s name, the page path and which
