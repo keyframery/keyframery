@@ -18,6 +18,8 @@ integrateContent(root)
 const read = (f) => fs.readFileSync(path.join(root, f), "utf8")
 const descriptions = JSON.parse(read("content/components.json"))
 const motion = JSON.parse(read("content/moves.json"))
+/* Optional shorter motion lines for search snippets, when a description is too long to fit after the lead. */
+const seoDescriptions = fs.existsSync(path.join(root, "content/seo-descriptions.json")) ? JSON.parse(read("content/seo-descriptions.json")) : {}
 const theming = fs.existsSync(path.join(root, "content/theming.json")) ? JSON.parse(read("content/theming.json")) : {}
 const out = path.join(root, "content/docs/components")
 fs.mkdirSync(out, { recursive: true })
@@ -222,6 +224,7 @@ for (const slug of slugs) {
     `title: ${yaml(name)}`,
     `heading: ${yaml(onSdk ? `Animated ${name} for UI SDK` : `Animated ${name}`)}`,
     `description: ${yaml(description)}`,
+    ...(seoDescriptions[slug] ? [`seoDescription: ${yaml(seoDescriptions[slug])}`] : []),
     `component: ${yaml(slug)}`,
     "faq:",
     ...faq.flatMap(({ q, a }) => [`  - q: ${yaml(q)}`, `    a: ${yaml(a)}`]),

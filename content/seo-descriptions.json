@@ -1,0 +1,13 @@
+{
+  "button-group": "Buttons join into one strip, and a single highlight glides from segment to segment.",
+  "code-block": "Lines cascade in from the left and a highlighted line's band sweeps across.",
+  "color-picker": "The picker unfolds from its swatch and the thumb grows while you drag.",
+  "command": "A command palette whose rows cascade in, with one highlight gliding between results.",
+  "direction": "A reading-direction boundary and toggle that mirror content between LTR and RTL.",
+  "image-cropper": "The selection springs to a new ratio and the handles grow while you drag.",
+  "native-select": "The browser's own select in a Keyframery field; each new choice rises in out of a blur.",
+  "otp-input": "One ring glides from slot to slot and digits pop into place.",
+  "select": "The list unfolds from the field and one highlight glides between options.",
+  "spinner": "Spinners pop in where the work starts, then the ring turns at a steady pace.",
+  "table": "Rows cascade in and a sortable header's arrow turns over on a spring."
+}

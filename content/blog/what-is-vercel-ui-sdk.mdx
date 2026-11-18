@@ -1,12 +1,13 @@
 ---
 title: "What is Vercel's UI SDK, and how do you animate it?"
-seoTitle: "Vercel UI SDK: what it is and how to animate it"
-description: "Vercel's UI SDK is a beta library of accessible UI behaviors for coding agents. What it ships, plus tested CSS to animate its menus, dialogs, tabs and panels."
+seoTitle: "What Is Vercel UI SDK? Features and Releases"
+description: "Vercel's UI SDK is a beta React library of accessible behaviours built for coding agents. What ships, how fast releases move, and tested CSS to animate it."
 published: "2026-11-15"
+updated: "2026-11-18"
 author: "Briyan Hingrajiya"
 tags: ["Vercel UI SDK", "@ui-sdk/react", "headless UI", "React components", "UI animation", "AI coding agents"]
 about: ["UI SDK", "Headless UI libraries", "AI coding agents"]
-disclosure: "Keyframery, which publishes this blog, makes animated components for UI SDK. The facts below come from UI SDK's own docs, its GitHub repository and npm, read on 15 November 2026 against version 0.1.0-beta.2. The post was drafted with AI assistance and checked against those sources."
+disclosure: "Keyframery, which publishes this blog, makes animated components for UI SDK. The facts below come from UI SDK's own docs, its GitHub repository and npm, read on 15 November 2026 against version 0.1.0-beta.2; the release history and version facts were re-checked on 18 November 2026 against 0.1.0-beta.9. The post was drafted with AI assistance and checked against those sources."
 tldr:
   - "UI SDK is a beta library from Vercel Labs, published to npm on 12 November 2026 under the Apache-2.0 license. It gives you the behavior of a UI (keyboard, focus, selection, popups and the ARIA that goes with them) and leaves the look to you."
   - "One framework-neutral core, @ui-sdk/core, has adapters for React, Vue, Svelte, Solid and Web Components. The React package needs React 19 and lists 55 ready-made components, from Accordion to Waterfall."
@@ -45,7 +46,7 @@ sources:
     url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html"
 ---
 
-This guide explains what UI SDK ships and how it works, then gives you tested CSS to animate its components, with a live demo. We checked every claim against version `0.1.0-beta.2`, the version the components on this site run on. If you only want the animation, [skip to the recipes](#how-do-you-animate-ui-sdk-components).
+This guide explains what UI SDK ships and how it works, then gives you tested CSS to animate its components, with a live demo. We checked every claim against version `0.1.0-beta.2`, and re-checked the release facts on 18 November against `0.1.0-beta.9`. If you only want the animation, [skip to the recipes](#how-do-you-animate-ui-sdk-components).
 
 ## What is UI SDK?
 
@@ -53,13 +54,29 @@ This guide explains what UI SDK ships and how it works, then gives you tested CS
 
 A **behavior** is one job a component has to do well. Examples are moving focus with the arrow keys, finding an option as you type, and placing a popup next to its button and closing it on Escape. UI SDK does those jobs, with the ARIA attributes screen readers need, and leaves the visual design to you.
 
-The first public beta, `0.1.0-beta.1`, reached npm on 12 November 2026, and `0.1.0-beta.2` followed a day later. The packages are Apache-2.0. The [repository](https://github.com/vercel-labs/ui) had about 4,700 stars when this was written, three days after launch.
+The first public beta, `0.1.0-beta.1`, reached npm on 12 November 2026. Eight more followed in the next six days (see the [release history](#ui-sdk-release-history) below). The packages are Apache-2.0. The [repository](https://github.com/vercel-labs/ui) had about 5,600 stars on 18 November, and `@ui-sdk/react` was downloaded about 66,000 times on 16 November alone.
 
 Three things set it apart from the headless libraries most React developers already know:
 
 - **One core, five frameworks.** The behaviors live in `@ui-sdk/core`, which has no framework in it. Adapters bring it to React (`@ui-sdk/react`), Vue, Svelte, Solid and Web Components.
 - **Behaviors first, components second.** You can use the 55 components the React package ships, or build your own from the same behaviors the library uses internally.
 - **Agents as the main audience.** The setup is a prompt you paste into your coding agent, and the docs ship inside the npm package for the agent to read.
+
+## UI SDK release history
+
+Every release so far is a patch on `0.1.0`, published for all six packages at once (core, React, Vue, Svelte, Solid and Web Components). Dates are from npm, in UTC.
+
+| Version | Date | What stood out |
+|---|---|---|
+| `0.1.0-beta.1` | 12 Nov 2026 | First public beta |
+| `0.1.0-beta.2` | 13 Nov 2026 | Fixes a day after launch |
+| `0.1.0-beta.3` to `beta.5` | 15 Nov 2026 | Three releases in under three hours |
+| `0.1.0-beta.6` | 16 Nov 2026 | An agent's `setValue` is refused on a Select or Combobox that shows no items once open; in React, a popup lets go of its elements as soon as it unmounts |
+| `0.1.0-beta.7` | 17 Nov 2026 | A Field marked invalid names its first error in `aria-describedby` in server-rendered HTML |
+| `0.1.0-beta.8` | 18 Nov 2026 | An agent removing an item marked `data-agent-confirm` now needs a person, as adding one does; Pagination takes `disabled` |
+| `0.1.0-beta.9` | 18 Nov 2026 | Dialog and Popover take `inline`, to render in place instead of the top layer; Combobox, Autocomplete and Listbox controllers take `highlight(value)` |
+
+The full notes are on the [GitHub releases page](https://github.com/vercel-labs/ui/releases). The animation recipes below were tested on beta.2.
 
 ## What do you get in the box?
 
@@ -71,7 +88,7 @@ npm install @ui-sdk/react @ui-sdk/core
 
 The React package needs React 19 or newer; it declares `react` and `react-dom` `>=19` as peer dependencies.
 
-The [component list](https://ui-sdk.dev/docs/react/components) has 55 entries in beta.2. You get the usual Dialog, Menu, Select, Tabs and Tooltip. You also get components other headless libraries often leave out, such as a Date Picker with ranges, an OTP Input, a Color Picker and an Image Cropper. There is a Tree, a Resizable layout, a Drawer you can drag from any edge, and a Waterfall chart for request timings.
+The [component list](https://ui-sdk.dev/docs/react/components) has 55 entries. The React package exported the same set of entry points in beta.9 as in beta.2. You get the usual Dialog, Menu, Select, Tabs and Tooltip. You also get components other headless libraries often leave out, such as a Date Picker with ranges, an OTP Input, a Color Picker and an Image Cropper. There is a Tree, a Resizable layout, a Drawer you can drag from any edge, and a Waterfall chart for request timings.
 
 Each component is imported from its own path, the same way Radix and Base UI work:
 
@@ -313,16 +330,16 @@ The near-zero duration matters. With `transition: none`, no `transitionend` even
 
 ### Going further
 
-These six recipes cover the parts most apps open and close all day. A full motion system has more: numbers that roll to their new value, checkmarks that draw, menu items that arrive one after another, and a calendar month that slides in from the side you clicked. We packaged all of that as Keyframery, 63 components for UI SDK with the motion written in plain CSS, which keep UI SDK's parts and props so you change one import. The [installation guide](/docs/installation) has the details.
+These six recipes cover the parts most apps open and close all day. A full motion system has more: numbers that roll to their new value, checkmarks that draw, menu items that arrive one after another, and a calendar month that slides in from the side you clicked. We packaged all of that as Keyframery, the animated component library for UI SDK, with the motion written in plain CSS. The components keep UI SDK's parts and props, so you change one import. The [installation guide](/docs/installation) has the details.
 
 ## Should you use UI SDK now?
 
-It is three days old and labelled beta, and the docs say some APIs may still change. Two releases shipped in the first two days. That suggests three sensible uses today:
+It is less than a week old and labelled beta, and the docs say some APIs may still change. Nine betas shipped in its first six days. That suggests three sensible uses today:
 
 - **Prototypes and internal tools**, where an API change costs an afternoon.
 - **Agent-heavy codebases**, where the skill and bundled docs save the most time.
 - **Components your current library lacks**, built from UI SDK's behaviors while the rest of your app stays where it is.
 
-For a production design system with many contributors, pin the exact version (`0.1.0-beta.2` at the time of writing), read the changelog before each upgrade, and keep an eye on the [GitHub repository](https://github.com/vercel-labs/ui) for the first stable release.
+For a production design system with many contributors, pin the exact version (`0.1.0-beta.9` on 18 November; a plain `npm install @ui-sdk/react` gave `0.1.0-beta.6` that day, because newer builds go to the `beta` tag first), read the changelog before each upgrade, and keep an eye on the [GitHub repository](https://github.com/vercel-labs/ui) for the first stable release.
 
 The quickest way to judge it is to try one component you need this week. Install the two packages, add the skill, and ask your agent to build it.

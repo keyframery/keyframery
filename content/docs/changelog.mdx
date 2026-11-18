@@ -1,8 +1,19 @@
 ---
 title: Changelog
 heading: "Changelog"
-description: "What changed in Keyframery, newest first: every UI SDK component on 0.1.0-beta.5, speed props, Table and fuller docs, phone layouts, the 1.0 release for UI SDK, and the earlier Cuts motion layer."
+description: "What changed in Keyframery, newest first: new components, UI SDK upgrades, templates, motion styles and fixes."
 ---
+
+## UI SDK 0.1.0-beta.9
+
+November 2026
+
+- **Built and tested on UI SDK `0.1.0-beta.9`.** The registry pins it, so adding a component brings a project up to beta.9.
+- **Dialog and Popover take `inline`.** The content (and a dialog's backdrop) renders where it sits in the page instead of the top layer, so it can stay inside a frame.
+- **Controllers can move the highlight.** Combobox, Autocomplete and Listbox controllers take `highlight(value)` and `getHighlighted()`.
+- **Pagination takes `disabled`**, which turns off every page and step at once.
+- **Autocomplete's `onValueChange` tells suggestions apart.** Its details carry the chosen `item`, typed as `AutocompleteValueChangeDetails`.
+- **Safer agent actions.** An agent that removes an item marked `data-agent-confirm` now needs a person's OK, as adding one already did.
 
 ## Customization, UI SDK core and clearer docs
 

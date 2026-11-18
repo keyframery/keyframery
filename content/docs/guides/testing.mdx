@@ -2,7 +2,7 @@
 title: Testing
 heading: "Disable animations in Playwright tests for UI SDK"
 seoTitle: "Disable animations in Playwright for UI SDK"
-description: "Make Playwright tests and screenshots of animated UI SDK components fast and stable: emulate reduced motion, let screenshots stop animations, and shrink Keyframery's durations with one variable."
+description: "Make Playwright tests and screenshots of animated UI SDK components fast and stable: emulate reduced motion and let screenshots stop animations."
 faq:
   - q: "How do I disable animations in Playwright?"
     a: "Set `reducedMotion: 'reduce'` in the `use` block of playwright.config, or call `page.emulateMedia({ reducedMotion: 'reduce' })` in a test. For screenshots, pass `animations: 'disabled'`, which `toHaveScreenshot` already uses by default."

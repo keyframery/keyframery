@@ -150,6 +150,30 @@ export function generateStaticParams() {
   return source.generateParams()
 }
 
+/** Google shows about 60 characters of a title, " | Keyframery" included. */
+function componentTitle(name: string, forSdk: string) {
+  const full = `Animated React ${name}${forSdk}`
+  return full.length + " | Keyframery".length <= 60 ? full : `Animated ${name}${forSdk}`
+}
+
+/**
+ * "<Name> component for Vercel's UI SDK, animated in plain CSS." plus the page's motion line, kept under
+ * 160 characters. A long motion line is cut at its last full sentence or clause that fits, never mid-word.
+ */
+function componentDescription(name: string, forSdk: string, motion: string) {
+  const lead = forSdk ? `${name} component for Vercel's UI SDK, animated in plain CSS.` : `Animated React ${name.toLowerCase()} component, in plain CSS.`
+  const max = 160
+  let text = `${lead} ${motion}`.trim()
+  const install = " Install it with one shadcn command."
+  if (text.length + install.length <= max) return text + install
+  if (text.length <= max) return text
+  const room = text.slice(0, max - 1)
+  const stop = Math.max(room.lastIndexOf(". "), room.lastIndexOf(", "), room.lastIndexOf("; "))
+  if (stop > lead.length + 40) return room.slice(0, stop).replace(/[,;]$/, "") + "."
+  text = room.slice(0, room.lastIndexOf(" ")).replace(/[,;:]$/, "")
+  return `${text}…`
+}
+
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const page = source.getPage(params.slug)
@@ -160,8 +184,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const forSdk = built?.sdk || built?.core ? " for UI SDK" : ""
   const metadata = pageMetadata({
     // Component pages lead with what people search for: an animated <component> for UI SDK.
-    title: page.data.seoTitle ?? (component ? `Animated ${page.data.title}${forSdk}` : page.data.title),
-    description: component ? `Animated ${page.data.title.toLowerCase()}${forSdk}, in plain CSS. ${page.data.description ?? ""}`.slice(0, 160) : (page.data.description ?? ""),
+    // "React" next to "UI SDK": several other products are also called a UI SDK.
+    title: page.data.seoTitle ?? (component ? componentTitle(page.data.title, forSdk) : page.data.title),
+    description: component ? componentDescription(page.data.title, forSdk, page.data.seoDescription ?? page.data.description ?? "") : (page.data.description ?? ""),
     path: page.url,
     image: `/og/docs/${[...page.slugs, "image.png"].join("/")}`,
   })

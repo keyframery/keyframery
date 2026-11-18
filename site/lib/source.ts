@@ -17,6 +17,8 @@ const docs = defineDocs({
       heading: z.string().optional(),
       /** The search-result title, when the sidebar's short `title` leaves out what people search for. */
       seoTitle: z.string().optional(),
+      /** A shorter motion line for the search snippet, when `description` is too long to fit after the lead. */
+      seoDescription: z.string().optional(),
       /** A component page: its slug, so the page can show the component's facts under the title. */
       component: z.string().optional(),
       /** A template page: its slug, so the page can show the live preview actions under the title. */

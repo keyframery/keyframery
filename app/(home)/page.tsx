@@ -11,10 +11,11 @@ const display = Inter({ subsets: ["latin"], axes: ["opsz"], variable: "--font-lp
 const description =
   `Keyframery is the open-source component library for UI SDK: ${entries.length} React components built on UI SDK, with motion in plain CSS, four motion styles, and Agent view on every component page to show what AI agents read.`
 
-/** The search snippet: Google cuts descriptions at about 155 characters. */
-const metaDescription = `${entries.length} free, open-source components built on Vercel's UI SDK, animated in plain CSS. Agent view shows what AI agents read on every component.`
+/** The search snippet: Google cuts descriptions at about 155 characters. No counts: Google keeps old snippets for days. */
+const metaDescription =
+  "Free, open-source React components built on Vercel's UI SDK, animated in plain CSS. Install with the shadcn CLI, theme with your tokens, see what agents read."
 
-export const metadata = pageMetadata({ absolute: "Keyframery: The Component Library for UI SDK", description: metaDescription, path: "/" })
+export const metadata = pageMetadata({ absolute: "Keyframery: Animated Component Library for Vercel UI SDK", description: metaDescription, path: "/" })
 
 export default function Page() {
   return (
