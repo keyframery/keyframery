@@ -11,7 +11,7 @@ import { WORKS_WITH } from "@site/lib/logos"
 import { faqData, JsonLd } from "@site/lib/seo"
 
 import horizon from "../../assets/horizon.jpg"
-import { AgentViewDemo } from "./agent-view"
+import { AgentViewFilm } from "./agent-view"
 import { HeroTitle } from "./hero-title"
 import { KeyframeArc } from "./keyframe-arc"
 import { HeroBoard, SameClick, Scene, StylePicker } from "./scenes"
@@ -133,20 +133,20 @@ export function WhatItIs() {
 /* ---------------------------------------------------------------- Agent view: what an agent reads, live */
 
 const AGENT_FACTS = [
-  { t: "Read the snapshot", b: "Each component's label, value and state, exactly as UI SDK exposes them, updating as the component changes." },
-  { t: "Run its actions", b: "Pick an action such as setValue or submit, add arguments, and the real component responds." },
-  { t: "Secrets stay redacted", b: "Password values read as [redacted]. Hidden and decorative parts stay out of the snapshot." },
+  { t: "Every part, in plain words", b: "Each component's name, state and the actions it accepts, exactly as UI SDK hands them to an agent, and live as they change." },
+  { t: "Find it, then run it", b: "Hover a part to outline it in the preview. Press one of its actions and the real component responds, the same call an agent makes." },
+  { t: "Secrets stay redacted", b: "Password values read as [redacted]. Hidden and decorative parts never reach the agent at all." },
 ]
 
 export function AgentView() {
   return (
     <section id="agent-view" aria-labelledby="agent-title" className={cn(wrap, "scroll-mt-20 pb-24 md:pb-32")}>
       <Heading id="agent-title" eyebrow="New: Agent view" title="See what AI agents see.">
-        People see your design. An AI agent reads something else: each component&apos;s label, its state and the actions it accepts. Agent
-        view puts that live UI SDK snapshot beside the component. No model or API key needed. Try it: fill in the form, or run an action.
+        People see your design. An AI agent reads something else: each component&apos;s name, its state and the actions it accepts. Agent
+        view shows you exactly that, live, beside every component, and lets you run those actions yourself. No model or API key needed.
       </Heading>
       <div className="lp-card mt-14 overflow-hidden rounded-2xl">
-        <AgentViewDemo />
+        <AgentViewFilm />
       </div>
       <ul className="mt-4 grid gap-px overflow-hidden rounded-2xl bg-[var(--lp-line)] md:grid-cols-3">
         {AGENT_FACTS.map((f) => (
@@ -158,6 +158,10 @@ export function AgentView() {
       </ul>
       <p className="mt-6 text-center text-[14px] lp-muted">
         It is on every component page, above the live preview.{" "}
+        <Link prefetch={false} href="/docs/components/form" className="font-medium text-[var(--lp-ink)] underline underline-offset-4">
+          Try it on the booking form
+        </Link>
+        {" · "}
         <Link prefetch={false} href="/docs/agent-view" className="font-medium text-[var(--lp-ink)] underline underline-offset-4">
           How Agent view works
         </Link>
