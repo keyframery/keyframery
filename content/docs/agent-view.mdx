@@ -18,9 +18,19 @@ Turn on the **Agent view** switch above the preview:
 
 <ComponentPreview slug="form" />
 
+## Reading it
+
+**Parts** lists every component an agent can see, one row each, in plain words:
+
+- **The name** an agent finds it by, such as **Email**, with its kind beside it (Input, Select, Form).
+- **Its state**, such as *Empty · Required* or *Value “EUR” · Closed · 4 choices*. A value that just changed lights up, whether you or an agent changed it.
+- **What an agent can do with it**, as buttons: *Set value*, *Clear*, *Open*, *Submit*. A part with no buttons is read-only.
+
+Hover a row and the part it describes is outlined in the preview. On a phone, tap its name.
+
 ## What the snapshot shows
 
-Each entry is one component, as UI SDK exposes it:
+**JSON** shows the same thing exactly as an agent receives it. Each entry is one component:
 
 ```json
 {
@@ -43,11 +53,11 @@ Password values read as `[redacted]`. Hidden and decorative parts stay out of th
 
 ## Run an action
 
-Open the **Actions** tab. Pick a component and one of its actions, give the arguments as a JSON array, and press **Run action**. The action runs on the live component through UI SDK, the same way an agent's call would, and the **Tool response** shows what came back.
+Press an action's button. *Clear*, *Open* or *Submit* run at once; *Set value* asks what to enter, or offers a Select's choices to pick from. The action runs on the live component through UI SDK, the same way an agent's call would. Under the row you see the exact call, such as `setValue("maya@okafor.studio")`, and what it changed. The full tool response is under **JSON**.
 
-On the form above, run `setValue` on each input (for example `["maya@okafor.studio"]` on Email), then `submit` on the form, and the viewing is booked, exactly as if a person had filled it in.
+On the form above, press **Set value** on each field and enter a name, a phone number and an email, then press **Submit** on the form, and the viewing is booked, exactly as if a person had filled it in.
 
-For a Select or a Combobox, **Query choices** reads the options it offers, including ones that aren't in the snapshot.
+For a Select or a Combobox, **See choices** reads the options it offers, including ones that aren't in the snapshot.
 
 ## In your own app
 

@@ -27,6 +27,12 @@ function elementFor(ref: string) {
   try { return elementOf(ref) } catch { return undefined }
 }
 
+/** The element UI SDK registered for a snapshot ref, for pointing at it in the preview. */
+export function elementForRef(ref: string): HTMLElement | undefined {
+  const el = elementFor(ref)
+  return el instanceof HTMLElement && el.isConnected ? el : undefined
+}
+
 function contentScope(scope: HTMLElement) {
   return scope.querySelector<HTMLElement>("[data-agent-preview-content]") ?? scope
 }

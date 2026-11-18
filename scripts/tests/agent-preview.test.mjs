@@ -151,8 +151,10 @@ describe("scoped agent preview sessions", { skip: process.env.KEYFRAMERY_AGENT_B
     await inspector.waitFor()
     await page.waitForFunction(() => {
       const inspector = document.querySelector('aside[aria-label="Agent view for First example"]')
-      return inspector?.querySelector("pre")?.textContent?.includes("First demo value")
+      return inspector?.querySelector("[data-agent-parts]")?.textContent?.includes("First demo value")
     })
+    await inspector.getByRole("radio", { name: "JSON", exact: true }).click()
+    await inspector.getByLabel("Live agent snapshot", { exact: true }).waitFor()
     const snapshot = JSON.parse(await inspector.getByLabel("Live agent snapshot", { exact: true }).textContent())
     assert.ok(snapshot.some((entry) => entry.value === "First demo value"))
     assert.ok(!JSON.stringify(snapshot).includes("Second demo value"))
@@ -176,10 +178,35 @@ describe("scoped agent preview sessions", { skip: process.env.KEYFRAMERY_AGENT_B
     await toggle.click()
     await page.waitForFunction(() => {
       const inspector = document.querySelector('aside[aria-label="Agent view for First example"]')
-      return inspector?.querySelector("pre")?.textContent?.includes("Edited while exploring")
+      return inspector?.querySelector("[data-agent-parts]")?.textContent?.includes("Edited while exploring")
     })
     assert.equal(await input.inputValue(), "Edited while exploring")
     assert.equal(await page.evaluate(() => window.agentPreviewFixture.originalDemoInput === document.querySelector('input[aria-label="First demo input"]')), true)
+  })
+
+  test("the parts list reads in plain words and runs an action from a button", async (t) => {
+    const page = await wrapperPageFor(t)
+    await page.getByRole("switch", { name: "Agent view for First example", exact: true }).click()
+    const inspector = page.getByRole("complementary", { name: "Agent view for First example", exact: true })
+    const row = inspector.locator("[data-agent-part]").filter({ hasText: "First demo input" }).first()
+    await row.waitFor()
+    assert.match(await row.textContent(), /Value “First demo value”/)
+    await row.getByRole("button", { name: "Set value", exact: true }).click()
+    await row.locator("input").fill("Typed by the agent")
+    await row.locator("input").press("Enter")
+    await page.waitForFunction(() => document.querySelector('input[aria-label="First demo input"]')?.value === "Typed by the agent")
+    await row.locator("[data-agent-run]").waitFor()
+    assert.match(await row.locator("[data-agent-run]").textContent(), /setValue\("Typed by the agent"\)/)
+    assert.equal(await row.locator("form").count(), 0, "the form closes after a successful run")
+  })
+
+  test("one click turns agent view on while a demo's select is open", async (t) => {
+    const page = await wrapperPageFor(t)
+    await page.getByRole("combobox", { name: "Region" }).first().click()
+    await page.getByRole("listbox").first().waitFor()
+    const toggle = page.getByRole("switch", { name: "Agent view for First example", exact: true })
+    await toggle.click()
+    assert.equal(await toggle.getAttribute("aria-checked"), "true")
   })
 
   test("each preview lists only its own mounted components", async (t) => {
