@@ -11,7 +11,6 @@
   <h3>The animated component library for Vercel's UI SDK.</h3>
   <p>Free, open-source React components with the motion done in plain CSS.<br />Install one with the shadcn CLI, or hand the job to your coding agent.</p>
   <p>
-    <a href="https://github.com/keyframery/keyframery/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/keyframery/keyframery?style=flat&logo=github&label=Stars&color=27272a&labelColor=18181b"></a>
     <a href="https://github.com/keyframery/keyframery/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-27272a?style=flat&labelColor=18181b"></a>
     <a href="https://ui-sdk.dev"><img alt="Built on UI SDK" src="https://img.shields.io/badge/Built%20on-UI%20SDK-27272a?style=flat&labelColor=18181b"></a>
     <a href="https://keyframery.com/docs/installation"><img alt="shadcn registry" src="https://img.shields.io/badge/shadcn-registry-27272a?style=flat&labelColor=18181b"></a>
