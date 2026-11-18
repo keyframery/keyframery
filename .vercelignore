@@ -11,3 +11,4 @@ shots
 /public/r
 .source
 .env*
+/assets/readme
