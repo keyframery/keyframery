@@ -12,3 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ## UI design workflow
 
 Use the Stageshow skill for all component, documentation and landing page UI work. Read `~/.agents/skills/stageshow/SKILL.md` before starting; installed from `benjitaylor/skills` with the skills CLI. Use Keyframery's own UI SDK components within its composition and verification workflow. Keep behavior on UI SDK and follow HOUSE.md, MOTION.md and CORE.md for this library's implementation rules.
+
+## SEO work
+
+Read `seo/TRACKER.md` before any SEO, metadata or content-planning work, and update it when you finish. It is local only (git-ignored) because it holds Search Console numbers.

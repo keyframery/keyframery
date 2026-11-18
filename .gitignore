@@ -25,3 +25,6 @@ shots
 .omx
 .claude
 .env*
+
+# SEO tracker: holds Search Console numbers, local only
+/seo/
