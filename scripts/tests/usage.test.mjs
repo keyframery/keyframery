@@ -18,7 +18,7 @@ const compile = (path, dependencies = {}) => {
 
 const require = createRequire(import.meta.url)
 const neon = require("@neondatabase/serverless")
-const { classifyClient, classifyRequest, recordUsage, recordEvent, recordHit, visitorCode, utcDay, requestFacts } = compile("../../site/lib/usage.ts", { "@neondatabase/serverless": neon })
+const { classifyClient, classifyRequest, recordUsage, recordEvent, recordHit, visitorCode, utcDay, requestFacts, fromCloudflare } = compile("../../site/lib/usage.ts", { "@neondatabase/serverless": neon })
 const templates = compile("../../site/lib/templates.ts")
 const copyEvents = compile("../../site/lib/copy-events.ts", { "./templates": templates })
 const { parseCopyEvent } = copyEvents
@@ -235,3 +235,23 @@ test("a missing usage_events table is swallowed once and never retried", async (
   }
 })
 
+
+test("behind Cloudflare, the visitor's own address and country are used, and only then", () => {
+  const headers = (init) => new Headers({ "user-agent": "node", ...init })
+  // Through Cloudflare: Vercel reports the Cloudflare server (and its country); Cloudflare reports the visitor.
+  assert.deepEqual(
+    requestFacts(headers({ "x-forwarded-for": "172.70.1.5", "x-real-ip": "172.70.1.5", "x-vercel-ip-country": "SG", "cf-connecting-ip": "49.36.1.2", "cf-ipcountry": "IN" })),
+    { ip: "49.36.1.2", country: "IN", client: "cli" },
+  )
+  // Straight to Vercel with invented Cloudflare headers: they are ignored.
+  assert.deepEqual(
+    requestFacts(headers({ "x-forwarded-for": "203.0.113.42", "x-vercel-ip-country": "DE", "cf-connecting-ip": "1.2.3.4", "cf-ipcountry": "US" })),
+    { ip: "203.0.113.42", country: "DE", client: "cli" },
+  )
+  // Through Cloudflare without a known country: no country, never the Cloudflare server's.
+  assert.equal(requestFacts(headers({ "x-forwarded-for": "162.158.10.1", "x-vercel-ip-country": "SG", "cf-connecting-ip": "49.36.1.2", "cf-ipcountry": "XX" })).country, null)
+  assert.equal(requestFacts(headers({ "x-forwarded-for": "162.158.10.1", "x-vercel-ip-country": "SG", "cf-connecting-ip": "49.36.1.2" })).country, null)
+
+  for (const ip of ["104.16.0.0", "104.23.255.255", "104.24.0.0", "104.27.255.255", "172.71.255.255", "::ffff:162.158.1.1", "2606:4700::1", "2a06:98c7:ffff::1", "2400:cb00:0:0:0:0:0:1"]) assert.equal(fromCloudflare(ip), true, ip)
+  for (const ip of ["104.28.0.0", "104.15.255.255", "172.72.0.0", "203.0.113.42", "2a06:98c8::1", "2606:4701::1", "::1", "not an address", "", null]) assert.equal(fromCloudflare(ip), false, String(ip))
+})

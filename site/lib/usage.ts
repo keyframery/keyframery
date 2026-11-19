@@ -130,12 +130,77 @@ export async function visitorCode(ip: string | null, day: string, secret: string
 /** What the event log takes from a request's headers. The IP is used only to make the visitor code, then dropped. */
 export type RequestFacts = { ip: string | null; country: string | null; client: string }
 
+/* keyframery.com sits behind Cloudflare, so the address Vercel reports (x-forwarded-for, x-real-ip) and its
+   x-vercel-ip-country belong to the Cloudflare server that passed the request on, not to the visitor. Cloudflare
+   sends the visitor's own in cf-connecting-ip and cf-ipcountry. Those two are believed only when the connection
+   really came from Cloudflare (its published ranges, https://www.cloudflare.com/ips/, read 19 Nov 2026), so nobody
+   can invent visitors by sending the headers straight to Vercel. */
+const CLOUDFLARE_V4 = [
+  "173.245.48.0/20", "103.21.244.0/22", "103.22.200.0/22", "103.31.4.0/22", "141.101.64.0/18", "108.162.192.0/18", "190.93.240.0/20", "188.114.96.0/20",
+  "197.234.240.0/22", "198.41.128.0/17", "162.158.0.0/15", "104.16.0.0/13", "104.24.0.0/14", "172.64.0.0/13", "131.0.72.0/22",
+]
+const CLOUDFLARE_V6 = ["2400:cb00::/32", "2606:4700::/32", "2803:f800::/32", "2405:b500::/32", "2405:8100::/32", "2a06:98c0::/29", "2c0f:f248::/32"]
+
+/** An IPv4 address as a number, or null when it isn't one. */
+function v4(ip: string): number | null {
+  const parts = ip.split(".")
+  if (parts.length !== 4) return null
+  let value = 0
+  for (const part of parts) {
+    if (!/^\d{1,3}$/.test(part) || Number(part) > 255) return null
+    value = value * 256 + Number(part)
+  }
+  return value
+}
+
+/** An IPv6 address as its eight groups, or null when it isn't one. */
+function v6(ip: string): number[] | null {
+  if (!ip.includes(":") || ip.includes(".")) return null
+  const halves = ip.split("::")
+  if (halves.length > 2) return null
+  const left = halves[0] ? halves[0].split(":") : []
+  const right = halves.length === 2 && halves[1] ? halves[1].split(":") : []
+  const missing = 8 - left.length - right.length
+  if (halves.length === 2 ? missing < 1 : missing !== 0) return null
+  const groups = [...left, ...Array<string>(halves.length === 2 ? missing : 0).fill("0"), ...right]
+  const values = groups.map((group) => (/^[0-9a-f]{1,4}$/i.test(group) ? parseInt(group, 16) : -1))
+  return values.every((group) => group >= 0) ? values : null
+}
+
+/** Whether an address is one of Cloudflare's own servers. */
+export function fromCloudflare(ip: string | null): boolean {
+  if (!ip) return false
+  const plain = /^::ffff:\d/i.test(ip) ? ip.slice(7) : ip
+  const four = v4(plain)
+  if (four !== null) {
+    return CLOUDFLARE_V4.some((range) => {
+      const [base, bits] = range.split("/")
+      const start = v4(base) ?? 0
+      return four >= start && four < start + 2 ** (32 - Number(bits))
+    })
+  }
+  const six = v6(plain)
+  if (!six) return false
+  return CLOUDFLARE_V6.some((range) => {
+    const [base, bits] = range.split("/")
+    const start = v6(base) ?? []
+    for (let group = 0, left = Number(bits); left > 0; group++, left -= 16) {
+      const mask = left >= 16 ? 0xffff : (0xffff << (16 - left)) & 0xffff
+      if ((six[group] & mask) !== (start[group] & mask)) return false
+    }
+    return true
+  })
+}
+
 export function requestFacts(headers: Headers): RequestFacts {
-  const ip = headers.get("x-forwarded-for")?.split(",")[0]?.trim() || headers.get("x-real-ip")?.trim() || null
-  const country = headers.get("x-vercel-ip-country")?.trim().toUpperCase() ?? ""
+  const connecting = headers.get("x-forwarded-for")?.split(",")[0]?.trim() || headers.get("x-real-ip")?.trim() || null
+  const cloudflare = fromCloudflare(connecting)
+  const ip = (cloudflare && headers.get("cf-connecting-ip")?.trim()) || connecting
+  const country = ((cloudflare ? headers.get("cf-ipcountry") : headers.get("x-vercel-ip-country")) ?? "").trim().toUpperCase()
   return {
     ip: ip && ip.length <= 64 ? ip : null,
-    country: /^[A-Z]{2}$/.test(country) ? country : null,
+    // Cloudflare answers XX when it does not know the country.
+    country: /^[A-Z]{2}$/.test(country) && country !== "XX" ? country : null,
     client: classifyClient(headers.get("user-agent")),
   }
 }

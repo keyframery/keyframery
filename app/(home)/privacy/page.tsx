@@ -33,7 +33,7 @@ export default function Page() {
             <code>llms.txt</code>, <code>llms-full.txt</code> and the agent files under <code>/.well-known</code>, pages fetched as Markdown, and the
             copy actions above. We keep a daily count of each, and a log with one row per event. A row holds the time, what happened (the page path,
             the item downloaded or the copy action), the kind of client (such as &quot;browser&quot;, &quot;cli&quot; or the name of a search or AI
-            crawler), your country as reported by our host, the host name of the site that linked you on your first page view (not the full address),
+            crawler), your country as reported by Cloudflare, which carries the site&apos;s traffic, the host name of the site that linked you on your first page view (not the full address),
             and a visitor code.
           </li>
           <li>
