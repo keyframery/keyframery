@@ -124,7 +124,16 @@ export const utcDay = (now: Date = new Date()): string => now.toISOString().slic
  */
 export async function visitorCode(ip: string | null, day: string, secret: string | undefined): Promise<string | null> {
   if (!ip || !secret) return null
-  return (await sha256(`kf:${await sha256(secret)}:${day}:${ip}`)).slice(0, 16)
+  return (await sha256(`kf:${await sha256(secret)}:${day}:${networkOf(ip)}`)).slice(0, 16)
+}
+
+/**
+ * What the visitor code is made from. An IPv4 address as it is. For IPv6, only the network part (the first four
+ * groups): a device changes the rest of its IPv6 address during the day, which would turn one person into several.
+ */
+export function networkOf(ip: string): string {
+  const groups = v6(ip)
+  return groups ? groups.slice(0, 4).map((group) => group.toString(16)).join(":") : ip
 }
 
 /** What the event log takes from a request's headers. The IP is used only to make the visitor code, then dropped. */

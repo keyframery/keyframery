@@ -18,7 +18,7 @@ const compile = (path, dependencies = {}) => {
 
 const require = createRequire(import.meta.url)
 const neon = require("@neondatabase/serverless")
-const { classifyClient, classifyRequest, recordUsage, recordEvent, recordHit, visitorCode, utcDay, requestFacts, fromCloudflare } = compile("../../site/lib/usage.ts", { "@neondatabase/serverless": neon })
+const { classifyClient, classifyRequest, recordUsage, recordEvent, recordHit, visitorCode, utcDay, requestFacts, fromCloudflare, networkOf } = compile("../../site/lib/usage.ts", { "@neondatabase/serverless": neon })
 const templates = compile("../../site/lib/templates.ts")
 const copyEvents = compile("../../site/lib/copy-events.ts", { "./templates": templates })
 const { parseCopyEvent } = copyEvents
@@ -254,4 +254,16 @@ test("behind Cloudflare, the visitor's own address and country are used, and onl
 
   for (const ip of ["104.16.0.0", "104.23.255.255", "104.24.0.0", "104.27.255.255", "172.71.255.255", "::ffff:162.158.1.1", "2606:4700::1", "2a06:98c7:ffff::1", "2400:cb00:0:0:0:0:0:1"]) assert.equal(fromCloudflare(ip), true, ip)
   for (const ip of ["104.28.0.0", "104.15.255.255", "172.72.0.0", "203.0.113.42", "2a06:98c8::1", "2606:4701::1", "::1", "not an address", "", null]) assert.equal(fromCloudflare(ip), false, String(ip))
+})
+
+test("an IPv6 visitor is one visitor all day: the code is made from the network part only", async () => {
+  const day = "2026-11-19", secret = "postgresql://example"
+  const a = await visitorCode("2409:40c1:5014:ea4d:da23:e0ff:fec2:90f2", day, secret)
+  const sameNetwork = await visitorCode("2409:40c1:5014:ea4d:1111:2222:3333:4444", day, secret)
+  const otherNetwork = await visitorCode("2409:40c1:5014:ea4e:da23:e0ff:fec2:90f2", day, secret)
+  assert.equal(a, sameNetwork)
+  assert.notEqual(a, otherNetwork)
+  assert.equal(networkOf("2409:40c1:5014:ea4d::1"), "2409:40c1:5014:ea4d")
+  assert.equal(networkOf("203.0.113.42"), "203.0.113.42")
+  assert.notEqual(await visitorCode("203.0.113.42", day, secret), await visitorCode("203.0.113.43", day, secret))
 })
