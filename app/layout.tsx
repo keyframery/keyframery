@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import Script from "next/script"
 
+import { PageViews } from "@site/components/page-views"
 import { SiteProvider } from "@site/components/provider"
 import { JsonLd, SITE_IMAGE, siteData } from "@site/lib/seo"
 import { SITE } from "@site/lib/shared"
@@ -40,6 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body className="flex min-h-screen flex-col">
         <JsonLd data={siteData()} />
         <SiteProvider>{children}</SiteProvider>
+        <PageViews />
         {process.env.VERCEL_ENV === "production" && (
           <>
             <Script id="google-tag-loader" src="https://www.googletagmanager.com/gtag/js?id=G-R8KDF02XF8" strategy="lazyOnload" />

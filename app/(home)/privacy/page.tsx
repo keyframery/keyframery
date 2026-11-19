@@ -3,13 +3,13 @@ import { pageMetadata } from "@site/lib/seo"
 
 export const metadata = pageMetadata({
   title: "Privacy policy",
-  description: "What keyframery.com collects: Google Analytics page views, Microsoft Clarity recordings, copy-action counts and request logs. No accounts, nothing sold.",
+  description: "What keyframery.com collects: Google Analytics page views, Microsoft Clarity recordings, our own cookie-free usage records, and request logs. No accounts, nothing sold.",
   path: "/privacy",
 })
 
 export default function Page() {
   return (
-    <Policy title="Privacy" effective="18 November 2026">
+    <Policy title="Privacy" effective="19 November 2026">
       <PolicySection title="What we collect">
         <ul>
           <li>
@@ -24,12 +24,29 @@ export default function Page() {
             <a href="https://privacy.microsoft.com/privacystatement">Privacy Statement</a>.
           </li>
           <li>
-            <b>Copy actions.</b> When you copy an install command or the coding-agent prompt, we send the action&apos;s name, the page path and which
-            button you used to Google Analytics. We never send what was copied.
+            <b>Copy actions.</b> When you copy an install command (including a preset&apos;s command on <code>/create</code>) or the coding-agent
+            prompt, we send the action&apos;s name, the page path and which button you used to Google Analytics, and record the same action in our own
+            database (described below). We never send what was copied.
+          </li>
+          <li>
+            <b>Our own usage records.</b> We record page views, component and preset downloads from <code>keyframery.com/r</code>, reads of{" "}
+            <code>llms.txt</code>, <code>llms-full.txt</code> and the agent files under <code>/.well-known</code>, pages fetched as Markdown, and the
+            copy actions above. We keep a daily count of each, and a log with one row per event. A row holds the time, what happened (the page path,
+            the item downloaded or the copy action), the kind of client (such as &quot;browser&quot;, &quot;cli&quot; or the name of a search or AI
+            crawler), your country as reported by our host, the host name of the site that linked you on your first page view (not the full address),
+            and a visitor code.
+          </li>
+          <li>
+            <b>The visitor code.</b> It is made on our server from your IP address, the date and a secret key, and lets us tell that a page view and a
+            download on the same day came from the same network. It changes every day, so visits on different days can&apos;t be linked. It is a
+            one-way hash, so reading the table, including when we do, doesn&apos;t show your IP address, and nobody without the secret key can
+            check a list of addresses against it. Your IP address itself is never stored, logged or sent anywhere,
+            and neither is your browser&apos;s user agent string. No cookies or browser storage are used for any of this, and requests from known
+            crawlers are not logged as page views.
           </li>
           <li>
             <b>Request logs.</b> Vercel, which hosts the site, keeps standard request logs, such as IP address and browser, for a short time to run and
-            protect the service. Component downloads from <code>keyframery.com/r</code> are ordinary requests and appear in those logs.
+            protect the service. Component downloads from <code>keyframery.com/r</code> are ordinary requests and appear in those logs too.
           </li>
           <li>
             <b>Your motion style.</b> If you pick a motion style, your browser remembers it in local storage. It never leaves your device.
