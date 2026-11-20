@@ -71,9 +71,11 @@ export function InboxPage({ id }: { id: string | null }) {
         </Button>
       </div>
 
-      <div className="grid h-[calc(100svh-12.5rem)] min-h-[540px] overflow-hidden rounded-[16px] bg-card shadow-[0_0_0_1px_var(--border)] md:grid-cols-[300px_minmax(0,1fr)] lg:grid-cols-[320px_minmax(0,1fr)_280px] max-md:h-[calc(100svh-6.5rem)]">
+      {/* On a phone the one column is as wide as the screen: left to itself a grid track grows to its
+          widest row, which pushed the menu and Send off the edge. */}
+      <div className="grid h-[calc(100svh-12.5rem)] min-h-[540px] grid-cols-[minmax(0,1fr)] overflow-hidden rounded-[16px] bg-card shadow-[0_0_0_1px_var(--border)] md:grid-cols-[300px_minmax(0,1fr)] lg:grid-cols-[320px_minmax(0,1fr)_280px] max-md:h-[calc(100svh-6.5rem)]">
         {/* The list */}
-        <section aria-label="Conversations" className={cn("flex min-h-0 flex-col border-border md:border-e", id && "max-md:hidden")}>
+        <section aria-label="Conversations" className={cn("flex min-h-0 min-w-0 flex-col border-border md:border-e", id && "max-md:hidden")}>
           <div className="flex flex-col gap-2.5 border-b border-border p-3">
             <Input aria-label="Search conversations" placeholder="Search" value={query} onChange={(event) => setQuery(event.target.value)} />
             <SegmentedControl
@@ -179,7 +181,7 @@ function Thread({ conversation: c, keepView }: { conversation: Conversation; kee
 
   return (
     <>
-      <section aria-label={`Conversation with ${who?.name}`} className="flex min-h-0 flex-col">
+      <section aria-label={`Conversation with ${who?.name}`} className="flex min-h-0 min-w-0 flex-col">
         <header className="flex items-center gap-3 border-b border-border px-4 py-3">
           <Button variant="ghost" size="icon" aria-label="Back to conversations" className="md:hidden rtl:-scale-x-100" render={<a {...linkProps(router, `/inbox${keepView}`)} />}>
             <ArrowLeft {...icon} />

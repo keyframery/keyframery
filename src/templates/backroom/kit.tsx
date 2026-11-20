@@ -29,12 +29,15 @@ export function PageHeader({
   actions,
   back,
   badges,
+  lead,
 }: {
   title: React.ReactNode
   description?: React.ReactNode
   actions?: React.ReactNode
   back?: { to: string; label: string }
   badges?: React.ReactNode
+  /** Sits before the title, outside the heading: a customer's avatar. Its text would otherwise be read as part of the page's name. */
+  lead?: React.ReactNode
 }) {
   const router = useRouter()
   return (
@@ -47,6 +50,7 @@ export function PageHeader({
         )}
         <div className="flex min-w-0 flex-col gap-1.5">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+            {lead}
             <h1 data-page-heading tabIndex={-1} className="text-[24px] leading-tight font-semibold tracking-tight outline-none">
               {title}
             </h1>
@@ -180,9 +184,10 @@ export function PrintPhoto({ src, className }: { src: string; className?: string
 }
 
 /** How a text link looks: the words only, no surface at rest or on hover, an underline under the pointer.
-    (A control gets a surface; a link doesn't.) */
+    (A control gets a surface; a link doesn't.) The button's sheen is a background image, so it goes too:
+    left on, it draws a faint grey chip behind every name and order number. */
 export const linkLook =
-  "h-auto rounded-[4px] px-0 py-0.5 font-semibold shadow-none! dark:shadow-none! not-data-disabled:hover:bg-transparent! not-data-disabled:active:bg-transparent! hover:underline underline-offset-4 decoration-foreground/30 focus-visible:ring-offset-1"
+  "h-auto rounded-[4px] bg-none! px-0 py-0.5 font-semibold shadow-none! dark:bg-none! dark:shadow-none! not-data-disabled:hover:bg-transparent! not-data-disabled:active:bg-transparent! hover:underline underline-offset-4 decoration-foreground/30 focus-visible:ring-offset-1"
 
 /** A link inside the admin drawn as text: an order number, a customer's name. */
 export function InlineLink({ to, children, className, label }: { to: string; children: React.ReactNode; className?: string; label?: string }) {

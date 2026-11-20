@@ -81,7 +81,7 @@ export function ProductsPage() {
         sortValue: (p) => p.name,
         cell: (p) => (
           <span className="flex min-w-0 items-center gap-3">
-            <PrintPhoto src={p.photo} />
+            <PrintPhoto src={p.photo} className="size-[calc(var(--br-row-tall,3.5rem)-1rem)]" />
             <span className="flex min-w-0 flex-col gap-0.5">
               <InlineLink to={`/products/${p.id}`} className="self-start">
                 {p.name}
@@ -149,6 +149,7 @@ export function ProductsPage() {
       />
       <DataTable<Row>
         label="Products"
+        className="[--data-table-row-height:var(--br-row-tall,3.5rem)]"
         data={rows}
         columns={columns}
         getRowId={(p) => p.id}

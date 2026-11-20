@@ -42,4 +42,20 @@ for (const slug of slugs) {
 }
 const all = items.get("all").registryDependencies
 assert.equal(slugs.filter((slug) => all.includes(`@keyframery/${slug}`)).length, slugs.length)
-console.log(`Registry: ${slugs.length} installable components verified; core files, aliases, pinned SDK versions and local dependencies complete.`)
+
+/* Templates. An installed template runs in someone else's project, which has none of this site's
+   files: a photo or logo left as a path on this site (/demo/…) is a broken image there. */
+const templates = fs.readdirSync(path.join(root, "src/templates")).filter((slug) => fs.statSync(path.join(root, "src/templates", slug)).isDirectory())
+for (const slug of templates) {
+  assert.ok(items.get(slug), `Missing registry template ${slug}`)
+  const generated = JSON.parse(fs.readFileSync(path.join(root, "public/r", `${slug}.json`), "utf8"))
+  for (const file of generated.files) {
+    const local = file.content.match(/["'`]\/demo\/[^"'`\s]*/)
+    assert.ok(!local, `${slug}/${path.basename(file.target)} points at a file on this site: ${local?.[0]}`)
+    assert.ok(!/"@\/components\/(ui|primitives|core)\//.test(file.content), `Source alias was not rewritten in ${slug}/${path.basename(file.target)}`)
+  }
+  for (const dependency of generated.registryDependencies ?? []) {
+    if (dependency.startsWith("@keyframery/")) assert.ok(items.has(dependency.slice(12)), `${slug} refers to missing ${dependency}`)
+  }
+}
+console.log(`Registry: ${slugs.length} installable components and ${templates.length} templates verified; core files, aliases, pinned SDK versions, local dependencies and template assets complete.`)

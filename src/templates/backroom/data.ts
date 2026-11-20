@@ -218,8 +218,10 @@ const FINISHES: Finish[] = ["Unframed", "Oak frame", "Black frame"]
 const PRINT_PRICE: Record<Size, Cents> = { "30×40": 4500, "50×70": 8500, "70×100": 14500 }
 const FRAME_PRICE: Record<Size, Cents> = { "30×40": 5500, "50×70": 8500, "70×100": 12500 }
 
-/** Each print: its photo, name, collection, a line of description and how well it sells. */
-const PRINTS: { file: string; name: string; collection: Collection; description: string; weight: number }[] = [
+/** Each print: its photo, name, collection, a line of description and how well it sells. Most come in every
+    size and frame. The still lifes stop at 50×70, two small studies are 30×40 only, and two prints are made
+    in one frame, so the shop's list reads like a shop's and not like a grid. */
+const PRINTS: { file: string; name: string; collection: Collection; description: string; weight: number; sizes?: Size[]; finishes?: Finish[] }[] = [
   { file: "lake", name: "The jetty", collection: "Places", description: "Boards running out over still green water, pine on both shores and the peaks behind.", weight: 10 },
   { file: "coast-5", name: "Pebble shore", collection: "Coast", description: "A long curve of grey pebbles, a fallen pine and pale water to the horizon.", weight: 9 },
   { file: "canal", name: "Canal houses", collection: "Places", description: "Painted houses leaning over a canal, boats tied up below the windows.", weight: 8 },
@@ -231,16 +233,16 @@ const PRINTS: { file: string; name: string; collection: Collection; description:
   { file: "walk-29", name: "High ridge", collection: "Walks", description: "Snow and scree under a high ridge, the valley falling away below.", weight: 4 },
   { file: "walk-28", name: "River valley", collection: "Walks", description: "A river through spring beech woods, rocks bright in the shallows.", weight: 4 },
   { file: "walk-15", name: "Falls in the gorge", collection: "Walks", description: "A thin waterfall into a gorge of grey slate and moss.", weight: 3 },
-  { file: "walk-18", name: "Long grass", collection: "Walks", description: "One blade of grass in focus over a meadow in early summer.", weight: 3 },
-  { file: "walk-19", name: "Mossed trunk", collection: "Walks", description: "A fallen trunk in deep moss, looking up into the canopy.", weight: 2 },
-  { file: "gig", name: "Late set", collection: "Places", description: "A singer and his pianist under one beam of light, in black and white.", weight: 5 },
-  { file: "food-1", name: "Flat white", collection: "Kitchen", description: "A flat white and the café's brass bell, receipts on the dark wood.", weight: 5 },
-  { file: "food-2", name: "Raspberries in white", collection: "Kitchen", description: "A white bowl of raspberries on a pale table.", weight: 4 },
-  { file: "food-3", name: "Red onion", collection: "Kitchen", description: "A cut red onion, peppercorns and parsnip on a board.", weight: 3 },
-  { file: "food-4", name: "Harvest grapes", collection: "Kitchen", description: "Black grapes on the vine, just picked, with the leaves still on.", weight: 3 },
-  { file: "food-5", name: "Tea press", collection: "Kitchen", description: "A glass press of green tea, steam on the glass, a cup beside it.", weight: 3 },
-  { file: "food-6", name: "Three raspberries", collection: "Kitchen", description: "Three raspberries on a table in low gold light.", weight: 2 },
-  { file: "cup", name: "Red table", collection: "Kitchen", description: "A white cup of milky coffee on a red table, seen from above.", weight: 4 },
+  { file: "walk-18", name: "Long grass", collection: "Walks", description: "One blade of grass in focus over a meadow in early summer.", weight: 3, finishes: ["Unframed", "Oak frame"] },
+  { file: "walk-19", name: "Mossed trunk", collection: "Walks", description: "A fallen trunk in deep moss, looking up into the canopy.", weight: 2, sizes: ["30×40"] },
+  { file: "gig", name: "Late set", collection: "Places", description: "A singer and his pianist under one beam of light, in black and white.", weight: 5, finishes: ["Unframed", "Black frame"] },
+  { file: "food-1", name: "Flat white", collection: "Kitchen", description: "A flat white and the café's brass bell, receipts on the dark wood.", weight: 5, sizes: ["30×40", "50×70"] },
+  { file: "food-2", name: "Raspberries in white", collection: "Kitchen", description: "A white bowl of raspberries on a pale table.", weight: 4, sizes: ["30×40", "50×70"] },
+  { file: "food-3", name: "Red onion", collection: "Kitchen", description: "A cut red onion, peppercorns and parsnip on a board.", weight: 3, sizes: ["30×40", "50×70"] },
+  { file: "food-4", name: "Harvest grapes", collection: "Kitchen", description: "Black grapes on the vine, just picked, with the leaves still on.", weight: 3, sizes: ["30×40", "50×70"] },
+  { file: "food-5", name: "Tea press", collection: "Kitchen", description: "A glass press of green tea, steam on the glass, a cup beside it.", weight: 3, sizes: ["30×40", "50×70"] },
+  { file: "food-6", name: "Three raspberries", collection: "Kitchen", description: "Three raspberries on a table in low gold light.", weight: 2, sizes: ["30×40"] },
+  { file: "cup", name: "Red table", collection: "Kitchen", description: "A white cup of milky coffee on a red table, seen from above.", weight: 4, sizes: ["30×40", "50×70"] },
 ]
 
 const slugify = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
@@ -258,6 +260,8 @@ export const products: Product[] = PRINTS.map((print, index) => {
     /* Two prints were added this month and aren't published yet; everything else is on sale. */
     status: index === 19 || index === 20 ? "draft" : "active",
     createdAt: iso(TODAY - (index === 19 || index === 20 ? int(4, 12) : int(200, 640)) * DAY),
+    /* Every size and frame draws its stock, then the ones this print isn't sold in are dropped: the draws
+       after it (customers, orders) stay the same whatever a print is sold in. */
     variants: SIZES.flatMap((size) =>
       FINISHES.map((finish) => ({
         id: `${id}-${size.replace("×", "x")}-${finish === "Unframed" ? "u" : finish === "Oak frame" ? "o" : "b"}`,
@@ -269,15 +273,26 @@ export const products: Product[] = PRINTS.map((print, index) => {
         /* Prints are made to order; frames are kept in stock, fewer of the big ones. */
         stock: finish === "Unframed" ? int(14, 40) : size === "70×100" ? int(0, 6) : int(2, 14),
       })),
-    ),
+    ).filter((v) => (print.sizes ?? SIZES).includes(v.size) && (print.finishes ?? FINISHES).includes(v.finish)),
   }
 })
 
-/* A few variants run low or out, so stock warnings have something real to point at. */
-products[0].variants[4].stock = 2
-products[1].variants[7].stock = 0
-products[2].variants[4].stock = 1
-products[3].variants[8].stock = 0
+/** The variant someone asking for this size and frame gets: the nearest size the print is sold in, and
+    unframed when it isn't made in that frame. */
+const variantOf = (product: Product, size: Size, finish: Finish): Variant => {
+  const want = SIZES.indexOf(size)
+  const sold = SIZES.filter((s) => product.variants.some((v) => v.size === s))
+  const nearest = sold.reduce((best, s) => (Math.abs(SIZES.indexOf(s) - want) < Math.abs(SIZES.indexOf(best) - want) ? s : best))
+  const inSize = product.variants.filter((v) => v.size === nearest)
+  return inSize.find((v) => v.finish === finish) ?? inSize.find((v) => v.finish === "Unframed") ?? inSize[0]
+}
+
+/* A few variants run low or out, so stock warnings have something real to point at. The notifications
+   below name two of them. */
+variantOf(products[0], "50×70", "Oak frame").stock = 2
+variantOf(products[1], "50×70", "Black frame").stock = 0
+variantOf(products[2], "30×40", "Oak frame").stock = 2
+variantOf(products[3], "70×100", "Black frame").stock = 0
 
 export const productById = new Map(products.map((p) => [p.id, p]))
 export const variantTitle = (v: Pick<Variant, "size" | "finish">) => `${v.size} cm · ${v.finish}`
@@ -436,10 +451,8 @@ const orderList: Order[] = []
         const product = weighted(productWeights)
         if (lines.some((l) => l.productId === product.id)) continue
         const wholesaleSize = pick(["30×40", "50×70"] as const)
-        const variant =
-          channel === "wholesale"
-            ? product.variants.find((v) => v.finish === "Unframed" && v.size === wholesaleSize)!
-            : product.variants[weighted(SIZES.flatMap((_, s) => FINISHES.map((__, f) => [s * 3 + f, (s === 0 ? 5 : s === 1 ? 4 : 1.4) * (f === 0 ? 3 : 1.6)] as const)))]
+        const asked = channel === "wholesale" ? 0 : weighted(SIZES.flatMap((_, s) => FINISHES.map((__, f) => [s * 3 + f, (s === 0 ? 5 : s === 1 ? 4 : 1.4) * (f === 0 ? 3 : 1.6)] as const)))
+        const variant = channel === "wholesale" ? variantOf(product, wholesaleSize, "Unframed") : variantOf(product, SIZES[Math.floor(asked / 3)], FINISHES[asked % 3])
         const quantity = channel === "wholesale" ? int(2, 6) : weighted([[1, 88], [2, 12]])
         const price = channel === "wholesale" ? Math.round((variant.price * 0.6) / 100) * 100 : variant.price
         lines.push({ productId: product.id, variantId: variant.id, name: product.name, variantTitle: variantTitle(variant), photo: product.photo, quantity, price })

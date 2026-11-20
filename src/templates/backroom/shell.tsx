@@ -122,6 +122,8 @@ function densityVars(a: Appearance) {
     "--br-page-top": compact ? "1rem" : "1.75rem",
     "--br-gap": compact ? "0.75rem" : "1rem",
     "--br-section": compact ? "1.25rem" : "1.75rem",
+    /* A table row that holds a photo or two lines of text. One-line rows keep the table's own height. */
+    "--br-row-tall": compact ? "3rem" : "3.5rem",
     "--sidebar-height": compact ? "1.75rem" : "2rem",
     "--sidebar-width": "16rem",
     "--sidebar-width-collapsed": "3.5rem",

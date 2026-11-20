@@ -77,11 +77,18 @@ export function SettingsPage({ section }: { section: string }) {
           {current.to === "/settings" && <StoreDetails />}
           {current.to === "/settings/account" && <Account />}
           {current.to === "/settings/appearance" && (
-            <Card>
-              <CardContent>
-                <AppearanceSections className="max-w-[560px] [&>*:first-child]:pt-0" />
-              </CardContent>
-            </Card>
+            <div className="grid gap-[var(--br-gap)] xl:grid-cols-2 xl:items-start">
+              <Card>
+                <CardContent>
+                  <AppearanceSections group="look" className="[&>*:first-child]:pt-0 [&>*:last-child]:pb-0" />
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent>
+                  <AppearanceSections group="motion" className="[&>*:first-child]:pt-0 [&>*:last-child]:pb-0" />
+                </CardContent>
+              </Card>
+            </div>
           )}
           {current.to === "/settings/notifications" && <Notifications />}
           {current.to === "/settings/team" && <Team />}
@@ -386,7 +393,7 @@ function Team() {
           </CardAction>
         </CardHeader>
         <CardContent className="overflow-x-auto px-[calc(var(--card-padding,1.25rem)-0.75rem)]">
-          <Table aria-label="Team" className="w-full min-w-[620px]">
+          <Table aria-label="Team" className="w-full min-w-[620px] [--table-height:var(--br-row-tall,3.5rem)]">
             <TableHeader>
               <TableRow>
                 <TableHead className="text-start">Person</TableHead>

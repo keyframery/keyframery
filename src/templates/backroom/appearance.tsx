@@ -152,79 +152,88 @@ export function AppearanceDrawer({ open, onOpenChange }: { open: boolean; onOpen
   )
 }
 
-/** Every appearance setting, each with its own reset. The drawer and Settings › Appearance both show these. */
-export function AppearanceSections({ className }: { className?: string }) {
+/** Every appearance setting, each with its own reset. The drawer shows them as one column; Settings › Appearance
+    has the room for two, so it asks for the look (theme, sidebar, density, direction) and the motion apart. */
+export function AppearanceSections({ className, group }: { className?: string; group?: "look" | "motion" }) {
   const { state, actions } = useStore()
   const a = state.appearance
   const { value: motion } = usePreference(backroomMotion)
   const set = actions.setAppearance
   return (
     <div className={cn("flex flex-col divide-y divide-border", className)}>
-      <Section title="Theme" hint="System follows your device." changed={a.theme !== DEFAULT_APPEARANCE.theme} onReset={() => set({ theme: DEFAULT_APPEARANCE.theme })}>
-        <SegmentedControl aria-label="Theme" value={a.theme} onValueChange={(v) => v && set({ theme: v as Appearance["theme"] })} className={fill}>
-          <SegmentedControlItem value="light">
-            <Sun {...icon} />
-            Light
-          </SegmentedControlItem>
-          <SegmentedControlItem value="dark">
-            <Moon {...icon} />
-            Dark
-          </SegmentedControlItem>
-          <SegmentedControlItem value="system">
-            <Monitor {...icon} />
-            System
-          </SegmentedControlItem>
-        </SegmentedControl>
-      </Section>
-      <Section title="Sidebar" hint="Inset sets the page on a sheet; floating lifts the sidebar." changed={a.sidebar !== DEFAULT_APPEARANCE.sidebar} onReset={() => set({ sidebar: DEFAULT_APPEARANCE.sidebar })}>
-        <SegmentedControl aria-label="Sidebar style" value={a.sidebar} onValueChange={(v) => v && set({ sidebar: v as Appearance["sidebar"] })} className={fill}>
-          <SegmentedControlItem value="inset">Inset</SegmentedControlItem>
-          <SegmentedControlItem value="floating">Floating</SegmentedControlItem>
-          <SegmentedControlItem value="plain">Plain</SegmentedControlItem>
-        </SegmentedControl>
-      </Section>
-      <Section title="Density" hint="Compact fits more rows on a screen." changed={a.density !== DEFAULT_APPEARANCE.density} onReset={() => set({ density: DEFAULT_APPEARANCE.density })}>
-        <SegmentedControl aria-label="Density" value={a.density} onValueChange={(v) => v && set({ density: v as Appearance["density"] })} className={fill}>
-          <SegmentedControlItem value="comfortable">Comfortable</SegmentedControlItem>
-          <SegmentedControlItem value="compact">Compact</SegmentedControlItem>
-        </SegmentedControl>
-      </Section>
-      <Section title="Direction" hint="Right to left mirrors the whole admin." changed={a.dir !== DEFAULT_APPEARANCE.dir} onReset={() => set({ dir: DEFAULT_APPEARANCE.dir })}>
-        <SegmentedControl aria-label="Reading direction" value={a.dir} onValueChange={(v) => v && set({ dir: v as Appearance["dir"] })} className={fill}>
-          <SegmentedControlItem value="ltr">Left to right</SegmentedControlItem>
-          <SegmentedControlItem value="rtl">Right to left</SegmentedControlItem>
-        </SegmentedControl>
-      </Section>
-      <Section title="Motion style" hint="How every panel, menu and number moves." changed={motion !== "springy"} onReset={() => backroomMotion.set("springy")}>
-        <MotionStyleSwitcher preference={backroomMotion} className={fill} />
-        <MotionPreview motion={motion} speed={a.speed} />
-      </Section>
-      <Section title="Motion speed" hint="Slower or quicker than the style's own pace." changed={a.speed !== DEFAULT_APPEARANCE.speed} onReset={() => set({ speed: DEFAULT_APPEARANCE.speed })}>
-        <Slider
-          aria-label="Motion speed"
-          value={a.speed}
-          min={0.5}
-          max={2}
-          step={0.25}
-          onValueChange={(v) => set({ speed: Array.isArray(v) ? v[0] : (v as number) })}
-          format={{ maximumFractionDigits: 2 }}
-          className="flex flex-col gap-2.5"
-        >
-          <div className="flex items-center justify-between text-[12px] text-muted-foreground">
-            <span>Quicker</span>
-            <span className="font-medium text-foreground tabular-nums">
-              <SliderValue>{(state) => `${state.text}×`}</SliderValue>
-            </span>
-            <span>Slower</span>
-          </div>
-          <SliderControl>
-            <SliderTrack>
-              <SliderIndicator />
-              <SliderThumb aria-label="Motion speed" />
-            </SliderTrack>
-          </SliderControl>
-        </Slider>
-      </Section>
+      {group !== "motion" && (
+        <>
+          <Section title="Theme" hint="System follows your device." changed={a.theme !== DEFAULT_APPEARANCE.theme} onReset={() => set({ theme: DEFAULT_APPEARANCE.theme })}>
+            <SegmentedControl aria-label="Theme" value={a.theme} onValueChange={(v) => v && set({ theme: v as Appearance["theme"] })} className={fill}>
+              <SegmentedControlItem value="light">
+                <Sun {...icon} />
+                Light
+              </SegmentedControlItem>
+              <SegmentedControlItem value="dark">
+                <Moon {...icon} />
+                Dark
+              </SegmentedControlItem>
+              <SegmentedControlItem value="system">
+                <Monitor {...icon} />
+                System
+              </SegmentedControlItem>
+            </SegmentedControl>
+          </Section>
+          <Section title="Sidebar" hint="Inset sets the page on a sheet; floating lifts the sidebar." changed={a.sidebar !== DEFAULT_APPEARANCE.sidebar} onReset={() => set({ sidebar: DEFAULT_APPEARANCE.sidebar })}>
+            <SegmentedControl aria-label="Sidebar style" value={a.sidebar} onValueChange={(v) => v && set({ sidebar: v as Appearance["sidebar"] })} className={fill}>
+              <SegmentedControlItem value="inset">Inset</SegmentedControlItem>
+              <SegmentedControlItem value="floating">Floating</SegmentedControlItem>
+              <SegmentedControlItem value="plain">Plain</SegmentedControlItem>
+            </SegmentedControl>
+          </Section>
+          <Section title="Density" hint="Compact fits more rows on a screen." changed={a.density !== DEFAULT_APPEARANCE.density} onReset={() => set({ density: DEFAULT_APPEARANCE.density })}>
+            <SegmentedControl aria-label="Density" value={a.density} onValueChange={(v) => v && set({ density: v as Appearance["density"] })} className={fill}>
+              <SegmentedControlItem value="comfortable">Comfortable</SegmentedControlItem>
+              <SegmentedControlItem value="compact">Compact</SegmentedControlItem>
+            </SegmentedControl>
+          </Section>
+          <Section title="Direction" hint="Right to left mirrors the whole admin." changed={a.dir !== DEFAULT_APPEARANCE.dir} onReset={() => set({ dir: DEFAULT_APPEARANCE.dir })}>
+            <SegmentedControl aria-label="Reading direction" value={a.dir} onValueChange={(v) => v && set({ dir: v as Appearance["dir"] })} className={fill}>
+              <SegmentedControlItem value="ltr">Left to right</SegmentedControlItem>
+              <SegmentedControlItem value="rtl">Right to left</SegmentedControlItem>
+            </SegmentedControl>
+          </Section>
+        </>
+      )}
+      {group !== "look" && (
+        <>
+          <Section title="Motion style" hint="How every panel, menu and number moves." changed={motion !== "springy"} onReset={() => backroomMotion.set("springy")}>
+            <MotionStyleSwitcher preference={backroomMotion} className={fill} />
+            <MotionPreview motion={motion} speed={a.speed} inPanel={!group} />
+          </Section>
+          <Section title="Motion speed" hint="Slower or quicker than the style's own pace." changed={a.speed !== DEFAULT_APPEARANCE.speed} onReset={() => set({ speed: DEFAULT_APPEARANCE.speed })}>
+            <Slider
+              aria-label="Motion speed"
+              value={a.speed}
+              min={0.5}
+              max={2}
+              step={0.25}
+              onValueChange={(v) => set({ speed: Array.isArray(v) ? v[0] : (v as number) })}
+              format={{ maximumFractionDigits: 2 }}
+              className="flex flex-col gap-2.5"
+            >
+              <div className="flex items-center justify-between text-[12px] text-muted-foreground">
+                <span>Quicker</span>
+                <span className="font-medium text-foreground tabular-nums">
+                  <SliderValue>{(state) => `${state.text}×`}</SliderValue>
+                </span>
+                <span>Slower</span>
+              </div>
+              <SliderControl>
+                <SliderTrack>
+                  <SliderIndicator />
+                  <SliderThumb aria-label="Motion speed" />
+                </SliderTrack>
+              </SliderControl>
+            </Slider>
+          </Section>
+        </>
+      )}
     </div>
   )
 }
@@ -248,7 +257,7 @@ const MOTION_NOTE: Record<MotionStyleValue, string> = {
 
 /** A small order card that arrives, gets its badge, fills its bar and slides its key, in the chosen style.
     It plays again on every change and on "Play again". Decorative: the switcher above is the control. */
-function MotionPreview({ motion, speed }: { motion: MotionStyleValue; speed: number }) {
+function MotionPreview({ motion, speed, inPanel }: { motion: MotionStyleValue; speed: number; inPanel: boolean }) {
   const [run, setRun] = React.useState(0)
   const t = (ms: number) => `calc(${ms}ms*var(--kf-speed,1))`
   return (
@@ -291,7 +300,7 @@ function MotionPreview({ motion, speed }: { motion: MotionStyleValue; speed: num
         </div>
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-[12px] text-muted-foreground">{MOTION_NOTE[motion]}. Close this panel and the page plays again.</span>
+        <span className="text-[12px] text-muted-foreground">{MOTION_NOTE[motion]}. {inPanel ? "Close this panel and the page plays again." : "Everything you open next moves this way."}</span>
         <Button size="sm" variant="ghost" onClick={() => setRun((n) => n + 1)}>
           <RotateCcw {...icon} />
           Play again

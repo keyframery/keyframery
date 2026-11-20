@@ -328,7 +328,7 @@ function RecentOrders({ orders }: { orders: Order[] }) {
         )}
       </CardHeader>
       <CardContent className="overflow-x-auto px-[calc(var(--card-padding,1.25rem)-0.75rem)]">
-        <Table aria-label="Recent orders" className="w-full min-w-[640px]">
+        <Table aria-label="Recent orders" className="w-full min-w-[640px] [--table-height:var(--br-row-tall,3.5rem)]">
           <TableHeader>
             <TableRow>
               <TableHead className="text-start">Order</TableHead>
@@ -411,6 +411,7 @@ function Analytics({ period, loading }: { period: Period; loading: boolean }) {
   const sources = (Object.keys(SOURCE_LABEL) as Source[]).map((k) => ({ key: k, label: SOURCE_LABEL[k], value: now.sources[k] })).sort((a, b) => b.value - a.value)
   const devices = (Object.keys(DEVICE_LABEL) as Device[]).map((k) => ({ key: k, label: DEVICE_LABEL[k], value: now.devices[k], before: before.devices[k] }))
   const deviceConfig = {
+    sessions: { label: "Sessions" },
     mobile: { label: DEVICE_LABEL.mobile, color: "var(--chart-1)" },
     desktop: { label: DEVICE_LABEL.desktop, color: "var(--chart-2)" },
     tablet: { label: DEVICE_LABEL.tablet, color: "var(--chart-4)" },

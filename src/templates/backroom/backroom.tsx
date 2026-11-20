@@ -40,6 +40,12 @@ export function Backroom({ basePath = "/admin", initialPath }: { basePath?: stri
   )
 }
 
+/* The admin is set in the project's --font-sans. A project that has not given it a value yet (a new shadcn
+   project can be in that state) would show everything in the browser's serif, so a system font stands behind
+   it. The admin's menus, dialogs and toasts mount on <body>, outside the admin, and get the same font: in the
+   base layer and without weight, so any font the project sets on <body> itself still wins. */
+const fontRule = "@layer base { :where(body:has([data-backroom])) { font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif) } }"
+
 function App() {
   const { state } = useStore()
   const router = useRouter()
@@ -64,7 +70,10 @@ function App() {
     )
 
   return (
-    <div data-backroom="" className="min-h-svh bg-background font-sans text-foreground antialiased">
+    <div data-backroom="" className="min-h-svh bg-background [font-family:var(--font-sans,ui-sans-serif,system-ui,sans-serif)] text-foreground antialiased">
+      <style href="br-font" precedence="default">
+        {fontRule}
+      </style>
       <MotionStyle preference={backroomMotion} />
       <PageEffects title={title} storeName={state.settings.name} />
       {page}

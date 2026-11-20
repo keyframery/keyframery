@@ -149,6 +149,7 @@ export function CustomersPage() {
       />
       <DataTable<Row>
         label="Customers"
+        className="[--data-table-row-height:var(--br-row-tall,3.5rem)]"
         data={rows}
         columns={columns}
         getRowId={(c) => c.id}
@@ -293,12 +294,8 @@ export function CustomerPage({ id }: { id: string }) {
     <div className={pageStack}>
       <PageHeader
         back={{ to: "/customers", label: "Back to customers" }}
-        title={
-          <span className="flex items-center gap-3">
-            <PersonAvatar person={customer} size="lg" />
-            {customer.name}
-          </span>
-        }
+        lead={<PersonAvatar person={customer} size="lg" />}
+        title={customer.name}
         badges={customer.company && <Badge variant="secondary">Wholesale</Badge>}
         description={`${customer.company ? `${customer.company} · ` : ""}${customer.address.city}, ${customer.address.country} · customer since ${date(customer.createdAt)}`}
         actions={

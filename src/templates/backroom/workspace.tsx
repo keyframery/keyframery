@@ -273,7 +273,7 @@ export function NotificationsPage() {
   }
 
   return (
-    <div className={`${pageStack} max-w-[760px]`}>
+    <div className={pageStack}>
       <PageHeader
         title="Notifications"
         description={unread ? `${unread} unread` : "All read"}

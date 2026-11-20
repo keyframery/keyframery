@@ -169,8 +169,9 @@ for (const slug of templateSlugs) {
       npmDeps(code).forEach((d) => deps.add(d))
       localDeps(code, slug).forEach((d) => reg.add(`@keyframery/${d}`))
     }
-    // The photos stay on keyframery.com until a project swaps in its own.
-    fs.writeFileSync(path.join(genDir, "templates", slug, file), rewrite(code).replaceAll('"/demo/', '"https://keyframery.com/demo/'))
+    // The photos stay on keyframery.com until a project swaps in its own. A path can open with any
+    // quote: data.ts builds each print's photo in a template string.
+    fs.writeFileSync(path.join(genDir, "templates", slug, file), rewrite(code).replace(/(["'`])\/demo\//g, "$1https://keyframery.com/demo/"))
     files.push({ path: `registry/templates/${slug}/${file}`, type: "registry:component", target: `components/${slug}/${file}` })
   }
   const entry = templateFacts.match(new RegExp(`slug: "${slug}"[\\s\\S]*?\\n  \\}`))?.[0] ?? ""
