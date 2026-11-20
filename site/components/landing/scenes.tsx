@@ -30,11 +30,16 @@ import { cn } from "@/lib/utils"
 import { Demo, DemoFrame } from "@site/components/demo"
 import type { DemoModule } from "@site/lib/demo-types"
 
+/* The carousel sits far down the landing: its photos wait until it is near the screen. On its own docs page they load at once. */
+function LandingCarousel(props: React.ComponentProps<typeof carousel.default>) {
+  return <carousel.default {...props} lazyPhotos />
+}
+
 /* Bundled with the page, so they are in the first paint. Anything else loads on demand. */
 const BUNDLED: Record<string, DemoModule> = {
   accordion,
   button,
-  carousel,
+  carousel: { ...carousel, default: LandingCarousel },
   checkbox,
   menu,
   meter,

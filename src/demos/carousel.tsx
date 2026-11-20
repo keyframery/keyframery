@@ -74,6 +74,7 @@ export default function CarouselDemo({
   radius = 14,
   face = "",
   ink = "",
+  lazyPhotos = false,
 }: {
   orientation?: "horizontal" | "vertical"
   align?: "start" | "center" | "end"
@@ -95,15 +96,17 @@ export default function CarouselDemo({
   radius?: number
   face?: string
   ink?: string
+  /** For a carousel far down a page (the landing): its photos wait until it is near the screen. */
+  lazyPhotos?: boolean
 }) {
   const [rotating, setRotating] = React.useState(playing)
   React.useEffect(() => setRotating(playing), [playing])
-  // The first photo loads when the carousel nears the screen; the rest follow it, so no slide arrives empty.
+  // With lazyPhotos, the first photo loads when the carousel nears the screen and the rest follow it, so no slide arrives empty.
   const firstPhoto = React.useRef<HTMLImageElement>(null)
   const [warm, setWarm] = React.useState(false)
   React.useEffect(() => {
-    if (firstPhoto.current?.complete) setWarm(true)
-  }, [])
+    if (lazyPhotos && firstPhoto.current?.complete) setWarm(true)
+  }, [lazyPhotos])
   const theme = {
     "--carousel-gap": `${gap}px`,
     "--carousel-radius": `${radius}px`,
@@ -129,9 +132,9 @@ export default function CarouselDemo({
                     style={{ height, borderRadius: radius }}
                     src={photo.src}
                     alt={photo.title}
-                    loading={index === 0 || !warm ? "lazy" : "eager"}
-                    decoding="async"
-                    onLoad={index === 0 ? () => setWarm(true) : undefined}
+                    loading={lazyPhotos ? (index === 0 || !warm ? "lazy" : "eager") : undefined}
+                    decoding={lazyPhotos ? "async" : undefined}
+                    onLoad={lazyPhotos && index === 0 ? () => setWarm(true) : undefined}
                     draggable={false}
                     className="block h-[220px] w-full rounded-[14px] bg-muted object-cover outline outline-1 -outline-offset-1 outline-black/5 dark:outline-white/5"
                   />
