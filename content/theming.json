@@ -3094,5 +3094,237 @@
       "Space between bars in a group (never more than a third of a bar)",
       "4px"
     ]
+  ],
+  "data-table": [
+    [
+      "--data-table-surface",
+      "The table's card and its sticky cells",
+      "--card"
+    ],
+    [
+      "--data-table-border",
+      "The card's hairline",
+      "black 7%; white 8% in dark"
+    ],
+    [
+      "--data-table-accent",
+      "The hover and selected row tint",
+      "--foreground"
+    ],
+    [
+      "--data-table-radius",
+      "The card's corners",
+      "14px"
+    ],
+    [
+      "--data-table-row-height",
+      "Each row's height",
+      "2.75rem"
+    ],
+    [
+      "--data-table-bar",
+      "The bulk bar's surface",
+      "--popover"
+    ]
+  ],
+  "description-list": [
+    [
+      "--description-list-term",
+      "The labels",
+      "--muted-foreground"
+    ],
+    [
+      "--description-list-ink",
+      "The values",
+      "--foreground"
+    ],
+    [
+      "--description-list-rule",
+      "Hairlines between rows",
+      "--border"
+    ],
+    [
+      "--description-list-label",
+      "The label column in rows",
+      "10rem"
+    ],
+    [
+      "--description-list-gap",
+      "Space above and below an item",
+      "0.75rem"
+    ],
+    [
+      "--description-list-font",
+      "The values' size",
+      "13px"
+    ]
+  ],
+  "filter": [
+    [
+      "--filter-face",
+      "The chip while open, and the list's sheet",
+      "--popover"
+    ],
+    [
+      "--filter-ink",
+      "The chip's label and the options",
+      "--foreground"
+    ],
+    [
+      "--filter-border",
+      "The chip's dashed outline",
+      "--border"
+    ],
+    [
+      "--filter-accent",
+      "A chosen option's box",
+      "--primary"
+    ],
+    [
+      "--filter-badge",
+      "The chosen values' badges",
+      "--secondary"
+    ],
+    [
+      "--filter-radius",
+      "The chip's corners",
+      "9px"
+    ],
+    [
+      "--filter-height",
+      "The chip's height",
+      "2rem"
+    ],
+    [
+      "--filter-list-width",
+      "The list's width",
+      "15rem"
+    ]
+  ],
+  "sparkline": [
+    [
+      "--sparkline-color",
+      "The marks, without trendColor",
+      "--chart-1"
+    ],
+    [
+      "--sparkline-positive",
+      "Good news, with trendColor",
+      "oklch(0.62 0.16 150)"
+    ],
+    [
+      "--sparkline-negative",
+      "Bad news, with trendColor",
+      "--destructive"
+    ],
+    [
+      "--sparkline-height",
+      "The height",
+      "2.5rem"
+    ],
+    [
+      "--sparkline-stroke",
+      "The line's width",
+      "1.75px"
+    ],
+    [
+      "--sparkline-dot",
+      "The dots' size",
+      "6px"
+    ],
+    [
+      "--sparkline-surface",
+      "The ring round the dots (the surface it sits on)",
+      "--background; --card in dark"
+    ],
+    [
+      "--sparkline-reference",
+      "The dashed reference line",
+      "--muted-foreground"
+    ]
+  ],
+  "stat": [
+    [
+      "--stat-surface",
+      "The card, and the group's shared surface",
+      "--background; --card in dark"
+    ],
+    [
+      "--stat-divider",
+      "The hairlines between stats in a group",
+      "--border"
+    ],
+    [
+      "--stat-label",
+      "The label",
+      "--muted-foreground"
+    ],
+    [
+      "--stat-positive",
+      "Good news: the delta and the sparkline",
+      "oklch(0.55 0.15 150); oklch(0.74 0.16 150) in dark"
+    ],
+    [
+      "--stat-negative",
+      "Bad news: the delta and the sparkline",
+      "--destructive"
+    ],
+    [
+      "--stat-value-size",
+      "The number's size",
+      "28px"
+    ],
+    [
+      "--stat-radius",
+      "The corners",
+      "16px"
+    ],
+    [
+      "--stat-padding",
+      "The inset",
+      "1.25rem"
+    ],
+    [
+      "--stat-group-columns",
+      "Columns in a group on a wide container",
+      "4"
+    ],
+    [
+      "--stat-chart-height",
+      "The height of a sparkline in StatChart",
+      "2.75rem"
+    ]
+  ],
+  "stepper": [
+    [
+      "--stepper-accent",
+      "Finished and current steps, and the filled line",
+      "--primary"
+    ],
+    [
+      "--stepper-track",
+      "The line before it fills, and upcoming steps' rim",
+      "--border"
+    ],
+    [
+      "--stepper-ink",
+      "Titles of reached steps",
+      "--foreground"
+    ],
+    [
+      "--stepper-muted",
+      "Upcoming titles, numbers and descriptions",
+      "--muted-foreground"
+    ],
+    [
+      "--stepper-error",
+      "A step in error",
+      "--destructive"
+    ],
+    [
+      "--stepper-size",
+      "The indicators' diameter",
+      "1.75rem"
+    ]
   ]
 }

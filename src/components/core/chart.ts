@@ -286,7 +286,7 @@ function ringPoint(at: number, radius: number): Point {
 type ChartSeries = { key: string; label: string; color: string; hidden: boolean; index: number }
 /** A bar, in percent of the plot: `x`/`w` across, `y`/`h` up from the bottom (vertical) or `y`/`h`
     down from the top and `x`/`w` from the left (horizontal). */
-type ChartBar = { series: string; category: string; index: number; x: number; w: number; y: number; h: number; start: boolean; end: boolean; negative: boolean; hidden: boolean }
+type ChartBar = { series: string; category: string; index: number; x: number; w: number; y: number; h: number; start: boolean; end: boolean; negative: boolean; hidden: boolean; /** Its place in a stack, from the baseline: 0, 1, 2… (0 when not stacked). */ stack: number }
 /** A tick: `pos` in percent along its axis from the start of the value scale (bottom or left) or
     the category axis (left or top). `zero` marks the baseline. */
 type ChartTick = { key: string; pos: number; label: string; shown: boolean; zero: boolean }
@@ -475,6 +475,7 @@ function chartLayout(input: Inputs): ChartLayout {
           end: !doStack || filled.at(-1)?.key === s.key,
           negative: raw < 0,
           hidden: s.hidden,
+          stack: doStack ? Math.max(0, visible.findIndex((v) => v.key === s.key)) : 0,
         }
         barKeys.push(barKey(s.key, category))
         if (!s.hidden) {
@@ -709,11 +710,19 @@ const chart = definePrimitive({
           return { key: s.key, label: s.label, value, text: state.formatValue(value, s.key), color: s.color, share: 0 }
         })
     }
+    /* A stack's total, for the tooltip and the point names: stacked bars or areas with more than one series shown. */
+    const totalOf = (state: ChartState, index: number) => {
+      const rows = readout(state, index)
+      if (!state.stacked || state.type === "line" || state.layout.radial || rows.length < 2) return null
+      const value = rows.reduce((sum, r) => sum + r.value, 0)
+      return { value, text: state.formatValue(value, "total") }
+    }
     const nameOf = (state: ChartState, index: number) => {
       const { layout } = state
       const title = layout.radial ? (layout.slices[layout.sliceKeys[index]]?.label ?? "") : (layout.labels[index] ?? "")
       const parts = readout(state, index).map((r) => (layout.radial ? `${r.text}, ${Math.round(r.share * 100)}%` : `${r.label} ${r.text}`))
-      return `${title}: ${parts.join(", ")}`
+      const total = totalOf(state, index)
+      return `${title}: ${parts.join(", ")}${total ? `, total ${total.text}` : ""}`
     }
     /* Where the cursor, tooltip and markers sit: the active row, or the one they are leaving. */
     const shownIndex = (state: ChartState) => state.activeIndex ?? state.lastIndex
@@ -895,6 +904,7 @@ const chart = definePrimitive({
               "--chart-y": bar.y,
               "--chart-h": bar.h,
               "--chart-i": bar.index,
+              "--chart-s": bar.stack,
               "--chart-color": `var(--color-${cssName(bar.series)})`,
             }),
           }
@@ -1029,12 +1039,12 @@ const chart = definePrimitive({
       }),
 
       /* Follows the active row. Its words are for the eye; the points carry them for screen readers. */
-      tooltip: slot<{}, { open: boolean; title: string; rows: ReturnType<typeof readout> }>({
+      tooltip: slot<{}, { open: boolean; title: string; rows: ReturnType<typeof readout>; total: { value: number; text: string } | null }>({
         state: (state) => {
           const index = shownIndex(state)
-          if (index === null) return { open: false, title: "", rows: [] }
+          if (index === null) return { open: false, title: "", rows: [], total: null }
           const title = state.layout.radial ? state.layout.series[0]?.label ?? "" : state.layout.labels[index] ?? ""
-          return { open: state.activeIndex !== null, title, rows: readout(state, index) }
+          return { open: state.activeIndex !== null, title, rows: readout(state, index), total: totalOf(state, index) }
         },
         attrs: (state) => {
           const index = shownIndex(state)
@@ -1053,6 +1063,8 @@ const chart = definePrimitive({
         },
       }),
       "tooltip-label": slot({}),
+      /* The stack's total under the rows, when bars or areas are stacked. */
+      "tooltip-total": slot({}),
       /* One row of the tooltip: a series, or a pie's slice. */
       "tooltip-item": slot<{ value: string }>({
         props: { value: "string" },

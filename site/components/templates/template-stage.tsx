@@ -18,7 +18,7 @@ type Device = (typeof devices)[number]["value"]
  * fit, so the desktop design is what you see even in a narrow column. It is the real page: scroll it,
  * drag things, switch currency.
  */
-export function TemplateStage({ slug, name }: { slug: string; name?: string }) {
+export function TemplateStage({ slug, name, hint }: { slug: string; name?: string; hint?: string }) {
   const stage = React.useRef<HTMLDivElement>(null)
   const [room, setRoom] = React.useState(0)
   const [device, setDevice] = React.useState<Device>("desktop")
@@ -65,7 +65,7 @@ export function TemplateStage({ slug, name }: { slug: string; name?: string }) {
             keyframery.com{path}
           </span>
           <div className="ms-auto flex items-center gap-1 sm:ms-0">
-            <Button variant="ghost" size="icon-sm" aria-label="Play it again from the loading sequence" title="Play again" onClick={() => setRun((count) => count + 1)} className="size-7 text-muted-foreground">
+            <Button variant="ghost" size="icon-sm" aria-label="Load it again from the start" title="Load again" onClick={() => setRun((count) => count + 1)} className="size-7 text-muted-foreground">
               <RotateCw aria-hidden className="size-3.5" />
             </Button>
             <Button variant="default" size="sm" render={<a href={path} target="_blank" rel="noreferrer" />}>
@@ -90,7 +90,7 @@ export function TemplateStage({ slug, name }: { slug: string; name?: string }) {
           )}
         </div>
       </div>
-      <p className="mt-2.5 text-[12.5px] leading-5 text-muted-foreground">This is the real page, not a recording. Scroll inside it, drag a line on the ring, tap a face, switch the currency.</p>
+      <p className="mt-2.5 text-[12.5px] leading-5 text-muted-foreground">{hint ?? "This is the real page, not a recording. Scroll inside it, drag a line on the ring, tap a face, switch the currency."}</p>
     </section>
   )
 }

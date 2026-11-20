@@ -1,0 +1,79 @@
+---
+title: Backroom
+heading: "Backroom: a complete store admin on UI SDK"
+seoTitle: "Backroom: Free React Admin Dashboard Template (shadcn compatible)"
+description: "A free, complete store admin template for React: orders, products, customers, discounts, an inbox, apps, settings and sign-in, built from UI SDK components end to end and ready for AI agents."
+template: backroom
+full: true
+faq:
+  - q: "Is Backroom free?"
+    a: "Yes. It is open source like the components, for personal and commercial projects."
+  - q: "Does it work with shadcn/ui?"
+    a: "Yes. It installs with the shadcn CLI into the same components folder, and the Keyframery components it brings follow the shadcn conventions: you own the code and can edit every file."
+  - q: "Does it need Next.js?"
+    a: "No. Backroom is plain React. It keeps its own addresses through the History API, so it needs one catch-all route in Next.js, React Router, TanStack Router or anything else that serves React 19 with Tailwind CSS v4."
+  - q: "Is the data real?"
+    a: "It is a sample print shop, held in memory so every page works the moment you install it. Every change goes through one action in store.tsx, so pointing an action at your own API is the only change a page needs."
+  - q: "What does agent ready mean?"
+    a: "Every control is a UI SDK component, so an AI agent can read each page and use it through UI SDK's agent bridge, the same way a person does. Refunds, cancellations and deletes are marked so the agent has to ask the person first."
+---
+
+<TemplateStage slug="backroom" name="Backroom" hint="This is the real admin, not a recording. Open an order and fulfil it, press ⌘K, reply in the inbox, or change the theme and motion from the account menu." />
+
+## What is in it
+
+Backroom is the admin for a made-up print shop, Tideline Prints. It is 27 working pages, and every figure on them comes from the same sample store, so a refund on one page changes the dashboard on another.
+
+| Page | What you can do |
+| --- | --- |
+| Dashboard | Revenue, orders and refunds for the period you pick, best sellers, recent orders and an analytics tab. Export the orders as CSV. |
+| Orders | Filter, sort and search, with the state in the address. Fulfil in bulk, export, or open an order to fulfil, refund, cancel and add notes to its timeline. |
+| New order | Four steps: the customer, the items, shipping and a review, with wholesale prices and free shipping worked out as you go. |
+| Products | Publish and archive, stock and sales in the last 30 days. Each product has a photo, variants with their own prices and stock, and a save bar. |
+| Customers | Add, filter and export. Each customer has their orders, totals, a note, tags and a newsletter switch. |
+| Discounts | Percent, amount and free-shipping codes with dates and limits. Create, pause, import from CSV and delete. |
+| Inbox | Conversations with customers, linked to their orders. Reply, drop in a saved reply, mark done, start a new one. |
+| Apps | Connect and manage Stripe, PayPal, Gmail, Slack, Google Drive and more, with the permissions each one asks for. |
+| Notifications and help | Every notification by day, and a searchable help page with a support form. |
+| Settings | Store details, your account and password, appearance, notifications, the team and their roles, and billing. |
+| Sign in | Sign in, two-step code, sign up, forgot and reset password. The sample password is `tideline-2026` and the code is `246810`. |
+| Errors | 401, 403, 404, 500 and 503 (down for an update) pages. |
+
+The shell around them has a collapsible sidebar (`⌘B`), a command menu (`⌘K`) that searches pages, orders, products and customers, notifications, and an appearance panel for theme, density, direction and [motion style](/docs/motion-styles).
+
+## Install
+
+```npm
+npx shadcn@latest add @keyframery/backroom
+```
+
+That copies the admin into `components/backroom/` and installs every Keyframery component it uses. Then give it one catch-all route:
+
+```tsx title="app/admin/[[...path]]/page.tsx"
+import { Backroom } from "@/components/backroom/backroom"
+
+export default function Page() {
+  return <Backroom basePath="/admin" />
+}
+```
+
+Backroom owns every address under `basePath`, like `/admin/orders/1458`, so this one route is all it needs.
+
+To have a coding agent do it, and then rewrite it for your store, use **Copy for your coding agent** at the top of this page and paste the result into Claude Code, Cursor or Codex.
+
+## Make it yours
+
+- **Data** is in `data.ts` (orders, products, customers, team) and `extras.ts` (inbox, discounts, apps). Replace it, or load yours into the store.
+- **Actions** are all in `store.tsx`. Each page changes the store only through them, so swapping an action's body for a call to your API keeps every page working.
+- **Pages** are listed in `routes.tsx`. Add one there and it appears in the sidebar, the command menu and the breadcrumbs.
+- **Sign-in** goes through the `auth` object in `auth.tsx`. It is a stand-in that checks the sample team; connect it to your own auth before you go live.
+- **Look and feel** follow your theme. Colours come from your CSS variables, and `data-motion="calm"`, `"snappy"` or `"playful"` on `<html>` changes how the whole admin moves.
+
+## How it is built
+
+- **Controls** are UI SDK components through Keyframery, with no exceptions: the tables are a [Data Table](/docs/components/data-table), the order progress is a [Stepper](/docs/components/stepper), the figures are [Stats](/docs/components/stat) and [Sparklines](/docs/components/sparkline), the inbox is built from [Message](/docs/components/message) and [Bubble](/docs/components/bubble), and every menu, dialog, drawer, field and button is the Keyframery one. Keyboard and screen-reader behaviour come from UI SDK.
+- **Agents** can read and operate every page through UI SDK's agent bridge. Destructive actions carry `data-agent-confirm`, so an agent asks the person before a refund or a delete.
+- **Addresses** are real. Filters, sorting and pages live in the URL, the back button works, and each page focuses its heading or first field when it opens.
+- **Phone to desktop.** The sidebar becomes a drawer, tables keep their key columns, and the inbox moves from two panes to one.
+
+The photos are the shop's own sample prints. The app logos are each company's mark, from SVGL.

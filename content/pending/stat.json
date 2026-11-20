@@ -1,0 +1,40 @@
+{
+  "description": "The KPI card of an admin dashboard: a label, one big number, the change as a coloured pill with an arrow, a comparison line, an optional icon and room for a sparkline, with a loading state at the parts' own size. When the numbers change the value rolls digit by digit, the delta's arrow turns to its new direction and the sparkline tweens. StatGroup sets several on one surface with hairlines between them, four across, then two, then one, by container queries.",
+  "moves": [
+    ["Cascade", "On arrival the label, value, delta and chart rise out of a light blur one after another; when loading ends their ink comes back in the same order."],
+    ["Roll", "The value and the delta roll digit by digit to each new number, the right-hand digits a beat ahead."],
+    ["Spring", "The delta's arrow turns to its new direction (up, down or level) on a spring; its colour, which means status, switches at once."],
+    ["Draw", "A sparkline in the stat draws itself and tweens into the new period's shape."]
+  ],
+  "keyboard": [
+    ["Tab", "A stat takes no focus of its own; Tab reaches a sparkline inside it, whose points take the arrow keys."]
+  ],
+  "propDocs": {
+    "Stat.label": "What the number is, like \"Revenue\". Shown by StatLabel and names the stat for screen readers and agents.",
+    "Stat.value": "The number. `null` shows a dash.",
+    "Stat.formatValue": "Formats the value, like `(v) => \"$\" + v.toLocaleString()`.",
+    "Stat.delta": "The change against the comparison period, as a share: 0.124 is up 12.4%. `null` hides the delta.",
+    "Stat.formatDelta": "Formats the delta's size (the arrow carries the sign). Defaults to \"12%\", or \"4.2%\" under ten.",
+    "Stat.downIsGood": "A fall is good news (refunds, churn, costs): a negative delta turns green and a positive one red. A Sparkline inside StatChart follows the delta's colour.",
+    "Stat.flatThreshold": "A delta smaller than this counts as flat (muted, arrow level). Defaults to 0.0005.",
+    "Stat.loading": "Shows placeholders at each part's own size. Keep passing the last value so the placeholders keep their width.",
+    "Stat.speed": "How fast it moves: \"fast\", \"normal\", \"slow\" or a multiplier.",
+    "StatComparison.children": "What the delta compares against, like \"vs previous 30 days\".",
+    "StatIcon.children": "A lucide icon, drawn at 14px in a small well beside the label.",
+    "StatChart.children": "A Sparkline (or any small chart). It takes the delta's colour unless you set `--sparkline-color`.",
+    "StatGroup.aria-label": "Names the group, like \"Store, last 30 days\".",
+    "StatGroup.gridClassName": "Classes for the grid the stats sit in."
+  },
+  "cssVars": [
+    ["--stat-surface", "The card, and the group's shared surface", "--background; --card in dark"],
+    ["--stat-divider", "The hairlines between stats in a group", "--border"],
+    ["--stat-label", "The label", "--muted-foreground"],
+    ["--stat-positive", "Good news: the delta and the sparkline", "oklch(0.55 0.15 150); oklch(0.74 0.16 150) in dark"],
+    ["--stat-negative", "Bad news: the delta and the sparkline", "--destructive"],
+    ["--stat-value-size", "The number's size", "28px"],
+    ["--stat-radius", "The corners", "16px"],
+    ["--stat-padding", "The inset", "1.25rem"],
+    ["--stat-group-columns", "Columns in a group on a wide container", "4"],
+    ["--stat-chart-height", "The height of a sparkline in StatChart", "2.75rem"]
+  ]
+}

@@ -3,23 +3,41 @@
 import Link from "next/link"
 import * as React from "react"
 
+import { Backroom } from "@/templates/backroom/backroom"
 import { RoundLanding } from "@/templates/round/round"
 
-const views: Record<string, React.ComponentType> = { round: RoundLanding }
+/* How each template is shown. A landing page has fixed colours, so the site's dark mode is set aside while it
+   is open. An admin owns its addresses under /templates/<slug>/… and its own theme (it sets `dark` on <html>
+   from its appearance settings and puts back what was there when it closes). */
+type View = { render: (props: { slug: string; path: string }) => React.ReactNode; light?: boolean; back?: boolean }
 
-/** A template on its own page. It has its own colours, so the site's dark mode is set aside while it is open. */
-export function TemplateView({ slug, name }: { slug: string; name: string }) {
-  const View = views[slug]
+const views: Record<string, View> = {
+  round: { render: () => <RoundLanding />, light: true, back: true },
+  backroom: { render: ({ slug, path }) => <Backroom basePath={`/templates/${slug}`} initialPath={path} /> },
+}
+
+/** A template on its own page. `path` is the address inside a template that has pages of its own. */
+export function TemplateView({ slug, name, path = "/" }: { slug: string; name: string; path?: string }) {
+  const view = views[slug]
+  const light = view?.light ?? false
   const [framed, setFramed] = React.useState(true)
   const [away, setAway] = React.useState(false)
 
   React.useEffect(() => {
+    setFramed(window.self !== window.top)
+    if (!light) return
     const html = document.documentElement
     const wasDark = html.classList.contains("dark")
     const scheme = html.style.colorScheme
     html.classList.remove("dark")
     html.style.colorScheme = "light"
-    setFramed(window.self !== window.top)
+    return () => {
+      html.classList.toggle("dark", wasDark)
+      html.style.colorScheme = scheme
+    }
+  }, [light])
+
+  React.useEffect(() => {
     // The way back steps aside while the page is being read, and returns on the way up.
     let last = window.scrollY
     const onScroll = () => {
@@ -29,19 +47,15 @@ export function TemplateView({ slug, name }: { slug: string; name: string }) {
       last = now
     }
     window.addEventListener("scroll", onScroll, { passive: true })
-    return () => {
-      window.removeEventListener("scroll", onScroll)
-      html.classList.toggle("dark", wasDark)
-      html.style.colorScheme = scheme
-    }
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  if (!View) return null
+  if (!view) return null
   return (
     <>
-      <View />
+      {view.render({ slug, path })}
       {/* Opened by itself (not inside the docs preview): a way back to the template's page. */}
-      {!framed && (
+      {view.back && !framed && (
         <Link
           href={`/docs/templates/${slug}`}
           data-away={away ? "" : undefined}

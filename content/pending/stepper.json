@@ -1,0 +1,37 @@
+{
+  "description": "Steps that are complete, current, upcoming or in error, horizontal or vertical, as a read-only progress strip (an order) or the buttons of a multi-step form, linear or not. The line between steps draws itself up to the current one, a finished step's number gives way to a check that draws itself, and panels arrive from the side you moved toward.",
+  "moves": [
+    ["Draw", "The connector to the next step fills from its start once that step is reached, and empties when you go back."],
+    ["Draw", "A finished step's number shrinks into a blur and a check draws itself in its place."],
+    ["Pop", "The current step's indicator grows a touch and takes its ring."],
+    ["Direction", "A step's panel arrives 32px from the side you moved toward, with 6px of blur, on a spring (from below or above when vertical)."],
+    ["Press", "A step you can go to sinks a little when pressed."]
+  ],
+  "keyboard": [
+    ["Tab", "Moves into the steps as one tab stop, on the current step."],
+    ["ArrowRight / ArrowLeft", "Moves between steps (ArrowDown and ArrowUp when vertical)."],
+    ["Home / End", "Moves to the first or last step."],
+    ["Enter / Space", "Goes to the focused step, if it can be reached."]
+  ],
+  "propDocs": {
+    "Stepper.steps": "The steps, in order: `{ value, label, description?, error?, disabled? }`.",
+    "Stepper.value": "The current step's value, controlled.",
+    "Stepper.defaultValue": "The current step at first, when uncontrolled. Defaults to the first.",
+    "Stepper.onValueChange": "Runs with the next step. `details.reason` is \"item-press\", \"next-press\", \"previous-press\" or \"imperative\"; `details.cancel()` stays, like a step that doesn't validate.",
+    "Stepper.completed": "The steps that are done. Defaults to every step before the furthest one reached. Pass every value for a finished flow.",
+    "Stepper.interactive": "Steps are buttons (the default). Off, it is a read-only progress strip with `aria-current=\"step\"` on the current one.",
+    "Stepper.linear": "Forward only through `next`, back to any step reached (the default). Off, any step can be chosen.",
+    "Stepper.orientation": "\"horizontal\" (the default) or \"vertical\".",
+    "Stepper.speed": "How fast it moves: \"fast\", \"normal\", \"slow\" or a multiplier.",
+    "StepperList.children": "Optional: a function of `{ steps }` to lay the steps out yourself with `StepperItem`, `StepperStep`, `StepperIndicator`, `StepperTitle`, `StepperDescription` and `StepperConnector`.",
+    "StepperPanel.value": "The step whose content this is. Shown while that step is current."
+  },
+  "cssVars": [
+    ["--stepper-accent", "Finished and current steps, and the filled line", "--primary"],
+    ["--stepper-track", "The line before it fills, and upcoming steps' rim", "--border"],
+    ["--stepper-ink", "Titles of reached steps", "--foreground"],
+    ["--stepper-muted", "Upcoming titles, numbers and descriptions", "--muted-foreground"],
+    ["--stepper-error", "A step in error", "--destructive"],
+    ["--stepper-size", "The indicators' diameter", "1.75rem"]
+  ]
+}

@@ -1,4 +1,8 @@
 {
   "title": "Templates",
-  "pages": ["index", "round"]
+  "pages": [
+    "index",
+    "round",
+    "backroom"
+  ]
 }

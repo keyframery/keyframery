@@ -151,7 +151,7 @@ for (const slug of slugs) {
   })
 }
 
-/* ---- templates: whole landing pages (src/templates/<slug>), installed into components/<slug>/ ---- */
+/* ---- templates: whole pages and apps (src/templates/<slug>), installed into components/<slug>/ ---- */
 const templatesDir = src("templates")
 const templateSlugs = fs.existsSync(templatesDir)
   ? fs.readdirSync(templatesDir).filter((name) => fs.statSync(path.join(templatesDir, name)).isDirectory()).sort()
@@ -173,12 +173,13 @@ for (const slug of templateSlugs) {
     fs.writeFileSync(path.join(genDir, "templates", slug, file), rewrite(code).replaceAll('"/demo/', '"https://keyframery.com/demo/'))
     files.push({ path: `registry/templates/${slug}/${file}`, type: "registry:component", target: `components/${slug}/${file}` })
   }
-  const description = templateFacts.match(new RegExp(`slug: "${slug}"[\\s\\S]*?description:\\s*"([^"]+)"`))?.[1]
+  const entry = templateFacts.match(new RegExp(`slug: "${slug}"[\\s\\S]*?\\n  \\}`))?.[0] ?? ""
+  const description = entry.match(/description:\s*"([^"]+)"/)?.[1]
   if (!description) console.warn(`! no description for the ${slug} template in site/lib/templates.ts`)
   items.push({
     name: slug,
     type: "registry:block",
-    title: `${title(slug)} landing page`,
+    title: entry.match(/registryTitle:\s*"([^"]+)"/)?.[1] ?? `${title(slug)} landing page`,
     description: description ?? `${title(slug)}: a landing page template.`,
     dependencies: [...deps].sort(),
     registryDependencies: [...reg],

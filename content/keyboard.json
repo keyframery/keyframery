@@ -1132,5 +1132,117 @@
       "Space",
       "Switches the focused legend series off or on."
     ]
+  ],
+  "data-table": [
+    [
+      "Tab",
+      "Moves through the search field, the filter chips, Reset, View, the select-all, each sortable header, then each row's checkbox and menu, the bulk bar and the footer."
+    ],
+    [
+      "Enter",
+      "On a header, opens its menu: Asc, Desc and Hide. On a filter chip or View, opens it."
+    ],
+    [
+      "ArrowDown",
+      "Moves through the open menu's items; in the bulk bar, ArrowRight and ArrowLeft move between its buttons."
+    ],
+    [
+      "Space",
+      "Checks or unchecks the focused row's checkbox or the select-all for the page; toggles a column in View."
+    ],
+    [
+      "Escape",
+      "Closes an open menu; with nothing open, clears the selection while focus is in the table."
+    ]
+  ],
+  "description-list": [
+    [
+      "Tab",
+      "Moves to each copy button and action in the list."
+    ],
+    [
+      "Enter / Space",
+      "Copies the focused value; screen readers hear \"Copied\"."
+    ]
+  ],
+  "filter": [
+    [
+      "Enter / Space",
+      "On the chip: opens the list with focus in its search field."
+    ],
+    [
+      "Type",
+      "Narrows the options."
+    ],
+    [
+      "ArrowDown / ArrowUp",
+      "Moves the highlight, wrapping at the ends."
+    ],
+    [
+      "Home / End",
+      "Highlights the first or last row (End reaches Clear filter)."
+    ],
+    [
+      "Enter",
+      "Chooses or unchooses the highlighted option, or clears the filter on Clear filter."
+    ],
+    [
+      "Backspace",
+      "In the empty search field: removes the last chosen value."
+    ],
+    [
+      "Escape",
+      "Closes the list and returns focus to the chip."
+    ]
+  ],
+  "sparkline": [
+    [
+      "Tab",
+      "Moves focus to the sparkline's points as one tab stop and shows the point's value."
+    ],
+    [
+      "ArrowRight",
+      "Moves to the next point and shows its value."
+    ],
+    [
+      "ArrowLeft",
+      "Moves to the previous point."
+    ],
+    [
+      "Home",
+      "Moves to the first point."
+    ],
+    [
+      "End",
+      "Moves to the last point."
+    ],
+    [
+      "Escape",
+      "Hides the readout; any arrow brings it back."
+    ]
+  ],
+  "stat": [
+    [
+      "Tab",
+      "A stat takes no focus of its own; Tab reaches a sparkline inside it, whose points take the arrow keys."
+    ]
+  ],
+  "stepper": [
+    [
+      "Tab",
+      "Moves into the steps as one tab stop, on the current step."
+    ],
+    [
+      "ArrowRight / ArrowLeft",
+      "Moves between steps (ArrowDown and ArrowUp when vertical)."
+    ],
+    [
+      "Home / End",
+      "Moves to the first or last step."
+    ],
+    [
+      "Enter / Space",
+      "Goes to the focused step, if it can be reached."
+    ]
   ]
 }

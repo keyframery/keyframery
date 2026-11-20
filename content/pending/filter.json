@@ -1,0 +1,45 @@
+{
+  "description": "The faceted filter of a data table's toolbar: a dashed chip that opens a searchable list of values with counts, built on UI SDK's combobox. Chosen values arrive in the chip as badges one after another while the chip widens around them on a spring, counts roll, and a bar of filters slides its Reset in while any is active.",
+  "moves": [
+    ["Unfold", "The list grows out of its chip, its rows cascade in, and one highlight glides between them."],
+    ["Draw", "A chosen option's box fills with a pop and its check draws itself."],
+    ["Widen", "The chip's width follows its badges on a spring, so it never stretches its text."],
+    ["Cascade", "Badges pop in one after another, from a smaller, blurred start."],
+    ["Roll", "\"3 selected\" and every option's count roll to their new number."],
+    ["Slide", "The bar's Reset slides in from the left while a filter is active, and out again."]
+  ],
+  "keyboard": [
+    ["Enter / Space", "On the chip: opens the list with focus in its search field."],
+    ["Type", "Narrows the options."],
+    ["ArrowDown / ArrowUp", "Moves the highlight, wrapping at the ends."],
+    ["Home / End", "Highlights the first or last row (End reaches Clear filter)."],
+    ["Enter", "Chooses or unchooses the highlighted option, or clears the filter on Clear filter."],
+    ["Backspace", "In the empty search field: removes the last chosen value."],
+    ["Escape", "Closes the list and returns focus to the chip."]
+  ],
+  "propDocs": {
+    "Filter.label": "The column or facet, like \"Status\". Names the chip, the search field and the filter for agents.",
+    "Filter.options": "The values: `{ value, label, icon?, count?, disabled? }`. `count` shows at the row's end and rolls when it changes.",
+    "Filter.value": "The chosen values, controlled. Always a list of strings, also with `multiple={false}`.",
+    "Filter.defaultValue": "The chosen values at first, when uncontrolled.",
+    "Filter.onValueChange": "Runs with the next list. `details.reason` is \"item-press\", \"clear-press\", \"reset-press\", \"backspace-key\" or \"imperative\"; `details.cancel()` keeps the current value.",
+    "Filter.multiple": "Several values (the default) or one that replaces the last and closes the list.",
+    "Filter.maxBadges": "How many chosen values show as badges before they read \"3 selected\". Defaults to 2.",
+    "Filter.placeholder": "The search field's placeholder. Defaults to the label.",
+    "Filter.emptyText": "What the list says when nothing matches. Defaults to \"No results.\"",
+    "Filter.hideSearch": "Leaves out the search field, for short lists.",
+    "Filter.open": "Whether the list is open, controlled, with `defaultOpen` and `onOpenChange`.",
+    "Filter.speed": "How fast it moves: \"fast\", \"normal\", \"slow\" or a multiplier.",
+    "FilterBar.onReset": "Runs when Reset is pressed, before the filters clear. `details.cancel()` stops the reset."
+  },
+  "cssVars": [
+    ["--filter-face", "The chip while open, and the list's sheet", "--popover"],
+    ["--filter-ink", "The chip's label and the options", "--foreground"],
+    ["--filter-border", "The chip's dashed outline", "--border"],
+    ["--filter-accent", "A chosen option's box", "--primary"],
+    ["--filter-badge", "The chosen values' badges", "--secondary"],
+    ["--filter-radius", "The chip's corners", "9px"],
+    ["--filter-height", "The chip's height", "2rem"],
+    ["--filter-list-width", "The list's width", "15rem"]
+  ]
+}

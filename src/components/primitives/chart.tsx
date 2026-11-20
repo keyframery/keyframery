@@ -319,7 +319,11 @@ const barMotion = cn(
   "group-data-[orientation=horizontal]/chart:left-[calc(var(--chart-x)*1%)] group-data-[orientation=horizontal]/chart:w-[calc(var(--chart-w)*1%)] group-data-[orientation=horizontal]/chart:starting:w-0 group-data-[orientation=horizontal]/chart:starting:h-[max(0px,calc(var(--chart-h)*1%-min(var(--chart-bar-gap,4px),var(--chart-h)*0.3%)))]",
   "group-data-[orientation=horizontal]/chart:data-negative:left-auto group-data-[orientation=horizontal]/chart:data-negative:right-[calc((100-var(--chart-x)-var(--chart-w))*1%)]",
   `transition-[left,right,top,bottom,width,height] duration-[calc(720ms*var(--kf-speed,1))] ease-spring`,
-  `[transition-delay:calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1)))]`,
+  /* Stacked, on arrival: each segment waits for the one under it, so a stack builds up from the
+     baseline (--chart-s is its place in the stack, 0 when not stacked). Once the bars have arrived
+     every later change tweens together, so the segments stay joined. */
+  `[transition-delay:calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))+var(--chart-s,0)*calc(300ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))+var(--chart-s,0)*calc(300ms*var(--kf-speed,1)))]`,
+  `group-data-entered/marks:[transition-delay:calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1)))]`,
   "motion-reduce:transition-none",
 )
 
@@ -368,14 +372,21 @@ const dotMotion = cn(
 )
 
 /** The marks for the chart's `type`: bars, lines and areas with their dots, or a ring. */
-function ChartMarks({ className, children, ...props }: ChartPart<"marks">) {
+function ChartMarks({ className, children, onTransitionEnd, ...props }: ChartPart<"marks">) {
+  /* A readiness gate for the stack's arrival: set once the first bar has finished growing. */
+  const [entered, setEntered] = React.useState(false)
   return usePart(
     chart,
     "marks",
     {},
     {
       ...props,
-      className: withClass("pointer-events-none absolute inset-0", className),
+      ...(entered ? { "data-entered": "" } : null),
+      onTransitionEnd: (event: React.TransitionEvent<HTMLDivElement>) => {
+        if (!entered && (event.target as HTMLElement).dataset.slot === "chart-bar") setEntered(true)
+        onTransitionEnd?.(event)
+      },
+      className: withClass("group/marks pointer-events-none absolute inset-0", className),
       children:
         children ??
         ((state) => {
@@ -594,6 +605,12 @@ function ChartTooltip({
                 <Roll text={row.text} />
               </ChartTooltipItem>
             ))}
+            {state.total ? (
+              <ChartTooltipTotal>
+                <span>Total</span>
+                <Roll text={state.total.text} />
+              </ChartTooltipTotal>
+            ) : null}
           </>
         )),
     },
@@ -603,6 +620,11 @@ function ChartTooltip({
 
 function ChartTooltipLabel(props: ChartPart<"tooltip-label">) {
   return usePart(chart, "tooltip-label", {}, props, "div")
+}
+
+/** The stack's total under the rows, when bars or areas are stacked. */
+function ChartTooltipTotal(props: ChartPart<"tooltip-total">) {
+  return usePart(chart, "tooltip-total", {}, props, "div")
 }
 
 function ChartTooltipItem({ value, ...props }: { value: string } & Omit<ChartPart<"tooltip-item">, "value">) {
@@ -744,6 +766,7 @@ export {
   ChartTooltip,
   ChartTooltipItem,
   ChartTooltipLabel,
+  ChartTooltipTotal,
   ChartXAxis,
   ChartYAxis,
   ChartRoot as ChartContainer,

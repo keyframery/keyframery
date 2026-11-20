@@ -1,0 +1,31 @@
+{
+  "description": "The label and value rows of a detail page, with real dl, dt and dd. Rows with a label column and hairlines, stacked, or a grid of two or three columns, reflowing to stacked on a phone by container queries. Values arrive in a short cascade, and a copy button copies its value and confirms on itself with a drawn check.",
+  "moves": [
+    ["Cascade", "Items rise in one after another, 40ms apart, with a little blur, when the list first shows."],
+    ["Press", "The copy button sinks and springs back."],
+    ["Draw", "Copied, the copy icon shrinks into a blur, a check pops in and draws itself in green, and two seconds later they swap back."]
+  ],
+  "keyboard": [
+    ["Tab", "Moves to each copy button and action in the list."],
+    ["Enter / Space", "Copies the focused value; screen readers hear \"Copied\"."]
+  ],
+  "propDocs": {
+    "DescriptionList.layout": "\"rows\" (labels in a fixed column, hairlines between, the default), \"stacked\" (label above value) or \"grid\". All three stack below 28rem.",
+    "DescriptionList.columns": "For the grid: how many columns at full width, 1 to 4. Defaults to 2. Fewer show when a column would be under 11rem.",
+    "DescriptionList.truncate": "Keeps long values on one line with an ellipsis and the full text as a title. Off, they wrap.",
+    "DescriptionList.speed": "How fast it moves: \"fast\", \"normal\", \"slow\" or a multiplier.",
+    "DescriptionListItem.value": "An id for the item, when you need to key it.",
+    "DescriptionListActions": "Holds buttons or links at the end of a value: a copy button, an Edit button.",
+    "DescriptionListCopy.value": "The text to copy. Leave it out to copy the value beside the button.",
+    "DescriptionListCopy.label": "What the value is called, for the button's name (\"Copy Email\"). Read from the item's label when left out.",
+    "DescriptionListCopy.onCopy": "Runs with the copied text."
+  },
+  "cssVars": [
+    ["--description-list-term", "The labels", "--muted-foreground"],
+    ["--description-list-ink", "The values", "--foreground"],
+    ["--description-list-rule", "Hairlines between rows", "--border"],
+    ["--description-list-label", "The label column in rows", "10rem"],
+    ["--description-list-gap", "Space above and below an item", "0.75rem"],
+    ["--description-list-font", "The values' size", "13px"]
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "description": "The full list screen on top of Table, with no table library: give it data and columns and it owns the search, faceted filters with live counts, the sort, hidden columns, row selection, the page and the page size, each one controlled or not so a page can keep it in the URL. Rows cascade in after a sort or a page turn, a hidden column folds away while the others close the gap, Reset slides in while anything is filtered, and a bulk bar rises from the bottom centre while rows are selected.",
+  "moves": [
+    ["Cascade", "After a sort or a page turn the page's rows arrive one after another, rising from below for Next and dropping from above for Previous. After a search or a filter only the rows new to the page arrive; selecting replays nothing."],
+    ["Collapse", "A hidden column folds to nothing, its text blurring out, while the other columns close the gap; a column shown again opens out of nothing."],
+    ["Rise", "The bulk bar rises from the bottom centre on a spring, from a smaller, blurred start, and sinks away when the selection is cleared."],
+    ["Roll", "The selected count, the row count and the page number roll to each new number."],
+    ["Slide", "Reset slides in beside the filters while the search or a filter is on, and folds away when they clear."],
+    ["Draw", "Row checks and the select-all dash draw themselves (from Checkbox)."],
+    ["Glide", "The current page key glides along the pagination, and the highlight glides through every menu and the bulk bar."]
+  ],
+  "keyboard": [
+    ["Tab", "Moves through the search field, the filter chips, Reset, View, the select-all, each sortable header, then each row's checkbox and menu, the bulk bar and the footer."],
+    ["Enter", "On a header, opens its menu: Asc, Desc and Hide. On a filter chip or View, opens it."],
+    ["ArrowDown", "Moves through the open menu's items; in the bulk bar, ArrowRight and ArrowLeft move between its buttons."],
+    ["Space", "Checks or unchecks the focused row's checkbox or the select-all for the page; toggles a column in View."],
+    ["Escape", "Closes an open menu; with nothing open, clears the selection while focus is in the table."]
+  ],
+  "propDocs": {
+    "DataTable.data": "The rows. Any objects.",
+    "DataTable.columns": "The columns, in order: `{ id, header, accessor?, cell?, sortable?, sortValue?, hideable?, searchable?, filter?: { title?, options }, align?, sticky?, hideBelow?, className? }`. `accessor` is a key or a function and defaults to `row[id]`; `cell(row, value)` renders the cell.",
+    "DataTable.label": "The table's name, for screen readers and agents, like \"Orders\".",
+    "DataTable.getRowId": "Each row's id for selection and keys. Defaults to `row.id`, then the index.",
+    "DataTable.loading": "Draws skeleton rows at the table's own geometry, one per row of the page.",
+    "DataTable.selectable": "Adds a checkbox to every row and a select-all for the page. Defaults to true.",
+    "DataTable.pageSizes": "The choices under \"Rows per page\". Defaults to 10, 20, 30, 40 and 50.",
+    "DataTable.sort": "`{ id, direction: \"ascending\" | \"descending\" }` or `null`, controlled; with `defaultSort` and `onSortChange`.",
+    "DataTable.search": "The search text, controlled; with `defaultSearch` and `onSearchChange`. It looks in the columns marked `searchable`.",
+    "DataTable.filters": "The chosen values per column, like `{ payment: [\"Paid\"] }`, controlled; with `defaultFilters` and `onFiltersChange`. Changing a filter or the search goes back to page 1.",
+    "DataTable.hiddenColumns": "The ids of hidden columns, controlled; with `defaultHiddenColumns` and `onHiddenColumnsChange`. One column always stays.",
+    "DataTable.selected": "The ids of selected rows on every page, controlled; with `defaultSelected` and `onSelectedChange`.",
+    "DataTable.page": "The page from 1, controlled; with `defaultPage` and `onPageChange`. A page past the end after the data shrinks moves back to the last one.",
+    "DataTable.pageSize": "Rows per page, controlled; with `defaultPageSize` (10) and `onPageSizeChange`.",
+    "DataTable.searchPlaceholder": "The search field's placeholder.",
+    "DataTable.rowActions": "`(row) => MenuItem`s for the row menu (\"…\"). Leave it out for no row menu.",
+    "DataTable.bulkActions": "`(selectedIds) => DataTableBulkAction`s for the bulk bar.",
+    "DataTable.toolbar": "More controls at the end of the toolbar, before View.",
+    "DataTable.emptyTitle": "What the empty state says. Defaults to \"No results\".",
+    "DataTable.speed": "\"fast\", \"normal\", \"slow\" or a multiplier.",
+    "DataTableBulkAction.icon": "The action's icon.",
+    "DataTableBulkAction.label": "The action's name; it folds to icon only on a narrow container and stays for screen readers.",
+    "DataTableBulkAction.tone": "\"destructive\" for an action that removes.",
+    "rowModel": "The row model as a plain function: `rowModel({ data, columns, search, filters, sort, page, pageSize })` returns the page's rows, the total, the page count and the facet counts, for the same rows on a server."
+  },
+  "cssVars": [
+    ["--data-table-surface", "The table's card and its sticky cells", "--card"],
+    ["--data-table-border", "The card's hairline", "black 7%; white 8% in dark"],
+    ["--data-table-accent", "The hover and selected row tint", "--foreground"],
+    ["--data-table-radius", "The card's corners", "14px"],
+    ["--data-table-row-height", "Each row's height", "2.75rem"],
+    ["--data-table-bar", "The bulk bar's surface", "--popover"]
+  ]
+}

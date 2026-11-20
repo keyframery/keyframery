@@ -6,6 +6,7 @@
     ["Spring", "New data, stacking or hidden series tween every bar, line, slice, tick and grid line to its new place, with a small overshoot."],
     ["Glide", "The cursor band or hairline, the tooltip and each line's dot travel to the active point, and the tooltip swings to the other side near the edge."],
     ["Roll", "The tooltip's values, the axis ticks and a donut's total roll to each new number."],
+    ["Stack", "Stacked bars build up from the baseline, each segment growing once the one under it has; the tooltip ends with the stack's total."],
     ["Height", "A series switched off in the legend folds into its baseline while the others widen into its room."],
     ["Press", "Legend items sink a little and pop back."]
   ],
@@ -23,7 +24,7 @@
     "Chart.config": "The series by key, shaped like shadcn's `ChartConfig`: `{ revenue: { label, color?, icon? } }`. Config order is stack and legend order; a series without a colour takes the next of `--chart-1` … `--chart-5`. For a pie or donut, label each slice by its category here too.",
     "Chart.categoryKey": "The key that names each row: the category for bars, lines and areas, the slice for a ring. Add it to the config with a `label` to name it in the data table.",
     "Chart.type": "\"bar\", \"line\", \"area\", \"donut\" or \"pie\". Defaults to \"bar\".",
-    "Chart.stacked": "Stacks bars or areas on one another instead of side by side.",
+    "Chart.stacked": "Stacks bars or areas on one another, in config order, instead of side by side. On arrival each stack builds up from the baseline segment by segment; the tooltip and each point's name add the total; switching a series off in the legend re-stacks the rest with a tween.",
     "Chart.orientation": "For bars: \"vertical\" (standing, the default) or \"horizontal\" (lying, categories down the side).",
     "Chart.curve": "For lines and areas: \"smooth\" (the default, never overshooting a point) or \"linear\".",
     "Chart.dots": "Shows a dot on every point of a line or area, not only on the active one.",

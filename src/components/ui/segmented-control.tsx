@@ -79,9 +79,17 @@ function SegmentedControl({
                     "w-[calc(var(--segmented-control-indicator-left,0px)+var(--segmented-control-indicator-width,0px)+var(--segmented-control-indicator-right,0px))]",
                   )}
                 >
+                  {/* Each copy takes its item's own class names (a string className), so an item stretched
+                      with flex-1 has a copy stretched the same way. A rule on the control that sizes its items
+                      should also size [data-slot=segmented-control-item-copy]. */}
                   {React.Children.map(content, (child) =>
-                    React.isValidElement<{ children?: React.ReactNode }>(child) ? (
-                      <span className={itemBox}>{child.props.children}</span>
+                    React.isValidElement<{ children?: React.ReactNode; className?: unknown }>(child) ? (
+                      <span
+                        data-slot="segmented-control-item-copy"
+                        className={cn(itemBox, typeof child.props.className === "string" && child.props.className)}
+                      >
+                        {child.props.children}
+                      </span>
                     ) : null,
                   )}
                 </span>

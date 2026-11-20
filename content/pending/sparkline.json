@@ -1,0 +1,47 @@
+{
+  "description": "A word-sized trend in plain SVG and CSS, no charting library: a line, an area or a row of bars from a list of numbers, with its last point marked. It draws itself on arrival, tweens into new data (a week into a month and back), colours itself by its news if you ask, and lets people scrub it with the pointer or the arrow keys while its value rolls in a small readout. Its trend and change are readable by screen readers and agents.",
+  "moves": [
+    ["Draw", "A line draws itself from the left with its area unrolling under it; the last point pops in once the line reaches it."],
+    ["Cascade", "Bars grow from the baseline one after another, left to right, in about half a second whatever their number."],
+    ["Spring", "New data tweens the line, the area, every bar, the reference line and the last point to their new places. Up to 97 points, any length tweens into any other."],
+    ["Glide", "While someone scrubs, a hairline and a dot ride to the point under the pointer and the readout follows them, swinging inward near the edges."],
+    ["Roll", "The readout's value rolls to each new number."]
+  ],
+  "keyboard": [
+    ["Tab", "Moves focus to the sparkline's points as one tab stop and shows the point's value."],
+    ["ArrowRight", "Moves to the next point and shows its value."],
+    ["ArrowLeft", "Moves to the previous point."],
+    ["Home", "Moves to the first point."],
+    ["End", "Moves to the last point."],
+    ["Escape", "Hides the readout; any arrow brings it back."]
+  ],
+  "propDocs": {
+    "Sparkline.data": "The numbers, oldest first.",
+    "Sparkline.labels": "A name for each point, like \"Nov 12\", shown in the readout and read out for each point.",
+    "Sparkline.type": "\"line\" (the default), \"area\" or \"bar\".",
+    "Sparkline.curve": "\"smooth\" (the default, never overshooting a point) or \"linear\".",
+    "Sparkline.label": "What it measures, like \"Revenue\". Starts the accessible summary and the name agents see.",
+    "Sparkline.period": "The span it covers, like \"last 14 days\". The summary reads \"Revenue, last 14 days, up 12%\".",
+    "Sparkline.formatValue": "Formats a value for the readout and the point names: `(value) => string`.",
+    "Sparkline.trendColor": "Draws in the colour of its news: green when the trend is good, the destructive colour when bad, muted when flat.",
+    "Sparkline.downIsGood": "A fall is good news (refunds, churn, response time): the tone, and so the trend colour, turns round.",
+    "Sparkline.flatThreshold": "A change from the first point to the last smaller than this share counts as flat. Defaults to 0.01.",
+    "Sparkline.reference": "A value to draw a dashed line at: a target, a budget, last period's average. `null` for none.",
+    "Sparkline.extremes": "Marks the highest and the lowest point with a hollow dot.",
+    "Sparkline.includeZero": "Keeps zero in the value range. Defaults to true for bars and false for lines and areas.",
+    "Sparkline.activeIndex": "The point being read (hovered or focused), controlled. `null` for none.",
+    "Sparkline.defaultActiveIndex": "The point shown at first, when you don't control it.",
+    "Sparkline.onActiveIndexChange": "Runs when the point being read changes, with details.reason \"item-hover\", \"item-press\", \"list-navigation\", \"focus-in\", \"focus-out\", \"escape-key\" or \"pointer-leave\".",
+    "Sparkline.speed": "How fast it moves: \"fast\", \"normal\", \"slow\" or a multiplier."
+  },
+  "cssVars": [
+    ["--sparkline-color", "The marks, without trendColor", "--chart-1"],
+    ["--sparkline-positive", "Good news, with trendColor", "oklch(0.62 0.16 150)"],
+    ["--sparkline-negative", "Bad news, with trendColor", "--destructive"],
+    ["--sparkline-height", "The height", "2.5rem"],
+    ["--sparkline-stroke", "The line's width", "1.75px"],
+    ["--sparkline-dot", "The dots' size", "6px"],
+    ["--sparkline-surface", "The ring round the dots (the surface it sits on)", "--background; --card in dark"],
+    ["--sparkline-reference", "The dashed reference line", "--muted-foreground"]
+  ]
+}

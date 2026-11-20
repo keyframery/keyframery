@@ -1176,12 +1176,148 @@
         "The tooltip's values, the axis ticks and a donut's total roll to each new number."
       ],
       [
+        "Stack",
+        "Stacked bars build up from the baseline, each segment growing once the one under it has; the tooltip ends with the stack's total."
+      ],
+      [
         "Height",
         "A series switched off in the legend folds into its baseline while the others widen into its room."
       ],
       [
         "Press",
         "Legend items sink a little and pop back."
+      ]
+    ],
+    "data-table": [
+      [
+        "Cascade",
+        "After a sort or a page turn the page's rows arrive one after another, rising from below for Next and dropping from above for Previous. After a search or a filter only the rows new to the page arrive; selecting replays nothing."
+      ],
+      [
+        "Collapse",
+        "A hidden column folds to nothing, its text blurring out, while the other columns close the gap; a column shown again opens out of nothing."
+      ],
+      [
+        "Rise",
+        "The bulk bar rises from the bottom centre on a spring, from a smaller, blurred start, and sinks away when the selection is cleared."
+      ],
+      [
+        "Roll",
+        "The selected count, the row count and the page number roll to each new number."
+      ],
+      [
+        "Slide",
+        "Reset slides in beside the filters while the search or a filter is on, and folds away when they clear."
+      ],
+      [
+        "Draw",
+        "Row checks and the select-all dash draw themselves (from Checkbox)."
+      ],
+      [
+        "Glide",
+        "The current page key glides along the pagination, and the highlight glides through every menu and the bulk bar."
+      ]
+    ],
+    "description-list": [
+      [
+        "Cascade",
+        "Items rise in one after another, 40ms apart, with a little blur, when the list first shows."
+      ],
+      [
+        "Press",
+        "The copy button sinks and springs back."
+      ],
+      [
+        "Draw",
+        "Copied, the copy icon shrinks into a blur, a check pops in and draws itself in green, and two seconds later they swap back."
+      ]
+    ],
+    "filter": [
+      [
+        "Unfold",
+        "The list grows out of its chip, its rows cascade in, and one highlight glides between them."
+      ],
+      [
+        "Draw",
+        "A chosen option's box fills with a pop and its check draws itself."
+      ],
+      [
+        "Widen",
+        "The chip's width follows its badges on a spring, so it never stretches its text."
+      ],
+      [
+        "Cascade",
+        "Badges pop in one after another, from a smaller, blurred start."
+      ],
+      [
+        "Roll",
+        "\"3 selected\" and every option's count roll to their new number."
+      ],
+      [
+        "Slide",
+        "The bar's Reset slides in from the left while a filter is active, and out again."
+      ]
+    ],
+    "sparkline": [
+      [
+        "Draw",
+        "A line draws itself from the left with its area unrolling under it; the last point pops in once the line reaches it."
+      ],
+      [
+        "Cascade",
+        "Bars grow from the baseline one after another, left to right, in about half a second whatever their number."
+      ],
+      [
+        "Spring",
+        "New data tweens the line, the area, every bar, the reference line and the last point to their new places. Up to 97 points, any length tweens into any other."
+      ],
+      [
+        "Glide",
+        "While someone scrubs, a hairline and a dot ride to the point under the pointer and the readout follows them, swinging inward near the edges."
+      ],
+      [
+        "Roll",
+        "The readout's value rolls to each new number."
+      ]
+    ],
+    "stat": [
+      [
+        "Cascade",
+        "On arrival the label, value, delta and chart rise out of a light blur one after another; when loading ends their ink comes back in the same order."
+      ],
+      [
+        "Roll",
+        "The value and the delta roll digit by digit to each new number, the right-hand digits a beat ahead."
+      ],
+      [
+        "Spring",
+        "The delta's arrow turns to its new direction (up, down or level) on a spring; its colour, which means status, switches at once."
+      ],
+      [
+        "Draw",
+        "A sparkline in the stat draws itself and tweens into the new period's shape."
+      ]
+    ],
+    "stepper": [
+      [
+        "Draw",
+        "The connector to the next step fills from its start once that step is reached, and empties when you go back."
+      ],
+      [
+        "Draw",
+        "A finished step's number shrinks into a blur and a check draws itself in its place."
+      ],
+      [
+        "Pop",
+        "The current step's indicator grows a touch and takes its ring."
+      ],
+      [
+        "Direction",
+        "A step's panel arrives 32px from the side you moved toward, with 6px of blur, on a spring (from below or above when vertical)."
+      ],
+      [
+        "Press",
+        "A step you can go to sinks a little when pressed."
       ]
     ]
   }
