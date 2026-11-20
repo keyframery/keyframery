@@ -44,6 +44,30 @@ export default async function Page(props: Props) {
   const related = current ? entries.filter((candidate) => candidate.slug !== current.slug && candidate.group === current.group).slice(0, 3) : []
   // Component pages are generated from the component's source, so "edit this page" points there.
   const githubPath = component ? `src/components/ui/${component}.tsx` : template ? `src/templates/${template.slug}/${template.slug}.tsx` : `content/docs/${page.path}`
+  // The Templates pages show the page's actions as one control (see .kf-actions in globals.css).
+  const inTemplates = page.url === "/docs/templates" || page.url.startsWith("/docs/templates/")
+  // What you can do with the page, then where to go next.
+  const actions = (
+    <>
+      <MarkdownCopyButton markdownUrl={markdownUrl} />
+      <ViewOptionsPopover markdownUrl={markdownUrl} githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/${githubPath}`} />
+      {[
+        { item: previous, label: "Previous", Icon: ArrowLeft },
+        { item: next, label: "Next", Icon: ArrowRight },
+      ].map(({ item, label, Icon }) =>
+        item ? (
+          <Link
+            key={label}
+            href={item.url}
+            aria-label={`${label}: ${typeof item.name === "string" ? item.name : ""}`.trim()}
+            className="grid size-8 place-items-center rounded-md border bg-fd-secondary text-fd-secondary-foreground outline-none hover:bg-fd-accent focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <Icon aria-hidden="true" className="size-3.5" />
+          </Link>
+        ) : null,
+      )}
+    </>
+  )
 
   return (
     <DocsPage toc={toc} full={page.data.full} data-component={component} className={component || template ? "max-w-none" : undefined} breadcrumb={{ enabled: !component && !template }}>
@@ -79,25 +103,14 @@ export default async function Page(props: Props) {
             {component || template ? page.data.title : heading}
             {template && <span className="rounded-full border px-2 py-0.5 text-[11px] leading-4 font-medium tracking-normal text-muted-foreground">{template.price}</span>}
           </DocsTitle>
-          <div className="flex items-center gap-1">
-            <MarkdownCopyButton markdownUrl={markdownUrl} />
-            <ViewOptionsPopover markdownUrl={markdownUrl} githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/${githubPath}`} />
-            {[
-              { item: previous, label: "Previous", Icon: ArrowLeft },
-              { item: next, label: "Next", Icon: ArrowRight },
-            ].map(({ item, label, Icon }) =>
-              item ? (
-                <Link
-                  key={label}
-                  href={item.url}
-                  aria-label={`${label}: ${typeof item.name === "string" ? item.name : ""}`.trim()}
-                  className="grid size-8 place-items-center rounded-md border bg-fd-secondary text-fd-secondary-foreground outline-none hover:bg-fd-accent focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  <Icon aria-hidden="true" className="size-3.5" />
-                </Link>
-              ) : null,
-            )}
-          </div>
+          {inTemplates ? (
+            /* The outer parent is the tray, the inner parent the bar the actions sit on. */
+            <div className="kf-actions">
+              <div className="kf-actions-bar">{actions}</div>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">{actions}</div>
+          )}
         </div>
         <DocsDescription className="mb-0 max-w-[68ch] text-[15px] leading-6 text-pretty">{page.data.description}</DocsDescription>
         {component && <PageChips slug={component} />}
