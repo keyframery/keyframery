@@ -116,20 +116,20 @@ export async function overview(days: Period): Promise<OverviewData> {
             coalesce(sum(count) filter (where kind <> all(${COPY_EXCLUDED})), 0)::int as copies
           from usage_counts where day >= ${r.from}::date group by day`,
       events(() => sql`select (at at time zone 'utc')::date::text as day, count(*)::int as views, count(distinct visitor)::int as visitors
-          from usage_events where kind = 'view' and at >= ${r.from}::date group by 1`),
+          from usage_events where kind = 'view' and item not like '/admin%' and at >= ${r.from}::date group by 1`),
       events(() => sql`select min(at)::text as first from usage_events`),
-      events(() => sql`with v as (select distinct visitor, (at at time zone 'utc')::date as d from usage_events where kind = 'view' and visitor is not null and at >= ${r.start}::date),
+      events(() => sql`with v as (select distinct visitor, (at at time zone 'utc')::date as d from usage_events where kind = 'view' and item not like '/admin%' and visitor is not null and at >= ${r.start}::date),
             c as (select distinct visitor, (at at time zone 'utc')::date as d from usage_events where kind = 'copy' and at >= ${r.start}::date),
             i as (select distinct visitor, (at at time zone 'utc')::date as d from usage_events where kind = 'install' and item <> 'registry' and client = any(${TOOLS}) and at >= ${r.start}::date)
           select (select count(*) from v)::int as visits,
                  (select count(*) from v join c using (visitor, d))::int as copied,
                  (select count(*) from v join i using (visitor, d))::int as installed`),
       events(() => sql`select item as path, count(*)::int as views, count(distinct visitor)::int as visitors from usage_events
-          where kind = 'view' and at >= ${r.start}::date group by item order by views desc limit 8`),
+          where kind = 'view' and item not like '/admin%' and at >= ${r.start}::date group by item order by views desc limit 8`),
       events(() => sql`select referrer as host, count(*)::int as views from usage_events
-          where kind = 'view' and referrer is not null and at >= ${r.start}::date group by referrer order by views desc limit 8`),
+          where kind = 'view' and item not like '/admin%' and referrer is not null and at >= ${r.start}::date group by referrer order by views desc limit 8`),
       events(() => sql`select coalesce(country, '??') as code, count(distinct visitor)::int as visitors from usage_events
-          where kind = 'view' and at >= ${r.start}::date group by 1 order by visitors desc limit 8`),
+          where kind = 'view' and item not like '/admin%' and at >= ${r.start}::date group by 1 order by visitors desc limit 8`),
       sql`select item, sum(count)::int as count from usage_counts
           where kind = 'install' and item <> 'registry' and client = any(${TOOLS}) and day >= ${r.start}::date
           group by item order by count desc limit 8`,
@@ -210,12 +210,12 @@ export async function traffic(days: Period): Promise<TrafficData> {
   try {
     const [pages, referrers, countries, clients] = await Promise.all([
       events(() => sql`select item as path, count(*)::int as views, count(distinct (visitor, (at at time zone 'utc')::date))::int as visitors,
-            max(at)::text as last from usage_events where kind = 'view' and at >= ${r.start}::date group by item order by views desc limit 500`),
+            max(at)::text as last from usage_events where kind = 'view' and item not like '/admin%' and at >= ${r.start}::date group by item order by views desc limit 500`),
       events(() => sql`select referrer as host, count(*)::int as views, count(distinct visitor)::int as visitors from usage_events
-            where kind = 'view' and referrer is not null and at >= ${r.start}::date group by referrer order by views desc limit 200`),
+            where kind = 'view' and item not like '/admin%' and referrer is not null and at >= ${r.start}::date group by referrer order by views desc limit 200`),
       events(() => sql`select coalesce(country, '??') as code, count(distinct (visitor, (at at time zone 'utc')::date))::int as visitors, count(*)::int as views
-            from usage_events where kind = 'view' and at >= ${r.start}::date group by 1 order by visitors desc`),
-      events(() => sql`select client, count(*)::int as views from usage_events where kind = 'view' and at >= ${r.start}::date group by client order by views desc`),
+            from usage_events where kind = 'view' and item not like '/admin%' and at >= ${r.start}::date group by 1 order by visitors desc`),
+      events(() => sql`select client, count(*)::int as views from usage_events where kind = 'view' and item not like '/admin%' and at >= ${r.start}::date group by client order by views desc`),
     ])
     return {
       days,
