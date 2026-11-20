@@ -98,6 +98,12 @@ export default function CarouselDemo({
 }) {
   const [rotating, setRotating] = React.useState(playing)
   React.useEffect(() => setRotating(playing), [playing])
+  // The first photo loads when the carousel nears the screen; the rest follow it, so no slide arrives empty.
+  const firstPhoto = React.useRef<HTMLImageElement>(null)
+  const [warm, setWarm] = React.useState(false)
+  React.useEffect(() => {
+    if (firstPhoto.current?.complete) setWarm(true)
+  }, [])
   const theme = {
     "--carousel-gap": `${gap}px`,
     "--carousel-radius": `${radius}px`,
@@ -119,9 +125,13 @@ export default function CarouselDemo({
               <CarouselItem key={photo.title} aria-label={index === 0 ? photoTitle : photo.title} style={{ ...(slidesPerPage > 1 ? { flexBasis: `calc((100% - ${gap * (slidesPerPage - 1)}px) / ${slidesPerPage})` } : null), ...(orientation === "vertical" ? { height: height + 33 } : null) }}>
                 <figure>
                   <img
+                    ref={index === 0 ? firstPhoto : undefined}
                     style={{ height, borderRadius: radius }}
                     src={photo.src}
                     alt={photo.title}
+                    loading={index === 0 || !warm ? "lazy" : "eager"}
+                    decoding="async"
+                    onLoad={index === 0 ? () => setWarm(true) : undefined}
                     draggable={false}
                     className="block h-[220px] w-full rounded-[14px] bg-muted object-cover outline outline-1 -outline-offset-1 outline-black/5 dark:outline-white/5"
                   />

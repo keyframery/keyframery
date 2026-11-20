@@ -133,6 +133,22 @@ function registryItem(slug) {
   return { npm, local }
 }
 
+/* A dependency links to its docs page when it has one. A helper without a page (agent-content) is named in code:
+   a link to /docs/components/<helper> would be a 404. */
+const depLink = (d) => (slugs.includes(d) ? `[${d}](/docs/components/${d})` : `\`${d}\``)
+
+/* The manual step for what a component builds on: copy the ones with a page from their page, add helpers with the CLI. */
+function manualDeps(local) {
+  const pages = local.filter((d) => slugs.includes(d))
+  const helpers = local.filter((d) => !slugs.includes(d))
+  return [
+    pages.length ? `Install ${pages.map(depLink).join(", ")} the same way first.` : "",
+    helpers.length ? `Add ${helpers.map(depLink).join(", ")} with the CLI: \`npx shadcn@latest add ${helpers.map((d) => `@keyframery/${d}`).join(" ")}\`.` : "",
+  ]
+    .filter(Boolean)
+    .join(" ")
+}
+
 /* The names a file exports with `export { A, B }` (types left out). */
 function exportsOf(code) {
   const names = []
@@ -239,7 +255,7 @@ for (const slug of slugs) {
     "",
     fence("npm", `npx shadcn@latest add @keyframery/${slug}`),
     "",
-    `This adds \`components/keyframery/${slug}.tsx\` and its primitive to your project${onSdk ? ", and installs UI SDK" : ""}${deps.local.length ? `, along with ${deps.local.map((d) => `[${d}](/docs/components/${d})`).join(", ")}, which it builds on` : ""}. The motion tokens are added to your global CSS the first time you install a component.`,
+    `This adds \`components/keyframery/${slug}.tsx\` and its primitive to your project${onSdk ? ", and installs UI SDK" : ""}${deps.local.length ? `, along with ${deps.local.map(depLink).join(", ")}, which it builds on` : ""}. The motion tokens are added to your global CSS the first time you install a component.`,
     "",
     "</Tab>",
     '<Tab value="Manual">',
@@ -268,7 +284,7 @@ for (const slug of slugs) {
     "",
     "</Step>",
     ...(deps.local.length
-      ? ["<Step>", "", "**Add what it builds on**", "", `Install ${deps.local.map((d) => `[${d}](/docs/components/${d})`).join(", ")} the same way first.`, "", "</Step>"]
+      ? ["<Step>", "", "**Add what it builds on**", "", manualDeps(deps.local), "", "</Step>"]
       : []),
     "<Step>",
     "",

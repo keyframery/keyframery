@@ -91,7 +91,7 @@ export const AUTHORS: Record<string, Author> = {
     homeLocation: "Ahmedabad, India",
     about: [
       "Briyan is a full-stack software engineer who works on generative AI tools and developer experience. He writes about AI, software and system design on X as @briyan_dev, where he has posted since August 2024.",
-      "In October 2026 he released Keyframery as a motion layer for shadcn/ui. In November 2026 he rebuilt it as Keyframery for UI SDK: 60 MIT-licensed components with the motion done in plain CSS, which keep UI SDK's parts and props so you swap one import.",
+      "In October 2026 he released Keyframery as a motion layer for shadcn/ui. In November 2026 he rebuilt it as Keyframery for UI SDK: MIT-licensed components with the motion done in plain CSS, which keep UI SDK's parts and props so you swap one import.",
       "Before Keyframery he built Zuro CLI, which adds backend modules (auth, database, uploads, mail) to an Express and TypeScript project as code you own, the way shadcn/ui does for components. On this blog he publishes tests he runs himself: the prompts, the setup and the numbers, so you can check the work.",
     ],
     projects: [
