@@ -323,8 +323,10 @@ const pct = (value: number) => round(value)
 function seriesOf(input: Inputs): ChartSeries[] {
   const { data, config, categoryKey } = input
   if (isRadial(input.type)) {
-    /* A pie draws one series; its slices are the rows. */
-    const key = Object.keys(config).find((k) => k !== categoryKey && data.some((row) => typeof row[k] === "number")) ?? "value"
+    /* A pie draws one series; its slices are the rows. Its value is the column the config names or,
+       when the config only labels the slices, the one number each row carries. */
+    const numeric = (k: string) => k !== categoryKey && data.some((row) => typeof row[k] === "number")
+    const key = Object.keys(config).find(numeric) ?? Object.keys(data[0] ?? {}).find(numeric) ?? "value"
     return [{ key, label: config[key]?.label ?? key, color: `var(--color-${cssName(key)},var(--chart-1))`, hidden: false, index: 0 }]
   }
   return Object.keys(config)
