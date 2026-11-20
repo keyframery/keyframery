@@ -23,7 +23,8 @@ export function PageViews() {
   const path = usePathname()
   const last = React.useRef<string | null>(null)
   React.useEffect(() => {
-    if (!path || last.current === path) return
+    // The owner reading /admin is not a visitor.
+    if (!path || path.startsWith("/admin") || last.current === path) return
     const first = last.current === null
     last.current = path
     const referrer = first ? referrerHost() : null

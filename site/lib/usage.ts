@@ -39,7 +39,9 @@ const NAMED: [RegExp, string][] = [
   [/VSCode|vscode/, "VS Code"],
 ]
 
-const CRAWLERS = new Set(["GPTBot", "ChatGPT-User", "OAI-SearchBot", "ClaudeBot", "Claude-User", "Claude-SearchBot", "PerplexityBot", "Perplexity-User", "Google", "Bing", "Applebot", "CCBot", "Bytespider", "Amazonbot", "Meta", "DuckDuckGo", "other-bot"])
+/** Client classes that are crawlers or AI fetchers, not people. /admin reads the list to keep them apart. */
+export const CRAWLER_CLIENTS: readonly string[] = ["GPTBot", "ChatGPT-User", "OAI-SearchBot", "ClaudeBot", "Claude-User", "Claude-SearchBot", "PerplexityBot", "Perplexity-User", "Google", "Bing", "Applebot", "CCBot", "Bytespider", "Amazonbot", "Meta", "DuckDuckGo", "other-bot"]
+const CRAWLERS = new Set(CRAWLER_CLIENTS)
 export const isCrawlerClient = (client: string): boolean => CRAWLERS.has(client)
 
 /** The kind of client behind a user agent. The shadcn CLI downloads with Node's fetch, whose user agent is "node". */

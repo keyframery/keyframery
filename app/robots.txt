@@ -8,6 +8,7 @@ User-Agent: *
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 Disallow: /api/
+Disallow: /admin
 
 # AI crawlers and assistants are named explicitly, so there is no doubt they are welcome.
 User-Agent: GPTBot
@@ -28,5 +29,6 @@ User-Agent: Bytespider
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 Disallow: /api/
+Disallow: /admin
 
 Sitemap: https://keyframery.com/sitemap.xml
