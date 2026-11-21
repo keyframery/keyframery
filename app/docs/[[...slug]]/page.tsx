@@ -44,8 +44,6 @@ export default async function Page(props: Props) {
   const related = current ? entries.filter((candidate) => candidate.slug !== current.slug && candidate.group === current.group).slice(0, 3) : []
   // Component pages are generated from the component's source, so "edit this page" points there.
   const githubPath = component ? `src/components/ui/${component}.tsx` : template ? `src/templates/${template.slug}/${template.slug}.tsx` : `content/docs/${page.path}`
-  // The Templates pages show the page's actions as one control (see .kf-actions in globals.css).
-  const inTemplates = page.url === "/docs/templates" || page.url.startsWith("/docs/templates/")
   // What you can do with the page, then where to go next.
   const actions = (
     <>
@@ -103,14 +101,10 @@ export default async function Page(props: Props) {
             {component || template ? page.data.title : heading}
             {template && <span className="rounded-full border px-2 py-0.5 text-[11px] leading-4 font-medium tracking-normal text-muted-foreground">{template.price}</span>}
           </DocsTitle>
-          {inTemplates ? (
-            /* The outer parent is the tray, the inner parent the bar the actions sit on. */
-            <div className="kf-actions">
-              <div className="kf-actions-bar">{actions}</div>
-            </div>
-          ) : (
-            <div className="flex items-center gap-1">{actions}</div>
-          )}
+          {/* One control on every docs page: the outer parent is the tray, the inner parent the bar the actions sit on (see .kf-actions in globals.css). */}
+          <div className="kf-actions">
+            <div className="kf-actions-bar">{actions}</div>
+          </div>
         </div>
         <DocsDescription className="mb-0 max-w-[68ch] text-[15px] leading-6 text-pretty">{page.data.description}</DocsDescription>
         {component && <PageChips slug={component} />}
