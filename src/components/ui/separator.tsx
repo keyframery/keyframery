@@ -26,7 +26,10 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
   return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
 }
 
-/* A hairline in the border colour: full width when horizontal, the row's height when vertical. */
+/* A hairline in the border colour: full width when horizontal, the row's height when vertical.
+   The vertical stretch is a plain class, not a `data-[orientation=vertical]:` one, so a `self-*`
+   class passed in replaces it: `className="h-4 self-center"` gives a short line centred in its
+   row, where a stretch that outranked it would pin the line to the top of the row. */
 function Separator({ speed, className, ...props }: React.ComponentProps<typeof SeparatorPrimitive> & SpeedProps) {
   return (
     <Speed speed={speed}>
@@ -35,7 +38,8 @@ function Separator({ speed, className, ...props }: React.ComponentProps<typeof S
           cn(
             "shrink-0 bg-[var(--separator-line,var(--border))]",
             "data-[orientation=horizontal]:h-[var(--separator-thickness,1px)] data-[orientation=horizontal]:w-full",
-            "data-[orientation=vertical]:w-[var(--separator-thickness,1px)] data-[orientation=vertical]:self-stretch",
+            "data-[orientation=vertical]:w-[var(--separator-thickness,1px)]",
+            props.orientation === "vertical" && "self-stretch",
             "[[data-slot=separator-label]+&]:flex-1 has-[+[data-slot=separator-label]]:flex-1",
           ),
           className,

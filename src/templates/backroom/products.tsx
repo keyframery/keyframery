@@ -10,7 +10,7 @@ import * as React from "react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox"
 import { DataTable, DataTableBulkAction, type DataTableColumnDef } from "@/components/ui/data-table"
 import { FileInput, FileInputDropzone, FileInputTrigger } from "@/components/ui/file-input"
@@ -26,7 +26,7 @@ import { ErrorPage } from "./errors"
 import { count, money, moneyWhole, plural } from "./format"
 import { Choice, icon, InlineLink, LabelledField, pageStack, PageHeader, PRODUCT_STATUS, PrintPhoto, stockOf } from "./kit"
 import { linkProps, useRouter } from "./router"
-import { useStore } from "./store"
+import { lowStockAt, stockLevel, useStore } from "./store"
 
 const COLLECTIONS: Collection[] = ["Coast", "Walks", "Places", "Kitchen"]
 const SIZES: Size[] = ["30×40", "50×70", "70×100"]
@@ -58,15 +58,14 @@ export function ProductsPage() {
   const router = useRouter()
   const sold = useUnitsSold()
   const [selected, setSelected] = React.useState<string[]>([])
-  const lowAt = state.settings.lowStockAt
 
   const rows = React.useMemo<Row[]>(
     () =>
       state.products.map((p) => {
         const prices = p.variants.map((v) => v.price)
-        return { ...p, stock: stockOf(p), low: p.variants.filter((v) => v.stock <= lowAt).length, sold: sold.get(p.id) ?? 0, from: Math.min(...prices), to: Math.max(...prices) }
+        return { ...p, stock: stockOf(p), low: p.variants.filter((v) => stockLevel(state, v) !== "ok").length, sold: sold.get(p.id) ?? 0, from: Math.min(...prices), to: Math.max(...prices) }
       }),
-    [state.products, sold, lowAt],
+    [state, sold],
   )
 
   const columns = React.useMemo<DataTableColumnDef<Row>[]>(
@@ -105,8 +104,11 @@ export function ProductsPage() {
         accessor: (p) => p.stock,
         hideBelow: "sm",
         cell: (p) => (
-          <span className="flex flex-col gap-1">
-            <span className="tabular-nums">{count(p.stock)} in stock</span>
+          /* The stock figure opens Inventory filtered to this print, where it can be adjusted; the name stays the way to the product. */
+          <span className="flex flex-col items-start gap-0.5">
+            <InlineLink to={`/inventory?product=${p.id}`} label={`${p.name} inventory, ${count(p.stock)} in stock`} className="font-normal tabular-nums">
+              {count(p.stock)} in stock
+            </InlineLink>
             {p.low > 0 && <span className="text-[12px] text-[color:var(--chart-4)]">{plural(p.low, "variant")} running low</span>}
           </span>
         ),
@@ -364,7 +366,7 @@ export function ProductPage({ id }: { id: string | null }) {
             <CardHeader>
               <CardTitle>{isNew ? "Sizes and finishes" : "Variants"}</CardTitle>
               <CardDescription>
-                {isNew ? "Every size you pick comes in every finish you pick, at the shop's usual prices. You can change prices after." : `Stock at or under ${lowAt} counts as running low.`}
+                {isNew ? "Every size you pick comes in every finish you pick, at the shop's usual prices. You can change prices after." : `Stock at or under a variant's low-stock level counts as running low: ${lowAt} unless Inventory sets its own.`}
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
@@ -408,7 +410,7 @@ export function ProductPage({ id }: { id: string | null }) {
                               <span className="font-medium">
                                 {v.size} cm · {v.finish}
                               </span>
-                              {v.stock <= lowAt && <span className="text-[12px] text-[color:var(--chart-4)]">{v.stock === 0 ? "Out of stock" : "Running low"}</span>}
+                              {v.stock <= lowStockAt(state, v) && <span className="text-[12px] text-[color:var(--chart-4)]">{v.stock === 0 ? "Out of stock" : "Running low"}</span>}
                             </span>
                           </TableCell>
                           <TableCell className="hidden font-mono text-[12px] text-muted-foreground md:table-cell">{v.sku}</TableCell>
@@ -455,6 +457,13 @@ export function ProductPage({ id }: { id: string | null }) {
               <CardHeader>
                 <CardTitle>Stock</CardTitle>
                 <CardDescription>{plural(stockOf(draft), "print")} across {plural(draft.variants.length, "variant")}</CardDescription>
+                {router.exists("/inventory") && (
+                  <CardAction>
+                    <Button size="sm" render={<a {...linkProps(router, `/inventory?product=${existing.id}`)} />}>
+                      Adjust
+                    </Button>
+                  </CardAction>
+                )}
               </CardHeader>
               <CardContent className="flex flex-col gap-3">
                 {SIZES.map((size) => {

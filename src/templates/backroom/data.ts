@@ -33,6 +33,8 @@ export type Variant = {
   sku: string
   price: Cents
   stock: number
+  /** Stock at or under this counts as running low. Leave it out to use the store's setting (Settings, `lowStockAt`). */
+  lowStockAt?: number
 }
 
 export type Product = {
@@ -81,7 +83,15 @@ export type OrderLine = {
 
 export type OrderEventKind = "placed" | "paid" | "fulfilled" | "delivered" | "refunded" | "cancelled" | "note" | "invoice"
 
-export type OrderEvent = { id: string; at: Iso; kind: OrderEventKind; text: string; by?: string }
+export type OrderEvent = {
+  id: string
+  at: Iso
+  kind: OrderEventKind
+  text: string
+  by?: string
+  /** For a refund, or a paid order cancelled: how much went back, in cents. Payouts subtract it. */
+  amount?: Cents
+}
 
 export type Order = {
   /** The order number people say: 1042. Its page is /orders/1042. */
@@ -575,6 +585,274 @@ export const SOURCE_LABEL: Record<Source, string> = {
 }
 export const DEVICE_LABEL: Record<Device, string> = { mobile: "Phone", desktop: "Desktop", tablet: "Tablet" }
 
+/* ------------------------------------------------------------------ reviews, stock on its way, payouts */
+
+/* These draw from their own seed, so adding them changed none of the orders, people or stock above. */
+const rnd = mulberry32(24_11_2026)
+const rint = (min: number, max: number) => Math.floor(min + rnd() * (max - min + 1))
+const rpick = <T,>(list: readonly T[]) => list[Math.floor(rnd() * list.length)]
+
+/* A refund's amount sits on its event, so payouts can take each refund off on the day it happened. */
+for (const o of orderList) for (const e of o.events) if (e.kind === "refunded") e.amount = o.refunded
+
+export type ReviewStatus = "published" | "hidden"
+
+export type Review = {
+  /** "r014". Its page is /reviews/r014. */
+  id: string
+  productId: string
+  /** The size and frame the customer bought. */
+  variantId: string
+  /** The order it came from: every review is from someone who bought the print and had it delivered. */
+  orderNumber: number
+  customerId: string
+  /** 1 to 5 stars. */
+  rating: number
+  title: string
+  body: string
+  createdAt: Iso
+  /** Hidden reviews stay here but don't show in the shop. */
+  status: ReviewStatus
+  /** The shop's answer, shown under the review in the shop. */
+  reply?: { text: string; at: Iso; by: string }
+}
+
+type ReviewText = { title: string; body: (c: { name: string; size: string; finish: string; city: string }) => string; framed?: boolean }
+
+/* What people wrote, by stars. Each says one specific thing, the way real reviews do. */
+const REVIEW_TEXT: Record<number, ReviewText[]> = {
+  5: [
+    { title: "Colours are spot on", body: () => "The colours are exactly as on the site. Deep and calm, and printed on a lovely heavy paper." },
+    { title: "Gift went down a treat", body: () => "Bought it for my parents' anniversary. Packed like it was going to the moon, and they love it." },
+    { title: "Second print from Tideline", body: () => "My second print from you and just as good as the first. It's over the sofa now and everyone asks about it." },
+    { title: "Frame is beautiful", body: (c) => `The ${c.finish.toLowerCase()} is solid and well finished, nothing like the flimsy ones from the high street.`, framed: true },
+    { title: "Quick and careful", body: () => "Arrived two days after I ordered, wrapped in so much card I needed scissors. Perfect condition." },
+    { title: "Exactly what the hallway needed", body: (c) => `We'd been looking for something for the hallway for months. ${c.name} fits it perfectly.` },
+    { title: "Lovely detail", body: () => "You can see every detail up close. The paper is a soft matte with no glare at all." },
+    { title: "Ready to hang", body: () => "Came with the hanging wire already fitted, so it was on the wall ten minutes after the courier left.", framed: true },
+  ],
+  4: [
+    { title: "Very happy", body: () => "Really happy with it. The print is a touch darker than on my screen, but I prefer it." },
+    { title: "Good value", body: () => "Good quality for the price. I'd have liked a hanging cord fitted, but that's easy to add." },
+    { title: "Nice print, slow post", body: (c) => `Nice print and well packed. Delivery to ${c.city} took five days, longer than I expected.` },
+    { title: "Smaller than I pictured", body: (c) => `My mistake, I should have measured. The ${c.size} is smaller than I pictured, but it looks great on the shelf.` },
+  ],
+  3: [
+    { title: "Corner a bit bent", body: () => "The print is lovely, but one corner was slightly bent in the tube. Not enough to send it back." },
+    { title: "Darker than expected", body: () => "Darker than on the website. It works in a bright room, but not where I'd planned to hang it." },
+    { title: "Small scratch on the frame", body: () => "A small scratch along the top of the frame. Otherwise a beautiful print.", framed: true },
+    { title: "Took a while", body: (c) => `Lovely print, but it took nine days to reach ${c.city} and the tracking didn't move for most of them.` },
+    { title: "Paper is thinner than I hoped", body: () => "The photo itself is beautiful. The paper feels thinner than the description made me expect." },
+  ],
+  2: [
+    { title: "Glass cracked", body: () => "The glass was cracked when it arrived. The box looked fine, so it must have happened before packing.", framed: true },
+    { title: "Paper marked", body: () => "There's a faint crease across the sky that catches the light. I expected better at this price." },
+  ],
+  1: [{ title: "Not as pictured", body: () => "The colours look washed out next to the photo on the site. Disappointed for the price." }],
+}
+
+const REPLY_GOOD = [
+  (first: string) => `Thank you, ${first}! So glad it found a good wall.`,
+  (first: string) => `That's lovely to hear, ${first}. Thanks for taking the time to write.`,
+  (first: string) => `Thanks so much, ${first}. Enjoy it!`,
+]
+const REPLY_BAD = [
+  (first: string) => `I'm sorry, ${first}. We've changed how we pack the tubes since. Reply to your order email and we'll send a replacement.`,
+  (first: string) => `Sorry it didn't arrive as it should, ${first}. A new one is on its way to you, tracked, with no need to return the first.`,
+]
+
+const deliveredAt = (o: Order) => o.events.find((e) => e.kind === "delivered")?.at
+const reviewable = orderList
+  .filter((o) => o.channel === "online" && o.status === "open" && o.payment !== "refunded" && deliveredAt(o))
+  .sort((a, b) => deliveredAt(b)!.localeCompare(deliveredAt(a)!))
+
+const reviewList: Omit<Review, "id">[] = []
+const reviewed = new Set<number>()
+const firstName = (id: string) => customerList.find((c) => c.id === id)!.name.split(" ")[0]
+
+function addReview(order: Order, line: OrderLine, rating: number, at: number, text: { title: string; body: string }) {
+  reviewed.add(order.number)
+  reviewList.push({ productId: line.productId, variantId: line.variantId, orderNumber: order.number, customerId: order.customerId, rating, title: text.title, body: text.body, createdAt: iso(at), status: "published" })
+  return reviewList[reviewList.length - 1]
+}
+
+/* The two reviews the notifications name. */
+const HOUR = 3_600_000
+const jettyOrder = reviewable.find((o) => o.lines.some((l) => l.productId === "p01") && Date.parse(deliveredAt(o)!) < NOW - 30 * HOUR)!
+const jettyReview = addReview(jettyOrder, jettyOrder.lines.find((l) => l.productId === "p01")!, 5, NOW - 7 * HOUR, { title: "Even better on the wall", body: "The jetty looks even better on the wall than on the screen." })
+const oakOrder = reviewable.find((o) => !reviewed.has(o.number) && o.lines.some((l) => l.variantTitle.endsWith("Oak frame")) && Date.parse(deliveredAt(o)!) < NOW - 7 * 24 * HOUR)!
+const oakReview = addReview(oakOrder, oakOrder.lines.find((l) => l.variantTitle.endsWith("Oak frame"))!, 4, NOW - 6 * DAY, { title: "Lovely, a little slow", body: "Beautiful print, the oak frame is lovely. Took a week to arrive." })
+oakReview.reply = { text: `Thank you, ${firstName(oakOrder.customerId)}! Sorry for the wait: the oak frames are made to order in Kilkenny and that week ran long.`, at: iso(NOW - 6 * DAY + 3 * HOUR), by: "Niamh Brennan" }
+
+/* Then about a third of the orders delivered in the last eleven weeks. */
+const usedTitles = new Set<string>()
+for (const order of reviewable) {
+  if (reviewList.length >= 42) break
+  const delivered = Date.parse(deliveredAt(order)!)
+  if (delivered < NOW - 78 * DAY || reviewed.has(order.number) || rnd() > 0.34) continue
+  const line = rpick(order.lines)
+  const roll = rnd() * 100
+  const rating = roll < 62 ? 5 : roll < 85 ? 4 : roll < 93 ? 3 : roll < 97 ? 2 : 1
+  const at = delivered + rint(1, 6) * DAY + rint(-6, 6) * HOUR
+  if (at > NOW - 2 * HOUR) continue
+  const framed = !line.variantTitle.endsWith("Unframed")
+  /* No title twice in a row of the same stars, so the list reads like different people wrote it. */
+  const fits = REVIEW_TEXT[rating].filter((t) => framed || !t.framed)
+  if (fits.every((t) => usedTitles.has(t.title))) fits.forEach((t) => usedTitles.delete(t.title))
+  const text = rpick(fits.filter((t) => !usedTitles.has(t.title)))
+  usedTitles.add(text.title)
+  const customer = customerList.find((c) => c.id === order.customerId)!
+  const [size, finish] = line.variantTitle.split(" · ")
+  const review = addReview(order, line, rating, at, { title: text.title, body: text.body({ name: line.name, size, finish, city: customer.address.city }) })
+  const age = NOW - at
+  if (rating <= 3 && age > 14 * DAY) review.reply = { text: rpick(REPLY_BAD)(customer.name.split(" ")[0]), at: iso(at + rint(2, 20) * HOUR), by: rpick(["Niamh Brennan", "Saoirse Doyle"]) }
+  if (rating >= 4 && age > DAY && rnd() < 0.45) review.reply = { text: rpick(REPLY_GOOD)(customer.name.split(" ")[0]), at: iso(at + rint(3, 30) * HOUR), by: rpick(["Niamh Brennan", "Saoirse Doyle", "Tomás Reilly"]) }
+}
+
+/* One customer sent the same review twice; the team hid the copy. */
+{
+  const original = reviewList.filter((r) => r.rating === 5 && !r.reply && Date.parse(r.createdAt) < NOW - 10 * DAY)[2]
+  if (original) reviewList.push({ ...original, createdAt: iso(Date.parse(original.createdAt) + 4 * 60_000), status: "hidden" })
+}
+
+reviewList.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+export const reviews: Review[] = reviewList.map((r, i) => ({ ...r, id: `r${String(i + 1).padStart(3, "0")}` }))
+const reviewId = (r: Omit<Review, "id">) => reviews[reviewList.indexOf(r)].id
+
+/** A shipment of stock on its way: frames come from a framer in Kilkenny. */
+export type Incoming = { id: string; variantId: string; quantity: number; expected: Iso; supplier: string }
+
+export const incoming: Incoming[] = [
+  { id: "in1", variantId: variantOf(products[1], "50×70", "Black frame").id, quantity: 12, expected: iso(Date.UTC(2026, 10, 26)), supplier: "Nore Valley Framing" },
+  { id: "in2", variantId: variantOf(products[0], "50×70", "Oak frame").id, quantity: 10, expected: iso(Date.UTC(2026, 10, 24)), supplier: "Nore Valley Framing" },
+  { id: "in3", variantId: variantOf(products[2], "30×40", "Oak frame").id, quantity: 8, expected: iso(Date.UTC(2026, 10, 24)), supplier: "Nore Valley Framing" },
+  { id: "in4", variantId: variantOf(products[3], "70×100", "Black frame").id, quantity: 4, expected: iso(Date.UTC(2026, 11, 2)), supplier: "Nore Valley Framing" },
+  { id: "in5", variantId: variantOf(products[5], "50×70", "Oak frame").id, quantity: 6, expected: iso(Date.UTC(2026, 11, 2)), supplier: "Nore Valley Framing" },
+]
+
+/* ------------------------------------------------------------------ payouts */
+
+/** Where card payments are paid out to. */
+export const PAYOUT_BANK = "AIB ···· 4417"
+/** The card processor's fee on each payment: 1.5% plus €0.25. Refunds don't return it. */
+export const cardFee = (gross: Cents) => Math.round(gross * 0.015) + 25
+
+export type PayoutStatus = "paid" | "in_transit" | "scheduled"
+
+/** One payment or refund a payout carries. `net` is what it adds to the payout (negative for a refund). */
+export type PayoutLine = { id: string; kind: "charge" | "refund"; orderNumber: number; customerId: string; at: Iso; gross: Cents; fee: Cents; net: Cents }
+
+export type Payout = {
+  /** "po-2026-11-18". Its page is /payouts/po-2026-11-18. */
+  id: string
+  /** When it left the card processor. */
+  initiatedAt: Iso
+  /** When it reaches the bank. */
+  arrivesAt: Iso
+  /** The payments it carries were taken from `from` up to `to` (null: up to now, for the next payout). */
+  from: Iso | null
+  to: Iso | null
+  status: PayoutStatus
+  bank: string
+  lines: PayoutLine[]
+  /** Card payments, refunds and fees, each a positive amount. amount = charges − refunds − fees. */
+  charges: Cents
+  refunds: Cents
+  fees: Cents
+  amount: Cents
+}
+
+/**
+ * The store's payouts, from its orders. Card payments on the online store are paid out every Wednesday and
+ * Saturday: each payout carries the payments taken since the one before, less refunds made in that time and
+ * the card fees, and reaches the bank two days later (Friday and Monday). The last one is the next payout,
+ * still collecting. Marketplace and wholesale orders are paid by the marketplace and by bank transfer, so
+ * they aren't here. Pure: pass the store's orders and it agrees with them.
+ */
+export function buildPayouts(list: Order[], now = NOW): Payout[] {
+  const start = TODAY - (HISTORY_DAYS - 1) * DAY
+  const cutoffs: number[] = []
+  for (let d = start + DAY; ; d += DAY) {
+    const weekday = new Date(d).getUTCDay()
+    if (weekday !== 3 && weekday !== 6) continue
+    cutoffs.push(d)
+    if (d + 7 * HOUR > now) break
+  }
+  const items: Omit<PayoutLine, "id">[] = []
+  for (const o of list) {
+    if (o.channel !== "online") continue
+    if (o.payment !== "pending" && o.payment !== "voided") {
+      const at = o.events.find((e) => e.kind === "paid")?.at ?? o.createdAt
+      const fee = cardFee(o.total)
+      items.push({ kind: "charge", orderNumber: o.number, customerId: o.customerId, at, gross: o.total, fee, net: o.total - fee })
+    }
+    for (const e of o.events)
+      if ((e.kind === "refunded" || e.kind === "cancelled") && e.amount) items.push({ kind: "refund", orderNumber: o.number, customerId: o.customerId, at: e.at, gross: -e.amount, fee: 0, net: -e.amount })
+  }
+  items.sort((a, b) => a.at.localeCompare(b.at) || a.orderNumber - b.orderNumber)
+
+  /* A window whose refunds outweigh its payments sends nothing: its lines wait for the next payout, as a
+     card processor holds a negative balance. Empty windows send nothing either. */
+  const out: Payout[] = []
+  let carried: Omit<PayoutLine, "id">[] = []
+  let from = -Infinity
+  cutoffs.forEach((cutoff, i) => {
+    const last = i === cutoffs.length - 1
+    const to = last ? Infinity : cutoff
+    const taken = [...carried, ...items.filter((it) => Date.parse(it.at) >= from && Date.parse(it.at) < to)]
+    const windowFrom = carried.length ? Date.parse(carried[0].at) : from
+    from = cutoff
+    const net = taken.reduce((s, l) => s + l.net, 0)
+    if (!last && (!taken.length || net <= 0)) {
+      carried = taken
+      return
+    }
+    carried = []
+    const id = `po-${iso(cutoff).slice(0, 10)}`
+    const lines = taken.map((it, n) => ({ ...it, id: `${id}-${n + 1}` }))
+    const charges = lines.filter((l) => l.kind === "charge").reduce((s, l) => s + l.gross, 0)
+    const refunds = lines.filter((l) => l.kind === "refund").reduce((s, l) => s - l.gross, 0)
+    const fees = lines.reduce((s, l) => s + l.fee, 0)
+    const initiated = cutoff + 7 * HOUR
+    let arrives = cutoff + 2 * DAY + 9 * HOUR
+    while ([0, 6].includes(new Date(arrives).getUTCDay())) arrives += DAY
+    out.push({
+      id,
+      initiatedAt: iso(initiated),
+      arrivesAt: iso(arrives),
+      from: Number.isFinite(windowFrom) ? iso(windowFrom) : null,
+      to: last ? null : iso(cutoff),
+      status: initiated > now ? "scheduled" : arrives > now ? "in_transit" : "paid",
+      bank: PAYOUT_BANK,
+      lines,
+      charges,
+      refunds,
+      fees,
+      amount: charges - refunds - fees,
+    })
+  })
+  return out
+}
+
+const seedPayouts = buildPayouts(orderList)
+const payoutOn = (y: number, m: number, d: number) => seedPayouts.find((p) => p.id === `po-${iso(Date.UTC(y, m, d)).slice(0, 10)}`)!
+const WEEKDAY_NAME = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+const euro = new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR" })
+
+/** The notification a payout sends when it leaves: its amount and day come from the payout itself. */
+function payoutNotice(id: string, payout: Payout, read: boolean): Notification {
+  const arrives = WEEKDAY_NAME[new Date(payout.arrivesAt).getUTCDay()]
+  return {
+    id,
+    at: payout.initiatedAt,
+    kind: "payout",
+    title: `Payout of ${euro.format(payout.amount / 100)} sent`,
+    body: payout.status === "in_transit" ? `To ${payout.bank}, arriving ${arrives}.` : `To ${payout.bank}. It arrived on ${arrives}.`,
+    to: `/payouts/${payout.id}`,
+    read,
+  }
+}
+
 /* ------------------------------------------------------------------ the rest of the account */
 
 const latest = orderList[orderList.length - 1]
@@ -582,16 +860,16 @@ const lastRefund = [...orderList].reverse().find((o) => o.payment === "refunded"
 
 export const notifications: Notification[] = [
   { id: "n1", at: latest.createdAt, kind: "order", title: `New order #${latest.number}`, body: `${customerList.find((c) => c.id === latest.customerId)!.name} · ${latest.lines[0].name}${latest.lines.length > 1 ? ` and ${latest.lines.length - 1} more` : ""}`, to: `/orders/${latest.number}`, read: false },
-  { id: "n2", at: iso(NOW - 3 * 3_600_000), kind: "stock", title: "Pebble shore is out of stock", body: "50×70 cm · Black frame. 3 orders this week asked for it.", to: `/products/${products[1].id}`, read: false },
-  { id: "n3", at: iso(NOW - 7 * 3_600_000), kind: "review", title: "New five-star review", body: "“The jetty looks even better on the wall than on the screen.”", read: false },
-  { id: "n4", at: iso(NOW - 26 * 3_600_000), kind: "payout", title: "Payout of €2,184.60 sent", body: "To AIB ···· 4417, arriving Friday.", read: true },
+  { id: "n2", at: iso(NOW - 3 * 3_600_000), kind: "stock", title: "Pebble shore is out of stock", body: "50×70 cm · Black frame. 3 orders this week asked for it.", to: `/inventory?product=${products[1].id}&show=out`, read: false },
+  { id: "n3", at: jettyReview.createdAt, kind: "review", title: "New five-star review", body: `“${jettyReview.body}”`, to: `/reviews/${reviewId(jettyReview)}`, read: false },
+  payoutNotice("n4", payoutOn(2026, 10, 18), true),
   ...(lastRefund ? [{ id: "n5", at: lastRefund.events.find((e) => e.kind === "refunded")?.at ?? lastRefund.createdAt, kind: "refund" as const, title: `Refund issued on #${lastRefund.number}`, body: "Arrived with a cracked frame. Replacement sent.", to: `/orders/${lastRefund.number}`, read: true }] : []),
   { id: "n6", at: iso(NOW - 3 * DAY), kind: "team", title: "Lena Hoffmann hasn't joined yet", body: "Her invitation as a viewer expires in 4 days.", to: "/settings/team", read: true },
-  { id: "n7", at: iso(NOW - 4 * DAY), kind: "stock", title: "Canal houses is running low", body: "30×40 cm · Oak frame. 2 left after De Kaart's restock.", to: "/products/p03", read: true },
-  { id: "n8", at: iso(NOW - 5 * DAY), kind: "payout", title: "Payout of €1,962.10 sent", body: "To AIB ···· 4417. It arrived on Monday.", read: true },
-  { id: "n9", at: iso(NOW - 6 * DAY), kind: "review", title: "New four-star review", body: "“Beautiful print, the oak frame is lovely. Took a week to arrive.”", read: true },
+  { id: "n7", at: iso(NOW - 4 * DAY), kind: "stock", title: "Canal houses is running low", body: "30×40 cm · Oak frame. 2 left after De Kaart's restock.", to: "/inventory?product=p03&show=low", read: true },
+  payoutNotice("n8", payoutOn(2026, 10, 14), true),
+  { id: "n9", at: oakReview.createdAt, kind: "review", title: "New four-star review", body: `“${oakReview.body}”`, to: `/reviews/${reviewId(oakReview)}`, read: true },
   { id: "n10", at: iso(NOW - 8 * DAY), kind: "team", title: "Saoirse Doyle changed 9 prices", body: "The Coast collection's framed sizes, ahead of the winter sale.", to: "/products", read: true },
-  { id: "n11", at: iso(NOW - 12 * DAY), kind: "payout", title: "Payout of €2,407.85 sent", body: "To AIB ···· 4417. It arrived on Friday.", read: true },
+  payoutNotice("n11", payoutOn(2026, 10, 7), true),
 ]
 
 export const settings: StoreSettings = {

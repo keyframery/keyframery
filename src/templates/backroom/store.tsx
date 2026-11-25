@@ -15,7 +15,7 @@ import * as React from "react"
 import { createToaster } from "@/components/ui/toast"
 
 import * as seed from "./data"
-import type { Cents, Channel, Customer, Device, Member, Notification, Order, OrderEvent, Product, Role, Source, StoreSettings, Variant } from "./data"
+import type { Cents, Channel, Customer, Device, Incoming, Iso, Member, Notification, Order, OrderEvent, Payout, Product, Review, ReviewStatus, Role, Source, StoreSettings, Variant } from "./data"
 import * as extras from "./extras"
 import type { App, ChatMessage, Conversation, Discount } from "./extras"
 import { money } from "./format"
@@ -36,6 +36,12 @@ export type Appearance = {
   /** Multiplies every duration: 0.5 is twice as fast, 2 twice as slow. The motion style itself is a UI SDK preference (see backroom.tsx). */
   speed: number
 }
+
+/** Why stock changed by hand: a delivery came in, some were damaged, a mistake was put right, or the shelf was counted. */
+export type StockReason = "received" | "damaged" | "correction" | "recount"
+
+/** One change to a variant's stock made on the Inventory page, kept for the record. */
+export type StockAdjustment = { id: string; variantId: string; from: number; to: number; reason: StockReason; by: string; at: Iso }
 
 export const DEFAULT_APPEARANCE: Appearance = { theme: "system", sidebar: "inset", density: "comfortable", dir: "ltr", speed: 1 }
 
@@ -61,6 +67,11 @@ export type State = {
   conversations: Conversation[]
   discounts: Discount[]
   apps: App[]
+  reviews: Review[]
+  /** Stock on its way from suppliers. */
+  incoming: Incoming[]
+  /** Stock changes made on the Inventory page this session, oldest first. */
+  adjustments: StockAdjustment[]
 }
 
 const initialState = (): State => ({
@@ -81,6 +92,9 @@ const initialState = (): State => ({
   conversations: extras.conversations,
   discounts: extras.discounts,
   apps: extras.apps,
+  reviews: seed.reviews,
+  incoming: seed.incoming,
+  adjustments: [],
 })
 
 /* ------------------------------------------------------------------ actions */
@@ -114,6 +128,9 @@ type Action =
   | { type: "discount/import"; discounts: Discount[] }
   | { type: "app/set"; id: string; connected: boolean; account?: string }
   | { type: "settings/update"; patch: Partial<StoreSettings> }
+  | { type: "review/reply"; id: string; reply: Review["reply"] }
+  | { type: "review/status"; id: string; status: ReviewStatus }
+  | { type: "inventory/adjust"; adjustment: StockAdjustment; incomingId?: string }
   | { type: "notifications/read"; ids: string[] | "all" }
   | { type: "appearance/set"; patch: Partial<Appearance> }
   | { type: "workspace/switch"; id: string }
@@ -123,8 +140,8 @@ type Action =
 
 const nowIso = () => new Date().toISOString()
 
-function withEvent(order: Order, kind: OrderEvent["kind"], text: string, by?: string): OrderEvent[] {
-  return [...order.events, { id: `${order.number}-${order.events.length + 1}-${Date.now()}`, at: nowIso(), kind, text, by }]
+function withEvent(order: Order, kind: OrderEvent["kind"], text: string, by?: string, amount?: Cents): OrderEvent[] {
+  return [...order.events, { id: `${order.number}-${order.events.length + 1}-${Date.now()}`, at: nowIso(), kind, text, by, ...(amount ? { amount } : null) }]
 }
 
 function reducer(state: State, action: Action): State {
@@ -144,7 +161,7 @@ function reducer(state: State, action: Action): State {
           ...o,
           refunded,
           payment: refunded >= o.total ? "refunded" : "partially_refunded",
-          events: withEvent(o, "refunded", `Refunded ${money(action.amount)}.${action.reason ? ` ${action.reason}` : ""}`, action.by),
+          events: withEvent(o, "refunded", `Refunded ${money(action.amount)}.${action.reason ? ` ${action.reason}` : ""}`, action.by, refunded - o.refunded),
         }
       })
     case "order/cancel":
@@ -153,7 +170,8 @@ function reducer(state: State, action: Action): State {
         status: "cancelled",
         payment: o.payment === "paid" ? "refunded" : "voided",
         refunded: o.payment === "paid" ? o.total : o.refunded,
-        events: withEvent(o, "cancelled", `Cancelled.${action.reason ? ` ${action.reason}` : ""}`, action.by),
+        /* A paid order's money goes back with it: the event carries the amount, so the next payout takes it off. */
+        events: withEvent(o, "cancelled", `Cancelled.${action.reason ? ` ${action.reason}` : ""}`, action.by, o.payment === "paid" ? o.total - o.refunded : undefined),
       }))
     case "order/markPaid":
       return editOrder(action.number, (o) => ({ ...o, payment: "paid", events: withEvent(o, "paid", `Marked as paid (${money(o.total)}).`, action.by) }))
@@ -216,6 +234,19 @@ function reducer(state: State, action: Action): State {
       return { ...state, apps: state.apps.map((a) => (a.id === action.id ? { ...a, connected: action.connected, account: action.connected ? action.account : undefined } : a)) }
     case "settings/update":
       return { ...state, settings: { ...state.settings, ...action.patch } }
+    case "review/reply":
+      return { ...state, reviews: state.reviews.map((r) => (r.id === action.id ? { ...r, reply: action.reply } : r)) }
+    case "review/status":
+      return { ...state, reviews: state.reviews.map((r) => (r.id === action.id ? { ...r, status: action.status } : r)) }
+    case "inventory/adjust": {
+      const { variantId, to } = action.adjustment
+      return {
+        ...state,
+        products: state.products.map((p) => (p.variants.some((v) => v.id === variantId) ? { ...p, variants: p.variants.map((v) => (v.id === variantId ? { ...v, stock: to } : v)) } : p)),
+        incoming: action.incomingId ? state.incoming.filter((i) => i.id !== action.incomingId) : state.incoming,
+        adjustments: [...state.adjustments, action.adjustment],
+      }
+    }
     case "notifications/read":
       return { ...state, notifications: state.notifications.map((n) => (action.ids === "all" || action.ids.includes(n.id) ? { ...n, read: true } : n)) }
     case "appearance/set":
@@ -241,7 +272,7 @@ function useActions(dispatch: React.Dispatch<Action>, get: () => State) {
       return s.team.find((m) => m.id === s.session?.memberId)?.name ?? "Staff"
     }
     const order = (number: number) => get().orders.find((o) => o.number === number)
-    return {
+    const actions = {
       /** Marks an order fulfilled with its tracking number. */
       fulfilOrder(number: number, shipment: { carrier: string; tracking: string; notify?: boolean }) {
         dispatch({ type: "order/fulfil", number, carrier: shipment.carrier, tracking: shipment.tracking, by: by() })
@@ -394,6 +425,50 @@ function useActions(dispatch: React.Dispatch<Action>, get: () => State) {
         dispatch({ type: "settings/update", patch })
         toaster.success(message)
       },
+      /** Posts the shop's reply under a review, or replaces the one there. */
+      replyToReview(id: string, text: string) {
+        const had = !!get().reviews.find((r) => r.id === id)?.reply
+        dispatch({ type: "review/reply", id, reply: { text, at: nowIso(), by: by() } })
+        toaster.success(had ? "Reply updated" : "Reply posted", { description: "It shows under the review in the shop." })
+      },
+      removeReply(id: string) {
+        dispatch({ type: "review/reply", id, reply: undefined })
+        toaster.success("Reply removed")
+      },
+      /** Hides a review from the shop, or publishes it again. */
+      setReviewStatus(id: string, status: ReviewStatus) {
+        dispatch({ type: "review/status", id, status })
+        toaster.success(status === "hidden" ? "Review hidden" : "Review published", { description: status === "hidden" ? "It no longer shows in the shop." : "It shows on the print's page in the shop." })
+      },
+      /**
+       * Changes a variant's stock by hand and keeps a record of why. `quantity` means: received, how many came
+       * in; damaged, how many to write off; correction, the change (negative to take away); recount, the number
+       * counted. Returns false when nothing would change.
+       */
+      adjustStock(variantId: string, reason: StockReason, quantity: number, incomingId?: string): boolean {
+        const s = get()
+        const product = s.products.find((p) => p.variants.some((v) => v.id === variantId))
+        const variant = product?.variants.find((v) => v.id === variantId)
+        if (!product || !variant) return false
+        const q = Math.round(quantity)
+        const from = variant.stock
+        const to = Math.max(0, reason === "received" ? from + Math.abs(q) : reason === "damaged" ? from - Math.abs(q) : reason === "correction" ? from + q : q)
+        if (to === from) return false
+        dispatch({ type: "inventory/adjust", incomingId, adjustment: { id: `adj-${Date.now().toString(36)}`, variantId, from, to, reason, by: by(), at: nowIso() } })
+        toaster.success(reason === "received" ? `Received ${to - from}` : "Stock updated", { description: `${product.name}, ${variant.size} cm · ${variant.finish}: ${from} → ${to}` })
+        return true
+      },
+      /** Books in a shipment that has arrived: its quantity is added to the variant's stock. */
+      receiveIncoming(id: string): boolean {
+        const shipment = get().incoming.find((i) => i.id === id)
+        if (!shipment) return false
+        return actions.adjustStock(shipment.variantId, "received", shipment.quantity, id)
+      },
+      /** Sets the stock level at which a variant counts as running low; null goes back to the store's setting. */
+      setLowStockAt(variantId: string, value: number | null) {
+        dispatch({ type: "product/variant", variantId, patch: { lowStockAt: value === null ? undefined : Math.max(0, Math.round(value)) } })
+        toaster.success("Low-stock alert saved", { description: value === null ? `Back to the store's setting, ${get().settings.lowStockAt} or fewer` : `When ${Math.max(0, Math.round(value))} or fewer are left` })
+      },
       markNotificationsRead(ids: string[] | "all" = "all") {
         const unread = get().notifications.filter((n) => !n.read && (ids === "all" || ids.includes(n.id))).length
         dispatch({ type: "notifications/read", ids })
@@ -420,6 +495,7 @@ function useActions(dispatch: React.Dispatch<Action>, get: () => State) {
         toaster.success("Signed out")
       },
     }
+    return actions
   }, [dispatch, get])
 }
 
@@ -569,4 +645,49 @@ export function analytics(state: State, period: Period) {
     sessionsDelta: change(now.sessions, before.sessions),
     buckets,
   }
+}
+
+/* ------------------------------------------------------------------ stock, reviews and payouts */
+
+/** The stock level at or under which a variant counts as running low: its own, or the store's. */
+export const lowStockAt = (state: State, variant: Variant) => variant.lowStockAt ?? state.settings.lowStockAt
+
+/** "out" at nothing left, "low" at or under its alert level, otherwise "ok". */
+export function stockLevel(state: State, variant: Variant): "out" | "low" | "ok" {
+  if (variant.stock <= 0) return "out"
+  return variant.stock <= lowStockAt(state, variant) ? "low" : "ok"
+}
+
+/** Units of each variant in open orders not sent yet: sold, still on the shelf. */
+export function committedUnits(state: State) {
+  const units = new Map<string, number>()
+  for (const o of state.orders) {
+    if (o.status !== "open" || o.fulfilment !== "unfulfilled") continue
+    for (const line of o.lines) units.set(line.variantId, (units.get(line.variantId) ?? 0) + line.quantity)
+  }
+  return units
+}
+
+/** Every variant that is out of stock or running low, out of stock first, then the fewest left. */
+export function lowStock(state: State) {
+  return state.products
+    .filter((p) => p.status !== "archived")
+    .flatMap((product) => product.variants.map((variant) => ({ product, variant, level: stockLevel(state, variant) })))
+    .filter((row) => row.level !== "ok")
+    .sort((a, b) => a.variant.stock - b.variant.stock || a.product.name.localeCompare(b.product.name))
+}
+
+/** What a review shows as: hidden, waiting for the shop to answer (3 stars or fewer, no reply yet), or published. */
+export type ReviewState = "published" | "hidden" | "needs_reply"
+export const reviewState = (review: Review): ReviewState => (review.status === "hidden" ? "hidden" : !review.reply && review.rating <= 3 ? "needs_reply" : "published")
+
+const payoutCache = new WeakMap<Order[], Payout[]>()
+/** The store's payouts, newest first, worked out from its orders (see `buildPayouts` in data.ts). */
+export function payoutsOf(state: State): Payout[] {
+  let list = payoutCache.get(state.orders)
+  if (!list) {
+    list = seed.buildPayouts(state.orders).reverse()
+    payoutCache.set(state.orders, list)
+  }
+  return list
 }

@@ -76,18 +76,22 @@ function Button({
             {typeof children === "function" ? children(state) : children}
           </span>
           {pendingIndicator !== null && (
-            <span
-              aria-hidden
-              data-slot="button-pending"
-              className={cn(
-                "pointer-events-none absolute inset-0 grid place-items-center",
-                swap,
-                "translate-y-4 opacity-0 blur-[3px] duration-[calc(200ms*var(--kf-speed,1))] ease-house",
-                "group-data-pending/kf-button:translate-y-0 group-data-pending/kf-button:opacity-100 group-data-pending/kf-button:blur-none",
-                "group-data-pending/kf-button:duration-[calc(460ms*var(--kf-speed,1))] group-data-pending/kf-button:ease-spring",
-              )}
-            >
-              {pendingIndicator ?? <Spinner />}
+            /* The indicator waits below the label until the button is pending. It rises inside a
+               frame clipped to the button, so the waiting indicator never reaches past the button:
+               in the last row of a table or at the foot of a dialog it would otherwise make the
+               surrounding box scroll by a few pixels and swallow the first turn of the wheel. */
+            <span aria-hidden data-slot="button-pending" className="pointer-events-none absolute inset-0 overflow-clip">
+              <span
+                className={cn(
+                  "grid size-full place-items-center",
+                  swap,
+                  "translate-y-4 opacity-0 blur-[3px] duration-[calc(200ms*var(--kf-speed,1))] ease-house",
+                  "group-data-pending/kf-button:translate-y-0 group-data-pending/kf-button:opacity-100 group-data-pending/kf-button:blur-none",
+                  "group-data-pending/kf-button:duration-[calc(460ms*var(--kf-speed,1))] group-data-pending/kf-button:ease-spring",
+                )}
+              >
+                {pendingIndicator ?? <Spinner />}
+              </span>
             </span>
           )}
         </>

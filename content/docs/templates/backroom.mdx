@@ -2,7 +2,7 @@
 title: Backroom
 heading: "Backroom: a complete store admin on UI SDK"
 seoTitle: "Backroom: Free React Admin Dashboard Template"
-description: "A free, complete store admin template for React: orders, products, customers, an inbox, settings and sign-in. Built on UI SDK, installed with the shadcn CLI."
+description: "A free, complete store admin template for React: orders, products, inventory, customers, reviews, payouts, invoices, an inbox, settings and sign-in. Built on UI SDK, installed with the shadcn CLI."
 template: backroom
 full: true
 faq:
@@ -18,11 +18,11 @@ faq:
     a: "Every control is a UI SDK component, so an AI agent can read each page and use it through UI SDK's agent bridge, the same way a person does. Refunds, cancellations and deletes are marked so the agent has to ask the person first."
 ---
 
-<TemplateStage slug="backroom" name="Backroom" hint="This is the real admin, not a recording. Open an order and fulfil it, press ⌘K, reply in the inbox, or change the theme and motion from the account menu." />
+<TemplateStage slug="backroom" name="Backroom" hint="This is the real admin, not a recording. Open an order and fulfil it, adjust stock in Inventory, reply to a review, print an invoice, or press ⌘K." />
 
 ## What is in it
 
-Backroom is the admin for a made-up print shop, Tideline Prints. It is 27 working pages, and every figure on them comes from the same sample store, so a refund on one page changes the dashboard on another.
+Backroom is the admin for a made-up print shop, Tideline Prints. It is 35 working pages, and every figure on them comes from the same sample store, so a refund on one page changes the dashboard on another.
 
 | Page | What you can do |
 | --- | --- |
@@ -30,8 +30,12 @@ Backroom is the admin for a made-up print shop, Tideline Prints. It is 27 workin
 | Orders | Filter, sort and search, with the state in the address. Fulfil in bulk, export, or open an order to fulfil, refund, cancel and add notes to its timeline. |
 | New order | Four steps: the customer, the items, shipping and a review, with wholesale prices and free shipping worked out as you go. |
 | Products | Publish and archive, stock and sales in the last 30 days. Each product has a photo, variants with their own prices and stock, and a save bar. |
+| Inventory | Every print in every size and frame: available, committed to open orders, incoming and the low-stock level. Change stock with a reason, book in a delivery, or set a variant's own low-stock level. |
 | Customers | Add, filter and export. Each customer has their orders, totals, a note, tags and a newsletter switch. |
+| Reviews | The average rating and its spread, then every review with filters by stars and status. Reply, edit the reply, hide or publish, and open the order a review came from. |
 | Discounts | Percent, amount and free-shipping codes with dates and limits. Create, pause, import from CSV and delete. |
+| Payouts | The next payout and what is on its way, then every payout. Each one lists the payments, refunds and card fees it covers, adding up to the cent, and exports as CSV. |
+| Invoices and packing slips | A printable invoice and packing slip for every order, or packing slips for many orders at once. Print them, or download a PDF. |
 | Inbox | Conversations with customers, linked to their orders. Reply, drop in a saved reply, mark done, start a new one. |
 | Apps | Connect and manage Stripe, PayPal, Gmail, Slack, Google Drive and more, with the permissions each one asks for. |
 | Notifications and help | Every notification by day, and a searchable help page with a support form. |

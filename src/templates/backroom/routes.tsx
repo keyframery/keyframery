@@ -7,13 +7,17 @@
    admin never links to a page that isn't there. (The table lives here rather than in router.tsx
    so the router doesn't import the pages that import it.) */
 
-import { Blocks, CircleHelp, CreditCard, Inbox, LayoutGrid, type LucideIcon, Package, Settings, ShoppingBag, TicketPercent, UserRound, Users } from "lucide-react"
+import { Blocks, Boxes, CircleHelp, CreditCard, Inbox, Landmark, LayoutGrid, type LucideIcon, Package, Settings, ShoppingBag, Star, TicketPercent, UserRound, Users } from "lucide-react"
 
 import * as seed from "./data"
 import { ForgotPasswordPage, ResetPasswordPage, SignInPage, SignUpPage, VerifyPage } from "./auth"
 import { CustomerPage, CustomersPage } from "./customers"
 import { Dashboard } from "./dashboard"
 import { DiscountsPage } from "./discounts"
+import { InvoicePage, PackingSlipPage } from "./documents"
+import { InventoryPage } from "./inventory"
+import { PayoutPage, PayoutsPage } from "./payouts"
+import { ReviewPage, ReviewsPage } from "./reviews"
 import { InboxPage } from "./inbox"
 import { AppsPage, HelpPage, NotificationsPage } from "./workspace"
 import { NewOrderPage } from "./order-new"
@@ -23,12 +27,19 @@ import { SETTINGS_SECTIONS, SettingsPage } from "./settings"
 import { ErrorPage, type ErrorCode, errorCodes } from "./errors"
 import type { RouteDef } from "./router"
 import type { State } from "./store"
-import { inboxUnread, unfulfilledCount } from "./store"
+import { inboxUnread, reviewState, unfulfilledCount } from "./store"
 
 /* Names for titles and the breadcrumb. Seed names are enough: a product renamed this session keeps its
    first name in the tab title until the next visit, which the page heading shows correctly anyway. */
 const productName = (id: string) => seed.products.find((p) => p.id === id)?.name
 const customerName = (id: string) => seed.customers.find((c) => c.id === id)?.name
+const reviewTitle = (id: string) => seed.reviews.find((r) => r.id === id)?.title
+const payoutTitle = (id: string) => (/^po-\d{4}-\d{2}-\d{2}$/.test(id) ? `Payout ${Number(id.slice(11))} ${new Date(`${id.slice(3)}T00:00:00Z`).toLocaleString("en-IE", { month: "short", timeZone: "UTC" })}` : "Payout")
+/** Orders named in the address of the bulk packing slips: ?orders=1042,1043. */
+const orderNumbers = (query: URLSearchParams) => (query.get("orders") ?? "").split(",").map(Number).filter((n) => Number.isInteger(n) && n > 0)
+
+/** Reviews waiting for the shop to answer, for the sidebar's badge. */
+export const reviewsWaiting = (state: State) => state.reviews.filter((r) => reviewState(r) === "needs_reply").length
 
 export const routes: RouteDef[] = [
   {
@@ -47,6 +58,28 @@ export const routes: RouteDef[] = [
     title: "Create order",
     crumbs: () => [{ label: "Orders", to: "/orders" }, { label: "Create order" }],
     render: () => <NewOrderPage />,
+  },
+  /* An order's printable documents, outside the shell. They need a signed-in person like any order. */
+  {
+    pattern: "/orders/packing-slips",
+    title: ({ query }) => `Packing slips · ${orderNumbers(query).length} orders`,
+    layout: "bare",
+    auth: true,
+    render: ({ query }) => <PackingSlipPage numbers={orderNumbers(query)} />,
+  },
+  {
+    pattern: "/orders/:number/invoice",
+    title: ({ params }) => `Invoice INV-${params.number}`,
+    layout: "bare",
+    auth: true,
+    render: ({ params }) => <InvoicePage key={params.number} number={Number(params.number)} />,
+  },
+  {
+    pattern: "/orders/:number/packing-slip",
+    title: ({ params }) => `Packing slip #${params.number}`,
+    layout: "bare",
+    auth: true,
+    render: ({ params }) => <PackingSlipPage key={params.number} numbers={[Number(params.number)]} />,
   },
   {
     pattern: "/orders/:number",
@@ -71,6 +104,7 @@ export const routes: RouteDef[] = [
     crumbs: ({ params }) => [{ label: "Products", to: "/products" }, { label: productName(params.id) ?? "Product" }],
     render: ({ params }) => <ProductPage key={params.id} id={params.id} />,
   },
+  { pattern: "/inventory", title: "Inventory", render: () => <InventoryPage /> },
   {
     pattern: "/customers",
     title: "Customers",
@@ -94,7 +128,21 @@ export const routes: RouteDef[] = [
     crumbs: ({ params }) => [{ label: "Settings", to: "/settings" }, { label: SETTINGS_SECTIONS.find((s) => s.to === `/settings/${params.section}`)?.label ?? "Not found" }],
     render: ({ params }) => <SettingsPage section={params.section} />,
   },
+  { pattern: "/reviews", title: "Reviews", render: () => <ReviewsPage /> },
+  {
+    pattern: "/reviews/:id",
+    title: ({ params }) => reviewTitle(params.id) ?? "Review",
+    crumbs: ({ params }) => [{ label: "Reviews", to: "/reviews" }, { label: reviewTitle(params.id) ?? "Review" }],
+    render: ({ params }) => <ReviewPage key={params.id} id={params.id} />,
+  },
   { pattern: "/discounts", title: "Discounts", render: () => <DiscountsPage /> },
+  { pattern: "/payouts", title: "Payouts", render: () => <PayoutsPage /> },
+  {
+    pattern: "/payouts/:id",
+    title: ({ params }) => payoutTitle(params.id),
+    crumbs: ({ params }) => [{ label: "Payouts", to: "/payouts" }, { label: payoutTitle(params.id).replace("Payout ", "") }],
+    render: ({ params }) => <PayoutPage key={params.id} id={params.id} />,
+  },
   { pattern: "/inbox", title: "Inbox", render: () => <InboxPage id={null} /> },
   {
     pattern: "/inbox/:id",
@@ -148,9 +196,12 @@ export const nav: NavGroup[] = [
     items: [
       { to: "/", label: "Dashboard", icon: LayoutGrid, keywords: ["home", "overview", "analytics"] },
       { to: "/orders", label: "Orders", icon: ShoppingBag, badge: unfulfilledCount, keywords: ["sales", "fulfil"] },
-      { to: "/products", label: "Products", icon: Package, keywords: ["prints", "stock", "inventory"] },
+      { to: "/products", label: "Products", icon: Package, keywords: ["prints", "catalogue"] },
+      { to: "/inventory", label: "Inventory", icon: Boxes, keywords: ["stock", "low stock", "sku", "adjust", "frames"] },
       { to: "/customers", label: "Customers", icon: Users, keywords: ["people", "buyers"] },
+      { to: "/reviews", label: "Reviews", icon: Star, badge: reviewsWaiting, keywords: ["ratings", "stars", "feedback", "reply"] },
       { to: "/discounts", label: "Discounts", icon: TicketPercent, keywords: ["codes", "sale", "coupons", "promotions"] },
+      { to: "/payouts", label: "Payouts", icon: Landmark, keywords: ["bank", "money", "stripe", "transfers", "balance"] },
     ],
   },
   {

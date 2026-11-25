@@ -235,6 +235,10 @@ function filterRows<Row>(rows: Row[], columns: DataTableColumn<Row>[], filters: 
 }
 
 /** The rows in the sort's order. Stable: rows that tie keep the order they had. */
+function sameSort(a: DataTableSort, b: DataTableSort): boolean {
+  return a === b || (!!a && !!b && a.id === b.id && a.direction === b.direction)
+}
+
 function sortRows<Row>(rows: Row[], columns: DataTableColumn<Row>[], sort: DataTableSort): Row[] {
   if (!sort) return rows
   const column = columns.find((c) => c.id === sort.id)
@@ -454,9 +458,12 @@ const dataTable = definePrimitive({
     context.onDestroy(
       store.subscribe(() => {
         const now = store.get()
-        if (inputKeys.every((key) => now[key] === from[key])) return
-        const reordered = now.sort !== from.sort || now.page !== from.page || now.pageSize !== from.pageSize
-        const direction = now.page > from.page ? "forward" : now.page < from.page ? "backward" : now.sort !== from.sort ? "none" : now.direction
+        /* A parent that builds its `sort` inline passes an equal but new object on every render; only a
+           different column or direction is a new order (otherwise each render replays the rows' entrance). */
+        const sortChanged = !sameSort(now.sort, from.sort)
+        if (!sortChanged && inputKeys.every((key) => key === "sort" || now[key] === from[key])) return
+        const reordered = sortChanged || now.page !== from.page || now.pageSize !== from.pageSize
+        const direction = now.page > from.page ? "forward" : now.page < from.page ? "backward" : sortChanged ? "none" : now.direction
         const derived = derive(now)
         from = { ...now, ...derived }
         store.set({ ...derived, ...(reordered ? { epoch: now.epoch + 1, direction } : {}) })

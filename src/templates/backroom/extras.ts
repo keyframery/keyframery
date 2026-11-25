@@ -188,7 +188,7 @@ export type App = {
 }
 
 export const apps: App[] = [
-  { id: "stripe", name: "Stripe", logo: "/demo/brands/stripe.svg", category: "Payments", description: "Take card, Apple Pay and Google Pay payments at checkout, paid out every two days.", connected: true, account: "Tideline Prints Ltd · payouts to AIB ending 0412" },
+  { id: "stripe", name: "Stripe", logo: "/demo/brands/stripe.svg", category: "Payments", description: "Take card, Apple Pay and Google Pay payments at checkout, paid out every Wednesday and Saturday.", connected: true, account: "Tideline Prints Ltd · payouts to AIB ending 4417" },
   { id: "paypal", name: "PayPal", logo: "/demo/brands/paypal.svg", category: "Payments", description: "Let customers pay with their PayPal balance or Pay in 3.", connected: false },
   { id: "gmail", name: "Gmail", logo: "/demo/brands/gmail.svg", category: "Messages", description: "Bring hello@ into the Inbox, and send replies from your own address.", connected: true, account: "hello@tidelineprints.com" },
   { id: "slack", name: "Slack", logo: "/demo/brands/slack.svg", category: "Messages", description: "Post new orders, refunds and low stock to a channel of your choosing.", connected: false },

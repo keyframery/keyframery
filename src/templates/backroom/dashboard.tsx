@@ -31,7 +31,7 @@ import { downloadOrdersCsv } from "./export"
 import { ago, count, day, initials, money, moneyShort, moneyWhole, percent, plural } from "./format"
 import { linkLook } from "./kit"
 import { linkProps, useRouter } from "./router"
-import { analytics, CHANNEL_LABEL, customerOf, overview, type Period, range, toaster, useStore } from "./store"
+import { analytics, CHANNEL_LABEL, customerOf, lowStock, overview, type Period, range, toaster, useStore } from "./store"
 
 const icon = { size: 16, strokeWidth: 1.75, "aria-hidden": true } as const
 const PERIODS: Period[] = [7, 30, 90]
@@ -198,7 +198,12 @@ function Overview({ period, loading }: { period: Period; loading: boolean }) {
         <BestSellers rows={data.bestSellers} labels={labels} period={period} loading={loading} />
       </div>
 
-      <RecentOrders orders={data.recent} />
+      <div className="grid gap-[var(--br-gap)] xl:grid-cols-3">
+        <div className="min-w-0 xl:col-span-2">
+          <RecentOrders orders={data.recent} />
+        </div>
+        <StockToWatch />
+      </div>
     </div>
   )
 }
@@ -274,6 +279,57 @@ function BestSellers({ rows, labels, period, loading }: { rows: ReturnType<typeo
             )
           })}
         </ol>
+      </CardContent>
+    </Card>
+  )
+}
+
+/* ------------------------------------------------------------------ stock */
+
+/** Variants out of stock or at their low-stock level, from the store: an adjustment in Inventory shows here at once. */
+function StockToWatch() {
+  const { state } = useStore()
+  const router = useRouter()
+  const rows = lowStock(state)
+  const out = rows.filter((r) => r.level === "out").length
+  const all = "/inventory?show=low"
+  return (
+    <Card className="min-w-0 gap-3">
+      <CardHeader>
+        <CardTitle>Stock to watch</CardTitle>
+        <CardDescription>{rows.length ? `${plural(out, "variant")} out, ${rows.length - out} running low` : "Every variant is above its low-stock level"}</CardDescription>
+        {router.exists("/inventory") && (
+          <CardAction>
+            <Button size="sm" render={<a {...linkProps(router, out && rows.length === out ? "/inventory?show=out" : all)} />}>
+              Inventory
+            </Button>
+          </CardAction>
+        )}
+      </CardHeader>
+      <CardContent className="px-[calc(var(--card-padding,1.25rem)-0.5rem)]">
+        <ul className="flex flex-col" aria-label="Stock to watch">
+          {rows.slice(0, 5).map(({ product, variant, level }) => {
+            const to = `/inventory?product=${product.id}&show=${level}`
+            return (
+              <li key={variant.id}>
+                <Item
+                  size="sm"
+                  className="gap-3 rounded-[10px] px-2 py-2"
+                  render={router.exists("/inventory") ? <a {...linkProps(router, to)} aria-label={`${product.name}, ${variant.size} cm ${variant.finish}, ${level === "out" ? "out of stock" : `${variant.stock} left`}`} /> : undefined}
+                >
+                  <img src={product.photo} alt="" className="size-10 shrink-0 rounded-[9px] object-cover shadow-[inset_0_0_0_1px_rgb(0_0_0/0.06)]" />
+                  <span className="flex min-w-0 flex-1 flex-col gap-1">
+                    <span className="truncate text-[13px] leading-none font-medium">{product.name}</span>
+                    <span className="truncate text-[12px] leading-none text-muted-foreground">
+                      {variant.size} cm · {variant.finish}
+                    </span>
+                  </span>
+                  <span className={`shrink-0 text-[12px] tabular-nums ${level === "out" ? "text-destructive" : "text-muted-foreground"}`}>{level === "out" ? "Out of stock" : `${variant.stock} left`}</span>
+                </Item>
+              </li>
+            )
+          })}
+        </ul>
       </CardContent>
     </Card>
   )

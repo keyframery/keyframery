@@ -5,7 +5,7 @@
    cancel and mark-as-paid flows). Every change goes through the store, so the dashboard and the
    sidebar's badge follow at once. */
 
-import { Ban, CircleCheck, CircleDashed, Copy, Download, Mail, MoreHorizontal, Plus, Receipt, RotateCcw, Truck } from "lucide-react"
+import { Ban, CircleCheck, CircleDashed, Copy, Download, FileText, Mail, MoreHorizontal, PackageOpen, Plus, Printer, Receipt, RotateCcw, Truck } from "lucide-react"
 import * as React from "react"
 
 import {
@@ -232,6 +232,13 @@ export function OrdersPage() {
                   setSelected([])
                 }}
               />
+              {router.exists("/orders/packing-slips") && (
+                <DataTableBulkAction
+                  icon={<Printer {...icon} />}
+                  label="Packing slips"
+                  onClick={() => router.navigate(`/orders/packing-slips?orders=${chosen.map((o) => o.number).sort((a, b) => a - b).join(",")}`)}
+                />
+              )}
               <DataTableBulkAction icon={<Download {...icon} />} label="Export" onClick={() => exportOrders(chosen, `${chosen.length}-selected`)} />
             </>
           )
@@ -330,6 +337,22 @@ export function OrderPage({ number }: { number: number }) {
                   </MenuItemIcon>
                   Copy link to order
                 </MenuItem>
+                {router.exists(`/orders/${order.number}/invoice`) && (
+                  <MenuItem value="invoice" render={<a {...linkProps(router, `/orders/${order.number}/invoice`)} />}>
+                    <MenuItemIcon>
+                      <FileText {...icon} />
+                    </MenuItemIcon>
+                    Print invoice
+                  </MenuItem>
+                )}
+                {router.exists(`/orders/${order.number}/packing-slip`) && (
+                  <MenuItem value="packing-slip" render={<a {...linkProps(router, `/orders/${order.number}/packing-slip`)} />}>
+                    <MenuItemIcon>
+                      <PackageOpen {...icon} />
+                    </MenuItemIcon>
+                    Print packing slip
+                  </MenuItem>
+                )}
                 {customer && (
                   <MenuItem value="email" render={<a href={`mailto:${customer.email}?subject=${encodeURIComponent(`Your order #${order.number}`)}`} />}>
                     <MenuItemIcon>

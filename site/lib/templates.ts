@@ -64,7 +64,7 @@ const all: Template[] = [
       "Connect an app",
       "Change theme, density, direction and motion",
     ],
-    facts: ["Free", "Store admin", "27 pages", "UI SDK end to end", "Agent ready", "Light and dark", "Phone to desktop"],
+    facts: ["Free", "Store admin", "35 pages", "UI SDK end to end", "Agent ready", "Light and dark", "Phone to desktop"],
     pages: true,
     registryTitle: "Backroom store admin",
   },
