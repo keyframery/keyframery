@@ -1,0 +1,163 @@
+---
+title: Astro
+heading: "Install Keyframery in Astro"
+seoTitle: "Animated UI SDK Components for Astro: Install Guide"
+description: "Add Keyframery's animated UI SDK components to an Astro project with React islands: install with the shadcn CLI, hydrate with a client directive, and set the motion style site-wide."
+faq:
+  - q: "Why don't my components animate in Astro?"
+    a: "Astro renders React components to static HTML unless you add a client directive. Add `client:load` (or `client:visible`) where you use them, so they hydrate and respond."
+  - q: "Can I write `<Tabs>` and `<TabsTab>` straight into an .astro file?"
+    a: "Not as one interactive component. Each island hydrates on its own and children passed from Astro arrive as static HTML, so the parts can't share state. Put them together in a .tsx file and use that one component in your page."
+---
+
+Choose the setup that matches your starting point.
+
+<StartingPoints
+  items={[
+    { href: "#use-keyframery-create", title: "Use Keyframery Create", description: "Build your preset, then install it into a new Astro site." },
+    { href: "#use-the-cli", title: "Use the CLI", description: "Scaffold a new Astro project from the terminal." },
+    { href: "#existing-project", title: "Existing Project", description: "Add Keyframery to an Astro site you already have." },
+  ]}
+/>
+
+## Use Keyframery Create
+
+<Steps>
+<Step>
+
+### Build your preset
+
+Open [Keyframery Create](/create) and pick your colours, corners, font and motion. Copy the command under the preview.
+
+</Step>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t astro
+```
+
+</Step>
+<Step>
+
+### Add the preset
+
+Run the command you copied from the project's folder:
+
+```npm
+npx shadcn@latest add @keyframery/preset-<code>
+```
+
+It writes the colours, corners and motion into `src/styles/global.css`. A preset with a font installs it from Fontsource and imports it there too.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+Then [use it in a page](#use-it).
+
+</Step>
+</Steps>
+
+## Use the CLI
+
+<Steps>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t astro
+```
+
+The template adds Astro's React integration and Tailwind CSS v4. For a project inside a monorepo, add `--monorepo`.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+The files land in `src/components/keyframery/`, and the motion tokens go into `src/styles/global.css`.
+
+</Step>
+<Step>
+
+### Use it
+
+Put the parts together in a React component:
+
+```tsx title="src/components/settings-tabs.tsx"
+import { Tabs, TabsList, TabsPanel, TabsPanels, TabsTab } from "@/components/keyframery/tabs"
+
+export default function SettingsTabs() {
+  return (
+    <Tabs defaultValue="account">
+      <TabsList aria-label="Settings">
+        <TabsTab value="account">Account</TabsTab>
+        <TabsTab value="password">Password</TabsTab>
+      </TabsList>
+      <TabsPanels>
+        <TabsPanel value="account">Account settings</TabsPanel>
+        <TabsPanel value="password">Password settings</TabsPanel>
+      </TabsPanels>
+    </Tabs>
+  )
+}
+```
+
+Then use it in a page with a client directive, so it hydrates:
+
+```astro title="src/pages/index.astro"
+---
+import Layout from "@/layouts/main.astro"
+import SettingsTabs from "@/components/settings-tabs"
+---
+
+<Layout>
+  <SettingsTabs client:load />
+</Layout>
+```
+
+</Step>
+</Steps>
+
+## Existing Project
+
+<Steps>
+<Step>
+
+### Check the setup
+
+You need Astro's React integration (`npx astro add react`), Tailwind CSS v4 and the `@/*` alias in `tsconfig.json`. [shadcn's Astro guide](https://ui.shadcn.com/docs/installation/astro#existing-project) has each step. Then set up the CLI:
+
+```npm
+npx shadcn@latest init
+```
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+</Step>
+</Steps>
+
+## Notes for Astro
+
+- **Client directives.** Without one, a React component is static HTML: it shows, but nothing opens, slides or responds. Use `client:load` for what's on screen at once, `client:visible` for what's further down.
+- **One island per widget.** A dialog and the button that opens it, or tabs and their panels, belong in the same `.tsx` file and the same island.
+- **Motion style and speed.** Put `data-motion="calm"` on `<html>` in your layout, so the style is there before any island hydrates. A `speed` set on `KeyframeryProvider` only reaches the components in its own island.

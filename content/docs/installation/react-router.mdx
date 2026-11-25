@@ -1,0 +1,148 @@
+---
+title: React Router
+heading: "Install Keyframery in React Router"
+seoTitle: "Animated UI SDK Components for React Router: Install Guide"
+description: "Add Keyframery's animated UI SDK components to a React Router framework-mode app with the shadcn CLI: a new project, a preset from Keyframery Create, or an existing app."
+faq:
+  - q: "My app uses `~/` instead of `@/`. Do I change the imports?"
+    a: "No. The shadcn CLI reads the `~/` alias from `components.json` and rewrites every Keyframery import to match while it installs."
+  - q: "Where do the files go?"
+    a: "Into `app/components/keyframery/`, with the shared motion helpers in `app/lib/keyframery.tsx` and the motion tokens in `app/app.css`."
+---
+
+Choose the setup that matches your starting point.
+
+<StartingPoints
+  items={[
+    { href: "#use-keyframery-create", title: "Use Keyframery Create", description: "Build your preset, then install it into a new React Router app." },
+    { href: "#use-the-cli", title: "Use the CLI", description: "Scaffold a new React Router project from the terminal." },
+    { href: "#existing-project", title: "Existing Project", description: "Add Keyframery to a React Router app you already have." },
+  ]}
+/>
+
+## Use Keyframery Create
+
+<Steps>
+<Step>
+
+### Build your preset
+
+Open [Keyframery Create](/create) and pick your colours, corners, font and motion. Copy the command under the preview.
+
+</Step>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t react-router
+```
+
+</Step>
+<Step>
+
+### Add the preset
+
+Run the command you copied from the project's folder:
+
+```npm
+npx shadcn@latest add @keyframery/preset-<code>
+```
+
+It writes the colours, corners and motion into `app/app.css`. A preset with a font installs it from Fontsource and imports it there too.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+Then [use it in a route](#use-it).
+
+</Step>
+</Steps>
+
+## Use the CLI
+
+<Steps>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t react-router
+```
+
+For a project inside a monorepo, add `--monorepo`.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+The files land in `app/components/keyframery/`, and the motion tokens go into `app/app.css`.
+
+</Step>
+<Step>
+
+### Use it
+
+```tsx title="app/routes/home.tsx"
+import { Tabs, TabsList, TabsPanel, TabsPanels, TabsTab } from "~/components/keyframery/tabs"
+
+export default function Home() {
+  return (
+    <Tabs defaultValue="account">
+      <TabsList aria-label="Settings">
+        <TabsTab value="account">Account</TabsTab>
+        <TabsTab value="password">Password</TabsTab>
+      </TabsList>
+      <TabsPanels>
+        <TabsPanel value="account">Account settings</TabsPanel>
+        <TabsPanel value="password">Password settings</TabsPanel>
+      </TabsPanels>
+    </Tabs>
+  )
+}
+```
+
+</Step>
+</Steps>
+
+## Existing Project
+
+<Steps>
+<Step>
+
+### Check the setup
+
+You need React 19, Tailwind CSS v4 and the `~/*` alias pointing at `app/`. Apps made with `create-react-router` have both. Then set up the CLI:
+
+```npm
+npx shadcn@latest init
+```
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+</Step>
+</Steps>
+
+## Notes for React Router
+
+- **Imports.** Keyframery's files are written with `@/`. The CLI rewrites them to `~/` as it installs, so `react-router typegen && tsc` passes without edits.
+- **Server rendering.** The components render on the server and start animating once the page hydrates.
+- **Motion style.** Put `data-motion="calm"` on `<html>` in `app/root.tsx`, or wrap the `<Outlet />` in `<KeyframeryProvider motion="calm">`.

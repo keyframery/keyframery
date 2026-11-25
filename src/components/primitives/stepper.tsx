@@ -12,7 +12,6 @@
 
 import type { StateOf } from "@ui-sdk/core"
 import { type PartProps, usePart, usePrimitive } from "@ui-sdk/react/primitive"
-import * as React from "react"
 
 import { stepper, type StepperOptions, type StepperStep as StepperStepData } from "@/components/core/stepper"
 import { cn } from "@/lib/utils"

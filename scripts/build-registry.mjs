@@ -74,6 +74,10 @@ for (const [, name, body] of css.matchAll(/\[data-motion="(\w+)"\]\s*\{([^}]+)\}
     [...body.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map((m) => [m[1], m[2].trim()]),
   )
 }
+/* No file has a `target`. The shadcn CLI puts a targeted file at the project root (or src/), which is
+   outside the app in React Router (app/) and Laravel (resources/js/). Without one, the CLI places each
+   file under the project's own components or lib alias, keeping the path after "components/" or "lib/":
+   registry/components/keyframery/tabs.tsx installs as <components>/keyframery/tabs.tsx everywhere. */
 const motionItem = {
   name: "motion",
   type: "registry:item",
@@ -82,7 +86,7 @@ const motionItem = {
     "Keyframery's motion tokens: the house easing, two springs written as CSS, a speed setting, the four motion styles (Calm, Springy, Snappy, Playful) and the speed prop helpers with KeyframeryProvider. Every Keyframery component depends on it.",
   dependencies: ["clsx", "tailwind-merge"],
   registryDependencies: ["utils"],
-  files: [{ path: "registry/lib/keyframery.tsx", type: "registry:lib", target: "lib/keyframery.tsx" }],
+  files: [{ path: "registry/lib/keyframery.tsx", type: "registry:lib" }],
   css: {
     "@layer base": {
       ":root": {
@@ -118,7 +122,7 @@ for (const name of ["agent-content"]) {
     type: "registry:item",
     title: "Agent content",
     description: "Read-only content exposure for Keyframery's UI SDK primitives.",
-    files: [{ path: `registry/${rel}`, type: "registry:component", target: rel }],
+    files: [{ path: `registry/${rel}`, type: "registry:component" }],
   })
 }
 for (const slug of slugs) {
@@ -137,7 +141,7 @@ for (const slug of slugs) {
     npmDeps(code).forEach((d) => deps.add(d))
     localDeps(code, slug).forEach((d) => reg.add(`@keyframery/${d}`))
     fs.writeFileSync(path.join(genDir, rel), rewrite(code))
-    files.push({ path: `registry/${rel}`, type: "registry:component", target: rel })
+    files.push({ path: `registry/${rel}`, type: "registry:component" })
   }
   if (!descriptions[slug]) console.warn(`! no description for ${slug} in content/components.json`)
   items.push({
@@ -161,7 +165,7 @@ for (const slug of templateSlugs) {
   const files = []
   const deps = new Set()
   const reg = new Set(["@keyframery/motion"])
-  fs.mkdirSync(path.join(genDir, "templates", slug), { recursive: true })
+  fs.mkdirSync(path.join(genDir, "components", slug), { recursive: true })
   for (const file of fs.readdirSync(path.join(templatesDir, slug)).sort()) {
     if (!/\.(tsx|ts|css)$/.test(file)) continue
     const code = fs.readFileSync(path.join(templatesDir, slug, file), "utf8")
@@ -171,8 +175,8 @@ for (const slug of templateSlugs) {
     }
     // The photos stay on keyframery.com until a project swaps in its own. A path can open with any
     // quote: data.ts builds each print's photo in a template string.
-    fs.writeFileSync(path.join(genDir, "templates", slug, file), rewrite(code).replace(/(["'`])\/demo\//g, "$1https://keyframery.com/demo/"))
-    files.push({ path: `registry/templates/${slug}/${file}`, type: "registry:component", target: `components/${slug}/${file}` })
+    fs.writeFileSync(path.join(genDir, "components", slug, file), rewrite(code).replace(/(["'`])\/demo\//g, "$1https://keyframery.com/demo/"))
+    files.push({ path: `registry/components/${slug}/${file}`, type: "registry:component" })
   }
   const entry = templateFacts.match(new RegExp(`slug: "${slug}"[\\s\\S]*?\\n  \\}`))?.[0] ?? ""
   const description = entry.match(/description:\s*"([^"]+)"/)?.[1]

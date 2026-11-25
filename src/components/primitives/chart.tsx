@@ -562,6 +562,13 @@ function ChartPoint({ value, className, ...props }: { value: string } & Omit<Cha
   )
 }
 
+/* A data attribute as props. A typed call rather than an inline `{ "data-…": … }`, which a part's props
+   reject as an unknown key once a formatter flattens it into the object (Laravel's starter kit reformats
+   every file on `composer update`). */
+function dataAttribute<Name extends string, Value>(name: Name, value: Value) {
+  return { [`data-${name}`]: value } as { [Key in `data-${Name}`]: Value }
+}
+
 /** Follows the active point. With no children it shows the category and each series' value,
     whose digits Roll. `indicator` picks the swatch: a dot, a line or a dashed line. */
 function ChartTooltip({
@@ -577,7 +584,7 @@ function ChartTooltip({
     {},
     {
       ...props,
-      ...{ "data-indicator": indicator },
+      ...dataAttribute("indicator", indicator),
       className: withClass(
         cn(
           "pointer-events-none absolute z-10 w-max",
@@ -642,7 +649,7 @@ function ChartLegend({ side = "bottom", className, children, ...props }: ChartPa
     {},
     {
       ...props,
-      ...{ "data-side": side },
+      ...dataAttribute("side", side),
       className: withClass("flex flex-wrap [grid-area:bottom] data-[side=top]:[grid-area:top]", className),
       children: children ?? ((state) => state.items.map((item) => <ChartLegendItem key={item.value} value={item.value} />)),
     },

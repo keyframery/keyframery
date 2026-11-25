@@ -10,6 +10,7 @@ import { AgentPromptButton } from "@site/components/agent-prompt-button"
 import { ComponentGrid } from "@site/components/docs/component-grid"
 import { ComponentPreview, MotionStylePlayground } from "@site/components/docs/component-preview"
 import { ExamplePreview } from "@site/components/docs/example-preview"
+import { FrameworkGrid, StartingPoints } from "@site/components/docs/framework-cards"
 import { PropsTable } from "@site/components/docs/props-table"
 import { Heading } from "@site/components/docs/heading"
 import { LazyCode } from "@site/components/docs/lazy-code"
@@ -34,6 +35,8 @@ export function getMDXComponents(components?: MDXComponents) {
     ComponentGrid,
     ComponentPreview,
     ExamplePreview,
+    FrameworkGrid,
+    StartingPoints,
     LazyCode,
     PropsTable,
     MotionStylePlayground,

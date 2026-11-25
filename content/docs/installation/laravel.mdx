@@ -1,0 +1,134 @@
+---
+title: Laravel
+heading: "Install Keyframery in Laravel"
+seoTitle: "Animated UI SDK Components for Laravel + React: Install Guide"
+description: "Add Keyframery's animated UI SDK components to a Laravel app with the React starter kit and Inertia: a preset from Keyframery Create, or components with the shadcn CLI."
+faq:
+  - q: "Does Keyframery work with Laravel's React starter kit?"
+    a: "Yes. The starter kit already has Tailwind CSS v4, the `@/` alias and a `components.json`, so the shadcn CLI installs Keyframery into `resources/js/components/keyframery/` with nothing else to set up."
+  - q: "Do I need PHP to install the components?"
+    a: "No. The shadcn CLI runs with Node. You need PHP to run the app, as any Laravel app does."
+---
+
+The shadcn CLI doesn't scaffold a Laravel app. Create one with the React starter kit first, then add Keyframery.
+
+<Steps>
+<Step>
+
+### Create the project
+
+```bash
+laravel new my-app
+```
+
+Choose the **React** starter kit when asked. It sets up Inertia, Tailwind CSS v4 and a `components.json`. If you already have a Laravel app with React and Inertia, skip this step.
+
+```bash
+cd my-app
+```
+
+</Step>
+</Steps>
+
+<StartingPoints
+  items={[
+    { href: "#use-keyframery-create", title: "Use Keyframery Create", description: "Build your preset, then install it into your Laravel app." },
+    { href: "#use-the-cli", title: "Use the CLI", description: "Add components to your Laravel app from the terminal." },
+  ]}
+/>
+
+## Use Keyframery Create
+
+<Steps>
+<Step>
+
+### Build your preset
+
+Open [Keyframery Create](/create) and pick your colours, corners, font and motion. Copy the command under the preview.
+
+</Step>
+<Step>
+
+### Add the preset
+
+Run the command you copied from the app's folder:
+
+```npm
+npx shadcn@latest add @keyframery/preset-<code>
+```
+
+It writes the colours, corners and motion into `resources/css/app.css`. A preset with a font installs it from Fontsource and imports it there too.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+Then [use it in a page](#use-it).
+
+</Step>
+</Steps>
+
+## Use the CLI
+
+<Steps>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+The files land in `resources/js/components/keyframery/`, and the motion tokens go into `resources/css/app.css`.
+
+</Step>
+<Step>
+
+### Use it
+
+```tsx title="resources/js/pages/welcome.tsx"
+import { Head } from "@inertiajs/react"
+
+import { Tabs, TabsList, TabsPanel, TabsPanels, TabsTab } from "@/components/keyframery/tabs"
+
+export default function Welcome() {
+  return (
+    <>
+      <Head title="Settings" />
+      <Tabs defaultValue="account">
+        <TabsList aria-label="Settings">
+          <TabsTab value="account">Account</TabsTab>
+          <TabsTab value="password">Password</TabsTab>
+        </TabsList>
+        <TabsPanels>
+          <TabsPanel value="account">Account settings</TabsPanel>
+          <TabsPanel value="password">Password settings</TabsPanel>
+        </TabsPanels>
+      </Tabs>
+    </>
+  )
+}
+```
+
+</Step>
+<Step>
+
+### Run it
+
+```bash
+composer run dev
+```
+
+</Step>
+</Steps>
+
+## Notes for Laravel
+
+- **Where files go.** The CLI follows the starter kit's `components.json`, so components land next to its own in `resources/js/components/`, and `@/` resolves to `resources/js/`.
+- **Reformatting.** The starter kit's setup can reformat every file under `resources/js/` when Composer updates. Keyframery's files keep type-checking after that.
+- **Motion style.** Wrap the Inertia app in `<KeyframeryProvider motion="calm">` in `resources/js/app.tsx`, or put `data-motion="calm"` on `<html>` in `resources/views/app.blade.php`.

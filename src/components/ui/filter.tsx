@@ -19,7 +19,7 @@ export * from "@/components/primitives/filter"
      --filter-radius   the chip's corners                                             (default: 9px)
      --filter-height   the chip's height                                              (default: 2rem) */
 
-import { Check, CirclePlus, Search, X } from "lucide-react"
+import { CirclePlus, Search, X } from "lucide-react"
 import * as React from "react"
 
 import { Badge, Roll } from "@/components/ui/badge"

@@ -10,7 +10,7 @@
     "site:dev": "node scripts/build-registry.mjs && node scripts/build-docs.mjs && next dev -p 4640",
     "start": "next start",
     "docs": "node scripts/build-docs.mjs",
-    "check": "tsc --noEmit && tsc --noEmit -p tsconfig.next.json && node --test scripts/tests/*.test.mjs && node scripts/check-sdk-contracts.mjs --styled && node scripts/check-customization.mjs && node scripts/check-registry.mjs",
+    "check": "tsc --noEmit && tsc --noEmit -p tsconfig.next.json && tsc --noEmit -p tsconfig.registry.json && node --test scripts/tests/*.test.mjs && node scripts/check-sdk-contracts.mjs --styled && node scripts/check-customization.mjs && node scripts/check-registry.mjs",
     "check:browser": "node scripts/check-demos.cjs",
     "check:weight": "node scripts/check-page-weight.mjs"
   },

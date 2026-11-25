@@ -1,0 +1,152 @@
+---
+title: Next.js
+heading: "Install Keyframery in Next.js"
+seoTitle: "Animated UI SDK Components for Next.js: Install Guide"
+description: "Add Keyframery's animated UI SDK components to a Next.js App Router project with the shadcn CLI: a new project, a preset from Keyframery Create, or an existing app."
+faq:
+  - q: "Do the components work in Server Components?"
+    a: "Import them from a Server Component page like any client component. Every file that holds state already starts with `\"use client\"`, so the page itself stays on the server."
+  - q: "How does a preset's font load in Next.js?"
+    a: "The CLI adds it with `next/font/google` in `app/layout.tsx` and points `--font-sans` at it, so the font is self-hosted and preloaded."
+---
+
+Choose the setup that matches your starting point.
+
+<StartingPoints
+  items={[
+    { href: "#use-keyframery-create", title: "Use Keyframery Create", description: "Build your preset, then install it into a new Next.js app." },
+    { href: "#use-the-cli", title: "Use the CLI", description: "Scaffold a new Next.js project from the terminal." },
+    { href: "#existing-project", title: "Existing Project", description: "Add Keyframery to a Next.js app you already have." },
+  ]}
+/>
+
+## Use Keyframery Create
+
+<Steps>
+<Step>
+
+### Build your preset
+
+Open [Keyframery Create](/create) and pick your colours, corners, font and motion. Copy the command under the preview.
+
+</Step>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t next
+```
+
+</Step>
+<Step>
+
+### Add the preset
+
+Run the command you copied from the project's folder:
+
+```npm
+npx shadcn@latest add @keyframery/preset-<code>
+```
+
+It writes the colours, corners and motion into `app/globals.css`. A preset with a font adds it to `app/layout.tsx` with `next/font/google`.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+Then [use it in a page](#use-it).
+
+</Step>
+</Steps>
+
+## Use the CLI
+
+<Steps>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t next
+```
+
+For a project inside a monorepo, add `--monorepo`.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+The files land in `components/keyframery/` (`src/components/keyframery/` if your app uses a `src` folder), and the motion tokens go into `app/globals.css`.
+
+</Step>
+<Step>
+
+### Use it
+
+```tsx title="app/page.tsx"
+import { Tabs, TabsList, TabsPanel, TabsPanels, TabsTab } from "@/components/keyframery/tabs"
+
+export default function Page() {
+  return (
+    <Tabs defaultValue="account">
+      <TabsList aria-label="Settings">
+        <TabsTab value="account">Account</TabsTab>
+        <TabsTab value="password">Password</TabsTab>
+      </TabsList>
+      <TabsPanels>
+        <TabsPanel value="account">Account settings</TabsPanel>
+        <TabsPanel value="password">Password settings</TabsPanel>
+      </TabsPanels>
+    </Tabs>
+  )
+}
+```
+
+The page stays a Server Component. The tabs are client components already, marked `"use client"` in their files.
+
+</Step>
+</Steps>
+
+## Existing Project
+
+<Steps>
+<Step>
+
+### Check the setup
+
+You need React 19, Tailwind CSS v4 and a `components.json`. A project made with `create-next-app` and Tailwind only needs the shadcn CLI set up:
+
+```npm
+npx shadcn@latest init
+```
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+The CLI reads your aliases from `components.json`, so the files go wherever your components live.
+
+</Step>
+</Steps>
+
+## Notes for Next.js
+
+- **Server rendering.** The components render on the server and start animating once the page hydrates.
+- **`cacheComponents`.** Calendar, Date Picker and Date Input read today's date while they render. With `cacheComponents` turned on, render them inside `<Suspense>` after `await connection()`. [See the fix](/docs/troubleshooting#nextjs-stops-with-unstable-value-datenow).
+- **Motion style.** `<KeyframeryProvider motion="calm">` in `app/layout.tsx` sets it for the whole app, or put `data-motion="calm"` on `<html>` yourself.

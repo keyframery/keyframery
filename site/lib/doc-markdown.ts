@@ -7,6 +7,9 @@ const STR = String.raw`"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'`
 const PROP_LINE = new RegExp(String.raw`^\s*(${STR}|[A-Za-z_$][\w$]*)\s*:\s*\{(.*)\},?\s*$`)
 const FIELD = new RegExp(String.raw`(\w+)\s*:\s*(${STR}|true|false)`, "g")
 
+// The guides <FrameworkGrid /> shows, in its order (site/lib/frameworks.ts holds the logos; kept here so this file has no imports).
+const FRAMEWORK_GUIDES = [["next", "Next.js"], ["vite", "Vite"], ["tanstack", "TanStack Start"], ["laravel", "Laravel"], ["react-router", "React Router"], ["astro", "Astro"], ["manual", "Manual"]] as const
+
 const ENTITIES: Record<string, string> = { "&#x22;": '"', "&#x27;": "'", "&quot;": '"', "&#39;": "'", "&lt;": "<", "&gt;": ">", "&amp;": "&" }
 const decode = (s: string) => s.replace(/&#x22;|&#x27;|&quot;|&#39;|&lt;|&gt;|&amp;/g, (m) => ENTITIES[m])
 const unquote = (s: string) => (/^["']/.test(s) ? s.slice(1, -1).replace(/\\(["'\\])/g, "$1") : s)
@@ -86,6 +89,18 @@ export function cleanDocMarkdown(md: string): string {
       } catch { /* A hand-written preview may contain expressions instead of generated JSON. */ }
     }
     if (DEMO.test(text)) continue
+    // The installation pages' cards: the framework grid becomes a list of guides, the starting points a list of sections.
+    if (text === "<FrameworkGrid />") {
+      out.push(...FRAMEWORK_GUIDES.map(([slug, name]) => `- [${name}](/docs/installation/${slug})`))
+      continue
+    }
+    if (text.startsWith("<StartingPoints")) {
+      let block = line
+      while (!lines[i].trim().endsWith("/>") && i < lines.length - 1) block += "\n" + lines[++i]
+      for (const [, href, title, description] of decode(block).matchAll(/href: "([^"]+)", title: "([^"]+)", description: "([^"]+)"/g))
+        out.push(`- [${title}](${href}): ${description}`)
+      continue
+    }
     // Install tabs (npm, pnpm, yarn, bun from a ```npm block): keep the first tab's command, as it was written.
     if (/^<CodeBlockTabs[\s>]/.test(text)) {
       const block: string[] = []

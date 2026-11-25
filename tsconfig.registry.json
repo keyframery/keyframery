@@ -1,0 +1,12 @@
+{
+  "//": "The installed files, checked the way the strictest shadcn templates check them (Vite and TanStack Start turn these on). An unused name here fails someone else's `tsc -b && vite build`.",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": ["src/components/ui", "src/components/primitives", "src/components/core", "src/lib/keyframery.tsx", "src/lib/utils.ts"]
+}

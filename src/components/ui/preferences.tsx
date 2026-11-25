@@ -20,7 +20,6 @@ import type { Preference } from "@ui-sdk/core"
 import * as React from "react"
 
 import {
-  MotionStyle,
   motionStyle,
   type MotionStylePreference,
   type MotionStyleValue,

@@ -4,12 +4,14 @@
 //
 // Each page is built from the component's own source: its demo (the live preview and the example),
 // its exports (the parts table), content/components.json (the description) and content/moves.json
-// (what moves). Hand-written pages live next to them in content/docs and are never touched.
+// (what moves). Hand-written pages live next to them in content/docs and are never touched, except the
+// marked blocks on the manual installation page, written from the registry and the source.
 import { integrateContent } from "./integrate-content.mjs"
 import fs from "node:fs"
 import path from "node:path"
 import ts from "typescript"
 
+import { motionCss } from "./lib/motion-css.mjs"
 import { readProps } from "./lib/props.mjs"
 import { createPreviewSource } from "./lib/preview-source.mjs"
 
@@ -272,7 +274,7 @@ for (const slug of slugs) {
     "",
     "**Add the motion tokens**",
     "",
-    "Copy the [motion tokens](/docs/installation#what-the-cli-adds-to-your-css) into your global CSS, and this file into `lib/keyframery.tsx`. Every component shares them.",
+    "Copy the [motion tokens](/docs/installation/manual#add-the-motion-tokens) into your global CSS, and this file into `lib/keyframery.tsx`. Every component shares them.",
     "",
     "<Accordions>",
     '<Accordion title="lib/keyframery.tsx">',
@@ -437,3 +439,29 @@ for (const slug of slugs) {
 }
 
 console.log(`docs: ${slugs.length} component pages -> content/docs/components`)
+
+/* Generated blocks on the manual installation page: the dependency line, the full motion CSS and the
+   shared helpers file. Written from the registry and the source, so a manual install always gets what
+   the CLI installs. Each block sits between MDX comment markers named "<name>:start" and "<name>:end". */
+const motionJson = path.join(root, "public/r/motion.json")
+if (fs.existsSync(motionJson)) {
+  const manual = path.join(root, "content/docs/installation/manual.mdx")
+  const sdk = JSON.parse(read("package.json")).dependencies
+  const blocks = {
+    "sdk-install": fence("npm", `npm install @ui-sdk/core@${sdk["@ui-sdk/core"]} @ui-sdk/react@${sdk["@ui-sdk/react"]} clsx tailwind-merge`),
+    "motion-css": fence("css", motionCss(JSON.parse(fs.readFileSync(motionJson, "utf8")).css)),
+    "keyframery-lib": ["<Accordions>", '<Accordion title="lib/keyframery.tsx">', "", fence("tsx", read("src/lib/keyframery.tsx")), "", "</Accordion>", "</Accordions>"].join("\n"),
+  }
+  const current = fs.readFileSync(manual, "utf8")
+  let next = current
+  for (const [name, body] of Object.entries(blocks)) {
+    const startMark = `{/* ${name}:start (written by scripts/build-docs.mjs) */}`
+    const endMark = `{/* ${name}:end */}`
+    const from = next.indexOf(startMark)
+    const to = next.indexOf(endMark)
+    if (from === -1 || to < from) throw new Error(`content/docs/installation/manual.mdx lost its ${name} markers`)
+    next = next.slice(0, from) + `${startMark}\n\n${body}\n\n` + next.slice(to)
+  }
+  if (next !== current) fs.writeFileSync(manual, next)
+  console.log("docs: dependencies, motion CSS and lib/keyframery.tsx -> content/docs/installation/manual.mdx")
+}

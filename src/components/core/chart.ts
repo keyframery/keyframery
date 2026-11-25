@@ -503,7 +503,7 @@ function chartLayout(input: Inputs): ChartLayout {
         const y = s.hidden ? (doStack ? value(lo) : base) : value(hi)
         return { x: bands[i].center, y: round(100 - y) }
       })
-      lower[s.key] = data.map((row, i) => ({ x: bands[i].center, y: round(100 - (doStack ? value(stacks[i][s.key][0]) : base)) }))
+      lower[s.key] = data.map((_, i) => ({ x: bands[i].center, y: round(100 - (doStack ? value(stacks[i][s.key][0]) : base)) }))
       lines[s.key] = linePath(points[s.key], curve)
       if (type === "area") areas[s.key] = areaPath(points[s.key], lower[s.key], curve)
     }
@@ -728,11 +728,6 @@ const chart = definePrimitive({
     }
     /* Where the cursor, tooltip and markers sit: the active row, or the one they are leaving. */
     const shownIndex = (state: ChartState) => state.activeIndex ?? state.lastIndex
-    const anchorStyle = (state: ChartState) => {
-      const index = shownIndex(state)
-      const anchor = index === null ? null : state.layout.anchors[index]
-      return anchor ? css({ "--chart-x": pct(anchor.x), "--chart-y": pct(anchor.y) }) : undefined
-    }
     const gradientId = (id: string, key: string) => `${id.replace(/[^\w-]/g, "")}-fill-${cssName(key)}`
     const cartesian = (state: ChartState) => !isRadial(state.type)
     const across = (state: ChartState) => state.type === "bar" && state.orientation === "horizontal"

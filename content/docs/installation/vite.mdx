@@ -1,0 +1,148 @@
+---
+title: Vite
+heading: "Install Keyframery in Vite"
+seoTitle: "Animated UI SDK Components for Vite + React: Install Guide"
+description: "Add Keyframery's animated UI SDK components to a Vite and React project with the shadcn CLI: a new project, a preset from Keyframery Create, or an existing app."
+faq:
+  - q: "Does Vite's default build pass with Keyframery installed?"
+    a: "Yes. The shadcn Vite template builds with `tsc -b && vite build` and strict unused-variable checks, and every Keyframery file passes them."
+  - q: "How does a preset's font load in Vite?"
+    a: "The CLI installs the font's `@fontsource-variable` package and imports it at the top of `src/index.css`, then points `--font-sans` at it."
+---
+
+Choose the setup that matches your starting point.
+
+<StartingPoints
+  items={[
+    { href: "#use-keyframery-create", title: "Use Keyframery Create", description: "Build your preset, then install it into a new Vite app." },
+    { href: "#use-the-cli", title: "Use the CLI", description: "Scaffold a new Vite project from the terminal." },
+    { href: "#existing-project", title: "Existing Project", description: "Add Keyframery to a Vite app you already have." },
+  ]}
+/>
+
+## Use Keyframery Create
+
+<Steps>
+<Step>
+
+### Build your preset
+
+Open [Keyframery Create](/create) and pick your colours, corners, font and motion. Copy the command under the preview.
+
+</Step>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t vite
+```
+
+</Step>
+<Step>
+
+### Add the preset
+
+Run the command you copied from the project's folder:
+
+```npm
+npx shadcn@latest add @keyframery/preset-<code>
+```
+
+It writes the colours, corners and motion into `src/index.css`. A preset with a font installs it from Fontsource and imports it there too.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+Then [use it in your app](#use-it).
+
+</Step>
+</Steps>
+
+## Use the CLI
+
+<Steps>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t vite
+```
+
+For a project inside a monorepo, add `--monorepo`.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+The files land in `src/components/keyframery/`, and the motion tokens go into `src/index.css`.
+
+</Step>
+<Step>
+
+### Use it
+
+```tsx title="src/App.tsx"
+import { Tabs, TabsList, TabsPanel, TabsPanels, TabsTab } from "@/components/keyframery/tabs"
+
+export default function App() {
+  return (
+    <Tabs defaultValue="account">
+      <TabsList aria-label="Settings">
+        <TabsTab value="account">Account</TabsTab>
+        <TabsTab value="password">Password</TabsTab>
+      </TabsList>
+      <TabsPanels>
+        <TabsPanel value="account">Account settings</TabsPanel>
+        <TabsPanel value="password">Password settings</TabsPanel>
+      </TabsPanels>
+    </Tabs>
+  )
+}
+```
+
+</Step>
+</Steps>
+
+## Existing Project
+
+<Steps>
+<Step>
+
+### Check the setup
+
+You need React 19, Tailwind CSS v4 through `@tailwindcss/vite`, and the `@/` alias in `tsconfig.json`, `tsconfig.app.json` and `vite.config.ts`. [shadcn's Vite guide](https://ui.shadcn.com/docs/installation/vite#existing-project) walks through each file. Then set up the CLI:
+
+```npm
+npx shadcn@latest init
+```
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+</Step>
+</Steps>
+
+## Notes for Vite
+
+- **Strict builds.** Every Keyframery file passes the template's `noUnusedLocals`, `noUnusedParameters`, `verbatimModuleSyntax` and `erasableSyntaxOnly` checks, so `tsc -b && vite build` stays green.
+- **`"use client"`.** The files start with it for frameworks that render on the server. Vite ignores it.
+- **Motion style.** Wrap the app in `<KeyframeryProvider motion="calm">` in `src/main.tsx`, or put `data-motion="calm"` on `<html>` in `index.html`.

@@ -1,0 +1,151 @@
+---
+title: TanStack Start
+heading: "Install Keyframery in TanStack Start"
+seoTitle: "Animated UI SDK Components for TanStack Start: Install Guide"
+description: "Add Keyframery's animated UI SDK components to a TanStack Start project with the shadcn CLI: a new project, a preset from Keyframery Create, or an existing app."
+faq:
+  - q: "Do the components work with TanStack Start's server rendering?"
+    a: "Yes. They render on the server and start animating once the page hydrates, with no hydration warnings."
+  - q: "Where do the files go?"
+    a: "Into `src/components/keyframery/`, with the shared motion helpers in `src/lib/keyframery.tsx` and the motion tokens in `src/styles.css`."
+---
+
+Choose the setup that matches your starting point.
+
+<StartingPoints
+  items={[
+    { href: "#use-keyframery-create", title: "Use Keyframery Create", description: "Build your preset, then install it into a new TanStack Start app." },
+    { href: "#use-the-cli", title: "Use the CLI", description: "Scaffold a new TanStack Start project from the terminal." },
+    { href: "#existing-project", title: "Existing Project", description: "Add Keyframery to a TanStack Start app you already have." },
+  ]}
+/>
+
+## Use Keyframery Create
+
+<Steps>
+<Step>
+
+### Build your preset
+
+Open [Keyframery Create](/create) and pick your colours, corners, font and motion. Copy the command under the preview.
+
+</Step>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t start
+```
+
+</Step>
+<Step>
+
+### Add the preset
+
+Run the command you copied from the project's folder:
+
+```npm
+npx shadcn@latest add @keyframery/preset-<code>
+```
+
+It writes the colours, corners and motion into `src/styles.css`. A preset with a font installs it from Fontsource and imports it there too.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+Then [use it in a route](#use-it).
+
+</Step>
+</Steps>
+
+## Use the CLI
+
+<Steps>
+<Step>
+
+### Create the project
+
+```npm
+npx shadcn@latest init -t start
+```
+
+For a project inside a monorepo, add `--monorepo`.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+The files land in `src/components/keyframery/`, and the motion tokens go into `src/styles.css`.
+
+</Step>
+<Step>
+
+### Use it
+
+```tsx title="src/routes/index.tsx"
+import { createFileRoute } from "@tanstack/react-router"
+
+import { Tabs, TabsList, TabsPanel, TabsPanels, TabsTab } from "@/components/keyframery/tabs"
+
+export const Route = createFileRoute("/")({ component: App })
+
+function App() {
+  return (
+    <Tabs defaultValue="account">
+      <TabsList aria-label="Settings">
+        <TabsTab value="account">Account</TabsTab>
+        <TabsTab value="password">Password</TabsTab>
+      </TabsList>
+      <TabsPanels>
+        <TabsPanel value="account">Account settings</TabsPanel>
+        <TabsPanel value="password">Password settings</TabsPanel>
+      </TabsPanels>
+    </Tabs>
+  )
+}
+```
+
+</Step>
+</Steps>
+
+## Existing Project
+
+<Steps>
+<Step>
+
+### Check the setup
+
+You need React 19, Tailwind CSS v4 and the `@/*` alias. Apps made with `npx @tanstack/cli@latest create` already have both. Then set up the CLI:
+
+```npm
+npx shadcn@latest init
+```
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+</Step>
+</Steps>
+
+## Notes for TanStack Start
+
+- **Server rendering.** The components render on the server and start animating once the page hydrates.
+- **Motion style.** Put `data-motion="calm"` on `<html>` in `src/routes/__root.tsx`, or wrap the route tree in `<KeyframeryProvider motion="calm">`.

@@ -1,26 +1,62 @@
 ---
 title: Installation
-heading: "Install animated UI SDK components in three steps"
-seoTitle: "Install UI SDK Components in Next.js or Vite"
-description: "Add animated components for Vercel's UI SDK to a React app with the shadcn CLI. Works with Next.js, Vite and React Router; no animation library needed."
+heading: "Install animated UI SDK components in any React framework"
+seoTitle: "Install UI SDK Components: Next.js, Vite, Astro, Laravel and More"
+description: "Add Keyframery's animated components for Vercel's UI SDK with the shadcn CLI. Guides for Next.js, Vite, TanStack Start, Laravel, React Router, Astro and a manual install."
 faq:
   - q: "Do I need to install UI SDK first?"
     a: "No. The CLI installs `@ui-sdk/react` and `@ui-sdk/core` for you, pinned to the version the components are tested with."
+  - q: "Which frameworks does Keyframery support?"
+    a: "Every framework the shadcn CLI supports: Next.js, Vite, TanStack Start, Laravel with the React starter kit, React Router and Astro. Anything else that runs React 19 and Tailwind CSS v4 works with a manual install."
   - q: "Why does the CLI say Unknown registry \"@keyframery\"?"
     a: "Your shadcn CLI didn't find `@keyframery` in shadcn's registry index. Register it once with `npx shadcn@latest registry add \"@keyframery=https://keyframery.com/r/{name}.json\"`, then install again."
   - q: "Will it overwrite my shadcn/ui components?"
     a: "No. Keyframery installs into `components/keyframery/`. Nothing in `components/ui/` is touched."
 ---
 
-You need React 19, Tailwind CSS v4 and a project set up for the shadcn CLI, so `components.json` exists. If it doesn't, run `npx shadcn@latest init` first.
-
-Prefer to let your coding agent do it? <a href="/docs/ai-tools">Use the skill or the prompt</a>.
-
 <Note title="Recommended for new projects:">
 Use [Keyframery Create](/create) to pick your colours, corners, font and motion visually, then install them as a [preset](/docs/presets) with one command.
 </Note>
 
-## Install one component
+Choose the setup that matches your starting point.
+
+<StartingPoints
+  items={[
+    { href: "#use-keyframery-create", title: "Use Keyframery Create", description: "Build your preset visually and install it with one command." },
+    { href: "#use-the-cli", title: "Use the CLI", description: "Scaffold a supported template, then add components." },
+    { href: "#existing-project", title: "Existing Project", description: "Add Keyframery to an app that already uses the shadcn CLI." },
+  ]}
+/>
+
+## Use Keyframery Create
+
+Build your preset at [Keyframery Create](/create): base and theme colours, corners, font, motion style, speed and bounce. Copy the command it gives you and run it in your project:
+
+```npm
+npx shadcn@latest add @keyframery/preset-<code>
+```
+
+Every framework guide below starts with this path.
+
+## Use the CLI
+
+Scaffold a new project with shadcn's template for your framework, then add components:
+
+```npm
+npx shadcn@latest init -t [framework]
+```
+
+```npm
+npx shadcn@latest add @keyframery/tabs
+```
+
+Templates: `next`, `vite`, `start`, `react-router` and `astro`. For Laravel, create the app first with `laravel new` and the React starter kit.
+
+## Existing Project
+
+You need React 19, Tailwind CSS v4 and a project set up for the shadcn CLI, so `components.json` exists. If it doesn't, run `npx shadcn@latest init` first, or follow your framework's guide below.
+
+Prefer to let your coding agent do it? <a href="/docs/ai-tools">Use the skill or the prompt</a>.
 
 <Steps>
 <Step>
@@ -31,14 +67,14 @@ Use [Keyframery Create](/create) to pick your colours, corners, font and motion 
 npx shadcn@latest add @keyframery/tabs
 ```
 
-This copies two files into your project and adds the motion tokens to your global CSS:
+This copies two files into your project's components folder and adds the motion tokens to your global CSS:
 
 ```text
 components/keyframery/tabs.tsx
 components/keyframery/primitives/tabs.tsx
 ```
 
-UI SDK (`@ui-sdk/react` and `@ui-sdk/core`) is installed for you, pinned to the version the components are tested with. Keyframery is in shadcn's registry index, so the CLI finds `@keyframery` with nothing to set up first.
+The folder follows your project's `components` alias, so it is `app/components/keyframery/` in React Router and `resources/js/components/keyframery/` in Laravel. UI SDK (`@ui-sdk/react` and `@ui-sdk/core`) is installed for you, pinned to the version the components are tested with. Keyframery is in shadcn's registry index, so the CLI finds `@keyframery` with nothing to set up first.
 
 **You should see** a new `components/keyframery/` folder.
 
@@ -84,7 +120,7 @@ The values are `calm`, `springy`, `snappy` and `playful`. More in [Motion styles
 </Step>
 </Steps>
 
-## Install everything
+### Install everything
 
 ```npm
 npx shadcn@latest add @keyframery/all
@@ -92,27 +128,11 @@ npx shadcn@latest add @keyframery/all
 
 Every component, in one command. Your bundler only ships the ones you import.
 
-## Framework notes
+## Choose Your Framework
 
-<Tabs items={["Next.js", "Vite", "React Router"]}>
-<Tab value="Next.js">
+For Laravel, start with `laravel new` and the React starter kit before adding components.
 
-Works in the App Router, with server rendering. Components that hold state are marked `"use client"` already.
-
-With `cacheComponents` turned on, the three date components need one extra step. See [Troubleshooting](/docs/troubleshooting#nextjs-stops-with-unstable-value-datenow).
-
-</Tab>
-<Tab value="Vite">
-
-Set up Tailwind CSS v4 and the `@/` path alias the way [shadcn's Vite guide](https://ui.shadcn.com/docs/installation/vite) describes, then install as above.
-
-</Tab>
-<Tab value="React Router">
-
-Follow [shadcn's React Router guide](https://ui.shadcn.com/docs/installation/react-router) for Tailwind and the path alias, then install as above.
-
-</Tab>
-</Tabs>
+<FrameworkGrid />
 
 ## What the CLI adds to your CSS
 
@@ -126,6 +146,8 @@ The first component you install adds a small block of motion tokens to your glob
   --ease-pop: linear(/* a livelier spring for small payoffs */);
 }
 ```
+
+Installing by hand? The [manual guide](/docs/installation/manual#add-the-motion-tokens) has the whole block to paste.
 
 ## Next
 
