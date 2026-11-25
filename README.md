@@ -185,6 +185,14 @@ pnpm check:browser # demo screenshots and smoke checks; needs the lab on :4610
 
 </details>
 
+## Sponsors
+
+<a href="https://neon.com">
+  <img src="assets/readme/neon-logo.svg" alt="Neon" width="168">
+</a>
+
+Keyframery is sponsored by [Neon](https://neon.com) through the Neon Open Source Program. The database behind keyframery.com runs on Neon Postgres.
+
 ## License
 
 [MIT](https://github.com/keyframery/keyframery/blob/main/LICENSE). Created and maintained by [Briyan Hingrajiya](https://keyframery.com/authors/briyan-hingrajiya) ([@briyan_dev](https://x.com/briyan_dev)).
