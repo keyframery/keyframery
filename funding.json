@@ -1,0 +1,65 @@
+{
+  "$schema": "https://fundingjson.org/schema/v1.1.0.json",
+  "version": "v1.0.0",
+  "entity": {
+    "type": "individual",
+    "role": "owner",
+    "name": "Briyan Hingarajiya",
+    "email": "briyan@keyframery.com",
+    "description": "Independent developer in India. I created and maintain Keyframery, a free, MIT-licensed library of animated UI components for React.",
+    "webpageUrl": {
+      "url": "https://keyframery.com",
+      "wellKnown": "https://keyframery.com/.well-known/funding-manifest-urls"
+    }
+  },
+  "projects": [
+    {
+      "guid": "keyframery",
+      "name": "Keyframery",
+      "description": "Keyframery is a free, MIT-licensed library of 82 animated UI components and full page templates (a landing page and an admin dashboard) for React. Developers add components straight into their own code with the shadcn CLI (npx shadcn add @keyframery/<name>), so they own the source and theme it with CSS variables. It is built on Vercel Labs' open-source UI SDK, and every docs page also has a plain Markdown version so AI coding agents can read it. There is no paid tier.",
+      "webpageUrl": {
+        "url": "https://keyframery.com",
+        "wellKnown": "https://keyframery.com/.well-known/funding-manifest-urls"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/keyframery/keyframery",
+        "wellKnown": "https://github.com/keyframery/keyframery/blob/main/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["web-development", "developer-tools", "web-design", "animation", "design"]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "bank-india",
+        "type": "bank",
+        "address": "Indian bank account (NEFT/IMPS). Details are shared by email with approved funders.",
+        "description": "Write to briyan@keyframery.com for bank details."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "hosting-and-maintenance",
+        "status": "active",
+        "name": "Hosting and maintenance, 12 months",
+        "description": "Rs 50,000 for a year of hosting and running costs (Vercel Pro for the docs site and component registry, Cloudflare, the domain). Rs 1,50,000 as a part-time maintainer stipend paid against milestones: support for every shadcn install target (Next.js, Vite, TanStack Start, React Router, Astro, Laravel, manual), browser testing on Safari and Firefox, new components and templates, and docs.",
+        "amount": 200000,
+        "currency": "INR",
+        "frequency": "yearly",
+        "channels": ["bank-india"]
+      },
+      {
+        "guid": "any-amount",
+        "status": "active",
+        "name": "Any amount",
+        "description": "A one-time contribution of any size towards hosting and maintenance.",
+        "amount": 0,
+        "currency": "INR",
+        "frequency": "one-time",
+        "channels": ["bank-india"]
+      }
+    ],
+    "history": []
+  }
+}
