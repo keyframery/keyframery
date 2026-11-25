@@ -10,7 +10,7 @@ import { PageChips } from "@site/components/docs/page-chips"
 import { TemplateActions } from "@site/components/templates/template-actions"
 import { entries, entry } from "@site/lib/catalog"
 import { getMDXComponents } from "@site/components/mdx"
-import { lastChanged } from "@site/lib/dates"
+import { firstPublished, lastChanged } from "@site/lib/dates"
 import { getDocsNavigation } from "@site/lib/docs-navigation"
 import { breadcrumbData, docData, faqData, JsonLd, pageMetadata } from "@site/lib/seo"
 import { getPageMarkdownUrl, gitConfig, url } from "@site/lib/shared"
@@ -69,7 +69,7 @@ export default async function Page(props: Props) {
 
   return (
     <DocsPage toc={toc} full={page.data.full} data-component={component} className={component || template ? "max-w-none" : undefined} breadcrumb={{ enabled: !component && !template }}>
-      <JsonLd data={docData({ path: page.url, headline: heading, description: page.data.description ?? "", dateModified: lastChanged(page.url), image: `/og/docs/${[...page.slugs, "image.png"].join("/")}` })} />
+      <JsonLd data={docData({ path: page.url, headline: heading, description: page.data.description ?? "", datePublished: firstPublished(page.url), dateModified: lastChanged(page.url), image: `/og/docs/${[...page.slugs, "image.png"].join("/")}` })} />
       <JsonLd
         data={breadcrumbData([
           { name: "Keyframery", path: "/" },

@@ -1,10 +1,8 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared"
 
 import { CreateNavButton } from "@site/components/create-nav-button"
-import { GitHubIcon } from "@site/components/github-icon"
+import { GitHubStars } from "@site/components/github-stars"
 import { LogoMark } from "@site/components/logo"
-
-import { REPO } from "./shared"
 
 export function baseOptions(): BaseLayoutProps {
   return {
@@ -27,8 +25,8 @@ export function baseOptions(): BaseLayoutProps {
       { text: "Blog", url: "/blog", active: "nested-url" },
       // The way into /create, a small key on the right beside GitHub and the theme toggle.
       { type: "custom", secondary: true, children: <CreateNavButton /> },
-      // Fumadocs' own githubUrl icon is an <svg role="img"> with no title, which fails axe; this one is decorative.
-      { type: "icon", url: REPO, text: "GitHub", label: "GitHub", external: true, icon: <GitHubIcon /> },
+      // GitHub with the star count (Fumadocs' own githubUrl icon is an <svg role="img"> with no title, which fails axe).
+      { type: "custom", secondary: true, children: <GitHubStars /> },
     ],
   }
 }

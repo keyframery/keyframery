@@ -5,3 +5,10 @@
 
 [build.environment]
   NODE_VERSION = "24"
+
+# Registry items are fetched from other sites (the shadcn CLI, web previews, "open in" tools). next.config.ts sets this
+# header too, but Netlify serves public/ files without Next's headers, so it is repeated here.
+[[headers]]
+  for = "/r/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
