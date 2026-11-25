@@ -1,5 +1,3 @@
-import { after } from "next/server"
-
 import { allowHit, externalReferrer, readBeacon } from "@site/lib/beacon"
 import { isCrawlerClient, recordHit, requestFacts, utcDay, visitorCode } from "@site/lib/usage"
 
@@ -19,10 +17,10 @@ export async function POST(request: Request) {
   const { beacon } = result
   if (beacon.type === "view") {
     const referrer = externalReferrer(beacon.referrer, request.url)
-    after(() => recordHit(null, { kind: "view", item: beacon.path, referrer }, facts))
+    await recordHit(null, { kind: "view", item: beacon.path, referrer }, facts)
   } else {
     const { event, page, component } = beacon.copy
-    after(() => recordHit({ kind: event, item: page, client: component }, { kind: "copy", item: event, detail: page }, facts))
+    await recordHit({ kind: event, item: page, client: component }, { kind: "copy", item: event, detail: page }, facts)
   }
   // Accepted for best-effort counting; this is not a receipt for a database write.
   return done(204)

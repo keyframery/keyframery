@@ -75,6 +75,11 @@ export function classifyRequest(method: string, pathname: string, markdown: bool
   return null
 }
 
+/* The database address. Vercel and Netlify functions read it from process.env; Netlify's edge functions,
+   where proxy.ts runs on Netlify, see only Netlify.env. */
+type NetlifyGlobal = { Netlify?: { env?: { get(name: string): string | undefined } } }
+export const databaseUrl = (): string | undefined => process.env.DATABASE_URL || (globalThis as NetlifyGlobal).Netlify?.env?.get("DATABASE_URL")
+
 /** A client for one batch of writes, given up on after 4 s so a slow database never holds a function open. */
 async function database(url: string) {
   const { neon } = await import("@neondatabase/serverless")
@@ -83,7 +88,7 @@ async function database(url: string) {
 
 /** Adds one to each hit's daily count. Never throws: counting must not break the response it rides on. */
 export async function recordUsage(...hits: UsageHit[]): Promise<void> {
-  const url = process.env.DATABASE_URL
+  const url = databaseUrl()
   if (!url || hits.length === 0) return
   try {
     const sql = await database(url)
@@ -204,10 +209,14 @@ export function fromCloudflare(ip: string | null): boolean {
 }
 
 export function requestFacts(headers: Headers): RequestFacts {
-  const connecting = headers.get("x-forwarded-for")?.split(",")[0]?.trim() || headers.get("x-real-ip")?.trim() || null
+  /* Netlify names the address that connected to it in x-nf-client-connection-ip and keeps whatever x-forwarded-for
+     arrived (Cloudflare's own, with the visitor first), so on Netlify that header is the one to check. Vercel
+     replaces x-forwarded-for with the connecting address. Netlify's own country guess is x-country. */
+  const connecting =
+    headers.get("x-nf-client-connection-ip")?.trim() || headers.get("x-forwarded-for")?.split(",")[0]?.trim() || headers.get("x-real-ip")?.trim() || null
   const cloudflare = fromCloudflare(connecting)
   const ip = (cloudflare && headers.get("cf-connecting-ip")?.trim()) || connecting
-  const country = ((cloudflare ? headers.get("cf-ipcountry") : headers.get("x-vercel-ip-country")) ?? "").trim().toUpperCase()
+  const country = ((cloudflare ? headers.get("cf-ipcountry") : headers.get("x-vercel-ip-country") || headers.get("x-country")) ?? "").trim().toUpperCase()
   return {
     ip: ip && ip.length <= 64 ? ip : null,
     // Cloudflare answers XX when it does not know the country.
@@ -226,7 +235,7 @@ const isMissingTable = (error: unknown): boolean => {
 
 /** Appends each event to usage_events. Never throws, and stops for good once the table is known to be missing. */
 export async function recordEvent(...events: UsageEvent[]): Promise<void> {
-  const url = process.env.DATABASE_URL
+  const url = databaseUrl()
   if (!url || eventLogMissing || events.length === 0) return
   try {
     const sql = await database(url)
@@ -250,7 +259,7 @@ export async function recordEvent(...events: UsageEvent[]): Promise<void> {
  */
 export async function recordHit(counter: UsageHit | null, event: Omit<UsageEvent, "client" | "visitor" | "country">, facts: RequestFacts): Promise<void> {
   try {
-    const secret = process.env.DATABASE_URL
+    const secret = databaseUrl()
     if (!secret) return
     const visitor = await visitorCode(facts.ip, utcDay(), secret)
     await Promise.all([counter ? recordUsage(counter) : undefined, recordEvent({ ...event, client: facts.client, visitor, country: facts.country })])

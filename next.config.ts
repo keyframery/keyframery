@@ -49,8 +49,16 @@ for (const source of oldUrls) {
 
 const redirects = [...moved].map(([source, destination]) => ({ source, destination, statusCode: 301 as const }))
 
+/* Netlify runs proxy.ts as an edge function, and its edge functions get none of the site's environment
+   variables at run time (checked 25 Nov 2026), so usage counting there had no database. On Netlify builds only,
+   the database address is written into the server code at build time. Only server code reads it (site/lib/usage.ts),
+   so it never reaches a browser bundle. On Vercel this is empty and nothing changes. */
+const onNetlify = process.env.NETLIFY === "true" || Boolean(process.env.CONTEXT)
+const netlifyEnv: Record<string, string> = onNetlify && process.env.DATABASE_URL ? { DATABASE_URL: process.env.DATABASE_URL } : {}
+
 const config: NextConfig = {
   reactStrictMode: true,
+  env: netlifyEnv,
   typescript: { tsconfigPath: "tsconfig.next.json" },
   turbopack: { root: path.resolve(process.cwd()) },
   async redirects() {
@@ -59,6 +67,10 @@ const config: NextConfig = {
       // Production only, so preview deployments stay reachable.
       ...(process.env.VERCEL_ENV === "production"
         ? [{ source: "/:path*", has: [{ type: "host" as const, value: "(?<sub>.*)\\.vercel\\.app" }], destination: "https://keyframery.com/:path*", permanent: true }]
+        : []),
+      // The same on Netlify: only the site's own <name>.netlify.app address, never a draft or preview (those have "--").
+      ...(process.env.CONTEXT === "production"
+        ? [{ source: "/:path*", has: [{ type: "host" as const, value: "(?!.*--)(?<sub>.*)\\.netlify\\.app" }], destination: "https://keyframery.com/:path*", permanent: true }]
         : []),
       ...redirects,
       // shadcn/ui's names for components Keyframery ships under another name.

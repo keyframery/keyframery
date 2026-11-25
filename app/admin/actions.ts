@@ -32,8 +32,8 @@ export async function signIn(_previous: SignInState, form: FormData): Promise<Si
   const session = createSession(password)
   ;(await cookies()).set(SESSION_COOKIE, session.value, {
     httpOnly: true,
-    // Vercel is always HTTPS; locally `next dev` is plain http://localhost, where Safari drops Secure cookies.
-    secure: process.env.VERCEL === "1",
+    // Hosted builds are always HTTPS; `next dev` is plain http://localhost, where Safari drops Secure cookies.
+    secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
     path: "/admin",
     expires: session.expires,

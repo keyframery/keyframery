@@ -5,6 +5,7 @@ import Script from "next/script"
 import { PageViews } from "@site/components/page-views"
 import { SiteProvider } from "@site/components/provider"
 import { JsonLd, SITE_IMAGE, siteData } from "@site/lib/seo"
+import { isProductionDeploy } from "@site/lib/hosting"
 import { SITE } from "@site/lib/shared"
 
 import "./globals.css"
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", creator: "@briyan_dev", images: SITE_IMAGE },
 }
 
-/** Microsoft Clarity (heatmaps and session recordings) runs on production only, with the project ID from Vercel. */
-const clarityId = process.env.VERCEL_ENV === "production" ? process.env.CLARITY_PROJECT_ID?.trim() : undefined
+/** Microsoft Clarity (heatmaps and session recordings) runs on production only, with the project ID from the host. */
+const clarityId = isProductionDeploy ? process.env.CLARITY_PROJECT_ID?.trim() : undefined
 const clarity = clarityId && /^[a-z0-9]{1,32}$/i.test(clarityId) ? clarityId : null
 
 /* Applied before the first paint: the motion style the visitor picked last time. */
@@ -42,7 +43,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <JsonLd data={siteData()} />
         <SiteProvider>{children}</SiteProvider>
         <PageViews />
-        {process.env.VERCEL_ENV === "production" && (
+        {isProductionDeploy && (
           <>
             <Script id="google-tag-loader" src="https://www.googletagmanager.com/gtag/js?id=G-R8KDF02XF8" strategy="lazyOnload" />
             <Script id="google-analytics" strategy="lazyOnload">

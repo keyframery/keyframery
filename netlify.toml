@@ -1,0 +1,7 @@
+# Netlify build for keyframery.com (Next.js through @netlify/plugin-nextjs, detected automatically).
+[build]
+  command = "pnpm build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "24"

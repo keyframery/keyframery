@@ -28,3 +28,6 @@ shots
 
 # SEO tracker: holds Search Console numbers, local only
 /seo/
+
+# Local Netlify folder
+.netlify

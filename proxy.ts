@@ -1,5 +1,5 @@
 import { isMarkdownPreferred, rewritePath } from "fumadocs-core/negotiation"
-import { type NextFetchEvent, type NextRequest, NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 
 import { docsContentRoute, docsRoute } from "@site/lib/shared"
 import { classifyRequest, recordHit, requestFacts } from "@site/lib/usage"
@@ -37,16 +37,17 @@ function route(request: NextRequest): { response: NextResponse; negotiated: bool
   return { response: NextResponse.next(), negotiated: false }
 }
 
-export default function proxy(request: NextRequest, event: NextFetchEvent) {
+export default async function proxy(request: NextRequest) {
   const { response, negotiated } = route(request)
   /* Registry downloads and agent reads load no analytics script, so they are counted here (site/lib/usage.ts).
      Proxy runs before public/ files, so the static /r/*.json files and the ones app/r/[name] makes are counted
-     in this one place. Each hit adds to the daily counter and appends one event (with the day's visitor code);
-     waitUntil runs the writes after the response, and recordHit never throws. */
+     in this one place. Each hit adds to the daily counter and appends one event (with the day's visitor code).
+     The writes finish before the response (about 0.1 s): Netlify stops the function once it has answered, so
+     writes left for after the response never ran there. recordHit never throws. */
   const hit = classifyRequest(request.method, request.nextUrl.pathname, negotiated)
   if (hit) {
     const facts = requestFacts(request.headers)
-    event.waitUntil(recordHit({ ...hit, client: facts.client }, { kind: hit.kind === "install" ? "install" : "agent", item: hit.item }, facts))
+    await recordHit({ ...hit, client: facts.client }, { kind: hit.kind === "install" ? "install" : "agent", item: hit.item }, facts)
   }
   return response
 }

@@ -86,7 +86,8 @@ for (const nested of [false, true]) {
 
 test("the live catalog retains every component once in its category with continuous previous/next navigation", () => {
   // Avoid the server-only marker in this Node test; the catalog's actual filesystem data stays intact.
-  const catalog = loadTs("site/lib/catalog.ts", (name) => name === "server-only" ? {} : require(name))
+  const catalog = loadTs("site/lib/catalog.ts", (name) =>
+    name === "server-only" ? {} : require(name.startsWith("./") ? path.join(root, "site/lib", name) : name))
   assert.ok(catalog.entries.length > 0)
   const index = page("All components", "/docs/components")
   const pages = catalog.entries.map((entry) => page(entry.name, `/docs/components/${entry.slug}`))

@@ -1,45 +1,22 @@
 import "server-only"
 
-import fs from "node:fs"
-import path from "node:path"
+import catalog from "./catalog.generated.json"
 
-/* Everything the site knows about the components, read from the source at build time:
-   names and groups from each demo's `meta`, descriptions from content/components.json,
-   what moves from content/moves.json. */
+/* Everything the site knows about the components: names and groups from each demo's `meta`, descriptions
+   from content/components.json, what moves from content/moves.json. scripts/build-catalog.mjs reads the
+   source and writes catalog.generated.json before every build; importing it (rather than reading src/
+   at run time) keeps the server function to the files it actually uses. */
 
-const root = process.cwd()
-const read = (file: string) => fs.readFileSync(path.join(root, file), "utf8")
-const descriptions: Record<string, string> = JSON.parse(read("content/components.json"))
-const motion: { moves: Record<string, string>; components: Record<string, [string, string][]> } = JSON.parse(read("content/moves.json"))
-
-export const MOVES = motion.moves
+export const MOVES: Record<string, string> = catalog.moves
 
 /* `sdk` is the UI SDK component a Keyframery component wraps, or null when UI SDK has none.
    `core` is true for a component UI SDK doesn't ship, defined on its core with `definePrimitive`. */
 export type Entry = { slug: string; name: string; group: string; description: string; sdk: string | null; core: boolean; moves: [string, string][] }
 
-/* Components built on a UI SDK part with a different name. */
-const sdkPart: Record<string, string> = { "context-menu": "menu", "motion-style": "preferences" }
-
 /* The order groups appear in, from the most used to the most specialised. */
 export const groupOrder = ["Actions", "Forms", "Menus", "Overlays", "Navigation", "Disclosure", "Display", "Feedback", "Dates", "Layout", "Media", "Data", "Motion"]
 
-function entryOf(slug: string): Entry {
-  const meta = read(`src/demos/${slug}.tsx`).match(/export const meta = \{\s*name:\s*"([^"]+)",\s*group:\s*"([^"]+)"/)
-  const primitive = `src/components/primitives/${slug}.tsx`
-  const part = sdkPart[slug] ?? slug
-  const code = fs.existsSync(path.join(root, primitive)) ? read(primitive) : ""
-  const sdk = code.includes(`"@ui-sdk/react/${part}"`) || (part !== slug && code.includes(`"@/components/primitives/${part}"`)) ? part : null
-  const core = fs.existsSync(path.join(root, "src/components/core", `${slug}.ts`))
-  return { slug, name: meta?.[1] ?? slug, group: meta?.[2] ?? "Other", description: descriptions[slug] ?? "", sdk, core, moves: motion.components[slug] ?? [] }
-}
-
-export const entries: Entry[] = fs
-  .readdirSync(path.join(root, "src/components/ui"))
-  .map((f) => f.replace(/\.tsx$/, ""))
-  .filter((slug) => fs.existsSync(path.join(root, "src/demos", `${slug}.tsx`)))
-  .map(entryOf)
-  .sort((a, b) => a.name.localeCompare(b.name))
+export const entries = catalog.entries as Entry[]
 
 export const groups = [...groupOrder, ...new Set(entries.map((e) => e.group).filter((g) => !groupOrder.includes(g)))]
   .map((group) => ({ group, items: entries.filter((e) => e.group === group) }))
