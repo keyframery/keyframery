@@ -16,7 +16,7 @@
     {
       "guid": "keyframery",
       "name": "Keyframery",
-      "description": "Keyframery is a free, MIT-licensed library of 82 animated UI components and full page templates (a landing page and an admin dashboard) for React. Developers add components straight into their own code with the shadcn CLI (npx shadcn add @keyframery/<name>), so they own the source and theme it with CSS variables. It is built on Vercel Labs' open-source UI SDK, and every docs page also has a plain Markdown version so AI coding agents can read it. There is no paid tier.",
+      "description": "Keyframery is a free, MIT-licensed library of 89 animated UI components and full page templates (a landing page and an admin dashboard) for React. Developers add components straight into their own code with the shadcn CLI (npx shadcn add @keyframery/<name>), so they own the source and theme it with CSS variables. It is built on Vercel Labs' open-source UI SDK, and every docs page also has a plain Markdown version so AI coding agents can read it. There is no paid tier.",
       "webpageUrl": {
         "url": "https://keyframery.com",
         "wellKnown": "https://keyframery.com/.well-known/funding-manifest-urls"

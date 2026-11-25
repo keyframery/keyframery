@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { builtOnNetlify } from "@site/lib/hosting"
 import { REPO } from "@site/lib/shared"
 
 import { LogoMark } from "./logo"
@@ -53,7 +54,16 @@ export function SiteFooter() {
         </nav>
       </div>
       <p className="mx-auto w-full max-w-[1200px] border-t px-4 py-6 text-[13px] text-muted-foreground sm:px-6">
-        © 2026 Keyframery. Code under the MIT license. Not affiliated with Vercel or shadcn.
+        © 2026 Keyframery. Code under the MIT license. An independent project, built on Vercel's UI SDK and the shadcn CLI.
+        {builtOnNetlify && (
+          <>
+            {" "}
+            <a href="https://www.netlify.com" className={linkClass}>
+              This site is powered by Netlify
+            </a>
+            .
+          </>
+        )}
       </p>
       {/* The sign-off: the wordmark set edge to edge, fading from top to bottom, with a band of light that
           sweeps down through it like a playhead. Decorative, so it's hidden from screen readers. */}
