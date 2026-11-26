@@ -1,0 +1,32 @@
+{
+  "//": "Matches what a user gets from `npm create vite -- --template vue-ts` (@vue/tsconfig/tsconfig.dom.json + tsconfig.app.json, inlined), so vue-tsc here fails wherever a user's `npm run build` would. typecheck/ holds the props-typing fixture (not part of the app build).",
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "noImplicitThis": true,
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "libReplacement": false,
+    "skipLibCheck": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"],
+    "allowArbitraryExtensions": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": { "@/*": ["src/*"] }
+  },
+  "include": ["src/components/**/*.ts", "src/components/**/*.vue", "src/lib/**/*.ts", "src/App.vue", "src/main.ts", "src/env.d.ts", "typecheck/**/*.vue", "typecheck/**/*.ts"]
+}

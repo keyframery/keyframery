@@ -1,0 +1,296 @@
+{
+  "slug": "listbox",
+  "module": "@ui-sdk/react/listbox",
+  "parts": {
+    "Listbox": {
+      "export": "Listbox",
+      "variants": {},
+      "root": {
+        "part": "Listbox",
+        "slot": "listbox",
+        "module": "@ui-sdk/react/listbox"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Listbox",
+          "module": "@ui-sdk/react/listbox",
+          "slot": "listbox",
+          "slotDocumented": true,
+          "class": "",
+          "attrs": {},
+          "children": [],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [
+        {
+          "kind": "ready-after",
+          "state": "ready",
+          "ms": 150
+        }
+      ],
+      "lost": [
+        {
+          "kind": "js",
+          "detail": "spread {...({ ...props, /* With no children, the root's `items` render as styled rows. */ children: props.children ?? (props.items ? (state: { items?: ListData<unknown"
+        },
+        {
+          "kind": "js",
+          "detail": "spread {...({ ...props, \"data-kf-ready\": ready || undefined, className: withClass( cn( \"group/kf-lb relative isolate [anchor-scope:--kf-hl]\", \"before:pointer-events-no"
+        },
+        {
+          "kind": "js-carried",
+          "detail": "ready-after ready after 150ms (carried by the framework wrappers; CSS uses [data-activation-direction] instead)"
+        }
+      ]
+    },
+    "ListboxGroup": {
+      "export": "ListboxGroup",
+      "variants": {},
+      "root": {
+        "part": "ListboxGroup",
+        "slot": "listbox-group",
+        "module": "@ui-sdk/react/listbox"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ListboxGroup",
+          "module": "@ui-sdk/react/listbox",
+          "slot": "listbox-group",
+          "slotDocumented": false,
+          "class": "flex flex-col gap-px",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ListboxGroupLabel": {
+      "export": "ListboxGroupLabel",
+      "variants": {},
+      "root": {
+        "part": "ListboxGroupLabel",
+        "slot": "listbox-group-label",
+        "module": "@ui-sdk/react/listbox"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ListboxGroupLabel",
+          "module": "@ui-sdk/react/listbox",
+          "slot": "listbox-group-label",
+          "slotDocumented": false,
+          "class": "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none [[data-has-icons]_&]:ps-8",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ListboxItem": {
+      "export": "ListboxItem",
+      "variants": {},
+      "root": {
+        "part": "ListboxItem",
+        "slot": "listbox-item",
+        "module": "@ui-sdk/react/listbox"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ListboxItem",
+          "module": "@ui-sdk/react/listbox",
+          "slot": "listbox-item",
+          "slotDocumented": true,
+          "class": "hover:[anchor-name:--kf-hl] data-highlighted:[anchor-name:--kf-hl] group-has-[[data-slot=listbox-item]:hover]/kf-lb:data-highlighted:not-hover:[anchor-name:none] group/item relative flex min-h-[var(--listbox-row-height,2rem)] shrink-0 cursor-default items-center gap-2 rounded-[var(--listbox-item-radius,8px)] px-2 py-1.5 leading-4 text-[color:var(--listbox-ink,var(--foreground))] outline-none select-none data-disabled:cursor-not-allowed data-disabled:text-muted-foreground/60 group-data-readonly/listbox:cursor-default [[data-has-icons]_&:not([data-has-icon])]:ps-8",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ListboxItemIcon": {
+      "export": "ListboxItemIcon",
+      "variants": {},
+      "root": {
+        "part": "ListboxItemIcon",
+        "slot": "listbox-item-icon",
+        "module": "@ui-sdk/react/listbox"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ListboxItemIcon",
+          "module": "@ui-sdk/react/listbox",
+          "slot": "listbox-item-icon",
+          "slotDocumented": true,
+          "class": "grid size-4 shrink-0 place-items-center text-muted-foreground transition-colors duration-[calc(150ms*var(--kf-speed,1))] [&_svg]:size-4 group-data-highlighted/item:text-current group-data-highlighted/item:duration-0 group-data-selected/item:text-[color:var(--listbox-ink,var(--foreground))] rtl:data-mirror:-scale-x-100 motion-reduce:transition-none!",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ListboxItemIndicator": {
+      "export": "ListboxItemIndicator",
+      "variants": {},
+      "root": {
+        "part": "ListboxItemIndicator",
+        "slot": "listbox-item-indicator",
+        "module": "@ui-sdk/react/listbox"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ListboxItemIndicator",
+          "module": "@ui-sdk/react/listbox",
+          "slot": "listbox-item-indicator",
+          "slotDocumented": true,
+          "class": "[&_:is(path,polyline)]:[stroke-dasharray:24] [&_:is(path,polyline)]:[stroke-dashoffset:24] [&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_:is(path,polyline)]:ease-house data-selected:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-selected:[&_:is(path,polyline)]:delay-[calc(75ms*var(--kf-speed,1)*var(--kf-flourish,1))] data-selected:[&_:is(path,polyline)]:starting:[stroke-dashoffset:24] group-data-kf-ready/kf-lb:data-selected:[animation:kf-pop-in_calc(380ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)] motion-reduce:[&_:is(path,polyline)]:transition-none motion-reduce:animate-none! ms-auto grid size-4 shrink-0 place-items-center text-[color:var(--listbox-ink,var(--foreground))] [&_svg]:size-4 group-aria-multiselectable/listbox:rounded-[5px] group-aria-multiselectable/listbox:text-primary-foreground group-aria-multiselectable/listbox:[&_svg]:size-3 group-aria-multiselectable/listbox:shadow-[inset_0_0_0_1px_rgb(0_0_0/0.18)] dark:group-aria-multiselectable/listbox:shadow-[inset_0_0_0_1px_rgb(255_255_255/0.2)] group-aria-multiselectable/listbox:transition-[background-color,box-shadow] group-aria-multiselectable/listbox:duration-[calc(150ms*var(--kf-speed,1))] group-aria-multiselectable/listbox:data-selected:bg-[var(--listbox-selected,var(--primary))] group-aria-multiselectable/listbox:data-selected:shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.2)] dark:group-aria-multiselectable/listbox:data-selected:shadow-[inset_0_1px_0_rgb(255_255_255/0.6)] group-aria-multiselectable/listbox:[&_svg]:[stroke-width:2] group-data-disabled/item:opacity-50 motion-reduce:transition-none!",
+          "attrs": {
+            "keepMounted": true
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": "true"
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "m3.5 8.5 3 3 6-7"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "ListboxItems": {
+      "export": "ListboxItems",
+      "variants": {},
+      "root": null,
+      "tree": [],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "not-generated",
+          "detail": "renders from data or JS only (nothing static to carry); not generated"
+        }
+      ]
+    },
+    "ListboxSeparator": {
+      "export": "ListboxSeparator",
+      "variants": {},
+      "root": {
+        "part": "ListboxSeparator",
+        "slot": "listbox-separator",
+        "module": "@ui-sdk/react/listbox"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ListboxSeparator",
+          "module": "@ui-sdk/react/listbox",
+          "slot": "listbox-separator",
+          "slotDocumented": false,
+          "class": "-mx-1.5 my-1 h-px shrink-0 bg-border group-data-[orientation=horizontal]/listbox:mx-1 group-data-[orientation=horizontal]/listbox:my-0 group-data-[orientation=horizontal]/listbox:h-auto group-data-[orientation=horizontal]/listbox:w-px",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "listbox-group": "flex flex-col gap-px",
+    "listbox-group-label": "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none [[data-has-icons]_&]:ps-8",
+    "listbox-item": "hover:[anchor-name:--kf-hl] data-highlighted:[anchor-name:--kf-hl] group-has-[[data-slot=listbox-item]:hover]/kf-lb:data-highlighted:not-hover:[anchor-name:none] group/item relative flex min-h-[var(--listbox-row-height,2rem)] shrink-0 cursor-default items-center gap-2 rounded-[var(--listbox-item-radius,8px)] px-2 py-1.5 leading-4 text-[color:var(--listbox-ink,var(--foreground))] outline-none select-none data-disabled:cursor-not-allowed data-disabled:text-muted-foreground/60 group-data-readonly/listbox:cursor-default [[data-has-icons]_&:not([data-has-icon])]:ps-8",
+    "listbox-item-icon": "grid size-4 shrink-0 place-items-center text-muted-foreground transition-colors duration-[calc(150ms*var(--kf-speed,1))] [&_svg]:size-4 group-data-highlighted/item:text-current group-data-highlighted/item:duration-0 group-data-selected/item:text-[color:var(--listbox-ink,var(--foreground))] rtl:data-mirror:-scale-x-100 motion-reduce:transition-none!",
+    "listbox-item-indicator": "[&_:is(path,polyline)]:[stroke-dasharray:24] [&_:is(path,polyline)]:[stroke-dashoffset:24] [&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_:is(path,polyline)]:ease-house data-selected:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-selected:[&_:is(path,polyline)]:delay-[calc(75ms*var(--kf-speed,1)*var(--kf-flourish,1))] data-selected:[&_:is(path,polyline)]:starting:[stroke-dashoffset:24] group-data-kf-ready/kf-lb:data-selected:[animation:kf-pop-in_calc(380ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)] motion-reduce:[&_:is(path,polyline)]:transition-none motion-reduce:animate-none! ms-auto grid size-4 shrink-0 place-items-center text-[color:var(--listbox-ink,var(--foreground))] [&_svg]:size-4 group-aria-multiselectable/listbox:rounded-[5px] group-aria-multiselectable/listbox:text-primary-foreground group-aria-multiselectable/listbox:[&_svg]:size-3 group-aria-multiselectable/listbox:shadow-[inset_0_0_0_1px_rgb(0_0_0/0.18)] dark:group-aria-multiselectable/listbox:shadow-[inset_0_0_0_1px_rgb(255_255_255/0.2)] group-aria-multiselectable/listbox:transition-[background-color,box-shadow] group-aria-multiselectable/listbox:duration-[calc(150ms*var(--kf-speed,1))] group-aria-multiselectable/listbox:data-selected:bg-[var(--listbox-selected,var(--primary))] group-aria-multiselectable/listbox:data-selected:shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.2)] dark:group-aria-multiselectable/listbox:data-selected:shadow-[inset_0_1px_0_rgb(255_255_255/0.6)] group-aria-multiselectable/listbox:[&_svg]:[stroke-width:2] group-data-disabled/item:opacity-50 motion-reduce:transition-none!",
+    "listbox-separator": "-mx-1.5 my-1 h-px shrink-0 bg-border group-data-[orientation=horizontal]/listbox:mx-1 group-data-[orientation=horizontal]/listbox:my-0 group-data-[orientation=horizontal]/listbox:h-auto group-data-[orientation=horizontal]/listbox:w-px"
+  },
+  "styles": {
+    "kf-listbox-pop": "@keyframes kf-pop-in{from{scale:0.6}}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "js": 2,
+    "js-carried": 1,
+    "extra-elements": 1,
+    "not-generated": 1
+  },
+  "flourish": true
+}

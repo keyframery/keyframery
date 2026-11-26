@@ -1,0 +1,398 @@
+{
+  "slug": "carousel",
+  "module": "@ui-sdk/react/carousel",
+  "parts": {
+    "Carousel": {
+      "export": "Carousel",
+      "variants": {},
+      "root": {
+        "part": "Carousel",
+        "slot": "carousel",
+        "module": "@ui-sdk/react/carousel"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Carousel",
+          "module": "@ui-sdk/react/carousel",
+          "slot": "carousel",
+          "slotDocumented": true,
+          "class": "relative flex flex-col gap-[var(--carousel-gap,0.75rem)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CarouselContent": {
+      "export": "CarouselContent",
+      "variants": {},
+      "root": {
+        "part": "CarouselContent",
+        "slot": "carousel-content",
+        "module": "@ui-sdk/react/carousel"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CarouselContent",
+          "module": "@ui-sdk/react/carousel",
+          "slot": "carousel-content",
+          "slotDocumented": true,
+          "class": "flex gap-[var(--carousel-gap,0.75rem)] data-[orientation=vertical]:flex-col",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CarouselIndicator": {
+      "export": "CarouselIndicator",
+      "variants": {},
+      "root": {
+        "part": "CarouselIndicator",
+        "slot": "carousel-indicator",
+        "module": "@ui-sdk/react/carousel"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CarouselIndicator",
+          "module": "@ui-sdk/react/carousel",
+          "slot": "carousel-indicator",
+          "slotDocumented": true,
+          "class": "[transition:width_calc(560ms*var(--kf-speed,1))_var(--ease-spring),height_calc(560ms*var(--kf-speed,1))_var(--ease-spring),background-color_calc(200ms*var(--kf-speed,1)),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)] active:scale-[calc(1-0.2*var(--kf-flourish,1))] motion-reduce:transition-none! relative h-1.5 w-1.5 cursor-pointer rounded-full bg-[color-mix(in_oklab,var(--carousel-ink,var(--foreground))_20%,transparent)] outline-none hover:bg-[color-mix(in_oklab,var(--carousel-ink,var(--foreground))_45%,transparent)] data-selected:w-5 data-selected:bg-[var(--carousel-ink,var(--foreground))] after:absolute after:-inset-x-0.5 after:-inset-y-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CarouselIndicatorGroup": {
+      "export": "CarouselIndicatorGroup",
+      "variants": {},
+      "root": {
+        "part": "CarouselIndicatorGroup",
+        "slot": "carousel-indicator-group",
+        "module": "@ui-sdk/react/carousel"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CarouselIndicatorGroup",
+          "module": "@ui-sdk/react/carousel",
+          "slot": "carousel-indicator-group",
+          "slotDocumented": false,
+          "class": "inline-flex h-5 w-fit items-center gap-1 rounded-full bg-[var(--carousel-face,var(--muted))] px-1.5 shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CarouselItem": {
+      "export": "CarouselItem",
+      "variants": {},
+      "root": {
+        "part": "CarouselItem",
+        "slot": "carousel-item",
+        "module": "@ui-sdk/react/carousel"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CarouselItem",
+          "module": "@ui-sdk/react/carousel",
+          "slot": "carousel-item",
+          "slotDocumented": true,
+          "class": "transition-opacity duration-[calc(460ms*var(--kf-speed,1))] ease-house *:transition-[scale,filter] *:duration-[calc(520ms*var(--kf-speed,1))] *:ease-spring not-data-active:opacity-40 not-data-active:*:scale-[calc(1-0.1*var(--kf-flourish,1))] not-data-active:*:blur-[calc(2px*var(--kf-flourish,1))] motion-reduce:transition-none! motion-reduce:*:transition-none min-w-0 shrink-0 grow-0 basis-full",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CarouselNext": {
+      "export": "CarouselNext",
+      "variants": {},
+      "root": {
+        "part": "CarouselNext",
+        "slot": "carousel-next",
+        "module": "@ui-sdk/react/carousel"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CarouselNext",
+          "module": "@ui-sdk/react/carousel",
+          "slot": "carousel-next",
+          "slotDocumented": false,
+          "class": "[transition:scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1)),color_calc(150ms*var(--kf-speed,1))] not-data-disabled:active:scale-[calc(1-0.1*var(--kf-flourish,1))] motion-reduce:transition-none! inline-grid size-[var(--carousel-key-size,2rem)] shrink-0 cursor-pointer place-items-center rounded-full bg-[var(--carousel-face,var(--background))] text-[color:var(--carousel-ink,var(--foreground))] outline-none select-none [&_svg]:size-4 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--carousel-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-40",
+          "attrs": {
+            "aria-label": "Next slide"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "aria-hidden": true,
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round"
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "m6 4 4 4-4 4"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "CarouselPlayToggle": {
+      "export": "CarouselPlayToggle",
+      "variants": {},
+      "root": {
+        "part": "CarouselPlayToggle",
+        "slot": "carousel-play-toggle",
+        "module": "@ui-sdk/react/carousel"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CarouselPlayToggle",
+          "module": "@ui-sdk/react/carousel",
+          "slot": "carousel-play-toggle",
+          "slotDocumented": true,
+          "class": "[transition:scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1)),color_calc(150ms*var(--kf-speed,1))] not-data-disabled:active:scale-[calc(1-0.1*var(--kf-flourish,1))] motion-reduce:transition-none! inline-grid size-[var(--carousel-key-size,2rem)] shrink-0 cursor-pointer place-items-center rounded-full bg-[var(--carousel-face,var(--background))] text-[color:var(--carousel-ink,var(--foreground))] outline-none select-none [&_svg]:size-4 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--carousel-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-40",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CarouselPrevious": {
+      "export": "CarouselPrevious",
+      "variants": {},
+      "root": {
+        "part": "CarouselPrevious",
+        "slot": "carousel-previous",
+        "module": "@ui-sdk/react/carousel"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CarouselPrevious",
+          "module": "@ui-sdk/react/carousel",
+          "slot": "carousel-previous",
+          "slotDocumented": true,
+          "class": "[transition:scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1)),color_calc(150ms*var(--kf-speed,1))] not-data-disabled:active:scale-[calc(1-0.1*var(--kf-flourish,1))] motion-reduce:transition-none! inline-grid size-[var(--carousel-key-size,2rem)] shrink-0 cursor-pointer place-items-center rounded-full bg-[var(--carousel-face,var(--background))] text-[color:var(--carousel-ink,var(--foreground))] outline-none select-none [&_svg]:size-4 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--carousel-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-40",
+          "attrs": {
+            "aria-label": "Previous slide"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "aria-hidden": true,
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round"
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "m10 4-4 4 4 4"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "CarouselProgress": {
+      "export": "CarouselProgress",
+      "variants": {},
+      "root": {
+        "element": "div",
+        "slot": "carousel-progress"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "div",
+          "class": "h-0.5 w-full overflow-hidden rounded-full bg-[color-mix(in_oklab,var(--carousel-ink,var(--foreground))_10%,transparent)]",
+          "attrs": {
+            "aria-hidden": true,
+            "data-slot": "carousel-progress"
+          },
+          "children": [
+            {
+              "t": "el",
+              "tag": "div",
+              "class": "h-full w-full origin-left scale-x-(--carousel-progress) rounded-full bg-[color-mix(in_oklab,var(--carousel-ink,var(--foreground))_70%,transparent)] rtl:origin-right",
+              "attrs": {},
+              "children": []
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <div class=\"h-full w-full origin-left scale-x-(--car…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "CarouselViewport": {
+      "export": "CarouselViewport",
+      "variants": {},
+      "root": {
+        "part": "CarouselViewport",
+        "slot": "carousel-viewport",
+        "module": "@ui-sdk/react/carousel"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CarouselViewport",
+          "module": "@ui-sdk/react/carousel",
+          "slot": "carousel-viewport",
+          "slotDocumented": true,
+          "class": "rounded-[var(--carousel-radius,14px)] outline-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-dragging:cursor-grabbing",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "carousel": "relative flex flex-col gap-[var(--carousel-gap,0.75rem)]",
+    "carousel-content": "flex gap-[var(--carousel-gap,0.75rem)] data-[orientation=vertical]:flex-col",
+    "carousel-indicator": "[transition:width_calc(560ms*var(--kf-speed,1))_var(--ease-spring),height_calc(560ms*var(--kf-speed,1))_var(--ease-spring),background-color_calc(200ms*var(--kf-speed,1)),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)] active:scale-[calc(1-0.2*var(--kf-flourish,1))] motion-reduce:transition-none! relative h-1.5 w-1.5 cursor-pointer rounded-full bg-[color-mix(in_oklab,var(--carousel-ink,var(--foreground))_20%,transparent)] outline-none hover:bg-[color-mix(in_oklab,var(--carousel-ink,var(--foreground))_45%,transparent)] data-selected:w-5 data-selected:bg-[var(--carousel-ink,var(--foreground))] after:absolute after:-inset-x-0.5 after:-inset-y-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted",
+    "carousel-indicator-group": "inline-flex h-5 w-fit items-center gap-1 rounded-full bg-[var(--carousel-face,var(--muted))] px-1.5 shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+    "carousel-item": "transition-opacity duration-[calc(460ms*var(--kf-speed,1))] ease-house *:transition-[scale,filter] *:duration-[calc(520ms*var(--kf-speed,1))] *:ease-spring not-data-active:opacity-40 not-data-active:*:scale-[calc(1-0.1*var(--kf-flourish,1))] not-data-active:*:blur-[calc(2px*var(--kf-flourish,1))] motion-reduce:transition-none! motion-reduce:*:transition-none min-w-0 shrink-0 grow-0 basis-full",
+    "carousel-next": "[transition:scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1)),color_calc(150ms*var(--kf-speed,1))] not-data-disabled:active:scale-[calc(1-0.1*var(--kf-flourish,1))] motion-reduce:transition-none! inline-grid size-[var(--carousel-key-size,2rem)] shrink-0 cursor-pointer place-items-center rounded-full bg-[var(--carousel-face,var(--background))] text-[color:var(--carousel-ink,var(--foreground))] outline-none select-none [&_svg]:size-4 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--carousel-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-40",
+    "carousel-play-toggle": "[transition:scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1)),color_calc(150ms*var(--kf-speed,1))] not-data-disabled:active:scale-[calc(1-0.1*var(--kf-flourish,1))] motion-reduce:transition-none! inline-grid size-[var(--carousel-key-size,2rem)] shrink-0 cursor-pointer place-items-center rounded-full bg-[var(--carousel-face,var(--background))] text-[color:var(--carousel-ink,var(--foreground))] outline-none select-none [&_svg]:size-4 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--carousel-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-40",
+    "carousel-previous": "[transition:scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1)),color_calc(150ms*var(--kf-speed,1))] not-data-disabled:active:scale-[calc(1-0.1*var(--kf-flourish,1))] motion-reduce:transition-none! inline-grid size-[var(--carousel-key-size,2rem)] shrink-0 cursor-pointer place-items-center rounded-full bg-[var(--carousel-face,var(--background))] text-[color:var(--carousel-ink,var(--foreground))] outline-none select-none [&_svg]:size-4 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--carousel-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--carousel-face,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-40",
+    "carousel-progress": "h-0.5 w-full overflow-hidden rounded-full bg-[color-mix(in_oklab,var(--carousel-ink,var(--foreground))_10%,transparent)]",
+    "carousel-viewport": "rounded-[var(--carousel-radius,14px)] outline-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-dragging:cursor-grabbing"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "extra-elements": 3
+  },
+  "flourish": true
+}

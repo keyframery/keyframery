@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "../../../../node_modules/@fontsource-variable/inter/index.css";
+@import "./lib/keyframery.css";
+
+@theme inline {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+}

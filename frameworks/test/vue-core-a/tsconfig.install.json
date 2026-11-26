@@ -1,0 +1,22 @@
+{
+  "//": "What a fresh `npm create vite@latest -- --template vue-ts` app checks with (tsconfig.app.json): @vue/tsconfig 0.8.1 tsconfig.dom.json (copied to tools/vue-tsconfig) + the template's lint options. Run: pnpm exec vue-tsc --noEmit -p tsconfig.install.json",
+  "extends": "./tools/vue-tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "vue": ["./node_modules/vue"],
+      "@ui-sdk/vue/*": ["./node_modules/@ui-sdk/vue/dist/*"],
+      "@ui-sdk/core": ["./node_modules/@ui-sdk/core"],
+      "@ui-sdk/core/*": ["./node_modules/@ui-sdk/core/dist/*"],
+      "tailwind-merge": ["./node_modules/tailwind-merge"]
+    }
+  },
+  "include": ["src/env.d.ts", "src/lib/*.ts", "../../overrides/vue/**/*.ts", "../../overrides/vue/**/*.vue"]
+}

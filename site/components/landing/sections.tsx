@@ -45,9 +45,9 @@ export function Hero() {
       </div>
 
       <div className={cn(wrap, "flex flex-col items-center pt-32 text-center text-white md:pt-40")}>
-        <Link prefetch={false} href="/docs/changelog#30-quiet-by-default-sheets-on-phones" className="lp-tag group outline-none hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/60">
-          <span className="rounded-full bg-white px-1.5 py-px text-[10.5px] font-semibold text-black">3.0</span>
-          Quiet by default, sheets on phones
+        <Link prefetch={false} href="/docs/changelog#31-keyframery-for-vue" className="lp-tag group outline-none hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/60">
+          <span className="rounded-full bg-white px-1.5 py-px text-[10.5px] font-semibold text-black">3.1</span>
+          Now for Vue and Nuxt
           <ArrowRight aria-hidden="true" className="size-3.5 transition-transform group-hover:translate-x-0.5" />
         </Link>
         <HeroTitle className="lp-display lp-hero-title relative mt-7 text-[34px] min-[380px]:text-[40px] leading-[1.06] text-balance sm:text-[60px] md:text-[76px]" />

@@ -1,0 +1,2 @@
+[{"click":"[aria-label=Undo]","wait":700,"snap":"undo"},{"click":"[aria-label=\"Align right\"]","wait":120,"snap":"mid-glide"},{"wait":1100,"snap":"right"},
+ {"click":"[aria-label=Italic]","wait":1000,"snap":"italic"},{"move":[5,5],"wait":600,"snap":"left-bar"},{"press":"ArrowLeft","wait":800,"snap":"key-left"},{"press":"Enter","wait":800,"snap":"key-enter"}]

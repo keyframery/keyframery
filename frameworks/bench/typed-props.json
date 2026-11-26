@@ -1,0 +1,6488 @@
+{
+ "started": "2026-11-26T11:02:13.494Z",
+ "finished": "2026-11-26T11:06:16.919Z",
+ "motions": [
+  "subtle",
+  "springy"
+ ],
+ "summary": {
+  "components": {
+   "identical": 35,
+   "differs": 7,
+   "missing in Vue": 0
+  },
+  "runs": {
+   "identical": 299,
+   "differs": 13
+  },
+  "diffTypes": {
+   "position": {
+    "diffs": 19,
+    "components": 2
+   },
+   "slot missing in Vue": {
+    "diffs": 8,
+    "components": 1
+   },
+   "style: transform": {
+    "diffs": 7,
+    "components": 2
+   },
+   "size": {
+    "diffs": 6,
+    "components": 1
+   },
+   "data-* attribute": {
+    "diffs": 4,
+    "components": 1
+   },
+   "aria/state attribute": {
+    "diffs": 4,
+    "components": 1
+   },
+   "motion: y during the move": {
+    "diffs": 4,
+    "components": 1
+   },
+   "motion: height during the move": {
+    "diffs": 2,
+    "components": 1
+   },
+   "motion: width during the move": {
+    "diffs": 1,
+    "components": 1
+   },
+   "motion: x during the move": {
+    "diffs": 1,
+    "components": 1
+   }
+  }
+ },
+ "components": {
+  "accordion": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-multiple",
+    "03-controlled",
+    "04-disabled",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "style: transform": 6,
+    "size": 6,
+    "position": 18,
+    "motion: height during the move": 2
+   }
+  },
+  "alert-dialog": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-destructive",
+    "03-async",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "autocomplete": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-with-icons",
+    "03-inline",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "avatar": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-sizes",
+    "02-fallback",
+    "03-group",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "button": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-variants",
+    "02-sizes",
+    "03-with-icon",
+    "04-icon-only",
+    "05-loading",
+    "06-disabled",
+    "07-speed",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "slot missing in Vue": 8
+   }
+  },
+  "carousel": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-autoplay",
+    "03-several",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "checkbox": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-group",
+    "03-controlled",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "collapsible": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-controlled",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "color-picker": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-inline",
+    "02-popover",
+    "03-swatches",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "combobox": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-groups",
+    "03-multiple",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "command": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-dialog",
+    "03-pages",
+    "04-data",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "data-* attribute": 4,
+    "aria/state attribute": 4
+   }
+  },
+  "dialog": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-form",
+    "02-controlled",
+    "03-sheet",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "drawer": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-snap-points",
+    "03-side",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: y during the move": 4
+   }
+  },
+  "field": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-validation",
+    "02-fieldset",
+    "03-invalid",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "file-input": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-dropzone",
+    "02-images",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "hover-card": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-profile",
+    "02-delay",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "image-cropper": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-avatar",
+    "03-tools",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "input": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-group",
+    "03-states",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "label": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "meter": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-format",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "navigation-menu": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "number-input": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-format",
+    "03-scrub",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "otp-input": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-letters",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "password-input": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-new",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "popover": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-placement",
+    "03-hover",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "progress": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-indeterminate",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "style: transform": 1,
+    "position": 1
+   }
+  },
+  "radio": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-cards",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "rating": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-read-only",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "resizable": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-vertical",
+    "03-collapsible",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "scroll-area": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-horizontal",
+    "03-chat",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "segmented-control": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-icons",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: width during the move": 1
+   }
+  },
+  "select": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-groups",
+    "03-multiple",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "separator": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-label",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "slider": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-range",
+    "03-vertical",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "switch": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-controlled",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "tabs": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-controlled",
+    "03-vertical",
+    "04-icons",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: x during the move": 1
+   }
+  },
+  "textarea": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-auto-resize",
+    "02-submit",
+    "03-count",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "timeline": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-progress",
+    "02-feed",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "toast": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-types",
+    "02-action",
+    "03-promise",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "toggle": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-group",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "tooltip": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-shortcut",
+    "03-side",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "trigger-menu": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-mentions",
+    "02-commands",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  }
+ },
+ "results": {
+  "accordion": {
+   "02-multiple": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-controlled": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "accordion#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 117.211px",
+       "vue": "210px 97.0703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion#0",
+       "type": "size",
+       "react": "420.0×234.4",
+       "vue": "420.0×194.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 64.7109px",
+       "vue": "210px 44.5703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#0",
+       "type": "size",
+       "react": "420.0×129.4",
+       "vue": "420.0×89.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-panel#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 38.2109px",
+       "vue": "210px 18.0703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-panel#0",
+       "type": "size",
+       "react": "420.0×76.4",
+       "vue": "420.0×36.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-header#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-trigger#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-header#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-trigger#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button#0",
+       "type": "position",
+       "react": "240.0,310.4",
+       "vue": "240.0,270.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button-label#0",
+       "type": "position",
+       "react": "250.0,315.4",
+       "vue": "250.0,275.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button-pending#0",
+       "type": "position",
+       "react": "240.0,310.4",
+       "vue": "240.0,270.1"
+      },
+      {
+       "phase": "motion",
+       "key": "accordion-panel",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 40.3px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "accordion#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 117.211px",
+       "vue": "210px 97.0703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion#0",
+       "type": "size",
+       "react": "420.0×234.4",
+       "vue": "420.0×194.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 64.7109px",
+       "vue": "210px 44.5703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#0",
+       "type": "size",
+       "react": "420.0×129.4",
+       "vue": "420.0×89.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-panel#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 38.2109px",
+       "vue": "210px 18.0703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-panel#0",
+       "type": "size",
+       "react": "420.0×76.4",
+       "vue": "420.0×36.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-header#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-trigger#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-header#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-trigger#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button#0",
+       "type": "position",
+       "react": "240.0,310.4",
+       "vue": "240.0,270.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button-label#0",
+       "type": "position",
+       "react": "250.0,315.4",
+       "vue": "250.0,275.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button-pending#0",
+       "type": "position",
+       "react": "240.0,310.4",
+       "vue": "240.0,270.1"
+      },
+      {
+       "phase": "motion",
+       "key": "accordion-panel",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 40.3px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-disabled": {
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "alert-dialog": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.005,
+      "vue": 1.005
+     }
+    }
+   },
+   "02-destructive": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.005,
+      "vue": 1.005
+     }
+    }
+   },
+   "03-async": {
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.005,
+      "vue": 1.005
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.005,
+      "vue": 1.005
+     }
+    }
+   }
+  },
+  "autocomplete": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-with-icons": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-inline": {
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "avatar": {
+   "01-sizes": {
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-fallback": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "03-group": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "button": {
+   "01-variants": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-sizes": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-with-icon": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-icon-only": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "05-loading": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "06-disabled": {
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "07-speed": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 9
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "speed#0",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "rest",
+       "key": "speed#1",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "after",
+       "key": "speed#0",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "after",
+       "key": "speed#1",
+       "type": "slot missing in Vue"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 9
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "speed#0",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "rest",
+       "key": "speed#1",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "after",
+       "key": "speed#0",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "after",
+       "key": "speed#1",
+       "type": "slot missing in Vue"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "carousel": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-autoplay": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "03-several": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "checkbox": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-group": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-controlled": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "collapsible": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-controlled": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "color-picker": {
+   "01-inline": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "03-swatches": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-popover": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   }
+  },
+  "combobox": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "02-groups": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "03-multiple": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   }
+  },
+  "command": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 25,
+      "vue": 25
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 25,
+      "vue": 25
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-dialog": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.005,
+      "vue": 1.005
+     }
+    }
+   },
+   "03-pages": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-data": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 19,
+      "vue": 19
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "command-item#0",
+       "type": "data-* attribute",
+       "prop": "data-highlighted",
+       "react": null,
+       "vue": ""
+      },
+      {
+       "phase": "rest",
+       "key": "command-item#0",
+       "type": "aria/state attribute",
+       "prop": "aria-selected",
+       "react": "false",
+       "vue": "true"
+      },
+      {
+       "phase": "after",
+       "key": "command-item#0",
+       "type": "data-* attribute",
+       "prop": "data-highlighted",
+       "react": null,
+       "vue": ""
+      },
+      {
+       "phase": "after",
+       "key": "command-item#0",
+       "type": "aria/state attribute",
+       "prop": "aria-selected",
+       "react": "false",
+       "vue": "true"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 19,
+      "vue": 19
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "command-item#0",
+       "type": "data-* attribute",
+       "prop": "data-highlighted",
+       "react": null,
+       "vue": ""
+      },
+      {
+       "phase": "rest",
+       "key": "command-item#0",
+       "type": "aria/state attribute",
+       "prop": "aria-selected",
+       "react": "false",
+       "vue": "true"
+      },
+      {
+       "phase": "after",
+       "key": "command-item#0",
+       "type": "data-* attribute",
+       "prop": "data-highlighted",
+       "react": null,
+       "vue": ""
+      },
+      {
+       "phase": "after",
+       "key": "command-item#0",
+       "type": "aria/state attribute",
+       "prop": "aria-selected",
+       "react": "false",
+       "vue": "true"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "dialog": {
+   "01-form": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.005,
+      "vue": 1.005
+     }
+    }
+   },
+   "02-controlled": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-sheet": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.005,
+      "vue": 1.005
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.005,
+      "vue": 1.005
+     }
+    }
+   }
+  },
+  "drawer": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "drawer-content",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 9.2px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-snap-points": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "drawer-content",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 9.9px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-side": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "drawer-content",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 4.6px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "drawer-content",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 4.7px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "field": {
+   "01-validation": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-fieldset": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-invalid": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "file-input": {
+   "01-dropzone": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-images": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "hover-card": {
+   "01-profile": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tooltip",
+     "errors": {
+      "react": [
+       "In HTML, %s cannot be a descendant of <%s>.\nThis will cause a hydration error.%s <div> p \n\n  <Bench>\n    <main data-bench-stage={true} className=\"flex min-h...\">\n      <div data-bench-example=\"hover-card...\" className=\"flex w-[64...\">\n        <Example id=\"hover-card...\">\n          <Boundary>\n       ",
+       "<%s> cannot contain a nested %s.\nSee this log for the ancestor stack trace. p <div>",
+       "In HTML, %s cannot be a descendant of <%s>.\nThis will cause a hydration error.%s <p> p \n\n  <Bench>\n    <main data-bench-stage={true} className=\"flex min-h...\">\n      <div data-bench-example=\"hover-card...\" className=\"flex w-[64...\">\n        <Example id=\"hover-card...\">\n          <Boundary>\n         ",
+       "<%s> cannot contain a nested %s.\nSee this log for the ancestor stack trace. p <p>"
+      ],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tooltip",
+     "errors": {
+      "react": [
+       "In HTML, %s cannot be a descendant of <%s>.\nThis will cause a hydration error.%s <div> p \n\n  <Bench>\n    <main data-bench-stage={true} className=\"flex min-h...\">\n      <div data-bench-example=\"hover-card...\" className=\"flex w-[64...\">\n        <Example id=\"hover-card...\">\n          <Boundary>\n       ",
+       "<%s> cannot contain a nested %s.\nSee this log for the ancestor stack trace. p <div>",
+       "In HTML, %s cannot be a descendant of <%s>.\nThis will cause a hydration error.%s <p> p \n\n  <Bench>\n    <main data-bench-stage={true} className=\"flex min-h...\">\n      <div data-bench-example=\"hover-card...\" className=\"flex w-[64...\">\n        <Example id=\"hover-card...\">\n          <Boundary>\n         ",
+       "<%s> cannot contain a nested %s.\nSee this log for the ancestor stack trace. p <p>"
+      ],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "02-delay": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tooltip",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tooltip",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tooltip",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tooltip",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   }
+  },
+  "image-cropper": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 13,
+      "vue": 13
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 13,
+      "vue": 13
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-avatar": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "03-tools": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "input": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-group": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-states": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "label": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "meter": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-format": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "navigation-menu": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   }
+  },
+  "number-input": {
+   "02-format": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "03-scrub": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "springy": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "pager",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "otp-input": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-letters": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "password-input": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-new": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "popover": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "02-placement": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "03-hover": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   }
+  },
+  "progress": {
+   "02-indeterminate": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "progress-indicator#0",
+       "type": "style: transform",
+       "prop": "translate",
+       "react": "-88.6747%",
+       "vue": "-90.4238%"
+      },
+      {
+       "phase": "rest",
+       "key": "progress-indicator#0",
+       "type": "position",
+       "react": "193.6,361.0",
+       "vue": "191.5,361.0"
+      }
+     ],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "radio": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-cards": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "rating": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 16,
+      "vue": 16
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 16,
+      "vue": 16
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.073,
+      "vue": 1.073
+     }
+    }
+   },
+   "02-read-only": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 16,
+      "vue": 16
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 16,
+      "vue": 16
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 16,
+      "vue": 16
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 16,
+      "vue": 16
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.073,
+      "vue": 1.073
+     }
+    }
+   }
+  },
+  "resizable": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-vertical": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "03-collapsible": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "scroll-area": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-horizontal": {
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "03-chat": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "segmented-control": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "segmented-control-indicator",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 3.2px"
+      }
+     ],
+     "stretch": {
+      "react": 1.691,
+      "vue": 1.69
+     }
+    }
+   },
+   "02-icons": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.858,
+      "vue": 1.858
+     }
+    }
+   },
+   "usage": {
+    "springy": {
+     "status": "identical",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.765,
+      "vue": 1.765
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "select": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "02-groups": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   },
+   "03-multiple": {
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.007,
+      "vue": 1.007
+     }
+    }
+   }
+  },
+  "separator": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-label": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "slider": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "slider",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "slider",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-range": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "slider",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "slider",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-vertical": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "slider",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 28,
+      "vue": 28
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "slider",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 28,
+      "vue": 28
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "slider",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "slider",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "switch": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "switch",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.001,
+      "vue": 1.001
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "switch",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.893,
+      "vue": 1.894
+     }
+    }
+   },
+   "02-controlled": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "switch",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.001,
+      "vue": 1.001
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "switch",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.894,
+      "vue": 1.894
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "switch",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.001,
+      "vue": 1.001
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "switch",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.894,
+      "vue": 1.894
+     }
+    }
+   }
+  },
+  "tabs": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 2.468,
+      "vue": 2.466
+     }
+    }
+   },
+   "02-controlled": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.691,
+      "vue": 1.691
+     }
+    }
+   },
+   "03-vertical": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-icons": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 2.419,
+      "vue": 2.418
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "tabs-indicator",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 3.1px"
+      }
+     ],
+     "stretch": {
+      "react": 1.734,
+      "vue": 1.733
+     }
+    }
+   }
+  },
+  "textarea": {
+   "01-auto-resize": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-submit": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-count": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "timeline": {
+   "02-feed": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 19,
+      "vue": 19
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 19,
+      "vue": 19
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "01-progress": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 28,
+      "vue": 28
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 28,
+      "vue": 28
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "toast": {
+   "01-types": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-action": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 0,
+      "vue": 0
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 0,
+      "vue": 0
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "03-promise": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "toggle": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-group": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "tooltip": {
+   "01-basic": {
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-shortcut": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-side": {
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 16,
+      "vue": 16
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 16,
+      "vue": 16
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tooltip",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tooltip",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.047,
+      "vue": 1.047
+     }
+    }
+   }
+  },
+  "trigger-menu": {
+   "01-mentions": {
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-commands": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  }
+ }
+}

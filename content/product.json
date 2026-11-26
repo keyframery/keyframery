@@ -2,8 +2,8 @@
   "$comment": "The one description of Keyframery. The site reads it, and scripts/stamp-copy.mjs writes it into README.md, package.json and funding.json; pnpm check fails if they drift. {components}, {ai} and {frameworks} are filled in from the catalog and the frameworks list below, so counts and lists are never typed by hand. Each highlight's href is a site path; the README makes it absolute. Keep 'description' at 160 characters or fewer (Google and GitHub cut it).",
   "name": "Keyframery",
   "tagline": "The component library for Vercel's UI SDK.",
-  "description": "Free, open-source components for Vercel's UI SDK: quiet by default, lively when you want it, sheets on phones and Agent view. Install them with the shadcn CLI.",
-  "summary": "UI SDK is Vercel's library of UI behaviours: keyboard, focus, selection, accessibility and a bridge that lets AI agents read and use your interface. Keyframery is the component library on top. Every component renders UI SDK underneath and adds a finished look and motion written in plain CSS, and the shadcn CLI copies the code into your project, so it's yours.",
+  "description": "Free, open-source components for Vercel's UI SDK: quiet by default, lively when you want it, sheets on phones and Agent view. For React and Vue.",
+  "summary": "UI SDK is Vercel's library of UI behaviours: keyboard, focus, selection, accessibility and a bridge that lets AI agents read and use your interface. Keyframery is the component library on top. Every component renders UI SDK underneath and adds a finished look and motion written in plain CSS, and the shadcn CLI (shadcn-vue for Vue) copies the code into your project, so it's yours.",
   "highlights": [
     {
       "title": "{components} components",
@@ -37,7 +37,7 @@
     },
     {
       "title": "Your code",
-      "body": "Installed with the shadcn CLI in {frameworks}. Free and MIT-licensed.",
+      "body": "Installed with the shadcn CLI (shadcn-vue for Vue) in {frameworks}. Free and MIT-licensed.",
       "href": "/docs/installation"
     }
   ],
@@ -56,7 +56,8 @@
     },
     {
       "name": "Vue",
-      "status": "planned"
+      "status": "supported",
+      "targets": ["Vite", "Nuxt"]
     },
     {
       "name": "Svelte",

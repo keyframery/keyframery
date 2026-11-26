@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.all/
+.parity/
+# copies of the generated files, made by scripts/frameworks/sync-test.mjs
+*/src/kf/
+web/src/keyframery.css

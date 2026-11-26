@@ -1,0 +1,4 @@
+{ "name": "kf-test-vue-handports", "private": true, "type": "module",
+  "scripts": { "dev": "vite --port 4712 --strictPort", "check": "vue-tsc --noEmit" },
+  "dependencies": { "@ui-sdk/core": "0.1.0-beta.17", "@ui-sdk/vue": "0.1.0-beta.17", "vue": "3.5.46", "tailwind-merge": "3.3.1" },
+  "devDependencies": { "@vitejs/plugin-vue": "6.0.11", "@tailwindcss/vite": "4.3.5", "tailwindcss": "4.3.5", "vite": "8.3.8", "vue-tsc": "3.1.4", "typescript": "5.9.3" } }

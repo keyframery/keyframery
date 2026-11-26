@@ -1,0 +1,633 @@
+{
+  "slug": "pagination",
+  "module": "@ui-sdk/react/pagination",
+  "parts": {
+    "Pagination": {
+      "export": "Pagination",
+      "variants": {},
+      "root": {
+        "part": "Pagination",
+        "slot": "pagination",
+        "module": "@ui-sdk/react/pagination"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Pagination",
+          "module": "@ui-sdk/react/pagination",
+          "slot": "pagination",
+          "slotDocumented": false,
+          "class": "flex w-fit",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "PaginationEllipsis": {
+      "export": "PaginationEllipsis",
+      "variants": {},
+      "root": {
+        "part": "PaginationEllipsis",
+        "slot": "pagination-ellipsis",
+        "module": "@ui-sdk/react/pagination"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PaginationEllipsis",
+          "module": "@ui-sdk/react/pagination",
+          "slot": "pagination-ellipsis",
+          "slotDocumented": false,
+          "class": "inline-flex h-[var(--pagination-size,2rem)] w-6 items-center justify-center text-[color:color-mix(in_oklab,var(--pagination-ink,var(--muted-foreground))_70%,transparent)] select-none [&_svg]:size-4",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "currentColor",
+                    "aria-hidden": true
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "circle",
+                      "class": "",
+                      "attrs": {
+                        "cx": "3.5",
+                        "cy": "8",
+                        "r": "1"
+                      },
+                      "children": []
+                    },
+                    {
+                      "t": "el",
+                      "tag": "circle",
+                      "class": "",
+                      "attrs": {
+                        "cx": "8",
+                        "cy": "8",
+                        "r": "1"
+                      },
+                      "children": []
+                    },
+                    {
+                      "t": "el",
+                      "tag": "circle",
+                      "class": "",
+                      "attrs": {
+                        "cx": "12.5",
+                        "cy": "8",
+                        "r": "1"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <circle>, <circle>, <circle> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "PaginationFirst": {
+      "export": "PaginationFirst",
+      "variants": {},
+      "root": {
+        "part": "PaginationFirst",
+        "slot": "pagination-first",
+        "module": "@ui-sdk/react/pagination"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PaginationFirst",
+          "module": "@ui-sdk/react/pagination",
+          "slot": "pagination-first",
+          "slotDocumented": true,
+          "class": "ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": true
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "M8 3.5 3.5 8 8 12.5M12.5 3.5 8 8l4.5 4.5"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "PaginationItem": {
+      "export": "PaginationItem",
+      "variants": {},
+      "root": {
+        "part": "PaginationItem",
+        "slot": "pagination-item",
+        "module": "@ui-sdk/react/pagination"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PaginationItem",
+          "module": "@ui-sdk/react/pagination",
+          "slot": "pagination-item",
+          "slotDocumented": false,
+          "class": "transition-[opacity,scale,filter] duration-[calc(300ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring starting:scale-75 starting:opacity-0 starting:blur-[3px] motion-reduce:transition-none! flex",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "PaginationLast": {
+      "export": "PaginationLast",
+      "variants": {},
+      "root": {
+        "part": "PaginationLast",
+        "slot": "pagination-last",
+        "module": "@ui-sdk/react/pagination"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PaginationLast",
+          "module": "@ui-sdk/react/pagination",
+          "slot": "pagination-last",
+          "slotDocumented": true,
+          "class": "ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": true
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "M8 3.5 12.5 8 8 12.5M3.5 3.5 8 8l-4.5 4.5"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "PaginationLink": {
+      "export": "PaginationLink",
+      "variants": {},
+      "root": {
+        "part": "PaginationLink",
+        "slot": "pagination-link",
+        "module": "@ui-sdk/react/pagination"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PaginationLink",
+          "module": "@ui-sdk/react/pagination",
+          "slot": "pagination-link",
+          "slotDocumented": true,
+          "class": "data-current:[anchor-name:--kf-page] ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! data-current:text-[color:var(--pagination-selected-ink,var(--foreground))] data-current:cursor-default",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "PaginationList": {
+      "export": "PaginationList",
+      "variants": {},
+      "root": {
+        "part": "PaginationList",
+        "slot": "pagination-list",
+        "module": "@ui-sdk/react/pagination"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PaginationList",
+          "module": "@ui-sdk/react/pagination",
+          "slot": "pagination-list",
+          "slotDocumented": false,
+          "class": "relative isolate [anchor-scope:--kf-page] before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:content-[''] before:[position-anchor:--kf-page] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:[transition:top_calc(340ms*var(--kf-speed,1))_var(--ease-spring),right_calc(340ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(340ms*var(--kf-speed,1))_var(--ease-spring),left_calc(340ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)] has-[[data-slot=pagination-link][data-current]]:before:opacity-100 motion-reduce:before:[transition:none]! flex items-center gap-[var(--pagination-gap,0.125rem)] rounded-[var(--pagination-radius,12px)] bg-[var(--pagination-track,var(--muted))] p-1 shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)] before:rounded-[var(--pagination-key-radius,9px)] before:bg-[var(--pagination-key,var(--background))] before:shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:before:bg-[var(--pagination-key,var(--accent))] dark:before:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "stateFn",
+                  "children": [
+                    {
+                      "t": "part",
+                      "name": "PaginationItem",
+                      "module": "@ui-sdk/react/pagination",
+                      "slot": "pagination-item",
+                      "slotDocumented": false,
+                      "class": "transition-[opacity,scale,filter] duration-[calc(300ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring starting:scale-75 starting:opacity-0 starting:blur-[3px] motion-reduce:transition-none! flex",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "t": "part",
+                          "name": "PaginationPrevious",
+                          "module": "@ui-sdk/react/pagination",
+                          "slot": "pagination-previous",
+                          "slotDocumented": true,
+                          "class": "ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+                          "attrs": {
+                            "aria-label": "Previous page"
+                          },
+                          "children": [
+                            {
+                              "t": "el",
+                              "tag": "svg",
+                              "class": "",
+                              "attrs": {
+                                "viewBox": "0 0 16 16",
+                                "fill": "none",
+                                "stroke": "currentColor",
+                                "strokeWidth": "1.5",
+                                "strokeLinecap": "round",
+                                "strokeLinejoin": "round",
+                                "aria-hidden": true
+                              },
+                              "children": [
+                                {
+                                  "t": "el",
+                                  "tag": "path",
+                                  "class": "",
+                                  "attrs": {
+                                    "d": "M9.5 3.5 5 8l4.5 4.5"
+                                  },
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "t": "part",
+                      "name": "PaginationItem",
+                      "module": "@ui-sdk/react/pagination",
+                      "slot": "pagination-item",
+                      "slotDocumented": false,
+                      "class": "transition-[opacity,scale,filter] duration-[calc(300ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring starting:scale-75 starting:opacity-0 starting:blur-[3px] motion-reduce:transition-none! flex",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "t": "part",
+                          "name": "PaginationNext",
+                          "module": "@ui-sdk/react/pagination",
+                          "slot": "pagination-next",
+                          "slotDocumented": true,
+                          "class": "ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+                          "attrs": {
+                            "aria-label": "Next page"
+                          },
+                          "children": [
+                            {
+                              "t": "el",
+                              "tag": "svg",
+                              "class": "",
+                              "attrs": {
+                                "viewBox": "0 0 16 16",
+                                "fill": "none",
+                                "stroke": "currentColor",
+                                "strokeWidth": "1.5",
+                                "strokeLinecap": "round",
+                                "strokeLinejoin": "round",
+                                "aria-hidden": true
+                              },
+                              "children": [
+                                {
+                                  "t": "el",
+                                  "tag": "path",
+                                  "class": "",
+                                  "attrs": {
+                                    "d": "M6.5 3.5 11 8l-4.5 4.5"
+                                  },
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "items.map((item) => ( <PaginationItem key={item}> {typeof item === \"number\" ? <PaginationLink page={item} /> : <PaginationEllipsis />} </PaginationItem> ))"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path>, <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "PaginationNext": {
+      "export": "PaginationNext",
+      "variants": {},
+      "root": {
+        "part": "PaginationNext",
+        "slot": "pagination-next",
+        "module": "@ui-sdk/react/pagination"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PaginationNext",
+          "module": "@ui-sdk/react/pagination",
+          "slot": "pagination-next",
+          "slotDocumented": true,
+          "class": "ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": true
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "M6.5 3.5 11 8l-4.5 4.5"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "PaginationPrevious": {
+      "export": "PaginationPrevious",
+      "variants": {},
+      "root": {
+        "part": "PaginationPrevious",
+        "slot": "pagination-previous",
+        "module": "@ui-sdk/react/pagination"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PaginationPrevious",
+          "module": "@ui-sdk/react/pagination",
+          "slot": "pagination-previous",
+          "slotDocumented": true,
+          "class": "ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": true
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "M9.5 3.5 5 8l4.5 4.5"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "PaginationRoll": {
+      "export": "PaginationRoll",
+      "variants": {},
+      "root": {
+        "element": "span",
+        "slot": "pagination-roll"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "span",
+          "class": "relative inline-flex tabular-nums",
+          "attrs": {
+            "data-slot": "pagination-roll"
+          },
+          "children": [
+            {
+              "t": "el",
+              "tag": "span",
+              "class": "sr-only",
+              "attrs": {},
+              "children": []
+            },
+            {
+              "t": "el",
+              "tag": "span",
+              "class": "inline-flex h-[1lh] overflow-hidden",
+              "attrs": {
+                "aria-hidden": true
+              },
+              "children": []
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "digits.map((digit, index) => ( <span key={digits.length - index} style={{ \"--d\": Number(digit) } as React.CSSProperties} className=\"flex flex-col transition-[tr"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"sr-only…\">, <span class=\"inline-flex h-[1lh] overflow-hidden…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "pagination": "flex w-fit",
+    "pagination-ellipsis": "inline-flex h-[var(--pagination-size,2rem)] w-6 items-center justify-center text-[color:color-mix(in_oklab,var(--pagination-ink,var(--muted-foreground))_70%,transparent)] select-none [&_svg]:size-4",
+    "pagination-first": "ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+    "pagination-item": "ease-spring ease-spring transition-[opacity,scale,filter] duration-[calc(300ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring starting:scale-75 starting:opacity-0 starting:blur-[3px] motion-reduce:transition-none! flex",
+    "pagination-last": "ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+    "pagination-link": "data-current:[anchor-name:--kf-page] ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! data-current:text-[color:var(--pagination-selected-ink,var(--foreground))] data-current:cursor-default",
+    "pagination-list": "relative isolate [anchor-scope:--kf-page] before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:content-[''] before:[position-anchor:--kf-page] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:[transition:top_calc(340ms*var(--kf-speed,1))_var(--ease-spring),right_calc(340ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(340ms*var(--kf-speed,1))_var(--ease-spring),left_calc(340ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)] has-[[data-slot=pagination-link][data-current]]:before:opacity-100 motion-reduce:before:[transition:none]! flex items-center gap-[var(--pagination-gap,0.125rem)] rounded-[var(--pagination-radius,12px)] bg-[var(--pagination-track,var(--muted))] p-1 shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)] before:rounded-[var(--pagination-key-radius,9px)] before:bg-[var(--pagination-key,var(--background))] before:shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:before:bg-[var(--pagination-key,var(--accent))] dark:before:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+    "pagination-previous": "ease-pop ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+    "pagination-next": "ease-pop ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 relative inline-flex h-[var(--pagination-size,2rem)] min-w-[var(--pagination-size,2rem)] shrink-0 cursor-pointer items-center justify-center gap-1 rounded-[var(--pagination-key-radius,9px)] px-2 text-[13px] leading-none font-medium text-[color:var(--pagination-ink,var(--muted-foreground))] tabular-nums whitespace-nowrap outline-none select-none [&_svg]:size-4 [&_svg]:shrink-0 transition-[color,background-color,scale] duration-[calc(200ms*var(--kf-speed,1))] hover:text-[color:var(--pagination-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted motion-reduce:transition-none! hover:bg-foreground/[0.045] data-disabled:cursor-default data-disabled:opacity-40 data-disabled:hover:bg-transparent data-disabled:hover:text-[color:var(--pagination-ink,var(--muted-foreground))]",
+    "pagination-roll": "relative inline-flex tabular-nums"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "extra-elements": 7,
+    "children-unknown": 2
+  },
+  "flourish": true
+}

@@ -1,0 +1,5 @@
+export * from "@ui-sdk/vue/preferences"
+export { createMotionStyle, motionStyle, motionStyles, type MotionStylePreference, type MotionStyleValue } from "./motion-style"
+export { default as MotionStyle } from "./MotionStyle.vue"
+export { default as MotionStyleSwitcher } from "./MotionStyleSwitcher.vue"
+export { default as PreferenceSwitcher } from "./PreferenceSwitcher.vue"

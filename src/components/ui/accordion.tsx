@@ -111,6 +111,26 @@ function AccordionTrigger({
   )
 }
 
+/* Runs of plain text become one paragraph, so `Fill in your {step} here.` (three strings to React) reads as
+   one sentence; elements pass through as they are. */
+function asParagraphs(content: React.ReactNode) {
+  const out: React.ReactNode[] = []
+  let run: string[] = []
+  const flush = () => {
+    if (run.length) out.push(<p key={`text-${out.length}`}>{run.join("")}</p>)
+    run = []
+  }
+  for (const child of React.Children.toArray(content)) {
+    if (typeof child === "string" || typeof child === "number") run.push(String(child))
+    else {
+      flush()
+      out.push(child)
+    }
+  }
+  flush()
+  return out
+}
+
 /* The motion (height and the cascade of the content) comes from the primitive. Plain text is
    wrapped in a paragraph so it has an element to cascade; the padding sits on the children so
    the panel can close to zero. */
@@ -124,11 +144,7 @@ function AccordionPanel({
       className={withClass("text-[13px] leading-[1.55] text-[color:var(--accordion-muted,var(--muted-foreground))] *:pr-10 [&>:last-child]:pb-4", className)}
       {...props}
     >
-      {mapChildren(children, (content) =>
-        React.Children.map(content, (child) =>
-          typeof child === "string" || typeof child === "number" ? <p>{child}</p> : child,
-        ),
-      )}
+      {mapChildren(children, asParagraphs)}
     </AccordionPanelPart>
   )
 }

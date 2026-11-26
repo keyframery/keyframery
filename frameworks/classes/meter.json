@@ -1,0 +1,250 @@
+{
+  "slug": "meter",
+  "module": "@ui-sdk/react/meter",
+  "parts": {
+    "Meter": {
+      "export": "Meter",
+      "variants": {},
+      "root": {
+        "part": "Meter",
+        "slot": "meter",
+        "module": "@ui-sdk/react/meter"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Meter",
+          "module": "@ui-sdk/react/meter",
+          "slot": "meter",
+          "slotDocumented": false,
+          "class": "group/meter grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-[var(--meter-gap,0.5rem)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "conditional",
+          "detail": "high !== undefined && props.value > high (default props: dropped)"
+        }
+      ]
+    },
+    "MeterIndicator": {
+      "export": "MeterIndicator",
+      "variants": {},
+      "root": {
+        "part": "MeterIndicator",
+        "slot": "meter-indicator",
+        "module": "@ui-sdk/react/meter"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MeterIndicator",
+          "module": "@ui-sdk/react/meter",
+          "slot": "meter-indicator",
+          "slotDocumented": false,
+          "class": "block h-full [transition:width_calc(700ms*var(--kf-speed,1))_var(--ease-spring),background-color_calc(300ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:transition-none! rounded-[var(--meter-radius,9999px)] bg-[var(--meter-fill,var(--primary))] shadow-[inset_0_1px_0_rgb(255_255_255/0.14)] group-data-high/meter:bg-[var(--meter-danger,var(--destructive))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MeterLabel": {
+      "export": "MeterLabel",
+      "variants": {},
+      "root": {
+        "part": "MeterLabel",
+        "slot": "meter-label",
+        "module": "@ui-sdk/react/meter"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MeterLabel",
+          "module": "@ui-sdk/react/meter",
+          "slot": "meter-label",
+          "slotDocumented": false,
+          "class": "truncate text-[13px] leading-5 font-medium text-[color:var(--meter-ink,var(--foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MeterTrack": {
+      "export": "MeterTrack",
+      "variants": {},
+      "root": {
+        "part": "MeterTrack",
+        "slot": "meter-track",
+        "module": "@ui-sdk/react/meter"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MeterTrack",
+          "module": "@ui-sdk/react/meter",
+          "slot": "meter-track",
+          "slotDocumented": false,
+          "class": "overflow-hidden relative col-span-full h-[var(--meter-height,0.375rem)] w-full rounded-[var(--meter-radius,9999px)] bg-[var(--meter-track,var(--muted))] shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MeterValue": {
+      "export": "MeterValue",
+      "variants": {},
+      "root": {
+        "part": "MeterValue",
+        "slot": "meter-value",
+        "module": "@ui-sdk/react/meter"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MeterValue",
+          "module": "@ui-sdk/react/meter",
+          "slot": "meter-value",
+          "slotDocumented": false,
+          "class": "col-start-2 text-[13px] leading-5 text-[color:var(--meter-value-ink,var(--muted-foreground))] tabular-nums transition-colors duration-[calc(150ms*var(--kf-speed,1))] group-data-high/meter:text-[color:var(--meter-danger,var(--destructive))] motion-reduce:transition-none!",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "stateFn",
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "span",
+                      "class": "sr-only",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "t": "el",
+                      "tag": "span",
+                      "class": "inline-flex h-[1lh] overflow-hidden whitespace-pre tabular-nums",
+                      "attrs": {
+                        "data-slot": "roll",
+                        "aria-hidden": true
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "chars.map((c, i) => { const key = chars.length - i return /\\d/.test(c) ? ( <span key={key} style={{ \"--d\": Number(c) } as React.CSSProperties} className=\"flex f"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"sr-only…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "Roll": {
+      "export": "Roll",
+      "variants": {},
+      "root": {
+        "element": "span",
+        "slot": null
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "span",
+          "class": "sr-only",
+          "attrs": {},
+          "children": [],
+          "receivesProps": true
+        },
+        {
+          "t": "el",
+          "tag": "span",
+          "class": "inline-flex h-[1lh] overflow-hidden whitespace-pre tabular-nums",
+          "attrs": {
+            "data-slot": "roll",
+            "aria-hidden": true
+          },
+          "children": []
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "chars.map((c, i) => { const key = chars.length - i return /\\d/.test(c) ? ( <span key={key} style={{ \"--d\": Number(c) } as React.CSSProperties} className=\"flex f"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"sr-only…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "meter": "group/meter grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-[var(--meter-gap,0.5rem)]",
+    "meter-indicator": "block h-full [transition:width_calc(700ms*var(--kf-speed,1))_var(--ease-spring),background-color_calc(300ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:transition-none! rounded-[var(--meter-radius,9999px)] bg-[var(--meter-fill,var(--primary))] shadow-[inset_0_1px_0_rgb(255_255_255/0.14)] group-data-high/meter:bg-[var(--meter-danger,var(--destructive))]",
+    "meter-label": "truncate text-[13px] leading-5 font-medium text-[color:var(--meter-ink,var(--foreground))]",
+    "meter-track": "overflow-hidden relative col-span-full h-[var(--meter-height,0.375rem)] w-full rounded-[var(--meter-radius,9999px)] bg-[var(--meter-track,var(--muted))] shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+    "meter-value": "col-start-2 text-[13px] leading-5 text-[color:var(--meter-value-ink,var(--muted-foreground))] tabular-nums transition-colors duration-[calc(150ms*var(--kf-speed,1))] group-data-high/meter:text-[color:var(--meter-danger,var(--destructive))] motion-reduce:transition-none!",
+    "roll": "inline-flex h-[1lh] overflow-hidden whitespace-pre tabular-nums"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "conditional": 1,
+    "children-unknown": 2,
+    "extra-elements": 2
+  },
+  "flourish": false
+}

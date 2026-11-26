@@ -1,0 +1,219 @@
+{
+  "slug": "rating",
+  "module": "@ui-sdk/react/rating",
+  "parts": {
+    "Rating": {
+      "export": "Rating",
+      "variants": {},
+      "root": {
+        "part": "Rating",
+        "slot": "rating",
+        "module": "@ui-sdk/react/rating"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Rating",
+          "module": "@ui-sdk/react/rating",
+          "slot": "rating",
+          "slotDocumented": true,
+          "class": "inline-flex items-center gap-[var(--rating-gap,0.125rem)] outline-none data-disabled:opacity-50",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "part",
+                  "name": "RatingItem",
+                  "module": "@ui-sdk/react/rating",
+                  "slot": "rating-item",
+                  "slotDocumented": true,
+                  "class": "[transition:--rating-fill_calc(300ms*var(--kf-speed,1))_var(--ease-house)] data-filled:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)*var(--kf-flourish,1)))] data-partial:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)*var(--kf-flourish,1)))] not-data-readonly:data-checked:animate-[kf-rating-pop_calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_both] motion-reduce:[transition:none]! motion-reduce:animate-none! group/star relative grid size-[var(--rating-size,1.5rem)] shrink-0 place-items-center rounded-[var(--rating-radius,6px)] outline-none cursor-pointer data-disabled:cursor-not-allowed data-readonly:cursor-default has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-1 has-[:focus-visible]:ring-offset-background",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "span",
+                      "class": "pointer-events-none relative block size-[var(--rating-icon-size,1.25rem)]",
+                      "attrs": {
+                        "aria-hidden": true
+                      },
+                      "children": [
+                        {
+                          "t": "el",
+                          "tag": "svg",
+                          "class": "absolute inset-0 size-full text-[color:var(--rating-empty,color-mix(in_oklab,var(--muted-foreground)_25%,transparent))] dark:text-[color:var(--rating-empty,color-mix(in_oklab,var(--muted-foreground)_30%,transparent))]",
+                          "attrs": {
+                            "viewBox": "0 0 16 16",
+                            "aria-hidden": true
+                          },
+                          "children": [
+                            {
+                              "t": "el",
+                              "tag": "path",
+                              "class": "",
+                              "attrs": {
+                                "d": "M8 1.9l1.83 3.72 4.1.6-2.97 2.89.7 4.08L8 11.26l-3.66 1.93.7-4.08L2.07 6.22l4.1-.6L8 1.9z",
+                                "fill": "currentColor",
+                                "stroke": "currentColor",
+                                "strokeWidth": "1.25",
+                                "strokeLinejoin": "round"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "t": "el",
+                          "tag": "svg",
+                          "class": "absolute inset-0 size-full text-[color:var(--rating-fill-colour,var(--foreground))] [clip-path:inset(0_calc((1-var(--rating-fill,0))*100%)_0_0)] [[data-checked]~[data-highlighted]_&]:text-[color:var(--rating-preview,color-mix(in_oklab,var(--rating-fill-colour,var(--foreground))_50%,transparent))] [[data-slot=rating]:not(:has([data-checked]))_[data-highlighted]_&]:text-[color:var(--rating-preview,color-mix(in_oklab,var(--rating-fill-colour,var(--foreground))_50%,transparent))] transition-colors duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none!",
+                          "attrs": {
+                            "viewBox": "0 0 16 16",
+                            "aria-hidden": true
+                          },
+                          "children": [
+                            {
+                              "t": "el",
+                              "tag": "path",
+                              "class": "",
+                              "attrs": {
+                                "d": "M8 1.9l1.83 3.72 4.1.6-2.97 2.89.7 4.08L8 11.26l-3.66 1.93.7-4.08L2.07 6.22l4.1-.6L8 1.9z",
+                                "fill": "currentColor",
+                                "stroke": "currentColor",
+                                "strokeWidth": "1.25",
+                                "strokeLinejoin": "round"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"pointer-events-none relative block size-…\">, <svg class=\"absolute inset-0 size-full text-[color:v…\">, <path>, <svg class=\"absolute inset-0 size-full text-[color:v…\">, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "RatingItem": {
+      "export": "RatingItem",
+      "variants": {},
+      "root": {
+        "part": "RatingItem",
+        "slot": "rating-item",
+        "module": "@ui-sdk/react/rating"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "RatingItem",
+          "module": "@ui-sdk/react/rating",
+          "slot": "rating-item",
+          "slotDocumented": true,
+          "class": "[transition:--rating-fill_calc(300ms*var(--kf-speed,1))_var(--ease-house)] data-filled:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)*var(--kf-flourish,1)))] data-partial:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)*var(--kf-flourish,1)))] not-data-readonly:data-checked:animate-[kf-rating-pop_calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_both] motion-reduce:[transition:none]! motion-reduce:animate-none! group/star relative grid size-[var(--rating-size,1.5rem)] shrink-0 place-items-center rounded-[var(--rating-radius,6px)] outline-none cursor-pointer data-disabled:cursor-not-allowed data-readonly:cursor-default has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-1 has-[:focus-visible]:ring-offset-background",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "span",
+                  "class": "pointer-events-none relative block size-[var(--rating-icon-size,1.25rem)]",
+                  "attrs": {
+                    "aria-hidden": true
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "svg",
+                      "class": "absolute inset-0 size-full text-[color:var(--rating-empty,color-mix(in_oklab,var(--muted-foreground)_25%,transparent))] dark:text-[color:var(--rating-empty,color-mix(in_oklab,var(--muted-foreground)_30%,transparent))]",
+                      "attrs": {
+                        "viewBox": "0 0 16 16",
+                        "aria-hidden": true
+                      },
+                      "children": [
+                        {
+                          "t": "el",
+                          "tag": "path",
+                          "class": "",
+                          "attrs": {
+                            "d": "M8 1.9l1.83 3.72 4.1.6-2.97 2.89.7 4.08L8 11.26l-3.66 1.93.7-4.08L2.07 6.22l4.1-.6L8 1.9z",
+                            "fill": "currentColor",
+                            "stroke": "currentColor",
+                            "strokeWidth": "1.25",
+                            "strokeLinejoin": "round"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "t": "el",
+                      "tag": "svg",
+                      "class": "absolute inset-0 size-full text-[color:var(--rating-fill-colour,var(--foreground))] [clip-path:inset(0_calc((1-var(--rating-fill,0))*100%)_0_0)] [[data-checked]~[data-highlighted]_&]:text-[color:var(--rating-preview,color-mix(in_oklab,var(--rating-fill-colour,var(--foreground))_50%,transparent))] [[data-slot=rating]:not(:has([data-checked]))_[data-highlighted]_&]:text-[color:var(--rating-preview,color-mix(in_oklab,var(--rating-fill-colour,var(--foreground))_50%,transparent))] transition-colors duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none!",
+                      "attrs": {
+                        "viewBox": "0 0 16 16",
+                        "aria-hidden": true
+                      },
+                      "children": [
+                        {
+                          "t": "el",
+                          "tag": "path",
+                          "class": "",
+                          "attrs": {
+                            "d": "M8 1.9l1.83 3.72 4.1.6-2.97 2.89.7 4.08L8 11.26l-3.66 1.93.7-4.08L2.07 6.22l4.1-.6L8 1.9z",
+                            "fill": "currentColor",
+                            "stroke": "currentColor",
+                            "strokeWidth": "1.25",
+                            "strokeLinejoin": "round"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"pointer-events-none relative block size-…\">, <svg class=\"absolute inset-0 size-full text-[color:v…\">, <path>, <svg class=\"absolute inset-0 size-full text-[color:v…\">, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "rating": "inline-flex items-center gap-[var(--rating-gap,0.125rem)] outline-none data-disabled:opacity-50",
+    "rating-item": "group/star [transition:--rating-fill_calc(300ms*var(--kf-speed,1))_var(--ease-house)] data-filled:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)*var(--kf-flourish,1)))] data-partial:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)*var(--kf-flourish,1)))] not-data-readonly:data-checked:animate-[kf-rating-pop_calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_both] motion-reduce:[transition:none]! motion-reduce:animate-none! group/star relative grid size-[var(--rating-size,1.5rem)] shrink-0 place-items-center rounded-[var(--rating-radius,6px)] outline-none cursor-pointer data-disabled:cursor-not-allowed data-readonly:cursor-default has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-1 has-[:focus-visible]:ring-offset-background"
+  },
+  "styles": {
+    "kf-rating": "@property --rating-fill{syntax:\"<number>\";inherits:true;initial-value:0}@keyframes kf-rating-pop{0%{scale:.55}100%{scale:1}}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "extra-elements": 2
+  },
+  "flourish": true
+}

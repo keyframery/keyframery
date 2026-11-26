@@ -16,7 +16,7 @@ export default function FormServerErrors() {
     <Form submit={claim} className="w-full max-w-[340px]">
       <FormItem name="handle">
         <FormLabel>Shop handle</FormLabel>
-        <Input required pattern="[a-z0-9-]+" defaultValue="studio" />
+        <Input required pattern="[a-z0-9\-]+" defaultValue="studio" />
         <FormDescription>Lower case letters, numbers and dashes.</FormDescription>
         <FormMessage match="patternMismatch">Use lower case letters, numbers and dashes.</FormMessage>
         <FormMessage match="customError" />

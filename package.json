@@ -4,10 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 4610 --strictPort",
-    "build": "node scripts/stamp-dates.mjs && node scripts/stamp-stars.mjs && node scripts/build-catalog.mjs && node scripts/stamp-copy.mjs && node scripts/build-registry.mjs && node scripts/build-docs.mjs && next build",
+    "build": "node scripts/stamp-dates.mjs && node scripts/stamp-stars.mjs && node scripts/build-catalog.mjs && node scripts/stamp-copy.mjs && node scripts/build-registry.mjs && node scripts/frameworks/build-registry-vue.mjs && node scripts/build-docs.mjs && next build",
     "lab:build": "tsc --noEmit && vite build",
     "registry": "node scripts/build-registry.mjs",
-    "site:dev": "node scripts/stamp-stars.mjs && node scripts/build-catalog.mjs && node scripts/stamp-copy.mjs && node scripts/build-registry.mjs && node scripts/build-docs.mjs && next dev -p 4640",
+    "site:dev": "node scripts/stamp-stars.mjs && node scripts/build-catalog.mjs && node scripts/stamp-copy.mjs && node scripts/build-registry.mjs && node scripts/frameworks/build-registry-vue.mjs && node scripts/build-docs.mjs && next dev -p 4640",
     "start": "next start",
     "docs": "node scripts/build-docs.mjs",
     "check": "tsc --noEmit && tsc --noEmit -p tsconfig.next.json && tsc --noEmit -p tsconfig.registry.json && node --test scripts/tests/*.test.mjs && node scripts/check-sdk-contracts.mjs --styled && node scripts/check-customization.mjs && node scripts/check-registry.mjs && node scripts/stamp-copy.mjs --check",
@@ -50,5 +50,5 @@
     "typescript": "^5.9.0",
     "vite": "^7.1.0"
   },
-  "description": "Free, open-source components for Vercel's UI SDK: quiet by default, lively when you want it, sheets on phones and Agent view. Install them with the shadcn CLI."
+  "description": "Free, open-source components for Vercel's UI SDK: quiet by default, lively when you want it, sheets on phones and Agent view. For React and Vue."
 }

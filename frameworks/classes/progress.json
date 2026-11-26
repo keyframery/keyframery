@@ -1,0 +1,246 @@
+{
+  "slug": "progress",
+  "module": "@ui-sdk/react/progress",
+  "parts": {
+    "Progress": {
+      "export": "Progress",
+      "variants": {},
+      "root": {
+        "part": "Progress",
+        "slot": "progress",
+        "module": "@ui-sdk/react/progress"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Progress",
+          "module": "@ui-sdk/react/progress",
+          "slot": "progress",
+          "slotDocumented": true,
+          "class": "group/progress grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-[var(--progress-gap,0.5rem)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ProgressIndicator": {
+      "export": "ProgressIndicator",
+      "variants": {},
+      "root": {
+        "part": "ProgressIndicator",
+        "slot": "progress-indicator",
+        "module": "@ui-sdk/react/progress"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ProgressIndicator",
+          "module": "@ui-sdk/react/progress",
+          "slot": "progress-indicator",
+          "slotDocumented": true,
+          "class": "block h-full [transition:width_calc(700ms*var(--kf-speed,1))_var(--ease-spring),background-color_calc(300ms*var(--kf-speed,1))_var(--ease-house)] data-indeterminate:w-2/5 data-indeterminate:animate-[kf-progress-slide_1.3s_cubic-bezier(0.65,0,0.35,1)_infinite] motion-reduce:transition-none! motion-reduce:data-indeterminate:w-full motion-reduce:data-indeterminate:animate-none! rounded-[var(--progress-radius,9999px)] bg-[var(--progress-fill,var(--primary))] shadow-[inset_0_1px_0_rgb(255_255_255/0.14)] data-complete:bg-[var(--progress-complete,oklch(0.62_0.16_150))] motion-reduce:data-indeterminate:opacity-30",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ProgressLabel": {
+      "export": "ProgressLabel",
+      "variants": {},
+      "root": {
+        "part": "ProgressLabel",
+        "slot": "progress-label",
+        "module": "@ui-sdk/react/progress"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ProgressLabel",
+          "module": "@ui-sdk/react/progress",
+          "slot": "progress-label",
+          "slotDocumented": true,
+          "class": "truncate text-[13px] leading-5 font-medium text-[color:var(--progress-ink,var(--foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ProgressTrack": {
+      "export": "ProgressTrack",
+      "variants": {},
+      "root": {
+        "part": "ProgressTrack",
+        "slot": "progress-track",
+        "module": "@ui-sdk/react/progress"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ProgressTrack",
+          "module": "@ui-sdk/react/progress",
+          "slot": "progress-track",
+          "slotDocumented": true,
+          "class": "overflow-hidden relative col-span-full h-[var(--progress-height,0.375rem)] w-full rounded-[var(--progress-radius,9999px)] bg-[var(--progress-track,var(--muted))] shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ProgressValue": {
+      "export": "ProgressValue",
+      "variants": {},
+      "root": {
+        "part": "ProgressValue",
+        "slot": "progress-value",
+        "module": "@ui-sdk/react/progress"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ProgressValue",
+          "module": "@ui-sdk/react/progress",
+          "slot": "progress-value",
+          "slotDocumented": true,
+          "class": "col-start-2 text-[13px] leading-5 text-[color:var(--progress-value-ink,var(--muted-foreground))] tabular-nums transition-colors duration-[calc(150ms*var(--kf-speed,1))] data-complete:text-[color:var(--progress-ink,var(--foreground))] motion-reduce:transition-none!",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "stateFn",
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "span",
+                      "class": "sr-only",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "t": "el",
+                      "tag": "span",
+                      "class": "inline-flex h-[1lh] overflow-hidden whitespace-pre tabular-nums",
+                      "attrs": {
+                        "data-slot": "roll",
+                        "aria-hidden": true
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "chars.map((c, i) => { const key = chars.length - i return /\\d/.test(c) ? ( <span key={key} style={{ \"--d\": Number(c) } as React.CSSProperties} className=\"flex f"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"sr-only…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "Roll": {
+      "export": "Roll",
+      "variants": {},
+      "root": {
+        "element": "span",
+        "slot": null
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "span",
+          "class": "sr-only",
+          "attrs": {},
+          "children": [],
+          "receivesProps": true
+        },
+        {
+          "t": "el",
+          "tag": "span",
+          "class": "inline-flex h-[1lh] overflow-hidden whitespace-pre tabular-nums",
+          "attrs": {
+            "data-slot": "roll",
+            "aria-hidden": true
+          },
+          "children": []
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "chars.map((c, i) => { const key = chars.length - i return /\\d/.test(c) ? ( <span key={key} style={{ \"--d\": Number(c) } as React.CSSProperties} className=\"flex f"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"sr-only…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "progress": "group/progress grid w-full grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-[var(--progress-gap,0.5rem)]",
+    "progress-indicator": "block h-full [transition:width_calc(700ms*var(--kf-speed,1))_var(--ease-spring),background-color_calc(300ms*var(--kf-speed,1))_var(--ease-house)] data-indeterminate:w-2/5 data-indeterminate:animate-[kf-progress-slide_1.3s_cubic-bezier(0.65,0,0.35,1)_infinite] motion-reduce:transition-none! motion-reduce:data-indeterminate:w-full motion-reduce:data-indeterminate:animate-none! rounded-[var(--progress-radius,9999px)] bg-[var(--progress-fill,var(--primary))] shadow-[inset_0_1px_0_rgb(255_255_255/0.14)] data-complete:bg-[var(--progress-complete,oklch(0.62_0.16_150))] motion-reduce:data-indeterminate:opacity-30",
+    "progress-label": "truncate text-[13px] leading-5 font-medium text-[color:var(--progress-ink,var(--foreground))]",
+    "progress-track": "overflow-hidden relative col-span-full h-[var(--progress-height,0.375rem)] w-full rounded-[var(--progress-radius,9999px)] bg-[var(--progress-track,var(--muted))] shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+    "progress-value": "col-start-2 text-[13px] leading-5 text-[color:var(--progress-value-ink,var(--muted-foreground))] tabular-nums transition-colors duration-[calc(150ms*var(--kf-speed,1))] data-complete:text-[color:var(--progress-ink,var(--foreground))] motion-reduce:transition-none!",
+    "roll": "inline-flex h-[1lh] overflow-hidden whitespace-pre tabular-nums"
+  },
+  "styles": {
+    "kf-progress-slide": "@keyframes kf-progress-slide{from{translate:-100% 0}to{translate:250% 0}}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "children-unknown": 2,
+    "extra-elements": 2
+  },
+  "flourish": false
+}

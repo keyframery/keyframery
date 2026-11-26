@@ -18,6 +18,26 @@ import { createPreviewSource } from "./lib/preview-source.mjs"
 const root = path.resolve(import.meta.dirname, "..")
 integrateContent(root)
 const read = (f) => fs.readFileSync(path.join(root, f), "utf8")
+
+/* ---- Vue ----
+   When content/product.json marks Vue as supported, every code block on a component page gets React and Vue
+   tabs sharing one choice (Fumadocs groupId + persist), so a Vue developer picks Vue once and sees Vue
+   everywhere. The Vue code is the bench's port of each React example (frameworks/bench/examples/vue), the same
+   files the parity bench proves against React; the previews stay the React render. */
+const productCopy = JSON.parse(read("content/product.json"))
+const vueOn = productCopy.frameworks.some((f) => f.name === "Vue" && f.status === "supported") || process.env.KF_DOCS_VUE === "1" // local preview before release
+const vueExamplePath = (slug, file) => `frameworks/bench/examples/vue/${slug}/${file.replace(/\.tsx$/, ".vue")}`
+const hasVue = (slug) => vueOn && fs.existsSync(path.join(root, "frameworks/vue", slug))
+/* A Vue example without its `// Title` and `// description` lines, which sit at the top of <script setup>. */
+function vueExample(slug, file) {
+  const f = vueExamplePath(slug, file)
+  if (!fs.existsSync(path.join(root, f))) return null
+  return read(f).replace(/(<script setup[^>]*>\n)(?:\/\/.*\n)+\n*/, "$1").trim()
+}
+const frameworkTabs = (react, vue) =>
+  vue === null || vue === undefined
+    ? react
+    : ['<Tabs groupId="framework" persist items={["React", "Vue"]}>', '<Tab value="React">', "", react, "", "</Tab>", '<Tab value="Vue">', "", vue, "", "</Tab>", "</Tabs>"].join("\n")
 const descriptions = JSON.parse(read("content/components.json"))
 const motion = JSON.parse(read("content/moves.json"))
 /* Optional shorter motion lines for search snippets, when a description is too long to fit after the lead. */
@@ -252,6 +272,7 @@ for (const slug of slugs) {
     "",
     "## Installation",
     "",
+    ...(hasVue(slug) ? ['<Tabs groupId="framework" persist items={["React", "Vue"]}>', '<Tab value="React">', ""] : []),
     '<Tabs items={["CLI", "Manual"]}>',
     '<Tab value="CLI">',
     "",
@@ -318,10 +339,24 @@ for (const slug of slugs) {
     "",
     "</Tab>",
     "</Tabs>",
+    ...(hasVue(slug)
+      ? [
+          "",
+          "</Tab>",
+          '<Tab value="Vue">',
+          "",
+          fence("npm", `npx shadcn-vue@latest add https://keyframery.com/r/vue/${slug}.json`),
+          "",
+          `This adds \`components/keyframery/${slug}/\` (one file per part, with the same part names as React) to your Vue or Nuxt project${onSdk ? ", installs UI SDK for Vue" : ""} and adds the motion tokens to your global CSS. See [Install for Vue](/docs/installation/vue).`,
+          "",
+          "</Tab>",
+          "</Tabs>",
+        ]
+      : []),
     "",
     "## Usage",
     "",
-    fence("tsx", usage ?? importLine(`@/components/keyframery/${slug}`)),
+    frameworkTabs(fence("tsx", usage ?? importLine(`@/components/keyframery/${slug}`)), hasVue(slug) && vueExample(slug, "usage.tsx") ? fence("vue", vueExample(slug, "usage.tsx")) : null),
     "",
     ...(dateSlugs.includes(slug)
       ? [
@@ -344,7 +379,8 @@ for (const slug of slugs) {
             const code = read(`src/examples/${slug}/${f}`)
             const { title, about } = exampleHeader(code)
             const key = `${slug}/${f.replace(/^\d+-|\.tsx$/g, "")}`
-            return [`### ${title}`, "", ...(about ? [about, ""] : []), `<ExamplePreview name="${key}">`, "", fence("tsx", exampleCode(code)), "", "</ExamplePreview>", ""]
+            const vue = hasVue(slug) ? vueExample(slug, f) : null
+            return [`### ${title}`, "", ...(about ? [about, ""] : []), `<ExamplePreview name="${key}">`, "", frameworkTabs(fence("tsx", exampleCode(code)), vue ? fence("vue", vue) : null), "", "</ExamplePreview>", ""]
           }),
         ]
       : []),

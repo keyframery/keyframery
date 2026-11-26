@@ -1,0 +1,107 @@
+[
+  {
+    "slot": "popover-content",
+    "component": "color-picker",
+    "styledAs": "popover"
+  },
+  {
+    "slot": "popover-trigger",
+    "component": "color-picker",
+    "styledAs": "popover"
+  },
+  {
+    "slot": "calendar-day",
+    "component": "date-picker",
+    "styledAs": "calendar"
+  },
+  {
+    "slot": "calendar-grid",
+    "component": "date-picker",
+    "styledAs": "calendar"
+  },
+  {
+    "slot": "calendar-month-select",
+    "component": "date-picker",
+    "styledAs": "calendar"
+  },
+  {
+    "slot": "calendar-next",
+    "component": "date-picker",
+    "styledAs": "calendar"
+  },
+  {
+    "slot": "calendar-previous",
+    "component": "date-picker",
+    "styledAs": "calendar"
+  },
+  {
+    "slot": "calendar-weekday",
+    "component": "date-picker",
+    "styledAs": "calendar"
+  },
+  {
+    "slot": "calendar-weeks",
+    "component": "date-picker",
+    "styledAs": "calendar"
+  },
+  {
+    "slot": "calendar-year-select",
+    "component": "date-picker",
+    "styledAs": "calendar"
+  },
+  {
+    "slot": "menu-checkbox-item",
+    "component": "menubar",
+    "styledAs": "menu"
+  },
+  {
+    "slot": "menu-content",
+    "component": "menubar",
+    "styledAs": "menu"
+  },
+  {
+    "slot": "menu-item",
+    "component": "menubar",
+    "styledAs": "menu"
+  },
+  {
+    "slot": "menu-radio-item",
+    "component": "menubar",
+    "styledAs": "menu"
+  },
+  {
+    "slot": "menu-sub-content",
+    "component": "menubar",
+    "styledAs": "menu"
+  },
+  {
+    "slot": "menu-sub-trigger",
+    "component": "menubar",
+    "styledAs": "menu"
+  },
+  {
+    "slot": "menu-trigger",
+    "component": "menubar",
+    "styledAs": "menu"
+  },
+  {
+    "slot": "segmented-control",
+    "component": "preferences",
+    "styledAs": "segmented-control"
+  },
+  {
+    "slot": "segmented-control-indicator",
+    "component": "preferences",
+    "styledAs": "segmented-control"
+  },
+  {
+    "slot": "toggle",
+    "component": "toolbar",
+    "styledAs": "toggle"
+  },
+  {
+    "slot": "toggle-group",
+    "component": "toolbar",
+    "styledAs": "toggle"
+  }
+]

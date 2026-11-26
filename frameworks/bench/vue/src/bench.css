@@ -1,0 +1,24 @@
+/* What a Vue user's project has: Tailwind and Keyframery's stylesheet (tokens, motion styles, keyframes),
+   plus the same font and base styles as the site (src/index.css), so text measures the same as React. */
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "../../../vue/_lib/keyframery.css";
+@source "../../../vue";
+@source "../../examples/vue";
+@source "./";
+
+@theme inline {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+}

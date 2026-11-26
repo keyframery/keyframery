@@ -1,0 +1,87 @@
+{
+  "slug": "date-input",
+  "module": "@ui-sdk/react/date-input",
+  "parts": {
+    "DateInput": {
+      "export": "DateInput",
+      "variants": {},
+      "root": {
+        "part": "DateInput",
+        "slot": "date-input",
+        "module": "@ui-sdk/react/date-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DateInput",
+          "module": "@ui-sdk/react/date-input",
+          "slot": "date-input",
+          "slotDocumented": true,
+          "class": "relative isolate [anchor-scope:--kf-seg,--kf-seg-rest] before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:content-[''] before:[position-anchor:--kf-seg] before:top-[anchor(--kf-seg_top,anchor(--kf-seg-rest_top))] before:right-[anchor(--kf-seg_right,anchor(--kf-seg-rest_right))] before:bottom-[anchor(--kf-seg_bottom,anchor(--kf-seg-rest_bottom))] before:left-[anchor(--kf-seg_left,anchor(--kf-seg-rest_left))] before:[transition:top_calc(280ms*var(--kf-speed,1))_var(--ease-spring),right_calc(280ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(280ms*var(--kf-speed,1))_var(--ease-spring),left_calc(280ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)] has-[input:focus]:before:opacity-100 motion-reduce:before:[transition:none]! rounded-[var(--date-input-radius,10px)] bg-[var(--date-input-face,var(--background))] text-[length:var(--date-input-font,13px)] [--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)] shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)] transition-[box-shadow,background-color] duration-[calc(150ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none! hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)] inline-flex h-[var(--date-input-height,2.25rem)] w-fit min-w-0 cursor-text items-center px-2 text-[color:var(--date-input-ink,var(--foreground))] tabular-nums has-[input:focus-visible]:ring-[3px] has-[input:focus-visible]:ring-ring/25 has-[input:focus-visible]:[--field-line:var(--ring)] dark:has-[input:focus-visible]:[--field-line:var(--ring)] data-invalid:ring-destructive/25! data-invalid:[--field-line:var(--destructive)]! data-readonly:bg-muted/50 before:rounded-[6px] before:bg-[var(--date-input-accent,var(--accent))] data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:text-muted-foreground data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "state.segments.map((segment) => ( <DateInputSegment key={segment.key} segment={segment} /> ))"
+        },
+        {
+          "kind": "children-unknown",
+          "detail": "state.segments.map((segment) => <DateInputSegment key={segment.key} segment={segment} />)"
+        }
+      ]
+    },
+    "DateInputSegment": {
+      "export": "DateInputSegment",
+      "variants": {},
+      "root": {
+        "part": "DateInputSegment",
+        "slot": "date-input-segment",
+        "module": "@ui-sdk/react/date-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DateInputSegment",
+          "module": "@ui-sdk/react/date-input",
+          "slot": "date-input-segment",
+          "slotDocumented": true,
+          "class": "first:[anchor-name:--kf-seg-rest] focus:[anchor-name:--kf-seg] first:focus:[anchor-name:--kf-seg,--kf-seg-rest] h-6 rounded-[6px] bg-transparent px-[3px] text-center text-[length:var(--date-input-font,13px)] leading-none font-medium text-[color:var(--date-input-ink,var(--foreground))] tabular-nums outline-none [field-sizing:content] caret-transparent selection:bg-transparent data-[type=day]:min-w-[calc(2ch+6px)] data-[type=month]:min-w-[calc(2ch+6px)] data-[type=hour]:min-w-[calc(2ch+6px)] data-[type=minute]:min-w-[calc(2ch+6px)] data-[type=second]:min-w-[calc(2ch+6px)] data-[type=year]:min-w-[calc(4ch+6px)] data-[type=dayPeriod]:min-w-[calc(2.2em+6px)] transition-colors duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none! focus:text-accent-foreground placeholder:text-muted-foreground/70 data-empty:text-muted-foreground/70 data-[type=literal]:flex data-[type=literal]:items-center data-[type=literal]:px-px data-[type=literal]:font-normal data-[type=literal]:text-muted-foreground/70 data-[type=dayPeriod]:ml-1 data-[type=dayPeriod]:uppercase data-invalid:not-data-[type=literal]:text-destructive data-disabled:pointer-events-none data-disabled:text-muted-foreground",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "date-input": "relative isolate [anchor-scope:--kf-seg,--kf-seg-rest] before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:content-[''] before:[position-anchor:--kf-seg] before:top-[anchor(--kf-seg_top,anchor(--kf-seg-rest_top))] before:right-[anchor(--kf-seg_right,anchor(--kf-seg-rest_right))] before:bottom-[anchor(--kf-seg_bottom,anchor(--kf-seg-rest_bottom))] before:left-[anchor(--kf-seg_left,anchor(--kf-seg-rest_left))] before:[transition:top_calc(280ms*var(--kf-speed,1))_var(--ease-spring),right_calc(280ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(280ms*var(--kf-speed,1))_var(--ease-spring),left_calc(280ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)] has-[input:focus]:before:opacity-100 motion-reduce:before:[transition:none]! rounded-[var(--date-input-radius,10px)] bg-[var(--date-input-face,var(--background))] text-[length:var(--date-input-font,13px)] [--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)] shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)] transition-[box-shadow,background-color] duration-[calc(150ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none! hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)] inline-flex h-[var(--date-input-height,2.25rem)] w-fit min-w-0 cursor-text items-center px-2 text-[color:var(--date-input-ink,var(--foreground))] tabular-nums has-[input:focus-visible]:ring-[3px] has-[input:focus-visible]:ring-ring/25 has-[input:focus-visible]:[--field-line:var(--ring)] dark:has-[input:focus-visible]:[--field-line:var(--ring)] data-invalid:ring-destructive/25! data-invalid:[--field-line:var(--destructive)]! data-readonly:bg-muted/50 before:rounded-[6px] before:bg-[var(--date-input-accent,var(--accent))] data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:text-muted-foreground data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+    "date-input-segment": "first:[anchor-name:--kf-seg-rest] focus:[anchor-name:--kf-seg] first:focus:[anchor-name:--kf-seg,--kf-seg-rest] h-6 rounded-[6px] bg-transparent px-[3px] text-center text-[length:var(--date-input-font,13px)] leading-none font-medium text-[color:var(--date-input-ink,var(--foreground))] tabular-nums outline-none [field-sizing:content] caret-transparent selection:bg-transparent data-[type=day]:min-w-[calc(2ch+6px)] data-[type=month]:min-w-[calc(2ch+6px)] data-[type=hour]:min-w-[calc(2ch+6px)] data-[type=minute]:min-w-[calc(2ch+6px)] data-[type=second]:min-w-[calc(2ch+6px)] data-[type=year]:min-w-[calc(4ch+6px)] data-[type=dayPeriod]:min-w-[calc(2.2em+6px)] transition-colors duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none! focus:text-accent-foreground placeholder:text-muted-foreground/70 data-empty:text-muted-foreground/70 data-[type=literal]:flex data-[type=literal]:items-center data-[type=literal]:px-px data-[type=literal]:font-normal data-[type=literal]:text-muted-foreground/70 data-[type=dayPeriod]:ml-1 data-[type=dayPeriod]:uppercase data-invalid:not-data-[type=literal]:text-destructive data-disabled:pointer-events-none data-disabled:text-muted-foreground"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "children-unknown": 2
+  },
+  "flourish": false
+}

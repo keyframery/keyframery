@@ -1,0 +1,429 @@
+{
+  "slug": "trigger-menu",
+  "module": "@ui-sdk/react/trigger-menu",
+  "parts": {
+    "TriggerMenu": {
+      "export": "TriggerMenu",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenu",
+        "slot": "trigger-menu",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenu",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu",
+          "slotDocumented": false,
+          "class": "",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TriggerMenuContent": {
+      "export": "TriggerMenuContent",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuContent",
+        "slot": "trigger-menu-content",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuContent",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-content",
+          "slotDocumented": true,
+          "class": "group/kf-tm origin-(--transform-origin) [transition:opacity_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(380ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(380ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(380ms*var(--kf-speed,1))_var(--ease-spring)] data-[side=bottom]:[--kf-from:0_-8px] data-[side=top]:[--kf-from:0_8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:[transition:opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(150ms*var(--kf-speed,1))_var(--ease-house),translate_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]! group/content m-0 flex w-[var(--trigger-menu-width,16rem)] flex-col border-0 p-0 outline-none [--list-height:var(--available-height)] rounded-[var(--trigger-menu-radius,14px)] bg-[var(--trigger-menu-face,var(--popover))] text-[color:var(--trigger-menu-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          "attrs": {
+            "sideOffset": 6
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "part",
+                  "name": "TriggerMenuList",
+                  "module": "@ui-sdk/react/trigger-menu",
+                  "slot": "trigger-menu-list",
+                  "slotDocumented": false,
+                  "class": "[&>*]:transition-[opacity,translate,filter] [&>*]:duration-[calc(420ms*var(--kf-speed,1))] [&>*]:ease-spring [&>*]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))] group-data-starting-style/kf-tm:[&>*]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] group-data-starting-style/kf-tm:[&>*]:opacity-0 group-data-starting-style/kf-tm:[&>*]:blur-[calc(4px*var(--kf-flourish,1))] group-data-ending-style/kf-tm:[&>*]:[transition-delay:0ms] group-data-starting-style/kf-tm:[&>*]:[transition:none] relative isolate [anchor-scope:--kf-hl] before:pointer-events-none before:absolute before:-z-10 before:hidden before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house)] has-[[data-highlighted]]:before:block starting:before:opacity-0 motion-reduce:[&>*]:[transition:none] motion-reduce:before:[transition:none]! max-h-[min(calc(var(--list-height,100vh)-8px),18rem)] scroll-py-1.5 overflow-y-auto overscroll-contain p-1.5 outline-none aria-busy:opacity-60 before:rounded-[var(--trigger-menu-item-radius,8px)] before:bg-[var(--trigger-menu-accent,var(--accent))] has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--trigger-menu-accent,var(--accent))_50%,transparent)] group-has-[[data-slot=trigger-menu-empty][data-empty]]/content:hidden",
+                  "attrs": {},
+                  "children": []
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "speed-prop",
+          "detail": "the speed prop (sets --kf-speed through React context for portalled parts); set --kf-speed in CSS instead"
+        },
+        {
+          "kind": "children-unknown",
+          "detail": "(items ?? []).map((entry, index) => { if (typeof entry === \"string\") { return ( <TriggerMenuItem key={entry} value={entry} label={entry}> {entry} </TriggerMenuI"
+        }
+      ]
+    },
+    "TriggerMenuEmpty": {
+      "export": "TriggerMenuEmpty",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuEmpty",
+        "slot": "trigger-menu-empty",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuEmpty",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-empty",
+          "slotDocumented": true,
+          "class": "hidden px-3 py-5 text-center text-[13px] text-muted-foreground data-empty:block data-loading:block",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TriggerMenuGroup": {
+      "export": "TriggerMenuGroup",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuGroup",
+        "slot": "trigger-menu-group",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuGroup",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-group",
+          "slotDocumented": false,
+          "class": "flex flex-col",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TriggerMenuGroupLabel": {
+      "export": "TriggerMenuGroupLabel",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuGroupLabel",
+        "slot": "trigger-menu-group-label",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuGroupLabel",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-group-label",
+          "slotDocumented": false,
+          "class": "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TriggerMenuHint": {
+      "export": "TriggerMenuHint",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuHint",
+        "slot": "trigger-menu-hint",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuHint",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-hint",
+          "slotDocumented": false,
+          "class": "pointer-events-none text-[13px] text-muted-foreground/70 select-none",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TriggerMenuInput": {
+      "export": "TriggerMenuInput",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuInput",
+        "slot": "trigger-menu-input",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuInput",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-input",
+          "slotDocumented": true,
+          "class": "block min-h-9 w-full min-w-0 resize-none rounded-[10px] bg-[var(--trigger-menu-face,var(--background))] px-3 py-2 text-[13px] leading-5 text-[color:var(--trigger-menu-ink,var(--foreground))] outline-none placeholder:text-muted-foreground [field-sizing:content] [&:is(textarea)]:min-h-[var(--trigger-menu-height,84px)] shadow-[0_0_0_1px_rgb(0_0_0/0.09),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.1)] transition-shadow duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none! hover:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.16)] focus-visible:shadow-[0_0_0_1px_var(--ring)] focus-visible:ring-[3px] focus-visible:ring-ring/25 dark:focus-visible:shadow-[0_0_0_1px_var(--ring)] aria-invalid:shadow-[0_0_0_1px_var(--destructive)] aria-invalid:focus-visible:ring-destructive/25 dark:aria-invalid:shadow-[0_0_0_1px_var(--destructive)] disabled:cursor-not-allowed disabled:opacity-50 read-only:bg-[var(--trigger-menu-face,color-mix(in_oklab,var(--muted)_40%,transparent))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TriggerMenuItem": {
+      "export": "TriggerMenuItem",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuItem",
+        "slot": "trigger-menu-item",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuItem",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-item",
+          "slotDocumented": true,
+          "class": "data-highlighted:[anchor-name:--kf-hl] group/item relative flex min-h-8 cursor-default items-center gap-2 rounded-[var(--trigger-menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--trigger-menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]_&:not([data-has-icon])]:ps-8",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TriggerMenuItemIcon": {
+      "export": "TriggerMenuItemIcon",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuItemIcon",
+        "slot": "trigger-menu-item-icon",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuItemIcon",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-item-icon",
+          "slotDocumented": true,
+          "class": "flex size-4 shrink-0 items-center justify-center text-muted-foreground [&>svg]:size-4 group-data-highlighted/item:text-current rtl:data-mirror:-scale-x-100",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TriggerMenuItems": {
+      "export": "TriggerMenuItems",
+      "variants": {},
+      "root": null,
+      "tree": [],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "not-generated",
+          "detail": "renders from data or JS only (nothing static to carry); not generated"
+        }
+      ]
+    },
+    "TriggerMenuList": {
+      "export": "TriggerMenuList",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuList",
+        "slot": "trigger-menu-list",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuList",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-list",
+          "slotDocumented": false,
+          "class": "[&>*]:transition-[opacity,translate,filter] [&>*]:duration-[calc(420ms*var(--kf-speed,1))] [&>*]:ease-spring [&>*]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))] group-data-starting-style/kf-tm:[&>*]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] group-data-starting-style/kf-tm:[&>*]:opacity-0 group-data-starting-style/kf-tm:[&>*]:blur-[calc(4px*var(--kf-flourish,1))] group-data-ending-style/kf-tm:[&>*]:[transition-delay:0ms] group-data-starting-style/kf-tm:[&>*]:[transition:none] relative isolate [anchor-scope:--kf-hl] before:pointer-events-none before:absolute before:-z-10 before:hidden before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house)] has-[[data-highlighted]]:before:block starting:before:opacity-0 motion-reduce:[&>*]:[transition:none] motion-reduce:before:[transition:none]! max-h-[min(calc(var(--list-height,100vh)-8px),18rem)] scroll-py-1.5 overflow-y-auto overscroll-contain p-1.5 outline-none aria-busy:opacity-60 before:rounded-[var(--trigger-menu-item-radius,8px)] before:bg-[var(--trigger-menu-accent,var(--accent))] has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--trigger-menu-accent,var(--accent))_50%,transparent)] group-has-[[data-slot=trigger-menu-empty][data-empty]]/content:hidden",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "(items ?? []).map((entry, index) => { if (typeof entry === \"string\") { return ( <TriggerMenuItem key={entry} value={entry} label={entry}> {entry} </TriggerMenuI"
+        }
+      ]
+    },
+    "TriggerMenuSeparator": {
+      "export": "TriggerMenuSeparator",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuSeparator",
+        "slot": "trigger-menu-separator",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuSeparator",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-separator",
+          "slotDocumented": false,
+          "class": "-mx-1.5 my-1.5 h-px bg-border",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TriggerMenuStatus": {
+      "export": "TriggerMenuStatus",
+      "variants": {},
+      "root": {
+        "part": "TriggerMenuStatus",
+        "slot": "trigger-menu-status",
+        "module": "@ui-sdk/react/trigger-menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TriggerMenuStatus",
+          "module": "@ui-sdk/react/trigger-menu",
+          "slot": "trigger-menu-status",
+          "slotDocumented": false,
+          "class": "sr-only",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "trigger-menu-content": "group/kf-tm origin-(--transform-origin) [transition:opacity_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(380ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(380ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(380ms*var(--kf-speed,1))_var(--ease-spring)] data-[side=bottom]:[--kf-from:0_-8px] data-[side=top]:[--kf-from:0_8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:[transition:opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(150ms*var(--kf-speed,1))_var(--ease-house),translate_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]! group/content m-0 flex w-[var(--trigger-menu-width,16rem)] flex-col border-0 p-0 outline-none [--list-height:var(--available-height)] rounded-[var(--trigger-menu-radius,14px)] bg-[var(--trigger-menu-face,var(--popover))] text-[color:var(--trigger-menu-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+    "trigger-menu-list": "[&>*]:ease-spring [&>*]:transition-[opacity,translate,filter] [&>*]:duration-[calc(420ms*var(--kf-speed,1))] [&>*]:ease-spring [&>*]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))] group-data-starting-style/kf-tm:[&>*]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] group-data-starting-style/kf-tm:[&>*]:opacity-0 group-data-starting-style/kf-tm:[&>*]:blur-[calc(4px*var(--kf-flourish,1))] group-data-ending-style/kf-tm:[&>*]:[transition-delay:0ms] group-data-starting-style/kf-tm:[&>*]:[transition:none] relative isolate [anchor-scope:--kf-hl] before:pointer-events-none before:absolute before:-z-10 before:hidden before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house)] has-[[data-highlighted]]:before:block starting:before:opacity-0 motion-reduce:[&>*]:[transition:none] motion-reduce:before:[transition:none]! max-h-[min(calc(var(--list-height,100vh)-8px),18rem)] scroll-py-1.5 overflow-y-auto overscroll-contain p-1.5 outline-none aria-busy:opacity-60 before:rounded-[var(--trigger-menu-item-radius,8px)] before:bg-[var(--trigger-menu-accent,var(--accent))] has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--trigger-menu-accent,var(--accent))_50%,transparent)] group-has-[[data-slot=trigger-menu-empty][data-empty]]/content:hidden",
+    "trigger-menu-empty": "hidden px-3 py-5 text-center text-[13px] text-muted-foreground data-empty:block data-loading:block",
+    "trigger-menu-group": "flex flex-col",
+    "trigger-menu-group-label": "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none",
+    "trigger-menu-hint": "pointer-events-none text-[13px] text-muted-foreground/70 select-none",
+    "trigger-menu-input": "block min-h-9 w-full min-w-0 resize-none rounded-[10px] bg-[var(--trigger-menu-face,var(--background))] px-3 py-2 text-[13px] leading-5 text-[color:var(--trigger-menu-ink,var(--foreground))] outline-none placeholder:text-muted-foreground [field-sizing:content] [&:is(textarea)]:min-h-[var(--trigger-menu-height,84px)] shadow-[0_0_0_1px_rgb(0_0_0/0.09),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.1)] transition-shadow duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none! hover:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.16)] focus-visible:shadow-[0_0_0_1px_var(--ring)] focus-visible:ring-[3px] focus-visible:ring-ring/25 dark:focus-visible:shadow-[0_0_0_1px_var(--ring)] aria-invalid:shadow-[0_0_0_1px_var(--destructive)] aria-invalid:focus-visible:ring-destructive/25 dark:aria-invalid:shadow-[0_0_0_1px_var(--destructive)] disabled:cursor-not-allowed disabled:opacity-50 read-only:bg-[var(--trigger-menu-face,color-mix(in_oklab,var(--muted)_40%,transparent))]",
+    "trigger-menu-item": "data-highlighted:[anchor-name:--kf-hl] group/item relative flex min-h-8 cursor-default items-center gap-2 rounded-[var(--trigger-menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--trigger-menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]_&:not([data-has-icon])]:ps-8",
+    "trigger-menu-item-icon": "flex size-4 shrink-0 items-center justify-center text-muted-foreground [&>svg]:size-4 group-data-highlighted/item:text-current rtl:data-mirror:-scale-x-100",
+    "trigger-menu-separator": "-mx-1.5 my-1.5 h-px bg-border",
+    "trigger-menu-status": "sr-only"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "speed-prop": 1,
+    "children-unknown": 2,
+    "not-generated": 1
+  },
+  "flourish": true
+}

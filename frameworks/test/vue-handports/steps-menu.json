@@ -1,0 +1,2 @@
+[{"click":"[aria-label^=\"More actions\"]","wait":100,"snap":"mid-open"},{"wait":900,"snap":"open"},{"press":"ArrowDown","wait":100,"snap":"mid-glide"},{"wait":500},{"press":"ArrowDown","wait":600,"snap":"down2"},
+ {"press":"ArrowDown","wait":500},{"press":"ArrowRight","wait":900,"snap":"sub"},{"press":"ArrowLeft","wait":700,"snap":"sub-closed"},{"click":"#kf-lyrics","wait":900,"snap":"checked"},{"press":"Escape","wait":900,"snap":"closed"}]

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keyframery on UI SDK (vue core b)</title>
+    <script>
+      /* Same switches as the React lab: ?motion=subtle|calm|springy|snappy|playful and ?theme=dark, set before first paint. */
+      const q = new URLSearchParams(location.search)
+      const m = q.get("motion") ?? "subtle"
+      if (m !== "subtle") document.documentElement.setAttribute("data-motion", m)
+      if (q.get("theme") === "dark") document.documentElement.classList.add("dark")
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

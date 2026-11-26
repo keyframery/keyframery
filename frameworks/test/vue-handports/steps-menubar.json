@@ -1,0 +1,3 @@
+[{"hover":"[data-slot=menubar] > [data-slot=menu-trigger]:nth-of-type(2)","wait":600,"snap":"hover"},{"click":"[data-slot=menubar] > [data-slot=menu-trigger]:nth-of-type(1)","wait":900,"snap":"open"},{"press":"ArrowDown","wait":600,"snap":"down"},
+ {"press":"ArrowRight","wait":900,"snap":"right1"},{"press":"ArrowRight","wait":900,"snap":"right2"},{"press":"ArrowDown","wait":450},{"press":"ArrowDown","wait":600},
+ {"click":"#kf-sort-name","wait":1000,"snap":"sorted"},{"press":"Escape","wait":1200,"snap":"closed"}]

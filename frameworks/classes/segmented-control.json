@@ -1,0 +1,324 @@
+{
+  "slug": "segmented-control",
+  "module": "@ui-sdk/react/segmented-control",
+  "parts": {
+    "SegmentedControl": {
+      "export": "SegmentedControl",
+      "variants": {},
+      "root": {
+        "part": "SegmentedControl",
+        "slot": "segmented-control",
+        "module": "@ui-sdk/react/segmented-control"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "SegmentedControl",
+          "module": "@ui-sdk/react/segmented-control",
+          "slot": "segmented-control",
+          "slotDocumented": true,
+          "class": "relative isolate items-stretch gap-[var(--segmented-control-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col inline-flex w-fit rounded-[var(--segmented-control-radius,12px)] bg-[var(--segmented-control-track,var(--muted))] outline-none shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)] data-disabled:opacity-60",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            },
+            {
+              "t": "part",
+              "name": "SegmentedControlIndicator",
+              "module": "@ui-sdk/react/segmented-control",
+              "slot": "segmented-control-indicator",
+              "slotDocumented": true,
+              "class": "pointer-events-none absolute [[data-slot=segmented-control]:not(:has([data-checked]))>&]:invisible [--kf-la:var(--segmented-control-indicator-left,0px)] [--kf-lb:var(--segmented-control-indicator-left,0px)] [--kf-ra:var(--segmented-control-indicator-right,0px)] [--kf-rb:var(--segmented-control-indicator-right,0px)] [--kf-ta:var(--segmented-control-indicator-top,0px)] [--kf-tb:var(--segmented-control-indicator-top,0px)] [--kf-ba:var(--segmented-control-indicator-bottom,0px)] [--kf-bb:var(--segmented-control-indicator-bottom,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! rounded-[var(--segmented-control-key-radius,9px)] bg-[var(--segmented-control-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--segmented-control-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] -z-10",
+              "attrs": {
+                "data-ready": {
+                  "state": "ready",
+                  "initial": false
+                },
+                "aria-hidden": true
+              },
+              "children": []
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [
+        {
+          "kind": "ready-after",
+          "state": "ready",
+          "ms": 150
+        }
+      ],
+      "lost": [
+        {
+          "kind": "js-carried",
+          "detail": "ready-after ready after 150ms (carried by the framework wrappers; CSS uses [data-activation-direction] instead)"
+        },
+        {
+          "kind": "adapted",
+          "detail": "the clipped copy of the labels inside the key is not rendered; the key sits under the labels and the selected label changes colour instead (no colour wipe as the key passes)"
+        }
+      ]
+    },
+    "SegmentedControlIndicator": {
+      "export": "SegmentedControlIndicator",
+      "variants": {},
+      "root": {
+        "part": "SegmentedControlIndicator",
+        "slot": "segmented-control-indicator",
+        "module": "@ui-sdk/react/segmented-control"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "SegmentedControlIndicator",
+          "module": "@ui-sdk/react/segmented-control",
+          "slot": "segmented-control-indicator",
+          "slotDocumented": true,
+          "class": "pointer-events-none absolute [[data-slot=segmented-control]:not(:has([data-checked]))>&]:invisible [--kf-la:var(--segmented-control-indicator-left,0px)] [--kf-lb:var(--segmented-control-indicator-left,0px)] [--kf-ra:var(--segmented-control-indicator-right,0px)] [--kf-rb:var(--segmented-control-indicator-right,0px)] [--kf-ta:var(--segmented-control-indicator-top,0px)] [--kf-tb:var(--segmented-control-indicator-top,0px)] [--kf-ba:var(--segmented-control-indicator-bottom,0px)] [--kf-bb:var(--segmented-control-indicator-bottom,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! rounded-[var(--segmented-control-key-radius,9px)] bg-[var(--segmented-control-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--segmented-control-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] -z-10",
+          "attrs": {
+            "data-ready": {
+              "state": "ready",
+              "initial": false
+            },
+            "aria-hidden": true
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [
+        {
+          "kind": "ready-after",
+          "state": "ready",
+          "ms": 150
+        }
+      ],
+      "lost": [
+        {
+          "kind": "js-carried",
+          "detail": "ready-after ready after 150ms (carried by the framework wrappers; CSS uses [data-activation-direction] instead)"
+        }
+      ]
+    },
+    "SegmentedControlItem": {
+      "export": "SegmentedControlItem",
+      "variants": {},
+      "root": {
+        "part": "SegmentedControlItem",
+        "slot": "segmented-control-item",
+        "module": "@ui-sdk/react/segmented-control"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "SegmentedControlItem",
+          "module": "@ui-sdk/react/segmented-control",
+          "slot": "segmented-control-item",
+          "slotDocumented": true,
+          "class": "duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-readonly:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex h-[var(--segmented-control-height,2rem)] shrink-0 items-center justify-center gap-1.5 rounded-[var(--segmented-control-key-radius,9px)] px-[var(--segmented-control-item-padding,0.75rem)] text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0 relative cursor-pointer text-[color:var(--segmented-control-ink,var(--muted-foreground))] outline-none select-none transition-[color,background-color,scale] motion-reduce:transition-none! hover:bg-[color-mix(in_oklab,var(--segmented-control-selected-ink,var(--foreground))_4.5%,transparent)] hover:text-[color:var(--segmented-control-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted data-disabled:pointer-events-none data-disabled:opacity-40 data-readonly:cursor-default data-selected:text-[color:var(--segmented-control-selected-ink,var(--foreground))] data-checked:text-[color:var(--segmented-control-selected-ink,var(--foreground))] data-selected:hover:bg-transparent data-checked:hover:bg-transparent",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "segmented-control": "relative isolate items-stretch gap-[var(--segmented-control-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col inline-flex w-fit rounded-[var(--segmented-control-radius,12px)] bg-[var(--segmented-control-track,var(--muted))] outline-none shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)] data-disabled:opacity-60",
+    "segmented-control-indicator": "pointer-events-none absolute [[data-slot=segmented-control]:not(:has([data-checked]))>&]:invisible [--kf-la:var(--segmented-control-indicator-left,0px)] [--kf-lb:var(--segmented-control-indicator-left,0px)] [--kf-ra:var(--segmented-control-indicator-right,0px)] [--kf-rb:var(--segmented-control-indicator-right,0px)] [--kf-ta:var(--segmented-control-indicator-top,0px)] [--kf-tb:var(--segmented-control-indicator-top,0px)] [--kf-ba:var(--segmented-control-indicator-bottom,0px)] [--kf-bb:var(--segmented-control-indicator-bottom,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! rounded-[var(--segmented-control-key-radius,9px)] bg-[var(--segmented-control-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--segmented-control-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] -z-10",
+    "segmented-control-item": "duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-readonly:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex h-[var(--segmented-control-height,2rem)] shrink-0 items-center justify-center gap-1.5 rounded-[var(--segmented-control-key-radius,9px)] px-[var(--segmented-control-item-padding,0.75rem)] text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0 relative cursor-pointer text-[color:var(--segmented-control-ink,var(--muted-foreground))] outline-none select-none transition-[color,background-color,scale] motion-reduce:transition-none! hover:bg-[color-mix(in_oklab,var(--segmented-control-selected-ink,var(--foreground))_4.5%,transparent)] hover:text-[color:var(--segmented-control-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted data-disabled:pointer-events-none data-disabled:opacity-40 data-readonly:cursor-default data-selected:text-[color:var(--segmented-control-selected-ink,var(--foreground))] data-checked:text-[color:var(--segmented-control-selected-ink,var(--foreground))] data-selected:hover:bg-transparent data-checked:hover:bg-transparent"
+  },
+  "styles": {
+    "kf-stretch": "@property --kf-la{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-lb{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-ra{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-rb{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-ta{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-tb{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-ba{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-bb{syntax:\"<length>\";inherits:true;initial-value:0px}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "original": {
+    "SegmentedControl": {
+      "export": "SegmentedControl",
+      "variants": {},
+      "root": {
+        "part": "SegmentedControl",
+        "slot": "segmented-control",
+        "module": "@ui-sdk/react/segmented-control"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "SegmentedControl",
+          "module": "@ui-sdk/react/segmented-control",
+          "slot": "segmented-control",
+          "slotDocumented": true,
+          "class": "relative isolate items-stretch gap-[var(--segmented-control-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col inline-flex w-fit rounded-[var(--segmented-control-radius,12px)] bg-[var(--segmented-control-track,var(--muted))] outline-none shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)] data-disabled:opacity-60",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            },
+            {
+              "t": "part",
+              "name": "SegmentedControlIndicator",
+              "module": "@ui-sdk/react/segmented-control",
+              "slot": "segmented-control-indicator",
+              "slotDocumented": true,
+              "class": "pointer-events-none absolute [[data-slot=segmented-control]:not(:has([data-checked]))>&]:invisible [--kf-la:var(--segmented-control-indicator-left,0px)] [--kf-lb:var(--segmented-control-indicator-left,0px)] [--kf-ra:var(--segmented-control-indicator-right,0px)] [--kf-rb:var(--segmented-control-indicator-right,0px)] [--kf-ta:var(--segmented-control-indicator-top,0px)] [--kf-tb:var(--segmented-control-indicator-top,0px)] [--kf-ba:var(--segmented-control-indicator-bottom,0px)] [--kf-bb:var(--segmented-control-indicator-bottom,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! z-10 rounded-[var(--segmented-control-key-radius,9px)] bg-[var(--segmented-control-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--segmented-control-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+              "attrs": {
+                "data-ready": {
+                  "state": "ready",
+                  "initial": false
+                },
+                "aria-hidden": true
+              },
+              "children": [
+                {
+                  "t": "el",
+                  "tag": "span",
+                  "class": "absolute inset-0 overflow-hidden rounded-[inherit]",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "span",
+                      "class": "flex items-stretch gap-[var(--segmented-control-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col absolute text-[color:var(--segmented-control-selected-ink,var(--foreground))] top-[calc(min(var(--kf-ta),var(--kf-tb))*-1)] left-[calc(min(var(--kf-la),var(--kf-lb))*-1)] h-[calc(var(--segmented-control-indicator-top,0px)+var(--segmented-control-indicator-height,0px)+var(--segmented-control-indicator-bottom,0px))] w-[calc(var(--segmented-control-indicator-left,0px)+var(--segmented-control-indicator-width,0px)+var(--segmented-control-indicator-right,0px))]",
+                      "attrs": {
+                        "data-orientation": "horizontal"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [
+        {
+          "kind": "ready-after",
+          "state": "ready",
+          "ms": 150
+        }
+      ],
+      "lost": [
+        {
+          "kind": "children-copy",
+          "detail": "React.Children.map(content, (child) => React.isValidElement<{ children?: React.ReactNode; className?: unknown }>(child) ? ( <span data-slot=\"segmented-control-i: a copy of the user's content (React.Children.map); not rendered"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"absolute inset-0 overflow-hidden rounded…\">, <span class=\"flex items-stretch gap-[var(--segmented-…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        },
+        {
+          "kind": "js-carried",
+          "detail": "ready-after ready after 150ms (carried by the framework wrappers; CSS uses [data-activation-direction] instead)"
+        }
+      ]
+    },
+    "SegmentedControlIndicator": {
+      "export": "SegmentedControlIndicator",
+      "variants": {},
+      "root": {
+        "part": "SegmentedControlIndicator",
+        "slot": "segmented-control-indicator",
+        "module": "@ui-sdk/react/segmented-control"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "SegmentedControlIndicator",
+          "module": "@ui-sdk/react/segmented-control",
+          "slot": "segmented-control-indicator",
+          "slotDocumented": true,
+          "class": "pointer-events-none absolute [[data-slot=segmented-control]:not(:has([data-checked]))>&]:invisible [--kf-la:var(--segmented-control-indicator-left,0px)] [--kf-lb:var(--segmented-control-indicator-left,0px)] [--kf-ra:var(--segmented-control-indicator-right,0px)] [--kf-rb:var(--segmented-control-indicator-right,0px)] [--kf-ta:var(--segmented-control-indicator-top,0px)] [--kf-tb:var(--segmented-control-indicator-top,0px)] [--kf-ba:var(--segmented-control-indicator-bottom,0px)] [--kf-bb:var(--segmented-control-indicator-bottom,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! z-10 rounded-[var(--segmented-control-key-radius,9px)] bg-[var(--segmented-control-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--segmented-control-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+          "attrs": {
+            "data-ready": {
+              "state": "ready",
+              "initial": false
+            },
+            "aria-hidden": true
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [
+        {
+          "kind": "ready-after",
+          "state": "ready",
+          "ms": 150
+        }
+      ],
+      "lost": [
+        {
+          "kind": "js-carried",
+          "detail": "ready-after ready after 150ms (carried by the framework wrappers; CSS uses [data-activation-direction] instead)"
+        }
+      ]
+    },
+    "SegmentedControlItem": {
+      "export": "SegmentedControlItem",
+      "variants": {},
+      "root": {
+        "part": "SegmentedControlItem",
+        "slot": "segmented-control-item",
+        "module": "@ui-sdk/react/segmented-control"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "SegmentedControlItem",
+          "module": "@ui-sdk/react/segmented-control",
+          "slot": "segmented-control-item",
+          "slotDocumented": true,
+          "class": "duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-readonly:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex h-[var(--segmented-control-height,2rem)] shrink-0 items-center justify-center gap-1.5 rounded-[var(--segmented-control-key-radius,9px)] px-[var(--segmented-control-item-padding,0.75rem)] text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0 relative cursor-pointer text-[color:var(--segmented-control-ink,var(--muted-foreground))] outline-none select-none transition-[color,background-color,scale] motion-reduce:transition-none! hover:bg-[color-mix(in_oklab,var(--segmented-control-selected-ink,var(--foreground))_4.5%,transparent)] hover:text-[color:var(--segmented-control-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted data-disabled:pointer-events-none data-disabled:opacity-40 data-readonly:cursor-default",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "adaptations": [
+    "segmented-control-indicator: key under the labels (-z-10) instead of a clipped copy of the labels; segmented-control-item: selected colour on the label itself"
+  ],
+  "lostKinds": {
+    "js-carried": 2,
+    "adapted": 1
+  },
+  "flourish": true
+}

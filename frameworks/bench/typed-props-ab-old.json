@@ -1,0 +1,236 @@
+{
+ "started": "2026-11-26T11:08:23.453Z",
+ "finished": "2026-11-26T11:08:36.516Z",
+ "motions": [
+  "subtle",
+  "springy"
+ ],
+ "summary": {
+  "components": {
+   "identical": 0,
+   "differs": 1,
+   "missing in Vue": 0
+  },
+  "runs": {
+   "identical": 9,
+   "differs": 1
+  },
+  "diffTypes": {
+   "motion: x during the move": {
+    "diffs": 1,
+    "components": 1
+   }
+  }
+ },
+ "components": {
+  "tabs": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-controlled",
+    "03-vertical",
+    "04-icons",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: x during the move": 1
+   }
+  }
+ },
+ "results": {
+  "tabs": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 2.468,
+      "vue": 2.468
+     }
+    }
+   },
+   "02-controlled": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.691,
+      "vue": 1.691
+     }
+    }
+   },
+   "03-vertical": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-icons": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 2.419,
+      "vue": 2.419
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "tabs-indicator",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 3.1px"
+      }
+     ],
+     "stretch": {
+      "react": 1.734,
+      "vue": 1.734
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,3570 @@
+{
+ "started": "2026-11-26T11:56:21.604Z",
+ "finished": "2026-11-26T12:04:16.401Z",
+ "motions": [
+  "subtle",
+  "springy"
+ ],
+ "summary": {
+  "components": {
+   "identical": 5,
+   "differs": 11,
+   "missing in Vue": 0
+  },
+  "runs": {
+   "identical": 94,
+   "differs": 36
+  },
+  "diffTypes": {
+   "data-* attribute": {
+    "diffs": 28,
+    "components": 3
+   },
+   "position": {
+    "diffs": 18,
+    "components": 1
+   },
+   "motion: y during the move": {
+    "diffs": 13,
+    "components": 4
+   },
+   "motion: x during the move": {
+    "diffs": 12,
+    "components": 6
+   },
+   "motion: width during the move": {
+    "diffs": 11,
+    "components": 5
+   },
+   "motion: height during the move": {
+    "diffs": 10,
+    "components": 3
+   },
+   "slot missing in Vue": {
+    "diffs": 8,
+    "components": 1
+   },
+   "style: transform": {
+    "diffs": 6,
+    "components": 1
+   },
+   "size": {
+    "diffs": 6,
+    "components": 1
+   },
+   "aria/state attribute": {
+    "diffs": 4,
+    "components": 1
+   },
+   "Vue console/page errors": {
+    "diffs": 2,
+    "components": 1
+   }
+  }
+ },
+ "components": {
+  "accordion": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-multiple",
+    "03-controlled",
+    "04-disabled",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: height during the move": 3,
+    "motion: y during the move": 1,
+    "style: transform": 6,
+    "size": 6,
+    "position": 18
+   }
+  },
+  "approval": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-risk",
+    "02-answered",
+    "03-agent-bridge",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "autocomplete": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-with-icons",
+    "03-inline",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "badge": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-variants",
+    "02-count",
+    "03-dot",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "button": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-variants",
+    "02-sizes",
+    "03-with-icon",
+    "04-icon-only",
+    "05-loading",
+    "06-disabled",
+    "07-speed",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "slot missing in Vue": 8
+   }
+  },
+  "command": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-dialog",
+    "03-pages",
+    "04-data",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "data-* attribute": 4,
+    "aria/state attribute": 4
+   }
+  },
+  "drawer": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-snap-points",
+    "03-side",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: y during the move": 1
+   }
+  },
+  "form": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-server-errors",
+    "02-status",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "Vue console/page errors": 2
+   }
+  },
+  "listbox": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-single",
+    "02-multiple",
+    "03-groups",
+    "04-data",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: width during the move": 4,
+    "motion: height during the move": 4,
+    "motion: x during the move": 4,
+    "motion: y during the move": 7
+   }
+  },
+  "markdown": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-streaming",
+    "02-code-and-tables",
+    "03-components",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "motion-style": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-switcher",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "data-* attribute": 8,
+    "motion: width during the move": 1,
+    "motion: x during the move": 1
+   }
+  },
+  "preferences": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-saved-choice",
+    "02-read-the-value",
+    "03-motion-style",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "data-* attribute": 16,
+    "motion: width during the move": 1,
+    "motion: x during the move": 1
+   }
+  },
+  "progress": {
+   "verdict": "identical",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-indeterminate",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {}
+  },
+  "tabs": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-basic",
+    "02-controlled",
+    "03-vertical",
+    "04-icons",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: width during the move": 2,
+    "motion: x during the move": 2
+   }
+  },
+  "toolbar": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-formatting",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: x during the move": 1
+   }
+  },
+  "tree": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "01-files",
+    "02-checkable",
+    "usage"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: width during the move": 3,
+    "motion: height during the move": 3,
+    "motion: x during the move": 3,
+    "motion: y during the move": 4
+   }
+  }
+ },
+ "results": {
+  "accordion": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-multiple": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "accordion-panel",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 36.1px"
+      },
+      {
+       "phase": "motion",
+       "key": "accordion-panel",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 53.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-controlled": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "accordion#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 117.211px",
+       "vue": "210px 97.0703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion#0",
+       "type": "size",
+       "react": "420.0×234.4",
+       "vue": "420.0×194.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 64.7109px",
+       "vue": "210px 44.5703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#0",
+       "type": "size",
+       "react": "420.0×129.4",
+       "vue": "420.0×89.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-panel#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 38.2109px",
+       "vue": "210px 18.0703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-panel#0",
+       "type": "size",
+       "react": "420.0×76.4",
+       "vue": "420.0×36.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-header#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-trigger#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-header#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-trigger#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button#0",
+       "type": "position",
+       "react": "240.0,310.4",
+       "vue": "240.0,270.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button-label#0",
+       "type": "position",
+       "react": "250.0,315.4",
+       "vue": "250.0,275.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button-pending#0",
+       "type": "position",
+       "react": "240.0,310.4",
+       "vue": "240.0,270.1"
+      },
+      {
+       "phase": "motion",
+       "key": "accordion-panel",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 40.3px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "accordion#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 117.211px",
+       "vue": "210px 97.0703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion#0",
+       "type": "size",
+       "react": "420.0×234.4",
+       "vue": "420.0×194.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 64.7109px",
+       "vue": "210px 44.5703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#0",
+       "type": "size",
+       "react": "420.0×129.4",
+       "vue": "420.0×89.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-panel#0",
+       "type": "style: transform",
+       "prop": "transformOrigin",
+       "react": "210px 38.2109px",
+       "vue": "210px 18.0703px"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-panel#0",
+       "type": "size",
+       "react": "420.0×76.4",
+       "vue": "420.0×36.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-header#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-trigger#1",
+       "type": "position",
+       "react": "240.0,193.4",
+       "vue": "240.0,153.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-item#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-header#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "accordion-trigger#2",
+       "type": "position",
+       "react": "240.0,246.4",
+       "vue": "240.0,206.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button#0",
+       "type": "position",
+       "react": "240.0,310.4",
+       "vue": "240.0,270.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button-label#0",
+       "type": "position",
+       "react": "250.0,315.4",
+       "vue": "250.0,275.1"
+      },
+      {
+       "phase": "rest",
+       "key": "button-pending#0",
+       "type": "position",
+       "react": "240.0,310.4",
+       "vue": "240.0,270.1"
+      },
+      {
+       "phase": "motion",
+       "key": "accordion-panel",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 40.3px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-disabled": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "disclosure",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "approval": {
+   "01-risk": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 54,
+      "vue": 54
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 54,
+      "vue": 54
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-answered": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 37,
+      "vue": 37
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 37,
+      "vue": 37
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-agent-bridge": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 18,
+      "vue": 18
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 18,
+      "vue": 18
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "autocomplete": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-with-icons": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-inline": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 2,
+      "vue": 2
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "badge": {
+   "01-variants": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-count": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-dot": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "button": {
+   "01-variants": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-sizes": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-with-icon": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-icon-only": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "05-loading": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "06-disabled": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "07-speed": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 9
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "speed#0",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "rest",
+       "key": "speed#1",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "after",
+       "key": "speed#0",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "after",
+       "key": "speed#1",
+       "type": "slot missing in Vue"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 9
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "speed#0",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "rest",
+       "key": "speed#1",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "after",
+       "key": "speed#0",
+       "type": "slot missing in Vue"
+      },
+      {
+       "phase": "after",
+       "key": "speed#1",
+       "type": "slot missing in Vue"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "command": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 25,
+      "vue": 25
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 25,
+      "vue": 25
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-dialog": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.005,
+      "vue": 1.005
+     }
+    }
+   },
+   "03-pages": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-data": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 19,
+      "vue": 19
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "command-item#0",
+       "type": "data-* attribute",
+       "prop": "data-highlighted",
+       "react": null,
+       "vue": ""
+      },
+      {
+       "phase": "rest",
+       "key": "command-item#0",
+       "type": "aria/state attribute",
+       "prop": "aria-selected",
+       "react": "false",
+       "vue": "true"
+      },
+      {
+       "phase": "after",
+       "key": "command-item#0",
+       "type": "data-* attribute",
+       "prop": "data-highlighted",
+       "react": null,
+       "vue": ""
+      },
+      {
+       "phase": "after",
+       "key": "command-item#0",
+       "type": "aria/state attribute",
+       "prop": "aria-selected",
+       "react": "false",
+       "vue": "true"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 19,
+      "vue": 19
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "command-item#0",
+       "type": "data-* attribute",
+       "prop": "data-highlighted",
+       "react": null,
+       "vue": ""
+      },
+      {
+       "phase": "rest",
+       "key": "command-item#0",
+       "type": "aria/state attribute",
+       "prop": "aria-selected",
+       "react": "false",
+       "vue": "true"
+      },
+      {
+       "phase": "after",
+       "key": "command-item#0",
+       "type": "data-* attribute",
+       "prop": "data-highlighted",
+       "react": null,
+       "vue": ""
+      },
+      {
+       "phase": "after",
+       "key": "command-item#0",
+       "type": "aria/state attribute",
+       "prop": "aria-selected",
+       "react": "false",
+       "vue": "true"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "drawer": {
+   "01-basic": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "drawer-content",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 11.4px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-snap-points": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-side": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "form": {
+   "01-server-errors": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "input",
+     "errors": {
+      "react": [
+       "Pattern attribute value [a-z0-9-]+ is not a valid regular expression: Uncaught SyntaxError: Failed to read the 'validationMessage' property from 'HTMLInputElement': Invalid regular expression: /[a-z0-9-]+/v: Invalid character class"
+      ],
+      "vue": [
+       "Pattern attribute value [a-z0-9-]+ is not a valid regular expression: Uncaught SyntaxError: Failed to read the 'validationMessage' property from 'HTMLInputElement': Invalid regular expression: /[a-z0-9-]+/v: Invalid character class"
+      ]
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [
+      {
+       "phase": "errors",
+       "type": "Vue console/page errors",
+       "key": "page",
+       "prop": "Pattern attribute value [a-z0-9-]+ is not a valid regular expression: Uncaught SyntaxError: Failed to read the 'validationMessage' property from 'HTMLInputElement': Invalid regular expression: /[a-z0-9-]+/v: Invalid character class"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "input",
+     "errors": {
+      "react": [
+       "Pattern attribute value [a-z0-9-]+ is not a valid regular expression: Uncaught SyntaxError: Failed to read the 'validationMessage' property from 'HTMLInputElement': Invalid regular expression: /[a-z0-9-]+/v: Invalid character class"
+      ],
+      "vue": [
+       "Pattern attribute value [a-z0-9-]+ is not a valid regular expression: Uncaught SyntaxError: Failed to read the 'validationMessage' property from 'HTMLInputElement': Invalid regular expression: /[a-z0-9-]+/v: Invalid character class"
+      ]
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [
+      {
+       "phase": "errors",
+       "type": "Vue console/page errors",
+       "key": "page",
+       "prop": "Pattern attribute value [a-z0-9-]+ is not a valid regular expression: Uncaught SyntaxError: Failed to read the 'validationMessage' property from 'HTMLInputElement': Invalid regular expression: /[a-z0-9-]+/v: Invalid character class"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-status": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "input",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 5,
+      "vue": 5
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "listbox": {
+   "01-single": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 692.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 668.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 346.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 103.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-multiple": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 692.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 668.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 346.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 70.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "03-groups": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 15,
+      "vue": 15
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 692.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 668.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 346.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 130.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 15,
+      "vue": 15
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "listbox-item",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 70.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-data": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 15,
+      "vue": 15
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 15,
+      "vue": 15
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "listbox-item",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 70.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "listbox-item",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 33.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 810.5px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 668.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 405.2px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 70.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "markdown": {
+   "01-streaming": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "02-code-and-tables": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 11,
+      "vue": 11
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "03-components": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 3,
+      "vue": 3
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "motion-style": {
+   "01-switcher": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 18,
+      "vue": 18
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "motion",
+       "key": "segmented-control-indicator",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 16.8px"
+      },
+      {
+       "phase": "motion",
+       "key": "segmented-control-indicator",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 18.5px"
+      }
+     ],
+     "stretch": {
+      "react": 4.27,
+      "vue": 4.271
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 18,
+      "vue": 18
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 4.271,
+      "vue": 4.271
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 18,
+      "vue": 18
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 4.27,
+      "vue": 4.27
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 18,
+      "vue": 18
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 4.271,
+      "vue": 4.271
+     }
+    }
+   }
+  },
+  "preferences": {
+   "01-saved-choice": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 12,
+      "vue": 12
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 1.662,
+      "vue": 1.662
+     }
+    }
+   },
+   "02-read-the-value": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 1.52,
+      "vue": 1.519
+     }
+    }
+   },
+   "03-motion-style": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 18,
+      "vue": 18
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "motion",
+       "key": "segmented-control-indicator",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 8.7px"
+      },
+      {
+       "phase": "motion",
+       "key": "segmented-control-indicator",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 9.0px"
+      }
+     ],
+     "stretch": {
+      "react": 4.272,
+      "vue": 4.27
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 18,
+      "vue": 18
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 4.271,
+      "vue": 4.27
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "segmented",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [
+      {
+       "phase": "rest",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      },
+      {
+       "phase": "after",
+       "key": "preferences#0",
+       "type": "data-* attribute",
+       "prop": "data-allow-mismatch",
+       "react": null,
+       "vue": "attribute"
+      }
+     ],
+     "stretch": {
+      "react": 1.766,
+      "vue": 1.765
+     }
+    }
+   }
+  },
+  "progress": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "button",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 9,
+      "vue": 9
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-indeterminate": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": null,
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 6,
+      "vue": 6
+     },
+     "diffs": [],
+     "stretch": null
+    }
+   }
+  },
+  "tabs": {
+   "01-basic": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "tabs-indicator",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 7.8px"
+      },
+      {
+       "phase": "motion",
+       "key": "tabs-indicator",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 8.3px"
+      }
+     ],
+     "stretch": {
+      "react": 2.468,
+      "vue": 2.468
+     }
+    }
+   },
+   "02-controlled": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 10,
+      "vue": 10
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.691,
+      "vue": 1.691
+     }
+    }
+   },
+   "03-vertical": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 8,
+      "vue": 8
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "04-icons": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 14,
+      "vue": 14
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "tabs-indicator",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 6.9px"
+      },
+      {
+       "phase": "motion",
+       "key": "tabs-indicator",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 7.4px"
+      }
+     ],
+     "stretch": {
+      "react": 2.419,
+      "vue": 2.42
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "tabs",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 7,
+      "vue": 7
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1.734,
+      "vue": 1.734
+     }
+    }
+   }
+  },
+  "toolbar": {
+   "01-formatting": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 13,
+      "vue": 13
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "check",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 13,
+      "vue": 13
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "toolbar-button",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 58.3px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  },
+  "tree": {
+   "01-files": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 17,
+      "vue": 17
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 662.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 671.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 342.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 93.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 17,
+      "vue": 17
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "tree-item",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 29.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "02-checkable": {
+    "subtle": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 19,
+      "vue": 19
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 19,
+      "vue": 19
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 662.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 671.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 342.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 93.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   },
+   "usage": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: width during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 792.5px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: height during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 671.0px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 396.2px"
+      },
+      {
+       "phase": "motion",
+       "key": "body",
+       "type": "motion: y during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 64.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "list",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 4,
+      "vue": 4
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  }
+ }
+}

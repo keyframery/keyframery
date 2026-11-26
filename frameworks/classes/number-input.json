@@ -1,0 +1,344 @@
+{
+  "slug": "number-input",
+  "module": "@ui-sdk/react/number-input",
+  "parts": {
+    "NumberInput": {
+      "export": "NumberInput",
+      "variants": {},
+      "root": {
+        "part": "NumberInput",
+        "slot": "number-input",
+        "module": "@ui-sdk/react/number-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "NumberInput",
+          "module": "@ui-sdk/react/number-input",
+          "slot": "number-input",
+          "slotDocumented": true,
+          "class": "flex min-w-0 flex-col gap-1.5",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "NumberInputControl": {
+      "export": "NumberInputControl",
+      "variants": {},
+      "root": {
+        "part": "NumberInputControl",
+        "slot": "number-input-control",
+        "module": "@ui-sdk/react/number-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "NumberInputControl",
+          "module": "@ui-sdk/react/number-input",
+          "slot": "number-input-control",
+          "slotDocumented": true,
+          "class": "transition-[translate] duration-[calc(300ms*var(--kf-speed,1))] ease-pop motion-reduce:transition-none! in-[[data-slot=number-input-group]:has([data-slot=number-input-increment]:not([data-disabled]):active)]:translate-x-[calc(3px*var(--kf-flourish,1))] in-[[data-slot=number-input-group]:has([data-slot=number-input-decrement]:not([data-disabled]):active)]:-translate-x-[calc(3px*var(--kf-flourish,1))] h-full w-full min-w-0 flex-1 bg-transparent text-center text-[13px] font-medium text-[color:var(--number-input-ink,var(--foreground))] tabular-nums outline-none placeholder:text-muted-foreground/70 data-disabled:cursor-not-allowed data-disabled:text-muted-foreground",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "NumberInputDecrement": {
+      "export": "NumberInputDecrement",
+      "variants": {},
+      "root": {
+        "part": "NumberInputDecrement",
+        "slot": "number-input-decrement",
+        "module": "@ui-sdk/react/number-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "NumberInputDecrement",
+          "module": "@ui-sdk/react/number-input",
+          "slot": "number-input-decrement",
+          "slotDocumented": true,
+          "class": "[transition:scale_calc(280ms*var(--kf-speed,1))_var(--ease-pop),translate_calc(280ms*var(--kf-speed,1))_var(--ease-pop),box-shadow_calc(120ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(120ms*var(--kf-speed,1))_var(--ease-house),color_calc(120ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(120ms*var(--kf-speed,1))_var(--ease-house)] active:scale-[calc(1-0.16*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:[transition:none]! grid size-[var(--number-input-step-size,1.75rem)] shrink-0 cursor-pointer place-items-center rounded-[7px] bg-[var(--number-input-key,var(--background))] text-[color:var(--number-input-ink,var(--foreground))] outline-none select-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_2px_4px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--number-input-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--muted))_60%,transparent)] dark:hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--accent))_80%,transparent)] active:translate-y-px active:shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_0_1px_rgb(0_0_0/0.08)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:translate-y-0 data-disabled:bg-transparent data-disabled:text-muted-foreground/50 data-disabled:shadow-none dark:data-disabled:bg-transparent dark:data-disabled:shadow-none [&_svg]:size-3.5 [&_svg]:shrink-0",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": "true"
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "M3.5 8h9"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "conditional",
+          "detail": "plus && <path d=\"M8 3.5v9\" /> (default props: dropped)"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "NumberInputGroup": {
+      "export": "NumberInputGroup",
+      "variants": {},
+      "root": {
+        "part": "NumberInputGroup",
+        "slot": "number-input-group",
+        "module": "@ui-sdk/react/number-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "NumberInputGroup",
+          "module": "@ui-sdk/react/number-input",
+          "slot": "number-input-group",
+          "slotDocumented": true,
+          "class": "outline-offset-[calc(10px*var(--kf-flourish,1))] has-[input:focus-visible]:outline-offset-0 data-scrubbing:outline-offset-0 [transition:outline-offset_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-width_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-color_0s_linear_calc(160ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] has-[input:focus-visible]:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] data-scrubbing:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]! flex h-[var(--number-input-height,2.25rem)] w-full min-w-0 items-center gap-1 rounded-[var(--number-input-radius,10px)] bg-[var(--number-input-surface,var(--background))] p-1 text-[13px] outline-0 outline-[color:var(--number-input-focus,var(--ring))] [--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)] shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)] hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)] has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[color:color-mix(in_oklab,var(--number-input-focus,var(--ring))_30%,transparent)] has-[input:focus-visible]:[--field-line:var(--number-input-focus,var(--ring))] dark:has-[input:focus-visible]:[--field-line:var(--number-input-focus,var(--ring))] data-scrubbing:outline-[3px] data-scrubbing:outline-[color:color-mix(in_oklab,var(--number-input-focus,var(--ring))_30%,transparent)] data-scrubbing:[--field-line:var(--number-input-focus,var(--ring))] dark:data-scrubbing:[--field-line:var(--number-input-focus,var(--ring))] has-aria-invalid:outline-destructive has-aria-invalid:has-[input:focus-visible]:outline-destructive/30 has-aria-invalid:[--field-line:var(--destructive)] dark:has-aria-invalid:[--field-line:var(--destructive)] data-readonly:bg-muted/50 data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "NumberInputIncrement": {
+      "export": "NumberInputIncrement",
+      "variants": {},
+      "root": {
+        "part": "NumberInputIncrement",
+        "slot": "number-input-increment",
+        "module": "@ui-sdk/react/number-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "NumberInputIncrement",
+          "module": "@ui-sdk/react/number-input",
+          "slot": "number-input-increment",
+          "slotDocumented": true,
+          "class": "[transition:scale_calc(280ms*var(--kf-speed,1))_var(--ease-pop),translate_calc(280ms*var(--kf-speed,1))_var(--ease-pop),box-shadow_calc(120ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(120ms*var(--kf-speed,1))_var(--ease-house),color_calc(120ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(120ms*var(--kf-speed,1))_var(--ease-house)] active:scale-[calc(1-0.16*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:[transition:none]! grid size-[var(--number-input-step-size,1.75rem)] shrink-0 cursor-pointer place-items-center rounded-[7px] bg-[var(--number-input-key,var(--background))] text-[color:var(--number-input-ink,var(--foreground))] outline-none select-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_2px_4px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--number-input-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--muted))_60%,transparent)] dark:hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--accent))_80%,transparent)] active:translate-y-px active:shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_0_1px_rgb(0_0_0/0.08)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:translate-y-0 data-disabled:bg-transparent data-disabled:text-muted-foreground/50 data-disabled:shadow-none dark:data-disabled:bg-transparent dark:data-disabled:shadow-none [&_svg]:size-3.5 [&_svg]:shrink-0",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": "true"
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "M3.5 8h9"
+                      },
+                      "children": []
+                    },
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "M8 3.5v9"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "conditional",
+          "detail": "plus && <path d=\"M8 3.5v9\" /> (default props: kept)"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "NumberInputScrubArea": {
+      "export": "NumberInputScrubArea",
+      "variants": {},
+      "root": {
+        "part": "NumberInputScrubArea",
+        "slot": "number-input-scrub-area",
+        "module": "@ui-sdk/react/number-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "NumberInputScrubArea",
+          "module": "@ui-sdk/react/number-input",
+          "slot": "number-input-scrub-area",
+          "slotDocumented": true,
+          "class": "w-fit cursor-ew-resize select-none data-[orientation=vertical]:cursor-ns-resize data-disabled:cursor-not-allowed data-readonly:cursor-default",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "NumberInputScrubAreaCursor": {
+      "export": "NumberInputScrubAreaCursor",
+      "variants": {},
+      "root": {
+        "part": "NumberInputScrubAreaCursor",
+        "slot": "number-input-scrub-area-cursor",
+        "module": "@ui-sdk/react/number-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "NumberInputScrubAreaCursor",
+          "module": "@ui-sdk/react/number-input",
+          "slot": "number-input-scrub-area-cursor",
+          "slotDocumented": true,
+          "class": "pointer-events-none -ms-2 -mt-2 size-4 text-[color:var(--number-input-ink,var(--foreground))] drop-shadow-[0_1px_1px_rgb(0_0_0/0.25)] [&_svg]:size-4",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": "true"
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "M2 8h12M4.5 5.5 2 8l2.5 2.5M11.5 5.5 14 8l-2.5 2.5"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "number-input": "flex min-w-0 flex-col gap-1.5",
+    "number-input-control": "transition-[translate] duration-[calc(300ms*var(--kf-speed,1))] ease-pop motion-reduce:transition-none! in-[[data-slot=number-input-group]:has([data-slot=number-input-increment]:not([data-disabled]):active)]:translate-x-[calc(3px*var(--kf-flourish,1))] in-[[data-slot=number-input-group]:has([data-slot=number-input-decrement]:not([data-disabled]):active)]:-translate-x-[calc(3px*var(--kf-flourish,1))] h-full w-full min-w-0 flex-1 bg-transparent text-center text-[13px] font-medium text-[color:var(--number-input-ink,var(--foreground))] tabular-nums outline-none placeholder:text-muted-foreground/70 data-disabled:cursor-not-allowed data-disabled:text-muted-foreground",
+    "number-input-decrement": "[transition:scale_calc(280ms*var(--kf-speed,1))_var(--ease-pop),translate_calc(280ms*var(--kf-speed,1))_var(--ease-pop),box-shadow_calc(120ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(120ms*var(--kf-speed,1))_var(--ease-house),color_calc(120ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(120ms*var(--kf-speed,1))_var(--ease-house)] active:scale-[calc(1-0.16*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:[transition:none]! grid size-[var(--number-input-step-size,1.75rem)] shrink-0 cursor-pointer place-items-center rounded-[7px] bg-[var(--number-input-key,var(--background))] text-[color:var(--number-input-ink,var(--foreground))] outline-none select-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_2px_4px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--number-input-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--muted))_60%,transparent)] dark:hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--accent))_80%,transparent)] active:translate-y-px active:shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_0_1px_rgb(0_0_0/0.08)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:translate-y-0 data-disabled:bg-transparent data-disabled:text-muted-foreground/50 data-disabled:shadow-none dark:data-disabled:bg-transparent dark:data-disabled:shadow-none [&_svg]:size-3.5 [&_svg]:shrink-0",
+    "number-input-group": "outline-offset-[calc(10px*var(--kf-flourish,1))] has-[input:focus-visible]:outline-offset-0 data-scrubbing:outline-offset-0 [transition:outline-offset_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-width_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-color_0s_linear_calc(160ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] has-[input:focus-visible]:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] data-scrubbing:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]! flex h-[var(--number-input-height,2.25rem)] w-full min-w-0 items-center gap-1 rounded-[var(--number-input-radius,10px)] bg-[var(--number-input-surface,var(--background))] p-1 text-[13px] outline-0 outline-[color:var(--number-input-focus,var(--ring))] [--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)] shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)] hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)] has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[color:color-mix(in_oklab,var(--number-input-focus,var(--ring))_30%,transparent)] has-[input:focus-visible]:[--field-line:var(--number-input-focus,var(--ring))] dark:has-[input:focus-visible]:[--field-line:var(--number-input-focus,var(--ring))] data-scrubbing:outline-[3px] data-scrubbing:outline-[color:color-mix(in_oklab,var(--number-input-focus,var(--ring))_30%,transparent)] data-scrubbing:[--field-line:var(--number-input-focus,var(--ring))] dark:data-scrubbing:[--field-line:var(--number-input-focus,var(--ring))] has-aria-invalid:outline-destructive has-aria-invalid:has-[input:focus-visible]:outline-destructive/30 has-aria-invalid:[--field-line:var(--destructive)] dark:has-aria-invalid:[--field-line:var(--destructive)] data-readonly:bg-muted/50 data-disabled:cursor-not-allowed data-disabled:bg-muted data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+    "number-input-increment": "[transition:scale_calc(280ms*var(--kf-speed,1))_var(--ease-pop),translate_calc(280ms*var(--kf-speed,1))_var(--ease-pop),box-shadow_calc(120ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(120ms*var(--kf-speed,1))_var(--ease-house),color_calc(120ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(120ms*var(--kf-speed,1))_var(--ease-house)] active:scale-[calc(1-0.16*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:[transition:none]! grid size-[var(--number-input-step-size,1.75rem)] shrink-0 cursor-pointer place-items-center rounded-[7px] bg-[var(--number-input-key,var(--background))] text-[color:var(--number-input-ink,var(--foreground))] outline-none select-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_2px_4px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--number-input-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--muted))_60%,transparent)] dark:hover:bg-[color-mix(in_oklab,var(--number-input-key,var(--accent))_80%,transparent)] active:translate-y-px active:shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_0_1px_rgb(0_0_0/0.08)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:translate-y-0 data-disabled:bg-transparent data-disabled:text-muted-foreground/50 data-disabled:shadow-none dark:data-disabled:bg-transparent dark:data-disabled:shadow-none [&_svg]:size-3.5 [&_svg]:shrink-0",
+    "number-input-scrub-area": "w-fit cursor-ew-resize select-none data-[orientation=vertical]:cursor-ns-resize data-disabled:cursor-not-allowed data-readonly:cursor-default",
+    "number-input-scrub-area-cursor": "pointer-events-none -ms-2 -mt-2 size-4 text-[color:var(--number-input-ink,var(--foreground))] drop-shadow-[0_1px_1px_rgb(0_0_0/0.25)] [&_svg]:size-4"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "conditional": 2,
+    "extra-elements": 3
+  },
+  "flourish": true
+}

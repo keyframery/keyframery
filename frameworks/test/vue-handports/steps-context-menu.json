@@ -1,0 +1,3 @@
+[{"click":"[data-more=\"1\"]","wait":100,"snap":"mid-open"},{"wait":1000,"snap":"open"},{"press":"ArrowDown","wait":420},{"press":"ArrowDown","wait":420},{"press":"ArrowDown","wait":500,"snap":"down3"},
+ {"press":"ArrowRight","wait":1100,"snap":"sub"},{"press":"Escape","wait":400},{"press":"Escape","wait":1200,"snap":"closed"},
+ {"rclick":"[aria-label=\"Last of the grapes\"]","wait":1000,"snap":"rclick"},{"press":"ArrowUp","wait":800,"snap":"up"},{"press":"Escape","wait":1200,"snap":"closed2"}]

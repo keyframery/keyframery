@@ -1,0 +1,2 @@
+[{"click":"[data-slot=pagination-next]","wait":100,"snap":"mid-next"},{"wait":1200,"snap":"next"},{"click":"nav li:nth-last-child(2) [data-slot=pagination-link]","wait":1500,"snap":"far"},
+ {"click":"[data-slot=pagination-previous]","wait":1200,"snap":"prev"},{"press":"Tab","wait":200},{"press":"Enter","wait":1200,"snap":"key"}]

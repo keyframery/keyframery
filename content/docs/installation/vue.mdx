@@ -1,0 +1,247 @@
+---
+title: Vue
+heading: "Install Keyframery in Vue and Nuxt"
+seoTitle: "Animated UI SDK Components for Vue and Nuxt"
+description: "Add Keyframery's animated UI SDK components to a Vue 3 or Nuxt project with the shadcn-vue CLI. Same components, parts, motion styles and Agent view as React."
+faq:
+  - q: "Are the Vue components the same as the React ones?"
+    a: "Yes. They have the same parts with the same names, the same Tailwind classes, the same five motion styles and the same Agent view. Every React example has a Vue version, and a test bench compares the two in the browser before each release."
+  - q: "Does Vite's default Vue build pass with Keyframery installed?"
+    a: "Yes. The `vue-ts` template builds with `vue-tsc -b && vite build` and strict unused-variable checks, and every Keyframery file passes them."
+  - q: "Does it work with Nuxt server rendering?"
+    a: "Yes. The components render on the server and hydrate without mismatches. Import them explicitly, as in the examples, and leave them out of Nuxt's auto-import (see below)."
+  - q: "Do I need shadcn-vue's own components?"
+    a: "No. The shadcn-vue CLI only copies the files in and sets up your CSS. Keyframery's Vue components build on UI SDK for Vue (`@ui-sdk/vue`), and they sit next to any shadcn-vue components you already have."
+---
+
+Keyframery for Vue has every component React has: the same parts with the same names, the same Tailwind classes, the same five motion styles and the same [Agent view](/docs/agent-view). The [shadcn-vue](https://www.shadcn-vue.com) CLI copies the files into your project, so you own the code.
+
+Choose your setup.
+
+<StartingPoints
+  items={[
+    { href: "#vite", title: "Vite", description: "A new or existing Vue 3 app built with Vite." },
+    { href: "#nuxt", title: "Nuxt", description: "A Nuxt 4 app, with server rendering." },
+    { href: "#use-it", title: "Use it", description: "Your first component and its motion style." },
+  ]}
+/>
+
+## Vite
+
+<Steps>
+<Step>
+
+### Create the project
+
+```npm
+npm create vite@latest my-app -- --template vue-ts
+```
+
+</Step>
+<Step>
+
+### Add Tailwind CSS and the `@/` alias
+
+```npm
+npm install tailwindcss @tailwindcss/vite
+```
+
+Replace `src/style.css` with `@import "tailwindcss";`, then add the alias to `tsconfig.json` and `tsconfig.app.json`:
+
+```json title="tsconfig.app.json"
+{
+  "compilerOptions": {
+    "paths": { "@/*": ["./src/*"] }
+  }
+}
+```
+
+Leave out `baseUrl`: TypeScript 6 has deprecated it and the template's build stops on it. Then `vite.config.ts`:
+
+```ts title="vite.config.ts"
+import path from "node:path"
+import tailwindcss from "@tailwindcss/vite"
+import vue from "@vitejs/plugin-vue"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [vue(), tailwindcss()],
+  resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
+})
+```
+
+(`npm install -D @types/node` gives `node:path` its types.)
+
+</Step>
+<Step>
+
+### Set up the CLI
+
+```npm
+npx shadcn-vue@latest init
+```
+
+This writes `components.json`, the colour tokens and `src/lib/utils.ts`. Keyframery uses the same tokens, so it matches any shadcn-vue components you add later.
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn-vue@latest add https://keyframery.com/r/vue/tabs.json
+```
+
+Each component lands in `src/components/keyframery/<name>/`, one file per part. The motion tokens go into `src/style.css` and the speed helpers into `src/lib/keyframery.ts`. Components that build on others bring them along.
+
+</Step>
+</Steps>
+
+## Nuxt
+
+<Steps>
+<Step>
+
+### Create the project
+
+```npm
+npm create nuxt@latest my-app
+```
+
+</Step>
+<Step>
+
+### Add Tailwind CSS and shadcn-nuxt
+
+```npm
+npm install tailwindcss @tailwindcss/vite
+npx nuxi@latest module add shadcn-nuxt
+```
+
+Create `app/assets/css/tailwind.css` with `@import "tailwindcss";`, then set up `nuxt.config.ts`:
+
+```ts title="nuxt.config.ts"
+import tailwindcss from "@tailwindcss/vite"
+
+export default defineNuxtConfig({
+  css: ["~/assets/css/tailwind.css"],
+  vite: { plugins: [tailwindcss()] },
+  modules: ["shadcn-nuxt"],
+  shadcn: { prefix: "", componentDir: "@/components/ui" },
+  // Keyframery components are imported where they're used, so Nuxt doesn't auto-import them.
+  components: [{ path: "~/components", ignore: ["keyframery/**"] }],
+})
+```
+
+The `components` line matters. Without it Nuxt registers both `Tabs.vue` and the folder's `index.ts` under one name and warns about every component.
+
+</Step>
+<Step>
+
+### Set up the CLI
+
+```npm
+npx nuxi prepare
+npx shadcn-vue@latest init
+```
+
+</Step>
+<Step>
+
+### Add components
+
+```npm
+npx shadcn-vue@latest add https://keyframery.com/r/vue/tabs.json
+```
+
+The files land in `app/components/keyframery/`, and the motion tokens go into your Tailwind CSS file.
+
+</Step>
+</Steps>
+
+## Use it
+
+<Steps>
+<Step>
+
+### Import the parts
+
+```vue title="App.vue"
+<script setup lang="ts">
+import { Tabs, TabsList, TabsPanel, TabsPanels, TabsTab } from "@/components/keyframery/tabs"
+</script>
+
+<template>
+  <Tabs default-value="account">
+    <TabsList aria-label="Settings">
+      <TabsTab value="account">Account</TabsTab>
+      <TabsTab value="password">Password</TabsTab>
+    </TabsList>
+    <TabsPanels>
+      <TabsPanel value="account">Account settings</TabsPanel>
+      <TabsPanel value="password">Password settings</TabsPanel>
+    </TabsPanels>
+  </Tabs>
+</template>
+```
+
+Props work as they do in React, written in kebab-case: `defaultValue` becomes `default-value`, and `onValueChange` becomes `@value-change` or `v-model:value`. Content that depends on a part's state uses a scoped slot, `v-slot="{ state }"`, and React's `render` prop is the `#render` slot.
+
+</Step>
+<Step>
+
+### Pick how it moves
+
+Subtle is the default. To change it for the whole app, wrap it in `KeyframeryProvider`:
+
+```vue title="App.vue"
+<script setup lang="ts">
+import { KeyframeryProvider } from "@/lib/keyframery"
+</script>
+
+<template>
+  <KeyframeryProvider motion="springy">
+    <!-- your app -->
+  </KeyframeryProvider>
+</template>
+```
+
+Or put `data-motion="springy"` on `<html>`. Any component also takes `speed`: `"fast"`, `"slow"` or a number. [See the five styles](/docs/motion-styles).
+
+</Step>
+<Step>
+
+### Install everything
+
+```npm
+npx shadcn-vue@latest add https://keyframery.com/r/vue/all.json
+```
+
+</Step>
+</Steps>
+
+## Use the short name
+
+Add Keyframery to `components.json` once:
+
+```json title="components.json"
+{
+  "registries": {
+    "@keyframery": "https://keyframery.com/r/vue/{name}.json"
+  }
+}
+```
+
+Then add components by name:
+
+```npm
+npx shadcn-vue@latest add @keyframery/tabs @keyframery/select
+```
+
+## Notes for Vue
+
+- **Same code as the docs.** Every component page has a React and a Vue tab on its code. Pick Vue once and the docs remember it.
+- **Strict builds.** Every file passes the `vue-ts` template's `noUnusedLocals`, `noUnusedParameters`, `verbatimModuleSyntax` and `erasableSyntaxOnly` checks.
+- **Typed parts.** Each part is typed with UI SDK's own props, so your editor completes them and `vue-tsc` catches mistakes.
+- **Server rendering.** Every component renders in Nuxt on the server and hydrates without mismatches.
+- **Agent view.** The parts carry the same labels and `data-*` attributes as React, so AI agents read and operate them the same way.

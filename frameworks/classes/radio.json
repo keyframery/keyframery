@@ -1,0 +1,122 @@
+{
+  "slug": "radio",
+  "module": "@ui-sdk/react/radio",
+  "parts": {
+    "Radio": {
+      "export": "Radio",
+      "variants": {},
+      "root": {
+        "part": "Radio",
+        "slot": "radio",
+        "module": "@ui-sdk/react/radio"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Radio",
+          "module": "@ui-sdk/react/radio",
+          "slot": "radio",
+          "slotDocumented": true,
+          "class": "data-checked:[anchor-name:--kf-radio] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-readonly:active:scale-[calc(1-0.14*var(--kf-flourish,1))] relative inline-grid size-[var(--radio-size,18px)] shrink-0 cursor-pointer place-items-center rounded-[var(--radio-radius,9999px)] outline-none select-none bg-[var(--radio-surface,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.05)] dark:bg-[var(--radio-surface,color-mix(in_oklab,var(--accent)_40%,transparent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.14)] not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.24),0_1px_2px_rgb(0_0_0/0.06)] dark:not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.24)] transition-[box-shadow,scale] motion-reduce:transition-none! focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-default",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "part",
+                  "name": "RadioIndicator",
+                  "module": "@ui-sdk/react/radio",
+                  "slot": "radio-indicator",
+                  "slotDocumented": true,
+                  "class": "transition-[scale,opacity] duration-[calc(480ms*var(--kf-speed,1))] ease-pop data-starting-style:scale-[calc(1-0.7*var(--kf-flourish,1))] data-starting-style:opacity-0 data-ending-style:scale-[calc(1-0.6*var(--kf-flourish,1))] data-ending-style:opacity-0 data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house motion-reduce:transition-none! pointer-events-none absolute inset-0 grid place-items-center rounded-[var(--radio-radius,9999px)] bg-[var(--radio-selected,var(--primary))] shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)] after:size-[var(--radio-dot-size,7px)] after:rounded-[var(--radio-radius,9999px)] after:bg-[var(--radio-dot,var(--primary-foreground))] after:content-['']",
+                  "attrs": {
+                    "aria-hidden": true
+                  },
+                  "children": []
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "RadioGroup": {
+      "export": "RadioGroup",
+      "variants": {},
+      "root": {
+        "part": "RadioGroup",
+        "slot": "radio-group",
+        "module": "@ui-sdk/react/radio"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "RadioGroup",
+          "module": "@ui-sdk/react/radio",
+          "slot": "radio-group",
+          "slotDocumented": true,
+          "class": "relative isolate [anchor-scope:--kf-radio] before:pointer-events-none before:absolute before:-z-10 before:rounded-full before:content-[''] before:[position-anchor:--kf-radio] before:top-[calc(anchor(top)-var(--kf-radio-pad))] before:right-[calc(anchor(right)-var(--kf-radio-pad))] before:bottom-[calc(anchor(bottom)-var(--kf-radio-pad))] before:left-[calc(anchor(left)-var(--kf-radio-pad))] before:transition-[top,right,bottom,left,opacity] before:duration-[calc(460ms*var(--kf-speed,1))] before:ease-spring not-has-data-checked:before:opacity-0 motion-reduce:before:transition-none! flex flex-col gap-[var(--radio-gap,0.625rem)] outline-none [--kf-radio-pad:4px] before:bg-transparent before:shadow-[inset_0_0_0_1.5px_color-mix(in_oklab,var(--radio-ring,var(--primary))_28%,transparent)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "RadioIndicator": {
+      "export": "RadioIndicator",
+      "variants": {},
+      "root": {
+        "part": "RadioIndicator",
+        "slot": "radio-indicator",
+        "module": "@ui-sdk/react/radio"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "RadioIndicator",
+          "module": "@ui-sdk/react/radio",
+          "slot": "radio-indicator",
+          "slotDocumented": true,
+          "class": "transition-[scale,opacity] duration-[calc(480ms*var(--kf-speed,1))] ease-pop data-starting-style:scale-[calc(1-0.7*var(--kf-flourish,1))] data-starting-style:opacity-0 data-ending-style:scale-[calc(1-0.6*var(--kf-flourish,1))] data-ending-style:opacity-0 data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house motion-reduce:transition-none! pointer-events-none absolute inset-0 grid place-items-center rounded-[var(--radio-radius,9999px)] bg-[var(--radio-selected,var(--primary))] shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)] after:size-[var(--radio-dot-size,7px)] after:rounded-[var(--radio-radius,9999px)] after:bg-[var(--radio-dot,var(--primary-foreground))] after:content-['']",
+          "attrs": {
+            "aria-hidden": true
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "radio": "data-checked:[anchor-name:--kf-radio] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-readonly:active:scale-[calc(1-0.14*var(--kf-flourish,1))] relative inline-grid size-[var(--radio-size,18px)] shrink-0 cursor-pointer place-items-center rounded-[var(--radio-radius,9999px)] outline-none select-none bg-[var(--radio-surface,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.05)] dark:bg-[var(--radio-surface,color-mix(in_oklab,var(--accent)_40%,transparent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.14)] not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.24),0_1px_2px_rgb(0_0_0/0.06)] dark:not-data-disabled:not-data-readonly:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.24)] transition-[box-shadow,scale] motion-reduce:transition-none! focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-default",
+    "radio-indicator": "ease-pop data-ending-style:ease-house transition-[scale,opacity] duration-[calc(480ms*var(--kf-speed,1))] ease-pop data-starting-style:scale-[calc(1-0.7*var(--kf-flourish,1))] data-starting-style:opacity-0 data-ending-style:scale-[calc(1-0.6*var(--kf-flourish,1))] data-ending-style:opacity-0 data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house motion-reduce:transition-none! pointer-events-none absolute inset-0 grid place-items-center rounded-[var(--radio-radius,9999px)] bg-[var(--radio-selected,var(--primary))] shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)] after:size-[var(--radio-dot-size,7px)] after:rounded-[var(--radio-radius,9999px)] after:bg-[var(--radio-dot,var(--primary-foreground))] after:content-['']",
+    "radio-group": "relative isolate [anchor-scope:--kf-radio] before:pointer-events-none before:absolute before:-z-10 before:rounded-full before:content-[''] before:[position-anchor:--kf-radio] before:top-[calc(anchor(top)-var(--kf-radio-pad))] before:right-[calc(anchor(right)-var(--kf-radio-pad))] before:bottom-[calc(anchor(bottom)-var(--kf-radio-pad))] before:left-[calc(anchor(left)-var(--kf-radio-pad))] before:transition-[top,right,bottom,left,opacity] before:duration-[calc(460ms*var(--kf-speed,1))] before:ease-spring not-has-data-checked:before:opacity-0 motion-reduce:before:transition-none! flex flex-col gap-[var(--radio-gap,0.625rem)] outline-none [--kf-radio-pad:4px] before:bg-transparent before:shadow-[inset_0_0_0_1.5px_color-mix(in_oklab,var(--radio-ring,var(--primary))_28%,transparent)]"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {},
+  "flourish": true
+}

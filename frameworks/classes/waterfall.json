@@ -1,0 +1,396 @@
+{
+  "slug": "waterfall",
+  "module": "@ui-sdk/react/waterfall",
+  "parts": {
+    "Waterfall": {
+      "export": "Waterfall",
+      "variants": {},
+      "root": {
+        "part": "Waterfall",
+        "slot": "waterfall",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Waterfall",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall",
+          "slotDocumented": false,
+          "class": "relative grid grid-cols-[minmax(8rem,auto)_minmax(0,1fr)] overflow-hidden rounded-[var(--waterfall-radius,14px)] bg-[var(--waterfall-face,var(--card))] py-1 text-[12.5px] text-[color:var(--waterfall-ink,var(--card-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.12)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "WaterfallAxis": {
+      "export": "WaterfallAxis",
+      "variants": {},
+      "root": {
+        "part": "WaterfallAxis",
+        "slot": "waterfall-axis",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallAxis",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-axis",
+          "slotDocumented": false,
+          "class": "relative h-full flex-1",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "state.ticks.map((tick) => <WaterfallTick key={tick.time} time={tick.time} />)"
+        }
+      ]
+    },
+    "WaterfallBar": {
+      "export": "WaterfallBar",
+      "variants": {},
+      "root": {
+        "part": "WaterfallBar",
+        "slot": "waterfall-bar",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallBar",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-bar",
+          "slotDocumented": true,
+          "class": "relative before:absolute before:start-(--waterfall-start) before:w-(--waterfall-size) before:min-w-0.5 before:content-[''] before:origin-left rtl:before:origin-right before:animate-[kf-waterfall-bar_calc(620ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] before:[animation-delay:calc(var(--kf-wf-delay,0ms)+calc(90ms*var(--kf-speed,1)*var(--kf-flourish,1)))] before:transition-[inset-inline-start,width] before:duration-[calc(560ms*var(--kf-speed,1))] before:ease-spring motion-reduce:before:animate-none! motion-reduce:before:transition-none! h-full before:inset-y-[10px] before:rounded-[3px] before:bg-[color-mix(in_oklab,var(--waterfall-bar,var(--primary))_75%,transparent)] data-[level=2]:before:bg-[color-mix(in_oklab,var(--waterfall-muted,var(--muted-foreground))_40%,transparent)] data-[level=3]:before:bg-[color-mix(in_oklab,var(--waterfall-muted,var(--muted-foreground))_30%,transparent)] data-selected:before:bg-[var(--waterfall-marker-color,var(--ring))] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "WaterfallCell": {
+      "export": "WaterfallCell",
+      "variants": {},
+      "root": {
+        "part": "WaterfallCell",
+        "slot": "waterfall-cell",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallCell",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-cell",
+          "slotDocumented": true,
+          "class": "flex h-full items-center whitespace-nowrap text-[color:var(--waterfall-muted,var(--muted-foreground))] tabular-nums outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "WaterfallColumnHeader": {
+      "export": "WaterfallColumnHeader",
+      "variants": {},
+      "root": {
+        "part": "WaterfallColumnHeader",
+        "slot": "waterfall-column-header",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallColumnHeader",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-column-header",
+          "slotDocumented": false,
+          "class": "relative flex h-full items-center",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "WaterfallHeaderRow": {
+      "export": "WaterfallHeaderRow",
+      "variants": {},
+      "root": {
+        "part": "WaterfallHeaderRow",
+        "slot": "waterfall-header-row",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallHeaderRow",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-header-row",
+          "slotDocumented": false,
+          "class": "col-span-full grid grid-cols-subgrid items-center gap-x-[var(--waterfall-gap,0.75rem)] px-3 mb-1 h-12 border-b border-border text-[11px] font-medium text-[color:var(--waterfall-muted,var(--muted-foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "WaterfallIndicator": {
+      "export": "WaterfallIndicator",
+      "variants": {},
+      "root": {
+        "part": "WaterfallIndicator",
+        "slot": "waterfall-indicator",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallIndicator",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-indicator",
+          "slotDocumented": true,
+          "class": "transition-[rotate] duration-[calc(380ms*var(--kf-speed,1))] ease-spring data-expanded:rotate-90 rtl:data-expanded:-rotate-90 motion-reduce:transition-none! grid size-4 shrink-0 cursor-pointer place-items-center rounded-[5px] text-[color:var(--waterfall-muted,var(--muted-foreground))] hover:bg-foreground/[0.06] hover:text-[color:var(--waterfall-ink,var(--foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "size-3.5",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": true
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "m6 4 4 4-4 4"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg class=\"size-3.5…\">, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "WaterfallMark": {
+      "export": "WaterfallMark",
+      "variants": {},
+      "root": {
+        "part": "WaterfallMark",
+        "slot": "waterfall-mark",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallMark",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-mark",
+          "slotDocumented": true,
+          "class": "absolute start-(--waterfall-mark) transition-[inset-inline-start,opacity] duration-[calc(560ms*var(--kf-speed,1))] ease-spring data-outside:opacity-0 animate-[kf-waterfall-mark_calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(240ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards] motion-reduce:animate-none! motion-reduce:transition-none! pointer-events-none bottom-1.5 z-10 -translate-x-1/2 rounded-full bg-[color-mix(in_oklab,var(--waterfall-marker-color,var(--ring))_12%,transparent)] px-1.5 py-[3px] text-[10.5px] leading-none font-medium whitespace-nowrap text-[color:var(--waterfall-marker-color,var(--ring))] after:absolute after:top-full after:left-1/2 after:h-[999px] after:w-px after:bg-[color-mix(in_oklab,var(--waterfall-marker-color,var(--ring))_50%,transparent)] after:content-['']",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "WaterfallRow": {
+      "export": "WaterfallRow",
+      "variants": {},
+      "root": {
+        "part": "WaterfallRow",
+        "slot": "waterfall-row",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallRow",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-row",
+          "slotDocumented": true,
+          "class": "[--kf-wf-i:attr(aria-posinset_type(<integer>),1)] [--kf-wf-delay:calc((min(var(--kf-wf-i),10)-1)*calc(36ms*var(--kf-speed,1))*var(--kf-flourish,1))] animate-[kf-waterfall-row_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [animation-delay:var(--kf-wf-delay)] motion-reduce:animate-none! col-span-full grid grid-cols-subgrid items-center gap-x-[var(--waterfall-gap,0.75rem)] px-3 h-[var(--waterfall-height,2rem)] cursor-default hover:bg-foreground/[0.03] data-selected:bg-accent dark:data-selected:bg-accent/70 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "WaterfallRowHeader": {
+      "export": "WaterfallRowHeader",
+      "variants": {},
+      "root": {
+        "part": "WaterfallRowHeader",
+        "slot": "waterfall-row-header",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallRowHeader",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-row-header",
+          "slotDocumented": true,
+          "class": "flex h-full min-w-0 items-center gap-1 truncate font-medium ps-[calc((var(--waterfall-level)-1)*14px)] not-data-branch:ps-[calc((var(--waterfall-level)-1)*14px+20px)] data-[level=2]:font-normal data-[level=2]:text-[color:var(--waterfall-muted,var(--muted-foreground))] data-[level=2]:data-selected:text-[color:var(--waterfall-ink,var(--foreground))] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "WaterfallTick": {
+      "export": "WaterfallTick",
+      "variants": {},
+      "root": {
+        "part": "WaterfallTick",
+        "slot": "waterfall-tick",
+        "module": "@ui-sdk/react/waterfall"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "WaterfallTick",
+          "module": "@ui-sdk/react/waterfall",
+          "slot": "waterfall-tick",
+          "slotDocumented": false,
+          "class": "absolute start-(--waterfall-tick) transition-[inset-inline-start] duration-[calc(560ms*var(--kf-speed,1))] ease-spring motion-reduce:transition-none! top-2 -translate-x-1/2 text-[10.5px] leading-none font-normal whitespace-nowrap tabular-nums first:translate-x-0 last:-translate-x-full",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "waterfall": "relative grid grid-cols-[minmax(8rem,auto)_minmax(0,1fr)] overflow-hidden rounded-[var(--waterfall-radius,14px)] bg-[var(--waterfall-face,var(--card))] py-1 text-[12.5px] text-[color:var(--waterfall-ink,var(--card-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.12)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+    "waterfall-axis": "relative h-full flex-1",
+    "waterfall-bar": "relative before:absolute before:start-(--waterfall-start) before:w-(--waterfall-size) before:min-w-0.5 before:content-[''] before:origin-left rtl:before:origin-right before:animate-[kf-waterfall-bar_calc(620ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] before:[animation-delay:calc(var(--kf-wf-delay,0ms)+calc(90ms*var(--kf-speed,1)*var(--kf-flourish,1)))] before:transition-[inset-inline-start,width] before:duration-[calc(560ms*var(--kf-speed,1))] before:ease-spring motion-reduce:before:animate-none! motion-reduce:before:transition-none! h-full before:inset-y-[10px] before:rounded-[3px] before:bg-[color-mix(in_oklab,var(--waterfall-bar,var(--primary))_75%,transparent)] data-[level=2]:before:bg-[color-mix(in_oklab,var(--waterfall-muted,var(--muted-foreground))_40%,transparent)] data-[level=3]:before:bg-[color-mix(in_oklab,var(--waterfall-muted,var(--muted-foreground))_30%,transparent)] data-selected:before:bg-[var(--waterfall-marker-color,var(--ring))] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+    "waterfall-cell": "flex h-full items-center whitespace-nowrap text-[color:var(--waterfall-muted,var(--muted-foreground))] tabular-nums outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+    "waterfall-column-header": "relative flex h-full items-center",
+    "waterfall-header-row": "col-span-full grid grid-cols-subgrid items-center gap-x-[var(--waterfall-gap,0.75rem)] px-3 mb-1 h-12 border-b border-border text-[11px] font-medium text-[color:var(--waterfall-muted,var(--muted-foreground))]",
+    "waterfall-indicator": "transition-[rotate] duration-[calc(380ms*var(--kf-speed,1))] ease-spring data-expanded:rotate-90 rtl:data-expanded:-rotate-90 motion-reduce:transition-none! grid size-4 shrink-0 cursor-pointer place-items-center rounded-[5px] text-[color:var(--waterfall-muted,var(--muted-foreground))] hover:bg-foreground/[0.06] hover:text-[color:var(--waterfall-ink,var(--foreground))]",
+    "waterfall-mark": "absolute start-(--waterfall-mark) transition-[inset-inline-start,opacity] duration-[calc(560ms*var(--kf-speed,1))] ease-spring data-outside:opacity-0 animate-[kf-waterfall-mark_calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(240ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards] motion-reduce:animate-none! motion-reduce:transition-none! pointer-events-none bottom-1.5 z-10 -translate-x-1/2 rounded-full bg-[color-mix(in_oklab,var(--waterfall-marker-color,var(--ring))_12%,transparent)] px-1.5 py-[3px] text-[10.5px] leading-none font-medium whitespace-nowrap text-[color:var(--waterfall-marker-color,var(--ring))] after:absolute after:top-full after:left-1/2 after:h-[999px] after:w-px after:bg-[color-mix(in_oklab,var(--waterfall-marker-color,var(--ring))_50%,transparent)] after:content-['']",
+    "waterfall-row": "[--kf-wf-i:attr(aria-posinset_type(<integer>),1)] [--kf-wf-delay:calc((min(var(--kf-wf-i),10)-1)*calc(36ms*var(--kf-speed,1))*var(--kf-flourish,1))] animate-[kf-waterfall-row_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [animation-delay:var(--kf-wf-delay)] motion-reduce:animate-none! col-span-full grid grid-cols-subgrid items-center gap-x-[var(--waterfall-gap,0.75rem)] px-3 h-[var(--waterfall-height,2rem)] cursor-default hover:bg-foreground/[0.03] data-selected:bg-accent dark:data-selected:bg-accent/70 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+    "waterfall-row-header": "flex h-full min-w-0 items-center gap-1 truncate font-medium ps-[calc((var(--waterfall-level)-1)*14px)] not-data-branch:ps-[calc((var(--waterfall-level)-1)*14px+20px)] data-[level=2]:font-normal data-[level=2]:text-[color:var(--waterfall-muted,var(--muted-foreground))] data-[level=2]:data-selected:text-[color:var(--waterfall-ink,var(--foreground))] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+    "waterfall-tick": "absolute start-(--waterfall-tick) transition-[inset-inline-start] duration-[calc(560ms*var(--kf-speed,1))] ease-spring motion-reduce:transition-none! top-2 -translate-x-1/2 text-[10.5px] leading-none font-normal whitespace-nowrap tabular-nums first:translate-x-0 last:-translate-x-full"
+  },
+  "styles": {
+    "kf-waterfall": "@keyframes kf-waterfall-row{from{opacity:0;translate:0 6px;filter:blur(3px)}}@keyframes kf-waterfall-bar{from{scale:0 1}}@keyframes kf-waterfall-mark{from{opacity:0;clip-path:inset(0 0 100% 0)}}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "children-unknown": 1,
+    "extra-elements": 1
+  },
+  "flourish": true
+}

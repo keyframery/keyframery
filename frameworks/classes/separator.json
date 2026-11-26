@@ -1,0 +1,83 @@
+{
+  "slug": "separator",
+  "module": "@ui-sdk/react/separator",
+  "parts": {
+    "Separator": {
+      "export": "Separator",
+      "variants": {},
+      "root": {
+        "part": "Separator",
+        "slot": "separator",
+        "module": "@ui-sdk/react/separator"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Separator",
+          "module": "@ui-sdk/react/separator",
+          "slot": "separator",
+          "slotDocumented": true,
+          "class": "origin-center animate-[kf-separator-x_calc(720ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] data-[orientation=vertical]:origin-top data-[orientation=vertical]:animate-[kf-separator-y_calc(640ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] has-[+[data-slot=separator-label]]:origin-right [[data-slot=separator-label]+&]:origin-left [animation-delay:calc((min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1))*var(--kf-flourish,1))] motion-reduce:animate-none! shrink-0 bg-[var(--separator-line,var(--border))] data-[orientation=horizontal]:h-[var(--separator-thickness,1px)] data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-[var(--separator-thickness,1px)] [[data-slot=separator-label]+&]:flex-1 has-[+[data-slot=separator-label]]:flex-1",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "conditional",
+          "detail": "props.orientation === \"vertical\" && \"self-stretch\" (default props: dropped)"
+        }
+      ]
+    },
+    "SeparatorLabel": {
+      "export": "SeparatorLabel",
+      "variants": {},
+      "root": {
+        "element": "span",
+        "slot": "separator-label"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "span",
+          "class": "animate-[kf-separator-label_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(320ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards] motion-reduce:animate-none! shrink-0 px-[var(--separator-label-gap,0.75rem)] text-[length:var(--separator-font,12px)] leading-none text-[color:var(--separator-ink,var(--muted-foreground))]",
+          "attrs": {
+            "data-slot": "separator-label"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "separator": "origin-center animate-[kf-separator-x_calc(720ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] data-[orientation=vertical]:origin-top data-[orientation=vertical]:animate-[kf-separator-y_calc(640ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] has-[+[data-slot=separator-label]]:origin-right [[data-slot=separator-label]+&]:origin-left [animation-delay:calc((min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1))*var(--kf-flourish,1))] motion-reduce:animate-none! shrink-0 bg-[var(--separator-line,var(--border))] data-[orientation=horizontal]:h-[var(--separator-thickness,1px)] data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-[var(--separator-thickness,1px)] [[data-slot=separator-label]+&]:flex-1 has-[+[data-slot=separator-label]]:flex-1",
+    "separator-label": "animate-[kf-separator-label_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(320ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards] motion-reduce:animate-none! shrink-0 px-[var(--separator-label-gap,0.75rem)] text-[length:var(--separator-font,12px)] leading-none text-[color:var(--separator-ink,var(--muted-foreground))]"
+  },
+  "styles": {
+    "kf-separator": "@keyframes kf-separator-x{from{scale:0 1}}@keyframes kf-separator-y{from{scale:1 0}}@keyframes kf-separator-label{from{opacity:0;scale:0.9;filter:blur(4px)}}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "conditional": 1
+  },
+  "flourish": true
+}

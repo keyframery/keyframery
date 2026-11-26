@@ -1,0 +1,62 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "jsx": "preserve",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": [
+      "vite/client"
+    ],
+    "paths": {
+      "@/lib/*": [
+        "../../vue/_lib/*"
+      ],
+      "@kf/*": [
+        "../../overrides/vue/*"
+      ],
+      "vue": [
+        "./node_modules/vue"
+      ],
+      "@ui-sdk/vue/*": [
+        "./node_modules/@ui-sdk/vue/dist/*"
+      ],
+      "@ui-sdk/core/*": [
+        "./node_modules/@ui-sdk/core/dist/*"
+      ],
+      "@ui-sdk/core": [
+        "./node_modules/@ui-sdk/core"
+      ],
+      "@/components/keyframery/*": [
+        "../../overrides/vue/*",
+        "../../vue/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "../../overrides/vue/calendar/**/*",
+    "../../overrides/vue/date-picker/**/*",
+    "../../overrides/vue/date-input/**/*",
+    "../../overrides/vue/time-input/**/*",
+    "../../overrides/vue/tree/**/*",
+    "../../overrides/vue/preferences/**/*",
+    "../../overrides/vue/motion-style/**/*",
+    "../../overrides/vue/listbox/**/*",
+    "../../overrides/vue/toolbar/**/*",
+    "../../overrides/vue/pagination/**/*",
+    "../../overrides/vue/token-input/**/*",
+    "../../overrides/vue/waterfall/**/*",
+    "../../overrides/vue/menu/**/*",
+    "../../overrides/vue/menubar/**/*",
+    "../../overrides/vue/context-menu/**/*"
+  ]
+}

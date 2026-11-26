@@ -1,0 +1,10 @@
+/* Page layout only (the test page, not the components): the same stage as the other test apps. */
+@import "../../../../node_modules/@fontsource-variable/inter/index.css";
+html { font-family: "Inter Variable", ui-sans-serif, system-ui, sans-serif; font-feature-settings: "cv11", "ss01"; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--background); color: var(--foreground); }
+main { display: flex; min-height: 100vh; flex-direction: column; align-items: center; gap: 4rem; padding: 4rem 2rem; box-sizing: border-box; background: oklch(0.975 0 0); }
+.dark main { background: oklch(0.125 0 0); }
+section[hidden] { display: none !important; }
+.row { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 500; }
+.check { display: flex; align-items: center; gap: 0.75rem; font-size: 13px; }
+p { margin: 0; }

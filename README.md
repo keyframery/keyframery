@@ -10,7 +10,7 @@
   <!-- product:header:start (written by scripts/stamp-copy.mjs from content/product.json) -->
   <h1>Keyframery</h1>
   <h3>The component library for Vercel's UI SDK.</h3>
-  <p>Free, open-source components for Vercel's UI SDK: quiet by default, lively when you want it, sheets on phones and Agent view. Install them with the shadcn CLI.</p>
+  <p>Free, open-source components for Vercel's UI SDK: quiet by default, lively when you want it, sheets on phones and Agent view. For React and Vue.</p>
 <!-- product:header:end -->
   <p>
     <a href="https://github.com/keyframery/keyframery/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-27272a?style=flat&labelColor=18181b"></a>
@@ -35,7 +35,7 @@
 <!-- product:body:start (written by scripts/stamp-copy.mjs from content/product.json) -->
 ## What is it?
 
-UI SDK is Vercel's library of UI behaviours: keyboard, focus, selection, accessibility and a bridge that lets AI agents read and use your interface. Keyframery is the component library on top. Every component renders UI SDK underneath and adds a finished look and motion written in plain CSS, and the shadcn CLI copies the code into your project, so it's yours.
+UI SDK is Vercel's library of UI behaviours: keyboard, focus, selection, accessibility and a bridge that lets AI agents read and use your interface. Keyframery is the component library on top. Every component renders UI SDK underneath and adds a finished look and motion written in plain CSS, and the shadcn CLI (shadcn-vue for Vue) copies the code into your project, so it's yours.
 
 - **[95 components](https://keyframery.com/docs/components)**: Everything UI SDK ships, plus cards, charts, data tables, sidebars and more, each with a live demo and a Customize panel.
 - **[AI components](https://keyframery.com/docs/components#ai)**: For agent interfaces: Approval, Attachment, Bubble, Diff Viewer, Markdown, Message, Message Scroller, Prompt Composer, Reasoning, Tool Call and Trace.
@@ -43,7 +43,7 @@ UI SDK is Vercel's library of UI behaviours: keyboard, focus, selection, accessi
 - **[Sheets on phones](https://keyframery.com/docs/components/popover)**: Popovers, menus, selects and pickers open as a sheet from the bottom edge on small touch screens, and stay popovers everywhere else.
 - **[Agent view](https://keyframery.com/docs/agent-view)**: See the snapshot an AI agent reads from every component and run its actions. A skill for Claude Code and a prompt for any coding agent.
 - **[Create and templates](https://keyframery.com/create)**: Build a preset of colours, corners, font and motion and install it with one command. Two free templates: a landing page and an admin dashboard.
-- **[Your code](https://keyframery.com/docs/installation)**: Installed with the shadcn CLI in React (Next.js, Vite, TanStack Start, React Router, Astro and Laravel). Free and MIT-licensed.
+- **[Your code](https://keyframery.com/docs/installation)**: Installed with the shadcn CLI (shadcn-vue for Vue) in React (Next.js, Vite, TanStack Start, React Router, Astro and Laravel) and Vue (Vite and Nuxt). Free and MIT-licensed.
 
 ## What's inside
 

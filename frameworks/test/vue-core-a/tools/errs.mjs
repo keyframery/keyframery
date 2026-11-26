@@ -1,0 +1,12 @@
+import { createRequire } from "node:module"
+const require = createRequire(import.meta.url)
+const { chromium } = require("/Users/briyan/keyframery-ui-lab/node_modules/playwright-core")
+const [url] = process.argv.slice(2)
+const b = await chromium.launch({ channel: "chrome", headless: true })
+const p = await b.newPage()
+p.on("console", (m) => m.type() === "error" || m.type() === "warning" ? console.log(m.type(), m.text().slice(0, 600)) : null)
+p.on("pageerror", (e) => console.log("pageerror", e.message, e.stack?.slice(0, 600)))
+p.on("response", (r) => r.status() >= 400 && console.log(r.status(), r.url()))
+await p.goto(url, { waitUntil: "load" })
+await p.waitForTimeout(1500)
+await b.close()

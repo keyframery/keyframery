@@ -1,0 +1,176 @@
+{
+  "slug": "token-input",
+  "module": "@ui-sdk/react/token-input",
+  "parts": {
+    "TokenInput": {
+      "export": "TokenInput",
+      "variants": {},
+      "root": {
+        "part": "TokenInput",
+        "slot": "token-input",
+        "module": "@ui-sdk/react/token-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TokenInput",
+          "module": "@ui-sdk/react/token-input",
+          "slot": "token-input",
+          "slotDocumented": false,
+          "class": "",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "handler",
+          "detail": "TokenInput: renderToken is a function"
+        }
+      ]
+    },
+    "TokenInputEditor": {
+      "export": "TokenInputEditor",
+      "variants": {},
+      "root": {
+        "part": "TokenInputEditor",
+        "slot": "token-input-editor",
+        "module": "@ui-sdk/react/token-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TokenInputEditor",
+          "module": "@ui-sdk/react/token-input",
+          "slot": "token-input-editor",
+          "slotDocumented": true,
+          "class": "relative min-h-[var(--token-input-height,2.25rem)] w-full min-w-0 cursor-text rounded-[var(--token-input-radius,10px)] bg-[var(--token-input-face,var(--background))] px-2 py-[5px] text-[13px] leading-[calc(var(--token-input-height,2.25rem)-10px)] break-words whitespace-pre-wrap text-[color:var(--token-input-ink,var(--foreground))] outline-none [--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)] shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)] transition-[box-shadow] duration-[calc(150ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none! hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)] focus-visible:ring-[3px] focus-visible:ring-ring/25 focus-visible:[--field-line:var(--ring)] dark:focus-visible:[--field-line:var(--ring)] aria-invalid:ring-destructive/25 aria-invalid:[--field-line:var(--destructive)] dark:aria-invalid:[--field-line:var(--destructive)] data-empty:before:pointer-events-none data-empty:before:absolute data-empty:before:text-muted-foreground data-empty:before:content-[attr(aria-placeholder)] data-readonly:bg-[var(--token-input-face,color-mix(in_oklab,var(--muted)_50%,transparent))] data-disabled:cursor-not-allowed data-disabled:bg-[var(--token-input-face,var(--muted))] data-disabled:text-muted-foreground data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TokenInputToken": {
+      "export": "TokenInputToken",
+      "variants": {},
+      "root": {
+        "part": "TokenInputToken",
+        "slot": "token-input-token",
+        "module": "@ui-sdk/react/token-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TokenInputToken",
+          "module": "@ui-sdk/react/token-input",
+          "slot": "token-input-token",
+          "slotDocumented": true,
+          "class": "origin-center transition-[scale,opacity,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-pop starting:scale-[calc(0.95-0.55*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(3px*var(--kf-flourish,1))] motion-reduce:transition-none! mx-[2px] inline-flex h-[calc(var(--token-input-height,2.25rem)-14px)] max-w-full items-center gap-1 rounded-[var(--token-input-token-radius,7px)] bg-[var(--token-input-token,var(--background))] pr-0.5 pl-2 align-middle text-[12px] leading-none font-medium whitespace-nowrap text-[color:var(--token-input-ink,var(--foreground))] select-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--token-input-token,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] [&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:text-muted-foreground data-selected:bg-[var(--token-input-accent,var(--primary))] data-selected:text-[color:var(--token-input-ink,var(--primary-foreground))] data-selected:[&>svg]:text-primary-foreground/70 data-selected:shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] data-pending:opacity-60 data-unresolved:bg-[color-mix(in_oklab,var(--token-input-error,var(--destructive))_10%,transparent)] data-unresolved:text-[color:var(--token-input-error,var(--destructive))] data-unresolved:shadow-[0_0_0_1px_color-mix(in_oklab,var(--token-input-error,var(--destructive))_35%,transparent)] dark:data-unresolved:bg-[color-mix(in_oklab,var(--token-input-error,var(--destructive))_15%,transparent)] data-disabled:opacity-60",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TokenInputTokenRemove": {
+      "export": "TokenInputTokenRemove",
+      "variants": {},
+      "root": {
+        "part": "TokenInputTokenRemove",
+        "slot": "token-input-token-remove",
+        "module": "@ui-sdk/react/token-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TokenInputTokenRemove",
+          "module": "@ui-sdk/react/token-input",
+          "slot": "token-input-token-remove",
+          "slotDocumented": true,
+          "class": "transition-[scale,color,background-color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.2*var(--kf-flourish,1))] motion-reduce:transition-none! grid size-[18px] cursor-pointer place-items-center rounded-[5px] text-muted-foreground hover:bg-foreground/[0.08] hover:text-[color:var(--token-input-ink,var(--foreground))] in-data-selected:text-[color:color-mix(in_oklab,var(--token-input-ink,var(--primary-foreground))_70%,transparent)] in-data-selected:hover:bg-primary-foreground/15 in-data-selected:hover:text-primary-foreground data-disabled:pointer-events-none data-disabled:opacity-40 data-readonly:hidden [&_svg]:size-3",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": "true"
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "m4.5 4.5 7 7m0-7-7 7"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "token-input-editor": "relative min-h-[var(--token-input-height,2.25rem)] w-full min-w-0 cursor-text rounded-[var(--token-input-radius,10px)] bg-[var(--token-input-face,var(--background))] px-2 py-[5px] text-[13px] leading-[calc(var(--token-input-height,2.25rem)-10px)] break-words whitespace-pre-wrap text-[color:var(--token-input-ink,var(--foreground))] outline-none [--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)] shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)] transition-[box-shadow] duration-[calc(150ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none! hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)] focus-visible:ring-[3px] focus-visible:ring-ring/25 focus-visible:[--field-line:var(--ring)] dark:focus-visible:[--field-line:var(--ring)] aria-invalid:ring-destructive/25 aria-invalid:[--field-line:var(--destructive)] dark:aria-invalid:[--field-line:var(--destructive)] data-empty:before:pointer-events-none data-empty:before:absolute data-empty:before:text-muted-foreground data-empty:before:content-[attr(aria-placeholder)] data-readonly:bg-[var(--token-input-face,color-mix(in_oklab,var(--muted)_50%,transparent))] data-disabled:cursor-not-allowed data-disabled:bg-[var(--token-input-face,var(--muted))] data-disabled:text-muted-foreground data-disabled:[--field-line:rgb(0_0_0/0.06)] dark:data-disabled:[--field-line:rgb(255_255_255/0.06)]",
+    "token-input-token": "origin-center transition-[scale,opacity,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-pop starting:scale-[calc(0.95-0.55*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(3px*var(--kf-flourish,1))] motion-reduce:transition-none! mx-[2px] inline-flex h-[calc(var(--token-input-height,2.25rem)-14px)] max-w-full items-center gap-1 rounded-[var(--token-input-token-radius,7px)] bg-[var(--token-input-token,var(--background))] pr-0.5 pl-2 align-middle text-[12px] leading-none font-medium whitespace-nowrap text-[color:var(--token-input-ink,var(--foreground))] select-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--token-input-token,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] [&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:text-muted-foreground data-selected:bg-[var(--token-input-accent,var(--primary))] data-selected:text-[color:var(--token-input-ink,var(--primary-foreground))] data-selected:[&>svg]:text-primary-foreground/70 data-selected:shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] data-pending:opacity-60 data-unresolved:bg-[color-mix(in_oklab,var(--token-input-error,var(--destructive))_10%,transparent)] data-unresolved:text-[color:var(--token-input-error,var(--destructive))] data-unresolved:shadow-[0_0_0_1px_color-mix(in_oklab,var(--token-input-error,var(--destructive))_35%,transparent)] dark:data-unresolved:bg-[color-mix(in_oklab,var(--token-input-error,var(--destructive))_15%,transparent)] data-disabled:opacity-60",
+    "token-input-token-remove": "transition-[scale,color,background-color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.2*var(--kf-flourish,1))] motion-reduce:transition-none! grid size-[18px] cursor-pointer place-items-center rounded-[5px] text-muted-foreground hover:bg-foreground/[0.08] hover:text-[color:var(--token-input-ink,var(--foreground))] in-data-selected:text-[color:color-mix(in_oklab,var(--token-input-ink,var(--primary-foreground))_70%,transparent)] in-data-selected:hover:bg-primary-foreground/15 in-data-selected:hover:text-primary-foreground data-disabled:pointer-events-none data-disabled:opacity-40 data-readonly:hidden [&_svg]:size-3"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "handler": 1,
+    "extra-elements": 1
+  },
+  "flourish": true
+}

@@ -1,0 +1,5 @@
+[{"click":"[data-value=\"kyoto\"] [data-slot=tree-indicator]","wait":120,"snap":"mid-open"},{"wait":1300,"snap":"opened"},
+ {"click":"[data-value=\"kyoto/market\"] [data-slot=tree-label]","wait":120,"snap":"mid-select"},{"wait":1000,"snap":"selected"},
+ {"hover":"[data-value=\"garden\"] [data-slot=tree-label]","wait":600,"snap":"hover"},
+ {"click":"[data-value=\"kyoto\"] [data-slot=tree-indicator]","wait":100,"snap":"mid-close"},{"wait":1100,"snap":"closed"},
+ {"move":[5,5],"wait":400},{"press":"ArrowUp","wait":500,"snap":"key-up"},{"press":"ArrowLeft","wait":900,"snap":"key-left"},{"press":"Enter","wait":900,"snap":"key-enter"}]

@@ -1,0 +1,7 @@
+{
+  "name": "kf-bench-react",
+  "private": true,
+  "type": "module",
+  "description": "React reference bench: renders src/examples/<slug>/<example>.tsx alone at #/<slug>/<example>. Uses the repo's own React, Vite, Tailwind and UI SDK (no install needed: one React copy, the same one the site ships).",
+  "scripts": { "dev": "../../../node_modules/.bin/vite --config vite.config.ts --port 4716 --strictPort" }
+}

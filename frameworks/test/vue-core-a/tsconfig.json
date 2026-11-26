@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "jsx": "preserve",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": [
+      "vite/client"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "vue": [
+        "./node_modules/vue"
+      ],
+      "@ui-sdk/vue/*": [
+        "./node_modules/@ui-sdk/vue/dist/*"
+      ],
+      "@ui-sdk/core": [
+        "./node_modules/@ui-sdk/core"
+      ],
+      "@ui-sdk/core/*": [
+        "./node_modules/@ui-sdk/core/dist/*"
+      ],
+      "tailwind-merge": [
+        "./node_modules/tailwind-merge"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "../../overrides/vue/**/*.ts",
+    "../../overrides/vue/**/*.vue"
+  ]
+}

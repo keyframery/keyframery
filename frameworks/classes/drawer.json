@@ -1,0 +1,552 @@
+{
+  "slug": "drawer",
+  "module": "@ui-sdk/react/drawer",
+  "parts": {
+    "Drawer": {
+      "export": "Drawer",
+      "variants": {},
+      "root": {
+        "part": "Drawer",
+        "slot": "drawer",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Drawer",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer",
+          "slotDocumented": false,
+          "class": "",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "DrawerBackdrop": {
+      "export": "DrawerBackdrop",
+      "variants": {},
+      "root": {
+        "part": "DrawerBackdrop",
+        "slot": "drawer-backdrop",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DrawerBackdrop",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer-backdrop",
+          "slotDocumented": true,
+          "class": "fixed inset-0 bg-black/30 backdrop-blur-[3px] dark:bg-black/60 data-interactive:backdrop-blur-none",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "speed-prop",
+          "detail": "the speed prop (sets --kf-speed through React context for portalled parts); set --kf-speed in CSS instead"
+        }
+      ]
+    },
+    "DrawerClose": {
+      "export": "DrawerClose",
+      "variants": {
+        "variant": {
+          "default": "default",
+          "values": {
+            "primary": [
+              {
+                "t": "part",
+                "name": "DrawerClose",
+                "module": "@ui-sdk/react/drawer",
+                "slot": "drawer-close",
+                "slotDocumented": true,
+                "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-9 rounded-[10px] px-4 text-[14px] [&_svg]:size-4 bg-[var(--drawer-accent,var(--primary))] text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--drawer-accent,var(--primary)),var(--background)_14%)] not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
+                "attrs": {
+                  "data-variant": {
+                    "param": "variant",
+                    "value": "primary"
+                  }
+                },
+                "children": [
+                  {
+                    "t": "slot",
+                    "fallback": null,
+                    "scoped": false
+                  }
+                ],
+                "receivesProps": true
+              }
+            ]
+          }
+        }
+      },
+      "matrix": {
+        "props": [
+          "variant"
+        ],
+        "trees": {
+          "default": [
+            {
+              "t": "part",
+              "name": "DrawerClose",
+              "module": "@ui-sdk/react/drawer",
+              "slot": "drawer-close",
+              "slotDocumented": true,
+              "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-9 rounded-[10px] px-4 text-[14px] [&_svg]:size-4 bg-background text-foreground dark:bg-accent shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--background),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--accent),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)]",
+              "attrs": {
+                "data-variant": {
+                  "param": "variant",
+                  "value": "default"
+                }
+              },
+              "children": [
+                {
+                  "t": "slot",
+                  "fallback": null,
+                  "scoped": false
+                }
+              ],
+              "receivesProps": true
+            }
+          ],
+          "primary": [
+            {
+              "t": "part",
+              "name": "DrawerClose",
+              "module": "@ui-sdk/react/drawer",
+              "slot": "drawer-close",
+              "slotDocumented": true,
+              "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-9 rounded-[10px] px-4 text-[14px] [&_svg]:size-4 bg-[var(--drawer-accent,var(--primary))] text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--drawer-accent,var(--primary)),var(--background)_14%)] not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
+              "attrs": {
+                "data-variant": {
+                  "param": "variant",
+                  "value": "primary"
+                }
+              },
+              "children": [
+                {
+                  "t": "slot",
+                  "fallback": null,
+                  "scoped": false
+                }
+              ],
+              "receivesProps": true
+            }
+          ]
+        }
+      },
+      "renderClass": "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none! outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      "root": {
+        "part": "DrawerClose",
+        "slot": "drawer-close",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DrawerClose",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer-close",
+          "slotDocumented": true,
+          "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-9 rounded-[10px] px-4 text-[14px] [&_svg]:size-4 bg-background text-foreground dark:bg-accent shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--background),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--accent),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)]",
+          "attrs": {
+            "data-variant": {
+              "param": "variant",
+              "value": "default"
+            }
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "conditional",
+          "detail": "props.render && \"outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\" (default props: dropped)"
+        },
+        {
+          "kind": "variants",
+          "detail": "carried as the variant prop (default, primary); the web stylesheet matches data-variant on the part (set it yourself on the element)"
+        }
+      ]
+    },
+    "DrawerContent": {
+      "export": "DrawerContent",
+      "variants": {},
+      "root": {
+        "part": "DrawerContent",
+        "slot": "drawer-content",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DrawerContent",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer-content",
+          "slotDocumented": true,
+          "class": "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc((calc(60ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))*var(--kf-flourish,1))] [--kf-sheet-progress:var(--drawer-progress,1)] *:opacity-[calc(0.55+var(--kf-sheet-progress,1)*0.45)] motion-reduce:[&>*]:animate-none group/drawer flex flex-col border-0 bg-[var(--drawer-face,var(--popover))] text-[color:var(--drawer-ink,var(--popover-foreground))] outline-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_-8px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_-8px_32px_-8px_rgb(0_0_0/0.7)] data-[side=bottom]:mx-auto data-[side=bottom]:max-h-[calc(100dvh-48px)] data-[side=bottom]:w-full data-[side=bottom]:max-w-[var(--drawer-width,480px)] data-[side=bottom]:rounded-t-[var(--drawer-radius,18px)] data-[side=bottom]:pb-[max(20px,env(safe-area-inset-bottom))] data-[side=bottom]:after:absolute data-[side=bottom]:after:inset-x-0 data-[side=bottom]:after:top-full data-[side=bottom]:after:h-24 data-[side=bottom]:after:bg-[var(--drawer-face,var(--popover))] data-[side=top]:mx-auto data-[side=top]:max-h-[calc(100dvh-48px)] data-[side=top]:w-full data-[side=top]:max-w-[var(--drawer-width,480px)] data-[side=top]:rounded-b-[var(--drawer-radius,18px)] data-[side=left]:h-full data-[side=left]:w-[min(var(--drawer-width,380px),calc(100vw-48px))] data-[side=left]:rounded-r-[var(--drawer-radius,18px)] data-[side=right]:h-full data-[side=right]:w-[min(var(--drawer-width,380px),calc(100vw-48px))] data-[side=right]:rounded-l-[var(--drawer-radius,18px)] origin-top scale-[calc(1-var(--drawer-stack,0)*0.04)] data-dragging:cursor-grabbing",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "speed-prop",
+          "detail": "the speed prop (sets --kf-speed through React context for portalled parts); set --kf-speed in CSS instead"
+        }
+      ]
+    },
+    "DrawerDescription": {
+      "export": "DrawerDescription",
+      "variants": {},
+      "root": {
+        "part": "DrawerDescription",
+        "slot": "drawer-description",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DrawerDescription",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer-description",
+          "slotDocumented": false,
+          "class": "text-[13px] leading-5 text-muted-foreground",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "DrawerFooter": {
+      "export": "DrawerFooter",
+      "variants": {},
+      "root": {
+        "element": "div",
+        "slot": "drawer-footer"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "div",
+          "class": "mt-auto flex flex-col gap-[var(--drawer-gap,0.5rem)] px-5 pt-4",
+          "attrs": {
+            "data-slot": "drawer-footer"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "DrawerGrip": {
+      "export": "DrawerGrip",
+      "variants": {},
+      "root": {
+        "element": "div",
+        "slot": "drawer-grip"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "div",
+          "class": "pt-2.5 pb-1",
+          "attrs": {
+            "data-slot": "drawer-grip",
+            "aria-hidden": true
+          },
+          "children": [
+            {
+              "t": "el",
+              "tag": "span",
+              "class": "mx-auto block h-1 w-9 shrink-0 rounded-full bg-foreground/15 transition-[width,background-color] duration-[calc(380ms*var(--kf-speed,1))] ease-spring group-data-dragging/drawer:w-16 group-data-dragging/drawer:bg-foreground/35 group-data-[side=left]/drawer:hidden group-data-[side=right]/drawer:hidden motion-reduce:transition-none!",
+              "attrs": {},
+              "children": []
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"mx-auto block h-1 w-9 shrink-0 rounded-f…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "DrawerHandle": {
+      "export": "DrawerHandle",
+      "variants": {},
+      "root": {
+        "part": "DrawerHandle",
+        "slot": "drawer-handle",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DrawerHandle",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer-handle",
+          "slotDocumented": true,
+          "class": "group/handle mx-auto mt-1 block cursor-grab rounded-full px-4 pt-1.5 pb-2 outline-none focus-visible:ring-2 focus-visible:ring-ring hover:[&>span]:bg-foreground/25",
+          "attrs": {},
+          "children": [
+            {
+              "t": "el",
+              "tag": "span",
+              "class": "mx-auto block h-1 w-9 shrink-0 rounded-full bg-foreground/15 transition-[width,background-color] duration-[calc(380ms*var(--kf-speed,1))] ease-spring group-data-dragging/drawer:w-16 group-data-dragging/drawer:bg-foreground/35 group-data-[side=left]/drawer:hidden group-data-[side=right]/drawer:hidden motion-reduce:transition-none!",
+              "attrs": {},
+              "children": []
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"mx-auto block h-1 w-9 shrink-0 rounded-f…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "DrawerHeader": {
+      "export": "DrawerHeader",
+      "variants": {},
+      "root": {
+        "element": "div",
+        "slot": "drawer-header"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "div",
+          "class": "flex flex-col gap-1 px-5 pt-3",
+          "attrs": {
+            "data-slot": "drawer-header"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "DrawerOutlet": {
+      "export": "DrawerOutlet",
+      "variants": {},
+      "root": {
+        "part": "DrawerOutlet",
+        "slot": "drawer-outlet",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DrawerOutlet",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer-outlet",
+          "slotDocumented": true,
+          "class": "origin-top",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "DrawerShortcut": {
+      "export": "DrawerShortcut",
+      "variants": {},
+      "root": {
+        "part": "DrawerShortcut",
+        "slot": "drawer-shortcut",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DrawerShortcut",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer-shortcut",
+          "slotDocumented": false,
+          "class": "ms-1 text-[12px] leading-none tracking-[0.04em] text-muted-foreground tabular-nums",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "DrawerTitle": {
+      "export": "DrawerTitle",
+      "variants": {},
+      "root": {
+        "part": "DrawerTitle",
+        "slot": "drawer-title",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DrawerTitle",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer-title",
+          "slotDocumented": false,
+          "class": "text-[15px] leading-5 font-semibold tracking-tight",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "DrawerTrigger": {
+      "export": "DrawerTrigger",
+      "variants": {},
+      "renderClass": "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none! outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      "root": {
+        "part": "DrawerTrigger",
+        "slot": "drawer-trigger",
+        "module": "@ui-sdk/react/drawer"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "DrawerTrigger",
+          "module": "@ui-sdk/react/drawer",
+          "slot": "drawer-trigger",
+          "slotDocumented": true,
+          "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! bg-background text-foreground dark:bg-accent shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--background),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--accent),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "conditional",
+          "detail": "!props.render && [keyBase, keySurface, \"h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4\"] (default props: kept)"
+        },
+        {
+          "kind": "conditional",
+          "detail": "props.render && \"outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\" (default props: dropped)"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "drawer-backdrop": "fixed inset-0 bg-black/30 backdrop-blur-[3px] dark:bg-black/60 data-interactive:backdrop-blur-none",
+    "drawer-close": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-9 rounded-[10px] px-4 text-[14px] [&_svg]:size-4 bg-background text-foreground dark:bg-accent shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--background),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--accent),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)]",
+    "drawer-content": "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc((calc(60ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))*var(--kf-flourish,1))] [--kf-sheet-progress:var(--drawer-progress,1)] *:opacity-[calc(0.55+var(--kf-sheet-progress,1)*0.45)] motion-reduce:[&>*]:animate-none group/drawer flex flex-col border-0 bg-[var(--drawer-face,var(--popover))] text-[color:var(--drawer-ink,var(--popover-foreground))] outline-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_-8px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_-8px_32px_-8px_rgb(0_0_0/0.7)] data-[side=bottom]:mx-auto data-[side=bottom]:max-h-[calc(100dvh-48px)] data-[side=bottom]:w-full data-[side=bottom]:max-w-[var(--drawer-width,480px)] data-[side=bottom]:rounded-t-[var(--drawer-radius,18px)] data-[side=bottom]:pb-[max(20px,env(safe-area-inset-bottom))] data-[side=bottom]:after:absolute data-[side=bottom]:after:inset-x-0 data-[side=bottom]:after:top-full data-[side=bottom]:after:h-24 data-[side=bottom]:after:bg-[var(--drawer-face,var(--popover))] data-[side=top]:mx-auto data-[side=top]:max-h-[calc(100dvh-48px)] data-[side=top]:w-full data-[side=top]:max-w-[var(--drawer-width,480px)] data-[side=top]:rounded-b-[var(--drawer-radius,18px)] data-[side=left]:h-full data-[side=left]:w-[min(var(--drawer-width,380px),calc(100vw-48px))] data-[side=left]:rounded-r-[var(--drawer-radius,18px)] data-[side=right]:h-full data-[side=right]:w-[min(var(--drawer-width,380px),calc(100vw-48px))] data-[side=right]:rounded-l-[var(--drawer-radius,18px)] origin-top scale-[calc(1-var(--drawer-stack,0)*0.04)] data-dragging:cursor-grabbing",
+    "drawer-description": "text-[13px] leading-5 text-muted-foreground",
+    "drawer-footer": "mt-auto flex flex-col gap-[var(--drawer-gap,0.5rem)] px-5 pt-4",
+    "drawer-grip": "pt-2.5 pb-1",
+    "drawer-handle": "group/handle mx-auto mt-1 block cursor-grab rounded-full px-4 pt-1.5 pb-2 outline-none focus-visible:ring-2 focus-visible:ring-ring hover:[&>span]:bg-foreground/25",
+    "drawer-header": "flex flex-col gap-1 px-5 pt-3",
+    "drawer-outlet": "origin-top",
+    "drawer-shortcut": "ms-1 text-[12px] leading-none tracking-[0.04em] text-muted-foreground tabular-nums",
+    "drawer-title": "text-[15px] leading-5 font-semibold tracking-tight",
+    "drawer-trigger": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! bg-background text-foreground dark:bg-accent shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--background),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--accent),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4"
+  },
+  "styles": {
+    "kf-cascade": "@keyframes kf-cascade{from{opacity:0;translate:0 8px;filter:blur(4px)}}@media (prefers-reduced-motion:reduce){@keyframes kf-cascade{from{opacity:0}}}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "speed-prop": 2,
+    "conditional": 3,
+    "variants": 1,
+    "extra-elements": 2
+  },
+  "flourish": true
+}

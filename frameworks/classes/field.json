@@ -1,0 +1,262 @@
+{
+  "slug": "field",
+  "module": "@ui-sdk/react/field",
+  "parts": {
+    "Field": {
+      "export": "Field",
+      "variants": {},
+      "root": {
+        "part": "Field",
+        "slot": "field",
+        "module": "@ui-sdk/react/field"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Field",
+          "module": "@ui-sdk/react/field",
+          "slot": "field",
+          "slotDocumented": true,
+          "class": "flex min-w-0 flex-col gap-[var(--field-gap,0.375rem)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FieldControl": {
+      "export": "FieldControl",
+      "variants": {},
+      "root": {
+        "part": "FieldControl",
+        "slot": "field-control",
+        "module": "@ui-sdk/react/field"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FieldControl",
+          "module": "@ui-sdk/react/field",
+          "slot": "field-control",
+          "slotDocumented": true,
+          "class": "outline-offset-[calc(10px*var(--kf-flourish,1))] focus-visible:outline-offset-0 [transition:outline-offset_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-width_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-color_0s_linear_calc(160ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] focus-visible:[transition:outline-offset_calc((150ms+750ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring),outline-width_calc((150ms+750ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring),outline-color_calc((150ms+550ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]! h-[var(--field-height,2.25rem)] w-full min-w-0 rounded-[var(--field-radius,10px)] bg-[var(--field-face,var(--background))] px-3 text-[13px] text-[color:var(--field-ink,var(--foreground))] placeholder:text-[color:color-mix(in_oklab,var(--field-muted,var(--muted-foreground))_70%,transparent)] outline-0 outline-ring aria-invalid:outline-destructive focus-visible:outline-[3px] focus-visible:outline-ring/30 aria-invalid:focus-visible:outline-destructive/30 [--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)] shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)] hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)] focus-visible:[--field-line:var(--ring)] dark:focus-visible:[--field-line:var(--ring)] aria-invalid:[--field-line:var(--field-error,var(--destructive))] dark:aria-invalid:[--field-line:var(--field-error,var(--destructive))] disabled:cursor-not-allowed disabled:bg-muted disabled:text-[color:var(--field-muted,var(--muted-foreground))] disabled:[--field-line:rgb(0_0_0/0.06)] dark:disabled:[--field-line:rgb(255_255_255/0.06)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FieldDescription": {
+      "export": "FieldDescription",
+      "variants": {},
+      "root": {
+        "part": "FieldDescription",
+        "slot": "field-description",
+        "module": "@ui-sdk/react/field"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FieldDescription",
+          "module": "@ui-sdk/react/field",
+          "slot": "field-description",
+          "slotDocumented": true,
+          "class": "text-[12px] leading-4 text-[color:var(--field-muted,var(--muted-foreground))] transition-opacity duration-[calc(150ms*var(--kf-speed,1))] data-disabled:opacity-50 motion-reduce:transition-none!",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FieldError": {
+      "export": "FieldError",
+      "variants": {},
+      "root": {
+        "part": "FieldError",
+        "slot": "field-error",
+        "module": "@ui-sdk/react/field"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FieldError",
+          "module": "@ui-sdk/react/field",
+          "slot": "field-error",
+          "slotDocumented": true,
+          "class": "overflow-hidden [interpolate-size:allow-keywords] [transition:height_calc(520ms*var(--kf-speed,1))_var(--ease-house),margin_calc(520ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house),translate_calc(760ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(520ms*var(--kf-speed,1))_var(--ease-house)] starting:h-0 starting:translate-y-[calc(1rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(4px*var(--kf-flourish,1))] motion-reduce:[transition:none]! text-[12px] leading-4 font-medium text-[color:var(--field-error,var(--destructive))] starting:mt-[calc(-1*var(--field-gap,0.375rem))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FieldGroup": {
+      "export": "FieldGroup",
+      "variants": {},
+      "root": {
+        "part": "FieldGroup",
+        "slot": "field-group",
+        "module": "@ui-sdk/react/field"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FieldGroup",
+          "module": "@ui-sdk/react/field",
+          "slot": "field-group",
+          "slotDocumented": true,
+          "class": "flex min-w-0 flex-col gap-4",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FieldLabel": {
+      "export": "FieldLabel",
+      "variants": {},
+      "root": {
+        "part": "FieldLabel",
+        "slot": "field-label",
+        "module": "@ui-sdk/react/field"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FieldLabel",
+          "module": "@ui-sdk/react/field",
+          "slot": "field-label",
+          "slotDocumented": true,
+          "class": "w-fit text-[13px] leading-4 font-medium text-[color:var(--field-ink,var(--foreground))] transition-opacity duration-[calc(150ms*var(--kf-speed,1))] data-disabled:opacity-50 motion-reduce:transition-none!",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FieldLegend": {
+      "export": "FieldLegend",
+      "variants": {},
+      "root": {
+        "part": "FieldLegend",
+        "slot": "field-legend",
+        "module": "@ui-sdk/react/field"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FieldLegend",
+          "module": "@ui-sdk/react/field",
+          "slot": "field-legend",
+          "slotDocumented": true,
+          "class": "float-left w-full p-0 text-[15px] leading-5 font-semibold tracking-tight text-[color:var(--field-ink,var(--foreground))] transition-opacity duration-[calc(150ms*var(--kf-speed,1))] data-disabled:opacity-50 motion-reduce:transition-none!",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FieldSet": {
+      "export": "FieldSet",
+      "variants": {},
+      "root": {
+        "part": "FieldSet",
+        "slot": "field-set",
+        "module": "@ui-sdk/react/field"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FieldSet",
+          "module": "@ui-sdk/react/field",
+          "slot": "field-set",
+          "slotDocumented": true,
+          "class": "m-0 flex min-w-0 flex-col gap-4 border-0 p-0 *:data-[slot=field-description]:-mt-2.5 *:data-[slot=field-description]:text-[13px] *:data-[slot=field-description]:leading-5",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "field": "flex min-w-0 flex-col gap-[var(--field-gap,0.375rem)]",
+    "field-control": "outline-offset-[calc(10px*var(--kf-flourish,1))] focus-visible:outline-offset-0 [transition:outline-offset_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-width_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-color_0s_linear_calc(160ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] focus-visible:[transition:outline-offset_calc((150ms+750ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring),outline-width_calc((150ms+750ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring),outline-color_calc((150ms+550ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]! h-[var(--field-height,2.25rem)] w-full min-w-0 rounded-[var(--field-radius,10px)] bg-[var(--field-face,var(--background))] px-3 text-[13px] text-[color:var(--field-ink,var(--foreground))] placeholder:text-[color:color-mix(in_oklab,var(--field-muted,var(--muted-foreground))_70%,transparent)] outline-0 outline-ring aria-invalid:outline-destructive focus-visible:outline-[3px] focus-visible:outline-ring/30 aria-invalid:focus-visible:outline-destructive/30 [--field-line:rgb(0_0_0/0.09)] dark:[--field-line:rgb(255_255_255/0.1)] shadow-[0_0_0_1px_var(--field-line),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_var(--field-line)] hover:[--field-line:rgb(0_0_0/0.16)] dark:hover:[--field-line:rgb(255_255_255/0.18)] focus-visible:[--field-line:var(--ring)] dark:focus-visible:[--field-line:var(--ring)] aria-invalid:[--field-line:var(--field-error,var(--destructive))] dark:aria-invalid:[--field-line:var(--field-error,var(--destructive))] disabled:cursor-not-allowed disabled:bg-muted disabled:text-[color:var(--field-muted,var(--muted-foreground))] disabled:[--field-line:rgb(0_0_0/0.06)] dark:disabled:[--field-line:rgb(255_255_255/0.06)]",
+    "field-description": "text-[12px] leading-4 text-[color:var(--field-muted,var(--muted-foreground))] transition-opacity duration-[calc(150ms*var(--kf-speed,1))] data-disabled:opacity-50 motion-reduce:transition-none!",
+    "field-error": "overflow-hidden [interpolate-size:allow-keywords] [transition:height_calc(520ms*var(--kf-speed,1))_var(--ease-house),margin_calc(520ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house),translate_calc(760ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(520ms*var(--kf-speed,1))_var(--ease-house)] starting:h-0 starting:translate-y-[calc(1rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(4px*var(--kf-flourish,1))] motion-reduce:[transition:none]! text-[12px] leading-4 font-medium text-[color:var(--field-error,var(--destructive))] starting:mt-[calc(-1*var(--field-gap,0.375rem))]",
+    "field-group": "flex min-w-0 flex-col gap-4",
+    "field-label": "w-fit text-[13px] leading-4 font-medium text-[color:var(--field-ink,var(--foreground))] transition-opacity duration-[calc(150ms*var(--kf-speed,1))] data-disabled:opacity-50 motion-reduce:transition-none!",
+    "field-legend": "float-left w-full p-0 text-[15px] leading-5 font-semibold tracking-tight text-[color:var(--field-ink,var(--foreground))] transition-opacity duration-[calc(150ms*var(--kf-speed,1))] data-disabled:opacity-50 motion-reduce:transition-none!",
+    "field-set": "m-0 flex min-w-0 flex-col gap-4 border-0 p-0 *:data-[slot=field-description]:-mt-2.5 *:data-[slot=field-description]:text-[13px] *:data-[slot=field-description]:leading-5"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {},
+  "flourish": true
+}

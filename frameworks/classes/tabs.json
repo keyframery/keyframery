@@ -1,0 +1,562 @@
+{
+  "slug": "tabs",
+  "module": "@ui-sdk/react/tabs",
+  "parts": {
+    "Tabs": {
+      "export": "Tabs",
+      "variants": {},
+      "root": {
+        "part": "Tabs",
+        "slot": "tabs",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Tabs",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs",
+          "slotDocumented": true,
+          "class": "flex flex-col data-[orientation=vertical]:flex-row data-[orientation=vertical]:gap-4",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TabsIndicator": {
+      "export": "TabsIndicator",
+      "variants": {},
+      "root": {
+        "part": "TabsIndicator",
+        "slot": "tabs-indicator",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsIndicator",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-indicator",
+          "slotDocumented": true,
+          "class": "pointer-events-none absolute [--kf-la:var(--active-tab-left,0px)] [--kf-lb:var(--active-tab-left,0px)] [--kf-ra:var(--active-tab-right,0px)] [--kf-rb:var(--active-tab-right,0px)] [--kf-ba:var(--active-tab-bottom,0px)] [--kf-bb:var(--active-tab-bottom,0px)] [--kf-ta:var(--active-tab-top,0px)] [--kf-tb:var(--active-tab-top,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! group/key rounded-[var(--tabs-key-radius,9px)] bg-[var(--tabs-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--tabs-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] -z-10",
+          "attrs": {
+            "data-ready": {
+              "state": "ready",
+              "initial": false
+            },
+            "aria-hidden": true
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [
+        {
+          "kind": "ready-after",
+          "state": "ready",
+          "ms": 150
+        }
+      ],
+      "lost": [
+        {
+          "kind": "js-carried",
+          "detail": "ready-after ready after 150ms (carried by the framework wrappers; CSS uses [data-activation-direction] instead)"
+        }
+      ]
+    },
+    "TabsList": {
+      "export": "TabsList",
+      "variants": {},
+      "root": {
+        "part": "TabsList",
+        "slot": "tabs-list",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsList",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-list",
+          "slotDocumented": true,
+          "class": "relative isolate flex items-center gap-[var(--tabs-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch w-fit rounded-[var(--tabs-radius,12px)] bg-[var(--tabs-track,var(--muted))] shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            },
+            {
+              "t": "part",
+              "name": "TabsIndicator",
+              "module": "@ui-sdk/react/tabs",
+              "slot": "tabs-indicator",
+              "slotDocumented": true,
+              "class": "pointer-events-none absolute [--kf-la:var(--active-tab-left,0px)] [--kf-lb:var(--active-tab-left,0px)] [--kf-ra:var(--active-tab-right,0px)] [--kf-rb:var(--active-tab-right,0px)] [--kf-ba:var(--active-tab-bottom,0px)] [--kf-bb:var(--active-tab-bottom,0px)] [--kf-ta:var(--active-tab-top,0px)] [--kf-tb:var(--active-tab-top,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! group/key rounded-[var(--tabs-key-radius,9px)] bg-[var(--tabs-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--tabs-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] -z-10",
+              "attrs": {
+                "data-ready": {
+                  "state": "ready",
+                  "initial": false
+                },
+                "aria-hidden": true
+              },
+              "children": []
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [
+        {
+          "kind": "ready-after",
+          "state": "ready",
+          "ms": 150
+        }
+      ],
+      "lost": [
+        {
+          "kind": "js-carried",
+          "detail": "ready-after ready after 150ms (carried by the framework wrappers; CSS uses [data-activation-direction] instead)"
+        },
+        {
+          "kind": "adapted",
+          "detail": "the clipped copy of the labels inside the key is not rendered; the key sits under the labels and the selected label changes colour instead (no colour wipe as the key passes)"
+        }
+      ]
+    },
+    "TabsPanel": {
+      "export": "TabsPanel",
+      "variants": {},
+      "root": {
+        "part": "TabsPanel",
+        "slot": "tabs-panel",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsPanel",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-panel",
+          "slotDocumented": true,
+          "class": "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1))] ease-spring data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-[activation-direction=right]:data-starting-style:translate-x-[calc(2rem*var(--kf-flourish,1))] data-[activation-direction=left]:data-starting-style:-translate-x-[calc(2rem*var(--kf-flourish,1))] data-[activation-direction=down]:data-starting-style:translate-y-[calc(1.5rem*var(--kf-flourish,1))] data-[activation-direction=up]:data-starting-style:-translate-y-[calc(1.5rem*var(--kf-flourish,1))] data-ending-style:hidden group-data-[slot=tabs-panels]/panels:[grid-area:1/1] group-data-[slot=tabs-panels]/panels:data-ending-style:block data-ending-style:opacity-0 data-ending-style:blur-[calc(6px*var(--kf-flourish,1))] data-ending-style:duration-[calc(200ms*var(--kf-speed,1))] data-ending-style:ease-house data-[activation-direction=right]:data-ending-style:-translate-x-[calc(1.5rem*var(--kf-flourish,1))] data-[activation-direction=left]:data-ending-style:translate-x-[calc(1.5rem*var(--kf-flourish,1))] data-[activation-direction=down]:data-ending-style:-translate-y-[calc(1rem*var(--kf-flourish,1))] data-[activation-direction=up]:data-ending-style:translate-y-[calc(1rem*var(--kf-flourish,1))] motion-reduce:transition-none! min-w-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TabsPanels": {
+      "export": "TabsPanels",
+      "variants": {},
+      "root": {
+        "element": "div",
+        "slot": "tabs-panels"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "div",
+          "class": "group/panels grid min-w-0 mt-3 flex-1",
+          "attrs": {
+            "data-slot": "tabs-panels"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TabsTab": {
+      "export": "TabsTab",
+      "variants": {},
+      "root": {
+        "part": "TabsTab",
+        "slot": "tabs-tab",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsTab",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-tab",
+          "slotDocumented": true,
+          "class": "duration-[calc(150ms*var(--kf-speed,1))] ease-spring active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex h-[var(--tabs-height,2rem)] shrink-0 items-center justify-center gap-1.5 rounded-[var(--tabs-key-radius,9px)] px-3 text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0 relative cursor-pointer text-[color:var(--tabs-ink,var(--muted-foreground))] outline-none select-none transition-[color,background-color,scale] motion-reduce:transition-none! hover:bg-[color-mix(in_oklab,var(--tabs-selected-ink,var(--foreground))_4.5%,transparent)] hover:text-[color:var(--tabs-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted data-disabled:pointer-events-none data-disabled:opacity-40 data-selected:text-[color:var(--tabs-selected-ink,var(--foreground))] data-checked:text-[color:var(--tabs-selected-ink,var(--foreground))] data-selected:hover:bg-transparent data-checked:hover:bg-transparent",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TabsTabIcon": {
+      "export": "TabsTabIcon",
+      "variants": {},
+      "root": {
+        "part": "TabsTabIcon",
+        "slot": "tabs-tab-icon",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsTabIcon",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-tab-icon",
+          "slotDocumented": true,
+          "class": "inline-flex shrink-0 items-center justify-center [&_svg]:size-3.5",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "tabs": "flex flex-col data-[orientation=vertical]:flex-row data-[orientation=vertical]:gap-4",
+    "tabs-indicator": "group/key pointer-events-none absolute [--kf-la:var(--active-tab-left,0px)] [--kf-lb:var(--active-tab-left,0px)] [--kf-ra:var(--active-tab-right,0px)] [--kf-rb:var(--active-tab-right,0px)] [--kf-ba:var(--active-tab-bottom,0px)] [--kf-bb:var(--active-tab-bottom,0px)] [--kf-ta:var(--active-tab-top,0px)] [--kf-tb:var(--active-tab-top,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! group/key rounded-[var(--tabs-key-radius,9px)] bg-[var(--tabs-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--tabs-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] -z-10",
+    "tabs-list": "relative isolate flex items-center gap-[var(--tabs-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch w-fit rounded-[var(--tabs-radius,12px)] bg-[var(--tabs-track,var(--muted))] shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+    "tabs-panel": "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1))] ease-spring data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-[activation-direction=right]:data-starting-style:translate-x-[calc(2rem*var(--kf-flourish,1))] data-[activation-direction=left]:data-starting-style:-translate-x-[calc(2rem*var(--kf-flourish,1))] data-[activation-direction=down]:data-starting-style:translate-y-[calc(1.5rem*var(--kf-flourish,1))] data-[activation-direction=up]:data-starting-style:-translate-y-[calc(1.5rem*var(--kf-flourish,1))] data-ending-style:hidden group-data-[slot=tabs-panels]/panels:[grid-area:1/1] group-data-[slot=tabs-panels]/panels:data-ending-style:block data-ending-style:opacity-0 data-ending-style:blur-[calc(6px*var(--kf-flourish,1))] data-ending-style:duration-[calc(200ms*var(--kf-speed,1))] data-ending-style:ease-house data-[activation-direction=right]:data-ending-style:-translate-x-[calc(1.5rem*var(--kf-flourish,1))] data-[activation-direction=left]:data-ending-style:translate-x-[calc(1.5rem*var(--kf-flourish,1))] data-[activation-direction=down]:data-ending-style:-translate-y-[calc(1rem*var(--kf-flourish,1))] data-[activation-direction=up]:data-ending-style:translate-y-[calc(1rem*var(--kf-flourish,1))] motion-reduce:transition-none! min-w-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    "tabs-panels": "group/panels grid min-w-0 mt-3 flex-1",
+    "tabs-tab": "duration-[calc(150ms*var(--kf-speed,1))] ease-spring active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex h-[var(--tabs-height,2rem)] shrink-0 items-center justify-center gap-1.5 rounded-[var(--tabs-key-radius,9px)] px-3 text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0 relative cursor-pointer text-[color:var(--tabs-ink,var(--muted-foreground))] outline-none select-none transition-[color,background-color,scale] motion-reduce:transition-none! hover:bg-[color-mix(in_oklab,var(--tabs-selected-ink,var(--foreground))_4.5%,transparent)] hover:text-[color:var(--tabs-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted data-disabled:pointer-events-none data-disabled:opacity-40 data-selected:text-[color:var(--tabs-selected-ink,var(--foreground))] data-checked:text-[color:var(--tabs-selected-ink,var(--foreground))] data-selected:hover:bg-transparent data-checked:hover:bg-transparent",
+    "tabs-tab-icon": "inline-flex shrink-0 items-center justify-center [&_svg]:size-3.5"
+  },
+  "styles": {
+    "kf-stretch": "@property --kf-la{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-lb{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-ra{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-rb{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-ta{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-tb{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-ba{syntax:\"<length>\";inherits:true;initial-value:0px}@property --kf-bb{syntax:\"<length>\";inherits:true;initial-value:0px}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "original": {
+    "Tabs": {
+      "export": "Tabs",
+      "variants": {},
+      "root": {
+        "part": "Tabs",
+        "slot": "tabs",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Tabs",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs",
+          "slotDocumented": true,
+          "class": "flex flex-col data-[orientation=vertical]:flex-row data-[orientation=vertical]:gap-4",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TabsIndicator": {
+      "export": "TabsIndicator",
+      "variants": {},
+      "root": {
+        "part": "TabsIndicator",
+        "slot": "tabs-indicator",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsIndicator",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-indicator",
+          "slotDocumented": true,
+          "class": "pointer-events-none absolute [--kf-la:var(--active-tab-left,0px)] [--kf-lb:var(--active-tab-left,0px)] [--kf-ra:var(--active-tab-right,0px)] [--kf-rb:var(--active-tab-right,0px)] [--kf-ba:var(--active-tab-bottom,0px)] [--kf-bb:var(--active-tab-bottom,0px)] [--kf-ta:var(--active-tab-top,0px)] [--kf-tb:var(--active-tab-top,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! group/key z-10 rounded-[var(--tabs-key-radius,9px)] bg-[var(--tabs-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--tabs-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+          "attrs": {
+            "data-ready": {
+              "state": "ready",
+              "initial": false
+            },
+            "aria-hidden": true
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [
+        {
+          "kind": "ready-after",
+          "state": "ready",
+          "ms": 150
+        }
+      ],
+      "lost": [
+        {
+          "kind": "js-carried",
+          "detail": "ready-after ready after 150ms (carried by the framework wrappers; CSS uses [data-activation-direction] instead)"
+        }
+      ]
+    },
+    "TabsList": {
+      "export": "TabsList",
+      "variants": {},
+      "root": {
+        "part": "TabsList",
+        "slot": "tabs-list",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsList",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-list",
+          "slotDocumented": true,
+          "class": "relative isolate flex items-center gap-[var(--tabs-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch w-fit rounded-[var(--tabs-radius,12px)] bg-[var(--tabs-track,var(--muted))] shadow-[inset_0_1px_2px_rgb(0_0_0/0.07),inset_0_0_0_1px_rgb(0_0_0/0.035)] dark:shadow-[inset_0_1px_2px_rgb(0_0_0/0.5),inset_0_0_0_1px_rgb(255_255_255/0.04)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            },
+            {
+              "t": "part",
+              "name": "TabsIndicator",
+              "module": "@ui-sdk/react/tabs",
+              "slot": "tabs-indicator",
+              "slotDocumented": true,
+              "class": "pointer-events-none absolute [--kf-la:var(--active-tab-left,0px)] [--kf-lb:var(--active-tab-left,0px)] [--kf-ra:var(--active-tab-right,0px)] [--kf-rb:var(--active-tab-right,0px)] [--kf-ba:var(--active-tab-bottom,0px)] [--kf-bb:var(--active-tab-bottom,0px)] [--kf-ta:var(--active-tab-top,0px)] [--kf-tb:var(--active-tab-top,0px)] top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))] motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))] motion-reduce:[transition:none]! group/key z-10 rounded-[var(--tabs-key-radius,9px)] bg-[var(--tabs-key,var(--background))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--tabs-key,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+              "attrs": {
+                "data-ready": {
+                  "state": "ready",
+                  "initial": false
+                },
+                "aria-hidden": true
+              },
+              "children": [
+                {
+                  "t": "el",
+                  "tag": "span",
+                  "class": "absolute inset-0 overflow-hidden rounded-[inherit]",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "span",
+                      "class": "flex items-center gap-[var(--tabs-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch absolute text-[color:var(--tabs-selected-ink,var(--foreground))] group-data-[orientation=vertical]/key:flex-col group-data-[orientation=vertical]/key:items-stretch top-[calc(min(var(--kf-ta),var(--kf-tb))*-1)] left-[calc(min(var(--kf-la),var(--kf-lb))*-1)] h-[calc(var(--active-tab-top,0px)+var(--active-tab-height,0px)+var(--active-tab-bottom,0px))] w-[calc(var(--active-tab-left,0px)+var(--active-tab-width,0px)+var(--active-tab-right,0px))]",
+                      "attrs": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [
+        {
+          "kind": "ready-after",
+          "state": "ready",
+          "ms": 150
+        }
+      ],
+      "lost": [
+        {
+          "kind": "children-copy",
+          "detail": "React.Children.map(content, (child) => React.isValidElement<{ children?: React.ReactNode }>(child) ? ( <span className={tabBox}>{child.props.children}</span> ) : a copy of the user's content (React.Children.map); not rendered"
+        },
+        {
+          "kind": "extra-elements",
+          "detail": "renders <span class=\"absolute inset-0 overflow-hidden rounded…\">, <span class=\"flex items-center gap-[var(--tabs-gap,0.…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        },
+        {
+          "kind": "js-carried",
+          "detail": "ready-after ready after 150ms (carried by the framework wrappers; CSS uses [data-activation-direction] instead)"
+        }
+      ]
+    },
+    "TabsPanel": {
+      "export": "TabsPanel",
+      "variants": {},
+      "root": {
+        "part": "TabsPanel",
+        "slot": "tabs-panel",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsPanel",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-panel",
+          "slotDocumented": true,
+          "class": "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1))] ease-spring data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-[activation-direction=right]:data-starting-style:translate-x-[calc(2rem*var(--kf-flourish,1))] data-[activation-direction=left]:data-starting-style:-translate-x-[calc(2rem*var(--kf-flourish,1))] data-[activation-direction=down]:data-starting-style:translate-y-[calc(1.5rem*var(--kf-flourish,1))] data-[activation-direction=up]:data-starting-style:-translate-y-[calc(1.5rem*var(--kf-flourish,1))] data-ending-style:hidden group-data-[slot=tabs-panels]/panels:[grid-area:1/1] group-data-[slot=tabs-panels]/panels:data-ending-style:block data-ending-style:opacity-0 data-ending-style:blur-[calc(6px*var(--kf-flourish,1))] data-ending-style:duration-[calc(200ms*var(--kf-speed,1))] data-ending-style:ease-house data-[activation-direction=right]:data-ending-style:-translate-x-[calc(1.5rem*var(--kf-flourish,1))] data-[activation-direction=left]:data-ending-style:translate-x-[calc(1.5rem*var(--kf-flourish,1))] data-[activation-direction=down]:data-ending-style:-translate-y-[calc(1rem*var(--kf-flourish,1))] data-[activation-direction=up]:data-ending-style:translate-y-[calc(1rem*var(--kf-flourish,1))] motion-reduce:transition-none! min-w-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TabsPanels": {
+      "export": "TabsPanels",
+      "variants": {},
+      "root": {
+        "element": "div",
+        "slot": "tabs-panels"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "div",
+          "class": "group/panels grid min-w-0 mt-3 flex-1",
+          "attrs": {
+            "data-slot": "tabs-panels"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TabsTab": {
+      "export": "TabsTab",
+      "variants": {},
+      "root": {
+        "part": "TabsTab",
+        "slot": "tabs-tab",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsTab",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-tab",
+          "slotDocumented": true,
+          "class": "duration-[calc(150ms*var(--kf-speed,1))] ease-spring active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex h-[var(--tabs-height,2rem)] shrink-0 items-center justify-center gap-1.5 rounded-[var(--tabs-key-radius,9px)] px-3 text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0 relative cursor-pointer text-[color:var(--tabs-ink,var(--muted-foreground))] outline-none select-none transition-[color,background-color,scale] motion-reduce:transition-none! hover:bg-[color-mix(in_oklab,var(--tabs-selected-ink,var(--foreground))_4.5%,transparent)] hover:text-[color:var(--tabs-selected-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted data-disabled:pointer-events-none data-disabled:opacity-40",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "TabsTabIcon": {
+      "export": "TabsTabIcon",
+      "variants": {},
+      "root": {
+        "part": "TabsTabIcon",
+        "slot": "tabs-tab-icon",
+        "module": "@ui-sdk/react/tabs"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "TabsTabIcon",
+          "module": "@ui-sdk/react/tabs",
+          "slot": "tabs-tab-icon",
+          "slotDocumented": true,
+          "class": "inline-flex shrink-0 items-center justify-center [&_svg]:size-3.5",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "adaptations": [
+    "tabs-indicator: key under the labels (-z-10) instead of a clipped copy of the labels; tabs-tab: selected colour on the label itself"
+  ],
+  "lostKinds": {
+    "js-carried": 2,
+    "adapted": 1
+  },
+  "flourish": true
+}

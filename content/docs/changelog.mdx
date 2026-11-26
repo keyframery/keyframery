@@ -4,6 +4,21 @@ heading: "Changelog"
 description: "What changed in Keyframery, newest first: new components, UI SDK upgrades, templates, motion styles and fixes."
 ---
 
+## 3.1: Keyframery for Vue
+
+November 2026
+
+Every Keyframery component now comes for Vue 3 and Nuxt, built on UI SDK for Vue: the same parts with the same names, the same Tailwind classes, the same five motion styles and the same [Agent view](/docs/agent-view).
+
+- **Install with the shadcn-vue CLI.** `npx shadcn-vue@latest add https://keyframery.com/r/vue/tabs.json` copies the component into `components/keyframery/`, one file per part, and adds the motion tokens to your CSS. Add `@keyframery` to `components.json` once and it's `npx shadcn-vue@latest add @keyframery/tabs`. [Install for Vue](/docs/installation/vue) covers Vite and Nuxt.
+- **Every component page has React and Vue code.** Installation, Usage and every example switch together, and the docs remember your pick.
+- **Written for Vue, not wrapped.** Props in kebab-case, `v-model`, scoped slots for state and `#render` for React's `render` prop. Every part is typed with UI SDK's own props, so your editor completes them and `vue-tsc` catches mistakes.
+- **Checked against React.** Every one of the 337 React examples has a Vue version, and a test bench compares the two in the browser, element by element, in Subtle and Springy. The components pass the `vue-ts` template's strict build and render in Nuxt on the server without hydration mismatches.
+
+**Smaller changes**
+
+- **Accordion** keeps text with a value in it, like `Fill in your {step} here.`, as one paragraph.
+
 ## 3.0: Quiet by default, sheets on phones
 
 November 2026

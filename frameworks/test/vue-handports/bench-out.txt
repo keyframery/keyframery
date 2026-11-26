@@ -1,0 +1,11 @@
+
+Components: 11 identical, 4 differs, 0 missing in Vue
+Runs: 82 identical, 22 differs
+Top differences:
+  data-* attribute: 24 diffs in 2 components
+  motion: x during the move: 11 diffs in 4 components
+  motion: width during the move: 10 diffs in 4 components
+  motion: y during the move: 8 diffs in 2 components
+  motion: height during the move: 6 diffs in 2 components
+
+Report: frameworks/bench/report.md (and report.json); shots in frameworks/bench/shots/

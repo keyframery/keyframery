@@ -1,0 +1,171 @@
+{
+  "slug": "hover-card",
+  "module": "@ui-sdk/react/hover-card",
+  "parts": {
+    "HoverCard": {
+      "export": "HoverCard",
+      "variants": {},
+      "root": {
+        "part": "HoverCard",
+        "slot": "hover-card",
+        "module": "@ui-sdk/react/hover-card"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "HoverCard",
+          "module": "@ui-sdk/react/hover-card",
+          "slot": "hover-card",
+          "slotDocumented": false,
+          "class": "",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "HoverCardArrow": {
+      "export": "HoverCardArrow",
+      "variants": {},
+      "root": {
+        "part": "HoverCardArrow",
+        "slot": "hover-card-arrow",
+        "module": "@ui-sdk/react/hover-card"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "HoverCardArrow",
+          "module": "@ui-sdk/react/hover-card",
+          "slot": "hover-card-arrow",
+          "slotDocumented": true,
+          "class": "pointer-events-none h-[7px] w-3.5 text-[color:var(--hover-card-surface,var(--popover))] data-[side=bottom]:bottom-full data-[side=top]:top-full data-[side=left]:left-full data-[side=left]:h-3.5 data-[side=left]:w-[7px] data-[side=right]:right-full data-[side=right]:h-3.5 data-[side=right]:w-[7px] [&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-1/2 [&>svg]:h-[7px] [&>svg]:w-3.5 [&>svg]:-translate-1/2 data-[side=top]:[&>svg]:rotate-180 data-[side=left]:[&>svg]:rotate-90 data-[side=right]:[&>svg]:-rotate-90",
+          "attrs": {},
+          "children": [
+            {
+              "t": "el",
+              "tag": "svg",
+              "class": "overflow-visible",
+              "attrs": {
+                "viewBox": "0 0 14 7",
+                "aria-hidden": true
+              },
+              "children": [
+                {
+                  "t": "el",
+                  "tag": "path",
+                  "class": "stroke-black/[0.06] dark:stroke-white/[0.08]",
+                  "attrs": {
+                    "d": "M0 7.5 L5.6 1.2 Q7 -0.3 8.4 1.2 L14 7.5",
+                    "fill": "currentColor",
+                    "strokeWidth": "1"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg class=\"overflow-visible…\">, <path class=\"stroke-black/[0.06] dark:stroke-white/[0…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "HoverCardContent": {
+      "export": "HoverCardContent",
+      "variants": {},
+      "root": {
+        "part": "HoverCardContent",
+        "slot": "hover-card-content",
+        "module": "@ui-sdk/react/hover-card"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "HoverCardContent",
+          "module": "@ui-sdk/react/hover-card",
+          "slot": "hover-card-content",
+          "slotDocumented": true,
+          "class": "origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring data-[side=bottom]:[--kf-from:0_-8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=top]:[--kf-from:0_8px] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc(calc(40ms*var(--kf-speed,1)*var(--kf-flourish,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)*var(--kf-flourish,1)))] motion-reduce:transition-none! motion-reduce:[&>*]:animate-none m-0 w-[var(--hover-card-width,18rem)] max-w-[calc(100vw-16px)] border-0 p-[var(--hover-card-padding,1rem)] text-[13px] outline-none rounded-[var(--hover-card-radius,14px)] bg-[var(--hover-card-surface,var(--popover))] text-[color:var(--hover-card-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          "attrs": {
+            "sideOffset": 8
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "speed-prop",
+          "detail": "the speed prop (sets --kf-speed through React context for portalled parts); set --kf-speed in CSS instead"
+        }
+      ]
+    },
+    "HoverCardTrigger": {
+      "export": "HoverCardTrigger",
+      "variants": {},
+      "root": {
+        "part": "HoverCardTrigger",
+        "slot": "hover-card-trigger",
+        "module": "@ui-sdk/react/hover-card"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "HoverCardTrigger",
+          "module": "@ui-sdk/react/hover-card",
+          "slot": "hover-card-trigger",
+          "slotDocumented": true,
+          "class": "cursor-pointer rounded-[3px] font-medium text-[color:var(--hover-card-link,var(--foreground))] underline decoration-foreground/25 decoration-1 underline-offset-[3px] outline-none transition-[text-decoration-color,background-color] duration-[calc(150ms*var(--kf-speed,1))] ease-house hover:decoration-foreground/70 data-open:decoration-foreground/70 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none!",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "hover-card-arrow": "pointer-events-none h-[7px] w-3.5 text-[color:var(--hover-card-surface,var(--popover))] data-[side=bottom]:bottom-full data-[side=top]:top-full data-[side=left]:left-full data-[side=left]:h-3.5 data-[side=left]:w-[7px] data-[side=right]:right-full data-[side=right]:h-3.5 data-[side=right]:w-[7px] [&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-1/2 [&>svg]:h-[7px] [&>svg]:w-3.5 [&>svg]:-translate-1/2 data-[side=top]:[&>svg]:rotate-180 data-[side=left]:[&>svg]:rotate-90 data-[side=right]:[&>svg]:-rotate-90",
+    "hover-card-content": "origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring data-[side=bottom]:[--kf-from:0_-8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=top]:[--kf-from:0_8px] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc(calc(40ms*var(--kf-speed,1)*var(--kf-flourish,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)*var(--kf-flourish,1)))] motion-reduce:transition-none! motion-reduce:[&>*]:animate-none m-0 w-[var(--hover-card-width,18rem)] max-w-[calc(100vw-16px)] border-0 p-[var(--hover-card-padding,1rem)] text-[13px] outline-none rounded-[var(--hover-card-radius,14px)] bg-[var(--hover-card-surface,var(--popover))] text-[color:var(--hover-card-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+    "hover-card-trigger": "cursor-pointer rounded-[3px] font-medium text-[color:var(--hover-card-link,var(--foreground))] underline decoration-foreground/25 decoration-1 underline-offset-[3px] outline-none transition-[text-decoration-color,background-color] duration-[calc(150ms*var(--kf-speed,1))] ease-house hover:decoration-foreground/70 data-open:decoration-foreground/70 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none!"
+  },
+  "styles": {
+    "kf-cascade": "@keyframes kf-cascade{from{opacity:0;translate:0 8px;filter:blur(4px)}}@media (prefers-reduced-motion:reduce){@keyframes kf-cascade{from{opacity:0}}}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "extra-elements": 1,
+    "speed-prop": 1
+  },
+  "flourish": true
+}

@@ -1,0 +1,409 @@
+{
+  "slug": "popover",
+  "module": "@ui-sdk/react/popover",
+  "parts": {
+    "Popover": {
+      "export": "Popover",
+      "variants": {},
+      "root": {
+        "part": "Popover",
+        "slot": "popover",
+        "module": "@ui-sdk/react/popover"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Popover",
+          "module": "@ui-sdk/react/popover",
+          "slot": "popover",
+          "slotDocumented": false,
+          "class": "",
+          "attrs": {
+            "presentation": "auto"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "PopoverArrow": {
+      "export": "PopoverArrow",
+      "variants": {},
+      "root": {
+        "part": "PopoverArrow",
+        "slot": "popover-arrow",
+        "module": "@ui-sdk/react/popover"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PopoverArrow",
+          "module": "@ui-sdk/react/popover",
+          "slot": "popover-arrow",
+          "slotDocumented": true,
+          "class": "pointer-events-none h-[7px] w-3.5 text-[color:var(--popover-surface,var(--popover))] data-[side=bottom]:bottom-full data-[side=top]:top-full data-[side=left]:left-full data-[side=left]:h-3.5 data-[side=left]:w-[7px] data-[side=right]:right-full data-[side=right]:h-3.5 data-[side=right]:w-[7px] [&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-1/2 [&>svg]:h-[7px] [&>svg]:w-3.5 [&>svg]:-translate-1/2 data-[side=top]:[&>svg]:rotate-180 data-[side=left]:[&>svg]:rotate-90 data-[side=right]:[&>svg]:-rotate-90",
+          "attrs": {},
+          "children": [
+            {
+              "t": "el",
+              "tag": "svg",
+              "class": "overflow-visible",
+              "attrs": {
+                "viewBox": "0 0 14 7",
+                "aria-hidden": true
+              },
+              "children": [
+                {
+                  "t": "el",
+                  "tag": "path",
+                  "class": "stroke-black/[0.06] dark:stroke-white/[0.08]",
+                  "attrs": {
+                    "d": "M0 7.5 L5.6 1.2 Q7 -0.3 8.4 1.2 L14 7.5",
+                    "fill": "currentColor",
+                    "strokeWidth": "1"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg class=\"overflow-visible…\">, <path class=\"stroke-black/[0.06] dark:stroke-white/[0…\"> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "PopoverClose": {
+      "export": "PopoverClose",
+      "variants": {
+        "variant": {
+          "default": "default",
+          "values": {
+            "primary": [
+              {
+                "t": "part",
+                "name": "PopoverClose",
+                "module": "@ui-sdk/react/popover",
+                "slot": "popover-close",
+                "slotDocumented": false,
+                "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4 bg-[var(--popover-primary,var(--primary))] text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-primary,var(--primary)),var(--background)_14%)] not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
+                "attrs": {
+                  "data-variant": {
+                    "param": "variant",
+                    "value": "primary"
+                  }
+                },
+                "children": [
+                  {
+                    "t": "slot",
+                    "fallback": null,
+                    "scoped": false
+                  }
+                ],
+                "receivesProps": true
+              }
+            ]
+          }
+        }
+      },
+      "matrix": {
+        "props": [
+          "variant"
+        ],
+        "trees": {
+          "default": [
+            {
+              "t": "part",
+              "name": "PopoverClose",
+              "module": "@ui-sdk/react/popover",
+              "slot": "popover-close",
+              "slotDocumented": false,
+              "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4 bg-[var(--popover-key,var(--background))] text-foreground dark:bg-[var(--popover-key,var(--accent))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)]",
+              "attrs": {
+                "data-variant": {
+                  "param": "variant",
+                  "value": "default"
+                }
+              },
+              "children": [
+                {
+                  "t": "slot",
+                  "fallback": null,
+                  "scoped": false
+                }
+              ],
+              "receivesProps": true
+            }
+          ],
+          "primary": [
+            {
+              "t": "part",
+              "name": "PopoverClose",
+              "module": "@ui-sdk/react/popover",
+              "slot": "popover-close",
+              "slotDocumented": false,
+              "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4 bg-[var(--popover-primary,var(--primary))] text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.25)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_1px_2px_rgb(0_0_0/0.5)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-primary,var(--primary)),var(--background)_14%)] not-data-disabled:active:shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_0_1px_rgb(0_0_0/0.3)]",
+              "attrs": {
+                "data-variant": {
+                  "param": "variant",
+                  "value": "primary"
+                }
+              },
+              "children": [
+                {
+                  "t": "slot",
+                  "fallback": null,
+                  "scoped": false
+                }
+              ],
+              "receivesProps": true
+            }
+          ]
+        }
+      },
+      "renderClass": "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none! outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      "root": {
+        "part": "PopoverClose",
+        "slot": "popover-close",
+        "module": "@ui-sdk/react/popover"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PopoverClose",
+          "module": "@ui-sdk/react/popover",
+          "slot": "popover-close",
+          "slotDocumented": false,
+          "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4 bg-[var(--popover-key,var(--background))] text-foreground dark:bg-[var(--popover-key,var(--accent))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)]",
+          "attrs": {
+            "data-variant": {
+              "param": "variant",
+              "value": "default"
+            }
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "conditional",
+          "detail": "props.render && \"outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\" (default props: dropped)"
+        },
+        {
+          "kind": "variants",
+          "detail": "carried as the variant prop (default, primary); the web stylesheet matches data-variant on the part (set it yourself on the element)"
+        }
+      ]
+    },
+    "PopoverContent": {
+      "export": "PopoverContent",
+      "variants": {},
+      "root": {
+        "part": "PopoverContent",
+        "slot": "popover-content",
+        "module": "@ui-sdk/react/popover"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PopoverContent",
+          "module": "@ui-sdk/react/popover",
+          "slot": "popover-content",
+          "slotDocumented": true,
+          "class": "origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring data-[side=bottom]:[--kf-from:0_-8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=top]:[--kf-from:0_8px] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-[presentation=sheet]:data-starting-style:scale-100 data-[presentation=sheet]:data-starting-style:blur-none data-[presentation=sheet]:data-starting-style:translate-none data-[presentation=sheet]:data-ending-style:scale-100 data-[presentation=sheet]:data-ending-style:blur-none data-[presentation=sheet]:data-ending-style:translate-none data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc((calc(40ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))*var(--kf-flourish,1))] motion-reduce:transition-none! motion-reduce:[&>*]:animate-none m-0 max-h-(--available-height) w-[var(--popover-width,18rem)] max-w-[calc(100vw-16px)] overflow-visible border-0 p-[var(--popover-padding,1rem)] outline-none rounded-[var(--popover-radius,14px)] bg-[var(--popover-surface,var(--popover))] text-[color:var(--popover-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)] data-[presentation=sheet]:m-0 data-[presentation=sheet]:w-auto! data-[presentation=sheet]:min-w-0! data-[presentation=sheet]:max-w-none! data-[presentation=sheet]:rounded-b-none data-[presentation=sheet]:pt-6 data-[presentation=sheet]:pb-[calc(0.75rem+env(safe-area-inset-bottom))] data-[presentation=sheet]:after:pointer-events-none data-[presentation=sheet]:after:absolute data-[presentation=sheet]:after:top-2 data-[presentation=sheet]:after:left-1/2 data-[presentation=sheet]:after:h-1 data-[presentation=sheet]:after:w-9 data-[presentation=sheet]:after:-translate-x-1/2 data-[presentation=sheet]:after:rounded-full data-[presentation=sheet]:after:bg-foreground/15 data-[presentation=sheet]:after:content-['']",
+          "attrs": {
+            "sideOffset": 8
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "speed-prop",
+          "detail": "the speed prop (sets --kf-speed through React context for portalled parts); set --kf-speed in CSS instead"
+        }
+      ]
+    },
+    "PopoverDescription": {
+      "export": "PopoverDescription",
+      "variants": {},
+      "root": {
+        "part": "PopoverDescription",
+        "slot": "popover-description",
+        "module": "@ui-sdk/react/popover"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PopoverDescription",
+          "module": "@ui-sdk/react/popover",
+          "slot": "popover-description",
+          "slotDocumented": false,
+          "class": "text-[12px] leading-4 text-[color:var(--popover-muted,var(--muted-foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "PopoverShortcut": {
+      "export": "PopoverShortcut",
+      "variants": {},
+      "root": {
+        "part": "PopoverShortcut",
+        "slot": "popover-shortcut",
+        "module": "@ui-sdk/react/popover"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PopoverShortcut",
+          "module": "@ui-sdk/react/popover",
+          "slot": "popover-shortcut",
+          "slotDocumented": false,
+          "class": "ms-1 text-[12px] leading-none tracking-[0.04em] text-[color:var(--popover-muted,var(--muted-foreground))] tabular-nums",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "PopoverTitle": {
+      "export": "PopoverTitle",
+      "variants": {},
+      "root": {
+        "part": "PopoverTitle",
+        "slot": "popover-title",
+        "module": "@ui-sdk/react/popover"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PopoverTitle",
+          "module": "@ui-sdk/react/popover",
+          "slot": "popover-title",
+          "slotDocumented": false,
+          "class": "text-[14px] leading-5 font-semibold tracking-tight",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "PopoverTrigger": {
+      "export": "PopoverTrigger",
+      "variants": {},
+      "renderClass": "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none! group/popover-trigger outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&_[data-slot=popover-chevron]]:text-[color:var(--popover-muted,var(--muted-foreground))] [&_[data-slot=popover-chevron]]:transition-transform [&_[data-slot=popover-chevron]]:duration-[calc(380ms*var(--kf-speed,1))] [&_[data-slot=popover-chevron]]:ease-spring data-open:[&_[data-slot=popover-chevron]]:rotate-180 motion-reduce:[&_[data-slot=popover-chevron]]:transition-none",
+      "root": {
+        "part": "PopoverTrigger",
+        "slot": "popover-trigger",
+        "module": "@ui-sdk/react/popover"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "PopoverTrigger",
+          "module": "@ui-sdk/react/popover",
+          "slot": "popover-trigger",
+          "slotDocumented": true,
+          "class": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] group/popover-trigger inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! bg-[var(--popover-key,var(--background))] text-foreground dark:bg-[var(--popover-key,var(--accent))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4 data-open:bg-[color-mix(in_oklab,var(--popover-key,var(--background)),var(--foreground)_3%)] dark:data-open:bg-[color-mix(in_oklab,var(--popover-key,var(--accent)),var(--foreground)_7%)] [&_[data-slot=popover-chevron]]:text-[color:var(--popover-muted,var(--muted-foreground))] [&_[data-slot=popover-chevron]]:transition-transform [&_[data-slot=popover-chevron]]:duration-[calc(380ms*var(--kf-speed,1))] [&_[data-slot=popover-chevron]]:ease-spring data-open:[&_[data-slot=popover-chevron]]:rotate-180 motion-reduce:[&_[data-slot=popover-chevron]]:transition-none",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "conditional",
+          "detail": "!props.render && [ keyBase, keySurface, \"h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4\", \"data-open:bg-[color-mix(in (default props: kept)"
+        },
+        {
+          "kind": "conditional",
+          "detail": "props.render && \"outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\" (default props: dropped)"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "popover-arrow": "pointer-events-none h-[7px] w-3.5 text-[color:var(--popover-surface,var(--popover))] data-[side=bottom]:bottom-full data-[side=top]:top-full data-[side=left]:left-full data-[side=left]:h-3.5 data-[side=left]:w-[7px] data-[side=right]:right-full data-[side=right]:h-3.5 data-[side=right]:w-[7px] [&>svg]:absolute [&>svg]:top-1/2 [&>svg]:left-1/2 [&>svg]:h-[7px] [&>svg]:w-3.5 [&>svg]:-translate-1/2 data-[side=top]:[&>svg]:rotate-180 data-[side=left]:[&>svg]:rotate-90 data-[side=right]:[&>svg]:-rotate-90",
+    "popover-close": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4 bg-[var(--popover-key,var(--background))] text-foreground dark:bg-[var(--popover-key,var(--accent))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)]",
+    "popover-content": "origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring data-[side=bottom]:[--kf-from:0_-8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=top]:[--kf-from:0_8px] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-[presentation=sheet]:data-starting-style:scale-100 data-[presentation=sheet]:data-starting-style:blur-none data-[presentation=sheet]:data-starting-style:translate-none data-[presentation=sheet]:data-ending-style:scale-100 data-[presentation=sheet]:data-ending-style:blur-none data-[presentation=sheet]:data-ending-style:translate-none data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc((calc(40ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))*var(--kf-flourish,1))] motion-reduce:transition-none! motion-reduce:[&>*]:animate-none m-0 max-h-(--available-height) w-[var(--popover-width,18rem)] max-w-[calc(100vw-16px)] overflow-visible border-0 p-[var(--popover-padding,1rem)] outline-none rounded-[var(--popover-radius,14px)] bg-[var(--popover-surface,var(--popover))] text-[color:var(--popover-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)] data-[presentation=sheet]:m-0 data-[presentation=sheet]:w-auto! data-[presentation=sheet]:min-w-0! data-[presentation=sheet]:max-w-none! data-[presentation=sheet]:rounded-b-none data-[presentation=sheet]:pt-6 data-[presentation=sheet]:pb-[calc(0.75rem+env(safe-area-inset-bottom))] data-[presentation=sheet]:after:pointer-events-none data-[presentation=sheet]:after:absolute data-[presentation=sheet]:after:top-2 data-[presentation=sheet]:after:left-1/2 data-[presentation=sheet]:after:h-1 data-[presentation=sheet]:after:w-9 data-[presentation=sheet]:after:-translate-x-1/2 data-[presentation=sheet]:after:rounded-full data-[presentation=sheet]:after:bg-foreground/15 data-[presentation=sheet]:after:content-['']",
+    "popover-description": "text-[12px] leading-4 text-[color:var(--popover-muted,var(--muted-foreground))]",
+    "popover-shortcut": "ms-1 text-[12px] leading-none tracking-[0.04em] text-[color:var(--popover-muted,var(--muted-foreground))] tabular-nums",
+    "popover-title": "text-[14px] leading-5 font-semibold tracking-tight",
+    "popover-trigger": "ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] group/popover-trigger inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-none select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 transition-[color,background-color,box-shadow,opacity,scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pending:cursor-progress data-pending:opacity-70 motion-reduce:transition-none! bg-[var(--popover-key,var(--background))] text-foreground dark:bg-[var(--popover-key,var(--accent))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--background)),var(--foreground)_3%)] dark:not-data-disabled:hover:bg-[color-mix(in_oklab,var(--popover-key,var(--accent)),var(--foreground)_7%)] not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.05),0_4px_8px_-2px_rgb(0_0_0/0.12)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12),inset_0_1px_0_rgb(255_255_255/0.1),0_2px_6px_-1px_rgb(0_0_0/0.6)] not-data-disabled:active:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.04),0_1px_2px_-1px_rgb(0_0_0/0.06)] dark:not-data-disabled:active:shadow-[0_0_0_1px_rgb(255_255_255/0.09),inset_0_1px_0_rgb(255_255_255/0.04),0_1px_2px_-1px_rgb(0_0_0/0.6)] h-8 rounded-[9px] px-3 text-[13px] [&_svg]:size-4 data-open:bg-[color-mix(in_oklab,var(--popover-key,var(--background)),var(--foreground)_3%)] dark:data-open:bg-[color-mix(in_oklab,var(--popover-key,var(--accent)),var(--foreground)_7%)] [&_[data-slot=popover-chevron]]:text-[color:var(--popover-muted,var(--muted-foreground))] [&_[data-slot=popover-chevron]]:transition-transform [&_[data-slot=popover-chevron]]:duration-[calc(380ms*var(--kf-speed,1))] [&_[data-slot=popover-chevron]]:ease-spring data-open:[&_[data-slot=popover-chevron]]:rotate-180 motion-reduce:[&_[data-slot=popover-chevron]]:transition-none"
+  },
+  "styles": {
+    "kf-cascade": "@keyframes kf-cascade{from{opacity:0;translate:0 8px;filter:blur(4px)}}@media (prefers-reduced-motion:reduce){@keyframes kf-cascade{from{opacity:0}}}"
+  },
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "extra-elements": 1,
+    "conditional": 3,
+    "variants": 1,
+    "speed-prop": 1
+  },
+  "flourish": true
+}

@@ -1,0 +1,8 @@
+export * from "@ui-sdk/vue/tree"
+export { default as Tree } from "./Tree.vue"
+export { default as TreeGroup } from "./TreeGroup.vue"
+export { default as TreeItem } from "./TreeItem.vue"
+export { default as TreeItemCheckbox } from "./TreeItemCheckbox.vue"
+export { default as TreeItemIndicator } from "./TreeItemIndicator.vue"
+export { default as TreeItemLabel } from "./TreeItemLabel.vue"
+export { default as TreeItems } from "./TreeItems.vue"

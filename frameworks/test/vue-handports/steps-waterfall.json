@@ -1,0 +1,3 @@
+[{"click":"[data-row=feed] [data-slot=waterfall-indicator]","wait":150,"snap":"mid-open"},{"wait":1800,"snap":"opened"},
+ {"click":"[data-load=cached]","wait":200,"snap":"mid-glide"},{"wait":1700,"snap":"cached"},{"click":"[data-row=app] [data-slot=waterfall-indicator]","wait":1800,"snap":"app"},
+ {"press":"ArrowDown","wait":400},{"press":"ArrowLeft","wait":900,"snap":"keys"}]

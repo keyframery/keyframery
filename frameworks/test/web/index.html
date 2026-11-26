@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keyframery on UI SDK (web)</title>
+    <script>
+      /* Same switches as the React lab: ?motion=subtle|calm|springy|snappy|playful and ?theme=dark, set before first paint. */
+      const q = new URLSearchParams(location.search)
+      const m = q.get("motion") ?? "subtle"
+      if (m !== "subtle") document.documentElement.setAttribute("data-motion", m)
+      if (q.get("theme") === "dark") document.documentElement.classList.add("dark")
+    </script>
+    <!-- The one stylesheet: Keyframery for UI SDK web components. -->
+    <link rel="stylesheet" href="/src/keyframery.css" />
+    <link rel="stylesheet" href="/src/page.css" />
+  </head>
+  <body>
+    <main>
+  <section data-demo="tabs" style="width:420px">
+    <ui-tabs default-value="overview">
+      <ui-tabs-list aria-label="Summer fête">
+        <ui-tabs-tab value="overview"><button type="button">Overview</button></ui-tabs-tab>
+        <ui-tabs-tab value="activity"><button type="button">Activity</button></ui-tabs-tab>
+        <ui-tabs-tab value="people"><button type="button">People</button></ui-tabs-tab>
+        <ui-tabs-tab value="billing"><button type="button">Billing</button></ui-tabs-tab>
+        <ui-tabs-indicator></ui-tabs-indicator>
+      </ui-tabs-list>
+      <div data-slot="tabs-panels">
+        <ui-tabs-panel value="overview"><p style="font-size:13px">Saturday 12 July, on the village green.</p></ui-tabs-panel>
+        <ui-tabs-panel value="activity"><p style="font-size:13px">Clare added the raffle prizes.</p></ui-tabs-panel>
+        <ui-tabs-panel value="people"><p style="font-size:13px">Clare Dawson, Rob Fenwick, Nadia Haddad.</p></ui-tabs-panel>
+        <ui-tabs-panel value="billing"><p style="font-size:13px">£240 of £300 raised.</p></ui-tabs-panel>
+      </div>
+    </ui-tabs>
+  </section>
+
+  <section data-demo="switch" style="width:360px;display:flex;flex-direction:column;gap:1rem">
+    <label class="row">Order updates <ui-switch default-checked><ui-switch-thumb></ui-switch-thumb></ui-switch></label>
+    <label class="row">Price drops <ui-switch><ui-switch-thumb></ui-switch-thumb></ui-switch></label>
+  </section>
+
+  <section data-demo="popover">
+    <ui-popover>
+      <ui-popover-trigger><button type="button">2 guests</button></ui-popover-trigger>
+      <ui-popover-content>
+        <ui-popover-title>Who's coming?</ui-popover-title>
+        <ui-popover-description>Up to 8 guests, infants stay free.</ui-popover-description>
+        <div style="margin-top:.75rem;display:flex;justify-content:flex-end"><ui-popover-close><button type="button" data-variant="primary">Done</button></ui-popover-close></div>
+      </ui-popover-content>
+    </ui-popover>
+  </section>
+
+  <section data-demo="accordion" style="width:440px">
+    <ui-accordion default-value="baggage">
+      <ui-accordion-item value="baggage">
+        <ui-accordion-header><h3><ui-accordion-trigger><button type="button"><span data-kf="accordion-trigger-span">How much baggage can I bring?</span><span data-kf="accordion-trigger-span2" aria-hidden="true"><svg data-kf="accordion-trigger-svg3" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 4 4 4-4"></path></svg></span></button></ui-accordion-trigger></h3></ui-accordion-header>
+        <ui-accordion-panel><p>One cabin bag up to 8 kg and one checked bag up to 23 kg.</p><p>Sports gear counts as checked.</p></ui-accordion-panel>
+      </ui-accordion-item>
+      <ui-accordion-item value="changes">
+        <ui-accordion-header><h3><ui-accordion-trigger><button type="button"><span data-kf="accordion-trigger-span">Can I change my flight?</span><span data-kf="accordion-trigger-span2" aria-hidden="true"><svg data-kf="accordion-trigger-svg3" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 4 4 4-4"></path></svg></span></button></ui-accordion-trigger></h3></ui-accordion-header>
+        <ui-accordion-panel><p>Yes, up to 2 hours before departure.</p><p>Changes are free on this fare.</p></ui-accordion-panel>
+      </ui-accordion-item>
+      <ui-accordion-item value="refunds">
+        <ui-accordion-header><h3><ui-accordion-trigger><button type="button"><span data-kf="accordion-trigger-span">How do refunds work?</span><span data-kf="accordion-trigger-span2" aria-hidden="true"><svg data-kf="accordion-trigger-svg3" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 4 4 4-4"></path></svg></span></button></ui-accordion-trigger></h3></ui-accordion-header>
+        <ui-accordion-panel><p>Cancel 24 hours before for a full refund.</p></ui-accordion-panel>
+      </ui-accordion-item>
+    </ui-accordion>
+  </section>
+
+  <section data-demo="checkbox" style="width:340px;display:flex;flex-direction:column;gap:.75rem">
+    <label class="check"><ui-checkbox default-checked><ui-checkbox-indicator><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.75 6.25 5 8.5l4.25-5" pathLength="1"></path></svg></ui-checkbox-indicator></ui-checkbox> Passport</label>
+    <label class="check"><ui-checkbox><ui-checkbox-indicator><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.75 6.25 5 8.5l4.25-5" pathLength="1"></path></svg></ui-checkbox-indicator></ui-checkbox> Phone charger</label>
+    <label class="check"><ui-checkbox><ui-checkbox-indicator><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.75 6.25 5 8.5l4.25-5" pathLength="1"></path></svg></ui-checkbox-indicator></ui-checkbox> Sunscreen</label>
+  </section>
+
+  <section data-demo="select" style="width:260px">
+    <ui-select placeholder="Choose a cabin">
+      <ui-select-label>Cabin</ui-select-label>
+      <ui-select-trigger><button type="button"><ui-select-value></ui-select-value><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 6.5 3-3 3 3M5 9.5l3 3 3-3"></path></svg></button></ui-select-trigger>
+      <ui-select-content>
+        <ui-select-item value="economy"><ui-select-item-text>Economy</ui-select-item-text><ui-select-item-indicator keep-mounted><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"></path></svg></ui-select-item-indicator></ui-select-item>
+        <ui-select-item value="premium"><ui-select-item-text>Premium economy</ui-select-item-text><ui-select-item-indicator keep-mounted><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"></path></svg></ui-select-item-indicator></ui-select-item>
+        <ui-select-item value="business"><ui-select-item-text>Business</ui-select-item-text><ui-select-item-indicator keep-mounted><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7"></path></svg></ui-select-item-indicator></ui-select-item>
+      </ui-select-content>
+    </ui-select>
+  </section>
+
+  <section data-demo="dialog">
+    <ui-dialog>
+      <ui-dialog-trigger><button type="button">Edit trip</button></ui-dialog-trigger>
+      <ui-dialog-backdrop hidden></ui-dialog-backdrop>
+      <ui-dialog-content hidden>
+        <div data-slot="dialog-header">
+          <ui-dialog-title>Edit trip</ui-dialog-title>
+          <ui-dialog-description>Change the name and dates.</ui-dialog-description>
+        </div>
+        <div data-slot="dialog-footer">
+          <ui-dialog-close><button type="button">Cancel</button></ui-dialog-close>
+          <ui-dialog-close><button type="button" data-variant="primary">Save</button></ui-dialog-close>
+        </div>
+      </ui-dialog-content>
+    </ui-dialog>
+  </section>
+
+  <section data-demo="segmented-control">
+    <ui-segmented-control aria-label="Billing period" default-value="yearly">
+      <ui-segmented-control-item value="monthly">Monthly</ui-segmented-control-item>
+      <ui-segmented-control-item value="yearly">Yearly</ui-segmented-control-item>
+      <ui-segmented-control-item value="lifetime">Lifetime</ui-segmented-control-item>
+      <ui-segmented-control-indicator></ui-segmented-control-indicator>
+    </ui-segmented-control>
+  </section>
+</main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

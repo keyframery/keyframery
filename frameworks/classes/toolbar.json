@@ -1,0 +1,290 @@
+{
+  "slug": "toolbar",
+  "module": "@ui-sdk/react/toolbar",
+  "parts": {
+    "Toolbar": {
+      "export": "Toolbar",
+      "variants": {},
+      "root": {
+        "part": "Toolbar",
+        "slot": "toolbar",
+        "module": "@ui-sdk/react/toolbar"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Toolbar",
+          "module": "@ui-sdk/react/toolbar",
+          "slot": "toolbar",
+          "slotDocumented": true,
+          "class": "relative isolate [anchor-scope:--kf-toolbar-hl] [&_[data-kf-toolbar-hl]]:[anchor-name:--kf-toolbar-hl] before:pointer-events-none before:absolute before:-z-10 before:[position-anchor:--kf-toolbar-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:scale-100 before:opacity-100 before:transition-[opacity,scale] before:duration-[calc(200ms*var(--kf-speed,1))] before:ease-house data-kf-glide:before:[transition:top_calc(360ms*var(--kf-speed,1))_var(--ease-spring),right_calc(360ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(360ms*var(--kf-speed,1))_var(--ease-spring),left_calc(360ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),scale_calc(200ms*var(--kf-speed,1))_var(--ease-house)] data-kf-idle:before:scale-[calc(1-0.08*var(--kf-flourish,1))] data-kf-idle:before:opacity-0 not-has-[[data-kf-toolbar-hl]]:before:opacity-0 motion-reduce:before:[transition:none]! flex items-center gap-[var(--toolbar-gap,0.125rem)] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch w-fit rounded-[var(--toolbar-radius,12px)] bg-[var(--toolbar-face,var(--popover))] p-1 text-[color:var(--toolbar-ink,var(--popover-foreground))] before:rounded-[var(--toolbar-item-radius,8px)] before:bg-[var(--toolbar-accent,var(--accent))] dark:before:bg-[color-mix(in_oklab,var(--toolbar-accent,var(--accent))_70%,transparent)] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "js",
+          "detail": "hovering = React.useRef(false)"
+        },
+        {
+          "kind": "handler",
+          "detail": "Toolbar: onPointerOver is a function"
+        },
+        {
+          "kind": "handler",
+          "detail": "Toolbar: onPointerLeave is a function"
+        },
+        {
+          "kind": "handler",
+          "detail": "Toolbar: onFocus is a function"
+        },
+        {
+          "kind": "handler",
+          "detail": "Toolbar: onBlur is a function"
+        },
+        {
+          "kind": "handler",
+          "detail": "Toolbar: onClick is a function"
+        }
+      ]
+    },
+    "ToolbarButton": {
+      "export": "ToolbarButton",
+      "variants": {},
+      "root": {
+        "part": "ToolbarButton",
+        "slot": "toolbar-button",
+        "module": "@ui-sdk/react/toolbar"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ToolbarButton",
+          "module": "@ui-sdk/react/toolbar",
+          "slot": "toolbar-button",
+          "slotDocumented": true,
+          "class": "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)] not-data-disabled:active:scale-[calc(1-0.08*var(--kf-flourish,1))] not-data-disabled:active:[transition-duration:calc(100ms*var(--kf-speed,1))] motion-reduce:[transition:none]! relative inline-flex h-[var(--toolbar-height,1.75rem)] min-w-[var(--toolbar-height,1.75rem)] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[var(--toolbar-item-radius,8px)] px-1.5 text-[13px] leading-none font-medium whitespace-nowrap text-[color:var(--toolbar-ink,var(--muted-foreground))] outline-none select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 not-data-disabled:hover:text-[color:var(--toolbar-ink,var(--foreground))] data-kf-toolbar-hl:not-data-disabled:text-[color:var(--toolbar-ink,var(--foreground))] focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover data-disabled:cursor-not-allowed data-disabled:opacity-40",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ToolbarGroup": {
+      "export": "ToolbarGroup",
+      "variants": {},
+      "root": {
+        "part": "ToolbarGroup",
+        "slot": "toolbar-group",
+        "module": "@ui-sdk/react/toolbar"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ToolbarGroup",
+          "module": "@ui-sdk/react/toolbar",
+          "slot": "toolbar-group",
+          "slotDocumented": true,
+          "class": "flex items-center gap-[var(--toolbar-gap,0.125rem)] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ToolbarInput": {
+      "export": "ToolbarInput",
+      "variants": {},
+      "root": {
+        "part": "ToolbarInput",
+        "slot": "toolbar-input",
+        "module": "@ui-sdk/react/toolbar"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ToolbarInput",
+          "module": "@ui-sdk/react/toolbar",
+          "slot": "toolbar-input",
+          "slotDocumented": true,
+          "class": "h-[var(--toolbar-height,1.75rem)] min-w-0 rounded-[var(--toolbar-item-radius,8px)] bg-[var(--toolbar-key,var(--background))] px-2 text-[13px] text-[color:var(--toolbar-ink,var(--foreground))] outline-none placeholder:text-[color:var(--toolbar-ink,var(--muted-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.09),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.1)] transition-shadow duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none! not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.18)] focus-visible:shadow-[0_0_0_1px_var(--ring)] focus-visible:ring-[3px] focus-visible:ring-ring/25 dark:focus-visible:shadow-[0_0_0_1px_var(--ring)] data-disabled:cursor-not-allowed data-disabled:opacity-50",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ToolbarLink": {
+      "export": "ToolbarLink",
+      "variants": {},
+      "root": {
+        "part": "ToolbarLink",
+        "slot": "toolbar-link",
+        "module": "@ui-sdk/react/toolbar"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ToolbarLink",
+          "module": "@ui-sdk/react/toolbar",
+          "slot": "toolbar-link",
+          "slotDocumented": true,
+          "class": "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)] not-data-disabled:active:scale-[calc(1-0.08*var(--kf-flourish,1))] not-data-disabled:active:[transition-duration:calc(100ms*var(--kf-speed,1))] motion-reduce:[transition:none]! relative inline-flex h-[var(--toolbar-height,1.75rem)] min-w-[var(--toolbar-height,1.75rem)] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[var(--toolbar-item-radius,8px)] text-[13px] leading-none font-medium whitespace-nowrap text-[color:var(--toolbar-ink,var(--muted-foreground))] outline-none select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 not-data-disabled:hover:text-[color:var(--toolbar-ink,var(--foreground))] data-kf-toolbar-hl:not-data-disabled:text-[color:var(--toolbar-ink,var(--foreground))] focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover data-disabled:cursor-not-allowed data-disabled:opacity-40 px-2",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ToolbarSeparator": {
+      "export": "ToolbarSeparator",
+      "variants": {},
+      "root": {
+        "part": "ToolbarSeparator",
+        "slot": "toolbar-separator",
+        "module": "@ui-sdk/react/toolbar"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ToolbarSeparator",
+          "module": "@ui-sdk/react/toolbar",
+          "slot": "toolbar-separator",
+          "slotDocumented": true,
+          "class": "shrink-0 bg-border data-[orientation=vertical]:mx-1 data-[orientation=vertical]:h-4 data-[orientation=vertical]:w-px data-[orientation=horizontal]:my-1 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-4 data-[orientation=horizontal]:self-center",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ToolbarToggle": {
+      "export": "ToolbarToggle",
+      "variants": {},
+      "root": {
+        "part": "Toggle",
+        "slot": "toggle",
+        "module": "@ui-sdk/react/toggle"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Toggle",
+          "module": "@ui-sdk/react/toggle",
+          "slot": "toggle",
+          "slotDocumented": true,
+          "class": "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)] not-data-disabled:active:scale-[calc(1-0.08*var(--kf-flourish,1))] not-data-disabled:active:[transition-duration:calc(100ms*var(--kf-speed,1))] motion-reduce:[transition:none]! relative inline-flex h-[var(--toolbar-height,1.75rem)] min-w-[var(--toolbar-height,1.75rem)] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[var(--toolbar-item-radius,8px)] px-1.5 text-[13px] leading-none font-medium whitespace-nowrap text-[color:var(--toolbar-ink,var(--muted-foreground))] outline-none select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 not-data-disabled:hover:text-[color:var(--toolbar-ink,var(--foreground))] data-kf-toolbar-hl:not-data-disabled:text-[color:var(--toolbar-ink,var(--foreground))] focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover data-disabled:cursor-not-allowed data-disabled:opacity-40 data-pressed:bg-[var(--toolbar-key,var(--background))] data-pressed:text-[color:var(--toolbar-ink,var(--foreground))] data-pressed:shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:data-pressed:bg-[var(--toolbar-key,var(--accent))] dark:data-pressed:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ToolbarToggleGroup": {
+      "export": "ToolbarToggleGroup",
+      "variants": {},
+      "root": {
+        "part": "ToggleGroup",
+        "slot": "toggle-group",
+        "module": "@ui-sdk/react/toggle"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ToggleGroup",
+          "module": "@ui-sdk/react/toggle",
+          "slot": "toggle-group",
+          "slotDocumented": true,
+          "class": "flex items-center gap-[var(--toolbar-gap,0.125rem)] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "toolbar": "relative isolate [anchor-scope:--kf-toolbar-hl] [&_[data-kf-toolbar-hl]]:[anchor-name:--kf-toolbar-hl] before:pointer-events-none before:absolute before:-z-10 before:[position-anchor:--kf-toolbar-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:scale-100 before:opacity-100 before:transition-[opacity,scale] before:duration-[calc(200ms*var(--kf-speed,1))] before:ease-house data-kf-glide:before:[transition:top_calc(360ms*var(--kf-speed,1))_var(--ease-spring),right_calc(360ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(360ms*var(--kf-speed,1))_var(--ease-spring),left_calc(360ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),scale_calc(200ms*var(--kf-speed,1))_var(--ease-house)] data-kf-idle:before:scale-[calc(1-0.08*var(--kf-flourish,1))] data-kf-idle:before:opacity-0 not-has-[[data-kf-toolbar-hl]]:before:opacity-0 motion-reduce:before:[transition:none]! flex items-center gap-[var(--toolbar-gap,0.125rem)] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch w-fit rounded-[var(--toolbar-radius,12px)] bg-[var(--toolbar-face,var(--popover))] p-1 text-[color:var(--toolbar-ink,var(--popover-foreground))] before:rounded-[var(--toolbar-item-radius,8px)] before:bg-[var(--toolbar-accent,var(--accent))] dark:before:bg-[color-mix(in_oklab,var(--toolbar-accent,var(--accent))_70%,transparent)] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+    "toolbar-button": "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)] not-data-disabled:active:scale-[calc(1-0.08*var(--kf-flourish,1))] not-data-disabled:active:[transition-duration:calc(100ms*var(--kf-speed,1))] motion-reduce:[transition:none]! relative inline-flex h-[var(--toolbar-height,1.75rem)] min-w-[var(--toolbar-height,1.75rem)] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[var(--toolbar-item-radius,8px)] px-1.5 text-[13px] leading-none font-medium whitespace-nowrap text-[color:var(--toolbar-ink,var(--muted-foreground))] outline-none select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 not-data-disabled:hover:text-[color:var(--toolbar-ink,var(--foreground))] data-kf-toolbar-hl:not-data-disabled:text-[color:var(--toolbar-ink,var(--foreground))] focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover data-disabled:cursor-not-allowed data-disabled:opacity-40",
+    "toolbar-group": "flex items-center gap-[var(--toolbar-gap,0.125rem)] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
+    "toolbar-input": "h-[var(--toolbar-height,1.75rem)] min-w-0 rounded-[var(--toolbar-item-radius,8px)] bg-[var(--toolbar-key,var(--background))] px-2 text-[13px] text-[color:var(--toolbar-ink,var(--foreground))] outline-none placeholder:text-[color:var(--toolbar-ink,var(--muted-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.09),0_1px_2px_rgb(0_0_0/0.05)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.1)] transition-shadow duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none! not-data-disabled:hover:shadow-[0_0_0_1px_rgb(0_0_0/0.16),0_1px_2px_rgb(0_0_0/0.05)] dark:not-data-disabled:hover:shadow-[0_0_0_1px_rgb(255_255_255/0.18)] focus-visible:shadow-[0_0_0_1px_var(--ring)] focus-visible:ring-[3px] focus-visible:ring-ring/25 dark:focus-visible:shadow-[0_0_0_1px_var(--ring)] data-disabled:cursor-not-allowed data-disabled:opacity-50",
+    "toolbar-link": "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)] not-data-disabled:active:scale-[calc(1-0.08*var(--kf-flourish,1))] not-data-disabled:active:[transition-duration:calc(100ms*var(--kf-speed,1))] motion-reduce:[transition:none]! relative inline-flex h-[var(--toolbar-height,1.75rem)] min-w-[var(--toolbar-height,1.75rem)] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[var(--toolbar-item-radius,8px)] text-[13px] leading-none font-medium whitespace-nowrap text-[color:var(--toolbar-ink,var(--muted-foreground))] outline-none select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 not-data-disabled:hover:text-[color:var(--toolbar-ink,var(--foreground))] data-kf-toolbar-hl:not-data-disabled:text-[color:var(--toolbar-ink,var(--foreground))] focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover data-disabled:cursor-not-allowed data-disabled:opacity-40 px-2",
+    "toolbar-separator": "shrink-0 bg-border data-[orientation=vertical]:mx-1 data-[orientation=vertical]:h-4 data-[orientation=vertical]:w-px data-[orientation=horizontal]:my-1 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-4 data-[orientation=horizontal]:self-center",
+    "toggle": "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)] not-data-disabled:active:scale-[calc(1-0.08*var(--kf-flourish,1))] not-data-disabled:active:[transition-duration:calc(100ms*var(--kf-speed,1))] motion-reduce:[transition:none]! relative inline-flex h-[var(--toolbar-height,1.75rem)] min-w-[var(--toolbar-height,1.75rem)] shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[var(--toolbar-item-radius,8px)] px-1.5 text-[13px] leading-none font-medium whitespace-nowrap text-[color:var(--toolbar-ink,var(--muted-foreground))] outline-none select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 not-data-disabled:hover:text-[color:var(--toolbar-ink,var(--foreground))] data-kf-toolbar-hl:not-data-disabled:text-[color:var(--toolbar-ink,var(--foreground))] focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover data-disabled:cursor-not-allowed data-disabled:opacity-40 data-pressed:bg-[var(--toolbar-key,var(--background))] data-pressed:text-[color:var(--toolbar-ink,var(--foreground))] data-pressed:shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:data-pressed:bg-[var(--toolbar-key,var(--accent))] dark:data-pressed:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
+    "toggle-group": "flex items-center gap-[var(--toolbar-gap,0.125rem)] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "js": 1,
+    "handler": 5
+  },
+  "flourish": true
+}

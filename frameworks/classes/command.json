@@ -1,0 +1,514 @@
+{
+  "slug": "command",
+  "module": "@ui-sdk/react/command",
+  "parts": {
+    "Command": {
+      "export": "Command",
+      "variants": {},
+      "root": {
+        "part": "Command",
+        "slot": "command",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Command",
+          "module": "@ui-sdk/react/command",
+          "slot": "command",
+          "slotDocumented": true,
+          "class": "group/command flex w-full flex-col overflow-hidden rounded-[var(--command-radius,14px)] bg-[var(--command-face,var(--popover))] text-[color:var(--command-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandEmpty": {
+      "export": "CommandEmpty",
+      "variants": {},
+      "root": {
+        "part": "CommandEmpty",
+        "slot": "command-empty",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandEmpty",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-empty",
+          "slotDocumented": true,
+          "class": "hidden px-4 py-10 text-center text-[13px] text-muted-foreground data-empty:block data-loading:block",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandFooter": {
+      "export": "CommandFooter",
+      "variants": {},
+      "root": {
+        "element": "div",
+        "slot": "command-footer"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "div",
+          "class": "flex h-10 shrink-0 items-center gap-4 border-t border-border bg-muted/40 px-4 text-[12px] text-muted-foreground",
+          "attrs": {
+            "data-slot": "command-footer"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandGroup": {
+      "export": "CommandGroup",
+      "variants": {},
+      "root": {
+        "part": "CommandGroup",
+        "slot": "command-group",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandGroup",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-group",
+          "slotDocumented": false,
+          "class": "flex flex-col",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandGroupLabel": {
+      "export": "CommandGroupLabel",
+      "variants": {},
+      "root": {
+        "part": "CommandGroupLabel",
+        "slot": "command-group-label",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandGroupLabel",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-group-label",
+          "slotDocumented": false,
+          "class": "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))] starting:translate-x-[calc(1.5rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(6px*var(--kf-flourish,1))] motion-reduce:transition-none! px-2.5 pt-2.5 pb-1.5 text-[11px] leading-none font-medium text-muted-foreground select-none",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandInput": {
+      "export": "CommandInput",
+      "variants": {},
+      "root": {
+        "part": "CommandInput",
+        "slot": "command-input",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandInput",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-input",
+          "slotDocumented": false,
+          "class": "h-full min-w-0 flex-1 bg-transparent text-[14px] text-[color:var(--command-ink,var(--foreground))] outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:appearance-none disabled:cursor-not-allowed disabled:opacity-50",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandItem": {
+      "export": "CommandItem",
+      "variants": {},
+      "root": {
+        "part": "CommandItem",
+        "slot": "command-item",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandItem",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-item",
+          "slotDocumented": true,
+          "class": "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))] starting:translate-x-[calc(1.5rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(6px*var(--kf-flourish,1))] motion-reduce:transition-none! data-highlighted:[anchor-name:--kf-hl] group/item relative flex h-[var(--command-row-height,2.25rem)] cursor-default items-center gap-[var(--command-gap,0.625rem)] rounded-[8px] px-2.5 text-[13px] leading-none outline-none select-none data-highlighted:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-40 data-pending:cursor-progress data-pending:opacity-60",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandItemIcon": {
+      "export": "CommandItemIcon",
+      "variants": {},
+      "root": {
+        "part": "CommandItemIcon",
+        "slot": "command-item-icon",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandItemIcon",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-item-icon",
+          "slotDocumented": true,
+          "class": "grid size-4 shrink-0 place-items-center text-muted-foreground transition-colors duration-[calc(100ms*var(--kf-speed,1))] group-data-highlighted/item:text-[color:var(--command-ink,var(--foreground))] data-mirror:rtl:-scale-x-100 motion-reduce:transition-none! [&_svg]:size-4",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandItemText": {
+      "export": "CommandItemText",
+      "variants": {},
+      "root": {
+        "part": "CommandItemText",
+        "slot": "command-item-text",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandItemText",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-item-text",
+          "slotDocumented": true,
+          "class": "min-w-0 flex-1 truncate leading-[1.3] data-matched:text-[color:color-mix(in_oklab,var(--command-ink,var(--foreground))_70%,transparent)] [&_mark]:bg-transparent [&_mark]:font-semibold [&_mark]:text-[color:var(--command-ink,var(--foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandItems": {
+      "export": "CommandItems",
+      "variants": {},
+      "root": null,
+      "tree": [],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "items.map((entry, index) => { if (typeof entry !== \"string\" && \"type\" in entry) { if (entry.type === \"separator\") return <CommandSeparator key={`separator-${ind"
+        },
+        {
+          "kind": "not-generated",
+          "detail": "renders from data or JS only (nothing static to carry); not generated"
+        }
+      ]
+    },
+    "CommandList": {
+      "export": "CommandList",
+      "variants": {},
+      "root": {
+        "part": "CommandList",
+        "slot": "command-list",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandList",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-list",
+          "slotDocumented": true,
+          "class": "relative isolate [anchor-scope:--kf-hl] before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:transition-[top,right,bottom,left,opacity] before:duration-[calc(260ms*var(--kf-speed,1))] before:ease-spring has-[[data-highlighted]]:before:opacity-100 motion-reduce:before:transition-none! max-h-[320px] scroll-py-1.5 overflow-y-auto overscroll-contain p-1.5 outline-none group-has-[[data-slot=command-empty][data-empty]]/command:hidden before:rounded-[8px] before:bg-[var(--command-accent,var(--accent))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "stateFn",
+                  "children": [
+                    {
+                      "t": "if",
+                      "state": {
+                        "key": "items",
+                        "negate": false
+                      },
+                      "then": [],
+                      "else": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "items.map((entry, index) => { if (typeof entry !== \"string\" && \"type\" in entry) { if (entry.type === \"separator\") return <CommandSeparator key={`separator-${ind"
+        }
+      ]
+    },
+    "CommandPage": {
+      "export": "CommandPage",
+      "variants": {},
+      "root": {
+        "part": "CommandPage",
+        "slot": "command-page",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandPage",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-page",
+          "slotDocumented": false,
+          "class": "",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandSearch": {
+      "export": "CommandSearch",
+      "variants": {},
+      "root": {
+        "element": "div",
+        "slot": "command-search"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "div",
+          "class": "flex h-12 shrink-0 items-center gap-[var(--command-gap,0.625rem)] border-b border-border px-4 text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:transition-colors [&>svg]:duration-[calc(150ms*var(--kf-speed,1))] has-[input:focus-visible]:[&>svg]:text-[color:var(--command-ink,var(--foreground))] motion-reduce:[&>svg]:transition-none",
+          "attrs": {
+            "data-slot": "command-search"
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandSeparator": {
+      "export": "CommandSeparator",
+      "variants": {},
+      "root": {
+        "part": "CommandSeparator",
+        "slot": "command-separator",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandSeparator",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-separator",
+          "slotDocumented": false,
+          "class": "-mx-1.5 my-1.5 h-px bg-border",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandShortcut": {
+      "export": "CommandShortcut",
+      "variants": {},
+      "root": {
+        "part": "CommandShortcut",
+        "slot": "command-shortcut",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandShortcut",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-shortcut",
+          "slotDocumented": false,
+          "class": "ml-auto shrink-0 pl-3 text-[12px] tracking-[0.08em] text-muted-foreground tabular-nums",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "CommandStatus": {
+      "export": "CommandStatus",
+      "variants": {},
+      "root": {
+        "part": "CommandStatus",
+        "slot": "command-status",
+        "module": "@ui-sdk/react/command"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "CommandStatus",
+          "module": "@ui-sdk/react/command",
+          "slot": "command-status",
+          "slotDocumented": true,
+          "class": "px-4 pt-3 pb-1 text-[12px] text-muted-foreground tabular-nums empty:hidden",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "command": "group/command flex w-full flex-col overflow-hidden rounded-[var(--command-radius,14px)] bg-[var(--command-face,var(--popover))] text-[color:var(--command-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
+    "command-empty": "hidden px-4 py-10 text-center text-[13px] text-muted-foreground data-empty:block data-loading:block",
+    "command-footer": "flex h-10 shrink-0 items-center gap-4 border-t border-border bg-muted/40 px-4 text-[12px] text-muted-foreground",
+    "command-group": "flex flex-col",
+    "command-group-label": "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))] starting:translate-x-[calc(1.5rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(6px*var(--kf-flourish,1))] motion-reduce:transition-none! px-2.5 pt-2.5 pb-1.5 text-[11px] leading-none font-medium text-muted-foreground select-none",
+    "command-input": "h-full min-w-0 flex-1 bg-transparent text-[14px] text-[color:var(--command-ink,var(--foreground))] outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:appearance-none disabled:cursor-not-allowed disabled:opacity-50",
+    "command-item": "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))] starting:translate-x-[calc(1.5rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(6px*var(--kf-flourish,1))] motion-reduce:transition-none! data-highlighted:[anchor-name:--kf-hl] group/item relative flex h-[var(--command-row-height,2.25rem)] cursor-default items-center gap-[var(--command-gap,0.625rem)] rounded-[8px] px-2.5 text-[13px] leading-none outline-none select-none data-highlighted:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-40 data-pending:cursor-progress data-pending:opacity-60",
+    "command-item-icon": "grid size-4 shrink-0 place-items-center text-muted-foreground transition-colors duration-[calc(100ms*var(--kf-speed,1))] group-data-highlighted/item:text-[color:var(--command-ink,var(--foreground))] data-mirror:rtl:-scale-x-100 motion-reduce:transition-none! [&_svg]:size-4",
+    "command-item-text": "min-w-0 flex-1 truncate leading-[1.3] data-matched:text-[color:color-mix(in_oklab,var(--command-ink,var(--foreground))_70%,transparent)] [&_mark]:bg-transparent [&_mark]:font-semibold [&_mark]:text-[color:var(--command-ink,var(--foreground))]",
+    "command-list": "relative isolate [anchor-scope:--kf-hl] before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:transition-[top,right,bottom,left,opacity] before:duration-[calc(260ms*var(--kf-speed,1))] before:ease-spring has-[[data-highlighted]]:before:opacity-100 motion-reduce:before:transition-none! max-h-[320px] scroll-py-1.5 overflow-y-auto overscroll-contain p-1.5 outline-none group-has-[[data-slot=command-empty][data-empty]]/command:hidden before:rounded-[8px] before:bg-[var(--command-accent,var(--accent))]",
+    "command-search": "flex h-12 shrink-0 items-center gap-[var(--command-gap,0.625rem)] border-b border-border px-4 text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:transition-colors [&>svg]:duration-[calc(150ms*var(--kf-speed,1))] has-[input:focus-visible]:[&>svg]:text-[color:var(--command-ink,var(--foreground))] motion-reduce:[&>svg]:transition-none",
+    "command-separator": "-mx-1.5 my-1.5 h-px bg-border",
+    "command-shortcut": "ml-auto shrink-0 pl-3 text-[12px] tracking-[0.08em] text-muted-foreground tabular-nums",
+    "command-status": "px-4 pt-3 pb-1 text-[12px] text-muted-foreground tabular-nums empty:hidden"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "children-unknown": 2,
+    "not-generated": 1
+  },
+  "flourish": true
+}

@@ -1,0 +1,3 @@
+[{"click":"[aria-labelledby=toppings-label] > [data-slot=listbox-item]:nth-child(3)","wait":100,"snap":"mid-check"},{"wait":800,"snap":"checked"},
+ {"press":"ArrowDown","wait":100,"snap":"mid-glide"},{"wait":600,"snap":"down"},{"press":" ","wait":900,"snap":"space"},{"press":" ","wait":600,"snap":"unspace"},
+ {"click":"[aria-labelledby=crust-label] > [data-slot=listbox-item]:nth-child(1)","wait":900,"snap":"crust"},{"hover":"[aria-labelledby=crust-label] > [data-slot=listbox-item]:nth-child(3)","wait":600,"snap":"hover"}]

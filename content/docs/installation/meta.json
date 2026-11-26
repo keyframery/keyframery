@@ -1,5 +1,14 @@
 {
   "title": "Installation",
   "defaultOpen": false,
-  "pages": ["next", "vite", "tanstack", "laravel", "react-router", "astro", "manual"]
+  "pages": [
+    "next",
+    "vite",
+    "tanstack",
+    "laravel",
+    "react-router",
+    "astro",
+    "manual",
+    "vue"
+  ]
 }

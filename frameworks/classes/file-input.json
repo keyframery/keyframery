@@ -1,0 +1,296 @@
+{
+  "slug": "file-input",
+  "module": "@ui-sdk/react/file-input",
+  "parts": {
+    "FileInput": {
+      "export": "FileInput",
+      "variants": {},
+      "root": {
+        "part": "FileInput",
+        "slot": "file-input",
+        "module": "@ui-sdk/react/file-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FileInput",
+          "module": "@ui-sdk/react/file-input",
+          "slot": "file-input",
+          "slotDocumented": true,
+          "class": "flex min-w-0 flex-col gap-[var(--file-input-gap,0.75rem)]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FileInputDropzone": {
+      "export": "FileInputDropzone",
+      "variants": {},
+      "root": {
+        "part": "FileInputDropzone",
+        "slot": "file-input-dropzone",
+        "module": "@ui-sdk/react/file-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FileInputDropzone",
+          "module": "@ui-sdk/react/file-input",
+          "slot": "file-input-dropzone",
+          "slotDocumented": true,
+          "class": "[transition:translate_calc(460ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(460ms*var(--kf-speed,1))_var(--ease-spring),border-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(200ms*var(--kf-speed,1))_var(--ease-house)] data-dragging:-translate-y-[calc(0.375rem*var(--kf-flourish,1))] data-dragging:scale-[calc(1+0.02*var(--kf-flourish,1))] motion-reduce:[transition:none]! group/drop relative flex flex-col items-center justify-center gap-1 rounded-[var(--file-input-radius,14px)] bg-[var(--file-input-face,transparent)] border border-dashed border-foreground/15 px-6 py-[var(--file-input-padding,1.75rem)] text-center text-[13px] outline-none hover:border-foreground/25 data-dragging:shadow-[0_10px_28px_-12px_rgb(0_0_0/0.25)] dark:data-dragging:shadow-[0_12px_32px_-12px_rgb(0_0_0/0.8)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-dragging:border-solid data-drag-accept:border-[color:var(--file-input-accent,var(--ring))] data-drag-accept:bg-[color-mix(in_oklab,var(--file-input-accent,var(--ring))_7%,transparent)] data-drag-accept:ring-[3px] data-drag-accept:ring-[color:color-mix(in_oklab,var(--file-input-accent,var(--ring))_15%,transparent)] data-drag-reject:border-destructive data-drag-reject:bg-destructive/[0.05] data-drag-reject:ring-[3px] data-drag-reject:ring-destructive/15 data-disabled:cursor-not-allowed data-disabled:border-foreground/10 data-disabled:opacity-60 [&>svg]:size-4",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FileInputDropzoneIcon": {
+      "export": "FileInputDropzoneIcon",
+      "variants": {},
+      "root": {
+        "element": "span",
+        "slot": "file-input-dropzone-icon"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "span",
+          "class": "mb-2 grid size-[var(--file-input-icon-size,2.25rem)] place-items-center rounded-[10px] bg-[var(--file-input-face,var(--background))] text-[color:var(--file-input-ink,var(--foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--file-input-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] [transition:translate_calc(480ms*var(--kf-speed,1))_var(--ease-pop),scale_calc(480ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]! group-data-dragging/drop:-translate-y-[calc(0.5rem*var(--kf-flourish,1))] group-data-dragging/drop:scale-[calc(1+0.1*var(--kf-flourish,1))] group-data-drag-accept/drop:text-[color:var(--file-input-accent,var(--ring))] group-data-drag-reject/drop:text-destructive [&_svg]:size-4",
+          "attrs": {
+            "aria-hidden": "true",
+            "data-slot": "file-input-dropzone-icon"
+          },
+          "children": [
+            {
+              "t": "el",
+              "tag": "svg",
+              "class": "",
+              "attrs": {
+                "viewBox": "0 0 16 16",
+                "fill": "none",
+                "stroke": "currentColor",
+                "strokeWidth": "1.5",
+                "strokeLinecap": "round",
+                "strokeLinejoin": "round"
+              },
+              "children": [
+                {
+                  "t": "el",
+                  "tag": "path",
+                  "class": "",
+                  "attrs": {
+                    "d": "M8 10.5V2.75M4.75 6 8 2.75 11.25 6"
+                  },
+                  "children": []
+                },
+                {
+                  "t": "el",
+                  "tag": "path",
+                  "class": "",
+                  "attrs": {
+                    "d": "M2.75 10.5v1.25c0 .83.67 1.5 1.5 1.5h7.5c.83 0 1.5-.67 1.5-1.5V10.5"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "FileInputItem": {
+      "export": "FileInputItem",
+      "variants": {},
+      "root": {
+        "part": "FileInputItem",
+        "slot": "file-input-item",
+        "module": "@ui-sdk/react/file-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FileInputItem",
+          "module": "@ui-sdk/react/file-input",
+          "slot": "file-input-item",
+          "slotDocumented": true,
+          "class": "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1)))] starting:translate-y-[calc(0.5rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(4px*var(--kf-flourish,1))] motion-reduce:transition-none! flex min-w-0 items-center gap-3 rounded-[10px] bg-[var(--file-input-face,var(--background))] py-1.5 ps-1.5 pe-2 text-[13px] text-[color:var(--file-input-ink,var(--foreground))] outline-none shadow-[0_0_0_1px_rgb(0_0_0/0.08),0_1px_2px_rgb(0_0_0/0.04)] dark:bg-[var(--file-input-face,color-mix(in_oklab,var(--accent)_40%,transparent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:opacity-60",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FileInputItemRemove": {
+      "export": "FileInputItemRemove",
+      "variants": {},
+      "root": {
+        "part": "FileInputItemRemove",
+        "slot": "file-input-item-remove",
+        "module": "@ui-sdk/react/file-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FileInputItemRemove",
+          "module": "@ui-sdk/react/file-input",
+          "slot": "file-input-item-remove",
+          "slotDocumented": true,
+          "class": "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1))] active:scale-[calc(1-0.18*var(--kf-flourish,1))] motion-reduce:[transition:none]! ms-auto grid size-6 shrink-0 cursor-pointer place-items-center rounded-[7px] text-muted-foreground outline-none hover:bg-foreground/[0.06] hover:text-[color:var(--file-input-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:pointer-events-none data-disabled:opacity-40 [&_svg]:size-3.5",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": "true"
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "m4.5 4.5 7 7m0-7-7 7"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg>, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "FileInputList": {
+      "export": "FileInputList",
+      "variants": {},
+      "root": {
+        "part": "FileInputList",
+        "slot": "file-input-list",
+        "module": "@ui-sdk/react/file-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FileInputList",
+          "module": "@ui-sdk/react/file-input",
+          "slot": "file-input-list",
+          "slotDocumented": true,
+          "class": "flex flex-col gap-1.5 rounded-[12px] outline-none empty:hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "FileInputTrigger": {
+      "export": "FileInputTrigger",
+      "variants": {},
+      "root": {
+        "part": "FileInputTrigger",
+        "slot": "file-input-trigger",
+        "module": "@ui-sdk/react/file-input"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "FileInputTrigger",
+          "module": "@ui-sdk/react/file-input",
+          "slot": "file-input-trigger",
+          "slotDocumented": true,
+          "class": "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop),translate_calc(260ms*var(--kf-speed,1))_var(--ease-pop),box-shadow_calc(120ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(120ms*var(--kf-speed,1))_var(--ease-house)] active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:[transition:none]! inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] bg-[var(--file-input-face,var(--background))] px-3 text-[13px] leading-none font-medium whitespace-nowrap text-[color:var(--file-input-ink,var(--foreground))] outline-none select-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--file-input-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] hover:bg-[color-mix(in_oklab,var(--file-input-face,var(--muted))_50%,transparent)] dark:hover:bg-[color-mix(in_oklab,var(--file-input-face,var(--accent))_80%,transparent)] active:translate-y-[calc(1px*var(--kf-flourish,1))] active:shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_0_1px_rgb(0_0_0/0.08)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-invalid:ring-[3px] data-invalid:ring-destructive/25 data-invalid:shadow-[0_0_0_1px_var(--destructive)] data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "file-input": "flex min-w-0 flex-col gap-[var(--file-input-gap,0.75rem)]",
+    "file-input-dropzone": "[transition:translate_calc(460ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(460ms*var(--kf-speed,1))_var(--ease-spring),border-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(200ms*var(--kf-speed,1))_var(--ease-house)] data-dragging:-translate-y-[calc(0.375rem*var(--kf-flourish,1))] data-dragging:scale-[calc(1+0.02*var(--kf-flourish,1))] motion-reduce:[transition:none]! group/drop relative flex flex-col items-center justify-center gap-1 rounded-[var(--file-input-radius,14px)] bg-[var(--file-input-face,transparent)] border border-dashed border-foreground/15 px-6 py-[var(--file-input-padding,1.75rem)] text-center text-[13px] outline-none hover:border-foreground/25 data-dragging:shadow-[0_10px_28px_-12px_rgb(0_0_0/0.25)] dark:data-dragging:shadow-[0_12px_32px_-12px_rgb(0_0_0/0.8)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-dragging:border-solid data-drag-accept:border-[color:var(--file-input-accent,var(--ring))] data-drag-accept:bg-[color-mix(in_oklab,var(--file-input-accent,var(--ring))_7%,transparent)] data-drag-accept:ring-[3px] data-drag-accept:ring-[color:color-mix(in_oklab,var(--file-input-accent,var(--ring))_15%,transparent)] data-drag-reject:border-destructive data-drag-reject:bg-destructive/[0.05] data-drag-reject:ring-[3px] data-drag-reject:ring-destructive/15 data-disabled:cursor-not-allowed data-disabled:border-foreground/10 data-disabled:opacity-60 [&>svg]:size-4",
+    "file-input-dropzone-icon": "mb-2 grid size-[var(--file-input-icon-size,2.25rem)] place-items-center rounded-[10px] bg-[var(--file-input-face,var(--background))] text-[color:var(--file-input-ink,var(--foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--file-input-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] [transition:translate_calc(480ms*var(--kf-speed,1))_var(--ease-pop),scale_calc(480ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]! group-data-dragging/drop:-translate-y-[calc(0.5rem*var(--kf-flourish,1))] group-data-dragging/drop:scale-[calc(1+0.1*var(--kf-flourish,1))] group-data-drag-accept/drop:text-[color:var(--file-input-accent,var(--ring))] group-data-drag-reject/drop:text-destructive [&_svg]:size-4",
+    "file-input-item": "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1)))] starting:translate-y-[calc(0.5rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(4px*var(--kf-flourish,1))] motion-reduce:transition-none! flex min-w-0 items-center gap-3 rounded-[10px] bg-[var(--file-input-face,var(--background))] py-1.5 ps-1.5 pe-2 text-[13px] text-[color:var(--file-input-ink,var(--foreground))] outline-none shadow-[0_0_0_1px_rgb(0_0_0/0.08),0_1px_2px_rgb(0_0_0/0.04)] dark:bg-[var(--file-input-face,color-mix(in_oklab,var(--accent)_40%,transparent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:opacity-60",
+    "file-input-item-remove": "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1))] active:scale-[calc(1-0.18*var(--kf-flourish,1))] motion-reduce:[transition:none]! ms-auto grid size-6 shrink-0 cursor-pointer place-items-center rounded-[7px] text-muted-foreground outline-none hover:bg-foreground/[0.06] hover:text-[color:var(--file-input-ink,var(--foreground))] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-disabled:pointer-events-none data-disabled:opacity-40 [&_svg]:size-3.5",
+    "file-input-list": "flex flex-col gap-1.5 rounded-[12px] outline-none empty:hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    "file-input-trigger": "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop),translate_calc(260ms*var(--kf-speed,1))_var(--ease-pop),box-shadow_calc(120ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(120ms*var(--kf-speed,1))_var(--ease-house)] active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:[transition:none]! inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] bg-[var(--file-input-face,var(--background))] px-3 text-[13px] leading-none font-medium whitespace-nowrap text-[color:var(--file-input-ink,var(--foreground))] outline-none select-none shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--file-input-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] hover:bg-[color-mix(in_oklab,var(--file-input-face,var(--muted))_50%,transparent)] dark:hover:bg-[color-mix(in_oklab,var(--file-input-face,var(--accent))_80%,transparent)] active:translate-y-[calc(1px*var(--kf-flourish,1))] active:shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_0_1px_rgb(0_0_0/0.08)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_1px_rgb(0_0_0/0.6)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-invalid:ring-[3px] data-invalid:ring-destructive/25 data-invalid:shadow-[0_0_0_1px_var(--destructive)] data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "extra-elements": 2
+  },
+  "flourish": true
+}

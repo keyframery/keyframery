@@ -1,0 +1,181 @@
+{
+  "slug": "resizable",
+  "module": "@ui-sdk/react/resizable",
+  "parts": {
+    "Resizable": {
+      "export": "Resizable",
+      "variants": {},
+      "root": {
+        "part": "Resizable",
+        "slot": "resizable",
+        "module": "@ui-sdk/react/resizable"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "Resizable",
+          "module": "@ui-sdk/react/resizable",
+          "slot": "resizable",
+          "slotDocumented": true,
+          "class": "size-full",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ResizableGrip": {
+      "export": "ResizableGrip",
+      "variants": {},
+      "root": {
+        "element": "span",
+        "slot": "resizable-grip"
+      },
+      "tree": [
+        {
+          "t": "el",
+          "tag": "span",
+          "class": "relative isolate before:absolute before:inset-0 before:-z-10 before:[transition:top_calc(420ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(420ms*var(--kf-speed,1))_var(--ease-spring),left_calc(420ms*var(--kf-speed,1))_var(--ease-spring),right_calc(420ms*var(--kf-speed,1))_var(--ease-spring)] group-data-[orientation=horizontal]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-y-[calc(0.25rem*var(--kf-flourish,1))] group-data-[orientation=horizontal]/kf-handle:group-data-dragging/kf-handle:before:-inset-y-[calc(0.75rem*var(--kf-flourish,1))] group-data-[orientation=vertical]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-x-[calc(0.25rem*var(--kf-flourish,1))] group-data-[orientation=vertical]/kf-handle:group-data-dragging/kf-handle:before:-inset-x-[calc(0.75rem*var(--kf-flourish,1))] motion-reduce:before:[transition:none]!",
+          "attrs": {
+            "data-slot": "resizable-grip",
+            "aria-hidden": true
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "ResizableHandle": {
+      "export": "ResizableHandle",
+      "variants": {},
+      "root": {
+        "part": "ResizableHandle",
+        "slot": "resizable-handle",
+        "module": "@ui-sdk/react/resizable"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ResizableHandle",
+          "module": "@ui-sdk/react/resizable",
+          "slot": "resizable-handle",
+          "slotDocumented": true,
+          "class": "group/kf-handle after:pointer-events-none after:opacity-0 after:[scale:var(--kf-line-x,1)_var(--kf-line-y,1)] data-[orientation=horizontal]:[--kf-line-y:calc(1-var(--kf-flourish,1))] data-[orientation=vertical]:[--kf-line-x:calc(1-var(--kf-flourish,1))] data-hovering:after:opacity-100 data-dragging:after:opacity-100 focus-visible:after:opacity-100 data-[orientation=horizontal]:data-hovering:[--kf-line-y:1] data-[orientation=horizontal]:data-dragging:[--kf-line-y:1] data-[orientation=horizontal]:focus-visible:[--kf-line-y:1] data-[orientation=vertical]:data-hovering:[--kf-line-x:1] data-[orientation=vertical]:data-dragging:[--kf-line-x:1] data-[orientation=vertical]:focus-visible:[--kf-line-x:1] after:[transition:scale_calc(520ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)] not-data-hovering:not-data-dragging:after:[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(260ms*var(--kf-speed,1))_var(--ease-house)] data-disabled:after:hidden motion-reduce:after:[transition:none]! group/handle relative z-10 flex items-center justify-center bg-[var(--resizable-line,var(--border))] outline-none data-[orientation=horizontal]:w-[var(--resizable-thickness,1px)] data-[orientation=vertical]:h-[var(--resizable-thickness,1px)] after:absolute after:rounded-full after:bg-[var(--resizable-active,var(--ring))] data-[orientation=horizontal]:after:inset-y-0 data-[orientation=horizontal]:after:left-1/2 data-[orientation=horizontal]:after:w-[3px] data-[orientation=horizontal]:after:-translate-x-1/2 data-[orientation=vertical]:after:inset-x-0 data-[orientation=vertical]:after:top-1/2 data-[orientation=vertical]:after:h-[3px] data-[orientation=vertical]:after:-translate-y-1/2",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "span",
+                  "class": "relative isolate before:absolute before:inset-0 before:-z-10 before:[transition:top_calc(420ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(420ms*var(--kf-speed,1))_var(--ease-spring),left_calc(420ms*var(--kf-speed,1))_var(--ease-spring),right_calc(420ms*var(--kf-speed,1))_var(--ease-spring)] group-data-[orientation=horizontal]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-y-[calc(0.25rem*var(--kf-flourish,1))] group-data-[orientation=horizontal]/kf-handle:group-data-dragging/kf-handle:before:-inset-y-[calc(0.75rem*var(--kf-flourish,1))] group-data-[orientation=vertical]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-x-[calc(0.25rem*var(--kf-flourish,1))] group-data-[orientation=vertical]/kf-handle:group-data-dragging/kf-handle:before:-inset-x-[calc(0.75rem*var(--kf-flourish,1))] motion-reduce:before:[transition:none]! z-10 grid shrink-0 place-items-center text-[color:var(--resizable-ink,var(--muted-foreground))] group-data-[orientation=horizontal]/handle:h-[var(--resizable-grip-length,1.5rem)] group-data-[orientation=horizontal]/handle:w-[var(--resizable-grip-width,0.75rem)] group-data-[orientation=vertical]/handle:h-[var(--resizable-grip-width,0.75rem)] group-data-[orientation=vertical]/handle:w-[var(--resizable-grip-length,1.5rem)] transition-[color] duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none! group-data-dragging/handle:text-[color:var(--resizable-ink,var(--foreground))] group-data-hovering/handle:text-[color:var(--resizable-ink,var(--foreground))] before:rounded-[var(--resizable-radius,5px)] before:bg-[var(--resizable-key,var(--background))] before:shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:before:bg-[var(--resizable-key,var(--accent))] dark:before:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] group-data-dragging/handle:before:shadow-[0_0_0_1px_var(--resizable-active,var(--ring)),0_1px_1px_rgb(0_0_0/0.04),0_2px_4px_-1px_rgb(0_0_0/0.1)] dark:group-data-dragging/handle:before:shadow-[0_0_0_1px_var(--resizable-active,var(--ring)),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] group-focus-visible/handle:ring-2 group-focus-visible/handle:ring-ring group-focus-visible/handle:ring-offset-2 group-focus-visible/handle:ring-offset-background group-data-disabled/handle:hidden",
+                  "attrs": {
+                    "data-slot": "resizable-grip",
+                    "aria-hidden": true
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "svg",
+                      "class": "size-3 group-data-[orientation=vertical]/handle:rotate-90",
+                      "attrs": {
+                        "viewBox": "0 0 16 16",
+                        "fill": "none",
+                        "stroke": "currentColor",
+                        "strokeWidth": "2",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "aria-hidden": true
+                      },
+                      "children": [
+                        {
+                          "t": "el",
+                          "tag": "path",
+                          "class": "",
+                          "attrs": {
+                            "d": "M6 4h.01M6 8h.01M6 12h.01M10 4h.01M10 8h.01M10 12h.01"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg class=\"size-3 group-data-[orientation=vertical]…\">, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "ResizablePanel": {
+      "export": "ResizablePanel",
+      "variants": {},
+      "root": {
+        "part": "ResizablePanel",
+        "slot": "resizable-panel",
+        "module": "@ui-sdk/react/resizable"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "ResizablePanel",
+          "module": "@ui-sdk/react/resizable",
+          "slot": "resizable-panel",
+          "slotDocumented": true,
+          "class": "transition-[flex-basis,flex-grow] duration-[calc(460ms*var(--kf-speed,1))] ease-spring in-data-dragging:transition-none motion-reduce:transition-none! overflow-hidden",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    }
+  },
+  "slots": {
+    "resizable": "size-full",
+    "resizable-grip": "relative isolate before:absolute before:inset-0 before:-z-10 before:[transition:top_calc(420ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(420ms*var(--kf-speed,1))_var(--ease-spring),left_calc(420ms*var(--kf-speed,1))_var(--ease-spring),right_calc(420ms*var(--kf-speed,1))_var(--ease-spring)] group-data-[orientation=horizontal]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-y-[calc(0.25rem*var(--kf-flourish,1))] group-data-[orientation=horizontal]/kf-handle:group-data-dragging/kf-handle:before:-inset-y-[calc(0.75rem*var(--kf-flourish,1))] group-data-[orientation=vertical]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-x-[calc(0.25rem*var(--kf-flourish,1))] group-data-[orientation=vertical]/kf-handle:group-data-dragging/kf-handle:before:-inset-x-[calc(0.75rem*var(--kf-flourish,1))] motion-reduce:before:[transition:none]! z-10 grid shrink-0 place-items-center text-[color:var(--resizable-ink,var(--muted-foreground))] group-data-[orientation=horizontal]/handle:h-[var(--resizable-grip-length,1.5rem)] group-data-[orientation=horizontal]/handle:w-[var(--resizable-grip-width,0.75rem)] group-data-[orientation=vertical]/handle:h-[var(--resizable-grip-width,0.75rem)] group-data-[orientation=vertical]/handle:w-[var(--resizable-grip-length,1.5rem)] transition-[color] duration-[calc(150ms*var(--kf-speed,1))] motion-reduce:transition-none! group-data-dragging/handle:text-[color:var(--resizable-ink,var(--foreground))] group-data-hovering/handle:text-[color:var(--resizable-ink,var(--foreground))] before:rounded-[var(--resizable-radius,5px)] before:bg-[var(--resizable-key,var(--background))] before:shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:before:bg-[var(--resizable-key,var(--accent))] dark:before:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] group-data-dragging/handle:before:shadow-[0_0_0_1px_var(--resizable-active,var(--ring)),0_1px_1px_rgb(0_0_0/0.04),0_2px_4px_-1px_rgb(0_0_0/0.1)] dark:group-data-dragging/handle:before:shadow-[0_0_0_1px_var(--resizable-active,var(--ring)),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] group-focus-visible/handle:ring-2 group-focus-visible/handle:ring-ring group-focus-visible/handle:ring-offset-2 group-focus-visible/handle:ring-offset-background group-data-disabled/handle:hidden",
+    "resizable-handle": "group/kf-handle after:pointer-events-none after:opacity-0 after:[scale:var(--kf-line-x,1)_var(--kf-line-y,1)] data-[orientation=horizontal]:[--kf-line-y:calc(1-var(--kf-flourish,1))] data-[orientation=vertical]:[--kf-line-x:calc(1-var(--kf-flourish,1))] data-hovering:after:opacity-100 data-dragging:after:opacity-100 focus-visible:after:opacity-100 data-[orientation=horizontal]:data-hovering:[--kf-line-y:1] data-[orientation=horizontal]:data-dragging:[--kf-line-y:1] data-[orientation=horizontal]:focus-visible:[--kf-line-y:1] data-[orientation=vertical]:data-hovering:[--kf-line-x:1] data-[orientation=vertical]:data-dragging:[--kf-line-x:1] data-[orientation=vertical]:focus-visible:[--kf-line-x:1] after:[transition:scale_calc(520ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house)] not-data-hovering:not-data-dragging:after:[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(260ms*var(--kf-speed,1))_var(--ease-house)] data-disabled:after:hidden motion-reduce:after:[transition:none]! group/handle relative z-10 flex items-center justify-center bg-[var(--resizable-line,var(--border))] outline-none data-[orientation=horizontal]:w-[var(--resizable-thickness,1px)] data-[orientation=vertical]:h-[var(--resizable-thickness,1px)] after:absolute after:rounded-full after:bg-[var(--resizable-active,var(--ring))] data-[orientation=horizontal]:after:inset-y-0 data-[orientation=horizontal]:after:left-1/2 data-[orientation=horizontal]:after:w-[3px] data-[orientation=horizontal]:after:-translate-x-1/2 data-[orientation=vertical]:after:inset-x-0 data-[orientation=vertical]:after:top-1/2 data-[orientation=vertical]:after:h-[3px] data-[orientation=vertical]:after:-translate-y-1/2",
+    "resizable-panel": "transition-[flex-basis,flex-grow] duration-[calc(460ms*var(--kf-speed,1))] ease-spring in-data-dragging:transition-none motion-reduce:transition-none! overflow-hidden"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "extra-elements": 1
+  },
+  "flourish": true
+}

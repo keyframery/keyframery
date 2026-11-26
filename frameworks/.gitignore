@@ -1,0 +1,19 @@
+# Installed packages, builds and test output. The sources, generated components and examples are tracked.
+node_modules/
+dist/
+shots/
+bench-out/
+bench/report*.md
+bench/report*.json
+bench/rerun*.md
+bench/*.md
+!bench/README.md
+test/**/.vite/
+*.log
+# Copies the sync scripts write into the test apps (rebuild with scripts/frameworks/sync-test.mjs or each app's sync.mjs).
+test/*/src/components/keyframery/
+test/*/src/kf/
+test/vue/src/examples/
+test/vue/src/lib/
+test/vue-core-*/src/components/
+test/vue-core-*/src/lib/

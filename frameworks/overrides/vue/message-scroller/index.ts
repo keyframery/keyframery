@@ -1,0 +1,8 @@
+export { default as MessageScroller } from "./MessageScroller.vue"
+export { default as MessageScrollerButton } from "./MessageScrollerButton.vue"
+export { default as MessageScrollerContent } from "./MessageScrollerContent.vue"
+export { default as MessageScrollerItem } from "./MessageScrollerItem.vue"
+export { default as MessageScrollerLabel } from "./MessageScrollerLabel.vue"
+export { default as MessageScrollerViewport } from "./MessageScrollerViewport.vue"
+export { createScrollAreaController } from "@ui-sdk/vue/scroll-area"
+export type { MessageScrollerOptions, MessageScrollerScroller, MessageScrollerUnreadReason } from "@/components/keyframery/core/message-scroller-core"

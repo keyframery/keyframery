@@ -1,0 +1,36 @@
+<script setup lang="ts">
+/* @@BANNER
+   Renders items passed as data with the styled parts, like React's ComboboxItems: strings, groups,
+   separators and { value, label, disabled } objects. */
+import type { ListData } from "@ui-sdk/vue/combobox"
+import ComboboxGroup from "./ComboboxGroup.vue"
+import ComboboxGroupLabel from "./ComboboxGroupLabel.vue"
+import ComboboxItem from "./ComboboxItem.vue"
+import ComboboxItemIndicator from "./ComboboxItemIndicator.vue"
+import ComboboxItemText from "./ComboboxItemText.vue"
+import ComboboxSeparator from "./ComboboxSeparator.vue"
+
+defineOptions({ name: "ComboboxItems" })
+const props = defineProps<{ items?: ListData<any> }>()
+const list = (items: ListData<any> | undefined) => (items ?? []) as any[]
+const keyOf = (entry: any, index: number) =>
+  typeof entry === "string" ? entry : entry.type === "separator" ? `separator-${index}` : entry.type === "group" ? `group-${entry.label ?? index}` : typeof entry.value === "string" ? entry.value : index
+</script>
+
+<template>
+  <template v-for="(entry, index) in list(props.items)" :key="keyOf(entry, index)">
+    <ComboboxItem v-if="typeof entry === 'string'" :value="entry">
+      <ComboboxItemText>{{ entry }}</ComboboxItemText>
+      <ComboboxItemIndicator />
+    </ComboboxItem>
+    <ComboboxSeparator v-else-if="entry.type === 'separator'" />
+    <ComboboxGroup v-else-if="entry.type === 'group'">
+      <ComboboxGroupLabel v-if="entry.label">{{ entry.label }}</ComboboxGroupLabel>
+      <ComboboxItems :items="entry.items" />
+    </ComboboxGroup>
+    <ComboboxItem v-else :value="entry.value" :label="entry.label" :disabled="entry.disabled" :keywords="entry.keywords">
+      <ComboboxItemText>{{ entry.label }}</ComboboxItemText>
+      <ComboboxItemIndicator />
+    </ComboboxItem>
+  </template>
+</template>

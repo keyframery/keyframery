@@ -1,0 +1,88 @@
+{
+ "started": "2026-11-26T12:08:23.139Z",
+ "finished": "2026-11-26T12:08:31.385Z",
+ "motions": [
+  "subtle",
+  "springy"
+ ],
+ "summary": {
+  "components": {
+   "identical": 0,
+   "differs": 1,
+   "missing in Vue": 0
+  },
+  "runs": {
+   "differs": 1,
+   "identical": 1
+  },
+  "diffTypes": {
+   "motion: x during the move": {
+    "diffs": 1,
+    "components": 1
+   }
+  }
+ },
+ "components": {
+  "drawer": {
+   "verdict": "differs",
+   "reasons": [],
+   "examples": [
+    "03-side"
+   ],
+   "noPort": [],
+   "missingComponents": [],
+   "diffTypes": {
+    "motion: x during the move": 1
+   }
+  }
+ },
+ "results": {
+  "drawer": {
+   "03-side": {
+    "subtle": {
+     "status": "differs",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [
+      {
+       "phase": "motion",
+       "key": "drawer-content",
+       "type": "motion: x during the move",
+       "react": null,
+       "vue": null,
+       "prop": "max gap 16.0px"
+      }
+     ],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    },
+    "springy": {
+     "status": "identical",
+     "recipe": "popup",
+     "errors": {
+      "react": [],
+      "vue": []
+     },
+     "slots": {
+      "react": 1,
+      "vue": 1
+     },
+     "diffs": [],
+     "stretch": {
+      "react": 1,
+      "vue": 1
+     }
+    }
+   }
+  }
+ }
+}

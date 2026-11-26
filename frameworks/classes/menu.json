@@ -1,0 +1,685 @@
+{
+  "slug": "menu",
+  "module": "@ui-sdk/react/menu",
+  "parts": {
+    "Menu": {
+      "export": "Menu",
+      "variants": {},
+      "root": null,
+      "tree": [],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "js",
+          "detail": "{ items } = props"
+        },
+        {
+          "kind": "js",
+          "detail": "register = React.useCallback((kind: MenuPartKind) => { setPlaced((now) => ({ ...now, [kind]: now[kind] + 1 })) return () => setPlaced((now) => ({ ...now, [kind]"
+        },
+        {
+          "kind": "conditional",
+          "detail": "placed.context > 0 && placed.trigger === 0 (condition unknown; dropped)"
+        },
+        {
+          "kind": "js",
+          "detail": "shared = React.useMemo(() => ({ items, register, fromPointer }), [items, register, fromPointer])"
+        },
+        {
+          "kind": "conditional",
+          "detail": "placed.content > 0 || React.Children.toArray(children).some((child) => React.isValidElement(child) && child.type === MenuContent) (condition unknown; dropped)"
+        },
+        {
+          "kind": "conditional",
+          "detail": "items && !hasContent (condition unknown; dropped)"
+        },
+        {
+          "kind": "element",
+          "detail": "<MenuSharedContext> (not imported)"
+        },
+        {
+          "kind": "not-generated",
+          "detail": "renders from data or JS only (nothing static to carry); not generated"
+        }
+      ]
+    },
+    "MenuCheckboxItem": {
+      "export": "MenuCheckboxItem",
+      "variants": {},
+      "root": {
+        "part": "MenuCheckboxItem",
+        "slot": "menu-checkbox-item",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuCheckboxItem",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-checkbox-item",
+          "slotDocumented": true,
+          "class": "data-highlighted:[anchor-name:--kf-hl] relative flex min-h-[var(--menu-row-height,2rem)] cursor-default items-center gap-2 rounded-[var(--menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]>&:not([data-has-icon])]:ps-8 [[data-has-icons]>[role=group]>&:not([data-has-icon])]:ps-8",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuContent": {
+      "export": "MenuContent",
+      "variants": {},
+      "root": {
+        "part": "MenuContent",
+        "slot": "menu-content",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuContent",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-content",
+          "slotDocumented": true,
+          "class": "group/kf-menu origin-(--transform-origin) [transition:opacity_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(380ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(380ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(380ms*var(--kf-speed,1))_var(--ease-spring)] data-[side=bottom]:[--kf-from:0_-8px] data-[side=top]:[--kf-from:0_8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=inline-end]:[--kf-from:-8px_0] data-[side=inline-start]:[--kf-from:8px_0] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-[presentation=sheet]:data-starting-style:scale-100 data-[presentation=sheet]:data-starting-style:blur-none data-[presentation=sheet]:data-starting-style:translate-none data-[presentation=sheet]:data-ending-style:scale-100 data-[presentation=sheet]:data-ending-style:blur-none data-[presentation=sheet]:data-ending-style:translate-none data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:[transition:opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(150ms*var(--kf-speed,1))_var(--ease-house),translate_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)] [&>*:not([data-slot=menu-content])]:transition-[opacity,translate,filter] [&>*:not([data-slot=menu-content])]:duration-[calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&>*:not([data-slot=menu-content])]:ease-spring [&>*:not([data-slot=menu-content])]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1)))] data-starting-style:[&>*:not([data-slot=menu-content])]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] data-starting-style:[&>*:not([data-slot=menu-content])]:opacity-0 data-starting-style:[&>*:not([data-slot=menu-content])]:blur-[calc(4px*var(--kf-flourish,1))] data-ending-style:[&>*:not([data-slot=menu-content])]:[transition-delay:0ms] motion-reduce:[&>*:not([data-slot=menu-content])]:[translate:none]! motion-reduce:[&>*:not([data-slot=menu-content])]:[filter:none]! data-starting-style:[&>*:not([data-slot=menu-content])]:[transition:none] relative isolate [anchor-scope:--kf-hl] before:pointer-events-none before:absolute before:-z-10 before:hidden before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house)] has-[[data-highlighted],[data-slot=menu-trigger][data-open]]:before:block starting:before:opacity-0 motion-reduce:[transition:none]! motion-reduce:before:[transition:none]! motion-reduce:[&>*]:[transition:none] m-0 max-h-(--available-height) min-w-44 overflow-y-auto overscroll-contain border-0 p-1.5 outline-none rounded-[var(--menu-radius,14px)] bg-[var(--menu-surface,var(--popover))] text-[color:var(--menu-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)] before:rounded-[var(--menu-item-radius,8px)] before:bg-[var(--menu-highlight,var(--accent))] has-[[data-destructive][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-danger,var(--destructive))_10%,transparent)] has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-highlight,var(--accent))_50%,transparent)] data-[presentation=sheet]:m-0 data-[presentation=sheet]:w-auto! data-[presentation=sheet]:min-w-0! data-[presentation=sheet]:max-w-none! data-[presentation=sheet]:rounded-b-none data-[presentation=sheet]:pt-6 data-[presentation=sheet]:pb-[calc(0.75rem+env(safe-area-inset-bottom))] data-[presentation=sheet]:after:pointer-events-none data-[presentation=sheet]:after:absolute data-[presentation=sheet]:after:top-2 data-[presentation=sheet]:after:left-1/2 data-[presentation=sheet]:after:h-1 data-[presentation=sheet]:after:w-9 data-[presentation=sheet]:after:-translate-x-1/2 data-[presentation=sheet]:after:rounded-full data-[presentation=sheet]:after:bg-foreground/15 data-[presentation=sheet]:after:content-['']",
+          "attrs": {
+            "sideOffset": 6
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "js",
+          "detail": "useMenuPart(\"content\")"
+        },
+        {
+          "kind": "js",
+          "detail": "shared = React.useContext(MenuSharedContext)"
+        },
+        {
+          "kind": "conditional",
+          "detail": "fromPointer ? 2 : 6 (condition unknown; false branch kept)"
+        },
+        {
+          "kind": "conditional",
+          "detail": "fromPointer && contextMenuMotion (condition unknown; dropped)"
+        },
+        {
+          "kind": "speed-prop",
+          "detail": "the speed prop (sets --kf-speed through React context for portalled parts); set --kf-speed in CSS instead"
+        },
+        {
+          "kind": "conditional",
+          "detail": "shared?.items ? <MenuItems items={shared.items} /> : undefined (condition unknown; false branch kept)"
+        }
+      ]
+    },
+    "MenuContextTrigger": {
+      "export": "MenuContextTrigger",
+      "variants": {},
+      "root": {
+        "part": "MenuContextTrigger",
+        "slot": "menu-context-trigger",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuContextTrigger",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-context-trigger",
+          "slotDocumented": true,
+          "class": "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "js",
+          "detail": "useMenuPart(\"context\")"
+        }
+      ]
+    },
+    "MenuGroup": {
+      "export": "MenuGroup",
+      "variants": {},
+      "root": {
+        "part": "MenuGroup",
+        "slot": "menu-group",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuGroup",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-group",
+          "slotDocumented": false,
+          "class": "",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuGroupLabel": {
+      "export": "MenuGroupLabel",
+      "variants": {},
+      "root": {
+        "part": "MenuGroupLabel",
+        "slot": "menu-group-label",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuGroupLabel",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-group-label",
+          "slotDocumented": false,
+          "class": "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none [[data-has-icons]>&]:ps-8 [[data-has-icons]>[role=group]>&]:ps-8",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuItem": {
+      "export": "MenuItem",
+      "variants": {},
+      "root": {
+        "part": "MenuItem",
+        "slot": "menu-item",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuItem",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-item",
+          "slotDocumented": true,
+          "class": "data-highlighted:[anchor-name:--kf-hl] relative flex min-h-[var(--menu-row-height,2rem)] cursor-default items-center gap-2 rounded-[var(--menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]>&:not([data-has-icon])]:ps-8 [[data-has-icons]>[role=group]>&:not([data-has-icon])]:ps-8 *:data-[slot=menu-shortcut]:ms-auto *:data-[slot=menu-shortcut]:ps-5 *:data-[slot=menu-shortcut]:text-[12px] *:data-[slot=menu-shortcut]:tracking-[0.04em] *:data-[slot=menu-shortcut]:text-muted-foreground data-destructive:text-[color:var(--menu-danger,var(--destructive))] data-destructive:data-highlighted:text-[color:var(--menu-danger,var(--destructive))] data-pending:cursor-progress data-pending:text-muted-foreground data-pending:after:ms-auto data-pending:after:size-3 data-pending:after:shrink-0 data-pending:after:animate-spin data-pending:after:rounded-full data-pending:after:border-[1.5px] data-pending:after:border-current data-pending:after:border-t-transparent motion-reduce:data-pending:after:animate-none!",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuItemIcon": {
+      "export": "MenuItemIcon",
+      "variants": {},
+      "root": {
+        "part": "MenuItemIcon",
+        "slot": "menu-item-icon",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuItemIcon",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-item-icon",
+          "slotDocumented": true,
+          "class": "flex size-4 shrink-0 items-center justify-center text-muted-foreground [&>svg]:size-4 in-data-destructive:text-current in-data-highlighted:text-current rtl:data-mirror:-scale-x-100",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuItemIndicator": {
+      "export": "MenuItemIndicator",
+      "variants": {},
+      "root": {
+        "part": "MenuItemIndicator",
+        "slot": "menu-item-indicator",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuItemIndicator",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-item-indicator",
+          "slotDocumented": true,
+          "class": "[&_:is(path,polyline)]:[stroke-dasharray:24] [&_:is(path,polyline)]:[stroke-dashoffset:24] [&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_:is(path,polyline)]:ease-house data-checked:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-checked:[&_:is(path,polyline)]:delay-[calc(100ms*var(--kf-speed,1)*var(--kf-flourish,1))] data-checked:[&_:is(path,polyline)]:starting:[stroke-dashoffset:24] group-data-starting-style/kf-menu:[&_:is(path,polyline)]:[stroke-dashoffset:24]! motion-reduce:[&_:is(path,polyline)]:transition-none order-last ms-auto flex size-4 shrink-0 items-center justify-center ps-0 [&>svg]:size-4",
+          "attrs": {
+            "keepMounted": true
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": [
+                {
+                  "t": "el",
+                  "tag": "svg",
+                  "class": "size-4",
+                  "attrs": {
+                    "viewBox": "0 0 16 16",
+                    "fill": "none",
+                    "stroke": "currentColor",
+                    "strokeWidth": "1.5",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "aria-hidden": true
+                  },
+                  "children": [
+                    {
+                      "t": "el",
+                      "tag": "path",
+                      "class": "",
+                      "attrs": {
+                        "d": "m3.5 8.5 3 3 6-7"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ],
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg class=\"size-4…\">, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "MenuItems": {
+      "export": "MenuItems",
+      "variants": {},
+      "root": null,
+      "tree": [],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "children-unknown",
+          "detail": "items.map((entry, index) => { const item = typeof entry === \"string\" ? { value: entry, label: entry } : entry if (!(\"type\" in item) || item.type === undefined |"
+        },
+        {
+          "kind": "not-generated",
+          "detail": "renders from data or JS only (nothing static to carry); not generated"
+        }
+      ]
+    },
+    "MenuRadioGroup": {
+      "export": "MenuRadioGroup",
+      "variants": {},
+      "root": {
+        "part": "MenuRadioGroup",
+        "slot": "menu-radio-group",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuRadioGroup",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-radio-group",
+          "slotDocumented": false,
+          "class": "",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuRadioItem": {
+      "export": "MenuRadioItem",
+      "variants": {},
+      "root": {
+        "part": "MenuRadioItem",
+        "slot": "menu-radio-item",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuRadioItem",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-radio-item",
+          "slotDocumented": true,
+          "class": "data-highlighted:[anchor-name:--kf-hl] relative flex min-h-[var(--menu-row-height,2rem)] cursor-default items-center gap-2 rounded-[var(--menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]>&:not([data-has-icon])]:ps-8 [[data-has-icons]>[role=group]>&:not([data-has-icon])]:ps-8",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuSeparator": {
+      "export": "MenuSeparator",
+      "variants": {},
+      "root": {
+        "part": "MenuSeparator",
+        "slot": "menu-separator",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuSeparator",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-separator",
+          "slotDocumented": false,
+          "class": "-mx-1.5 my-1.5 h-px bg-border",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuShortcut": {
+      "export": "MenuShortcut",
+      "variants": {},
+      "root": {
+        "part": "MenuShortcut",
+        "slot": "menu-shortcut",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuShortcut",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-shortcut",
+          "slotDocumented": false,
+          "class": "ms-auto ps-5 text-[12px] leading-4 tracking-[0.04em] text-muted-foreground",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuSub": {
+      "export": "MenuSub",
+      "variants": {},
+      "root": {
+        "part": "MenuSub",
+        "slot": "menu-sub",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuSub",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-sub",
+          "slotDocumented": false,
+          "class": "",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": []
+    },
+    "MenuSubContent": {
+      "export": "MenuSubContent",
+      "variants": {},
+      "root": {
+        "part": "MenuSubContent",
+        "slot": "menu-sub-content",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuSubContent",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-sub-content",
+          "slotDocumented": false,
+          "class": "group/kf-menu origin-(--transform-origin) [transition:opacity_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(380ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(380ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(380ms*var(--kf-speed,1))_var(--ease-spring)] data-[side=bottom]:[--kf-from:0_-8px] data-[side=top]:[--kf-from:0_8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=inline-end]:[--kf-from:-8px_0] data-[side=inline-start]:[--kf-from:8px_0] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-[presentation=sheet]:data-starting-style:scale-100 data-[presentation=sheet]:data-starting-style:blur-none data-[presentation=sheet]:data-starting-style:translate-none data-[presentation=sheet]:data-ending-style:scale-100 data-[presentation=sheet]:data-ending-style:blur-none data-[presentation=sheet]:data-ending-style:translate-none data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:[transition:opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(150ms*var(--kf-speed,1))_var(--ease-house),translate_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)] [&>*:not([data-slot=menu-content])]:transition-[opacity,translate,filter] [&>*:not([data-slot=menu-content])]:duration-[calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&>*:not([data-slot=menu-content])]:ease-spring [&>*:not([data-slot=menu-content])]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1)))] data-starting-style:[&>*:not([data-slot=menu-content])]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] data-starting-style:[&>*:not([data-slot=menu-content])]:opacity-0 data-starting-style:[&>*:not([data-slot=menu-content])]:blur-[calc(4px*var(--kf-flourish,1))] data-ending-style:[&>*:not([data-slot=menu-content])]:[transition-delay:0ms] motion-reduce:[&>*:not([data-slot=menu-content])]:[translate:none]! motion-reduce:[&>*:not([data-slot=menu-content])]:[filter:none]! data-starting-style:[&>*:not([data-slot=menu-content])]:[transition:none] relative isolate [anchor-scope:--kf-hl] before:pointer-events-none before:absolute before:-z-10 before:hidden before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house)] has-[[data-highlighted],[data-slot=menu-trigger][data-open]]:before:block starting:before:opacity-0 motion-reduce:[transition:none]! motion-reduce:before:[transition:none]! motion-reduce:[&>*]:[transition:none] m-0 max-h-(--available-height) min-w-44 overflow-y-auto overscroll-contain border-0 p-1.5 outline-none rounded-[var(--menu-radius,14px)] bg-[var(--menu-surface,var(--popover))] text-[color:var(--menu-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)] before:rounded-[var(--menu-item-radius,8px)] before:bg-[var(--menu-highlight,var(--accent))] has-[[data-destructive][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-danger,var(--destructive))_10%,transparent)] has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-highlight,var(--accent))_50%,transparent)] data-[presentation=sheet]:m-0 data-[presentation=sheet]:w-auto! data-[presentation=sheet]:min-w-0! data-[presentation=sheet]:max-w-none! data-[presentation=sheet]:rounded-b-none data-[presentation=sheet]:pt-6 data-[presentation=sheet]:pb-[calc(0.75rem+env(safe-area-inset-bottom))] data-[presentation=sheet]:after:pointer-events-none data-[presentation=sheet]:after:absolute data-[presentation=sheet]:after:top-2 data-[presentation=sheet]:after:left-1/2 data-[presentation=sheet]:after:h-1 data-[presentation=sheet]:after:w-9 data-[presentation=sheet]:after:-translate-x-1/2 data-[presentation=sheet]:after:rounded-full data-[presentation=sheet]:after:bg-foreground/15 data-[presentation=sheet]:after:content-['']",
+          "attrs": {
+            "sideOffset": 8
+          },
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "speed-prop",
+          "detail": "the speed prop (sets --kf-speed through React context for portalled parts); set --kf-speed in CSS instead"
+        }
+      ]
+    },
+    "MenuSubTrigger": {
+      "export": "MenuSubTrigger",
+      "variants": {},
+      "root": {
+        "part": "MenuSubTrigger",
+        "slot": "menu-sub-trigger",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuSubTrigger",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-sub-trigger",
+          "slotDocumented": false,
+          "class": "data-highlighted:[anchor-name:--kf-hl] data-open:[anchor-name:--kf-hl] [&>svg:last-child]:transition-[translate] [&>svg:last-child]:duration-[calc(380ms*var(--kf-speed,1))] [&>svg:last-child]:ease-spring data-open:[&>svg:last-child]:translate-x-[calc(0.125rem*var(--kf-flourish,1))] rtl:data-open:[&>svg:last-child]:-translate-x-[calc(0.125rem*var(--kf-flourish,1))] motion-reduce:[&>svg:last-child]:transition-none relative flex min-h-[var(--menu-row-height,2rem)] cursor-default items-center gap-2 rounded-[var(--menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]>&:not([data-has-icon])]:ps-8 [[data-has-icons]>[role=group]>&:not([data-has-icon])]:ps-8 data-open:text-[color:var(--menu-ink,var(--accent-foreground))]",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            },
+            {
+              "t": "el",
+              "tag": "svg",
+              "class": "ms-auto -me-0.5 size-4 shrink-0 text-muted-foreground rtl:-scale-x-100",
+              "attrs": {
+                "viewBox": "0 0 16 16",
+                "fill": "none",
+                "stroke": "currentColor",
+                "strokeWidth": "1.5",
+                "strokeLinecap": "round",
+                "strokeLinejoin": "round",
+                "aria-hidden": true
+              },
+              "children": [
+                {
+                  "t": "el",
+                  "tag": "path",
+                  "class": "",
+                  "attrs": {
+                    "d": "m6 3.5 4.5 4.5L6 12.5"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "extra-elements",
+          "detail": "renders <svg class=\"ms-auto -me-0.5 size-4 shrink-0 text-mut…\">, <path> (carried by the framework wrappers; a stylesheet alone cannot add them)"
+        }
+      ]
+    },
+    "MenuTrigger": {
+      "export": "MenuTrigger",
+      "variants": {},
+      "renderClass": "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none! outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "root": {
+        "part": "MenuTrigger",
+        "slot": "menu-trigger",
+        "module": "@ui-sdk/react/menu"
+      },
+      "tree": [
+        {
+          "t": "part",
+          "name": "MenuTrigger",
+          "module": "@ui-sdk/react/menu",
+          "slot": "menu-trigger",
+          "slotDocumented": true,
+          "class": "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none! outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] bg-[var(--menu-trigger,var(--background))] px-3 text-[13px] leading-none font-medium whitespace-nowrap text-foreground select-none [&_svg]:size-4 [&_svg]:shrink-0 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--menu-trigger,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] hover:bg-[var(--menu-trigger,var(--muted))] data-open:bg-[var(--menu-trigger,var(--muted))] dark:hover:bg-[color-mix(in_oklab,var(--menu-trigger,var(--accent))_80%,transparent)] dark:data-open:bg-[color-mix(in_oklab,var(--menu-trigger,var(--accent))_80%,transparent)] active:shadow-[0_0_0_1px_rgb(0_0_0/0.08),0_1px_1px_rgb(0_0_0/0.04)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.05),0_1px_2px_rgb(0_0_0/0.5)] data-disabled:cursor-not-allowed data-disabled:opacity-40 data-disabled:active:scale-100",
+          "attrs": {},
+          "children": [
+            {
+              "t": "slot",
+              "fallback": null,
+              "scoped": false
+            }
+          ],
+          "receivesProps": true
+        }
+      ],
+      "behaviors": [],
+      "lost": [
+        {
+          "kind": "js",
+          "detail": "useMenuPart(\"trigger\")"
+        },
+        {
+          "kind": "conditional",
+          "detail": "!props.render && [ \"inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] bg-[var(-- (default props: kept)"
+        }
+      ]
+    }
+  },
+  "slots": {
+    "menu-checkbox-item": "data-highlighted:[anchor-name:--kf-hl] relative flex min-h-[var(--menu-row-height,2rem)] cursor-default items-center gap-2 rounded-[var(--menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]>&:not([data-has-icon])]:ps-8 [[data-has-icons]>[role=group]>&:not([data-has-icon])]:ps-8",
+    "menu-content": "group/kf-menu origin-(--transform-origin) [transition:opacity_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(380ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(380ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(380ms*var(--kf-speed,1))_var(--ease-spring)] data-[side=bottom]:[--kf-from:0_-8px] data-[side=top]:[--kf-from:0_8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=inline-end]:[--kf-from:-8px_0] data-[side=inline-start]:[--kf-from:8px_0] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-[presentation=sheet]:data-starting-style:scale-100 data-[presentation=sheet]:data-starting-style:blur-none data-[presentation=sheet]:data-starting-style:translate-none data-[presentation=sheet]:data-ending-style:scale-100 data-[presentation=sheet]:data-ending-style:blur-none data-[presentation=sheet]:data-ending-style:translate-none data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:[transition:opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(150ms*var(--kf-speed,1))_var(--ease-house),translate_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)] [&>*:not([data-slot=menu-content])]:transition-[opacity,translate,filter] [&>*:not([data-slot=menu-content])]:duration-[calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&>*:not([data-slot=menu-content])]:ease-spring [&>*:not([data-slot=menu-content])]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1)))] data-starting-style:[&>*:not([data-slot=menu-content])]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] data-starting-style:[&>*:not([data-slot=menu-content])]:opacity-0 data-starting-style:[&>*:not([data-slot=menu-content])]:blur-[calc(4px*var(--kf-flourish,1))] data-ending-style:[&>*:not([data-slot=menu-content])]:[transition-delay:0ms] motion-reduce:[&>*:not([data-slot=menu-content])]:[translate:none]! motion-reduce:[&>*:not([data-slot=menu-content])]:[filter:none]! data-starting-style:[&>*:not([data-slot=menu-content])]:[transition:none] relative isolate [anchor-scope:--kf-hl] before:pointer-events-none before:absolute before:-z-10 before:hidden before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house)] has-[[data-highlighted],[data-slot=menu-trigger][data-open]]:before:block starting:before:opacity-0 motion-reduce:[transition:none]! motion-reduce:before:[transition:none]! motion-reduce:[&>*]:[transition:none] m-0 max-h-(--available-height) min-w-44 overflow-y-auto overscroll-contain border-0 p-1.5 outline-none rounded-[var(--menu-radius,14px)] bg-[var(--menu-surface,var(--popover))] text-[color:var(--menu-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)] before:rounded-[var(--menu-item-radius,8px)] before:bg-[var(--menu-highlight,var(--accent))] has-[[data-destructive][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-danger,var(--destructive))_10%,transparent)] has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-highlight,var(--accent))_50%,transparent)] data-[presentation=sheet]:m-0 data-[presentation=sheet]:w-auto! data-[presentation=sheet]:min-w-0! data-[presentation=sheet]:max-w-none! data-[presentation=sheet]:rounded-b-none data-[presentation=sheet]:pt-6 data-[presentation=sheet]:pb-[calc(0.75rem+env(safe-area-inset-bottom))] data-[presentation=sheet]:after:pointer-events-none data-[presentation=sheet]:after:absolute data-[presentation=sheet]:after:top-2 data-[presentation=sheet]:after:left-1/2 data-[presentation=sheet]:after:h-1 data-[presentation=sheet]:after:w-9 data-[presentation=sheet]:after:-translate-x-1/2 data-[presentation=sheet]:after:rounded-full data-[presentation=sheet]:after:bg-foreground/15 data-[presentation=sheet]:after:content-['']",
+    "menu-context-trigger": "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    "menu-group-label": "px-2 pt-1.5 pb-1 text-[11px] leading-4 font-medium text-muted-foreground select-none [[data-has-icons]>&]:ps-8 [[data-has-icons]>[role=group]>&]:ps-8",
+    "menu-item": "data-highlighted:[anchor-name:--kf-hl] relative flex min-h-[var(--menu-row-height,2rem)] cursor-default items-center gap-2 rounded-[var(--menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]>&:not([data-has-icon])]:ps-8 [[data-has-icons]>[role=group]>&:not([data-has-icon])]:ps-8 *:data-[slot=menu-shortcut]:ms-auto *:data-[slot=menu-shortcut]:ps-5 *:data-[slot=menu-shortcut]:text-[12px] *:data-[slot=menu-shortcut]:tracking-[0.04em] *:data-[slot=menu-shortcut]:text-muted-foreground data-destructive:text-[color:var(--menu-danger,var(--destructive))] data-destructive:data-highlighted:text-[color:var(--menu-danger,var(--destructive))] data-pending:cursor-progress data-pending:text-muted-foreground data-pending:after:ms-auto data-pending:after:size-3 data-pending:after:shrink-0 data-pending:after:animate-spin data-pending:after:rounded-full data-pending:after:border-[1.5px] data-pending:after:border-current data-pending:after:border-t-transparent motion-reduce:data-pending:after:animate-none!",
+    "menu-item-icon": "flex size-4 shrink-0 items-center justify-center text-muted-foreground [&>svg]:size-4 in-data-destructive:text-current in-data-highlighted:text-current rtl:data-mirror:-scale-x-100",
+    "menu-item-indicator": "[&_:is(path,polyline)]:[stroke-dasharray:24] [&_:is(path,polyline)]:[stroke-dashoffset:24] [&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_:is(path,polyline)]:ease-house data-checked:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-checked:[&_:is(path,polyline)]:delay-[calc(100ms*var(--kf-speed,1)*var(--kf-flourish,1))] data-checked:[&_:is(path,polyline)]:starting:[stroke-dashoffset:24] group-data-starting-style/kf-menu:[&_:is(path,polyline)]:[stroke-dashoffset:24]! motion-reduce:[&_:is(path,polyline)]:transition-none order-last ms-auto flex size-4 shrink-0 items-center justify-center ps-0 [&>svg]:size-4",
+    "menu-radio-item": "data-highlighted:[anchor-name:--kf-hl] relative flex min-h-[var(--menu-row-height,2rem)] cursor-default items-center gap-2 rounded-[var(--menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]>&:not([data-has-icon])]:ps-8 [[data-has-icons]>[role=group]>&:not([data-has-icon])]:ps-8",
+    "menu-separator": "-mx-1.5 my-1.5 h-px bg-border",
+    "menu-shortcut": "ms-auto ps-5 text-[12px] leading-4 tracking-[0.04em] text-muted-foreground",
+    "menu-sub-content": "group/kf-menu origin-(--transform-origin) [transition:opacity_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(380ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(380ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(380ms*var(--kf-speed,1))_var(--ease-spring)] data-[side=bottom]:[--kf-from:0_-8px] data-[side=top]:[--kf-from:0_8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=inline-end]:[--kf-from:-8px_0] data-[side=inline-start]:[--kf-from:8px_0] data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-[presentation=sheet]:data-starting-style:scale-100 data-[presentation=sheet]:data-starting-style:blur-none data-[presentation=sheet]:data-starting-style:translate-none data-[presentation=sheet]:data-ending-style:scale-100 data-[presentation=sheet]:data-ending-style:blur-none data-[presentation=sheet]:data-ending-style:translate-none data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:[transition:opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(150ms*var(--kf-speed,1))_var(--ease-house),translate_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)] [&>*:not([data-slot=menu-content])]:transition-[opacity,translate,filter] [&>*:not([data-slot=menu-content])]:duration-[calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&>*:not([data-slot=menu-content])]:ease-spring [&>*:not([data-slot=menu-content])]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1)))] data-starting-style:[&>*:not([data-slot=menu-content])]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] data-starting-style:[&>*:not([data-slot=menu-content])]:opacity-0 data-starting-style:[&>*:not([data-slot=menu-content])]:blur-[calc(4px*var(--kf-flourish,1))] data-ending-style:[&>*:not([data-slot=menu-content])]:[transition-delay:0ms] motion-reduce:[&>*:not([data-slot=menu-content])]:[translate:none]! motion-reduce:[&>*:not([data-slot=menu-content])]:[filter:none]! data-starting-style:[&>*:not([data-slot=menu-content])]:[transition:none] relative isolate [anchor-scope:--kf-hl] before:pointer-events-none before:absolute before:-z-10 before:hidden before:[position-anchor:--kf-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)] before:[transition:top_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house)] has-[[data-highlighted],[data-slot=menu-trigger][data-open]]:before:block starting:before:opacity-0 motion-reduce:[transition:none]! motion-reduce:before:[transition:none]! motion-reduce:[&>*]:[transition:none] m-0 max-h-(--available-height) min-w-44 overflow-y-auto overscroll-contain border-0 p-1.5 outline-none rounded-[var(--menu-radius,14px)] bg-[var(--menu-surface,var(--popover))] text-[color:var(--menu-ink,var(--popover-foreground))] shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)] before:rounded-[var(--menu-item-radius,8px)] before:bg-[var(--menu-highlight,var(--accent))] has-[[data-destructive][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-danger,var(--destructive))_10%,transparent)] has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-highlight,var(--accent))_50%,transparent)] data-[presentation=sheet]:m-0 data-[presentation=sheet]:w-auto! data-[presentation=sheet]:min-w-0! data-[presentation=sheet]:max-w-none! data-[presentation=sheet]:rounded-b-none data-[presentation=sheet]:pt-6 data-[presentation=sheet]:pb-[calc(0.75rem+env(safe-area-inset-bottom))] data-[presentation=sheet]:after:pointer-events-none data-[presentation=sheet]:after:absolute data-[presentation=sheet]:after:top-2 data-[presentation=sheet]:after:left-1/2 data-[presentation=sheet]:after:h-1 data-[presentation=sheet]:after:w-9 data-[presentation=sheet]:after:-translate-x-1/2 data-[presentation=sheet]:after:rounded-full data-[presentation=sheet]:after:bg-foreground/15 data-[presentation=sheet]:after:content-['']",
+    "menu-sub-trigger": "data-highlighted:[anchor-name:--kf-hl] data-open:[anchor-name:--kf-hl] [&>svg:last-child]:transition-[translate] [&>svg:last-child]:duration-[calc(380ms*var(--kf-speed,1))] [&>svg:last-child]:ease-spring data-open:[&>svg:last-child]:translate-x-[calc(0.125rem*var(--kf-flourish,1))] rtl:data-open:[&>svg:last-child]:-translate-x-[calc(0.125rem*var(--kf-flourish,1))] motion-reduce:[&>svg:last-child]:transition-none relative flex min-h-[var(--menu-row-height,2rem)] cursor-default items-center gap-2 rounded-[var(--menu-item-radius,8px)] px-2 py-1.5 text-[13px] leading-4 outline-none select-none data-highlighted:text-[color:var(--menu-ink,var(--accent-foreground))] data-disabled:text-muted-foreground/60 data-disabled:data-highlighted:text-muted-foreground/60 [[data-has-icons]>&:not([data-has-icon])]:ps-8 [[data-has-icons]>[role=group]>&:not([data-has-icon])]:ps-8 data-open:text-[color:var(--menu-ink,var(--accent-foreground))]",
+    "menu-trigger": "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none! outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] bg-[var(--menu-trigger,var(--background))] px-3 text-[13px] leading-none font-medium whitespace-nowrap text-foreground select-none [&_svg]:size-4 [&_svg]:shrink-0 shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)] dark:bg-[var(--menu-trigger,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)] hover:bg-[var(--menu-trigger,var(--muted))] data-open:bg-[var(--menu-trigger,var(--muted))] dark:hover:bg-[color-mix(in_oklab,var(--menu-trigger,var(--accent))_80%,transparent)] dark:data-open:bg-[color-mix(in_oklab,var(--menu-trigger,var(--accent))_80%,transparent)] active:shadow-[0_0_0_1px_rgb(0_0_0/0.08),0_1px_1px_rgb(0_0_0/0.04)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.05),0_1px_2px_rgb(0_0_0/0.5)] data-disabled:cursor-not-allowed data-disabled:opacity-40 data-disabled:active:scale-100"
+  },
+  "styles": {},
+  "passthrough": [],
+  "lost": [],
+  "adaptations": [],
+  "lostKinds": {
+    "js": 7,
+    "conditional": 7,
+    "element": 1,
+    "not-generated": 2,
+    "speed-prop": 2,
+    "extra-elements": 2,
+    "children-unknown": 1
+  },
+  "flourish": true
+}

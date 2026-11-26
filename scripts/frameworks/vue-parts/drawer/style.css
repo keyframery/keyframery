@@ -1,0 +1,6 @@
+/* Right to left: a side sheet opens on its own side, as in React. UI SDK Vue 0.1.0-beta.17 lays the viewport out
+   before it is in the page, reads its direction as ltr and puts side="right" at the row's end, which is the left in
+   RTL (React reads rtl and uses flex-start). These rules give the viewport what UI SDK means in RTL, so they stay
+   right once UI SDK fixes it. See frameworks/VUE.md, "UI SDK Vue issues". */
+[data-slot="drawer-viewport"][data-side="right"]:dir(rtl) { justify-content: flex-start !important; }
+[data-slot="drawer-viewport"][data-side="left"]:dir(rtl) { justify-content: flex-end !important; }

@@ -7,14 +7,14 @@ faq:
   - q: "Do I need to install UI SDK first?"
     a: "No. The CLI installs `@ui-sdk/react` and `@ui-sdk/core` for you, pinned to the version the components are tested with."
   - q: "Which frameworks does Keyframery support?"
-    a: "Every framework the shadcn CLI supports: Next.js, Vite, TanStack Start, Laravel with the React starter kit, React Router and Astro. Anything else that runs React 19 and Tailwind CSS v4 works with a manual install."
+    a: "Every framework the shadcn CLI supports: Next.js, Vite, TanStack Start, Laravel with the React starter kit, React Router and Astro. Anything else that runs React 19 and Tailwind CSS v4 works with a manual install. For Vue, the shadcn-vue CLI installs them in Vite and Nuxt (see the Vue guide)."
   - q: "Why does the CLI say Unknown registry \"@keyframery\"?"
     a: "Your shadcn CLI didn't find `@keyframery` in shadcn's registry index. Register it once with `npx shadcn@latest registry add \"@keyframery=https://keyframery.com/r/{name}.json\"`, then install again."
   - q: "Will it overwrite my shadcn/ui components?"
     a: "No. Keyframery installs into `components/keyframery/`. Nothing in `components/ui/` is touched."
 ---
 
-Pick the UI framework you build with. UI SDK renders in all five; Keyframery's components are React today, and the others are on their way.
+Pick the UI framework you build with. UI SDK renders in all five; Keyframery's components are ready for React and [Vue](/docs/installation/vue), and Svelte, Solid and Web Components are on their way.
 
 <UiFrameworkPicker current="react" />
 

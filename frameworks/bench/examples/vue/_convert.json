@@ -1,0 +1,18 @@
+{
+  "todo": {},
+  "hand": [
+    "breadcrumb/03-router",
+    "empty/02-search",
+    "preferences/02-read-the-value",
+    "toast/usage",
+    "markdown/03-components",
+    "markdown/01-streaming",
+    "reasoning/01-streaming",
+    "skeleton/02-swap",
+    "item/02-group",
+    "approval/03-agent-bridge",
+    "tree/01-files",
+    "data-table/01-orders",
+    "token-input/01-emails"
+  ]
+}
