@@ -120,29 +120,76 @@
     --fd-toc-width: 184px;
   }
 }
+/* Docs sidebar. Measured against 16 docs sites (shadcn, Next.js, Tailwind, Radix, Mintlify, Resend...):
+   a section heading beats its pages on ink and weight, not size; pages stay quiet until hovered or
+   active; a category is one step stronger than a page and opens onto an indented list with a guide line;
+   space groups a heading with its own list. */
 :is(#nd-sidebar, #nd-sidebar-mobile) a[data-active] {
   padding-block: 4px;
   font-size: 13px;
   line-height: 20px;
   font-weight: 400;
-}
-:is(#nd-sidebar, #nd-sidebar-mobile) p {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.015em;
   color: var(--muted-foreground);
+  transition-property: color, background-color;
+  transition-duration: 120ms;
 }
+:is(#nd-sidebar, #nd-sidebar-mobile) a[data-active]:hover {
+  color: var(--foreground);
+}
+/* Section heading: same size as the pages, full ink, one weight step up, more air above than below. */
+:is(#nd-sidebar, #nd-sidebar-mobile) p {
+  padding-block: 4px;
+  margin-top: 28px;
+  margin-bottom: 2px;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--foreground);
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) p:first-child {
+  margin-top: 0;
+}
+/* Category (Actions, Forms...): a page-sized row in a middle ink, weight 500, a quiet chevron. */
 :is(#nd-sidebar, #nd-sidebar-mobile) button[aria-expanded]:not([aria-controls="nd-sidebar"]):not([aria-controls="nd-sidebar-mobile"]) {
   padding-block: 4px;
   min-height: 28px;
   font-size: 13px;
   line-height: 20px;
   font-weight: 500;
+  color: color-mix(in oklab, var(--foreground) 40%, var(--muted-foreground));
+  transition-property: color, background-color;
+  transition-duration: 120ms;
 }
+:is(#nd-sidebar, #nd-sidebar-mobile) button[aria-expanded]:not([aria-controls="nd-sidebar"]):not([aria-controls="nd-sidebar-mobile"]):hover {
+  color: var(--foreground);
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) :is(a[data-active], button[aria-expanded]) > svg:last-child {
+  color: var(--muted-foreground);
+}
+/* Active page: accent ink on a light accent fill; inside a category its guide-line segment turns accent too. */
 :is(#nd-sidebar, #nd-sidebar-mobile) a[data-active="true"] {
   color: var(--cut);
-  background: color-mix(in oklab, var(--cut) 8%, transparent);
+  background: color-mix(in oklab, var(--cut) 9%, transparent);
   font-weight: 500;
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) a[data-active="true"]::before {
+  background: var(--cut);
+  inset-block: 6px;
+}
+:is(#nd-sidebar, #nd-sidebar-mobile) :is(a[data-active], button[aria-expanded]):focus-visible {
+  outline: 2px solid var(--cut);
+  outline-offset: -2px;
+}
+/* The drawer is used by touch: the same type on a taller row. */
+#nd-sidebar-mobile :is(a[data-active], button[aria-expanded]:not([aria-controls="nd-sidebar-mobile"])) {
+  padding-block: 6px;
+  min-height: 32px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(#nd-sidebar, #nd-sidebar-mobile) :is(a[data-active], button[aria-expanded]) {
+    transition: none;
+  }
 }
 #nd-docs-layout #nd-page {
   padding-block-start: 24px;

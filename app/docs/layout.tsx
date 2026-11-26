@@ -5,6 +5,8 @@ import { baseOptions } from "@site/lib/layout.shared"
 import { getDocsNavigation } from "@site/lib/docs-navigation"
 import { REPO } from "@site/lib/shared"
 
+import { SidebarActiveIntoView } from "./sidebar-active-into-view"
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   const options = baseOptions()
   // The page tree already contains the docs destinations; keep only site-level exits here.
@@ -13,6 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   links?.push({ type: "icon", url: REPO, text: "GitHub", label: githubLabel, external: true, icon: <GitHubStarsMark /> })
   return (
     <DocsLayout tree={getDocsNavigation()} {...options} nav={{ ...options.nav, children: undefined }} links={links} sidebar={{ defaultOpenLevel: 0 }}>
+      <SidebarActiveIntoView />
       {children}
     </DocsLayout>
   )
