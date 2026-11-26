@@ -66,7 +66,7 @@ export function ComponentBrowser({ entries, groups }: { entries: ComponentEntry[
         const items = filtered.filter((entry) => entry.group === group)
         if (!items.length) return null
         return (
-          <section key={group} aria-label={group} className="space-y-3">
+          <section key={group} id={group.toLowerCase().replace(/\s+/g, "-")} aria-label={group} className="scroll-mt-24 space-y-3">
             <h2 className="flex items-center gap-2 text-[14px] font-medium">
               {group} <span className="text-[12px] text-muted-foreground tabular-nums">{items.length}</span>
             </h2>

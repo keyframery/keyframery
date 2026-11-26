@@ -1,0 +1,90 @@
+{
+  "$comment": "The one description of Keyframery. The site reads it, and scripts/stamp-copy.mjs writes it into README.md, package.json and funding.json; pnpm check fails if they drift. {components}, {ai} and {frameworks} are filled in from the catalog and the frameworks list below, so counts and lists are never typed by hand. Each highlight's href is a site path; the README makes it absolute. Keep 'description' at 160 characters or fewer (Google and GitHub cut it).",
+  "name": "Keyframery",
+  "tagline": "The component library for Vercel's UI SDK.",
+  "description": "Free, open-source components for Vercel's UI SDK: quiet by default, lively when you want it, sheets on phones and Agent view. Install them with the shadcn CLI.",
+  "summary": "UI SDK is Vercel's library of UI behaviours: keyboard, focus, selection, accessibility and a bridge that lets AI agents read and use your interface. Keyframery is the component library on top. Every component renders UI SDK underneath and adds a finished look and motion written in plain CSS, and the shadcn CLI copies the code into your project, so it's yours.",
+  "highlights": [
+    {
+      "title": "{components} components",
+      "body": "Everything UI SDK ships, plus cards, charts, data tables, sidebars and more, each with a live demo and a Customize panel.",
+      "href": "/docs/components"
+    },
+    {
+      "title": "AI components",
+      "body": "For agent interfaces: {ai}.",
+      "href": "/docs/components#ai"
+    },
+    {
+      "title": "Quiet by default",
+      "body": "Subtle moves about as much as shadcn/ui. Calm, Springy, Snappy and Playful turn the motion up with one attribute. No animation library.",
+      "href": "/docs/motion-styles"
+    },
+    {
+      "title": "Sheets on phones",
+      "body": "Popovers, menus, selects and pickers open as a sheet from the bottom edge on small touch screens, and stay popovers everywhere else.",
+      "href": "/docs/components/popover"
+    },
+    {
+      "title": "Agent view",
+      "body": "See the snapshot an AI agent reads from every component and run its actions. A skill for Claude Code and a prompt for any coding agent.",
+      "href": "/docs/agent-view"
+    },
+    {
+      "title": "Create and templates",
+      "body": "Build a preset of colours, corners, font and motion and install it with one command. Two free templates: a landing page and an admin dashboard.",
+      "href": "/create"
+    },
+    {
+      "title": "Your code",
+      "body": "Installed with the shadcn CLI in {frameworks}. Free and MIT-licensed.",
+      "href": "/docs/installation"
+    }
+  ],
+  "frameworks": [
+    {
+      "name": "React",
+      "status": "supported",
+      "targets": [
+        "Next.js",
+        "Vite",
+        "TanStack Start",
+        "React Router",
+        "Astro",
+        "Laravel"
+      ]
+    },
+    {
+      "name": "Vue",
+      "status": "planned"
+    },
+    {
+      "name": "Svelte",
+      "status": "planned"
+    },
+    {
+      "name": "Solid",
+      "status": "planned"
+    },
+    {
+      "name": "Web Components",
+      "status": "planned"
+    }
+  ],
+  "categories": {
+    "Actions": "Buttons that press and spring back, groups with one gliding highlight",
+    "Forms": "Fields, checks that draw themselves, sliders, OTP and token inputs, ratings",
+    "Menus": "Menus that unfold from their trigger, selects, comboboxes, command lists",
+    "Overlays": "Dialogs, drawers, popovers, tooltips and toasts with real exits",
+    "Navigation": "Tabs with a gliding key, sidebars, trees, pagination",
+    "Disclosure": "Accordions and collapsibles that open to their real height, carousels",
+    "Display": "Badges, avatars, code blocks, meters, progress and timelines",
+    "Feedback": "Alerts, skeletons, spinners and empty states",
+    "Dates": "Calendars whose months slide in from the side you clicked, date and time inputs",
+    "Layout": "Cards, resizable panels, scroll areas, reading direction",
+    "Media": "Aspect ratio frames and an image cropper",
+    "Data": "Charts, tables, stats and a waterfall for request timings",
+    "AI": "Messages, tool calls, approvals, diffs and composers for agent interfaces",
+    "Motion": "The motion-style switcher and UI SDK preferences"
+  }
+}
