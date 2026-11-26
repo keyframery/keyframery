@@ -92,10 +92,31 @@
       "slug": "approval",
       "name": "Approval",
       "group": "AI",
-      "description": "",
+      "description": "A person says yes or no to something an AI agent wants to do. The card shows the action, the control the agent would press, details and a risk level, with Approve and Deny; once answered it closes to one line. createApprovals() wires it to UI SDK's agent bridge, whose allow callback waits for the answer. The buttons sit inside data-agent-hidden, so an agent can read the card but can never approve its own request. createApprovals' allow also refuses any step aimed inside an approval card, and while it waits UI SDK holds the waiting agent's later act and query calls.",
       "sdk": null,
       "core": true,
-      "moves": []
+      "moves": [
+        [
+          "Fade",
+          "The card fades in with a small rise when a request arrives; the extra rise and blur are flourish."
+        ],
+        [
+          "Height",
+          "Once answered, the details and buttons close and the card becomes one line."
+        ],
+        [
+          "Height",
+          "With askReason, Deny opens a reason field to its height."
+        ],
+        [
+          "Draw",
+          "The answer's tick or cross pops in and draws itself (flourish)."
+        ],
+        [
+          "Direction",
+          "\"Approved · 2s ago\" rises into the place the risk label leaves (the rise is flourish)."
+        ]
+      ]
     },
     {
       "slug": "aspect-ratio",
@@ -699,10 +720,35 @@
       "slug": "diff-viewer",
       "name": "Diff Viewer",
       "group": "AI",
-      "description": "",
+      "description": "Review the changes an agent proposes to a file: a line diff computed in-house (or read from a patch), unified or side by side, changed words marked, long unchanged runs folded, and Accept or Reject on every hunk.",
       "sdk": null,
       "core": true,
-      "moves": []
+      "moves": [
+        [
+          "Direction",
+          "Switching unified and split, the new layout fades in from the side of its button while the switch's key slides across."
+        ],
+        [
+          "Height",
+          "An opened fold grows from its row to its lines, which fade in."
+        ],
+        [
+          "Cascade",
+          "On mount, hunks rise in one after another (flourish)."
+        ],
+        [
+          "Roll",
+          "The +added and −removed counts roll up to their values (flourish)."
+        ],
+        [
+          "Draw",
+          "Accepting a hunk swaps its buttons for a tick that draws itself; a rejected hunk steps back."
+        ],
+        [
+          "Press",
+          "The view switch, review buttons and copy key sink under the press."
+        ]
+      ]
     },
     {
       "slug": "direction",
@@ -1050,10 +1096,27 @@
       "slug": "markdown",
       "name": "Markdown",
       "group": "AI",
-      "description": "",
+      "description": "Renders an AI answer's markdown as it streams: finished blocks stay put while only the last one grows, each new block rises in, unfinished syntax reads as it will once closed, and a slim caret marks where the text is arriving.",
       "sdk": null,
       "core": true,
-      "moves": []
+      "moves": [
+        [
+          "Steady",
+          "Each block is drawn from its own source, so finished blocks never re-render or move while the text after them arrives."
+        ],
+        [
+          "Rise",
+          "A new block fades up out of a soft blur as it starts."
+        ],
+        [
+          "Caret",
+          "While streaming, a slim caret sits at the end of the text and pulses softly; it stays still for reduced motion."
+        ],
+        [
+          "Cascade",
+          "Fenced code arrives line by line in Keyframery's code block, and its copy key appears when the closing fence lands."
+        ]
+      ]
     },
     {
       "slug": "marker",
@@ -1395,10 +1458,39 @@
       "slug": "prompt-composer",
       "name": "Prompt Composer",
       "group": "AI",
-      "description": "",
+      "description": "The input box of an AI chat. It grows with the message, takes files by the paperclip, a drop or a paste, opens orders, people or commands at the caret after @ and /, and its Send key turns into a spinner and then Stop while the reply comes in.",
       "sdk": null,
       "core": true,
-      "moves": []
+      "moves": [
+        [
+          "Fade",
+          "Send, the spinner and Stop cross-fade in place as the status changes; with more motion they also turn and blur through the swap and land with a pop."
+        ],
+        [
+          "Press",
+          "Send, Stop and the toolbar buttons give under the pointer and spring back on release."
+        ],
+        [
+          "Height",
+          "The row of files opens to its height when the first file arrives and closes as the last one leaves, so the text moves instead of jumping."
+        ],
+        [
+          "Pop",
+          "Each file pops in from smaller, its upload line fills along its foot, and it shrinks away when removed while the files after it close the gap."
+        ],
+        [
+          "Unfold",
+          "The suggestions unfold from the caret, their rows cascade in, and one highlight glides between them as you arrow through."
+        ],
+        [
+          "Rise",
+          "While files are dragged over the box, a drop layer fades in over it and its label rises; the box leans toward the files."
+        ],
+        [
+          "Direction",
+          "The model picker's choice rises into place, and on a phone the models open as a sheet from the bottom."
+        ]
+      ]
     },
     {
       "slug": "questionnaire",
@@ -1474,10 +1566,31 @@
       "slug": "reasoning",
       "name": "Reasoning",
       "group": "AI",
-      "description": "",
+      "description": "The thinking behind an AI answer, behind a disclosure: \"Thinking…\" has a light passing through it while the model works, the thinking opens on its own and closes into \"Thought for 12s\" when it ends, and it streams in as muted markdown.",
       "sdk": null,
       "core": true,
-      "moves": []
+      "moves": [
+        [
+          "Fade",
+          "While it thinks, a soft light passes through \"Thinking…\"; it stops for reduced motion."
+        ],
+        [
+          "Height",
+          "The thinking opens to its real height on its own when streaming starts, and closes when it ends unless the reader toggled it."
+        ],
+        [
+          "Cascade",
+          "The thinking rises in as it opens."
+        ],
+        [
+          "Rise",
+          "Each new paragraph or list of the thinking rises in as it streams, and the newest line stays in view."
+        ],
+        [
+          "Spring",
+          "The chevron turns down on a spring."
+        ]
+      ]
     },
     {
       "slug": "resizable",
@@ -1945,10 +2058,35 @@
       "slug": "tool-call",
       "name": "Tool Call",
       "group": "AI",
-      "description": "",
+      "description": "One agent tool call as a card: the status mark, a title, the tool's name and the time it took, with the input and the output (or the error) in a body that opens. A failed call opens on its own. Agents read the name, status and summaries of the input and output, and open the card through its collapsible.",
       "sdk": null,
       "core": true,
-      "moves": []
+      "moves": [
+        [
+          "Rise",
+          "The card rises in when it arrives (flourish)."
+        ],
+        [
+          "Spin",
+          "A running call's mark turns and its title has a light passing through it; both say \"working\" and run at any flourish."
+        ],
+        [
+          "Draw",
+          "When the call finishes, the tick pops in and draws itself (flourish); a failed or denied mark pops in."
+        ],
+        [
+          "Fade",
+          "A new status label fades in; it rises into place with flourish."
+        ],
+        [
+          "Height",
+          "The body opens to its real height and the chevron turns."
+        ],
+        [
+          "Cascade",
+          "Input and output rise in one after the other as the body opens (flourish)."
+        ]
+      ]
     },
     {
       "slug": "toolbar",
