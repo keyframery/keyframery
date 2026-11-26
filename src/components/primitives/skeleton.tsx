@@ -6,7 +6,8 @@
 
    - Shimmer: a soft band of light sweeps across each block, then rests a moment (`data-shimmer`).
    - Swap: when `loading` ends, the placeholders fade out and each direct child of the content rises
-     out of a light blur, one after another. Both layers share one grid cell, so nothing jumps. */
+     out of a light blur, one after another. Both layers share one grid cell, so nothing jumps.
+   The shimmer and the cross-fade are feedback. The rise, blur and stagger scale with --kf-flourish. */
 
 import { createParts } from "@ui-sdk/react/primitive"
 import type { StateOf } from "@ui-sdk/core"
@@ -73,7 +74,7 @@ function SkeletonSwap({
       <swap.Fallback
         className={cn(
           "[grid-area:1/1] transition-[opacity,filter] duration-[calc(240ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none!",
-          "not-data-loading:pointer-events-none not-data-loading:opacity-0 not-data-loading:blur-[2px] not-data-loading:[&_[data-slot=skeleton]]:after:[animation-play-state:paused]",
+          "not-data-loading:pointer-events-none not-data-loading:opacity-0 not-data-loading:blur-[calc(2px*var(--kf-flourish,1))] not-data-loading:[&_[data-slot=skeleton]]:after:[animation-play-state:paused]",
         )}
       >
         {fallback}
@@ -82,9 +83,9 @@ function SkeletonSwap({
         className={cn(
           "[grid-area:1/1]",
           "*:transition-[opacity,translate,filter] *:duration-[calc(560ms*var(--kf-speed,1))] *:ease-spring",
-          "*:starting:translate-y-3 *:starting:opacity-0 *:starting:blur-[6px]",
-          "*:[transition-delay:calc(calc(90ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(60ms*var(--kf-speed,1)))]",
-          "data-loading:*:translate-y-3 data-loading:*:opacity-0 data-loading:*:blur-[6px] data-loading:*:duration-[calc(160ms*var(--kf-speed,1))] data-loading:*:ease-house data-loading:*:[transition-delay:0ms]",
+          "*:starting:translate-y-[calc(0.75rem*var(--kf-flourish,1))] *:starting:opacity-0 *:starting:blur-[calc(6px*var(--kf-flourish,1))]",
+          "*:[transition-delay:calc(calc(90ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(60ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
+          "data-loading:*:translate-y-[calc(0.75rem*var(--kf-flourish,1))] data-loading:*:opacity-0 data-loading:*:blur-[calc(6px*var(--kf-flourish,1))] data-loading:*:duration-[calc(160ms*var(--kf-speed,1))] data-loading:*:ease-house data-loading:*:[transition-delay:0ms]",
           "motion-reduce:*:transition-none",
           contentClassName,
         )}

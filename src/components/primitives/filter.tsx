@@ -9,7 +9,8 @@
      highlight Glides between them.
    - Widen: the chosen values sit in a box whose width follows what it holds on a spring, so the chip
      widens and narrows around new badges without stretching its text.
-   - Cascade: badges arrive one after another, each popping in from a smaller, blurred start.
+   - Cascade: badges arrive one after another, each popping in from a smaller, blurred start. The
+     stagger, blur and all but a 0.95 scale scale with --kf-flourish.
    - Roll: "3 selected" and the option counts are rolling digits (use `Roll` from the badge).
    - The bar's reset button slides in from the left while any filter is active, and out again. */
 
@@ -114,7 +115,7 @@ function Filter({
   return <FilterContext value={{ handle, anchor, setAnchor }}>{root}</FilterContext>
 }
 
-const press = "transition-[scale,background-color,box-shadow,color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none!"
+const press = "transition-[scale,background-color,box-shadow,color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none!"
 
 /* The chip. A button that opens the list. */
 function FilterTrigger({ className, ...props }: React.ComponentProps<typeof ComboboxTrigger>) {
@@ -172,8 +173,8 @@ function FilterValues({
             className={cn(
               "inline-flex w-max shrink-0 items-center",
               "[&>*]:transition-[opacity,scale,filter] [&>*]:duration-[calc(420ms*var(--kf-speed,1))] [&>*]:ease-pop",
-              "[&>*]:starting:scale-[0.6] [&>*]:starting:opacity-0 [&>*]:starting:blur-[3px]",
-              "[&>*]:[transition-delay:calc((min(sibling-index(),6)-1)*calc(70ms*var(--kf-speed,1)))]",
+              "[&>*]:starting:scale-[calc(0.95-0.35*var(--kf-flourish,1))] [&>*]:starting:opacity-0 [&>*]:starting:blur-[calc(3px*var(--kf-flourish,1))]",
+              "[&>*]:[transition-delay:calc((min(sibling-index(),6)-1)*calc(70ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
               "motion-reduce:[&>*]:transition-none!",
               innerClassName,
             )}
@@ -236,7 +237,7 @@ function FilterBarReset({ className, ...props }: React.ComponentProps<typeof Fil
         cn(
           press,
           "transition-[opacity,translate,filter,scale,background-color,color] duration-[calc(420ms*var(--kf-speed,1))] ease-spring",
-          "data-hidden:pointer-events-none data-hidden:-translate-x-2 data-hidden:opacity-0 data-hidden:blur-[3px] data-hidden:duration-[calc(180ms*var(--kf-speed,1))] data-hidden:ease-house",
+          "data-hidden:pointer-events-none data-hidden:-translate-x-2 data-hidden:opacity-0 data-hidden:blur-[calc(3px*var(--kf-flourish,1))] data-hidden:duration-[calc(180ms*var(--kf-speed,1))] data-hidden:ease-house",
         ),
         className,
       )}

@@ -68,6 +68,11 @@ function localDeps(code, self) {
 /* ---- the shared motion item: tokens, the four styles and the three easing utilities ---- */
 const css = fs.readFileSync(src("index.css"), "utf8")
 const ease = Object.fromEntries([...css.matchAll(/--ease-(house|spring|pop):\s*([^;]+);/g)].slice(0, 3).map((m) => [m[1], m[2].trim()]))
+/* The defaults on :root (Subtle: --kf-speed and --kf-flourish), read from the :root block in index.css that
+   sets them, so the registry and the site can't drift. */
+const rootBody = [...css.matchAll(/\n:root\s*\{([^}]+)\}/g)].map((m) => m[1]).find((body) => body.includes("--kf-speed")) ?? ""
+const rootVars = Object.fromEntries([...rootBody.matchAll(/(--kf-[\w-]+):\s*([^;]+);/g)].map((m) => [m[1], m[2].trim()]))
+if (rootVars["--kf-speed"] === undefined || rootVars["--kf-flourish"] === undefined) throw new Error("index.css: :root must set --kf-speed and --kf-flourish")
 const styles = {}
 for (const [, name, body] of css.matchAll(/\[data-motion="(\w+)"\]\s*\{([^}]+)\}/g)) {
   styles[`[data-motion="${name}"]`] = Object.fromEntries(
@@ -83,14 +88,14 @@ const motionItem = {
   type: "registry:item",
   title: "Motion",
   description:
-    "Keyframery's motion tokens: the house easing, two springs written as CSS, a speed setting, the four motion styles (Calm, Springy, Snappy, Playful) and the speed prop helpers with KeyframeryProvider. Every Keyframery component depends on it.",
+    "Keyframery's motion tokens: the house easing, two springs written as CSS, a speed setting, the five motion styles (Subtle, the default, plus Calm, Springy, Snappy and Playful), the flourish setting and the speed prop helpers with KeyframeryProvider. Every Keyframery component depends on it.",
   dependencies: ["clsx", "tailwind-merge"],
   registryDependencies: ["utils"],
   files: [{ path: "registry/lib/keyframery.tsx", type: "registry:lib" }],
   css: {
     "@layer base": {
       ":root": {
-        "--kf-speed": "1",
+        ...rootVars,
         "--ease-house": ease.house,
         "--ease-spring": ease.spring,
         "--ease-pop": ease.pop,

@@ -38,9 +38,10 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 
 export * from "@/components/primitives/menu"
 
-/* Unfold from the point: no travel, a deeper scale and blur, the same spring in and quick fade out. */
+/* Unfold from the point: no travel, a deeper scale and blur, the same spring in and quick fade out.
+   The fade and a 0.95 scale are feedback; the deeper scale and the blur scale with --kf-flourish. */
 const contextMenuMotion = cn(
-  "data-starting-style:[translate:0_0] data-starting-style:scale-[0.6] data-starting-style:blur-[8px]",
+  "data-starting-style:[translate:0_0] data-starting-style:scale-[calc(0.95-0.35*var(--kf-flourish,1))] data-starting-style:blur-[calc(8px*var(--kf-flourish,1))]",
   "data-ending-style:scale-[0.94]",
   /* Reduced motion: appear in place, no scale or blur. */
   "motion-reduce:data-starting-style:scale-100 motion-reduce:data-starting-style:blur-none motion-reduce:data-ending-style:scale-100",

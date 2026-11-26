@@ -12,7 +12,9 @@
    - Glide: one ring follows the chosen answer from row to row (the radio group's ring, anchored to
      the row).
    - Roll: the question number rolls; the progress fill grows on a spring.
-   - Height and rise: an error opens under the answers. */
+   - Height and rise: an error opens under the answers.
+   The slide, blurs, stagger, rise, digit roll and press scale with --kf-flourish; at 0 a question
+   cross-fades, the number changes in place and the progress fill still grows. */
 
 import type { StateOf } from "@ui-sdk/core"
 import { type PartProps, usePart, usePrimitive, type PrimitiveHandle } from "@ui-sdk/react/primitive"
@@ -39,7 +41,7 @@ function useQuestionnaire() {
   return handle
 }
 
-const keyframes = "@keyframes kf-questionnaire-error{from{opacity:0;translate:0 -4px;filter:blur(3px)}}"
+const keyframes = "@keyframes kf-questionnaire-error{from{opacity:0;translate:0 -4px;filter:blur(calc(3px*var(--kf-flourish,1)))}}"
 
 type RootProps = QuestionnaireOptions &
   Omit<PartProps<"form", StateOf<typeof questionnaire, "root">>, "defaultValue" | "onSubmit"> & {
@@ -84,7 +86,7 @@ function Roll({ value }: { value: number }) {
             key={index}
             aria-hidden
             style={{ "--d": Number(digit) } as React.CSSProperties}
-            className="flex flex-col [translate:0_calc(var(--d)*-1lh)] transition-[translate] duration-[calc(520ms*var(--kf-speed,1))] ease-spring motion-reduce:transition-none"
+            className="flex flex-col [translate:0_calc(var(--d)*-1lh)] transition-[translate] duration-[calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring motion-reduce:transition-none"
           >
             {Array.from({ length: 10 }, (_, d) => (
               <span key={d} className="h-[1lh]">
@@ -134,14 +136,14 @@ function QuestionnaireItems({ className, ...props }: PartProps<"div">) {
 const itemMotion = cn(
   "min-w-0 not-data-active:hidden in-data-[slot=questionnaire-items]:not-data-active:block",
   "transition-[opacity,translate,filter,visibility] duration-[calc(480ms*var(--kf-speed,1))] ease-spring",
-  "data-[position=after]:invisible data-[position=after]:translate-x-8 data-[position=after]:opacity-0 data-[position=after]:blur-[6px]",
-  "data-[position=before]:invisible data-[position=before]:-translate-x-8 data-[position=before]:opacity-0 data-[position=before]:blur-[6px]",
+  "data-[position=after]:invisible data-[position=after]:translate-x-[calc(2rem*var(--kf-flourish,1))] data-[position=after]:opacity-0 data-[position=after]:blur-[calc(6px*var(--kf-flourish,1))]",
+  "data-[position=before]:invisible data-[position=before]:-translate-x-[calc(2rem*var(--kf-flourish,1))] data-[position=before]:opacity-0 data-[position=before]:blur-[calc(6px*var(--kf-flourish,1))]",
   "not-data-active:duration-[calc(220ms*var(--kf-speed,1))] not-data-active:ease-house",
-  "rtl:data-[position=after]:-translate-x-8 rtl:data-[position=before]:translate-x-8",
+  "rtl:data-[position=after]:-translate-x-[calc(2rem*var(--kf-flourish,1))] rtl:data-[position=before]:translate-x-[calc(2rem*var(--kf-flourish,1))]",
   /* Children rise in one after another on arrival, and leave together. */
   "*:transition-[opacity,translate,filter] *:duration-[calc(460ms*var(--kf-speed,1))] *:ease-spring",
-  "data-active:*:[transition-delay:calc((min(sibling-index(),8)-1)*calc(45ms*var(--kf-speed,1))+calc(70ms*var(--kf-speed,1)))]",
-  "not-data-active:*:translate-y-2 not-data-active:*:opacity-0 not-data-active:*:blur-[4px] not-data-active:*:duration-[calc(160ms*var(--kf-speed,1))]",
+  "data-active:*:[transition-delay:calc(((min(sibling-index(),8)-1)*calc(45ms*var(--kf-speed,1))+calc(70ms*var(--kf-speed,1)))*var(--kf-flourish,1))]",
+  "not-data-active:*:translate-y-[calc(0.5rem*var(--kf-flourish,1))] not-data-active:*:opacity-0 not-data-active:*:blur-[calc(4px*var(--kf-flourish,1))] not-data-active:*:duration-[calc(160ms*var(--kf-speed,1))]",
   "motion-reduce:transition-none! motion-reduce:*:transition-none!",
 )
 
@@ -279,7 +281,7 @@ function QuestionnaireChoice({
     {
       ...props,
       className: withClass(
-        "transition-[scale] duration-[calc(240ms*var(--kf-speed,1))] ease-pop active:scale-[0.985] motion-reduce:transition-none!",
+        "transition-[scale] duration-[calc(240ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.015*var(--kf-flourish,1))] motion-reduce:transition-none!",
         className,
       ),
       children: (state) => (

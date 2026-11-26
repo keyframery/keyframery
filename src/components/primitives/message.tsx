@@ -30,10 +30,11 @@ const {
 const { Root: MessageGroupRoot } = createParts(messageGroup, { root: "div" })
 
 /* Rise: what each line does while its message has `data-starting-style`. Only opacity, translate
-   and filter transition, and nothing transitions during that first frame. */
+   and filter transition, and nothing transitions during that first frame. The blur, the stagger and
+   all but 8px of the rise scale with --kf-flourish; at 0 a new message fades up 8px as one. */
 const rise = cn(
   "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1))] ease-spring",
-  "group-data-starting-style/message:translate-y-3 group-data-starting-style/message:opacity-0 group-data-starting-style/message:blur-[4px]",
+  "group-data-starting-style/message:translate-y-[calc(8px+4px*var(--kf-flourish,1))] group-data-starting-style/message:opacity-0 group-data-starting-style/message:blur-[calc(4px*var(--kf-flourish,1))]",
   "group-data-starting-style/message:transition-none motion-reduce:transition-none!",
 )
 
@@ -50,8 +51,8 @@ function MessageAvatar({ className, ...props }: React.ComponentProps<typeof Mess
     <MessageAvatarPart
       className={withClass(
         cn(
-          "origin-bottom transition-[scale,opacity] duration-[calc(520ms*var(--kf-speed,1))] ease-pop delay-[calc(60ms*var(--kf-speed,1))]",
-          "group-data-starting-style/message:scale-50 group-data-starting-style/message:opacity-0 group-data-starting-style/message:transition-none",
+          "origin-bottom transition-[scale,opacity] duration-[calc(520ms*var(--kf-speed,1))] ease-pop delay-[calc(60ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
+          "group-data-starting-style/message:scale-[calc(0.95-0.45*var(--kf-flourish,1))] group-data-starting-style/message:opacity-0 group-data-starting-style/message:transition-none",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -68,7 +69,7 @@ function MessageHeader({ className, ...props }: React.ComponentProps<typeof Mess
 function MessageContent({ className, ...props }: React.ComponentProps<typeof MessageContentPart>) {
   return <MessageContentPart className={withClass(
     cn(
-      rise, "delay-[calc(50ms*var(--kf-speed,1))]",
+      rise, "delay-[calc(50ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
     ),
     className,
   )} {...props} />
@@ -77,7 +78,7 @@ function MessageContent({ className, ...props }: React.ComponentProps<typeof Mes
 function MessageFooter({ className, ...props }: React.ComponentProps<typeof MessageFooterPart>) {
   return <MessageFooterPart className={withClass(
     cn(
-      rise, "delay-[calc(320ms*var(--kf-speed,1))]",
+      rise, "delay-[calc(320ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
     ),
     className,
   )} {...props} />

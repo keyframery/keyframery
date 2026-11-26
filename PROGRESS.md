@@ -1,5 +1,17 @@
 # Keyframery: progress and plan
 
+## Quiet by default: Subtle motion and --kf-flourish (2026-11-26, branch feat/quiet-by-default)
+
+- **Why:** a user said the animation is too much. Goal: be the default library for UI SDK (what shadcn/ui is for Radix/Base UI), with motion as a dial instead of the identity.
+- **Subtle** is the new default style (no attribute): `--kf-speed: 0.7`, plain ease-out easings, `--kf-flourish: 0`. Calm, Springy, Snappy, Playful set `--kf-flourish: 1`; Springy now needs `data-motion="springy"`. Rules: MOTION.md, "Flourish and the Subtle default (version 4)".
+- **All 89 components** route their flourishes (stretches, pops, press scales, entrance cascades, rolls, drawn checks, blur, extra travel) through `var(--kf-flourish,1)`; feedback (fades, small popup scale/slide, indicator glides, heights, fills, loading loops) is unchanged. Tabs is the reference conversion; the rest were done by four builders and reviewed.
+- **Presets:** "subtle" appended to the motion field (index 4), so every shared code still decodes the same; a Springy preset now writes Springy's values because Subtle ships. Create starts from START_PRESET (Subtle). Gentle reduced motion also zeroes flourish.
+- **Verified:** settled screenshots of all 89 demos, old main vs this branch: Springy pixel-identical in 86 (the other 3 are the new fifth switcher option and a looping badge ping), Subtle identical at rest in 84 (label marker and stepper's current dot rest at 1×, by design). On load Subtle runs 209 finite animations across the set against Springy's 1,110; 69 of 89 components are completely still. Chart bars grow 0→76→72px in Springy frame for frame like before, and sit still in Subtle. `pnpm check` and `check:browser` (89 demos × light/dark/mobile/reduced) pass.
+- **Fixed on the way:** five-option switchers overflowed (preferences demo, Create's motion control); new `--segmented-control-item-padding` variable (default 0.75rem, unchanged look). The lab now sets `data-motion` before its first render (an effect after render made Springy entrances look broken in the lab only).
+- **Also:** `pnpm sdk:latest` reports how far UI SDK is ahead of our pin (26 Nov: beta.9 pinned, beta.17 on npm).
+- **Open:** component descriptions still describe the Springy motion ("the key stretches…") while previews open in Subtle; UI SDK upgrade to beta.17; blocks; Open in v0 needs URL-only dependencies and the motion tokens inside the files (v0 drops registry `css` and namespaces).
+
+
 
 ## Create, presets and Chart (2026-11-17)
 

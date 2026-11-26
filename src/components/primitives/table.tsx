@@ -66,14 +66,15 @@ function Table({ className, ...props }: PartProps<"table", StateOf<typeof table,
 }
 
 /* Rows cascade in. The animation runs once per row element, so a row React keeps (a sort, an
-   edit) doesn't replay; a row with a new key (a new page) does. */
+   edit) doesn't replay; a row with a new key (a new page) does. The cascade scales with
+   --kf-flourish: at 0 the rows are simply there. */
 function TableBody({ className, ...props }: React.ComponentProps<typeof TableBodyPart>) {
   return (
     <TableBodyPart
       className={withClass(
         cn(
-          "[&>tr]:animate-[kf-table-row_calc(380ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-          "[&>tr]:[animation-delay:calc(var(--kf-row,0)*28ms*var(--kf-speed,1))]",
+          "[&>tr]:animate-[kf-table-row_calc(380ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+          "[&>tr]:[animation-delay:calc(var(--kf-row,0)*28ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
           "motion-reduce:[&>tr]:animate-none",
         ),
         className,

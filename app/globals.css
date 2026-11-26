@@ -1,4 +1,4 @@
-/* Tailwind, the shadcn colour tokens, the motion tokens and the four motion styles: exactly what the
+/* Tailwind, the shadcn colour tokens, the motion tokens and the five motion styles: exactly what the
    components ship with. The site adds its own fonts, the docs chrome and the landing page on top. */
 @import "../src/index.css";
 @import "tw-animate-css";

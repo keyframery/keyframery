@@ -9,7 +9,7 @@
    - A new `ratio` is reached on a spring: the frame reshapes instead of snapping.
    - `AspectRatioImage` fades up out of an 18px blur and a 1.08 zoom once it has loaded, so a
      photo never paints in strips. A new `src` plays it again. Until then, its children (a
-     placeholder) show. */
+     placeholder) show. The blur, zoom and rise scale with --kf-flourish; the fade always plays. */
 
 import { Avatar, AvatarFallback, AvatarImage } from "@ui-sdk/react/avatar"
 import { createParts } from "@ui-sdk/react/primitive"
@@ -67,8 +67,8 @@ function AspectRatioImage({
         alt={alt}
         className={withClass(className, "absolute inset-0 size-full object-cover",
           "[transition:opacity_calc(460ms*var(--kf-speed,1))_var(--ease-house),filter_calc(760ms*var(--kf-speed,1))_var(--ease-house),scale_calc(900ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(900ms*var(--kf-speed,1))_var(--ease-spring)]",
-          "not-data-[loading-status=loaded]:translate-y-2 not-data-[loading-status=loaded]:scale-[1.08] not-data-[loading-status=loaded]:opacity-0 not-data-[loading-status=loaded]:blur-[18px]",
-          "starting:translate-y-2 starting:scale-[1.08] starting:opacity-0 starting:blur-[18px]",
+          "not-data-[loading-status=loaded]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] not-data-[loading-status=loaded]:scale-[calc(1+0.08*var(--kf-flourish,1))] not-data-[loading-status=loaded]:opacity-0 not-data-[loading-status=loaded]:blur-[calc(18px*var(--kf-flourish,1))]",
+          "starting:translate-y-[calc(0.5rem*var(--kf-flourish,1))] starting:scale-[calc(1+0.08*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(18px*var(--kf-flourish,1))]",
           "motion-reduce:transition-none!")}
         {...props}
       />

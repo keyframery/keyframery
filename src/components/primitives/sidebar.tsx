@@ -11,6 +11,8 @@
    - Collapse: the sidebar narrows to a rail. Labels leave first, quickly; on the way back they
      wait for the width to open and then rise in out of a blur.
    - Press: items give under the pointer and spring back with a small pop.
+   - Flourish: the presses, the labels' slide and blur, and the badge's pop scale with --kf-flourish;
+     the glide, the width and the sheet stay.
    - Sheet: below `mobileBreakpoint` (the provider's own width, 640px by default) the sidebar leaves
      the layout and slides in over the page from the left, over a scrim. The trigger opens it; the
      scrim, Escape or choosing an item closes it. The provider should be the full-height app shell.
@@ -143,7 +145,7 @@ function SidebarTrigger({ className, ...props }: PartProps<"button", StateOf<typ
     {
       ...props,
       className: motion(
-        "transition-[scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop active:scale-[0.9] active:duration-[calc(100ms*var(--kf-speed,1))] motion-reduce:transition-none!",
+        "transition-[scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.1*var(--kf-flourish,1))] active:duration-[calc(100ms*var(--kf-speed,1))] motion-reduce:transition-none!",
         className,
       ),
     },
@@ -194,7 +196,7 @@ function SidebarGroupLabel({ className, ...props }: React.ComponentProps<typeof 
       className={motion(
         cn(
           "transition-[opacity,filter,translate] duration-[calc(300ms*var(--kf-speed,1))] ease-house",
-          "group-data-collapsed/sidebar:pointer-events-none group-data-collapsed/sidebar:-translate-x-1 group-data-collapsed/sidebar:opacity-0 group-data-collapsed/sidebar:blur-[3px] group-data-collapsed/sidebar:duration-[calc(140ms*var(--kf-speed,1))]",
+          "group-data-collapsed/sidebar:pointer-events-none group-data-collapsed/sidebar:-translate-x-[calc(0.25rem*var(--kf-flourish,1))] group-data-collapsed/sidebar:opacity-0 group-data-collapsed/sidebar:blur-[calc(3px*var(--kf-flourish,1))] group-data-collapsed/sidebar:duration-[calc(140ms*var(--kf-speed,1))]",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -209,7 +211,7 @@ function SidebarGroupLabel({ className, ...props }: React.ComponentProps<typeof 
 const label = cn(
   "[&>[data-slot=sidebar-label]]:transition-[opacity,filter,translate] [&>[data-slot=sidebar-label]]:duration-[calc(320ms*var(--kf-speed,1))] [&>[data-slot=sidebar-label]]:ease-spring",
   "[&>[data-slot=sidebar-label]]:delay-[calc(140ms*var(--kf-speed,1))]",
-  "group-data-collapsed/sidebar:[&>[data-slot=sidebar-label]]:-translate-x-1 group-data-collapsed/sidebar:[&>[data-slot=sidebar-label]]:opacity-0 group-data-collapsed/sidebar:[&>[data-slot=sidebar-label]]:blur-[3px]",
+  "group-data-collapsed/sidebar:[&>[data-slot=sidebar-label]]:-translate-x-[calc(0.25rem*var(--kf-flourish,1))] group-data-collapsed/sidebar:[&>[data-slot=sidebar-label]]:opacity-0 group-data-collapsed/sidebar:[&>[data-slot=sidebar-label]]:blur-[calc(3px*var(--kf-flourish,1))]",
   "group-data-collapsed/sidebar:[&>[data-slot=sidebar-label]]:delay-0 group-data-collapsed/sidebar:[&>[data-slot=sidebar-label]]:duration-[calc(120ms*var(--kf-speed,1))] group-data-collapsed/sidebar:[&>[data-slot=sidebar-label]]:ease-house",
   "motion-reduce:[&>[data-slot=sidebar-label]]:transition-none!",
 )
@@ -234,7 +236,7 @@ function SidebarMenuButton({
       className: motion(
         cn(
           "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)]",
-          "active:scale-[0.97] active:[transition-duration:calc(100ms*var(--kf-speed,1))]",
+          "active:scale-[calc(1-0.03*var(--kf-flourish,1))] active:[transition-duration:calc(100ms*var(--kf-speed,1))]",
           "motion-reduce:[transition:none]!",
           label,
         ),
@@ -251,7 +253,7 @@ function SidebarMenuBadge({ className, children, ...props }: React.ComponentProp
     <>
       <span
         key={typeof content === "string" || typeof content === "number" ? String(content) : undefined}
-        className="inline-block animate-[kf-sidebar-badge_calc(320ms*var(--kf-speed,1))_var(--ease-pop)] motion-reduce:animate-none"
+        className="inline-block animate-[kf-sidebar-badge_calc(320ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)] motion-reduce:animate-none"
       >
         {content}
       </span>
@@ -265,7 +267,7 @@ function SidebarMenuBadge({ className, children, ...props }: React.ComponentProp
       className={motion(
         cn(
           "transition-[opacity,scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop",
-          "group-data-collapsed/sidebar:scale-50 group-data-collapsed/sidebar:opacity-0 group-data-collapsed/sidebar:duration-[calc(120ms*var(--kf-speed,1))]",
+          "group-data-collapsed/sidebar:scale-[calc(0.95-0.45*var(--kf-flourish,1))] group-data-collapsed/sidebar:opacity-0 group-data-collapsed/sidebar:duration-[calc(120ms*var(--kf-speed,1))]",
           "motion-reduce:transition-none!",
         ),
         className,

@@ -79,13 +79,14 @@ function PreferenceSwitcher<Value extends string>({
 }
 
 const motionLabels: Record<MotionStyleValue, string> = {
+  subtle: "Subtle",
   calm: "Calm",
   springy: "Springy",
   snappy: "Snappy",
   playful: "Playful",
 }
 
-/* The motion style switcher: Calm, Springy, Snappy or Playful for every Keyframery component.
+/* The motion style switcher: Subtle (the default), Calm, Springy, Snappy or Playful for every Keyframery component.
    Dropping it anywhere applies the choice to <html> and remembers it. */
 function MotionStyleSwitcher({
   preference = motionStyle,

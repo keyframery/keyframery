@@ -177,7 +177,8 @@ function TreeItemIndicator({
   )
 }
 
-/* The check draws itself. A branch with only some of its items checked shows a dash. */
+/* The check draws itself. A branch with only some of its items checked shows a dash. The draw
+   scales with --kf-flourish; at 0 the check and the fill just appear. */
 function TreeItemCheckbox({
   className,
   children,
@@ -208,14 +209,14 @@ function TreeItemCheckbox({
             <path
               d="M4.25 8.4 6.9 11l4.85-5.75"
               pathLength={1}
-              className="transition-[stroke-dashoffset] duration-[calc(200ms*var(--kf-speed,1))] ease-house [stroke-dasharray:1] [stroke-dashoffset:1] group-data-checked/checkbox:[stroke-dashoffset:0] motion-reduce:transition-none!"
+              className="transition-[stroke-dashoffset] duration-[calc(200ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-house [stroke-dasharray:1] [stroke-dashoffset:1] group-data-checked/checkbox:[stroke-dashoffset:0] motion-reduce:transition-none!"
             />
           </svg>
           <svg {...icon} strokeWidth={1.75}>
             <path
               d="M4.75 8h6.5"
               pathLength={1}
-              className="transition-[stroke-dashoffset] duration-[calc(200ms*var(--kf-speed,1))] ease-house [stroke-dasharray:1] [stroke-dashoffset:1] group-data-indeterminate/checkbox:[stroke-dashoffset:0] motion-reduce:transition-none!"
+              className="transition-[stroke-dashoffset] duration-[calc(200ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-house [stroke-dasharray:1] [stroke-dashoffset:1] group-data-indeterminate/checkbox:[stroke-dashoffset:0] motion-reduce:transition-none!"
             />
           </svg>
         </>

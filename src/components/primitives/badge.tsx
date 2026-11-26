@@ -8,7 +8,9 @@
    - Roll: a `count` is drawn as one column of digits per place that slides to its value on a spring,
      so it rolls up when it grows and down when it shrinks.
    - `dot`: the status dot pops and sends out one ring each time what the badge says changes
-     (`data-pulse` on the dot). Nothing pulses on the first render. */
+     (`data-pulse` on the dot). Nothing pulses on the first render.
+   The pop-in, the roll and the ping are flourish: their durations scale with --kf-flourish, so at 0
+   the badge, its digits and its dot are simply there. */
 
 import { createParts, type PartProps, usePart, usePrimitive } from "@ui-sdk/react/primitive"
 import type { StateOf } from "@ui-sdk/core"
@@ -53,7 +55,7 @@ function Roll({ text, className }: { text: string; className?: string }) {
             className={(digit) =>
               digit.digit === undefined
                 ? undefined
-                : "flex flex-col transition-[translate] duration-[calc(520ms*var(--kf-speed,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] starting:[translate:0_1lh] motion-reduce:transition-none!"
+                : "flex flex-col transition-[translate] duration-[calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] starting:[translate:0_1lh] motion-reduce:transition-none!"
             }
           >
             {(digit) =>
@@ -86,10 +88,10 @@ function BadgeDot({ className, ...props }: PartProps<"span", StateOf<typeof badg
           "relative inline-block size-1.5 shrink-0",
           "before:absolute before:inset-0 before:rounded-full before:bg-current",
           "after:absolute after:inset-0 after:rounded-full after:bg-current after:opacity-0",
-          "data-[pulse=odd]:before:animate-[kf-badge-in_calc(420ms*var(--kf-speed,1))_var(--ease-pop)_backwards]",
-          "data-[pulse=even]:before:animate-[kf-badge-in-b_calc(420ms*var(--kf-speed,1))_var(--ease-pop)_backwards]",
-          "data-[pulse=odd]:after:animate-[kf-badge-ping_calc(800ms*var(--kf-speed,1))_var(--ease-house)]",
-          "data-[pulse=even]:after:animate-[kf-badge-ping-b_calc(800ms*var(--kf-speed,1))_var(--ease-house)]",
+          "data-[pulse=odd]:before:animate-[kf-badge-in_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_backwards]",
+          "data-[pulse=even]:before:animate-[kf-badge-in-b_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_backwards]",
+          "data-[pulse=odd]:after:animate-[kf-badge-ping_calc(800ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)]",
+          "data-[pulse=even]:after:animate-[kf-badge-ping-b_calc(800ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)]",
           "motion-reduce:before:animate-none! motion-reduce:after:animate-none!",
         ),
         className,
@@ -132,7 +134,7 @@ function Badge({
         {
           ...props,
           className: withClass(
-            "animate-[kf-badge-in_calc(380ms*var(--kf-speed,1))_var(--ease-pop)_backwards] motion-reduce:animate-none!",
+            "animate-[kf-badge-in_calc(380ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_backwards] motion-reduce:animate-none!",
             className,
           ),
           children: (state: BadgeRootState) => (

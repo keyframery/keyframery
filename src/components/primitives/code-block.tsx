@@ -8,7 +8,9 @@
    - Draw: a highlighted line's band sweeps in from the left; when the highlight moves, the old bands
      shrink back and the new ones sweep in, top to bottom.
    - Pop and Draw: on copy, the copy icon blurs away, the tick pops in and draws itself, and the button
-     sinks under the press. */
+     sinks under the press.
+   - The cascade, the band's stagger, the tick's draw and the icons' shrink, blur and press scale with
+     --kf-flourish; at 0 the lines are simply there and the icons cross-fade. */
 
 import type { StateOf } from "@ui-sdk/core"
 import { createParts, type PartProps, usePart } from "@ui-sdk/react/primitive"
@@ -72,7 +74,7 @@ function CodeBlockCopyButton({
     {
       ...props,
       className: withClass(
-        "relative transition-[scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop active:scale-[0.92] active:duration-[calc(90ms*var(--kf-speed,1))] motion-reduce:transition-none!",
+        "relative transition-[scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] active:duration-[calc(90ms*var(--kf-speed,1))] motion-reduce:transition-none!",
         className,
       ),
       children:
@@ -80,7 +82,7 @@ function CodeBlockCopyButton({
         ((state) => (
           <>
             <span className="grid place-items-center *:[grid-area:1/1]">
-              <CopyIcon className={cn("size-4", state.copied ? cn(swapOut, "scale-50 opacity-0 blur-[3px]") : swapIn)} />
+              <CopyIcon className={cn("size-4", state.copied ? cn(swapOut, "scale-[calc(1-0.5*var(--kf-flourish,1))] opacity-0 blur-[calc(3px*var(--kf-flourish,1))]") : swapIn)} />
               <svg
                 viewBox="0 0 16 16"
                 fill="none"
@@ -89,13 +91,13 @@ function CodeBlockCopyButton({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 aria-hidden
-                className={cn("size-4", state.copied ? swapIn : cn(swapOut, "scale-[0.6] opacity-0"))}
+                className={cn("size-4", state.copied ? swapIn : cn(swapOut, "scale-[calc(1-0.4*var(--kf-flourish,1))] opacity-0"))}
               >
                 {state.copied && (
                   <path
                     d="M3.5 8.5 6.5 11.5 12.5 4.75"
                     pathLength={1}
-                    className="[stroke-dasharray:1] animate-[kf-code-tick_calc(300ms*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1))_backwards] motion-reduce:animate-none"
+                    className="[stroke-dasharray:1] animate-[kf-code-tick_calc(300ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards] motion-reduce:animate-none"
                   />
                 )}
               </svg>
@@ -124,15 +126,15 @@ function CodeBlockLine({
         cn(
           "relative block",
           /* Cascade: each line a beat after the one above it, the first 16 staggered. */
-          "animate-[kf-code-line_calc(460ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-          "[animation-delay:calc(min(var(--code-line-index,0),16)*calc(22ms*var(--kf-speed,1))+calc(60ms*var(--kf-speed,1)))]",
+          "animate-[kf-code-line_calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+          "[animation-delay:calc((min(var(--code-line-index,0),16)*calc(22ms*var(--kf-speed,1))+calc(60ms*var(--kf-speed,1)))*var(--kf-flourish,1))]",
           /* Draw: the band sweeps in from the left. Its surface follows the text colour; restyle it with before:. */
           "before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:origin-left before:scale-x-0 before:content-['']",
           "before:bg-[color-mix(in_oklch,currentColor_7%,transparent)]",
           "before:transition-[scale] before:duration-[calc(180ms*var(--kf-speed,1))] before:ease-house",
           "data-[variant=highlighted]:before:scale-x-100 data-[variant=added]:before:scale-x-100 data-[variant=removed]:before:scale-x-100",
           "data-[variant=highlighted]:before:duration-[calc(560ms*var(--kf-speed,1))] data-[variant=highlighted]:before:ease-spring",
-          "data-[variant=highlighted]:before:[transition-delay:calc(min(var(--code-line-index,0),16)*calc(18ms*var(--kf-speed,1)))]",
+          "data-[variant=highlighted]:before:[transition-delay:calc(min(var(--code-line-index,0),16)*calc(18ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
           "motion-reduce:animate-none! motion-reduce:before:transition-none!",
         ),
         className,

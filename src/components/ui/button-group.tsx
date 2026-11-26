@@ -49,8 +49,9 @@ function ButtonGroup({ speed, className, ...props }: React.ComponentProps<typeof
             "data-[orientation=vertical]:[&>*:not([data-slot=button-group]):not(:first-child)]:-mt-px",
             "data-[orientation=vertical]:[&>*:not([data-slot=button-group]):not(:first-child)]:rounded-t-none",
             "data-[orientation=vertical]:[&>*:not([data-slot=button-group]):not(:last-child)]:rounded-b-none",
-            /* A pressed segment sinks a little less than a lone button, so the strip stays joined. */
-            "[&>[data-slot=button]:active]:scale-[0.975]!",
+            /* A pressed segment sinks a little less than a lone button, so the strip stays joined.
+               The sink scales with --kf-flourish. */
+            "[&>[data-slot=button]:active]:scale-[calc(1-0.025*var(--kf-flourish,1))]!",
             "*:data-[slot=input]:flex-1 *:data-[slot=native-select]:min-w-0",
           ),
           className,

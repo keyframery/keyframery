@@ -8,7 +8,9 @@
      so a new choice can rise in from below with a blur while the old one leaves upward.
    - The chevron dips once on each change.
    - Press: the whole field gives a little under the pointer and pops back.
-   - The focus ring closes in on a spring, as on Keyframery's Input. */
+   - The focus ring closes in on a spring, as on Keyframery's Input.
+   The label's rise, the chevron's dip, the press and the ring's close-in scale with --kf-flourish;
+   at 0 the new label simply replaces the old and the ring fades on. */
 
 import { createParts, type PartProps, usePart } from "@ui-sdk/react/primitive"
 import type { StateOf } from "@ui-sdk/core"
@@ -43,9 +45,9 @@ const keyframes =
 
 /* The focus ring is the outline: it starts 10px out and closes in on a spring (Keyframery's Input recipe). */
 const ringMotion = cn(
-  "outline-offset-[10px] focus-visible:outline-offset-0",
+  "outline-offset-[calc(10px*var(--kf-flourish,1))] focus-visible:outline-offset-0",
   "[transition:outline-offset_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-width_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-color_0s_linear_calc(160ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
-  "focus-visible:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
+  "focus-visible:[transition:outline-offset_calc((150ms+750ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring),outline-width_calc((150ms+750ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring),outline-color_calc((150ms+550ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
   "motion-reduce:[transition:none]!",
 )
 
@@ -84,7 +86,7 @@ function NativeSelectValue({
             <span
               key={`out-${state.changes}`}
               data-slot="native-select-value-previous"
-              className="animate-[kf-native-select-out_calc(220ms*var(--kf-speed,1))_var(--ease-house)_forwards] motion-reduce:hidden"
+              className="animate-[kf-native-select-out_calc(220ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_forwards] motion-reduce:hidden"
             >
               {state.previous}
             </span>
@@ -93,7 +95,7 @@ function NativeSelectValue({
             key={`in-${state.changes}`}
             className={cn(
               state.changes > 0 &&
-                "animate-[kf-native-select-in_calc(480ms*var(--kf-speed,1))_var(--ease-spring)_both] motion-reduce:animate-none",
+                "animate-[kf-native-select-in_calc(480ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_both] motion-reduce:animate-none",
             )}
           >
             {state.label}
@@ -167,7 +169,7 @@ function NativeSelect({
       invalid={invalid}
       className={cn(
         "group/native-select relative isolate",
-        "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)] not-data-disabled:has-[select:active]:scale-[0.985] not-data-disabled:has-[select:active]:[transition-duration:calc(100ms*var(--kf-speed,1))]",
+        "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)] not-data-disabled:has-[select:active]:scale-[calc(1-0.015*var(--kf-flourish,1))] not-data-disabled:has-[select:active]:[transition-duration:calc(100ms*var(--kf-speed,1))]",
         "motion-reduce:[transition:none]!",
         wrapperClassName,
       )}
@@ -185,7 +187,7 @@ function NativeSelect({
               className={cn(
                 "grid place-items-center",
                 state.changes > 0 &&
-                  "animate-[kf-native-select-dip_calc(420ms*var(--kf-speed,1))_var(--ease-spring)] motion-reduce:animate-none",
+                  "animate-[kf-native-select-dip_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)] motion-reduce:animate-none",
               )}
             >
               <ChevronDown />

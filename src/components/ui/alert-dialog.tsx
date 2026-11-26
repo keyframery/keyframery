@@ -156,7 +156,7 @@ function AlertDialogContent({
 }
 
 /* A round tile for the icon that says what is at stake. It is the first section to cascade in,
-   and it pops: it starts small and overshoots a little as it lands. */
+   and it pops: it starts small and overshoots a little as it lands. Both scale with --kf-flourish. */
 function AlertDialogMedia({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <>
@@ -168,7 +168,7 @@ function AlertDialogMedia({ className, ...props }: React.ComponentProps<"div">) 
         aria-hidden
         className={cn(
           "mb-4 grid size-10 place-items-center rounded-full bg-[color-mix(in_oklab,var(--alert-dialog-action,var(--destructive))_10%,transparent)] text-[color:var(--alert-dialog-action,var(--destructive))] dark:bg-[color-mix(in_oklab,var(--alert-dialog-action,var(--destructive))_15%,transparent)] [&_svg]:size-5",
-          "animate-[kf-cascade_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_backwards,kf-pop_calc(560ms*var(--kf-speed,1))_var(--ease-pop)_backwards]!",
+          "animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards,kf-pop_calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_backwards]!",
           "motion-reduce:animate-none!",
           className,
         )}
@@ -241,7 +241,7 @@ function AlertDialogClose({
             className={cn(
               "inline-flex items-center gap-1.5",
               swap,
-              "group-data-pending/key:scale-95 group-data-pending/key:opacity-0 group-data-pending/key:blur-[2px]",
+              "group-data-pending/key:scale-95 group-data-pending/key:opacity-0 group-data-pending/key:blur-[calc(2px*var(--kf-flourish,1))]",
             )}
           >
             {children}
@@ -249,7 +249,7 @@ function AlertDialogClose({
           <span
             aria-hidden
             className={cn(
-              "grid scale-50 place-items-center opacity-0 blur-[2px]",
+              "grid scale-[calc(1-0.5*var(--kf-flourish,1))] place-items-center opacity-0 blur-[calc(2px*var(--kf-flourish,1))]",
               swap,
               "group-data-pending/key:scale-100 group-data-pending/key:opacity-100 group-data-pending/key:blur-none",
             )}

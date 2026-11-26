@@ -8,7 +8,9 @@
      a `border` marker's rule (its `after:`) draws from the start of the line.
    - Pop: the icon lands with a little overshoot.
    - The words rise out of a soft blur. While `pending`, a light sweeps across them; when the work
-     is done they rise in again, so the new text arrives instead of just replacing the old. */
+     is done they rise in again, so the new text arrives instead of just replacing the old.
+   The draw, the pop and the rise scale with --kf-flourish (at 0 the marker is simply there); the
+   pending sweep is a loading loop and always runs. */
 
 import { createParts } from "@ui-sdk/react/primitive"
 import * as React from "react"
@@ -45,11 +47,11 @@ function Marker({ className, ...props }: React.ComponentProps<typeof MarkerRoot>
             /* Rules draw outward from the words: the one before grows from its inner end. */
             "data-[variant=separator]:before:origin-right data-[variant=separator]:after:origin-left",
             "rtl:data-[variant=separator]:before:origin-left rtl:data-[variant=separator]:after:origin-right",
-            "data-[variant=separator]:before:animate-[kf-marker-line_calc(700ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-            "data-[variant=separator]:after:animate-[kf-marker-line_calc(700ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
+            "data-[variant=separator]:before:animate-[kf-marker-line_calc(700ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+            "data-[variant=separator]:after:animate-[kf-marker-line_calc(700ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
             /* The border rule draws from where the line starts. */
             "data-[variant=border]:after:origin-left rtl:data-[variant=border]:after:origin-right",
-            "data-[variant=border]:after:animate-[kf-marker-line_calc(820ms*var(--kf-speed,1))_var(--ease-house)_backwards]",
+            "data-[variant=border]:after:animate-[kf-marker-line_calc(820ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_backwards]",
             "motion-reduce:before:animate-none! motion-reduce:after:animate-none!",
           ),
           className,
@@ -67,7 +69,7 @@ function MarkerIcon({ className, ...props }: React.ComponentProps<typeof MarkerI
       className={withClass(
         cn(
           "inline-flex",
-          "not-data-pending:animate-[kf-marker-pop_calc(460ms*var(--kf-speed,1))_var(--ease-pop)_calc(60ms*var(--kf-speed,1))_backwards]",
+          "not-data-pending:animate-[kf-marker-pop_calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_calc(60ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards]",
           "motion-reduce:animate-none!",
         ),
         className,
@@ -84,7 +86,7 @@ function MarkerContent({ className, ...props }: React.ComponentProps<typeof Mark
     <MarkerContentPart
       className={withClass(
         cn(
-          "not-data-pending:animate-[kf-marker-in_calc(480ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
+          "not-data-pending:animate-[kf-marker-in_calc(480ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
           "data-pending:bg-[linear-gradient(90deg,currentColor_0_32%,color-mix(in_oklch,currentColor_15%,transparent)_50%,currentColor_68%_100%)]",
           "data-pending:bg-size-[300%_100%] data-pending:bg-clip-text data-pending:[-webkit-text-fill-color:transparent]",
           "data-pending:animate-[kf-marker-sweep_calc(1800ms*var(--kf-speed,1))_var(--ease-house)_infinite]",

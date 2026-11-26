@@ -7,7 +7,8 @@
    - Draw: when a step completes, its marker pops and the strokes of its icon draw themselves. Set
      `--kf-draw` on the marker to your icon's path length (24 by default, right for a 24px check).
    - The rail fills: a finished step's connector fills from its marker toward the next one. The fill is
-     the connector's `after:`; give it your own colour with `after:` classes. */
+     the connector's `after:`; give it your own colour with `after:` classes.
+   - Flourish: the cascade, the pop, the draw and the fill's wait scale with --kf-flourish; the fill stays. */
 
 import {
   TimelineConnector as TimelineConnectorPart,
@@ -35,7 +36,7 @@ function TimelineItem({ className, ...props }: React.ComponentProps<typeof Timel
     <TimelineItemPart
       className={withClass(
         cn(
-          "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)))]",
+          "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
           "starting:translate-y-2 starting:opacity-0 starting:blur-[4px]",
           "motion-reduce:transition-none!",
         ),
@@ -55,8 +56,8 @@ function TimelineMarker({ className, ...props }: React.ComponentProps<typeof Tim
       <TimelineMarkerPart
         className={withClass(
           cn(
-            "motion-reduce:animate-none! motion-reduce:[&_path]:animate-none! data-complete:animate-[kf-timeline-pop_calc(420ms*var(--kf-speed,1))_var(--ease-pop)]",
-            "data-complete:[&_path]:[stroke-dasharray:var(--kf-draw,24)] data-complete:[&_path]:animate-[kf-timeline-draw_calc(260ms*var(--kf-speed,1))_var(--ease-house)_calc(140ms*var(--kf-speed,1))_both]",
+            "motion-reduce:animate-none! motion-reduce:[&_path]:animate-none! data-complete:animate-[kf-timeline-pop_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)]",
+            "data-complete:[&_path]:[stroke-dasharray:var(--kf-draw,24)] data-complete:[&_path]:animate-[kf-timeline-draw_calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(140ms*var(--kf-speed,1)*var(--kf-flourish,1))_both]",
             "motion-reduce:animate-none! motion-reduce:[&_path]:animate-none",
           ),
           className,
@@ -78,7 +79,7 @@ function TimelineConnector({ className, ...props }: React.ComponentProps<typeof 
           "after:bg-[color-mix(in_oklch,currentColor_35%,transparent)]",
           "data-[orientation=horizontal]:after:origin-left data-[orientation=horizontal]:after:scale-x-0 data-[orientation=horizontal]:after:scale-y-100",
           "data-complete:after:scale-100",
-          "after:transition-[scale] after:delay-[calc(200ms*var(--kf-speed,1))] after:duration-[calc(600ms*var(--kf-speed,1))] after:ease-house motion-reduce:after:transition-none!",
+          "after:transition-[scale] after:delay-[calc(200ms*var(--kf-speed,1)*var(--kf-flourish,1))] after:duration-[calc(600ms*var(--kf-speed,1))] after:ease-house motion-reduce:after:transition-none!",
         ),
         className,
       )}

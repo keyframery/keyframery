@@ -83,16 +83,17 @@ function Label({ className, ref, htmlFor, ...props }: React.ComponentProps<typeo
 }
 
 /* Extra: a required or optional marker. It rests small and quiet, and pops up to full size when
-   the control is focused or invalid, and lifts a pixel while invalid. */
+   the control is focused or invalid, and lifts a pixel while invalid. The size change and the lift
+   scale with --kf-flourish; at 0 the marker stays full size and only its opacity and colour change. */
 function LabelMarker({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="label-marker"
       className={cn(
-        "inline-block origin-left scale-[0.82] opacity-60",
+        "inline-block origin-left scale-[calc(1-0.18*var(--kf-flourish,1))] opacity-60",
         "transition-[scale,opacity,translate] duration-[calc(420ms*var(--kf-speed,1))] ease-pop",
         "group-data-focused/kf-label:scale-100 group-data-focused/kf-label:opacity-100",
-        "group-data-invalid/kf-label:scale-100 group-data-invalid/kf-label:opacity-100 group-data-invalid/kf-label:-translate-y-px",
+        "group-data-invalid/kf-label:scale-100 group-data-invalid/kf-label:opacity-100 group-data-invalid/kf-label:translate-y-[calc(-1px*var(--kf-flourish,1))]",
         "motion-reduce:transition-none!",
         className,
       )}

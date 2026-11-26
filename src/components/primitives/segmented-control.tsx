@@ -27,7 +27,7 @@ function SegmentedControlItem({ className, ...props }: React.ComponentProps<type
   return (
     <SegmentedControlItemPart
       className={withClass(
-        "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-readonly:active:scale-[0.96] motion-reduce:transition-none!",
+        "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-readonly:active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none!",
         className,
       )}
       {...props}
@@ -38,7 +38,8 @@ function SegmentedControlItem({ className, ...props }: React.ComponentProps<type
 /* Stretch, the same recipe as the tabs primitive: every edge of the marker is tracked twice,
    once quickly and once slowly with an 80ms lag, and each edge uses whichever of the two is
    further out. The edge facing the direction of travel leads, the other follows, so the
-   marker stretches toward the item you pick and closes up there. The registered properties
+   marker stretches toward the item you pick and closes up there. The lag and the extra length are
+   flourish: at --kf-flourish 0 (Subtle) both edges move together and the marker simply slides. The registered properties
    are inherited, so anything inside the indicator can read the same moving edges. */
 const stretchProperties = ["la", "lb", "ra", "rb", "ta", "tb", "ba", "bb"]
   .map((n) => `@property --kf-${n}{syntax:"<length>";inherits:true;initial-value:0px}`)
@@ -73,7 +74,7 @@ function SegmentedControlIndicator({
             "[--kf-ta:var(--segmented-control-indicator-top,0px)] [--kf-tb:var(--segmented-control-indicator-top,0px)]",
             "[--kf-ba:var(--segmented-control-indicator-bottom,0px)] [--kf-bb:var(--segmented-control-indicator-bottom,0px)]",
             "top-[min(var(--kf-ta),var(--kf-tb))] right-[min(var(--kf-ra),var(--kf-rb))] bottom-[min(var(--kf-ba),var(--kf-bb))] left-[min(var(--kf-la),var(--kf-lb))]",
-            "motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc(380ms*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1)),--kf-rb_calc(380ms*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1)),--kf-tb_calc(380ms*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1)),--kf-bb_calc(380ms*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1))]",
+            "motion-reduce:transition-none! data-ready:[transition:--kf-la_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ra_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ta_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-ba_calc(260ms*var(--kf-speed,1))_var(--ease-house),--kf-lb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-rb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-tb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),--kf-bb_calc((260ms+120ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1))]",
             "motion-reduce:[transition:none]!",
           ),
           className,

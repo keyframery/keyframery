@@ -111,13 +111,13 @@ export default function Settings() {
 
 ### Pick how it moves
 
-Springy is the default. To change the feel of every component at once, set a motion style on `<html>`:
+Subtle is the default: quick fades and slides, no bounce. To give every component more motion at once, set a motion style on `<html>`:
 
 ```html
-<html data-motion="calm">
+<html data-motion="springy">
 ```
 
-The values are `calm`, `springy`, `snappy` and `playful`. More in [Motion styles](/docs/motion-styles).
+The values are `subtle`, `calm`, `springy`, `snappy` and `playful`. More in [Motion styles](/docs/motion-styles).
 
 </Step>
 </Steps>
@@ -138,15 +138,23 @@ For Laravel, start with `laravel new` and the React starter kit before adding co
 
 ## What the CLI adds to your CSS
 
-The first component you install adds a small block of motion tokens to your global stylesheet: one speed setting, three easings, and the four motion styles. Every component reads them.
+The first component you install adds a small block of motion tokens to your global stylesheet: one speed setting, a flourish setting, three easings, and the five motion styles. Every component reads them.
 
 ```css
 :root {
-  --kf-speed: 1;
+  --kf-speed: 0.7; /* Subtle: quick */
+  --kf-flourish: 0; /* Subtle: no stretches, pops or entrances */
   --ease-house: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1); /* the styles set springs here */
+  --ease-pop: cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-motion="springy"] {
+  --kf-speed: 1;
+  --kf-flourish: 1;
   --ease-spring: linear(/* a spring, written as a CSS easing */);
   --ease-pop: linear(/* a livelier spring for small payoffs */);
 }
+/* …and calm, snappy and playful */
 ```
 
 Installing by hand? The [manual guide](/docs/installation/manual#add-the-motion-tokens) has the whole block to paste.

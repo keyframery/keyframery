@@ -106,9 +106,16 @@ export function App() {
   React.useEffect(() => {
     document.documentElement.classList.toggle("dark", dark)
   }, [dark])
-  const [motion, setMotion] = React.useState(params.get("motion") ?? "springy")
+  /* The attribute goes on <html> before the first render, as a site's boot script or server markup
+     would, so entrance flourishes (which read --kf-flourish in @starting-style) see the chosen style. */
+  const [motion, setMotion] = React.useState(() => {
+    const initial = params.get("motion") ?? "subtle"
+    if (initial === "subtle") document.documentElement.removeAttribute("data-motion")
+    else document.documentElement.setAttribute("data-motion", initial)
+    return initial
+  })
   React.useEffect(() => {
-    if (motion === "springy") document.documentElement.removeAttribute("data-motion")
+    if (motion === "subtle") document.documentElement.removeAttribute("data-motion")
     else document.documentElement.setAttribute("data-motion", motion)
   }, [motion])
 
@@ -125,7 +132,7 @@ export function App() {
           {single ? single.meta.name : `${demos.length} components`}
         </span>
         <div role="group" aria-label="Motion style" className="order-3 flex gap-0.5 rounded-full bg-foreground/5 p-0.5 sm:order-none sm:ml-auto">
-          {["calm", "springy", "snappy", "playful"].map((m) => (
+          {["subtle", "calm", "springy", "snappy", "playful"].map((m) => (
             <button
               key={m}
               type="button"

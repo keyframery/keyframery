@@ -21,7 +21,7 @@ export type SpeedProps = {
   speed?: Speed
 }
 
-export type MotionStyleName = "springy" | "calm" | "snappy" | "playful"
+export type MotionStyleName = "subtle" | "springy" | "calm" | "snappy" | "playful"
 
 const presets = { fast: 0.6, normal: 1, slow: 1.4 } as const
 
@@ -83,7 +83,7 @@ export function KeyframeryProvider({
   motion,
   children,
 }: SpeedProps & {
-  /** The motion style for the whole app: `"springy"` (the default), `"calm"`, `"snappy"` or `"playful"`. */
+  /** The motion style for the whole app: `"subtle"` (the default), `"calm"`, `"springy"`, `"snappy"` or `"playful"`. */
   motion?: MotionStyleName
   children?: React.ReactNode
 }) {

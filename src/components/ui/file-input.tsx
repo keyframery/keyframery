@@ -82,7 +82,7 @@ function FileInputDropzoneIcon({ className, ...props }: React.ComponentProps<"sp
         "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
         "dark:bg-[var(--file-input-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
         "[transition:translate_calc(480ms*var(--kf-speed,1))_var(--ease-pop),scale_calc(480ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]!",
-        "group-data-dragging/drop:-translate-y-2 group-data-dragging/drop:scale-110 group-data-drag-accept/drop:text-[color:var(--file-input-accent,var(--ring))] group-data-drag-reject/drop:text-destructive",
+        "group-data-dragging/drop:-translate-y-[calc(0.5rem*var(--kf-flourish,1))] group-data-dragging/drop:scale-[calc(1+0.1*var(--kf-flourish,1))] group-data-drag-accept/drop:text-[color:var(--file-input-accent,var(--ring))] group-data-drag-reject/drop:text-destructive",
         "[&_svg]:size-4",
         className,
       )}
@@ -116,7 +116,7 @@ function FileInputTrigger({
           "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_1px_1px_rgb(0_0_0/0.05),0_3px_6px_-2px_rgb(0_0_0/0.1)]",
           "dark:bg-[var(--file-input-face,var(--accent))] dark:shadow-[0_0_0_1px_rgb(255_255_255/0.07),inset_0_1px_0_rgb(255_255_255/0.08),0_2px_6px_-1px_rgb(0_0_0/0.6)]",
           "hover:bg-[color-mix(in_oklab,var(--file-input-face,var(--muted))_50%,transparent)] dark:hover:bg-[color-mix(in_oklab,var(--file-input-face,var(--accent))_80%,transparent)]",
-          "active:translate-y-px active:shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_0_1px_rgb(0_0_0/0.08)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_1px_rgb(0_0_0/0.6)]",
+          "active:translate-y-[calc(1px*var(--kf-flourish,1))] active:shadow-[0_0_0_1px_rgb(0_0_0/0.07),0_0_1px_rgb(0_0_0/0.08)] dark:active:shadow-[0_0_0_1px_rgb(255_255_255/0.06),0_0_1px_rgb(0_0_0/0.6)]",
           "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           "data-invalid:ring-[3px] data-invalid:ring-destructive/25 data-invalid:shadow-[0_0_0_1px_var(--destructive)]",
           "data-disabled:pointer-events-none data-disabled:opacity-50",

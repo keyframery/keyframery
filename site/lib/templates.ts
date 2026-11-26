@@ -103,7 +103,7 @@ export function templatePrompt(slug: string, site = "https://keyframery.com"): s
       "Rules:",
       "- Every control is a UI SDK component. Do not replace them with plain elements: the keyboard, screen-reader and agent behaviour come from them.",
       "- Keep data-agent-confirm on destructive actions, so an AI agent has to ask the person before it refunds or deletes.",
-      "- Do not hand-edit durations. Set data-motion on <html> (calm, snappy, playful) to change the feel.",
+      "- Do not hand-edit durations. It is quiet by default (Subtle); set data-motion on <html> (springy, calm, snappy, playful) to change the feel.",
       ...links,
     ].join("\n")
   }
@@ -123,7 +123,7 @@ export function templatePrompt(slug: string, site = "https://keyframery.com"): s
     "",
     "Rules:",
     "- Do not replace the UI SDK controls (slider, toggles, segmented control, accordion, buttons) with plain elements.",
-    "- Do not hand-edit durations. Every CSS duration is multiplied by --kf-speed; set data-motion on <html> (calm, snappy, playful) to change the feel.",
+    "- Do not hand-edit durations. Every CSS duration is multiplied by --kf-speed; set data-motion on <html> (springy, calm, snappy, playful) to change the feel; --kf-flourish (0 to 1) scales stretches, pops and entrances.",
     "- Keep the reduced-motion rules: with reduced motion on, the loading sequence is skipped and nothing moves.",
     ...links,
   ].join("\n")

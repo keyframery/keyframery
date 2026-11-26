@@ -29,7 +29,8 @@ function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPart>
 
 /* Stretch: the thumb's two edges move separately. The edge facing the other side leaves at
    once and the far edge follows 80ms later, so the thumb stretches toward where it is going
-   and closes up there. While the switch is held, the thumb widens by 4px toward the middle. */
+   and closes up there. While the switch is held, the thumb widens by 4px toward the middle. The lag and
+   the widening are flourish: at --kf-flourish 0 (Subtle) the thumb simply slides. */
 function SwitchThumb({ className, ...props }: React.ComponentProps<typeof SwitchThumbPart>) {
   return (
     <SwitchThumbPart
@@ -40,12 +41,12 @@ function SwitchThumb({ className, ...props }: React.ComponentProps<typeof Switch
           "left-(--kf-switch-pad) right-[calc(100%-var(--kf-switch-pad)-var(--kf-switch-thumb))]",
           "data-checked:right-(--kf-switch-pad) data-checked:left-[calc(100%-var(--kf-switch-pad)-var(--kf-switch-thumb))]",
           /* Held: 4px wider toward the middle. */
-          "group-not-data-disabled/kf-switch:group-not-data-readonly/kf-switch:group-active/kf-switch:right-[calc(100%-var(--kf-switch-pad)-var(--kf-switch-thumb)-4px)]",
+          "group-not-data-disabled/kf-switch:group-not-data-readonly/kf-switch:group-active/kf-switch:right-[calc(100%-var(--kf-switch-pad)-var(--kf-switch-thumb)-4px*var(--kf-flourish,1))]",
           "group-not-data-disabled/kf-switch:group-not-data-readonly/kf-switch:group-active/kf-switch:data-checked:right-(--kf-switch-pad)",
-          "group-not-data-disabled/kf-switch:group-not-data-readonly/kf-switch:group-active/kf-switch:data-checked:left-[calc(100%-var(--kf-switch-pad)-var(--kf-switch-thumb)-4px)]",
+          "group-not-data-disabled/kf-switch:group-not-data-readonly/kf-switch:group-active/kf-switch:data-checked:left-[calc(100%-var(--kf-switch-pad)-var(--kf-switch-thumb)-4px*var(--kf-flourish,1))]",
           /* The leading edge goes first, the trailing edge 80ms later. */
-          "data-checked:[transition:right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_calc(80ms*var(--kf-speed,1)),background-color_calc(200ms*var(--kf-speed,1)),box-shadow_calc(200ms*var(--kf-speed,1))]",
-          "data-unchecked:[transition:left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_calc(80ms*var(--kf-speed,1)),background-color_calc(200ms*var(--kf-speed,1)),box-shadow_calc(200ms*var(--kf-speed,1))]",
+          "data-checked:[transition:right_calc(260ms*var(--kf-speed,1))_var(--ease-spring),left_calc((260ms+160ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),background-color_calc(200ms*var(--kf-speed,1)),box-shadow_calc(200ms*var(--kf-speed,1))]",
+          "data-unchecked:[transition:left_calc(260ms*var(--kf-speed,1))_var(--ease-spring),right_calc((260ms+160ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring)_calc(80ms*var(--kf-flourish,1)*var(--kf-speed,1)),background-color_calc(200ms*var(--kf-speed,1)),box-shadow_calc(200ms*var(--kf-speed,1))]",
           "group-active/kf-switch:[transition:left_calc(200ms*var(--kf-speed,1))_var(--ease-pop),right_calc(200ms*var(--kf-speed,1))_var(--ease-pop),background-color_calc(200ms*var(--kf-speed,1)),box-shadow_calc(200ms*var(--kf-speed,1))]!",
           "motion-reduce:[transition:none]!",
         ),

@@ -166,9 +166,10 @@ function ToastClose({
   )
 }
 
-/* A small mark by type. As the toast arrives its tile pops in and its mark draws itself. */
+/* A small mark by type. As the toast arrives its tile pops in and its mark draws itself. The pop and
+   the drawing scale with --kf-flourish: at 0 the mark is simply there. */
 const draw =
-  "[stroke-dasharray:1] [stroke-dashoffset:0] transition-[stroke-dashoffset] delay-[calc(260ms*var(--kf-speed,1))] duration-[calc(260ms*var(--kf-speed,1))] ease-house group-data-starting-style/toast:[stroke-dashoffset:1] group-data-starting-style/toast:transition-none motion-reduce:transition-none!"
+  "[stroke-dasharray:1] [stroke-dashoffset:0] transition-[stroke-dashoffset] delay-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-house group-data-starting-style/toast:[stroke-dashoffset:1] group-data-starting-style/toast:transition-none motion-reduce:transition-none!"
 
 function ToastIcon({
   type = "default",
@@ -190,7 +191,7 @@ function ToastIcon({
       <span
         className={cn(
           "grid size-[18px] place-items-center rounded-full [&_svg]:size-3.5",
-          "transition-[scale] delay-[calc(100ms*var(--kf-speed,1))] duration-[calc(480ms*var(--kf-speed,1))] ease-pop group-data-starting-style/toast:scale-[0.5] group-data-starting-style/toast:transition-none motion-reduce:transition-none!",
+          "transition-[scale] delay-[calc(100ms*var(--kf-speed,1)*var(--kf-flourish,1))] duration-[calc(480ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-pop group-data-starting-style/toast:scale-[calc(1-0.5*var(--kf-flourish,1))] group-data-starting-style/toast:transition-none motion-reduce:transition-none!",
           "group-data-[type=success]/icon:bg-[color-mix(in_oklab,var(--toast-accent,oklch(0.62_0.16_150))_14%,transparent)] group-data-[type=success]/icon:text-[color:var(--toast-accent,oklch(0.62_0.16_150))]",
           "group-data-[type=error]/icon:bg-[color-mix(in_oklab,var(--toast-accent,var(--destructive))_12%,transparent)] group-data-[type=error]/icon:text-[color:var(--toast-accent,var(--destructive))]",
           "group-data-[type=info]/icon:bg-muted group-data-[type=info]/icon:text-[color:var(--toast-accent,var(--foreground))]",

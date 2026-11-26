@@ -21,7 +21,8 @@ export * from "@ui-sdk/react/hover-card"
 const cascadeKeyframes = "@keyframes kf-cascade{from{opacity:0;translate:0 8px;filter:blur(4px)}}@media (prefers-reduced-motion:reduce){@keyframes kf-cascade{from{opacity:0}}}"
 
 /* Unfold: the card grows out of its link from 0.86, 8px closer to it and out of a 6px blur,
-   settling on a spring; then its sections cascade in. It leaves in 150ms, shrinking only a little. */
+   settling on a spring; then its sections cascade in. It leaves in 150ms, shrinking only a little.
+   The scale below 0.95, the blur and the cascade scale with --kf-flourish. */
 function HoverCardContent<Payload = unknown>({
   className,
   ...props
@@ -36,10 +37,10 @@ function HoverCardContent<Payload = unknown>({
           cn(
             "origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
             "data-[side=bottom]:[--kf-from:0_-8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=top]:[--kf-from:0_8px]",
-            "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
-            "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
-            "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-            "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc(calc(40ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))]",
+            "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))]",
+            "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
+            "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+            "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc(calc(40ms*var(--kf-speed,1)*var(--kf-flourish,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
             "motion-reduce:transition-none! motion-reduce:[&>*]:animate-none",
           ),
           className,

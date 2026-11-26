@@ -4,6 +4,15 @@ heading: "Changelog"
 description: "What changed in Keyframery, newest first: new components, UI SDK upgrades, templates, motion styles and fixes."
 ---
 
+## Quiet by default: the Subtle motion style
+
+November 2026
+
+- **Keyframery is quiet by default.** The new default style, [Subtle](/docs/motion-styles), moves about as much as shadcn/ui: quick fades and slides, no bounce. Calm, Springy, Snappy and Playful are one `data-motion` attribute away, and the switcher on every page now starts at Subtle.
+- **A new token, `--kf-flourish`,** scales every flourish: stretches, pops, rolling numbers, drawing checks, shakes and entrance cascades. `0` in Subtle, `1` in the four expressive styles, and anything in between for your own style. The state itself always shows.
+- **To keep the springy motion you had,** put `data-motion="springy"` on `<html>`. It updates the next time you add a component, when the CLI refreshes the motion tokens.
+- **[Create](/create)** starts from Subtle, and existing preset codes keep the motion they were made with.
+
 ## Backroom: inventory, reviews, payouts and invoices
 
 November 2026

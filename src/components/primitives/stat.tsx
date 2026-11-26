@@ -30,7 +30,8 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 
 /* Roll: every digit is a column of 0 to 9 that slides to its value on a spring; other characters
    stay put. Positions are keyed from the right, so a new leading digit is added instead of
-   everything shifting. Screen readers get the plain text. */
+   everything shifting. Screen readers get the plain text. The roll scales with --kf-flourish: at 0
+   the digits change in place. */
 function Roll({ text, className }: { text: string; className?: string }) {
   const chars = text.split("")
   return (
@@ -43,7 +44,7 @@ function Roll({ text, className }: { text: string; className?: string }) {
             <span
               key={key}
               style={{ "--d": Number(c), "--k": key } as React.CSSProperties}
-              className="flex flex-col transition-[translate] duration-[calc(560ms*var(--kf-speed,1))] ease-spring [transition-delay:calc(min(var(--k),8)*calc(18ms*var(--kf-speed,1)))] [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
+              className="flex flex-col transition-[translate] duration-[calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [transition-delay:calc(min(var(--k),8)*calc(18ms*var(--kf-speed,1))*var(--kf-flourish,1))] [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
             >
               {Array.from({ length: 10 }, (_, d) => (
                 <span key={d} className="h-[1lh]">
@@ -65,12 +66,13 @@ function Roll({ text, className }: { text: string; className?: string }) {
 const keyframes = "@keyframes kf-stat-part{from{opacity:0;translate:0 10px;filter:blur(5px)}}"
 
 /* Each part rises in after the one before it; while loading its ink is hidden (the styled part
-   draws the placeholder), and when loading ends the ink comes back in the same order. */
+   draws the placeholder), and when loading ends the ink comes back in the same order. The arrival
+   and the stagger scale with --kf-flourish; the ink's fade back after loading is feedback. */
 const partMotion = cn(
-  "animate-[kf-stat-part_calc(560ms*var(--kf-speed,1))_var(--ease-spring)_backwards] motion-reduce:animate-none",
-  "[animation-delay:calc(calc(40ms*var(--kf-speed,1))+(min(sibling-index(),8)-1)*calc(60ms*var(--kf-speed,1)))]",
+  "animate-[kf-stat-part_calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] motion-reduce:animate-none",
+  "[animation-delay:calc((calc(40ms*var(--kf-speed,1))+(min(sibling-index(),8)-1)*calc(60ms*var(--kf-speed,1)))*var(--kf-flourish,1))]",
   "transition-[color,background-color,opacity,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-house",
-  "[transition-delay:calc((min(sibling-index(),8)-1)*calc(50ms*var(--kf-speed,1)))] data-loading:[transition-delay:0ms]",
+  "[transition-delay:calc((min(sibling-index(),8)-1)*calc(50ms*var(--kf-speed,1))*var(--kf-flourish,1))] data-loading:[transition-delay:0ms]",
   "motion-reduce:transition-none",
 )
 

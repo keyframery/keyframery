@@ -20,7 +20,8 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 
 export * from "@ui-sdk/react/file-input"
 
-/* While files are over it, the zone lifts toward them on a spring. */
+/* While files are over it, the zone lifts toward them on a spring. The lift scales with --kf-flourish;
+   the colour change stays. */
 function FileInputDropzone({
   className,
   ...props
@@ -30,7 +31,7 @@ function FileInputDropzone({
       className={withClass(
         cn(
           "[transition:translate_calc(460ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(460ms*var(--kf-speed,1))_var(--ease-spring),border-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(200ms*var(--kf-speed,1))_var(--ease-house)]",
-          "data-dragging:-translate-y-1.5 data-dragging:scale-[1.02]",
+          "data-dragging:-translate-y-[calc(0.375rem*var(--kf-flourish,1))] data-dragging:scale-[calc(1+0.02*var(--kf-flourish,1))]",
           "motion-reduce:[transition:none]!",
         ),
         className,
@@ -45,7 +46,7 @@ function FileInputTrigger({ className, ...props }: React.ComponentProps<typeof F
     <FileInputTriggerPart
       className={withClass(
         cn(
-          "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop),translate_calc(260ms*var(--kf-speed,1))_var(--ease-pop),box-shadow_calc(120ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(120ms*var(--kf-speed,1))_var(--ease-house)] active:scale-[0.96]",
+          "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop),translate_calc(260ms*var(--kf-speed,1))_var(--ease-pop),box-shadow_calc(120ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(120ms*var(--kf-speed,1))_var(--ease-house)] active:scale-[calc(1-0.04*var(--kf-flourish,1))]",
           "motion-reduce:[transition:none]!",
         ),
         className,
@@ -56,14 +57,15 @@ function FileInputTrigger({ className, ...props }: React.ComponentProps<typeof F
 }
 
 /* Cascade: rows rise in out of a blur, each one 32ms after the row above it. Only opacity,
-   translate and filter transition here, so the delay never slows anything else. */
+   translate and filter transition here, so the delay never slows anything else. The rise, blur and
+   stagger scale with --kf-flourish; the fade stays. */
 function FileInputItem({ className, ...props }: React.ComponentProps<typeof FileInputItemPart>) {
   return (
     <FileInputItemPart
       className={withClass(
         cn(
-          "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)))]",
-          "starting:translate-y-2 starting:opacity-0 starting:blur-[4px]",
+          "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
+          "starting:translate-y-[calc(0.5rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(4px*var(--kf-flourish,1))]",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -81,7 +83,7 @@ function FileInputItemRemove({
     <FileInputItemRemovePart
       className={withClass(
         cn(
-          "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1))] active:scale-[0.82]",
+          "[transition:scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop),color_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1))] active:scale-[calc(1-0.18*var(--kf-flourish,1))]",
           "motion-reduce:[transition:none]!",
         ),
         className,

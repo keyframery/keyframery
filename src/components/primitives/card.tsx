@@ -9,7 +9,8 @@
      inside the header the title leads the description.
    - `interactive`: lifts 2px on hover on a spring and sinks with a pop while pressed
      (`data-hovered`, `data-pressed`, set by the primitive from the pointer and from Space or Enter).
-   - `spotlight`: a soft light follows the pointer (`--kf-x`, `--kf-y`). */
+   - `spotlight`: a soft light follows the pointer (`--kf-x`, `--kf-y`).
+   - Flourish: the cascade, the lift and the press scale with --kf-flourish; at 0 the card is simply there. */
 
 import { createParts } from "@ui-sdk/react/primitive"
 import type { StateOf } from "@ui-sdk/core"
@@ -43,13 +44,13 @@ function withClass<S>(ours: string, theirs: string | ((state: S) => string | und
 
 const cardMotion = cn(
   "group/card relative isolate",
-  "animate-[kf-card-in_calc(520ms*var(--kf-speed,1))_var(--ease-spring)_backwards] motion-reduce:animate-none!",
-  "[&>*]:animate-[kf-card-part_calc(560ms*var(--kf-speed,1))_var(--ease-spring)_backwards] motion-reduce:[&>*]:animate-none",
-  "[&>*]:[animation-delay:calc(calc(70ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(70ms*var(--kf-speed,1)))]",
+  "animate-[kf-card-in_calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] motion-reduce:animate-none!",
+  "[&>*]:animate-[kf-card-part_calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] motion-reduce:[&>*]:animate-none",
+  "[&>*]:[animation-delay:calc(calc(70ms*var(--kf-speed,1)*var(--kf-flourish,1))+(min(sibling-index(),10)-1)*calc(70ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
   /* Lift and press. Translate and shadow settle on a spring; the press scale pops back. */
   "[transition:translate_calc(420ms*var(--kf-speed,1))_var(--ease-spring),box-shadow_calc(320ms*var(--kf-speed,1))_var(--ease-house),scale_calc(280ms*var(--kf-speed,1))_var(--ease-pop)]",
-  "[&[data-interactive]:is(:hover,[data-hovered])]:-translate-y-0.5",
-  "[&[data-interactive]:is(:hover,[data-hovered]):is(:active,[data-pressed])]:translate-y-0 [&[data-interactive]:is(:active,[data-pressed])]:scale-[0.985]",
+  "[&[data-interactive]:is(:hover,[data-hovered])]:-translate-y-[calc(0.125rem*var(--kf-flourish,1))]",
+  "[&[data-interactive]:is(:hover,[data-hovered]):is(:active,[data-pressed])]:translate-y-0 [&[data-interactive]:is(:active,[data-pressed])]:scale-[calc(1-0.015*var(--kf-flourish,1))]",
   "motion-reduce:[transition:none]!",
   /* The light: a radial wash under the content, centred on the pointer. It follows the text
      colour by default; set --kf-spotlight to change it. */
@@ -76,8 +77,8 @@ function CardHeader({ className, ...props }: React.ComponentProps<typeof parts.H
     <parts.Header
       className={withClass(
         cn(
-          "[&>*]:animate-[kf-card-part_calc(560ms*var(--kf-speed,1))_var(--ease-spring)_backwards] motion-reduce:[&>*]:animate-none",
-          "[&>*]:[animation-delay:calc(calc(110ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(60ms*var(--kf-speed,1)))]",
+          "[&>*]:animate-[kf-card-part_calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] motion-reduce:[&>*]:animate-none",
+          "[&>*]:[animation-delay:calc(calc(110ms*var(--kf-speed,1)*var(--kf-flourish,1))+(min(sibling-index(),10)-1)*calc(60ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
         ),
         className,
       )}

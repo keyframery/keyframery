@@ -9,7 +9,7 @@ import { JsonLd, pageMetadata, projectData } from "@site/lib/seo"
 const display = Inter({ subsets: ["latin"], axes: ["opsz"], variable: "--font-lp-display", display: "swap" })
 
 const description =
-  `Keyframery is the open-source component library for UI SDK: ${entries.length} React components built on UI SDK, with motion in plain CSS, four motion styles, and Agent view on every component page to show what AI agents read.`
+  `Keyframery is the open-source component library for UI SDK: ${entries.length} React components built on UI SDK, with motion in plain CSS that is quiet by default and lively in four more styles, and Agent view on every component page to show what AI agents read.`
 
 /** The search snippet: Google cuts descriptions at about 155 characters. No counts: Google keeps old snippets for days. */
 const metaDescription =

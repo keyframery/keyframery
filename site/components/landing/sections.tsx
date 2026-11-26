@@ -236,16 +236,16 @@ export function Styles() {
           <div className="min-w-0">
             <p className="lp-tag">Motion styles</p>
             <h2 id="styles-title" className="lp-display mt-5 text-[36px] leading-[1.05] text-balance md:text-[52px]">
-              Four ways to move. One setting.
+              Quiet by default. Lively when you want it.
             </h2>
             <p className="mt-5 max-w-[52ch] text-[17px] leading-relaxed text-pretty lp-muted">
-              Pick how your whole app feels. Every component, popups included, follows one attribute on <code className={code}>{"<html>"}</code>.
-              Choose one now: this whole page changes with you.
+              Subtle moves about as much as shadcn/ui. Four more styles add springs, stretches and pops. Every component, popups
+              included, follows one attribute on <code className={code}>{"<html>"}</code>. Choose one now: this whole page changes with you.
             </p>
             <div className="mt-8">
               <StylePicker />
             </div>
-            <CopyLines lines={['<html data-motion="calm">']} label="the motion style attribute" prompt="" className="mt-5" />
+            <CopyLines lines={['<html data-motion="springy">']} label="the motion style attribute" prompt="" className="mt-5" />
           </div>
           <div className="grid min-w-0 gap-4">
             <div className="overflow-hidden rounded-2xl bg-[#0a0b0f] ring-1 ring-white/[0.08]">
@@ -307,7 +307,7 @@ export function Skill() {
 const STEPS = [
   { n: "01", title: "Install", body: "The shadcn CLI copies the component and its primitive into your project, and installs UI SDK.", code: INSTALL_ONE },
   { n: "02", title: "Import it", body: "Use the finished component, or the primitive if you already have your own styling.", code: '"@/components/keyframery/tabs"' },
-  { n: "03", title: "Set the feel", body: "One attribute picks the motion style for the whole app. Leave it off for Springy.", code: '<html data-motion="calm">' },
+  { n: "03", title: "Set the feel", body: "It's quiet by default. One attribute turns the motion up for the whole app.", code: '<html data-motion="springy">' },
 ]
 
 export function ByHand() {

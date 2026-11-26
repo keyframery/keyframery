@@ -7,7 +7,9 @@
    - The handle's `::after` is its active line: it grows out from the middle on hover and drag.
      Give it a colour and thickness with `after:` classes.
    - `ResizableGrip` is extra: a small key for the middle of the handle whose surface (its
-     `::before`) stretches along the line while the handle is hovered, and further while dragged. */
+     `::before`) stretches along the line while the handle is hovered, and further while dragged.
+   The panels' glide is feedback. The line growing from the middle and the grip's stretch scale with
+   --kf-flourish: at 0 the line simply fades in and the grip stays put. */
 
 import {
   ResizableHandle as ResizableHandlePart,
@@ -46,7 +48,7 @@ function ResizableHandle({ className, ...props }: React.ComponentProps<typeof Re
         cn(
           "group/kf-handle",
           "after:pointer-events-none after:opacity-0 after:[scale:var(--kf-line-x,1)_var(--kf-line-y,1)]",
-          "data-[orientation=horizontal]:[--kf-line-y:0] data-[orientation=vertical]:[--kf-line-x:0]",
+          "data-[orientation=horizontal]:[--kf-line-y:calc(1-var(--kf-flourish,1))] data-[orientation=vertical]:[--kf-line-x:calc(1-var(--kf-flourish,1))]",
           "data-hovering:after:opacity-100 data-dragging:after:opacity-100 focus-visible:after:opacity-100",
           "data-[orientation=horizontal]:data-hovering:[--kf-line-y:1] data-[orientation=horizontal]:data-dragging:[--kf-line-y:1] data-[orientation=horizontal]:focus-visible:[--kf-line-y:1]",
           "data-[orientation=vertical]:data-hovering:[--kf-line-x:1] data-[orientation=vertical]:data-dragging:[--kf-line-x:1] data-[orientation=vertical]:focus-visible:[--kf-line-x:1]",
@@ -70,10 +72,10 @@ function ResizableGrip({ className, ...props }: React.ComponentProps<"span">) {
       className={cn(
         "relative isolate before:absolute before:inset-0 before:-z-10",
         "before:[transition:top_calc(420ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(420ms*var(--kf-speed,1))_var(--ease-spring),left_calc(420ms*var(--kf-speed,1))_var(--ease-spring),right_calc(420ms*var(--kf-speed,1))_var(--ease-spring)]",
-        "group-data-[orientation=horizontal]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-y-1",
-        "group-data-[orientation=horizontal]/kf-handle:group-data-dragging/kf-handle:before:-inset-y-3",
-        "group-data-[orientation=vertical]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-x-1",
-        "group-data-[orientation=vertical]/kf-handle:group-data-dragging/kf-handle:before:-inset-x-3",
+        "group-data-[orientation=horizontal]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-y-[calc(0.25rem*var(--kf-flourish,1))]",
+        "group-data-[orientation=horizontal]/kf-handle:group-data-dragging/kf-handle:before:-inset-y-[calc(0.75rem*var(--kf-flourish,1))]",
+        "group-data-[orientation=vertical]/kf-handle:group-data-hovering/kf-handle:group-not-data-dragging/kf-handle:before:-inset-x-[calc(0.25rem*var(--kf-flourish,1))]",
+        "group-data-[orientation=vertical]/kf-handle:group-data-dragging/kf-handle:before:-inset-x-[calc(0.75rem*var(--kf-flourish,1))]",
         "motion-reduce:before:[transition:none]!",
         className,
       )}

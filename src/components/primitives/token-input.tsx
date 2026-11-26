@@ -4,7 +4,8 @@
    This file adds motion only. Colours, radii, shadows and spacing stay yours.
 
    - Token: pops in when added (scale 0.4 to 1 on `ease-pop`, with a short blur).
-   - Token remove: Press. */
+   - Token remove: Press.
+   - The blur, the press and all but a 0.95 start of the pop scale with --kf-flourish. */
 
 import {
   TokenInputToken as TokenInputTokenPart,
@@ -27,7 +28,7 @@ function TokenInputToken({ className, ...props }: React.ComponentProps<typeof To
       className={withClass(
         cn(
           "inline-block origin-center motion-reduce:transition-none! transition-[scale,opacity,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-pop",
-          "starting:scale-[0.4] starting:opacity-0 starting:blur-[3px]",
+          "starting:scale-[calc(0.95-0.55*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(3px*var(--kf-flourish,1))]",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -40,7 +41,7 @@ function TokenInputToken({ className, ...props }: React.ComponentProps<typeof To
 function TokenInputTokenRemove({ className, ...props }: React.ComponentProps<typeof TokenInputTokenRemovePart>) {
   return (
     <TokenInputTokenRemovePart
-      className={withClass("transition-[scale,color,background-color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.8] motion-reduce:transition-none!", className)}
+      className={withClass("transition-[scale,color,background-color] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.2*var(--kf-flourish,1))] motion-reduce:transition-none!", className)}
       {...props}
     />
   )

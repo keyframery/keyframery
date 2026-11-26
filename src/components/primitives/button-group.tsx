@@ -9,7 +9,8 @@
      takes each segment's corners as it goes. It is the group's `::after`, laid over the buttons so it
      shows on solid keys; it follows the text colour unless you give it one with `after:` classes.
    - It fades in where it lands the first time, and fades out where it was when the pointer leaves.
-   - `ButtonGroupSeparator` is UI SDK's Separator; the line draws in from its centre. */
+   - `ButtonGroupSeparator` is UI SDK's Separator; the line draws in from its centre.
+   - The highlight's grow-in and the separator's draw-in scale with --kf-flourish; the glide stays. */
 
 import { createParts } from "@ui-sdk/react/primitive"
 import { Separator as SeparatorPart } from "@ui-sdk/react/separator"
@@ -33,7 +34,7 @@ function ButtonGroup({ className, ...props }: React.ComponentProps<typeof Button
           "relative isolate",
           "after:pointer-events-none after:absolute after:z-20 after:content-['']",
           "after:top-(--highlight-top,0) after:left-(--highlight-left,0) after:h-(--highlight-height,0) after:w-(--highlight-width,0) after:rounded-(--highlight-radius,0)",
-          "after:bg-[color-mix(in_oklch,currentColor_9%,transparent)] after:opacity-0 after:scale-[0.94]",
+          "after:bg-[color-mix(in_oklch,currentColor_9%,transparent)] after:opacity-0 after:scale-[calc(1-0.06*var(--kf-flourish,1))]",
           "after:[transition:opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house),scale_calc(220ms*var(--kf-speed,1))_var(--ease-house)]",
           "data-highlighted:after:opacity-100 data-highlighted:after:scale-100",
           "data-gliding:after:[transition:left_calc(380ms*var(--kf-speed,1))_var(--ease-spring),top_calc(380ms*var(--kf-speed,1))_var(--ease-spring),width_calc(380ms*var(--kf-speed,1))_var(--ease-spring),height_calc(380ms*var(--kf-speed,1))_var(--ease-spring),border-radius_calc(380ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house),scale_calc(220ms*var(--kf-speed,1))_var(--ease-house)]",
@@ -70,8 +71,8 @@ function ButtonGroupSeparator({
         className={withClass(
           cn(
             "relative z-10 shrink-0 self-stretch",
-            "data-[orientation=vertical]:animate-[kf-button-group-sep-y_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_both]",
-            "data-[orientation=horizontal]:animate-[kf-button-group-sep-x_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_both]",
+            "data-[orientation=vertical]:animate-[kf-button-group-sep-y_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_both]",
+            "data-[orientation=horizontal]:animate-[kf-button-group-sep-x_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_both]",
             "motion-reduce:animate-none!",
           ),
           className,

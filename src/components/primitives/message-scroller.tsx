@@ -10,7 +10,9 @@
      with the page sits still.
    - Follow: while the reader is at the end, the view stays on the newest message as it grows.
    - The jump-to-latest button rises from the bottom edge with a pop once the reader scrolls away,
-     and its count of new messages rolls up as each one arrives. */
+     and its count of new messages rolls up as each one arrives.
+   The rise past 8px, the button's extra shrink and blur, its press depth and the roll scale with
+   --kf-flourish; at 0 a new message fades in with a small rise and the count simply changes. */
 
 import { usePart, usePrimitive, type PartProps } from "@ui-sdk/react/primitive"
 import type { StateOf } from "@ui-sdk/core"
@@ -81,7 +83,7 @@ function MessageScrollerContent(props: React.ComponentProps<typeof ScrollAreaCon
 /* Rise, for a message that arrives after the first frame. */
 const itemMotion = cn(
   "transition-[translate,opacity] duration-[calc(520ms*var(--kf-speed,1))] ease-spring",
-  "data-starting-style:translate-y-4 data-starting-style:opacity-0 data-starting-style:transition-none",
+  "data-starting-style:translate-y-[calc(0.5rem+0.5rem*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:transition-none",
   "motion-reduce:transition-none!",
 )
 
@@ -105,7 +107,7 @@ function Roll({ value }: { value: number }) {
         <span
           key={text.length - index}
           style={{ "--d": Number(digit) } as React.CSSProperties}
-          className="flex flex-col transition-[translate] duration-[calc(500ms*var(--kf-speed,1))] ease-spring [translate:0_calc(var(--d)*-1em)] motion-reduce:transition-none"
+          className="flex flex-col transition-[translate] duration-[calc(500ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [translate:0_calc(var(--d)*-1em)] motion-reduce:transition-none"
         >
           {Array.from({ length: 10 }, (_, d) => (
             <span key={d} className="h-[1em]">
@@ -160,9 +162,9 @@ function MessageScrollerButton({ className, children, ...props }: React.Componen
       className={withClass(
         cn(
           "origin-bottom [transition:translate_calc(460ms*var(--kf-speed,1))_var(--ease-pop),scale_calc(460ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),filter_calc(260ms*var(--kf-speed,1))_var(--ease-house)]",
-          "not-data-visible:pointer-events-none not-data-visible:translate-y-3 not-data-visible:scale-[0.8] not-data-visible:opacity-0 not-data-visible:blur-[4px]",
+          "not-data-visible:pointer-events-none not-data-visible:translate-y-[calc(0.5rem+0.25rem*var(--kf-flourish,1))] not-data-visible:scale-[calc(0.95-0.15*var(--kf-flourish,1))] not-data-visible:opacity-0 not-data-visible:blur-[calc(4px*var(--kf-flourish,1))]",
           "not-data-visible:[transition:translate_calc(180ms*var(--kf-speed,1))_var(--ease-house),scale_calc(180ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
-          "active:scale-[0.96] motion-reduce:[transition:none]!",
+          "active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:[transition:none]!",
         ),
         className,
       )}

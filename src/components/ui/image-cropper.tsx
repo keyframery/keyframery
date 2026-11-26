@@ -138,7 +138,7 @@ function ImageCropperZoom({ className, ...props }: React.ComponentProps<typeof I
           "[&::-webkit-slider-runnable-track]:shadow-[inset_0_1px_1px_rgb(0_0_0/0.08),inset_0_0_0_1px_rgb(0_0_0/0.04)] dark:[&::-webkit-slider-runnable-track]:bg-accent",
           "[&::-webkit-slider-thumb]:-mt-[5px] [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-background",
           "[&::-webkit-slider-thumb]:shadow-[0_0_0_1px_rgb(0_0_0/0.1),0_1px_1px_rgb(0_0_0/0.06),0_2px_5px_-1px_rgb(0_0_0/0.16)]",
-          "[&::-webkit-slider-thumb]:transition-[scale] [&::-webkit-slider-thumb]:duration-[calc(300ms*var(--kf-speed,1))] [&::-webkit-slider-thumb]:ease-pop active:[&::-webkit-slider-thumb]:scale-125",
+          "[&::-webkit-slider-thumb]:transition-[scale] [&::-webkit-slider-thumb]:duration-[calc(300ms*var(--kf-speed,1))] [&::-webkit-slider-thumb]:ease-pop active:[&::-webkit-slider-thumb]:scale-[calc(1+0.25*var(--kf-flourish,1))]",
           "dark:[&::-webkit-slider-thumb]:bg-foreground",
           "[&::-moz-range-track]:h-1.5 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-muted",
           "[&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-background",

@@ -290,7 +290,7 @@ function ComboboxItemIndicator({
       className={withClass(
         cn(
           "ml-auto grid size-4 shrink-0 place-items-center text-[color:var(--combobox-ink,var(--foreground))] [&_svg]:size-4",
-          "[&_path]:transition-[stroke-dashoffset] [&_path]:delay-[calc(100ms*var(--kf-speed,1))] [&_path]:duration-[calc(260ms*var(--kf-speed,1))] [&_path]:ease-house [&_path]:[stroke-dasharray:1_2] [&_path]:[stroke-dashoffset:1.2]",
+          "[&_path]:transition-[stroke-dashoffset] [&_path]:delay-[calc(100ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_path]:duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_path]:ease-house [&_path]:[stroke-dasharray:1_2] [&_path]:[stroke-dashoffset:1.2]",
           "data-selected:[&_path]:[stroke-dashoffset:0] group-data-starting-style/content:[&_path]:[stroke-dashoffset:1.2]!",
           "motion-reduce:[&_path]:transition-none",
         ),

@@ -8,7 +8,9 @@
      for you) from 60%, with a blur that clears, settling with `ease-pop`. Bubbles in a group
      arrive one after another.
    - Reactions pop a beat later, from the edge they hang on.
-   - A bubble whose content is a button or a link presses in. */
+   - A bubble whose content is a button or a link presses in.
+   - Flourish: the growth from below 95%, the blur, the stagger, the reactions' late beat and the press
+     scale with --kf-flourish; at 0 a bubble fades in with a small scale. */
 
 import { createParts } from "@ui-sdk/react/primitive"
 import * as React from "react"
@@ -32,7 +34,7 @@ function BubbleGroup({ className, ...props }: React.ComponentProps<typeof Bubble
   return (
     <BubbleGroupRoot
       className={withClass(/* In a group, each bubble arrives a beat after the one above it. */
-        "*:data-[slot=bubble]:[transition-delay:calc((min(sibling-index(),6)-1)*90ms*var(--kf-speed,1))]", className)}
+        "*:data-[slot=bubble]:[transition-delay:calc((min(sibling-index(),6)-1)*90ms*var(--kf-speed,1)*var(--kf-flourish,1))]", className)}
       {...props}
     />
   )
@@ -46,7 +48,7 @@ function Bubble({ className, ...props }: React.ComponentProps<typeof BubbleRoot>
         cn(
           "group/bubble origin-bottom-left rtl:origin-bottom-right data-[align=end]:origin-bottom-right rtl:data-[align=end]:origin-bottom-left",
           "transition-[scale,translate,opacity,filter] duration-[calc(560ms*var(--kf-speed,1))] ease-pop",
-          "data-starting-style:scale-[0.6] data-starting-style:translate-y-2 data-starting-style:opacity-0 data-starting-style:blur-[6px] data-starting-style:transition-none",
+          "data-starting-style:scale-[calc(0.95-0.35*var(--kf-flourish,1))] data-starting-style:translate-y-2 data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-starting-style:transition-none",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -62,7 +64,7 @@ function BubbleContent({ className, ...props }: React.ComponentProps<typeof Bubb
     <BubbleContentPart
       className={withClass(
         cn(
-          "[button&,a&]:transition-[scale] [button&,a&]:duration-[calc(200ms*var(--kf-speed,1))] [button&,a&]:ease-pop [button&,a&]:active:scale-[0.97]",
+          "[button&,a&]:transition-[scale] [button&,a&]:duration-[calc(200ms*var(--kf-speed,1))] [button&,a&]:ease-pop [button&,a&]:active:scale-[calc(1-0.03*var(--kf-flourish,1))]",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -79,8 +81,8 @@ function BubbleReactions({ className, ...props }: React.ComponentProps<typeof Bu
       className={withClass(
         cn(
           "data-[side=bottom]:origin-top data-[side=top]:origin-bottom",
-          "transition-[scale,opacity,filter] duration-[calc(480ms*var(--kf-speed,1))] ease-pop delay-[calc(260ms*var(--kf-speed,1))]",
-          "data-starting-style:scale-[0.4] data-starting-style:opacity-0 data-starting-style:blur-[3px] data-starting-style:transition-none",
+          "transition-[scale,opacity,filter] duration-[calc(480ms*var(--kf-speed,1))] ease-pop delay-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
+          "data-starting-style:scale-[calc(0.95-0.55*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(3px*var(--kf-flourish,1))] data-starting-style:transition-none",
           "motion-reduce:transition-none!",
         ),
         className,

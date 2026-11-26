@@ -19,11 +19,15 @@ import { cn } from "@/lib/utils"
 import { PresetPreview, replaySteps, visibleSteps } from "@site/components/create/preview"
 import { MotionCurve } from "@site/components/create/motion-curve"
 import { type Choice, ChoiceRow, PanelHeading } from "@site/components/create/rows"
-import { DEFAULT_PRESET, decodePreset, encodePreset, PRESET_FIELDS, type Preset, randomPreset } from "@site/lib/preset"
+import { DEFAULT_PRESET, decodePreset, encodePreset, PRESET_FIELDS, type Preset, randomPreset, START_PRESET } from "@site/lib/preset"
 import { BASES, BOUNCES, CHARTS, describePreset, FONTS, presetCss, presetPreviewVars, presetTokens, RADII, STYLES, THEMES } from "@site/lib/preset-tokens"
 import { trackCopy } from "@site/lib/track-copy"
 
 type Values<K extends keyof Preset> = Preset[K]
+/* The same order as every motion style switcher. The code order (PRESET_FIELDS) can only grow at its
+   end, so it differs: Subtle was added last but is the default and comes first here. */
+const MOTION_ORDER = ["subtle", "calm", "springy", "snappy", "playful"] as const satisfies readonly Preset["motion"][]
+
 const values = <K extends keyof Preset>(key: K) => PRESET_FIELDS.find((field) => field.key === key)!.values as unknown as readonly Values<K>[]
 
 /* How each font is drawn here. The page loads the Google ones with next/font (see app/(home)/create/page.tsx). */
@@ -103,7 +107,7 @@ function readCode(): Preset | null {
 }
 
 export function CreatePage() {
-  const [preset, setPreset] = React.useState<Preset>(DEFAULT_PRESET)
+  const [preset, setPreset] = React.useState<Preset>(START_PRESET)
   const code = encodePreset(preset)
   /* Set by the visitor's own changes (not a restored link), so only those replay the motion. */
   const touched = React.useRef(false)
@@ -123,7 +127,7 @@ export function CreatePage() {
   React.useEffect(() => {
     if (!restored.current) return
     const url = new URL(window.location.href)
-    if (code === encodePreset(DEFAULT_PRESET)) url.searchParams.delete("preset")
+    if (code === encodePreset(START_PRESET)) url.searchParams.delete("preset")
     else url.searchParams.set("preset", code)
     window.history.replaceState(window.history.state, "", url)
   }, [code])
@@ -162,7 +166,7 @@ export function CreatePage() {
   }, [preset])
 
   const style = STYLES[preset.motion]
-  const isDefault = code === encodePreset(DEFAULT_PRESET)
+  const isDefault = code === encodePreset(START_PRESET)
 
   const controls = (
     <div className="flex min-h-full flex-col gap-5">
@@ -181,9 +185,9 @@ export function CreatePage() {
         <PanelHeading>
           <span id="create-motion">Motion</span>
         </PanelHeading>
-        <SegmentedControl aria-label="Motion style" value={preset.motion} onValueChange={(next) => next && set("motion", next as Preset["motion"])} className="self-start">
-          {values("motion").map((value) => (
-            <SegmentedControlItem key={value} value={value}>
+        <SegmentedControl aria-label="Motion style" value={preset.motion} onValueChange={(next) => next && set("motion", next as Preset["motion"])} className="w-full [--segmented-control-item-padding:0.375rem]">
+          {MOTION_ORDER.map((value) => (
+            <SegmentedControlItem key={value} value={value} className="min-w-0 flex-1">
               {STYLES[value].label}
             </SegmentedControlItem>
           ))}
@@ -241,7 +245,7 @@ export function CreatePage() {
                 <Dices aria-hidden />
                 Randomize
               </Button>
-              <Button size="sm" variant="ghost" onClick={() => choose(DEFAULT_PRESET)} disabled={isDefault} className="flex-1 text-muted-foreground">
+              <Button size="sm" variant="ghost" onClick={() => choose(START_PRESET)} disabled={isDefault} className="flex-1 text-muted-foreground">
                 <RotateCcw aria-hidden />
                 Reset
               </Button>

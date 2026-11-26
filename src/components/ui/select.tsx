@@ -199,7 +199,7 @@ function SelectClear({
       className={withClass(
         cn(
           "grid size-6 shrink-0 cursor-pointer place-items-center rounded-[6px] text-muted-foreground outline-none [&_svg]:size-3.5",
-          "transition-[color,background-color,scale] duration-[calc(150ms*var(--kf-speed,1))] hover:bg-foreground/[0.06] hover:text-foreground active:scale-[0.94]",
+          "transition-[color,background-color,scale] duration-[calc(150ms*var(--kf-speed,1))] hover:bg-foreground/[0.06] hover:text-foreground active:scale-[calc(1-0.06*var(--kf-flourish,1))]",
           "focus-visible:ring-2 focus-visible:ring-ring data-disabled:pointer-events-none data-disabled:opacity-40 motion-reduce:transition-none!",
         ),
         className,

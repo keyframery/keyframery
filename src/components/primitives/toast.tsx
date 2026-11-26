@@ -10,7 +10,10 @@
      peek out 10px each and shrink 5% each, their content faded; expanded, each moves by the height
      of the toasts in front of it plus a 10px gap. A swipe drags it, and a dismissing swipe sends it
      on out the same way.
-   - Action and close: Press. */
+   - Action and close: Press.
+   The fade, the slide in from the edge (it says where the message came from, as Sonner's does), a
+   0.95 scale and the stack moves are feedback. The deeper scale, the blur and the press scale with
+   --kf-flourish. */
 
 import {
   Toast as ToastPart,
@@ -30,7 +33,7 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 export * from "@ui-sdk/react/toast"
 
 /* Pressed parts shrink; the toast's own child transition (scale on `ease-pop`) springs them back. */
-const press = "active:scale-[0.92]"
+const press = "active:scale-[calc(1-0.08*var(--kf-flourish,1))]"
 
 function ToastRegion({ className, ...props }: React.ComponentProps<typeof ToastRegionPart>) {
   return (
@@ -70,10 +73,10 @@ function Toast({ className, ...props }: React.ComponentProps<typeof ToastPart>) 
              the springy release of anything pressed inside (action, close). */
           "*:transition-[opacity,scale] *:duration-[calc(300ms*var(--kf-speed,1))] *:ease-pop not-data-front:not-data-expanded:*:opacity-0",
           /* Arriving: from beyond the region's edge, small and soft, on a spring. */
-          "data-starting-style:data-front:[--y:calc(-110%*var(--dir))] data-starting-style:data-front:[scale:0.9]",
-          "data-starting-style:opacity-0 data-starting-style:blur-[4px]",
+          "data-starting-style:data-front:[--y:calc(-110%*var(--dir))] data-starting-style:data-front:[scale:calc(0.95-0.05*var(--kf-flourish,1))]",
+          "data-starting-style:opacity-0 data-starting-style:blur-[calc(4px*var(--kf-flourish,1))]",
           /* Leaving: quick and quiet; after a swipe it carries on out the way it was thrown. */
-          "data-ending-style:opacity-0 data-ending-style:blur-[3px]",
+          "data-ending-style:opacity-0 data-ending-style:blur-[calc(3px*var(--kf-flourish,1))]",
           "data-ending-style:[transition:translate_calc(220ms*var(--kf-speed,1))_var(--ease-house),scale_calc(200ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),filter_calc(200ms*var(--kf-speed,1))_var(--ease-house)]",
           "data-ending-style:not-data-swipe-direction:[scale:0.94]",
           "data-ending-style:data-[swipe-direction=right]:[--exit-x:100%] data-ending-style:data-[swipe-direction=left]:[--exit-x:-100%]",

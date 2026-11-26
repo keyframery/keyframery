@@ -30,10 +30,11 @@ const ITEM =
   '[data-slot="toolbar-button"],[data-slot="toolbar-link"],[data-slot="toggle"]'
 const MARK = "data-kf-toolbar-hl"
 
-/* Colours and shadows ease as the pointer arrives; the press springs back with a pop. */
+/* Colours and shadows ease as the pointer arrives; the press springs back with a pop. The press
+   depth scales with --kf-flourish. */
 const press = cn(
   "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)]",
-  "not-data-disabled:active:scale-[0.92] not-data-disabled:active:[transition-duration:calc(100ms*var(--kf-speed,1))]",
+  "not-data-disabled:active:scale-[calc(1-0.08*var(--kf-flourish,1))] not-data-disabled:active:[transition-duration:calc(100ms*var(--kf-speed,1))]",
   "motion-reduce:[transition:none]!",
 )
 
@@ -75,7 +76,7 @@ function Toolbar({
           "before:[position-anchor:--kf-toolbar-hl] before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
           "before:scale-100 before:opacity-100 before:transition-[opacity,scale] before:duration-[calc(200ms*var(--kf-speed,1))] before:ease-house",
           "data-kf-glide:before:[transition:top_calc(360ms*var(--kf-speed,1))_var(--ease-spring),right_calc(360ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(360ms*var(--kf-speed,1))_var(--ease-spring),left_calc(360ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),scale_calc(200ms*var(--kf-speed,1))_var(--ease-house)]",
-          "data-kf-idle:before:scale-[0.92] data-kf-idle:before:opacity-0 not-has-[[data-kf-toolbar-hl]]:before:opacity-0",
+          "data-kf-idle:before:scale-[calc(1-0.08*var(--kf-flourish,1))] data-kf-idle:before:opacity-0 not-has-[[data-kf-toolbar-hl]]:before:opacity-0",
           "motion-reduce:before:[transition:none]!",
         ),
         className,

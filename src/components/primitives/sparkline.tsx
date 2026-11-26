@@ -12,6 +12,8 @@
      length up to 97 points tween into each other (see the core).
    - Glide: while someone scrubs, a hairline and a dot ride to the point under the pointer or the
      arrow keys, and the readout follows them with its value Rolling.
+   - Flourish: the first draw, the bars' growth and cascade, the late pop of the dots, the rolls and the
+     marker's and readout's grow scale with --kf-flourish; the tween and the glide stay.
 
    Every moving value is a CSS variable from the core (`--sparkline-x`, `--sparkline-y`,
    `--sparkline-w`, `--sparkline-h` in percent, `--sparkline-path`). */
@@ -46,7 +48,7 @@ function Roll({ text, className }: { text: string; className?: string }) {
             <span
               key={key}
               style={{ "--d": Number(c) } as React.CSSProperties}
-              className="flex flex-col transition-[translate] duration-[calc(480ms*var(--kf-speed,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
+              className="flex flex-col transition-[translate] duration-[calc(480ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
             >
               {Array.from({ length: 10 }, (_, d) => (
                 <span key={d} className="h-[1lh]">
@@ -159,11 +161,12 @@ function SparklinePlot({ className, children, ...props }: SparklinePart<"plot">)
 
 /* ---------------------------------------------------------------- line and area */
 
-/* The line draws itself from the left; it tweens to new values on a spring. */
+/* The line draws itself from the left; it tweens to new values on a spring. The draw scales with
+   --kf-flourish; the tween stays. */
 const lineMotion = cn(
   "fill-none [d:var(--sparkline-path)] [vector-effect:non-scaling-stroke]",
   "[clip-path:inset(-50%_-6%_-50%_-6%)] starting:[clip-path:inset(-50%_106%_-50%_-6%)]",
-  `[transition:d_calc(720ms*var(--kf-speed,1))_var(--ease-spring),clip-path_calc(900ms*var(--kf-speed,1))_var(--ease-house)]`,
+  `[transition:d_calc(720ms*var(--kf-speed,1))_var(--ease-spring),clip-path_calc(900ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)]`,
   "motion-reduce:transition-none",
 )
 
@@ -206,13 +209,14 @@ function SparklineArea({ className, ...props }: SparklinePart<"area", "path">) {
 
 /* ---------------------------------------------------------------- bars */
 
-/* Bars grow from the baseline one after another; the cascade takes about 520ms whatever the count. */
+/* Bars grow from the baseline one after another; the cascade takes about 520ms whatever the count.
+   The growth on mount and the stagger scale with --kf-flourish; a new value still tweens. */
 const barMotion = cn(
-  "absolute left-[calc(var(--sparkline-x)*1%)] w-[calc(var(--sparkline-w)*1%)] bottom-[calc(var(--sparkline-y)*1%)] h-[calc(var(--sparkline-h)*1%)] starting:h-0",
+  "absolute left-[calc(var(--sparkline-x)*1%)] w-[calc(var(--sparkline-w)*1%)] bottom-[calc(var(--sparkline-y)*1%)] h-[calc(var(--sparkline-h)*1%)] starting:h-[calc(var(--sparkline-h)*1%*(1-var(--kf-flourish,1)))]",
   "data-negative:bottom-auto data-negative:top-[calc((100-var(--sparkline-y)-var(--sparkline-h))*1%)]",
   "data-dim:opacity-45",
   `transition-[left,width,bottom,top,height,opacity] duration-[calc(640ms*var(--kf-speed,1))] ease-spring`,
-  `[transition-delay:calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1))/var(--sparkline-n,1)),calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1))/var(--sparkline-n,1)),calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1))/var(--sparkline-n,1)),calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1))/var(--sparkline-n,1)),calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1))/var(--sparkline-n,1)),0ms]`,
+  `[transition-delay:calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))/var(--sparkline-n,1)),calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))/var(--sparkline-n,1)),calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))/var(--sparkline-n,1)),calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))/var(--sparkline-n,1)),calc(var(--sparkline-i,0)*calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))/var(--sparkline-n,1)),0ms]`,
   "motion-reduce:transition-none",
 )
 
@@ -247,7 +251,7 @@ function SparklineReference({ className, ...props }: SparklinePart<"reference">)
       ...props,
       className: withClass(
         cn(
-          "pointer-events-none absolute inset-x-0 top-[calc(var(--sparkline-y)*1%)] h-0 starting:opacity-0",
+          "pointer-events-none absolute inset-x-0 top-[calc(var(--sparkline-y)*1%)] h-0 starting:opacity-[calc(1-var(--kf-flourish,1))]",
           `[transition:top_calc(720ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(400ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:transition-none`,
         ),
         className,
@@ -268,9 +272,9 @@ function SparklineExtreme({ value, className, ...props }: { value: "max" | "min"
       className: withClass(
         cn(
           pointBox,
-          "pointer-events-none size-[var(--sparkline-dot,6px)] starting:scale-0 starting:opacity-0",
+          "pointer-events-none size-[var(--sparkline-dot,6px)] starting:scale-[calc(1-var(--kf-flourish,1))] starting:opacity-[calc(1-var(--kf-flourish,1))]",
           follow,
-          `[transition-delay:0ms,0ms,calc(760ms*var(--kf-speed,1)),calc(760ms*var(--kf-speed,1))] motion-reduce:transition-none`,
+          `[transition-delay:0ms,0ms,calc(760ms*var(--kf-speed,1)*var(--kf-flourish,1)),calc(760ms*var(--kf-speed,1)*var(--kf-flourish,1))] motion-reduce:transition-none`,
         ),
         className,
       ),
@@ -291,10 +295,10 @@ function SparklineEnd({ className, ...props }: SparklinePart<"end">) {
       className: withClass(
         cn(
           pointBox,
-          "pointer-events-none size-[var(--sparkline-dot,6px)] starting:scale-0 starting:opacity-0 data-[type=bar]:hidden",
+          "pointer-events-none size-[var(--sparkline-dot,6px)] starting:scale-[calc(1-var(--kf-flourish,1))] starting:opacity-[calc(1-var(--kf-flourish,1))] data-[type=bar]:hidden",
           "group-data-active/sparkline:scale-75 group-data-active/sparkline:opacity-50",
           follow,
-          `[transition-delay:0ms,0ms,calc(820ms*var(--kf-speed,1)),calc(820ms*var(--kf-speed,1))] motion-reduce:transition-none`,
+          `[transition-delay:0ms,0ms,calc(820ms*var(--kf-speed,1)*var(--kf-flourish,1)),calc(820ms*var(--kf-speed,1)*var(--kf-flourish,1))] motion-reduce:transition-none`,
         ),
         className,
       ),
@@ -333,7 +337,7 @@ function SparklineMarker({ className, ...props }: SparklinePart<"marker">) {
     {
       ...props,
       className: withClass(
-        cn(pointBox, "pointer-events-none size-[calc(var(--sparkline-dot,6px)+2px)] scale-40 opacity-0 data-open:scale-100 data-open:opacity-100", glide, "motion-reduce:transition-none"),
+        cn(pointBox, "pointer-events-none size-[calc(var(--sparkline-dot,6px)+2px)] scale-[calc(0.95-0.55*var(--kf-flourish,1))] opacity-0 data-open:scale-100 data-open:opacity-100", glide, "motion-reduce:transition-none"),
         className,
       ),
     },
@@ -354,7 +358,7 @@ function SparklineReadout({ className, children, ...props }: SparklinePart<"read
         cn(
           "pointer-events-none absolute bottom-[calc(100%+var(--sparkline-inset,4px)+6px)] left-[calc(var(--sparkline-x)*1%)] z-10 w-max",
           "[translate:-50%_0] data-[side=left]:[translate:calc(-100%+10px)_0] data-[side=right]:[translate:-10px_0]",
-          "origin-bottom scale-[0.7] opacity-0 data-open:scale-100 data-open:opacity-100",
+          "origin-bottom scale-[calc(0.95-0.25*var(--kf-flourish,1))] opacity-0 data-open:scale-100 data-open:opacity-100",
           glide,
           "motion-reduce:transition-none",
         ),

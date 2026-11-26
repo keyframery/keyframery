@@ -92,8 +92,8 @@ function StepperIndicator({ className, ...props }: React.ComponentProps<typeof S
           "size-[var(--stepper-size,1.75rem)] shrink-0 rounded-full text-[12px] leading-none font-medium",
           /* Upcoming: a quiet rim. */
           "bg-background text-[color:var(--stepper-muted,var(--muted-foreground))] shadow-[inset_0_0_0_1px_var(--stepper-track,var(--border))] dark:bg-transparent",
-          /* Current: a key ringed in the accent, popping a touch larger. */
-          "data-[state=current]:scale-105 data-[state=current]:text-[color:var(--stepper-ink,var(--foreground))] data-[state=current]:shadow-[inset_0_0_0_1.5px_var(--stepper-accent,var(--primary)),0_0_0_4px_color-mix(in_oklab,var(--stepper-accent,var(--primary))_12%,transparent)]",
+          /* Current: a key ringed in the accent, popping a touch larger (the pop scales with --kf-flourish). */
+          "data-[state=current]:scale-[calc(1+0.05*var(--kf-flourish,1))] data-[state=current]:text-[color:var(--stepper-ink,var(--foreground))] data-[state=current]:shadow-[inset_0_0_0_1.5px_var(--stepper-accent,var(--primary)),0_0_0_4px_color-mix(in_oklab,var(--stepper-accent,var(--primary))_12%,transparent)]",
           /* Complete: filled, with the check. */
           "data-[state=complete]:bg-[var(--stepper-accent,var(--primary))] data-[state=complete]:text-primary-foreground data-[state=complete]:shadow-none",
           /* Error. */

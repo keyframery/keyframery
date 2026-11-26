@@ -17,13 +17,14 @@ export * from "@ui-sdk/react/textarea"
 
 /* The focus ring is the outline. It starts 10px out and 0px wide and closes in onto the box
    on a spring, easing from its resting colour to its focus colour as it lands. On blur it lets
-   go fast. Give the outline a strong colour at rest and a soft one on focus: `outline-ring focus-visible:outline-[3px] focus-visible:outline-ring/30`. */
+   go fast. Give the outline a strong colour at rest and a soft one on focus: `outline-ring focus-visible:outline-[3px] focus-visible:outline-ring/30`.
+   The 10px close-in scales with --kf-flourish; at 0 the ring simply fades in on the box. */
 function Textarea({ className, ...props }: React.ComponentProps<typeof TextareaPart>) {
   return (
     <TextareaPart
       className={withClass(
         cn(
-          "outline-offset-[10px] focus-visible:outline-offset-0",
+          "outline-offset-[calc(10px*var(--kf-flourish,1))] focus-visible:outline-offset-0",
           "[transition:outline-offset_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-width_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-color_0s_linear_calc(160ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] focus-visible:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
           "motion-reduce:[transition:none]!",
         ),

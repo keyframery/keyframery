@@ -45,7 +45,8 @@ function RadioGroup({ className, ...props }: React.ComponentProps<typeof RadioGr
   )
 }
 
-/* Press: gives under the finger, springs back. The checked radio is the anchor the ring follows. */
+/* Press: gives under the finger, springs back (scales with --kf-flourish). The checked radio is the
+   anchor the ring follows. */
 function Radio({ className, ...props }: React.ComponentProps<typeof RadioPart>) {
   return (
     <RadioPart
@@ -53,7 +54,7 @@ function Radio({ className, ...props }: React.ComponentProps<typeof RadioPart>) 
         cn(
           "data-checked:[anchor-name:--kf-radio]",
           "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop motion-reduce:transition-none!",
-          "not-data-disabled:not-data-readonly:active:scale-[0.86]",
+          "not-data-disabled:not-data-readonly:active:scale-[calc(1-0.14*var(--kf-flourish,1))]",
         ),
         className,
       )}
@@ -62,15 +63,16 @@ function Radio({ className, ...props }: React.ComponentProps<typeof RadioPart>) 
   )
 }
 
-/* The dot pops in from 0.3 with an overshoot and shrinks away on the way out. */
+/* The dot pops in from 0.3 with an overshoot and shrinks away on the way out. The fade is feedback;
+   the grow and shrink scale with --kf-flourish. */
 function RadioIndicator({ className, ...props }: React.ComponentProps<typeof RadioIndicatorPart>) {
   return (
     <RadioIndicatorPart
       className={withClass(
         cn(
           "transition-[scale,opacity] duration-[calc(480ms*var(--kf-speed,1))] ease-pop",
-          "data-starting-style:scale-[0.3] data-starting-style:opacity-0",
-          "data-ending-style:scale-[0.4] data-ending-style:opacity-0 data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
+          "data-starting-style:scale-[calc(1-0.7*var(--kf-flourish,1))] data-starting-style:opacity-0",
+          "data-ending-style:scale-[calc(1-0.6*var(--kf-flourish,1))] data-ending-style:opacity-0 data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
           "motion-reduce:transition-none!",
         ),
         className,

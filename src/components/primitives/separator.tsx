@@ -22,7 +22,8 @@ const keyframes =
 
 /* Draw: the line grows out from its centre on a spring as it enters; a vertical line draws from
    the top down. Lines next to a `SeparatorLabel` grow outward from the label instead, so an
-   "or" divider opens from the word. Several lines in one row follow one another by 40ms. */
+   "or" divider opens from the word. Several lines in one row follow one another by 40ms.
+   The draw and its delays scale with --kf-flourish: at 0 the line is simply there. */
 function Separator({ className, ...props }: React.ComponentProps<typeof SeparatorPart>) {
   return (
     <>
@@ -32,10 +33,10 @@ function Separator({ className, ...props }: React.ComponentProps<typeof Separato
       <SeparatorPart
         className={withClass(
           cn(
-            "origin-center motion-reduce:animate-none! animate-[kf-separator-x_calc(720ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-            "data-[orientation=vertical]:origin-top data-[orientation=vertical]:animate-[kf-separator-y_calc(640ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
+            "origin-center motion-reduce:animate-none! animate-[kf-separator-x_calc(720ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+            "data-[orientation=vertical]:origin-top data-[orientation=vertical]:animate-[kf-separator-y_calc(640ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
             "has-[+[data-slot=separator-label]]:origin-right [[data-slot=separator-label]+&]:origin-left",
-            "[animation-delay:calc((min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))]",
+            "[animation-delay:calc((min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
             "motion-reduce:animate-none!",
           ),
           className,
@@ -47,13 +48,13 @@ function Separator({ className, ...props }: React.ComponentProps<typeof Separato
 }
 
 /* Extra: a word in the middle of a divider ("or"). It clears out of a soft blur once the lines
-   beside it are mostly drawn. */
+   beside it are mostly drawn. Scales with --kf-flourish, like the lines. */
 function SeparatorLabel({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="separator-label"
       className={cn(
-        "motion-reduce:animate-none! animate-[kf-separator-label_calc(420ms*var(--kf-speed,1))_var(--ease-house)_calc(320ms*var(--kf-speed,1))_backwards]",
+        "motion-reduce:animate-none! animate-[kf-separator-label_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(320ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards]",
         "motion-reduce:animate-none!",
         className,
       )}

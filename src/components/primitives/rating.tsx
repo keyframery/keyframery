@@ -33,16 +33,17 @@ function Rating(props: React.ComponentProps<typeof RatingRoot>) {
 }
 
 /* Cascade: stars fill one after another from the left, 45ms apart; emptying is immediate.
-   The star a score lands on pops in from 0.55 with an overshoot. */
+   The star a score lands on pops in from 0.55 with an overshoot. The stagger and the pop
+   scale with --kf-flourish; the fill itself always plays. */
 function RatingItem({ className, ...props }: React.ComponentProps<typeof RatingItemPart>) {
   return (
     <RatingItemPart
       className={withClass(
         cn(
           "[transition:--rating-fill_calc(300ms*var(--kf-speed,1))_var(--ease-house)]",
-          "data-filled:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)))]",
-          "data-partial:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)))]",
-          "not-data-readonly:data-checked:animate-[kf-rating-pop_calc(520ms*var(--kf-speed,1))_var(--ease-pop)_both]",
+          "data-filled:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
+          "data-partial:[transition-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
+          "not-data-readonly:data-checked:animate-[kf-rating-pop_calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_both]",
           "motion-reduce:[transition:none]! motion-reduce:animate-none!",
         ),
         className,

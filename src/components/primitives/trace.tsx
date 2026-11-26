@@ -10,7 +10,9 @@
    - Draw and Pop: with no icon given, the mark follows the status: a spinner while running, and a
      tick that pops in and draws itself when the step is done.
    - Height and Cascade: a row opens to its real height and its detail rises in; the chevron turns
-     on a spring. */
+     on a spring.
+   The cascade, the tick's pop and draw and the press depth scale with --kf-flourish; the shimmer and
+   the spinner say "working" and always run. */
 
 import { createParts } from "@ui-sdk/react/primitive"
 import * as React from "react"
@@ -47,8 +49,8 @@ function Trace({ className, ...props }: React.ComponentProps<typeof parts.Root>)
       <parts.Root
         className={withClass(
           cn(
-            "*:animate-[kf-trace-row_calc(460ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-            "*:[animation-delay:calc((min(sibling-index(),10)-1)*calc(55ms*var(--kf-speed,1)))]",
+            "*:animate-[kf-trace-row_calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+            "*:[animation-delay:calc((min(sibling-index(),10)-1)*calc(55ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
             "motion-reduce:*:animate-none!",
           ),
           className,
@@ -87,7 +89,7 @@ const TraceDescription = parts.Description
 /* The mark for each status, when the icon is given no children. All four are there; the line's
    `data-status` shows one. A mark that starts showing replays its animation, so the tick pops in and
    draws itself the moment a step finishes. */
-const pop = "animate-[kf-trace-pop_calc(380ms*var(--kf-speed,1))_var(--ease-pop)_backwards] motion-reduce:animate-none"
+const pop = "animate-[kf-trace-pop_calc(380ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_backwards] motion-reduce:animate-none"
 
 function StatusMarks() {
   return (
@@ -108,7 +110,7 @@ function StatusMarks() {
         <path
           d="M5.5 8.25 7.25 10l3.25-3.75"
           pathLength={1}
-          className="[stroke-dasharray:1] animate-[kf-trace-tick_calc(320ms*var(--kf-speed,1))_var(--ease-house)_calc(120ms*var(--kf-speed,1))_backwards] motion-reduce:animate-none"
+          className="[stroke-dasharray:1] animate-[kf-trace-tick_calc(320ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(120ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards] motion-reduce:animate-none"
         />
       </svg>
     </>
@@ -131,7 +133,7 @@ function TraceCollapsibleTrigger({
 }: React.ComponentProps<typeof CollapsibleTriggerPart>) {
   return (
     <CollapsibleTriggerPart
-      className={withClass("group/trace-trigger transition-[scale] duration-[calc(220ms*var(--kf-speed,1))] ease-pop active:scale-[0.98] motion-reduce:transition-none!", className)}
+      className={withClass("group/trace-trigger transition-[scale] duration-[calc(220ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.02*var(--kf-flourish,1))] motion-reduce:transition-none!", className)}
       {...props}
     >
       {(state) => (

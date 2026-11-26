@@ -6,7 +6,8 @@
 
    - Direction: when the direction flips, the content inside comes in from the side it now reads
      from (from the right into right to left, from the left back into left to right) out of a soft
-     blur, one block after another. It never plays on first load.
+     blur, one block after another. It never plays on first load. It scales with --kf-flourish:
+     at 0 the content just takes its new side.
    - DirectionToggle: Press; an icon inside it turns over on a spring as the direction flips.
 
    `Direction` is also exported as `DirectionProvider`, shadcn's name, though it provides nothing:
@@ -39,8 +40,8 @@ function Direction({ className, ...props }: React.ComponentProps<typeof Directio
       <DirectionRoot
         className={withClass(
           cn(
-            "data-flipped:data-[dir=rtl]:[&>*]:animate-[kf-dir-rtl_calc(460ms*var(--kf-speed,1))_var(--ease-spring)_calc((min(sibling-index(),8)-1)*40ms*var(--kf-speed,1))_backwards]",
-            "data-flipped:data-[dir=ltr]:[&>*]:animate-[kf-dir-ltr_calc(460ms*var(--kf-speed,1))_var(--ease-spring)_calc((min(sibling-index(),8)-1)*40ms*var(--kf-speed,1))_backwards]",
+            "data-flipped:data-[dir=rtl]:[&>*]:animate-[kf-dir-rtl_calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_calc((min(sibling-index(),8)-1)*40ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards]",
+            "data-flipped:data-[dir=ltr]:[&>*]:animate-[kf-dir-ltr_calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_calc((min(sibling-index(),8)-1)*40ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards]",
             "motion-reduce:[&>*]:animate-none!",
           ),
           className,
@@ -56,7 +57,7 @@ function DirectionToggle({ className, ...props }: React.ComponentProps<typeof Di
     <DirectionTogglePart
       className={withClass(
         cn(
-          "transition-[scale] duration-[calc(220ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] active:duration-[calc(90ms*var(--kf-speed,1))] active:ease-house",
+          "transition-[scale] duration-[calc(220ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.04*var(--kf-flourish,1))] active:duration-[calc(90ms*var(--kf-speed,1))] active:ease-house",
           "[&_svg]:transition-[scale] [&_svg]:duration-[calc(520ms*var(--kf-speed,1))] [&_svg]:ease-spring data-[dir=rtl]:[&_svg]:-scale-x-100",
           "motion-reduce:transition-none! motion-reduce:[&_svg]:transition-none!",
         ),

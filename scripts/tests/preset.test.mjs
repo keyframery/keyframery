@@ -17,7 +17,7 @@ const compile = (path, dependencies = {}) => {
 const codec = compile("../../site/lib/preset.ts")
 const theming = JSON.parse(read("../../content/theming.json"))
 const tokens = compile("../../site/lib/preset-tokens.ts", { "./preset": codec, "../../content/theming.json": { __esModule: true, default: theming } })
-const { DEFAULT_PRESET, PRESET_FIELDS, decodePreset, encodePreset, randomPreset, isPresetCode } = codec
+const { DEFAULT_PRESET, PRESET_FIELDS, START_PRESET, decodePreset, encodePreset, randomPreset, isPresetCode } = codec
 
 /* A small deterministic generator, so the random round trips are the same on every run. */
 function seeded(seed) {
@@ -77,13 +77,22 @@ test("the default preset's tokens equal src/index.css exactly", () => {
   assert.deepEqual(dark, shipped(".dark"))
 })
 
-test("the default preset writes no motion, corner or reduced-motion rules", () => {
-  assert.deepEqual(tokens.radiusVars(DEFAULT_PRESET), {})
-  assert.deepEqual(tokens.presetMotion(DEFAULT_PRESET).vars, {})
-  const item = tokens.presetRegistryItem(DEFAULT_PRESET, "https://keyframery.com")
+test("Create's start preset (Subtle, what ships) writes no motion, corner or reduced-motion rules", () => {
+  assert.deepEqual(tokens.radiusVars(START_PRESET), {})
+  assert.deepEqual(tokens.presetMotion(START_PRESET).vars, {})
+  const item = tokens.presetRegistryItem(START_PRESET, "https://keyframery.com")
   assert.equal(item.css, undefined)
-  assert.equal(item.name, "preset-k0")
   assert.deepEqual(item.registryDependencies, ["https://keyframery.com/r/motion.json"])
+})
+
+test("k0 still means Springy: it now writes Springy's motion, since Subtle ships", () => {
+  assert.equal(encodePreset(DEFAULT_PRESET), "k0")
+  assert.equal(DEFAULT_PRESET.motion, "springy")
+  const vars = tokens.presetRegistryItem(DEFAULT_PRESET, "https://keyframery.com").css["@layer base"][":root:not([data-motion])"]
+  assert.equal(vars["--kf-speed"], "1")
+  assert.equal(vars["--kf-flourish"], "1")
+  assert.equal(vars["--ease-spring"], tokens.STYLES.springy.spring)
+  assert.equal(vars["--ease-pop"], tokens.STYLES.springy.pop)
 })
 
 test("the motion styles match src/index.css", () => {
@@ -92,6 +101,7 @@ test("the motion styles match src/index.css", () => {
     const body = css.match(new RegExp(`\\[data-motion="${name}"\\]\\s*\\{([^}]+)\\}`))[1]
     const vars = Object.fromEntries([...body.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map((m) => [m[1], m[2].trim()]))
     assert.equal(Number(vars["--kf-speed"]), style.speed, name)
+    assert.equal(Number(vars["--kf-flourish"]), style.flourish, name)
     assert.equal(vars["--ease-spring"], style.spring, name)
     assert.equal(vars["--ease-pop"], style.pop, name)
   }

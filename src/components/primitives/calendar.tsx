@@ -8,7 +8,8 @@
      pointer while a range is being picked. Style them with `before:` (the date, or a range's start) and
      `after:` (a range's end) on CalendarGrid.
    - Direction: a new month's weeks come in from the side the months turned to, with a blur.
-   - Press: days and the month buttons give under the pointer and spring back. */
+     The blur and all but 8px of the slide scale with --kf-flourish.
+   - Press: days and the month buttons give under the pointer and spring back (scales with --kf-flourish). */
 
 import {
   Calendar as CalendarRoot,
@@ -72,7 +73,7 @@ function Calendar({
 }
 
 const pressable =
-  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.92] data-disabled:active:scale-100 motion-reduce:transition-none!"
+  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:transition-none!"
 
 function CalendarPrevious({ className, ...props }: React.ComponentProps<typeof CalendarPreviousPart>) {
   return <CalendarPreviousPart className={withClass(pressable, className)} {...props} />
@@ -136,7 +137,8 @@ function CalendarGrid({
   )
 }
 
-/* Direction: the new weeks come 28px from the side the months turned to, blurred, on a spring. */
+/* Direction: the new weeks come 28px from the side the months turned to, blurred, on a spring.
+   At --kf-flourish 0 they come 8px with no blur: the side still says which way the months went. */
 function CalendarWeeks({
   className,
   children,
@@ -146,9 +148,9 @@ function CalendarWeeks({
     <CalendarWeeksPart
       className={cn(
         "transition-[opacity,filter,translate] duration-[calc(460ms*var(--kf-speed,1))] ease-spring",
-        "starting:opacity-0 starting:blur-[6px]",
+        "starting:opacity-0 starting:blur-[calc(6px*var(--kf-flourish,1))]",
         "group-data-[direction=none]/calendar:starting:opacity-100 group-data-[direction=none]/calendar:starting:blur-none",
-        "group-data-[direction=next]/calendar:starting:translate-x-7 group-data-[direction=previous]/calendar:starting:-translate-x-7",
+        "group-data-[direction=next]/calendar:starting:translate-x-[calc(8px+20px*var(--kf-flourish,1))] group-data-[direction=previous]/calendar:starting:-translate-x-[calc(8px+20px*var(--kf-flourish,1))]",
         "motion-reduce:transition-none!",
         className,
       )}
@@ -167,7 +169,7 @@ function CalendarDay({ className, ...props }: React.ComponentProps<typeof Calend
         cn(
           "data-selected:not-data-range-middle:not-data-range-end:[anchor-name:--kf-day-a] data-range-start:[anchor-name:--kf-day-a]",
           "data-range-end:[anchor-name:--kf-day-b] data-range-start:data-range-end:[anchor-name:--kf-day-a,--kf-day-b]",
-          "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.9] data-disabled:active:scale-100 motion-reduce:transition-none!",
+          "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.1*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:transition-none!",
         ),
         className,
       )}

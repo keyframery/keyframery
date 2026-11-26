@@ -17,6 +17,10 @@
      while the others take its room.
    - Press: legend items sink a little and pop back.
 
+   Flourish (scaled by --kf-flourish, gone at 0): the grow on arrival, the staggers, the number
+   rolls, the pops and the tooltip's extra shrink and blur. The tweens on data changes, the glides
+   and the collapse are feedback and always run.
+
    Each moving value is a CSS variable from the core (`--chart-x`, `--chart-y`, `--chart-w`,
    `--chart-h` in percent, `--chart-path`, `--chart-len`, `--chart-offset`), so the tween is a
    plain CSS transition. Lines and areas tween their `d` where the browser can (Chrome, Firefox);
@@ -53,7 +57,7 @@ function Roll({ text, className }: { text: string; className?: string }) {
             <span
               key={key}
               style={{ "--d": Number(c) } as React.CSSProperties}
-              className="flex flex-col transition-[translate] duration-[calc(520ms*var(--kf-speed,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
+              className="flex flex-col transition-[translate] duration-[calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
             >
               {Array.from({ length: 10 }, (_, d) => (
                 <span key={d} className="h-[1lh]">
@@ -312,28 +316,30 @@ const barMotion = cn(
   "absolute",
   /* Standing up: across from --chart-x, up from --chart-y. Below zero they hang from the baseline. */
   "left-[calc(var(--chart-x)*1%+min(var(--chart-bar-gap,4px),var(--chart-w)*0.3%)/2)] w-[max(0px,calc(var(--chart-w)*1%-min(var(--chart-bar-gap,4px),var(--chart-w)*0.3%)))]",
-  "bottom-[calc(var(--chart-y)*1%)] h-[calc(var(--chart-h)*1%)] starting:h-0",
+  "bottom-[calc(var(--chart-y)*1%)] h-[calc(var(--chart-h)*1%)] starting:h-[calc(var(--chart-h)*1%*(1-var(--kf-flourish,1)))]",
   "data-negative:bottom-auto data-negative:top-[calc((100-var(--chart-y)-var(--chart-h))*1%)]",
   /* Lying down: down from --chart-y, right from --chart-x. */
   "group-data-[orientation=horizontal]/chart:bottom-auto group-data-[orientation=horizontal]/chart:top-[calc(var(--chart-y)*1%+min(var(--chart-bar-gap,4px),var(--chart-h)*0.3%)/2)] group-data-[orientation=horizontal]/chart:h-[max(0px,calc(var(--chart-h)*1%-min(var(--chart-bar-gap,4px),var(--chart-h)*0.3%)))]",
-  "group-data-[orientation=horizontal]/chart:left-[calc(var(--chart-x)*1%)] group-data-[orientation=horizontal]/chart:w-[calc(var(--chart-w)*1%)] group-data-[orientation=horizontal]/chart:starting:w-0 group-data-[orientation=horizontal]/chart:starting:h-[max(0px,calc(var(--chart-h)*1%-min(var(--chart-bar-gap,4px),var(--chart-h)*0.3%)))]",
+  "group-data-[orientation=horizontal]/chart:left-[calc(var(--chart-x)*1%)] group-data-[orientation=horizontal]/chart:w-[calc(var(--chart-w)*1%)] group-data-[orientation=horizontal]/chart:starting:w-[calc(var(--chart-w)*1%*(1-var(--kf-flourish,1)))] group-data-[orientation=horizontal]/chart:starting:h-[max(0px,calc(var(--chart-h)*1%-min(var(--chart-bar-gap,4px),var(--chart-h)*0.3%)))]",
   "group-data-[orientation=horizontal]/chart:data-negative:left-auto group-data-[orientation=horizontal]/chart:data-negative:right-[calc((100-var(--chart-x)-var(--chart-w))*1%)]",
   `transition-[left,right,top,bottom,width,height] duration-[calc(720ms*var(--kf-speed,1))] ease-spring`,
   /* Stacked, on arrival: each segment waits for the one under it, so a stack builds up from the
      baseline (--chart-s is its place in the stack, 0 when not stacked). Once the bars have arrived
-     every later change tweens together, so the segments stay joined. */
-  `[transition-delay:calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))+var(--chart-s,0)*calc(300ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))+var(--chart-s,0)*calc(300ms*var(--kf-speed,1)))]`,
-  `group-data-entered/marks:[transition-delay:calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1)))]`,
+     every later change tweens together, so the segments stay joined. The grow and the staggers
+     scale with --kf-flourish: at 0 bars are there at once and later changes still tween. */
+  `[transition-delay:calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))*var(--kf-flourish,1)),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))*var(--kf-flourish,1)),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))*var(--kf-flourish,1)),calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))*var(--kf-flourish,1)),calc((min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))+var(--chart-s,0)*calc(300ms*var(--kf-speed,1)))*var(--kf-flourish,1)),calc((min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))+var(--chart-s,0)*calc(300ms*var(--kf-speed,1)))*var(--kf-flourish,1))]`,
+  `group-data-entered/marks:[transition-delay:calc(min(var(--chart-i,0),16)*calc(26ms*var(--kf-speed,1))*var(--kf-flourish,1))]`,
   "motion-reduce:transition-none",
 )
 
-/* A line draws itself from the left; it tweens to new values and flattens when hidden. */
+/* A line draws itself from the left; it tweens to new values and flattens when hidden. The draw
+   scales with --kf-flourish. */
 const lineMotion = cn(
   "fill-none [d:var(--chart-path)] [vector-effect:non-scaling-stroke]",
   "[clip-path:inset(-50%_-4%_-50%_-4%)] starting:[clip-path:inset(-50%_104%_-50%_-4%)]",
   "data-hidden:opacity-0",
-  `[transition:d_calc(720ms*var(--kf-speed,1))_var(--ease-spring),clip-path_calc(1100ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house)]`,
-  `[transition-delay:0ms,calc(var(--chart-i,0)*calc(90ms*var(--kf-speed,1))),0ms]`,
+  `[transition:d_calc(720ms*var(--kf-speed,1))_var(--ease-spring),clip-path_calc(1100ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house),opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house)]`,
+  `[transition-delay:0ms,calc(var(--chart-i,0)*calc(90ms*var(--kf-speed,1))*var(--kf-flourish,1)),0ms]`,
   "motion-reduce:transition-none",
 )
 
@@ -342,32 +348,34 @@ const areaMotion = cn(
   "[d:var(--chart-path)]",
   "[clip-path:inset(-50%_-4%_-50%_-4%)] starting:[clip-path:inset(-50%_104%_-50%_-4%)]",
   "data-hidden:opacity-0",
-  `[transition:d_calc(720ms*var(--kf-speed,1))_var(--ease-spring),clip-path_calc(1100ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house)]`,
-  `[transition-delay:0ms,calc(var(--chart-i,0)*calc(90ms*var(--kf-speed,1))),0ms]`,
+  `[transition:d_calc(720ms*var(--kf-speed,1))_var(--ease-spring),clip-path_calc(1100ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house),opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house)]`,
+  `[transition-delay:0ms,calc(var(--chart-i,0)*calc(90ms*var(--kf-speed,1))*var(--kf-flourish,1)),0ms]`,
   "motion-reduce:transition-none",
 )
 
 /* A ring sweeps round from the top; each slice tweens to its new share and shuts when hidden. While
-   one slice is active the others fade back. */
+   one slice is active the others fade back. The sweep and the stagger scale with --kf-flourish: at 0
+   the ring starts whole. */
 const sliceMotion = cn(
   "fill-none origin-center [transform-box:view-box] -rotate-90",
   "[stroke-dasharray:var(--chart-len)_100] [stroke-dashoffset:var(--chart-offset)] [stroke-width:var(--chart-ring)]",
-  "starting:[stroke-dasharray:0_100] starting:[stroke-dashoffset:0]",
+  "starting:[stroke-dasharray:calc(var(--chart-len)*(1-var(--kf-flourish,1)))_100] starting:[stroke-dashoffset:calc(var(--chart-offset)*(1-var(--kf-flourish,1)))]",
   /* The active slice keeps its shape (so every gap stays even and nothing crosses the centre);
      the others step back while one is active. */
   "group-data-active/chart:opacity-40 data-active:opacity-100!",
   `[transition:stroke-dasharray_calc(900ms*var(--kf-speed,1))_var(--ease-spring),stroke-dashoffset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(260ms*var(--kf-speed,1))_var(--ease-house)]`,
-  `[transition-delay:calc(min(var(--chart-i,0),10)*calc(40ms*var(--kf-speed,1))),calc(min(var(--chart-i,0),10)*calc(40ms*var(--kf-speed,1))),0ms]`,
+  `[transition-delay:calc(min(var(--chart-i,0),10)*calc(40ms*var(--kf-speed,1))*var(--kf-flourish,1)),calc(min(var(--chart-i,0),10)*calc(40ms*var(--kf-speed,1))*var(--kf-flourish,1)),0ms]`,
   "motion-reduce:transition-none",
 )
 
-/* A dot on a point: it pops in after its line has drawn past it, and while its row is active. */
+/* A dot on a point: it pops in after its line has drawn past it, and while its row is active. The pop's
+   size change and its wait scale with --kf-flourish; at 0 it fades in. */
 const dotMotion = cn(
   "absolute left-[calc(var(--chart-x)*1%)] top-[calc(var(--chart-y)*1%)] size-[var(--chart-dot,8px)] -translate-1/2",
-  "scale-0 opacity-0 data-shown:scale-100 data-shown:opacity-100 starting:scale-0 starting:opacity-0",
-  "data-hidden:scale-0! data-hidden:opacity-0!",
+  "scale-[calc(1-var(--kf-flourish,1))] opacity-0 data-shown:scale-100 data-shown:opacity-100 starting:scale-[calc(1-var(--kf-flourish,1))] starting:opacity-0",
+  "data-hidden:scale-[calc(1-var(--kf-flourish,1))]! data-hidden:opacity-0!",
   `[transition:left_calc(720ms*var(--kf-speed,1))_var(--ease-spring),top_calc(720ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(360ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house)]`,
-  `[transition-delay:0ms,0ms,calc(var(--chart-i,0)*calc(60ms*var(--kf-speed,1))),calc(var(--chart-i,0)*calc(60ms*var(--kf-speed,1)))]`,
+  `[transition-delay:0ms,0ms,calc(var(--chart-i,0)*calc(60ms*var(--kf-speed,1))*var(--kf-flourish,1)),calc(var(--chart-i,0)*calc(60ms*var(--kf-speed,1))*var(--kf-flourish,1))]`,
   "motion-reduce:transition-none",
 )
 
@@ -480,7 +488,7 @@ function ChartMarker({ value, className, ...props }: { value: string } & Omit<Ch
       ...props,
       className: withClass(
         cn(
-          "absolute left-[calc(var(--chart-x)*1%)] top-[calc(var(--chart-y)*1%)] size-[calc(var(--chart-dot,8px)+3px)] -translate-1/2 scale-40 opacity-0",
+          "absolute left-[calc(var(--chart-x)*1%)] top-[calc(var(--chart-y)*1%)] size-[calc(var(--chart-dot,8px)+3px)] -translate-1/2 scale-[calc(0.95-0.55*var(--kf-flourish,1))] opacity-0",
           "data-open:scale-100 data-open:opacity-100",
           `[transition:left_calc(380ms*var(--kf-speed,1))_var(--ease-spring),top_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(320ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(180ms*var(--kf-speed,1))_var(--ease-house)]`,
           "motion-reduce:transition-none",
@@ -511,7 +519,7 @@ function ChartCenter({ className, children, ...props }: ChartPart<"center">) {
         ((state) => (
           <>
             <Roll text={state.text} />
-            <span key={state.label ?? "total"} className={`animate-[kf-chart-rise_calc(360ms*var(--kf-speed,1))_var(--ease-spring)_backwards] motion-reduce:animate-none`}>
+            <span key={state.label ?? "total"} className={`animate-[kf-chart-rise_calc(360ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] motion-reduce:animate-none`}>
               {state.label ?? "Total"}
             </span>
           </>
@@ -593,7 +601,7 @@ function ChartTooltip({
           /* Beside the cursor, and swinging to its left near the right edge. Up and down it shifts by
              its own place: flush with the top of the plot at the top, the bottom at the bottom. */
           "[translate:14px_calc(var(--chart-y)*-1%)] origin-left data-[side=left]:[translate:calc(-100%-14px)_calc(var(--chart-y)*-1%)] data-[side=left]:origin-right",
-          "scale-[0.86] opacity-0 blur-[5px] data-open:scale-100 data-open:opacity-100 data-open:blur-none",
+          "scale-[calc(0.95-0.09*var(--kf-flourish,1))] opacity-0 blur-[calc(5px*var(--kf-flourish,1))] data-open:scale-100 data-open:opacity-100 data-open:blur-none",
           `[transition:left_calc(420ms*var(--kf-speed,1))_var(--ease-spring),top_calc(420ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(420ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(160ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(160ms*var(--kf-speed,1))_var(--ease-house),filter_calc(160ms*var(--kf-speed,1))_var(--ease-house)]`,
           `data-open:[transition:left_calc(420ms*var(--kf-speed,1))_var(--ease-spring),top_calc(420ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(420ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(320ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house),filter_calc(260ms*var(--kf-speed,1))_var(--ease-house)]`,
           "motion-reduce:transition-none",
@@ -667,7 +675,7 @@ function ChartLegendItem({ value, className, children, ...props }: { value: stri
       ...props,
       className: withClass(
         cn(
-          `inline-flex items-center transition-[scale,opacity] duration-[calc(240ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none`,
+          `inline-flex items-center transition-[scale,opacity] duration-[calc(240ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none`,
           `[&>[data-indicator]]:transition-[scale,background-color,box-shadow] [&>[data-indicator]]:duration-[calc(320ms*var(--kf-speed,1))] [&>[data-indicator]]:ease-pop`,
           "data-hidden:[&>[data-indicator]]:scale-[0.7]",
         ),

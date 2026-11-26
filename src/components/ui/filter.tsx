@@ -169,7 +169,8 @@ function FilterList({ className, ...props }: React.ComponentProps<typeof FilterL
 const row =
   "group/item relative flex min-h-8 cursor-default items-center gap-2.5 rounded-[8px] px-2 py-1.5 text-[13px] leading-[1.3] outline-none select-none data-highlighted:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-40"
 
-/* A box that fills and draws its check when the option is chosen. */
+/* A box that fills and draws its check when the option is chosen. The press and the draw scale with
+   --kf-flourish; the fill stays. */
 function FilterOptionIndicator({ className, keepMounted = true, ...props }: React.ComponentProps<typeof FilterOptionIndicatorPrimitive>) {
   return (
     <FilterOptionIndicatorPrimitive
@@ -180,8 +181,8 @@ function FilterOptionIndicator({ className, keepMounted = true, ...props }: Reac
           "shadow-[inset_0_0_0_1px_rgb(0_0_0/0.18)] dark:shadow-[inset_0_0_0_1px_rgb(255_255_255/0.2)]",
           "transition-[background-color,box-shadow,scale] duration-[calc(320ms*var(--kf-speed,1))] ease-pop",
           "data-selected:bg-[var(--filter-accent,var(--primary))] data-selected:text-primary-foreground data-selected:shadow-[inset_0_0_0_1px_var(--filter-accent,var(--primary))]",
-          "group-active/item:scale-[0.88]",
-          "[&_path]:[stroke-dasharray:1_2] [&_path]:[stroke-dashoffset:1.2] [&_path]:transition-[stroke-dashoffset] [&_path]:delay-[calc(60ms*var(--kf-speed,1))] [&_path]:duration-[calc(260ms*var(--kf-speed,1))] [&_path]:ease-house",
+          "group-active/item:scale-[calc(1-0.12*var(--kf-flourish,1))]",
+          "[&_path]:[stroke-dasharray:1_2] [&_path]:[stroke-dashoffset:1.2] [&_path]:transition-[stroke-dashoffset] [&_path]:delay-[calc(60ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_path]:duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_path]:ease-house",
           "data-selected:[&_path]:[stroke-dashoffset:0] group-data-starting-style/content:[&_path]:[stroke-dashoffset:1.2]!",
           "motion-reduce:transition-none! motion-reduce:[&_path]:transition-none!",
         ),

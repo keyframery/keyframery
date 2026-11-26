@@ -6,7 +6,9 @@
    - Content: Unfold from the caret (scale 0.86, 6px blur, 8px toward the line; spring in, quick out).
    - List: rows Cascade in as the list opens, and one highlight Glides between them as you
      arrow through (CSS anchor positioning). Its neutral surface follows the text colour; give
-     `before:bg-…` and `before:rounded-…` to restyle it. */
+     `before:bg-…` and `before:rounded-…` to restyle it.
+   - The blurs, the grow beyond 0.95 and the cascade scale with --kf-flourish; the fade, the 8px
+     toward the line, the 0.95 and the glide stay. */
 
 import {
   TriggerMenuContent as TriggerMenuContentPart,
@@ -32,8 +34,8 @@ function TriggerMenuContent({ className, ...props }: React.ComponentProps<typeof
           "group/kf-tm origin-(--transform-origin)",
           "[transition:opacity_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(380ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(380ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(380ms*var(--kf-speed,1))_var(--ease-spring)]",
           "data-[side=bottom]:[--kf-from:0_-8px] data-[side=top]:[--kf-from:0_8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0]",
-          "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
-          "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px]",
+          "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))]",
+          "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))]",
           "data-ending-style:[transition:opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(150ms*var(--kf-speed,1))_var(--ease-house),translate_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
           "motion-reduce:[transition:none]!",
         ),
@@ -51,8 +53,8 @@ function TriggerMenuList({ className, ...props }: React.ComponentProps<typeof Tr
         cn(
           /* Cascade: the list's children, one after another, while the content unfolds. */
           "[&>*]:transition-[opacity,translate,filter] [&>*]:duration-[calc(420ms*var(--kf-speed,1))] [&>*]:ease-spring",
-          "[&>*]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)))]",
-          "group-data-starting-style/kf-tm:[&>*]:translate-y-2 group-data-starting-style/kf-tm:[&>*]:opacity-0 group-data-starting-style/kf-tm:[&>*]:blur-[4px]",
+          "[&>*]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
+          "group-data-starting-style/kf-tm:[&>*]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] group-data-starting-style/kf-tm:[&>*]:opacity-0 group-data-starting-style/kf-tm:[&>*]:blur-[calc(4px*var(--kf-flourish,1))]",
           "group-data-ending-style/kf-tm:[&>*]:[transition-delay:0ms]",
           "group-data-starting-style/kf-tm:[&>*]:[transition:none]",
           /* Glide */

@@ -20,19 +20,20 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 
 export * from "@ui-sdk/react/dialog"
 
-/* Press: the key gives under the finger and springs back on release. */
+/* Press: the key gives under the finger and springs back on release. Scales with --kf-flourish. */
 const press =
-  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-pending:active:scale-[0.96] motion-reduce:transition-none!"
+  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none!"
 
 /* Cascade: each direct child of the content (a header, a body, a footer) rises in out of a blur a
    little after the one before it. It is a keyframe animation rather than a transition because the
    children have no earlier style to transition from when the content first appears. Close buttons
    and arrows are left out so their own presses stay quick, and nothing on the children transitions,
-   so a hover is never delayed. */
+   so a hover is never delayed. Its duration and delays scale with --kf-flourish: at 0 the sections
+   are simply there as the sheet fades in. */
 const cascadeKeyframes = "@keyframes kf-cascade{from{opacity:0;translate:0 8px;filter:blur(4px)}}@media (prefers-reduced-motion:reduce){@keyframes kf-cascade{from{opacity:0}}}"
 const cascade = cn(
-  "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-  "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc(calc(40ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))]",
+  "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+  "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc((calc(40ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))*var(--kf-flourish,1))]",
   "motion-reduce:[&>*]:animate-none",
 )
 
@@ -63,7 +64,8 @@ function DialogBackdrop({ className, ...props }: React.ComponentProps<typeof Dia
 }
 
 /* Unfold from below: the sheet rises 24px out of a blur, grows from 0.9 and settles on a spring,
-   then its sections cascade in. It leaves quickly, sinking a little. */
+   then its sections cascade in. It leaves quickly, sinking a little. The fade, an 8px rise and a
+   0.95 scale are feedback; the extra rise, the deeper scale and the blur scale with --kf-flourish. */
 function DialogContent<Payload = unknown>({
   className,
   ...props
@@ -77,8 +79,8 @@ function DialogContent<Payload = unknown>({
         className={withClass(
           cn(
             "group/dialog transition-[opacity,scale,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring",
-            "data-starting-style:translate-y-6 data-starting-style:scale-[0.9] data-starting-style:opacity-0 data-starting-style:blur-[8px]",
-            "data-ending-style:translate-y-2 data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[4px] data-ending-style:duration-[calc(180ms*var(--kf-speed,1))] data-ending-style:ease-house",
+            "data-starting-style:translate-y-[calc(8px+16px*var(--kf-flourish,1))] data-starting-style:scale-[calc(0.95-0.05*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(8px*var(--kf-flourish,1))]",
+            "data-ending-style:translate-y-2 data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(4px*var(--kf-flourish,1))] data-ending-style:duration-[calc(180ms*var(--kf-speed,1))] data-ending-style:ease-house",
             "data-nested-open:scale-[0.95] data-nested-open:opacity-70",
             cascade,
             "motion-reduce:transition-none!",

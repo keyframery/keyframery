@@ -6,7 +6,9 @@
    - Content: Unfold from the field (scale 0.86, 6px blur, 8px toward the field, spring in, quick out).
    - Items: Cascade in one after another as the list opens.
    - List: Glide, one highlight that springs from row to row (CSS anchor positioning).
-   - Clear button and chips: pop in. Trigger, clear and chip remove: Press. */
+   - Clear button and chips: pop in. Trigger, clear and chip remove: Press.
+   The cascade, the pops, the press depth and the content's extra shrink and blur scale with
+   --kf-flourish; at 0 the list fades in whole and the highlight still glides. */
 
 import {
   ComboboxChip as ComboboxChipPart,
@@ -31,12 +33,12 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 export * from "@ui-sdk/react/combobox"
 
 const press =
-  "transition-[scale,color,background-color,opacity] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.9] motion-reduce:transition-none!"
+  "transition-[scale,color,background-color,opacity] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.1*var(--kf-flourish,1))] motion-reduce:transition-none!"
 
 /* Rows that cascade while the content they sit in has its starting style, and that anchor the
    gliding highlight while highlighted. Only opacity, translate and filter carry the delay. */
 const row = cn(
-  "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)))]",
+  "transition-[opacity,translate,filter] duration-[calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
   "group-data-starting-style/kf-content:translate-y-2 group-data-starting-style/kf-content:opacity-0 group-data-starting-style/kf-content:blur-[4px]",
   "group-data-ending-style/kf-content:[transition-delay:0ms]",
   "group-data-starting-style/kf-content:transition-none",
@@ -50,10 +52,10 @@ function ComboboxContent({ className, ...props }: React.ComponentProps<typeof Co
       className={withClass(
         cn(
           "group/kf-content origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
-          "data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
+          "data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))]",
           "data-[side=bottom]:data-starting-style:-translate-y-2 data-[side=top]:data-starting-style:translate-y-2",
           "data-[side=left]:data-starting-style:translate-x-2 data-[side=right]:data-starting-style:-translate-x-2",
-          "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
+          "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -117,7 +119,7 @@ function ComboboxClear({ className, ...props }: React.ComponentProps<typeof Comb
     <ComboboxClearPart
       className={withClass(
         cn(
-          press, "duration-[calc(360ms*var(--kf-speed,1))] starting:scale-50 starting:opacity-0",
+          press, "duration-[calc(360ms*var(--kf-speed,1))] starting:scale-[calc(1-0.5*var(--kf-flourish,1))] starting:opacity-0",
         ),
         className,
       )}
@@ -130,7 +132,7 @@ function ComboboxClear({ className, ...props }: React.ComponentProps<typeof Comb
 function ComboboxChip<T = string>({ className, ...props }: React.ComponentProps<typeof ComboboxChipPart<T>>) {
   return (
     <ComboboxChipPart<T>
-      className={withClass("transition-[scale,opacity] duration-[calc(380ms*var(--kf-speed,1))] ease-pop starting:scale-50 starting:opacity-0 motion-reduce:transition-none!", className)}
+      className={withClass("transition-[scale,opacity] duration-[calc(380ms*var(--kf-speed,1))] ease-pop starting:scale-[calc(1-0.5*var(--kf-flourish,1))] starting:opacity-0 motion-reduce:transition-none!", className)}
       {...props}
     />
   )

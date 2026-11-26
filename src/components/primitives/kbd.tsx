@@ -25,11 +25,12 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
   return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
 }
 
-/* Press: sinks fast, pops back with a little overshoot. */
+/* Press: sinks fast, pops back with a little overshoot. The shrink scales with --kf-flourish; the 1px
+   sink stays. */
 const kbdMotion = cn(
   "inline-flex origin-bottom",
   "transition-[translate,scale,box-shadow,background-color] duration-[calc(320ms*var(--kf-speed,1))] ease-pop",
-  "data-pressed:translate-y-px data-pressed:scale-[0.93] data-pressed:duration-[calc(90ms*var(--kf-speed,1))] data-pressed:ease-house",
+  "data-pressed:translate-y-px data-pressed:scale-[calc(1-0.07*var(--kf-flourish,1))] data-pressed:duration-[calc(90ms*var(--kf-speed,1))] data-pressed:ease-house",
   "motion-reduce:transition-none!",
 )
 
@@ -71,8 +72,9 @@ function KbdCombo({
       className={withClass(
         cn(
           "inline-flex items-center",
-          /* In sequence: each key sinks a beat after the one before it; all pop back together. */
-          "data-pressed:[&>[data-slot=kbd-combo-key]]:[transition-delay:calc((min(sibling-index(),6)-1)*calc(70ms*var(--kf-speed,1)))]",
+          /* In sequence: each key sinks a beat after the one before it; all pop back together.
+             The stagger scales with --kf-flourish. */
+          "data-pressed:[&>[data-slot=kbd-combo-key]]:[transition-delay:calc((min(sibling-index(),6)-1)*calc(70ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
         ),
         className,
       )}

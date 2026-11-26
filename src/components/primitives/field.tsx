@@ -21,6 +21,7 @@ export * from "@ui-sdk/react/field"
 /* The focus ring is the outline. It starts 10px out and 0px wide and closes in onto the
    control on a spring, easing from its resting colour to its focus colour as it lands, while the
    hairline (a box-shadow) changes colour on a short clock of its own. On blur it lets go fast.
+   The 10px close-in and the long spring scale with --kf-flourish; at 0 the ring simply fades on.
    Give the outline a strong colour at rest and a soft one on focus, for example
    `outline-ring focus-visible:outline-[3px] focus-visible:outline-ring/30`. */
 function FieldControl({ className, ...props }: React.ComponentProps<typeof FieldControlPart>) {
@@ -28,8 +29,8 @@ function FieldControl({ className, ...props }: React.ComponentProps<typeof Field
     <FieldControlPart
       className={withClass(
         cn(
-          "outline-offset-[10px] focus-visible:outline-offset-0",
-          "[transition:outline-offset_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-width_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-color_0s_linear_calc(160ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] focus-visible:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
+          "outline-offset-[calc(10px*var(--kf-flourish,1))] focus-visible:outline-offset-0",
+          "[transition:outline-offset_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-width_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-color_0s_linear_calc(160ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)] focus-visible:[transition:outline-offset_calc((150ms+750ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring),outline-width_calc((150ms+750ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-spring),outline-color_calc((150ms+550ms*var(--kf-flourish,1))*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
           "motion-reduce:[transition:none]!",
         ),
         className,
@@ -40,7 +41,8 @@ function FieldControl({ className, ...props }: React.ComponentProps<typeof Field
 }
 
 /* The error is only in the page while it shows. It opens its own height (so the fields
-   below slide down instead of jumping) and rises 16px into place out of a blur. */
+   below slide down instead of jumping) and rises 16px into place out of a blur. The height and fade
+   are feedback; the rise and the blur scale with --kf-flourish. */
 function FieldError({ className, ...props }: React.ComponentProps<typeof FieldErrorPart>) {
   return (
     <FieldErrorPart
@@ -48,7 +50,7 @@ function FieldError({ className, ...props }: React.ComponentProps<typeof FieldEr
         cn(
           "overflow-hidden [interpolate-size:allow-keywords]",
           "[transition:height_calc(520ms*var(--kf-speed,1))_var(--ease-house),margin_calc(520ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house),translate_calc(760ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(520ms*var(--kf-speed,1))_var(--ease-house)]",
-          "starting:h-0 starting:translate-y-4 starting:opacity-0 starting:blur-[4px]",
+          "starting:h-0 starting:translate-y-[calc(1rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(4px*var(--kf-flourish,1))]",
           "motion-reduce:[transition:none]!",
         ),
         className,

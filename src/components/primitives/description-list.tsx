@@ -7,7 +7,9 @@
    - Cascade: items arrive one after another when the list first shows (40ms apart, up to twelve).
    - Press: the copy button sinks and springs back.
    - Draw: copied, the copy icon shrinks into a blur and a check pops in and draws itself; two seconds
-     later they swap back. */
+     later they swap back.
+   The cascade, the press, the icon's shrink and blur and the check's drawing scale with --kf-flourish;
+   at 0 the items are simply there and the icons cross-fade. */
 
 import type { StateOf } from "@ui-sdk/core"
 import { createParts, type PartProps, usePart, usePrimitive } from "@ui-sdk/react/primitive"
@@ -54,7 +56,7 @@ function DescriptionListItem({ className, ...props }: React.ComponentProps<typeo
   return (
     <DescriptionListItemPart
       className={withClass(
-        "animate-[kf-dl-in_calc(460ms*var(--kf-speed,1))_var(--ease-spring)_backwards] [animation-delay:calc((var(--kf-dl,0)*40ms+40ms)*var(--kf-speed,1))] motion-reduce:animate-none",
+        "animate-[kf-dl-in_calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [animation-delay:calc((var(--kf-dl,0)*40ms+40ms)*var(--kf-speed,1)*var(--kf-flourish,1))] motion-reduce:animate-none",
         className,
       )}
       {...props}
@@ -92,14 +94,14 @@ function DescriptionListCopy({
     {
       ...props,
       className: withClass(
-        "relative transition-[scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop active:scale-[0.9] active:duration-[calc(90ms*var(--kf-speed,1))] motion-reduce:transition-none!",
+        "relative transition-[scale] duration-[calc(260ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.1*var(--kf-flourish,1))] active:duration-[calc(90ms*var(--kf-speed,1))] motion-reduce:transition-none!",
         className,
       ),
       children:
         children ??
         ((state) => (
           <span className="grid place-items-center *:[grid-area:1/1]">
-            <CopyIcon className={cn("size-3.5", state.copied ? cn(swapOut, "scale-50 opacity-0 blur-[3px]") : swapIn)} />
+            <CopyIcon className={cn("size-3.5", state.copied ? cn(swapOut, "scale-[calc(1-0.5*var(--kf-flourish,1))] opacity-0 blur-[calc(3px*var(--kf-flourish,1))]") : swapIn)} />
             <svg
               viewBox="0 0 16 16"
               fill="none"
@@ -108,13 +110,13 @@ function DescriptionListCopy({
               strokeLinecap="round"
               strokeLinejoin="round"
               aria-hidden
-              className={cn("size-3.5", state.copied ? swapIn : cn(swapOut, "scale-[0.6] opacity-0"))}
+              className={cn("size-3.5", state.copied ? swapIn : cn(swapOut, "scale-[calc(1-0.4*var(--kf-flourish,1))] opacity-0"))}
             >
               {state.copied && (
                 <path
                   d="M3.5 8.5 6.5 11.5 12.5 4.75"
                   pathLength={1}
-                  className="[stroke-dasharray:1] animate-[kf-dl-tick_calc(300ms*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1))_backwards] motion-reduce:animate-none"
+                  className="[stroke-dasharray:1] animate-[kf-dl-tick_calc(300ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards] motion-reduce:animate-none"
                 />
               )}
             </svg>

@@ -22,7 +22,7 @@ export * from "@ui-sdk/react/tooltip"
 function TooltipTrigger({ className, ...props }: React.ComponentProps<typeof TooltipTriggerPart>) {
   return (
     <TooltipTriggerPart
-      className={withClass("transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:active:scale-[0.96] motion-reduce:transition-none!", className)}
+      className={withClass("transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none!", className)}
       {...props}
     />
   )
@@ -30,7 +30,8 @@ function TooltipTrigger({ className, ...props }: React.ComponentProps<typeof Too
 
 /* Unfold, small: the tip pops out of its trigger from 0.7, 8px closer to it, with a little
    overshoot. When it opens at once because a neighbour was just showing, it simply appears, so
-   moving along a toolbar reads as one tip following the pointer. */
+   moving along a toolbar reads as one tip following the pointer. The pop below 0.95 and the blur
+   scale with --kf-flourish. */
 function TooltipContent<Payload = unknown>({
   className,
   ...props
@@ -41,8 +42,8 @@ function TooltipContent<Payload = unknown>({
         cn(
           "origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(300ms*var(--kf-speed,1))] ease-pop",
           "data-[side=bottom]:[--kf-from:0_-8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=top]:[--kf-from:0_8px]",
-          "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[0.7] data-starting-style:opacity-0 data-starting-style:blur-[4px]",
-          "data-ending-style:scale-[0.9] data-ending-style:opacity-0 data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
+          "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.25*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(4px*var(--kf-flourish,1))]",
+          "data-ending-style:scale-[calc(0.95-0.05*var(--kf-flourish,1))] data-ending-style:opacity-0 data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
           "data-instant:transition-none",
           "motion-reduce:transition-none!",
         ),

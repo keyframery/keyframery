@@ -8,7 +8,8 @@
    - `ring`: an arc turns at a steady pace while its length stretches and shrinks (`ease-house`),
      so it reads as effort, not a wheel.
    - `spokes`: eight spokes fade one after another around the dial.
-   - Both pop in with `ease-pop` when they appear (a spinner usually replaces a label).
+   - Both pop in with `ease-pop` when they appear (a spinner usually replaces a label). The pop-in
+     scales with --kf-flourish; the turning is a loading loop and always runs.
    Reduced motion: no turning. The ring holds a three-quarter arc, the spokes a still gradient,
    and `role="status"` still tells a screen reader it is loading. */
 
@@ -100,7 +101,7 @@ function Spinner({
         {},
         {
           ...props,
-          className: withClass(className, "inline-flex shrink-0 animate-[kf-spinner-in_calc(420ms*var(--kf-speed,1))_var(--ease-pop)_backwards] motion-reduce:animate-none"),
+          className: withClass(className, "inline-flex shrink-0 animate-[kf-spinner-in_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_backwards] motion-reduce:animate-none"),
           children: children ?? (variant === "spokes" ? <Spokes /> : <Ring />),
         },
         "span",

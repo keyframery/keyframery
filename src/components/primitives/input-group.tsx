@@ -8,7 +8,9 @@
      control takes focus, as on Keyframery's Input.
    - Pop: anything in the group marked `data-show="filled"` (a send or clear button) is away while the
      control is empty and pops in with the first character.
-   - Roll: `InputGroupCount` rolls its digits up or down as the text grows and shrinks. */
+   - Roll: `InputGroupCount` rolls its digits up or down as the text grows and shrinks.
+   The ring's 10px travel, the pop's shrink and turn, and the roll scale with --kf-flourish; at 0 the
+   ring just fades in on the control and filled-only content fades. */
 
 import type { StateOf } from "@ui-sdk/core"
 import { Button as ButtonPart } from "@ui-sdk/react/button"
@@ -34,7 +36,7 @@ const {
 /* The ring is the group's outline. Give it a strong colour at rest and a soft one while focused:
    `outline-ring data-focus-visible:outline-[3px] data-focus-visible:outline-ring/30`. */
 const ringMotion = cn(
-  "outline-offset-[10px] data-focus-visible:outline-offset-0",
+  "outline-offset-[calc(10px*var(--kf-flourish,1))] data-focus-visible:outline-offset-0",
   "[transition:outline-offset_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-width_calc(160ms*var(--kf-speed,1))_var(--ease-house),outline-color_0s_linear_calc(160ms*var(--kf-speed,1)),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
   "data-focus-visible:[transition:outline-offset_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-width_calc(900ms*var(--kf-speed,1))_var(--ease-spring),outline-color_calc(700ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
   "motion-reduce:[transition:none]!",
@@ -44,7 +46,7 @@ const ringMotion = cn(
    popping in with the first character. */
 const filledOnly = cn(
   "[&_[data-show=filled]]:[transition:scale_calc(320ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(180ms*var(--kf-speed,1))_var(--ease-house),rotate_calc(320ms*var(--kf-speed,1))_var(--ease-pop),visibility_calc(180ms*var(--kf-speed,1))]",
-  "not-data-filled:[&_[data-show=filled]]:invisible not-data-filled:[&_[data-show=filled]]:pointer-events-none not-data-filled:[&_[data-show=filled]]:scale-50 not-data-filled:[&_[data-show=filled]]:opacity-0 not-data-filled:[&_[data-show=filled]]:-rotate-45",
+  "not-data-filled:[&_[data-show=filled]]:invisible not-data-filled:[&_[data-show=filled]]:pointer-events-none not-data-filled:[&_[data-show=filled]]:scale-[calc(1-0.5*var(--kf-flourish,1))] not-data-filled:[&_[data-show=filled]]:opacity-0 not-data-filled:[&_[data-show=filled]]:rotate-[calc(-45deg*var(--kf-flourish,1))]",
   "not-data-filled:[&_[data-show=filled]]:[transition-duration:calc(140ms*var(--kf-speed,1))]",
   "motion-reduce:[&_[data-show=filled]]:[transition:none]!",
 )
@@ -87,7 +89,7 @@ function Roll({ value }: { value: number }) {
         <span
           key={digits.length - index}
           style={{ "--d": Number(digit) } as React.CSSProperties}
-          className="flex flex-col [translate:0_calc(var(--d)*-1lh)] [transition:translate_calc(500ms*var(--kf-speed,1))_var(--ease-spring)] motion-reduce:[transition:none]! starting:opacity-0"
+          className="flex flex-col [translate:0_calc(var(--d)*-1lh)] [transition:translate_calc(500ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)] motion-reduce:[transition:none]! starting:opacity-0"
         >
           {Array.from({ length: 10 }, (_, d) => (
             <span key={d} className="h-[1lh]">

@@ -10,7 +10,9 @@
    - While the form submits, its fields settle back a little and come forward again after.
    - FormSubmit: Press; its label changes by Direction (up) to the pending label with a spinner,
      then to the success label as a check draws itself; refused, it comes back down to the start.
-   - FormStatus opens its own height and rises in out of a blur, as a field's error does. */
+   - FormStatus opens its own height and rises in out of a blur, as a field's error does.
+   Feedback always runs (the fields dimming, the label cross-fade, heights, the spinner). The press,
+   the labels' travel and blur, the drawn check and the status's rise scale with --kf-flourish. */
 
 import { createParts, type PartProps, usePart } from "@ui-sdk/react/primitive"
 import type { StateOf } from "@ui-sdk/core"
@@ -39,7 +41,7 @@ function Form({ className, ...props }: React.ComponentProps<typeof FormRoot>) {
       className={withClass(
         cn(
           "[&_[data-slot=field]]:transition-[opacity,filter] [&_[data-slot=field]]:duration-[calc(320ms*var(--kf-speed,1))] [&_[data-slot=field]]:ease-house",
-          "data-[status=submitting]:[&_[data-slot=field]]:opacity-55 data-[status=submitting]:[&_[data-slot=field]]:blur-[0.6px]",
+          "data-[status=submitting]:[&_[data-slot=field]]:opacity-55 data-[status=submitting]:[&_[data-slot=field]]:blur-[calc(0.6px*var(--kf-flourish,1))]",
           "motion-reduce:[&_[data-slot=field]]:transition-none!",
         ),
         className,
@@ -57,7 +59,7 @@ const label = cn(
   "motion-reduce:transition-none!",
 )
 
-const hidden = "pointer-events-none opacity-0 blur-[3px]"
+const hidden = "pointer-events-none opacity-0 blur-[calc(3px*var(--kf-flourish,1))]"
 
 type FormSubmitProps = Omit<PartProps<"button", StateOf<typeof form, "submit">>, "type"> & {
   /** What the button says while the form submits. */
@@ -77,7 +79,7 @@ function FormSubmit({ className, children, pendingLabel = "Sending", successLabe
         cn(
           "group/submit",
           "transition-[scale,background-color,color,box-shadow] duration-[calc(220ms*var(--kf-speed,1))] ease-pop",
-          "not-aria-disabled:active:scale-[0.96] not-aria-disabled:active:duration-[calc(90ms*var(--kf-speed,1))] not-aria-disabled:active:ease-house",
+          "not-aria-disabled:active:scale-[calc(1-0.04*var(--kf-flourish,1))] not-aria-disabled:active:duration-[calc(90ms*var(--kf-speed,1))] not-aria-disabled:active:ease-house",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -85,7 +87,7 @@ function FormSubmit({ className, children, pendingLabel = "Sending", successLabe
       children: (state: { status: string }) => {
         const content = typeof children === "function" ? (children as (s: typeof state) => React.ReactNode)(state) : children
         const at = state.status === "submitting" ? 1 : state.status === "success" ? 2 : 0
-        const place = (index: number) => (index === at ? "" : cn(hidden, index < at ? "-translate-y-3" : "translate-y-3"))
+        const place = (index: number) => (index === at ? "" : cn(hidden, index < at ? "-translate-y-[calc(0.75rem*var(--kf-flourish,1))]" : "translate-y-[calc(0.75rem*var(--kf-flourish,1))]"))
         return (
           <span className="grid gap-[inherit]">
             <span data-label="idle" aria-hidden={at !== 0 || undefined} className={cn(label, place(0))}>
@@ -109,8 +111,8 @@ function FormSubmit({ className, children, pendingLabel = "Sending", successLabe
                   strokeLinejoin="round"
                   pathLength={1}
                   className={cn(
-                    "[stroke-dasharray:1] transition-[stroke-dashoffset] duration-[calc(320ms*var(--kf-speed,1))] ease-house",
-                    at === 2 ? "[stroke-dashoffset:0] delay-[calc(140ms*var(--kf-speed,1))]" : "[stroke-dashoffset:1] duration-0",
+                    "[stroke-dasharray:1] transition-[stroke-dashoffset] duration-[calc(320ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-house",
+                    at === 2 ? "[stroke-dashoffset:0] delay-[calc(140ms*var(--kf-speed,1)*var(--kf-flourish,1))]" : "[stroke-dashoffset:1] duration-0",
                     "motion-reduce:transition-none!",
                   )}
                 />
@@ -137,7 +139,7 @@ function FormStatus({ className, children, ...props }: PartProps<"p", StateOf<ty
         cn(
           "overflow-hidden [interpolate-size:allow-keywords]",
           "[transition:height_calc(480ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(380ms*var(--kf-speed,1))_var(--ease-house),translate_calc(700ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(480ms*var(--kf-speed,1))_var(--ease-house)]",
-          "starting:h-0 starting:translate-y-3 starting:opacity-0 starting:blur-[4px]",
+          "starting:h-0 starting:translate-y-[calc(0.75rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(4px*var(--kf-flourish,1))]",
           "motion-reduce:[transition:none]!",
         ),
         className,

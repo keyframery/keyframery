@@ -50,7 +50,7 @@ function CollapsibleTrigger({
           "group/collapsible-trigger flex h-[var(--collapsible-height,2.25rem)] w-full cursor-pointer items-center gap-[var(--collapsible-gap,0.75rem)] rounded-[var(--collapsible-radius,9px)] bg-[var(--collapsible-face,transparent)] px-2.5 text-left text-[length:var(--collapsible-font,13px)] leading-none font-medium text-[color:var(--collapsible-muted,var(--muted-foreground))] outline-none select-none",
           "[transition:color_calc(150ms*var(--kf-speed,1)),background-color_calc(150ms*var(--kf-speed,1)),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)] motion-reduce:transition-none!",
           "not-data-disabled:hover:bg-[var(--collapsible-face,color-mix(in_oklab,var(--foreground)_4.5%,transparent))] not-data-disabled:hover:text-[color:var(--collapsible-ink,var(--foreground))]",
-          "not-data-disabled:active:scale-[0.98] not-data-disabled:active:bg-[color-mix(in_oklab,var(--collapsible-face,transparent),var(--foreground)_7%)]",
+          "not-data-disabled:active:scale-[calc(1-0.02*var(--kf-flourish,1))] not-data-disabled:active:bg-[color-mix(in_oklab,var(--collapsible-face,transparent),var(--foreground)_7%)]",
           "data-open:text-[color:var(--collapsible-ink,var(--foreground))]",
           "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           "data-disabled:cursor-not-allowed data-disabled:opacity-40",

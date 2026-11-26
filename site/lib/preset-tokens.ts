@@ -157,16 +157,28 @@ export function fontItem(name: string) {
 }
 
 /* ---------- Motion ----------
-   The four styles as src/index.css defines them (the test compares the two). A preset picks one as
+   The five styles as src/index.css defines them (the test compares the two). Subtle is what the
+   components ship with (no data-motion attribute); every preset writes only what differs from it. A preset picks one as
    the app's own motion, optionally faster or slower and with a different amount of bounce, and
    writes it on :root:not([data-motion]): a page without data-motion moves this way, while a
    data-motion attribute (or the MotionStyle switcher) still selects the four stock styles. */
 
+const EASE_OUT = "cubic-bezier(0.22, 1, 0.36, 1)"
+
 export const STYLES = {
+  subtle: {
+    label: "Subtle",
+    note: "Quick fades and slides, no bounce or flourishes. The default.",
+    speed: 0.7,
+    flourish: 0,
+    spring: EASE_OUT,
+    pop: EASE_OUT,
+  },
   springy: {
     label: "Springy",
     note: "A 5% spring and a 16% pop. For most products.",
     speed: 1,
+    flourish: 1,
     spring: "linear(0, 0.001 0.5%, 0.010 1.5%, 0.036 2.8%, 0.082 4.4%, 0.153 6.3%, 0.247 8.5%, 0.358 10.9%, 0.480 13.5%, 0.604 16.3%, 0.721 19.3%, 0.825 22.4%, 0.911 25.8%, 0.976 29.3%, 1.019 33.0%, 1.044 36.8%, 1.054 40.8%, 1.052 45.0%, 1.044 49.3%, 1.033 53.8%, 1.022 58.4%, 1.012 63.1%, 1.005 68.0%, 1.000 73.0%, 0.998 78.1%, 0.997 83.4%, 0.997 88.8%, 0.998 94.3%, 1)",
     pop: "linear(0, 0.002 0.5%, 0.019 1.5%, 0.066 2.8%, 0.150 4.4%, 0.276 6.3%, 0.435 8.5%, 0.612 10.9%, 0.789 13.5%, 0.945 16.3%, 1.064 19.3%, 1.136 22.4%, 1.163 25.8%, 1.151 29.3%, 1.114 33.0%, 1.067 36.8%, 1.023 40.8%, 0.992 45.0%, 0.976 49.3%, 0.974 53.8%, 0.980 58.4%, 0.989 63.1%, 0.997 68.0%, 1.003 73.0%, 1.004 78.1%, 1.004 83.4%, 1.002 88.8%, 1.000 94.3%, 1)",
   },
@@ -174,6 +186,7 @@ export const STYLES = {
     label: "Calm",
     note: "Slower and no bounce. For dashboards and long sessions.",
     speed: 1.35,
+    flourish: 1,
     spring: "linear(0, 0.001 0.5%, 0.007 1.5%, 0.024 2.8%, 0.055 4.4%, 0.102 6.4%, 0.163 8.5%, 0.235 10.9%, 0.316 13.5%, 0.400 16.3%, 0.484 19.3%, 0.565 22.4%, 0.641 25.8%, 0.708 29.3%, 0.767 33.0%, 0.818 36.8%, 0.859 40.8%, 0.893 45.0%, 0.920 49.3%, 0.941 53.8%, 0.957 58.4%, 0.970 63.1%, 0.979 68.0%, 0.985 73.0%, 0.990 78.1%, 0.993 83.4%, 0.995 88.8%, 0.997 94.3%, 1)",
     pop: "linear(0, 0.001 0.5%, 0.006 1.5%, 0.022 2.8%, 0.052 4.4%, 0.099 6.4%, 0.161 8.5%, 0.237 10.9%, 0.325 13.5%, 0.419 16.3%, 0.515 19.3%, 0.609 22.4%, 0.697 25.8%, 0.775 29.3%, 0.841 33.0%, 0.896 36.8%, 0.938 40.8%, 0.970 45.0%, 0.991 49.3%, 1.005 53.8%, 1.012 58.4%, 1.015 63.1%, 1.015 68.0%, 1.013 73.0%, 1.011 78.1%, 1.008 83.4%, 1.005 88.8%, 1.003 94.3%, 1)",
   },
@@ -181,6 +194,7 @@ export const STYLES = {
     label: "Snappy",
     note: "Fast and crisp, almost no overshoot. For tools and dense apps.",
     speed: 0.6,
+    flourish: 1,
     spring: "linear(0, 0.001 0.5%, 0.007 1.5%, 0.022 2.8%, 0.052 4.4%, 0.098 6.4%, 0.159 8.5%, 0.234 10.9%, 0.319 13.5%, 0.410 16.3%, 0.502 19.3%, 0.592 22.4%, 0.676 25.8%, 0.752 29.3%, 0.816 33.0%, 0.870 36.8%, 0.913 40.8%, 0.946 45.0%, 0.969 49.3%, 0.986 53.8%, 0.996 58.4%, 1.002 63.1%, 1.005 68.0%, 1.006 73.0%, 1.006 78.1%, 1.005 83.4%, 1.004 88.8%, 1.003 94.3%, 1)",
     pop: "linear(0, 0.001 0.5%, 0.009 1.5%, 0.032 2.8%, 0.074 4.4%, 0.139 6.4%, 0.225 8.5%, 0.329 10.9%, 0.445 13.5%, 0.564 16.3%, 0.681 19.3%, 0.787 22.4%, 0.877 25.8%, 0.948 29.3%, 1.000 33.0%, 1.033 36.8%, 1.050 40.8%, 1.054 45.0%, 1.050 49.3%, 1.041 53.8%, 1.030 58.4%, 1.019 63.1%, 1.010 68.0%, 1.004 73.0%, 1.000 78.1%, 0.998 83.4%, 0.997 88.8%, 0.997 94.3%, 1)",
   },
@@ -188,10 +202,11 @@ export const STYLES = {
     label: "Playful",
     note: "A little slower, a 12% spring and a 29% pop. For consumer apps.",
     speed: 1.15,
+    flourish: 1,
     spring: "linear(0, 0.001 0.5%, 0.010 1.5%, 0.033 2.8%, 0.079 4.4%, 0.149 6.4%, 0.243 8.5%, 0.359 10.9%, 0.489 13.5%, 0.624 16.3%, 0.756 19.3%, 0.875 22.4%, 0.974 25.8%, 1.047 29.3%, 1.095 33.0%, 1.117 36.8%, 1.118 40.8%, 1.104 45.0%, 1.080 49.3%, 1.054 53.8%, 1.029 58.4%, 1.009 63.1%, 0.995 68.0%, 0.988 73.0%, 0.986 78.1%, 0.987 83.4%, 0.991 88.8%, 0.995 94.3%, 1)",
     pop: "linear(0, 0.003 0.5%, 0.023 1.5%, 0.080 2.8%, 0.185 4.4%, 0.341 6.4%, 0.539 8.5%, 0.757 10.9%, 0.968 13.5%, 1.140 16.3%, 1.250 19.3%, 1.286 22.4%, 1.255 25.8%, 1.176 29.3%, 1.078 33.0%, 0.991 36.8%, 0.935 40.8%, 0.918 45.0%, 0.933 49.3%, 0.965 53.8%, 0.997 58.4%, 1.018 63.1%, 1.023 68.0%, 1.017 73.0%, 1.006 78.1%, 0.997 83.4%, 0.993 88.8%, 0.995 94.3%, 1)",
   },
-} as const satisfies Record<Preset["motion"], { label: string; note: string; speed: number; spring: string; pop: string }>
+} as const satisfies Record<Preset["motion"], { label: string; note: string; speed: number; flourish: number; spring: string; pop: string }>
 
 /* Overshoot of the two springs: --ease-spring moves things, --ease-pop lands small payoffs. */
 export const BOUNCES: Record<Preset["bounce"], { label: string; spring: number; pop: number } | { label: string; spring: null; pop: null }> = {
@@ -217,26 +232,29 @@ export function springEasing(overshoot: number): string {
   return `linear(0, ${points.join(", ")}, 1)`
 }
 
-export type Motion = { speed: number; spring: string; pop: string }
+export type Motion = { speed: number; flourish: number; spring: string; pop: string }
 
-/** The motion the preset's default style resolves to, and the CSS variables that differ from Springy at 1×. */
+/** The motion the preset's default style resolves to, and the CSS variables that differ from what ships (Subtle). */
 export function presetMotion(preset: Preset): Motion & { vars: Record<string, string> } {
   const style = STYLES[preset.motion]
   const bounce = BOUNCES[preset.bounce]
   const speed = round(style.speed / Number(preset.speed))
   const spring = bounce.spring === null ? style.spring : springEasing(bounce.spring)
   const pop = bounce.pop === null ? style.pop : springEasing(bounce.pop)
+  const flourish = style.flourish
+  const shipped = STYLES.subtle
   const vars: Record<string, string> = {}
-  if (speed !== STYLES.springy.speed) vars["--kf-speed"] = String(speed)
-  if (spring !== STYLES.springy.spring) vars["--ease-spring"] = spring
-  if (pop !== STYLES.springy.pop) vars["--ease-pop"] = pop
-  return { speed, spring, pop, vars }
+  if (speed !== shipped.speed) vars["--kf-speed"] = String(speed)
+  if (flourish !== shipped.flourish) vars["--kf-flourish"] = String(flourish)
+  if (spring !== shipped.spring) vars["--ease-spring"] = spring
+  if (pop !== shipped.pop) vars["--ease-pop"] = pop
+  return { speed, flourish, spring, pop, vars }
 }
 
 /* Reduced motion, gentler: for visitors who ask their system for less motion, every style loses
-   its overshoot and runs at 0.7× the duration. The components already drop their larger moves
-   under prefers-reduced-motion; this calms what remains. */
-export const GENTLE = { "--kf-speed": "0.7", "--ease-spring": "var(--ease-house)", "--ease-pop": "var(--ease-house)" }
+   its overshoot and flourishes and runs at 0.7× the duration, which is Subtle. The components
+   already drop their larger moves under prefers-reduced-motion; this calms what remains. */
+export const GENTLE = { "--kf-speed": "0.7", "--kf-flourish": "0", "--ease-spring": "var(--ease-house)", "--ease-pop": "var(--ease-house)" }
 
 /* ---------- The whole preset ---------- */
 
@@ -343,11 +361,12 @@ export function presetCss(preset: Preset, origin = "https://keyframery.com"): st
 /** CSS variables for the /create preview: the tokens for one mode, the corners and the motion. */
 export function presetPreviewVars(preset: Preset, mode: "light" | "dark"): Record<string, string> {
   const tokens = { ...presetTokens(preset)[mode], radius: RADII[preset.radius] }
-  const { speed, spring, pop } = presetMotion(preset)
+  const { speed, flourish, spring, pop } = presetMotion(preset)
   return {
     ...Object.fromEntries(Object.entries(tokens).map(([name, value]) => [`--${name}`, value])),
     ...radiusVars(preset),
     "--kf-speed": String(speed),
+    "--kf-flourish": String(flourish),
     "--ease-spring": spring,
     "--ease-pop": pop,
   }

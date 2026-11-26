@@ -32,7 +32,9 @@ const keyframes = [
 
 /* Cascade: each row rises in a little after the one before it among its siblings, so opening a
    span cascades its children from the first one. The place comes from the row's own
-   `aria-posinset`; where a browser can't read it, every row simply arrives at once. */
+   `aria-posinset`; where a browser can't read it, every row simply arrives at once. The cascade,
+   the bar's grow-in and the mark's draw-down scale with --kf-flourish; the glides on a range
+   change stay. */
 function WaterfallRow({ className, ...props }: React.ComponentProps<typeof WaterfallRowPart>) {
   return (
     <>
@@ -43,8 +45,8 @@ function WaterfallRow({ className, ...props }: React.ComponentProps<typeof Water
         className={withClass(
           cn(
             "[--kf-wf-i:attr(aria-posinset_type(<integer>),1)]",
-            "[--kf-wf-delay:calc((min(var(--kf-wf-i),10)-1)*calc(36ms*var(--kf-speed,1)))]",
-            "animate-[kf-waterfall-row_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_backwards] [animation-delay:var(--kf-wf-delay)]",
+            "[--kf-wf-delay:calc((min(var(--kf-wf-i),10)-1)*calc(36ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
+            "animate-[kf-waterfall-row_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] [animation-delay:var(--kf-wf-delay)]",
             "motion-reduce:animate-none!",
           ),
           className,
@@ -68,8 +70,8 @@ function WaterfallBar({ className, ...props }: React.ComponentProps<typeof Water
           "before:absolute before:inset-y-2 before:start-(--waterfall-start) before:w-(--waterfall-size) before:min-w-0.5 before:content-['']",
           "before:bg-[color-mix(in_oklch,currentColor_40%,transparent)]",
           "before:origin-left rtl:before:origin-right",
-          "before:animate-[kf-waterfall-bar_calc(620ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-          "before:[animation-delay:calc(var(--kf-wf-delay,0ms)+calc(90ms*var(--kf-speed,1)))]",
+          "before:animate-[kf-waterfall-bar_calc(620ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+          "before:[animation-delay:calc(var(--kf-wf-delay,0ms)+calc(90ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
           "before:transition-[inset-inline-start,width] before:duration-[calc(560ms*var(--kf-speed,1))] before:ease-spring",
           "motion-reduce:before:animate-none! motion-reduce:before:transition-none!",
         ),
@@ -105,7 +107,7 @@ function WaterfallMark({ className, ...props }: React.ComponentProps<typeof Wate
         cn(
           "absolute start-(--waterfall-mark)",
           "transition-[inset-inline-start,opacity] duration-[calc(560ms*var(--kf-speed,1))] ease-spring data-outside:opacity-0",
-          "animate-[kf-waterfall-mark_calc(520ms*var(--kf-speed,1))_var(--ease-house)_calc(240ms*var(--kf-speed,1))_backwards]",
+          "animate-[kf-waterfall-mark_calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(240ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards]",
           "motion-reduce:animate-none! motion-reduce:transition-none!",
         ),
         className,

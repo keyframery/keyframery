@@ -7,7 +7,9 @@
    Cascade: the parts arrive one after another. The media pops (`ease-pop`, from 0.6) and the
    strokes of an icon inside it draw; then the title, the description and each action rise 10px out
    of a 6px blur on a spring. It plays every time the empty state appears (after a search that
-   finds nothing, or when the last item is removed). Under reduced motion they only fade. */
+   finds nothing, or when the last item is removed). Under reduced motion they only fade.
+   The cascade scales with --kf-flourish (lengths and delays): at 0 the parts are simply there and only
+   the whole state's short fade remains. */
 
 import { createParts } from "@ui-sdk/react/primitive"
 import * as React from "react"
@@ -37,7 +39,7 @@ const keyframes =
   "@keyframes kf-empty-draw{from{stroke-dasharray:80;stroke-dashoffset:80}to{stroke-dasharray:80;stroke-dashoffset:0}}" +
   "@media (prefers-reduced-motion:reduce){@keyframes kf-empty-rise{from{opacity:0}}@keyframes kf-empty-pop{from{opacity:0}}@keyframes kf-empty-draw{from{opacity:1}}}"
 
-const rise = "animate-[kf-empty-rise_calc(560ms*var(--kf-speed,1))_var(--ease-spring)_backwards] motion-reduce:animate-none"
+const rise = "animate-[kf-empty-rise_calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards] motion-reduce:animate-none"
 
 function Empty({ className, ...props }: React.ComponentProps<typeof EmptyRoot>) {
   return (
@@ -58,10 +60,10 @@ const EmptyHeader = EmptyHeaderPart
 function EmptyMedia({ className, ...props }: React.ComponentProps<typeof EmptyMediaPart>) {
   return (
     <EmptyMediaPart
-      className={withClass(className, "animate-[kf-empty-pop_calc(560ms*var(--kf-speed,1))_var(--ease-pop)_backwards]",
-        "[&_svg_*]:animate-[kf-empty-draw_calc(720ms*var(--kf-speed,1))_var(--ease-house)_backwards] [&_svg_*]:[animation-delay:calc(160ms*var(--kf-speed,1))]",
+      className={withClass(className, "animate-[kf-empty-pop_calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_backwards]",
+        "[&_svg_*]:animate-[kf-empty-draw_calc(720ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_backwards] [&_svg_*]:[animation-delay:calc(160ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
         /* Pictures in the media (a stack of photos) pop one after another. */
-        "[&>img]:animate-[kf-empty-pop_calc(560ms*var(--kf-speed,1))_var(--ease-pop)_backwards] [&>img]:[animation-delay:calc((min(sibling-index(),6)-1)*70ms*var(--kf-speed,1))]",
+        "[&>img]:animate-[kf-empty-pop_calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)_backwards] [&>img]:[animation-delay:calc((min(sibling-index(),6)-1)*70ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
         "motion-reduce:animate-none motion-reduce:[&_svg_*]:animate-none motion-reduce:[&>img]:animate-none")}
       {...props}
     />
@@ -69,19 +71,19 @@ function EmptyMedia({ className, ...props }: React.ComponentProps<typeof EmptyMe
 }
 
 function EmptyTitle({ className, ...props }: React.ComponentProps<typeof EmptyTitlePart>) {
-  return <EmptyTitlePart className={withClass(className, rise, "[animation-delay:calc(110ms*var(--kf-speed,1))]")} {...props} />
+  return <EmptyTitlePart className={withClass(className, rise, "[animation-delay:calc(110ms*var(--kf-speed,1)*var(--kf-flourish,1))]")} {...props} />
 }
 
 function EmptyDescription({ className, ...props }: React.ComponentProps<typeof EmptyDescriptionPart>) {
-  return <EmptyDescriptionPart className={withClass(className, rise, "[animation-delay:calc(170ms*var(--kf-speed,1))]")} {...props} />
+  return <EmptyDescriptionPart className={withClass(className, rise, "[animation-delay:calc(170ms*var(--kf-speed,1)*var(--kf-flourish,1))]")} {...props} />
 }
 
 /* Each action rises on its own beat after the description. */
 function EmptyContent({ className, ...props }: React.ComponentProps<typeof EmptyContentPart>) {
   return (
     <EmptyContentPart
-      className={withClass(className, "*:animate-[kf-empty-rise_calc(560ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-        "*:[animation-delay:calc((230ms+(min(sibling-index(),6)-1)*60ms)*var(--kf-speed,1))]",
+      className={withClass(className, "*:animate-[kf-empty-rise_calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+        "*:[animation-delay:calc((230ms+(min(sibling-index(),6)-1)*60ms)*var(--kf-speed,1)*var(--kf-flourish,1))]",
         "motion-reduce:*:animate-none")}
       {...props}
     />

@@ -129,7 +129,8 @@ function PasswordInputToggle({
 }
 
 /* Place inside PasswordInput, before the toggle. It is out of the page until Caps Lock
-   is on while the field has focus, then it pops in from its starting style. */
+   is on while the field has focus, then it pops in from its starting style. All but a 0.95 start of
+   the pop scales with --kf-flourish. */
 function PasswordInputCapsLock({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
@@ -139,7 +140,7 @@ function PasswordInputCapsLock({ className, ...props }: React.ComponentProps<"sp
         "hidden size-5 shrink-0 place-items-center rounded-[6px] bg-muted text-foreground",
         "group-data-capslock/password:grid",
         "[transition:opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house),scale_calc(380ms*var(--kf-speed,1))_var(--ease-pop),display_calc(380ms*var(--kf-speed,1))] transition-discrete",
-        "starting:scale-50 starting:opacity-0 motion-reduce:transition-none!",
+        "starting:scale-[calc(0.95-0.45*var(--kf-flourish,1))] starting:opacity-0 motion-reduce:transition-none!",
         className,
       )}
       {...props}

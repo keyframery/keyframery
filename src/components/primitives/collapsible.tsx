@@ -20,7 +20,8 @@ export * from "@ui-sdk/react/collapsible"
    opens (the children jump to their start while the panel has data-starting-style, otherwise
    their own delay would hold them visible through that first frame). On close everything
    leaves together, quickly. Only opacity, translate and filter
-   transition on the children, so the stagger never slows their own hover states. */
+   transition on the children, so the stagger never slows their own hover states. The rise, blur and
+   stagger scale with --kf-flourish; at 0 the content only fades in as the height opens. */
 function CollapsiblePanel({ className, ...props }: React.ComponentProps<typeof CollapsiblePanelPart>) {
   return (
     <CollapsiblePanelPart
@@ -30,9 +31,9 @@ function CollapsiblePanel({ className, ...props }: React.ComponentProps<typeof C
           "transition-[height] duration-[calc(380ms*var(--kf-speed,1))] ease-house",
           "data-starting-style:h-0 data-ending-style:h-0 data-ending-style:duration-[calc(260ms*var(--kf-speed,1))]",
           "*:transition-[opacity,translate,filter] *:duration-[calc(420ms*var(--kf-speed,1))] *:ease-spring",
-          "*:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))+calc(40ms*var(--kf-speed,1)))]",
-          "data-starting-style:*:translate-y-2 data-starting-style:*:opacity-0 data-starting-style:*:blur-[4px] data-starting-style:*:transition-none",
-          "data-ending-style:*:opacity-0 data-ending-style:*:blur-[4px] data-ending-style:*:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:*:ease-house data-ending-style:*:[transition-delay:0ms]",
+          "*:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1))+calc(40ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
+          "data-starting-style:*:translate-y-[calc(0.5rem*var(--kf-flourish,1))] data-starting-style:*:opacity-0 data-starting-style:*:blur-[calc(4px*var(--kf-flourish,1))] data-starting-style:*:transition-none",
+          "data-ending-style:*:opacity-0 data-ending-style:*:blur-[calc(4px*var(--kf-flourish,1))] data-ending-style:*:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:*:ease-house data-ending-style:*:[transition-delay:0ms]",
           "motion-reduce:transition-none! motion-reduce:*:transition-none",
         ),
         className,

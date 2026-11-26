@@ -77,7 +77,7 @@ export const homeMarkdown = () =>
     "",
     "## Motion styles",
     "",
-    'Four styles change how every component moves: Calm, Springy (default), Snappy and Playful. Set one with `<html data-motion="calm">`.',
+    'Five styles change how every component moves: Subtle (the default: quick fades, no bounce, no flourishes), Calm, Springy, Snappy and Playful. Set one with `<html data-motion="springy">`.',
     "",
     "## With a coding agent",
     "",

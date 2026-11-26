@@ -37,15 +37,16 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 /* ---------------------------------------------------------------- motion */
 
 /* Rows rise (or drop) in with a little blur. The delay per row comes from the table's own
-   stylesheet (`--kf-row`, set by nth-child on the table body), so the two tables cascade alike. */
+   stylesheet (`--kf-row`, set by nth-child on the table body), so the two tables cascade alike.
+   The cascade scales with --kf-flourish: at 0 the new rows are simply there. */
 const keyframes =
   "@keyframes kf-data-table-row{from{opacity:0;translate:0 var(--kf-dt-from,8px);filter:blur(3px)}}" +
-  "@keyframes kf-data-table-rise{from{opacity:0;translate:0 14px;scale:.94;filter:blur(6px)}}"
+  "@keyframes kf-data-table-rise{from{opacity:0;translate:0 calc(8px + 6px * var(--kf-flourish,1));scale:calc(.96 - .02 * var(--kf-flourish,1));filter:blur(calc(6px * var(--kf-flourish,1)))}}"
 
 /** For the table body: the cascade, with the direction from the content part's `data-direction`. */
 const dataTableBodyMotion = cn(
-  "[&>tr]:animate-[kf-data-table-row_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-  "[&>tr]:[animation-delay:calc(var(--kf-row,0)*30ms*var(--kf-speed,1))]",
+  "[&>tr]:animate-[kf-data-table-row_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+  "[&>tr]:[animation-delay:calc(var(--kf-row,0)*30ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
   "[[data-direction=backward]_&]:[--kf-dt-from:-8px]",
   "motion-reduce:[&>tr]:animate-none",
 )
@@ -57,8 +58,8 @@ const dataTableCellMotion = cn(
   "data-leaving:px-0! data-leaving:duration-[calc(240ms*var(--kf-speed,1))]",
   "[&>[data-data-table-cell]]:[interpolate-size:allow-keywords] [&>[data-data-table-cell]]:w-auto [&>[data-data-table-cell]]:overflow-hidden",
   "[&>[data-data-table-cell]]:transition-[width,opacity,filter] [&>[data-data-table-cell]]:duration-[calc(360ms*var(--kf-speed,1))] [&>[data-data-table-cell]]:ease-house",
-  "[&>[data-data-table-cell]]:starting:w-0 [&>[data-data-table-cell]]:starting:opacity-0 [&>[data-data-table-cell]]:starting:blur-[4px]",
-  "data-leaving:[&>[data-data-table-cell]]:w-0 data-leaving:[&>[data-data-table-cell]]:opacity-0 data-leaving:[&>[data-data-table-cell]]:blur-[4px] data-leaving:[&>[data-data-table-cell]]:duration-[calc(240ms*var(--kf-speed,1))]",
+  "[&>[data-data-table-cell]]:starting:w-0 [&>[data-data-table-cell]]:starting:opacity-0 [&>[data-data-table-cell]]:starting:blur-[calc(4px*var(--kf-flourish,1))]",
+  "data-leaving:[&>[data-data-table-cell]]:w-0 data-leaving:[&>[data-data-table-cell]]:opacity-0 data-leaving:[&>[data-data-table-cell]]:blur-[calc(4px*var(--kf-flourish,1))] data-leaving:[&>[data-data-table-cell]]:duration-[calc(240ms*var(--kf-speed,1))]",
   "motion-reduce:[&>[data-data-table-cell]]:transition-none",
 )
 
@@ -218,7 +219,7 @@ function DataTableReset({ className, children, ...props }: Part<"reset">) {
       ...props,
       className: withClass(
         cn(
-          "grid grid-cols-[0fr] opacity-0 -translate-x-2 blur-[3px] data-shown:grid-cols-[1fr] data-shown:translate-x-0 data-shown:opacity-100 data-shown:blur-none",
+          "grid grid-cols-[0fr] opacity-0 -translate-x-2 blur-[calc(3px*var(--kf-flourish,1))] data-shown:grid-cols-[1fr] data-shown:translate-x-0 data-shown:opacity-100 data-shown:blur-none",
           "transition-[grid-template-columns,opacity,translate,filter] duration-[calc(200ms*var(--kf-speed,1))] ease-house",
           "data-shown:duration-[calc(380ms*var(--kf-speed,1))] data-shown:ease-spring",
           "[&>*]:min-w-0 [&>*]:overflow-hidden data-shown:[&>*]:overflow-visible",
@@ -259,14 +260,15 @@ function DataTableBulkBar({ className, children, ...props }: Part<"bulk-bar">) {
         cn(
           /* Height: while rows are selected the bar has a room of its own between the content and
              what follows, opened once on the first selection and closed when it clears, so it never
-             covers a row. While the content runs past the screen it floats at the bottom of the view. */
+             covers a row. While the content runs past the screen it floats at the bottom of the view.
+             Its rise is feedback (fade, 8px, 0.96); the extra travel and the blur scale with --kf-flourish. */
           "pointer-events-none sticky bottom-4 z-20 flex justify-center",
           "-mt-3 h-0 data-open:mt-0 data-open:h-[var(--data-table-bar-room,2.5rem)]",
           "transition-[height,margin-top] duration-[calc(240ms*var(--kf-speed,1))] ease-house data-open:duration-[calc(380ms*var(--kf-speed,1))]",
           "[&>*]:pointer-events-auto [&>*]:absolute [&>*]:bottom-0 [&>*]:origin-bottom",
           "[&>*]:transition-[opacity,translate,scale,filter]",
           "data-open:[&>*]:animate-[kf-data-table-rise_calc(460ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-          "data-closed:[&>*]:pointer-events-none data-closed:[&>*]:translate-y-3 data-closed:[&>*]:scale-[0.96] data-closed:[&>*]:opacity-0 data-closed:[&>*]:blur-[4px]",
+          "data-closed:[&>*]:pointer-events-none data-closed:[&>*]:translate-y-[calc(8px+4px*var(--kf-flourish,1))] data-closed:[&>*]:scale-[0.96] data-closed:[&>*]:opacity-0 data-closed:[&>*]:blur-[calc(4px*var(--kf-flourish,1))]",
           "data-closed:[&>*]:duration-[calc(160ms*var(--kf-speed,1))] data-closed:[&>*]:ease-house",
           "motion-reduce:transition-none motion-reduce:[&>*]:animate-none motion-reduce:[&>*]:transition-none",
         ),

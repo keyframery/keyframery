@@ -4,7 +4,9 @@
    This file adds motion only. Colours, radii, shadows and spacing stay yours.
    - Press: the button gives under the pointer and springs back with a small pop on release.
    - Direction: while its action runs, the label rises out and a spinner rises in from below.
-   - Nudge: a `ButtonArrow` inside slides forward and grows its stem on hover. */
+   - Nudge: a `ButtonArrow` inside slides forward and grows its stem on hover.
+   The press depth, the extra rise and blur of the pending swap and the arrow's nudge scale with
+   --kf-flourish; at 0 the press is colour only, the swap a short fade and the arrow stays still. */
 
 import { Button as ButtonPart } from "@ui-sdk/react/button"
 import * as React from "react"
@@ -54,7 +56,7 @@ function Button({
           "group/kf-button relative",
           /* Colours and shadows ease as the pointer arrives; the press springs back with a pop. */
           "[transition:color_calc(150ms*var(--kf-speed,1))_var(--ease-house),background-color_calc(150ms*var(--kf-speed,1))_var(--ease-house),box-shadow_calc(150ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(260ms*var(--kf-speed,1))_var(--ease-pop)]",
-          "not-data-disabled:not-data-pending:active:scale-[0.96] not-data-disabled:not-data-pending:active:[transition-duration:calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(90ms*var(--kf-speed,1))]",
+          "not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] not-data-disabled:not-data-pending:active:[transition-duration:calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(150ms*var(--kf-speed,1)),calc(90ms*var(--kf-speed,1))]",
           "not-data-disabled:hover:[--kf-nudge:1] not-data-disabled:data-hovered:[--kf-nudge:1] focus-visible:[--kf-nudge:1]",
           "motion-reduce:[transition:none]!",
         ),
@@ -69,7 +71,7 @@ function Button({
             className={cn(
               "inline-flex flex-1 items-center [justify-content:inherit] [gap:inherit]",
               swap,
-              "group-data-pending/kf-button:-translate-y-4 group-data-pending/kf-button:opacity-0 group-data-pending/kf-button:blur-[3px]",
+              "group-data-pending/kf-button:-translate-y-[calc(0.5rem+0.5rem*var(--kf-flourish,1))] group-data-pending/kf-button:opacity-0 group-data-pending/kf-button:blur-[calc(3px*var(--kf-flourish,1))]",
               "group-data-pending/kf-button:duration-[calc(240ms*var(--kf-speed,1))] group-data-pending/kf-button:ease-house",
             )}
           >
@@ -85,7 +87,7 @@ function Button({
                 className={cn(
                   "grid size-full place-items-center",
                   swap,
-                  "translate-y-4 opacity-0 blur-[3px] duration-[calc(200ms*var(--kf-speed,1))] ease-house",
+                  "translate-y-[calc(0.5rem+0.5rem*var(--kf-flourish,1))] opacity-0 blur-[calc(3px*var(--kf-flourish,1))] duration-[calc(200ms*var(--kf-speed,1))] ease-house",
                   "group-data-pending/kf-button:translate-y-0 group-data-pending/kf-button:opacity-100 group-data-pending/kf-button:blur-none",
                   "group-data-pending/kf-button:duration-[calc(460ms*var(--kf-speed,1))] group-data-pending/kf-button:ease-spring",
                 )}
@@ -119,11 +121,11 @@ function ButtonArrow({ className, ...props }: React.ComponentProps<"svg">) {
       <path
         d="M3.5 8h8"
         pathLength={1}
-        className="[stroke-dasharray:1] [stroke-dashoffset:calc(1-var(--kf-nudge,0))] opacity-(--kf-nudge,0) [transition:stroke-dashoffset_calc(320ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(120ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]!"
+        className="[stroke-dasharray:1] [stroke-dashoffset:calc(1-var(--kf-nudge,0)*var(--kf-flourish,1))] opacity-[calc(var(--kf-nudge,0)*var(--kf-flourish,1))] [transition:stroke-dashoffset_calc(320ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(120ms*var(--kf-speed,1))_var(--ease-house)] motion-reduce:[transition:none]!"
       />
       <path
         d="M8 4.5 11.5 8 8 11.5"
-        className="[translate:calc(var(--kf-nudge,0)*3px-2.5px)_0] [transition:translate_calc(320ms*var(--kf-speed,1))_var(--ease-spring)] motion-reduce:[transition:none]!"
+        className="[translate:calc(var(--kf-nudge,0)*var(--kf-flourish,1)*3px-2.5px)_0] [transition:translate_calc(320ms*var(--kf-speed,1))_var(--ease-spring)] motion-reduce:[transition:none]!"
       />
     </svg>
   )

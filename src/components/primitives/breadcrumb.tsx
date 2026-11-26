@@ -8,7 +8,9 @@
    - Direction: a crumb added later (you went one level deeper) slides in from the right with a blur,
      right away.
    - Draw: each separator's chevron draws itself as it arrives.
-   - A link's underline grows from its start on hover or keyboard focus. */
+   - A link's underline grows from its start on hover or keyboard focus.
+   The cascade, the slide-in and the chevron draw scale with --kf-flourish: at 0 the crumbs are simply
+   there. The hover underline and colour changes are feedback and always run. */
 
 import { createParts } from "@ui-sdk/react/primitive"
 import * as React from "react"
@@ -49,8 +51,11 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<typeof Bre
   const [settled, setSettled] = React.useState(false)
   React.useEffect(() => {
     const el = ref.current
-    const speed = (el && parseFloat(getComputedStyle(el).getPropertyValue("--kf-speed"))) || 1
-    const timer = setTimeout(() => setSettled(true), 700 * speed)
+    const style = el ? getComputedStyle(el) : null
+    const speed = (style && parseFloat(style.getPropertyValue("--kf-speed"))) || 1
+    const f = style ? parseFloat(style.getPropertyValue("--kf-flourish")) : NaN
+    const flourish = Number.isFinite(f) ? f : 1
+    const timer = setTimeout(() => setSettled(true), 700 * speed * flourish)
     return () => clearTimeout(timer)
   }, [])
   return (
@@ -66,9 +71,9 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<typeof Bre
 /* Arrives from the side, out of a blur. Only these three properties transition, so the delay never
    slows anything else. */
 const arrive = cn(
-  "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1))] ease-spring",
+  "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring",
   "starting:opacity-0 starting:translate-x-4 starting:blur-[4px] rtl:starting:-translate-x-4",
-  "[transition-delay:calc((min(sibling-index(),12)-1)*calc(36ms*var(--kf-speed,1)))] group-data-settled/breadcrumb:[transition-delay:0ms]",
+  "[transition-delay:calc((min(sibling-index(),12)-1)*calc(36ms*var(--kf-speed,1))*var(--kf-flourish,1))] group-data-settled/breadcrumb:[transition-delay:0ms]",
   "motion-reduce:transition-none!",
 )
 
@@ -110,7 +115,7 @@ function Chevron() {
       <path
         d="m6.5 3.5 4.5 4.5-4.5 4.5"
         pathLength={1}
-        className="[stroke-dasharray:1] [stroke-dashoffset:0] starting:[stroke-dashoffset:1] [transition:stroke-dashoffset_calc(300ms*var(--kf-speed,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1))] motion-reduce:[transition:none]!"
+        className="[stroke-dasharray:1] [stroke-dashoffset:0] starting:[stroke-dashoffset:1] [transition:stroke-dashoffset_calc(300ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(80ms*var(--kf-speed,1)*var(--kf-flourish,1))] motion-reduce:[transition:none]!"
       />
     </svg>
   )

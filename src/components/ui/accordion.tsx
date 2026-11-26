@@ -79,14 +79,15 @@ function AccordionTrigger({
           <span className="min-w-0 flex-1">
             {typeof children === "function" ? children(state) : children}
           </span>
-          {/* The chevron sits on a small disc that answers hover and press, and turns half a circle when the row opens. */}
+          {/* The chevron sits on a small disc that answers hover and press, and turns half a circle when the row opens.
+              The press scales with --kf-flourish; the turn shows the state and always runs. */}
           <span
             aria-hidden
             className={cn(
               "grid size-6 shrink-0 place-items-center rounded-full text-[color:var(--accordion-muted,var(--muted-foreground))]",
               "[transition:background-color_calc(150ms*var(--kf-speed,1)),color_calc(150ms*var(--kf-speed,1)),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)]",
               "group-hover/accordion-trigger:bg-foreground/[0.06] group-hover/accordion-trigger:text-[color:var(--accordion-ink,var(--foreground))]",
-              "group-active/accordion-trigger:scale-90 group-active/accordion-trigger:bg-foreground/[0.1]",
+              "group-active/accordion-trigger:scale-[calc(1-0.1*var(--kf-flourish,1))] group-active/accordion-trigger:bg-foreground/[0.1]",
               "group-data-open/accordion-trigger:text-[color:var(--accordion-ink,var(--foreground))]",
               "group-data-disabled/accordion-trigger:bg-transparent group-data-disabled/accordion-trigger:scale-100 group-data-disabled/accordion-trigger:text-[color:var(--accordion-muted,var(--muted-foreground))]",
               "motion-reduce:transition-none!",

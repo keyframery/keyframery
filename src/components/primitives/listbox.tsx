@@ -6,7 +6,8 @@
    - Glide: one highlight springs from row to row (CSS anchor positioning): to the row under the
      pointer, or to the focused row while the list has focus. Its neutral surface follows the text
      colour; give `before:bg-…` and `before:rounded-…` to restyle it.
-   - Draw: a chosen row's check draws itself, and its indicator pops in (`ease-pop`, 0.6 to 1). */
+   - Draw: a chosen row's check draws itself, and its indicator pops in (`ease-pop`, 0.6 to 1). The draw and
+     the pop scale with --kf-flourish; at 0 the check is simply there. */
 
 import {
   Listbox as ListboxPart,
@@ -87,10 +88,10 @@ function ListboxItemIndicator({ className, ...props }: React.ComponentProps<type
       className={withClass(
         cn(
           "[&_:is(path,polyline)]:[stroke-dasharray:24] [&_:is(path,polyline)]:[stroke-dashoffset:24]",
-          "[&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1))] [&_:is(path,polyline)]:ease-house",
-          "data-selected:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-selected:[&_:is(path,polyline)]:delay-[calc(75ms*var(--kf-speed,1))]",
+          "[&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_:is(path,polyline)]:ease-house",
+          "data-selected:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-selected:[&_:is(path,polyline)]:delay-[calc(75ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
           "data-selected:[&_:is(path,polyline)]:starting:[stroke-dashoffset:24]",
-          "motion-reduce:animate-none! group-data-kf-ready/kf-lb:data-selected:[animation:kf-pop-in_calc(380ms*var(--kf-speed,1))_var(--ease-pop)]",
+          "motion-reduce:animate-none! group-data-kf-ready/kf-lb:data-selected:[animation:kf-pop-in_calc(380ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-pop)]",
           "motion-reduce:[&_:is(path,polyline)]:transition-none motion-reduce:animate-none!",
         ),
         className,

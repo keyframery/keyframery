@@ -39,6 +39,11 @@
       "--segmented-control-gap",
       "Space between items",
       "0.125rem"
+    ],
+    [
+      "--segmented-control-item-padding",
+      "Space on each side of an item's label",
+      "0.75rem"
     ]
   ],
   "propDocs": {

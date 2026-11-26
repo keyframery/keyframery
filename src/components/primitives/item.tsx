@@ -9,7 +9,9 @@
      focus, instead of each row lighting up on its own. Only rows that are links or buttons take it.
    - Press: a row that is a link or a button gives a little when pressed and springs back.
    - An image in `ItemMedia` clears out of a blur as it arrives; an icon in `ItemActions` nudges
-     toward the reading direction while its row is hovered. */
+     toward the reading direction while its row is hovered.
+   The cascade, the line draw, the image clearing, the press depth and the nudge scale with
+   --kf-flourish; at 0 the rows are simply there and the gliding highlight remains. */
 
 import { createParts } from "@ui-sdk/react/primitive"
 import { Separator as SeparatorPart } from "@ui-sdk/react/separator"
@@ -66,11 +68,11 @@ function Item({ className, ...props }: React.ComponentProps<typeof ItemRoot>) {
           cn(
             "group/item",
             /* Cascade on mount: each row a beat after the one before it. */
-            "animate-[kf-item-in_calc(520ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-            "[animation-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)))]",
+            "animate-[kf-item-in_calc(520ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+            "[animation-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
             /* Press, for a row that does something. */
             "[&:is(a,button)]:transition-[scale,background-color] [&:is(a,button)]:duration-[calc(220ms*var(--kf-speed,1))] [&:is(a,button)]:ease-pop",
-            "[&:is(a,button)]:active:scale-[0.985] [&:is(a,button)]:active:duration-[calc(90ms*var(--kf-speed,1))] [&:is(a,button)]:active:ease-house",
+            "[&:is(a,button)]:active:scale-[calc(1-0.015*var(--kf-flourish,1))] [&:is(a,button)]:active:duration-[calc(90ms*var(--kf-speed,1))] [&:is(a,button)]:active:ease-house",
             /* Glide: the hovered or focused row in a group names the anchor the highlight follows. */
             "in-data-[slot=item-group]:[&:is(a,button)]:data-hovered:[anchor-name:--kf-item] in-data-[slot=item-group]:[&:is(a,button)]:focus-visible:[anchor-name:--kf-item]",
             "in-data-[slot=item-group]:first:[anchor-name:--kf-item-rest]",
@@ -118,8 +120,8 @@ function ItemSeparator({ className, ...props }: React.ComponentProps<typeof Sepa
         orientation="horizontal"
         className={withClass(
           cn(
-            "origin-center animate-[kf-item-line_calc(640ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-            "[animation-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1)))]",
+            "origin-center animate-[kf-item-line_calc(640ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+            "[animation-delay:calc((min(sibling-index(),10)-1)*calc(45ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
             /* The highlight covers the row; the lines on either side of it step out of its way. */
             "transition-opacity duration-[calc(200ms*var(--kf-speed,1))] ease-house",
             "[[data-slot=item]:is(a,button):is([data-hovered],:focus-visible)+&]:opacity-0 [&:has(+[data-slot=item]:is(a,button):is([data-hovered],:focus-visible))]:opacity-0",
@@ -138,8 +140,8 @@ function ItemMedia({ className, ...props }: React.ComponentProps<typeof ItemMedi
     <ItemMediaPart
       className={withClass(
         cn(
-          "data-[variant=image]:[&_img]:animate-[kf-item-image_calc(700ms*var(--kf-speed,1))_var(--ease-house)_backwards]",
-          "data-[variant=image]:[&_img]:[animation-delay:calc(60ms*var(--kf-speed,1))]",
+          "data-[variant=image]:[&_img]:animate-[kf-item-image_calc(700ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_backwards]",
+          "data-[variant=image]:[&_img]:[animation-delay:calc(60ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
           "motion-reduce:[&_img]:animate-none!",
         ),
         className,
@@ -157,8 +159,8 @@ function ItemActions({ className, ...props }: React.ComponentProps<typeof ItemAc
       className={withClass(
         cn(
           "[&>svg]:transition-[translate] [&>svg]:duration-[calc(320ms*var(--kf-speed,1))] [&>svg]:ease-spring",
-          "group-data-hovered/item:[&>svg]:translate-x-0.5 group-focus-visible/item:[&>svg]:translate-x-0.5",
-          "rtl:group-data-hovered/item:[&>svg]:-translate-x-0.5 rtl:group-focus-visible/item:[&>svg]:-translate-x-0.5",
+          "group-data-hovered/item:[&>svg]:translate-x-[calc(0.125rem*var(--kf-flourish,1))] group-focus-visible/item:[&>svg]:translate-x-[calc(0.125rem*var(--kf-flourish,1))]",
+          "rtl:group-data-hovered/item:[&>svg]:-translate-x-[calc(0.125rem*var(--kf-flourish,1))] rtl:group-focus-visible/item:[&>svg]:-translate-x-[calc(0.125rem*var(--kf-flourish,1))]",
           "motion-reduce:[&>svg]:transition-none!",
         ),
         className,

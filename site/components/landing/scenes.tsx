@@ -160,13 +160,15 @@ export function SameClick() {
 /* ---------------------------------------------------------------- Motion styles */
 
 const STYLES: { value: MotionStyleValue; name: string; pace: string; body: string }[] = [
+  { value: "subtle", name: "Subtle", pace: "The default", body: "Quick fades and slides, no bounce. Reads like shadcn/ui." },
   { value: "calm", name: "Calm", pace: "1.35× slower", body: "No bounce. For dashboards, finance and long working sessions." },
-  { value: "springy", name: "Springy", pace: "The default", body: "A small spring and pop. Feels physical without showing off." },
+  { value: "springy", name: "Springy", pace: "1×", body: "A small spring and pop. Feels physical without showing off." },
   { value: "snappy", name: "Snappy", pace: "0.6×", body: "Fast and crisp. For developer tools and dense apps." },
   { value: "playful", name: "Playful", pace: "1.15×", body: "Bigger springs, bolder pops. For consumer apps." },
 ]
 
-/* Four cards that set the motion style for the whole page, and remember it. */
+/* Five cards that set the motion style for the whole page, and remember it. Subtle, the default,
+   spans the row above the four expressive styles. */
 export function StylePicker() {
   const { value } = usePreference(motionStyle)
   return (
@@ -182,7 +184,7 @@ export function StylePicker() {
               aria-checked={on}
               onClick={(event) => motionStyle.set(s.value, { reason: "press", event: event.nativeEvent })}
               className={cn(
-                "rounded-xl p-4 text-left outline-none ring-1 transition-[scale,background-color,box-shadow] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-[#8098ff] active:scale-[0.98] motion-reduce:transition-none",
+                "rounded-xl p-4 text-left outline-none ring-1 sm:first:col-span-2 transition-[scale,background-color,box-shadow] duration-[calc(200ms*var(--kf-speed,1))] ease-pop focus-visible:ring-2 focus-visible:ring-[#8098ff] active:scale-[0.98] motion-reduce:transition-none",
                 on ? "bg-white/[0.07] ring-[#8098ff]/60" : "bg-white/[0.02] ring-white/10 hover:bg-white/[0.05]",
               )}
             >

@@ -32,7 +32,7 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 
 /* One box shared by the real item and its copy inside the key, so both lay out identically. */
 const itemBox =
-  "inline-flex h-[var(--segmented-control-height,2rem)] shrink-0 items-center justify-center gap-1.5 rounded-[var(--segmented-control-key-radius,9px)] px-3 text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0"
+  "inline-flex h-[var(--segmented-control-height,2rem)] shrink-0 items-center justify-center gap-1.5 rounded-[var(--segmented-control-key-radius,9px)] px-[var(--segmented-control-item-padding,0.75rem)] text-[13px] leading-none font-medium whitespace-nowrap [&_svg]:size-3.5 [&_svg]:shrink-0"
 
 const rowLayout = "flex items-stretch gap-[var(--segmented-control-gap,0.125rem)] p-1 data-[orientation=vertical]:flex-col"
 

@@ -10,7 +10,9 @@
    - Glide: one highlight springs from row to row (CSS anchor positioning), instead of each row lighting up.
      Its neutral surface follows the text colour; give `before:bg-…` and `before:rounded-…` to restyle it.
    - Checks: Draw themselves. Triggers: Press.
-   - The bar: a second gliding highlight moves between its triggers, to the hovered or open one. */
+   - The bar: a second gliding highlight moves between its triggers, to the hovered or open one.
+   The cascade, the check draw, the nudge, the press depth and the sheet's extra shrink and blur scale
+   with --kf-flourish; at 0 a sheet fades in whole with a small scale and the highlights still glide. */
 
 import {
   MenuCheckboxItem as MenuCheckboxItemPart,
@@ -42,12 +44,12 @@ const sheet = cn(
   "[transition:opacity_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(380ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(380ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(380ms*var(--kf-speed,1))_var(--ease-spring)]",
   "data-[side=bottom]:[--kf-from:0_-8px] data-[side=top]:[--kf-from:0_8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0]",
   "data-[side=inline-end]:[--kf-from:-8px_0] data-[side=inline-start]:[--kf-from:8px_0]",
-  "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
-  "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px]",
+  "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))]",
+  "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))]",
   "data-ending-style:[transition:opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(150ms*var(--kf-speed,1))_var(--ease-house),translate_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
   /* Cascade */
-  "[&>*:not([data-slot=menu-content])]:transition-[opacity,translate,filter] [&>*:not([data-slot=menu-content])]:duration-[calc(420ms*var(--kf-speed,1))] [&>*:not([data-slot=menu-content])]:ease-spring",
-  "[&>*:not([data-slot=menu-content])]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)))]",
+  "[&>*:not([data-slot=menu-content])]:transition-[opacity,translate,filter] [&>*:not([data-slot=menu-content])]:duration-[calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&>*:not([data-slot=menu-content])]:ease-spring",
+  "[&>*:not([data-slot=menu-content])]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
   "data-starting-style:[&>*:not([data-slot=menu-content])]:translate-y-2 data-starting-style:[&>*:not([data-slot=menu-content])]:opacity-0 data-starting-style:[&>*:not([data-slot=menu-content])]:blur-[4px]",
   "data-ending-style:[&>*:not([data-slot=menu-content])]:[transition-delay:0ms]",
   "motion-reduce:[&>*:not([data-slot=menu-content])]:[translate:none]! motion-reduce:[&>*:not([data-slot=menu-content])]:[filter:none]! data-starting-style:[&>*:not([data-slot=menu-content])]:[transition:none]",
@@ -89,7 +91,7 @@ function MenuTrigger({ className, ...props }: React.ComponentProps<typeof MenuTr
       className={withClass(
         cn(
           "hover:[anchor-name:--kf-bar] focus-visible:[anchor-name:--kf-bar] data-open:[anchor-name:--kf-bar]",
-          "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none!",
+          "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none!",
         ),
         className,
       )}
@@ -132,7 +134,7 @@ function MenuSubTrigger({ className, ...props }: React.ComponentProps<typeof Men
         cn(
           row,
           "data-open:[anchor-name:--kf-hl]",
-          "[&>svg:last-child]:transition-[translate] [&>svg:last-child]:duration-[calc(380ms*var(--kf-speed,1))] [&>svg:last-child]:ease-spring data-open:[&>svg:last-child]:translate-x-0.5 rtl:data-open:[&>svg:last-child]:-translate-x-0.5",
+          "[&>svg:last-child]:transition-[translate] [&>svg:last-child]:duration-[calc(380ms*var(--kf-speed,1))] [&>svg:last-child]:ease-spring data-open:[&>svg:last-child]:translate-x-[calc(0.125rem*var(--kf-flourish,1))] rtl:data-open:[&>svg:last-child]:-translate-x-[calc(0.125rem*var(--kf-flourish,1))]",
           "motion-reduce:[&>svg:last-child]:transition-none",
         ),
         className,
@@ -150,8 +152,8 @@ function MenuItemIndicator({ className, ...props }: React.ComponentProps<typeof 
       className={withClass(
         cn(
           "[&_:is(path,polyline)]:[stroke-dasharray:24] [&_:is(path,polyline)]:[stroke-dashoffset:24]",
-          "[&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1))] [&_:is(path,polyline)]:ease-house",
-          "data-checked:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-checked:[&_:is(path,polyline)]:delay-[calc(100ms*var(--kf-speed,1))]",
+          "[&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_:is(path,polyline)]:ease-house",
+          "data-checked:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-checked:[&_:is(path,polyline)]:delay-[calc(100ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
           "data-checked:[&_:is(path,polyline)]:starting:[stroke-dashoffset:24]",
           "group-data-starting-style/kf-menu:[&_:is(path,polyline)]:[stroke-dashoffset:24]!",
           "motion-reduce:[&_:is(path,polyline)]:transition-none",

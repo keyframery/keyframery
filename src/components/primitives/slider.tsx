@@ -42,12 +42,12 @@ function SliderIndicator({ className, ...props }: React.ComponentProps<typeof Sl
   )
 }
 
-/* The thumb grows with a pop while it is held. */
+/* The thumb grows with a pop while it is held. The growth scales with --kf-flourish. */
 function SliderThumb({ className, ...props }: React.ComponentProps<typeof SliderThumbPart>) {
   return (
     <SliderThumbPart
       className={withClass(
-        cn(follow, dragging, "data-dragging:scale-[1.3] motion-reduce:[transition:none]!"),
+        cn(follow, dragging, "data-dragging:scale-[calc(1+0.3*var(--kf-flourish,1))] motion-reduce:[transition:none]!"),
         className,
       )}
       {...props}
@@ -56,7 +56,8 @@ function SliderThumb({ className, ...props }: React.ComponentProps<typeof Slider
 }
 
 /* Roll: every digit is a column of 0 to 9 that slides to its value on a spring. Other
-   characters (currency, separators, units) sit still. Screen readers get the plain text. */
+   characters (currency, separators, units) sit still. Screen readers get the plain text.
+   The roll scales with --kf-flourish: at 0 the digits change in place. */
 function Roll({ text }: { text: string }) {
   const chars = text.split("")
   return (
@@ -70,7 +71,7 @@ function Roll({ text }: { text: string }) {
               <span className="invisible">0</span>
               <span
                 style={{ "--kf-d": Number(c) } as React.CSSProperties}
-                className="absolute inset-x-0 top-0 flex flex-col [translate:0_calc(var(--kf-d)*-1lh)] transition-[translate] duration-[calc(500ms*var(--kf-speed,1))] ease-spring motion-reduce:transition-none!"
+                className="absolute inset-x-0 top-0 flex flex-col [translate:0_calc(var(--kf-d)*-1lh)] transition-[translate] duration-[calc(500ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring motion-reduce:transition-none!"
               >
                 {Array.from({ length: 10 }, (_, d) => (
                   <span key={d} className="h-[1lh] text-center">

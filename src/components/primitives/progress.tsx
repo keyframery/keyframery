@@ -21,7 +21,8 @@ export * from "@ui-sdk/react/progress"
 
 /* Roll: every digit is a column of 0 to 9 that slides to its value on a spring; other characters
    (%, spaces, units) stay put. Positions are keyed from the right, so 9% to 10% rolls the units
-   digit and adds a tens digit instead of shifting everything. Exported for other numbers. */
+   digit and adds a tens digit instead of shifting everything. Exported for other numbers. The roll
+   scales with --kf-flourish: at 0 the new value is simply there. */
 function Roll({ text, className }: { text: string; className?: string }) {
   const chars = text.split("")
   /* Screen readers get the plain value; the digit columns are only for the eye. */
@@ -35,7 +36,7 @@ function Roll({ text, className }: { text: string; className?: string }) {
           <span
             key={key}
             style={{ "--d": Number(c) } as React.CSSProperties}
-            className="flex flex-col transition-[translate] duration-[calc(500ms*var(--kf-speed,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
+            className="flex flex-col transition-[translate] duration-[calc(500ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
           >
             {Array.from({ length: 10 }, (_, d) => (
               <span key={d} className="h-[1lh]">

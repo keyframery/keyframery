@@ -6,7 +6,9 @@
    - Unfold: the calendar pops out of the field from the point the doc gives, on a spring.
    - Inside it, as the animated calendar: the chosen day's key glides between days (style it with
      `before:` and `after:` on CalendarGrid), and a new month comes in from the side it was reached from.
-   - Press: the trigger, the month buttons, the days and the presets give under the pointer. */
+   - Press: the trigger, the month buttons, the days and the presets give under the pointer.
+   - Flourish: the unfold below 0.95, the blurs, the month slide and the presses scale with --kf-flourish;
+     the key's glide, the fades and the small drop toward the field stay. */
 
 import {
   CalendarDay as CalendarDayPart,
@@ -80,7 +82,7 @@ function DatePicker({
 function DatePickerTrigger({ className, ...props }: React.ComponentProps<typeof DatePickerTriggerPart>) {
   return (
     <DatePickerTriggerPart
-      className={withClass("transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.9] data-disabled:active:scale-100 motion-reduce:transition-none!", className)}
+      className={withClass("transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.1*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:transition-none!", className)}
       {...props}
     />
   )
@@ -89,14 +91,15 @@ function DatePickerTrigger({ className, ...props }: React.ComponentProps<typeof 
 function DatePickerPreset({ className, ...props }: React.ComponentProps<typeof DatePickerPresetPart>) {
   return (
     <DatePickerPresetPart
-      className={withClass("transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] data-disabled:active:scale-100 motion-reduce:transition-none!", className)}
+      className={withClass("transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.04*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:transition-none!", className)}
       {...props}
     />
   )
 }
 
 /* Unfold: from 0.86 and a 6px blur, 8px toward the field, growing from the point the doc gives;
-   in on a spring, out quickly to 0.96. Without children it lays out a calendar. */
+   in on a spring, out quickly to 0.96. The scale below 0.95 and the blur scale with --kf-flourish.
+   Without children it lays out a calendar. */
 function DatePickerContent({
   className,
   children,
@@ -111,8 +114,8 @@ function DatePickerContent({
         cn(
           "group/picker-content origin-(--transform-origin)",
           "transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
-          "data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
-          "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[6px] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
+          "data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))]",
+          "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(6px*var(--kf-flourish,1))] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
           "data-[side=bottom]:data-starting-style:-translate-y-2 data-[side=top]:data-starting-style:translate-y-2",
           "data-[side=left]:data-starting-style:translate-x-2 data-[side=right]:data-starting-style:-translate-x-2",
           "motion-reduce:transition-none!",
@@ -138,7 +141,7 @@ function DatePickerContent({
 /* The calendar parts, animated as in the calendar primitive. */
 
 const pressable =
-  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.92] data-disabled:active:scale-100 motion-reduce:transition-none!"
+  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:transition-none!"
 
 function CalendarPrevious({ className, ...props }: React.ComponentProps<typeof CalendarPreviousPart>) {
   return <CalendarPreviousPart className={withClass(pressable, className)} {...props} />
@@ -151,7 +154,7 @@ function CalendarNext({ className, ...props }: React.ComponentProps<typeof Calen
 /* One month. Its rows are keyed by the month, so a new month arrives as new rows.
    The keys: neutral surfaces that follow the text colour until you give them your own. They glide
    on a spring, and fade in late when a month that holds the chosen day arrives, so they land
-   after the weeks have slid in. In "multiple" mode there is no single key to glide. */
+   after the weeks have slid in (that wait scales with --kf-flourish). In "multiple" mode there is no single key to glide. */
 function CalendarGrid({
   className,
   children,
@@ -168,12 +171,12 @@ function CalendarGrid({
           "before:pointer-events-none before:absolute before:-z-10 before:opacity-0 before:content-[''] before:[position-anchor:--kf-day-a]",
           "before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
           "before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
-          "before:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house)_calc(180ms*var(--kf-speed,1))]",
+          "before:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house)_calc(180ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
           "motion-reduce:before:[transition:none]!",
           "after:pointer-events-none after:absolute after:-z-10 after:opacity-0 after:content-[''] after:[position-anchor:--kf-day-b]",
           "after:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
           "after:top-[anchor(top)] after:right-[anchor(right)] after:bottom-[anchor(bottom)] after:left-[anchor(left)]",
-          "after:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house)_calc(180ms*var(--kf-speed,1))]",
+          "after:[transition:top_calc(300ms*var(--kf-speed,1))_var(--ease-spring),right_calc(300ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(300ms*var(--kf-speed,1))_var(--ease-spring),left_calc(300ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house)_calc(180ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
           "motion-reduce:after:[transition:none]!",
           "has-[[data-slot=calendar-day][data-selected]:not([data-range-middle]),[data-slot=calendar-day][data-range-start]]:before:opacity-100",
           "has-[[data-slot=calendar-day][data-range-end]]:after:opacity-100",
@@ -201,7 +204,8 @@ function CalendarGrid({
   )
 }
 
-/* Direction: the new weeks come 28px from the side the months turned to, blurred, on a spring. */
+/* Direction: the new weeks come 28px from the side the months turned to, blurred, on a spring.
+   The slide and blur scale with --kf-flourish; the fade stays. */
 function CalendarWeeks({
   className,
   children,
@@ -211,9 +215,9 @@ function CalendarWeeks({
     <CalendarWeeksPart
       className={cn(
         "transition-[opacity,filter,translate] duration-[calc(460ms*var(--kf-speed,1))] ease-spring",
-        "starting:opacity-0 starting:blur-[6px]",
+        "starting:opacity-0 starting:blur-[calc(6px*var(--kf-flourish,1))]",
         "group-data-[direction=none]/picker-content:starting:opacity-100 group-data-[direction=none]/picker-content:starting:blur-none",
-        "group-data-[direction=next]/picker-content:starting:translate-x-7 group-data-[direction=previous]/picker-content:starting:-translate-x-7",
+        "group-data-[direction=next]/picker-content:starting:translate-x-[calc(1.75rem*var(--kf-flourish,1))] group-data-[direction=previous]/picker-content:starting:-translate-x-[calc(1.75rem*var(--kf-flourish,1))]",
         "motion-reduce:transition-none!",
         className,
       )}
@@ -232,7 +236,7 @@ function CalendarDay({ className, ...props }: React.ComponentProps<typeof Calend
         cn(
           "data-selected:not-data-range-middle:not-data-range-end:[anchor-name:--kf-day-a] data-range-start:[anchor-name:--kf-day-a]",
           "data-range-end:[anchor-name:--kf-day-b] data-range-start:data-range-end:[anchor-name:--kf-day-a,--kf-day-b]",
-          "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.9] data-disabled:active:scale-100 motion-reduce:transition-none!",
+          "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.1*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:transition-none!",
         ),
         className,
       )}

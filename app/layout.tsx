@@ -31,7 +31,7 @@ const clarityId = isProductionDeploy ? process.env.CLARITY_PROJECT_ID?.trim() : 
 const clarity = clarityId && /^[a-z0-9]{1,32}$/i.test(clarityId) ? clarityId : null
 
 /* Applied before the first paint: the motion style the visitor picked last time. */
-const boot = `try{var m=localStorage.getItem("kf-motion-style");if(m&&/^(calm|springy|snappy|playful)$/.test(m))document.documentElement.setAttribute("data-motion",m)}catch(e){}`
+const boot = `try{var m=localStorage.getItem("kf-motion-style");if(m&&/^(subtle|calm|springy|snappy|playful)$/.test(m))document.documentElement.setAttribute("data-motion",m)}catch(e){}`
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

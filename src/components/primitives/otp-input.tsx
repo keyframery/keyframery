@@ -20,7 +20,8 @@ const keyframes =
 
 /* Glide: one ring, drawn by the root, glides from slot to slot under CSS anchors instead of
    each slot lighting up. Its default look is neutral and follows the text colour; restyle it
-   with `before:` classes (radius, shadow). It fades out when the input loses focus. */
+   with `before:` classes (radius, shadow). It fades out when the input loses focus. Its grow-in
+   scales with --kf-flourish; the glide and the fade stay. */
 function OTPInput({ className, ...props }: React.ComponentProps<typeof OTPInputRoot>) {
   return (
     <>
@@ -34,7 +35,7 @@ function OTPInput({ className, ...props }: React.ComponentProps<typeof OTPInputR
             "before:pointer-events-none before:absolute before:z-10 before:[position-anchor:--kf-otp]",
             "before:top-[anchor(top)] before:right-[anchor(right)] before:bottom-[anchor(bottom)] before:left-[anchor(left)]",
             "before:rounded-[10px] before:shadow-[0_0_0_2px_color-mix(in_oklch,currentColor_40%,transparent)]",
-            "before:scale-75 before:opacity-0 has-data-active:before:scale-100 has-data-active:before:opacity-100",
+            "before:scale-[calc(1-0.25*var(--kf-flourish,1))] before:opacity-0 has-data-active:before:scale-100 has-data-active:before:opacity-100",
             "before:[transition:top_calc(340ms*var(--kf-speed,1))_var(--ease-spring),right_calc(340ms*var(--kf-speed,1))_var(--ease-spring),bottom_calc(340ms*var(--kf-speed,1))_var(--ease-spring),left_calc(340ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(360ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(200ms*var(--kf-speed,1))_var(--ease-house)]",
             "motion-reduce:before:[transition:none]!",
           ),
@@ -47,7 +48,8 @@ function OTPInput({ className, ...props }: React.ComponentProps<typeof OTPInputR
 }
 
 /* Each typed character rises 12px into place from half size on `ease-pop`. When the code is
-   complete, the slots pulse once, left to right. */
+   complete, the slots pulse once, left to right. The rise, the blur and the wave scale with
+   --kf-flourish; at 0 a character fades in and the wave doesn't play. */
 function OTPInputSlot({
   className,
   children,
@@ -63,7 +65,7 @@ function OTPInputSlot({
       className={withClass(
         cn(
           "data-active:[anchor-name:--kf-otp]",
-          "group-data-complete/kf-otp:animate-[kf-otp-wave_calc(560ms*var(--kf-speed,1))_var(--ease-house)_calc(var(--kf-i)*calc(60ms*var(--kf-speed,1)))_both]",
+          "group-data-complete/kf-otp:animate-[kf-otp-wave_calc(560ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(var(--kf-i)*calc(60ms*var(--kf-speed,1))*var(--kf-flourish,1))_both]",
           "motion-reduce:animate-none!",
         ),
         className,
@@ -77,7 +79,7 @@ function OTPInputSlot({
               key={state.char}
               className={cn(
                 "inline-block [transition:translate_calc(460ms*var(--kf-speed,1))_var(--ease-pop),scale_calc(460ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house),filter_calc(260ms*var(--kf-speed,1))_var(--ease-house)]",
-                "starting:translate-y-3 starting:scale-50 starting:opacity-0 starting:blur-[3px] motion-reduce:[transition:none]!",
+                "starting:translate-y-[calc(0.75rem*var(--kf-flourish,1))] starting:scale-[calc(1-0.5*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(3px*var(--kf-flourish,1))] motion-reduce:[transition:none]!",
               )}
             >
               {state.char}

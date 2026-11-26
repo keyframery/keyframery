@@ -8,7 +8,9 @@
    - Rows: Cascade in, one after another, as the sheet opens.
    - Glide: one highlight springs from row to row (CSS anchor positioning), instead of each row lighting up.
      Its neutral surface follows the text colour; give `before:bg-…` and `before:rounded-…` to restyle it.
-   - Checks: Draw themselves. Trigger: Press. */
+   - Checks: Draw themselves. Trigger: Press.
+   - Flourish (scales with --kf-flourish): the unfold below 0.95, the blur, the row cascade, the chevron
+     nudge, the check draw and the press. At 0 the sheet fades and scales in from the trigger as one. */
 
 import {
   MenuCheckboxItem as MenuCheckboxItemPart,
@@ -38,13 +40,13 @@ const sheet = cn(
   "[transition:opacity_calc(380ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(380ms*var(--kf-speed,1))_var(--ease-spring),translate_calc(380ms*var(--kf-speed,1))_var(--ease-spring),filter_calc(380ms*var(--kf-speed,1))_var(--ease-spring)]",
   "data-[side=bottom]:[--kf-from:0_-8px] data-[side=top]:[--kf-from:0_8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0]",
   "data-[side=inline-end]:[--kf-from:-8px_0] data-[side=inline-start]:[--kf-from:8px_0]",
-  "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[0.86] data-starting-style:opacity-0 data-starting-style:blur-[6px]",
-  "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[2px]",
+  "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))]",
+  "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))]",
   "data-ending-style:[transition:opacity_calc(150ms*var(--kf-speed,1))_var(--ease-house),scale_calc(150ms*var(--kf-speed,1))_var(--ease-house),translate_calc(150ms*var(--kf-speed,1))_var(--ease-house),filter_calc(150ms*var(--kf-speed,1))_var(--ease-house)]",
-  /* Cascade */
-  "[&>*:not([data-slot=menu-content])]:transition-[opacity,translate,filter] [&>*:not([data-slot=menu-content])]:duration-[calc(420ms*var(--kf-speed,1))] [&>*:not([data-slot=menu-content])]:ease-spring",
-  "[&>*:not([data-slot=menu-content])]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)))]",
-  "data-starting-style:[&>*:not([data-slot=menu-content])]:translate-y-2 data-starting-style:[&>*:not([data-slot=menu-content])]:opacity-0 data-starting-style:[&>*:not([data-slot=menu-content])]:blur-[4px]",
+  /* Cascade (scales with --kf-flourish; at 0 the rows arrive with the sheet) */
+  "[&>*:not([data-slot=menu-content])]:transition-[opacity,translate,filter] [&>*:not([data-slot=menu-content])]:duration-[calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&>*:not([data-slot=menu-content])]:ease-spring",
+  "[&>*:not([data-slot=menu-content])]:[transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)*var(--kf-flourish,1)))]",
+  "data-starting-style:[&>*:not([data-slot=menu-content])]:translate-y-[calc(0.5rem*var(--kf-flourish,1))] data-starting-style:[&>*:not([data-slot=menu-content])]:opacity-0 data-starting-style:[&>*:not([data-slot=menu-content])]:blur-[calc(4px*var(--kf-flourish,1))]",
   "data-ending-style:[&>*:not([data-slot=menu-content])]:[transition-delay:0ms]",
   "motion-reduce:[&>*:not([data-slot=menu-content])]:[translate:none]! motion-reduce:[&>*:not([data-slot=menu-content])]:[filter:none]! data-starting-style:[&>*:not([data-slot=menu-content])]:[transition:none]",
   /* Glide */
@@ -62,7 +64,7 @@ const row = "data-highlighted:[anchor-name:--kf-hl]"
 function MenuTrigger({ className, ...props }: React.ComponentProps<typeof MenuTriggerPart>) {
   return (
     <MenuTriggerPart
-      className={withClass("transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.96] motion-reduce:transition-none!", className)}
+      className={withClass("transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none!", className)}
       {...props}
     />
   )
@@ -78,10 +80,10 @@ function MenuContent<Payload = unknown>({
 /* For a menu opened by a `MenuContextTrigger` (a right-click, a long press or Shift+F10). It has no
    trigger to grow out of: UI SDK anchors it to the press point and puts that point in
    `--transform-origin`. So the sheet starts smaller, does not slide toward a trigger, and grows
-   straight out of the pointer. Add it to the content: `<MenuContent className={contextMenuMotion}>`. */
+   straight out of the pointer (the extra growth and blur scale with --kf-flourish). Add it to the content: `<MenuContent className={contextMenuMotion}>`. */
 const contextMenuMotion = cn(
-  "data-starting-style:[translate:0_0] data-starting-style:scale-[0.6] data-starting-style:blur-[8px]",
-  "data-ending-style:scale-[0.94]",
+  "data-starting-style:[translate:0_0] data-starting-style:scale-[calc(0.95-0.35*var(--kf-flourish,1))] data-starting-style:blur-[calc(8px*var(--kf-flourish,1))]",
+  "data-ending-style:scale-[calc(0.96-0.02*var(--kf-flourish,1))]",
   /* Reduced motion: appear in place, no scale or blur. */
   "motion-reduce:data-starting-style:scale-100 motion-reduce:data-starting-style:blur-none motion-reduce:data-ending-style:scale-100",
 )
@@ -113,7 +115,7 @@ function MenuSubTrigger({ className, ...props }: React.ComponentProps<typeof Men
         cn(
           row,
           "data-open:[anchor-name:--kf-hl]",
-          "[&>svg:last-child]:transition-[translate] [&>svg:last-child]:duration-[calc(380ms*var(--kf-speed,1))] [&>svg:last-child]:ease-spring data-open:[&>svg:last-child]:translate-x-0.5 rtl:data-open:[&>svg:last-child]:-translate-x-0.5",
+          "[&>svg:last-child]:transition-[translate] [&>svg:last-child]:duration-[calc(380ms*var(--kf-speed,1))] [&>svg:last-child]:ease-spring data-open:[&>svg:last-child]:translate-x-[calc(0.125rem*var(--kf-flourish,1))] rtl:data-open:[&>svg:last-child]:-translate-x-[calc(0.125rem*var(--kf-flourish,1))]",
           "motion-reduce:[&>svg:last-child]:transition-none",
         ),
         className,
@@ -131,8 +133,8 @@ function MenuItemIndicator({ className, ...props }: React.ComponentProps<typeof 
       className={withClass(
         cn(
           "[&_:is(path,polyline)]:[stroke-dasharray:24] [&_:is(path,polyline)]:[stroke-dashoffset:24]",
-          "[&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1))] [&_:is(path,polyline)]:ease-house",
-          "data-checked:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-checked:[&_:is(path,polyline)]:delay-[calc(100ms*var(--kf-speed,1))]",
+          "[&_:is(path,polyline)]:transition-[stroke-dashoffset] [&_:is(path,polyline)]:duration-[calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))] [&_:is(path,polyline)]:ease-house",
+          "data-checked:[&_:is(path,polyline)]:[stroke-dashoffset:0] data-checked:[&_:is(path,polyline)]:delay-[calc(100ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
           "data-checked:[&_:is(path,polyline)]:starting:[stroke-dashoffset:24]",
           "group-data-starting-style/kf-menu:[&_:is(path,polyline)]:[stroke-dashoffset:24]!",
           "motion-reduce:[&_:is(path,polyline)]:transition-none",

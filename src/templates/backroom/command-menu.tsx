@@ -94,7 +94,7 @@ export function CommandMenu({ onToggleSidebar }: { onToggleSidebar: () => void }
         ["system", "System theme", <Monitor key="o" {...icon} />],
       ] as const
     ).map(([value, label, glyph]) => ({ value: `theme:${value}`, label, keywords: ["appearance", "mode"], icon: glyph, current: theme === value, run: () => actions.setAppearance({ theme: value }) }))
-    const motions: Row[] = (["calm", "springy", "snappy", "playful"] as MotionStyleValue[]).map((value) => ({
+    const motions: Row[] = (["subtle", "calm", "springy", "snappy", "playful"] as MotionStyleValue[]).map((value) => ({
       value: `motion:${value}`,
       label: `${value[0].toUpperCase()}${value.slice(1)} motion`,
       keywords: ["motion style", "animation"],

@@ -23,11 +23,12 @@ export * from "@ui-sdk/react/drawer"
 
 /* Press: the key gives under the finger and springs back on release. */
 const press =
-  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-pending:active:scale-[0.96] motion-reduce:transition-none!"
+  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:not-data-pending:active:scale-[calc(1-0.04*var(--kf-flourish,1))] motion-reduce:transition-none!"
 
 /* Cascade: each direct child of the sheet rises in out of a blur a little after the one before
    it, while the sheet slides up. A keyframe animation, since the children have no earlier style
-   to transition from when the sheet first appears. Close buttons are left out. */
+   to transition from when the sheet first appears. Close buttons are left out. Its length and delays
+   scale with --kf-flourish: at 0 the contents arrive with the sheet. */
 const cascadeKeyframes = "@keyframes kf-cascade{from{opacity:0;translate:0 8px;filter:blur(4px)}}@media (prefers-reduced-motion:reduce){@keyframes kf-cascade{from{opacity:0}}}"
 
 function DrawerTrigger({ className, ...props }: React.ComponentProps<typeof DrawerTriggerPart>) {
@@ -47,8 +48,8 @@ function DrawerContent({ className, ...props }: React.ComponentProps<typeof Draw
       <DrawerContentPart
         className={withClass(
           cn(
-            "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1))_var(--ease-spring)_backwards]",
-            "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc(calc(60ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))]",
+            "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
+            "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc((calc(60ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))*var(--kf-flourish,1))]",
             /* While the sheet is dragged away, what is inside fades back with it. --drawer-progress
                does not inherit, so it is copied into a variable that does. */
             "[--kf-sheet-progress:var(--drawer-progress,1)] *:opacity-[calc(0.55+var(--kf-sheet-progress,1)*0.45)]",

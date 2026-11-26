@@ -8,7 +8,9 @@
      draws itself up to the current step (and back when someone returns).
    - Draw: a finished step's number gives way to a check that draws itself; the indicator pops.
    - Direction: a step's panel arrives from the side someone moved toward (from the right going on,
-     from the left going back; from below and above in a vertical stepper), as the tab panels do. */
+     from the left going back; from below and above in a vertical stepper), as the tab panels do.
+   - The check's draw, the number's shrink and blur, the panel's slide and blur and the press scale
+     with --kf-flourish; the connector's fill stays. */
 
 import type { StateOf } from "@ui-sdk/core"
 import { type PartProps, usePart, usePrimitive } from "@ui-sdk/react/primitive"
@@ -82,7 +84,7 @@ function StepperStep({ value, className, ...props }: { value: string } & PartPro
     { value },
     {
       ...props,
-      className: withClass("transition-[scale] duration-[calc(240ms*var(--kf-speed,1))] ease-pop data-reachable:active:scale-[0.97] motion-reduce:transition-none!", className),
+      className: withClass("transition-[scale] duration-[calc(240ms*var(--kf-speed,1))] ease-pop data-reachable:active:scale-[calc(1-0.03*var(--kf-flourish,1))] motion-reduce:transition-none!", className),
     },
     "button",
   )
@@ -113,7 +115,7 @@ function StepperIndicator({ value, className, children, ...props }: { value?: st
             <span
               className={cn(
                 "tabular-nums transition-[opacity,scale,filter] duration-[calc(260ms*var(--kf-speed,1))] ease-house motion-reduce:transition-none!",
-                state.state === "complete" || state.state === "error" ? "scale-50 opacity-0 blur-[2px]" : "",
+                state.state === "complete" || state.state === "error" ? "scale-[calc(1-0.5*var(--kf-flourish,1))] opacity-0 blur-[calc(2px*var(--kf-flourish,1))]" : "",
               )}
             >
               {state.index + 1}
@@ -123,7 +125,7 @@ function StepperIndicator({ value, className, children, ...props }: { value?: st
                 <path
                   d="M3.5 8.5 6.5 11.5 12.5 4.75"
                   pathLength={1}
-                  className="[stroke-dasharray:1] animate-[kf-stepper-check_calc(320ms*var(--kf-speed,1))_var(--ease-house)_calc(120ms*var(--kf-speed,1))_backwards] motion-reduce:animate-none"
+                  className="[stroke-dasharray:1] animate-[kf-stepper-check_calc(320ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(120ms*var(--kf-speed,1)*var(--kf-flourish,1))_backwards] motion-reduce:animate-none"
                 />
               </svg>
             )}
@@ -183,10 +185,10 @@ function StepperPanel({ value, className, ...props }: { value: string } & PartPr
       className: withClass(
         cn(
           "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1))] ease-spring",
-          "starting:opacity-0 starting:blur-[6px]",
-          "data-[direction=forward]:starting:translate-x-8 data-[direction=backward]:starting:-translate-x-8",
-          "data-[orientation=vertical]:data-[direction=forward]:starting:translate-x-0 data-[orientation=vertical]:data-[direction=forward]:starting:translate-y-6",
-          "data-[orientation=vertical]:data-[direction=backward]:starting:translate-x-0 data-[orientation=vertical]:data-[direction=backward]:starting:-translate-y-6",
+          "starting:opacity-0 starting:blur-[calc(6px*var(--kf-flourish,1))]",
+          "data-[direction=forward]:starting:translate-x-[calc(2rem*var(--kf-flourish,1))] data-[direction=backward]:starting:-translate-x-[calc(2rem*var(--kf-flourish,1))]",
+          "data-[orientation=vertical]:data-[direction=forward]:starting:translate-x-0 data-[orientation=vertical]:data-[direction=forward]:starting:translate-y-[calc(1.5rem*var(--kf-flourish,1))]",
+          "data-[orientation=vertical]:data-[direction=backward]:starting:translate-x-0 data-[orientation=vertical]:data-[direction=backward]:starting:-translate-y-[calc(1.5rem*var(--kf-flourish,1))]",
           "motion-reduce:transition-none!",
         ),
         className,

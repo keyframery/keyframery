@@ -6,7 +6,8 @@
    - Glide: one current-page key, drawn by the list as its `before:`, glides from page to page on a
      spring (CSS anchors). Give it your own surface with `before:` classes on PaginationList.
    - Press: pages and steps give under the pointer and spring back.
-   - Roll: `PaginationRoll` shows a number whose digits roll when it changes, for a count like "41 to 50". */
+   - Roll: `PaginationRoll` shows a number whose digits roll when it changes, for a count like "41 to 50".
+   - Flourish: the presses, the rolls and a new page's pop-in scale with --kf-flourish; the glide stays. */
 
 import {
   PaginationFirst as PaginationFirstPart,
@@ -51,14 +52,14 @@ function PaginationList({ className, ...props }: React.ComponentProps<typeof Pag
 function PaginationItem({ className, ...props }: React.ComponentProps<typeof PaginationItemPart>) {
   return (
     <PaginationItemPart
-      className={withClass("transition-[opacity,scale,filter] duration-[calc(300ms*var(--kf-speed,1))] ease-spring starting:scale-75 starting:opacity-0 starting:blur-[3px] motion-reduce:transition-none!", className)}
+      className={withClass("transition-[opacity,scale,filter] duration-[calc(300ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring starting:scale-75 starting:opacity-0 starting:blur-[3px] motion-reduce:transition-none!", className)}
       {...props}
     />
   )
 }
 
 const press =
-  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[0.92] data-disabled:active:scale-100 motion-reduce:transition-none!"
+  "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop active:scale-[calc(1-0.08*var(--kf-flourish,1))] data-disabled:active:scale-100 motion-reduce:transition-none!"
 
 /* The current page names itself as the key's anchor. */
 function PaginationLink({ className, ...props }: React.ComponentProps<typeof PaginationLinkPart>) {
@@ -107,7 +108,7 @@ function PaginationRoll({
           <span
             key={digits.length - index}
             style={{ "--d": Number(digit) } as React.CSSProperties}
-            className="flex flex-col transition-[translate] duration-[calc(500ms*var(--kf-speed,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
+            className="flex flex-col transition-[translate] duration-[calc(500ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [translate:0_calc(var(--d)*-1lh)] motion-reduce:transition-none!"
           >
             {Array.from({ length: 10 }, (_, d) => (
               <span key={d} className="h-[1lh]">

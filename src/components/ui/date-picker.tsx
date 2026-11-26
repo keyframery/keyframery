@@ -242,9 +242,9 @@ function DatePickerClear({
         cn(
           "grid size-6 shrink-0 cursor-pointer place-items-center rounded-[7px] text-muted-foreground outline-none [&_svg]:size-3.5",
           "transition-[color,background-color,opacity,scale] duration-[calc(150ms*var(--kf-speed,1))] ease-house",
-          "hover:bg-foreground/[0.06] hover:text-[color:var(--date-picker-ink,var(--foreground))] active:scale-[0.9]",
+          "hover:bg-foreground/[0.06] hover:text-[color:var(--date-picker-ink,var(--foreground))] active:scale-[calc(1-0.1*var(--kf-flourish,1))]",
           "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background",
-          "data-empty:pointer-events-none data-empty:scale-75 data-empty:opacity-0",
+          "data-empty:pointer-events-none data-empty:scale-[calc(0.95-0.2*var(--kf-flourish,1))] data-empty:opacity-0",
           "data-disabled:pointer-events-none data-disabled:opacity-0 motion-reduce:transition-none!",
         ),
         className,

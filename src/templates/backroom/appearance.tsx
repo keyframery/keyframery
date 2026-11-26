@@ -25,7 +25,7 @@ import { type Appearance, DEFAULT_APPEARANCE, useStore } from "./store"
 export const backroomMotion = createMotionStyle({ storageKey: null })
 
 /* Each style's own speed, from the motion tokens. The speed setting multiplies it. */
-const STYLE_SPEED: Record<MotionStyleValue, number> = { calm: 1.35, springy: 1, snappy: 0.6, playful: 1.15 }
+const STYLE_SPEED: Record<MotionStyleValue, number> = { subtle: 0.7, calm: 1.35, springy: 1, snappy: 0.6, playful: 1.15 }
 
 /** Puts the appearance on <html>: the `dark` class, `dir`, and `--kf-speed`. Restores what was there when the admin unmounts. */
 export function useApplyAppearance(appearance: Appearance) {
@@ -106,7 +106,7 @@ export function AppearanceDrawer({ open, onOpenChange }: { open: boolean; onOpen
   const a = state.appearance
   const { value: motion } = usePreference(backroomMotion)
   const set = actions.setAppearance
-  const changed = (Object.keys(DEFAULT_APPEARANCE) as (keyof Appearance)[]).some((k) => a[k] !== DEFAULT_APPEARANCE[k]) || motion !== "springy"
+  const changed = (Object.keys(DEFAULT_APPEARANCE) as (keyof Appearance)[]).some((k) => a[k] !== DEFAULT_APPEARANCE[k]) || motion !== "subtle"
 
   /* Close the drawer after changing how things move, and the page plays its arrival again in the new style. */
   const { replayPage } = useShellState()
@@ -140,7 +140,7 @@ export function AppearanceDrawer({ open, onOpenChange }: { open: boolean; onOpen
             disabled={!changed}
             onClick={() => {
               set(DEFAULT_APPEARANCE)
-              backroomMotion.set("springy")
+              backroomMotion.set("subtle")
             }}
           >
             <RotateCcw {...icon} />
@@ -202,8 +202,8 @@ export function AppearanceSections({ className, group }: { className?: string; g
       )}
       {group !== "look" && (
         <>
-          <Section title="Motion style" hint="How every panel, menu and number moves." changed={motion !== "springy"} onReset={() => backroomMotion.set("springy")}>
-            <MotionStyleSwitcher preference={backroomMotion} className={fill} />
+          <Section title="Motion style" hint="How every panel, menu and number moves." changed={motion !== "subtle"} onReset={() => backroomMotion.set("subtle")}>
+            <MotionStyleSwitcher preference={backroomMotion} className={cn(fill, "[--segmented-control-item-padding:0.375rem]")} />
             <MotionPreview motion={motion} speed={a.speed} inPanel={!group} />
           </Section>
           <Section title="Motion speed" hint="Slower or quicker than the style's own pace." changed={a.speed !== DEFAULT_APPEARANCE.speed} onReset={() => set({ speed: DEFAULT_APPEARANCE.speed })}>
@@ -249,6 +249,7 @@ const previewKeyframes = `
 @keyframes br-preview-slide { from { translate: 0 0 } to { translate: var(--br-preview-travel) 0 } }`
 
 const MOTION_NOTE: Record<MotionStyleValue, string> = {
+  subtle: "Quick fades, no bounce",
   calm: "Slower, no bounce",
   springy: "A light spring",
   snappy: "Fast and crisp",

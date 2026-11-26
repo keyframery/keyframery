@@ -13,8 +13,11 @@
    - A change that can't follow those rules gets a new version letter, and "k" keeps decoding as now.
 
    36 of the 53 bits a JavaScript number holds exactly are used, so there is room to grow.
-   The default preset (index 0 everywhere) is "k0", and it equals the tokens the components ship
-   with. This module is pure: no imports, so the site, the registry route and the tests share it. */
+   The default preset (index 0 everywhere) is "k0". Its colours and corners equal the tokens the
+   components ship with; its motion is Springy, which was the shipped default when "k" began. Subtle
+   became the shipped motion on 26 Nov 2026 and was added at the end of the list, so Create starts
+   from START_PRESET (k0 with Subtle motion), the one preset that writes no CSS at all.
+   This module is pure: no imports, so the site, the registry route and the tests share it. */
 
 export const PRESET_VERSION = "k"
 
@@ -29,7 +32,7 @@ export const PRESET_FIELDS = [
   { key: "radius", bits: 4, values: ["0.625", "0", "0.3", "0.5", "0.75", "1"] },
   { key: "font", bits: 5, values: ["inherit", "inter", "geist", "figtree", "manrope", "dm-sans", "system"] },
   { key: "highlight", bits: 2, values: ["neutral", "tinted"] },
-  { key: "motion", bits: 3, values: ["springy", "calm", "snappy", "playful"] },
+  { key: "motion", bits: 3, values: ["springy", "calm", "snappy", "playful", "subtle"] },
   { key: "speed", bits: 4, values: ["1", "0.5", "0.75", "1.25", "1.5"] },
   { key: "bounce", bits: 3, values: ["style", "none", "soft", "lively", "bouncy"] },
   { key: "reduced", bits: 2, values: ["keep", "gentle"] },
@@ -40,6 +43,9 @@ export type PresetKey = Field["key"]
 export type Preset = { [F in Field as F["key"]]: F["values"][number] }
 
 export const DEFAULT_PRESET: Preset = Object.fromEntries(PRESET_FIELDS.map((field) => [field.key, field.values[0]])) as Preset
+
+/** Where Create starts: the default preset with the motion the components ship with (Subtle). */
+export const START_PRESET: Preset = { ...DEFAULT_PRESET, motion: "subtle" }
 
 const TOTAL_BITS = PRESET_FIELDS.reduce((sum, field) => sum + field.bits, 0)
 const DIGITS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"

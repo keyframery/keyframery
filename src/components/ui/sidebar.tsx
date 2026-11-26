@@ -129,7 +129,7 @@ function SidebarGroupLabel({ className, children, ...props }: React.ComponentPro
         className={cn(
           labelLook,
           "group/sidebar-group cursor-pointer text-left outline-none select-none",
-          "transition-[color,scale] duration-[calc(150ms*var(--kf-speed,1))] ease-house hover:text-[color:var(--sidebar-ink,var(--foreground))] active:scale-[0.98] motion-reduce:transition-none!",
+          "transition-[color,scale] duration-[calc(150ms*var(--kf-speed,1))] ease-house hover:text-[color:var(--sidebar-ink,var(--foreground))] active:scale-[calc(1-0.02*var(--kf-flourish,1))] motion-reduce:transition-none!",
           "focus-visible:ring-2 focus-visible:ring-ring",
         )}
       >

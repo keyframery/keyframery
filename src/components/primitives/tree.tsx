@@ -135,7 +135,8 @@ function TreeItemIndicator({ className, ...props }: React.ComponentProps<typeof 
   )
 }
 
-/* Opens to its height while its rows cascade in; closes a little faster, all at once. */
+/* Opens to its height while its rows cascade in; closes a little faster, all at once. The cascade
+   (stagger, rise, blur) scales with --kf-flourish; the height stays. */
 function TreeGroup({ className, ...props }: React.ComponentProps<typeof TreeGroupPart>) {
   return (
     <TreeGroupPart
@@ -145,9 +146,9 @@ function TreeGroup({ className, ...props }: React.ComponentProps<typeof TreeGrou
           "transition-[height] duration-[calc(380ms*var(--kf-speed,1))] ease-house",
           "data-starting-style:h-0 data-ending-style:h-0 data-ending-style:duration-[calc(260ms*var(--kf-speed,1))]",
           "*:transition-[opacity,translate,filter] *:duration-[calc(420ms*var(--kf-speed,1))] *:ease-spring",
-          "*:[transition-delay:calc((min(sibling-index(),10)-1)*calc(36ms*var(--kf-speed,1))+calc(30ms*var(--kf-speed,1)))]",
-          "data-starting-style:*:translate-y-2 data-starting-style:*:opacity-0 data-starting-style:*:blur-[4px] data-starting-style:*:transition-none",
-          "data-ending-style:*:opacity-0 data-ending-style:*:blur-[2px] data-ending-style:*:duration-[calc(200ms*var(--kf-speed,1))] data-ending-style:*:ease-house data-ending-style:*:[transition-delay:0ms]",
+          "*:[transition-delay:calc(((min(sibling-index(),10)-1)*calc(36ms*var(--kf-speed,1))+calc(30ms*var(--kf-speed,1)))*var(--kf-flourish,1))]",
+          "data-starting-style:*:translate-y-[calc(0.5rem*var(--kf-flourish,1))] data-starting-style:*:opacity-0 data-starting-style:*:blur-[calc(4px*var(--kf-flourish,1))] data-starting-style:*:transition-none",
+          "data-ending-style:*:opacity-0 data-ending-style:*:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:*:duration-[calc(200ms*var(--kf-speed,1))] data-ending-style:*:ease-house data-ending-style:*:[transition-delay:0ms]",
           "motion-reduce:transition-none! motion-reduce:*:transition-none",
         ),
         className,

@@ -145,9 +145,9 @@ export default function PreferencesDemo({
           ))}
         </ul>
 
-        <div className="mt-5 flex items-center justify-between gap-3 border-t border-border pt-4 @max-[22rem]:flex-col @max-[22rem]:items-start">
+        <div className="mt-5 flex items-center justify-between gap-3 border-t border-border pt-4 @max-[30rem]:flex-col @max-[30rem]:items-start">
           <div className="text-[12px] text-muted-foreground">{footer}</div>
-          <MotionStyleSwitcher preference={demoMotion} orientation={orientation} disabled={disabled} readOnly={readOnly} required={required} loop={loop} />
+          <MotionStyleSwitcher preference={demoMotion} className="@max-[24rem]:[--segmented-control-item-padding:0.5rem]" orientation={orientation} disabled={disabled} readOnly={readOnly} required={required} loop={loop} />
         </div>
       </div>
     </Preferences>

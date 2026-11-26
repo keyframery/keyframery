@@ -1,29 +1,34 @@
 ---
 title: Motion styles
-heading: "Four motion styles, one setting"
-seoTitle: "UI SDK Motion Styles: Calm to Playful"
-description: "Switch every Keyframery component between Calm, Springy, Snappy and Playful motion with one attribute. Timing, springiness and pop change; your markup doesn't."
+heading: "Five motion styles, one setting"
+seoTitle: "UI SDK Motion Styles: Subtle to Playful"
+description: "Keyframery is quiet by default. Switch every component to Calm, Springy, Snappy or Playful motion with one attribute; your markup doesn't change."
 faq:
   - q: "Can different parts of my app use different styles?"
     a: "Yes. `data-motion` works on any element and changes the motion inside it."
+  - q: "Why is the default so quiet?"
+    a: "Most apps want state changes to read clearly without calling attention to themselves, so Subtle moves about as much as shadcn/ui: quick fades and slides, no bounce. The springs, stretches and pops are one attribute away."
+  - q: "How do I get the old springy motion back?"
+    a: "Put `data-motion=\"springy\"` on `<html>`. Springy was the default until 26 November 2026."
   - q: "Can I make my own style?"
     a: "Yes. A style is three CSS variables: `--kf-speed`, `--ease-spring` and `--ease-pop`. Set them under your own `data-motion` value."
 ---
 
-A motion style changes how everything moves: how fast, how springy, how much pop. Try it here. The switcher changes this whole site.
+A motion style changes how everything moves: how fast, how springy, and how much flourish. Keyframery is quiet by default: Subtle reads like shadcn/ui, and the expressive styles are one attribute away. Try them here. The switcher changes this whole site.
 
 <MotionStylePlayground />
 
 | Style | Speed | Feel | Good for |
 | --- | --- | --- | --- |
+| **Subtle** | 0.7× (quick) | Fades and short slides, no bounce, no flourishes. The default | Any product; reads like shadcn/ui |
 | **Calm** | 1.35× slower | No bounce; moves settle softly | Dashboards, finance, long sessions |
-| **Springy** | 1× | A 5% spring and a 16% pop. The default | Most products |
+| **Springy** | 1× | A 5% spring, a 16% pop and every flourish | Products that want motion to be part of the brand |
 | **Snappy** | 0.6× (faster) | Crisp, almost no overshoot | Developer tools, dense apps |
 | **Playful** | 1.15× | A 12% spring and a 29% pop | Consumer apps |
 
 ## Set a style
 
-Put `data-motion` on `<html>`. Popups render at the end of `<body>`, so setting it on `<html>` makes sure they follow too. Leave it off for Springy.
+Put `data-motion` on `<html>`. Popups render at the end of `<body>`, so setting it on `<html>` makes sure they follow too. Leave it off for Subtle.
 
 ```html
 <html data-motion="calm">
@@ -63,11 +68,23 @@ transition: scale calc(260ms * var(--kf-speed, 1)) var(--ease-pop);
 
 A style is new values for those tokens. The springs are written with CSS `linear()`, so nothing runs in JavaScript.
 
+## Flourish
+
+Some motion tells you what happened: a menu fades in, a tab indicator slides to the tab you picked, a switch thumb travels. Some is flourish: the indicator stretching as it goes, a check drawing itself, numbers rolling, an error field shaking, rows cascading in when a page loads. Every flourish is scaled by one more token, `--kf-flourish`:
+
+| Value | What you get | Set by |
+| --- | --- | --- |
+| `0` | Feedback only. The new state still shows (the number, the check, the red error), it just doesn't perform | Subtle |
+| `1` | Every flourish at full size | Calm, Springy, Snappy, Playful |
+
+Anything in between works too, so `--kf-flourish: 0.5` gives half-size stretches and pops. Like the other tokens, it can be set on any element.
+
 ## Make your own
 
 ```css
 [data-motion="brand"] {
   --kf-speed: 0.85;
+  --kf-flourish: 0.5; /* half-size stretches and pops */
   --ease-spring: var(--ease-house); /* no overshoot on moves */
 }
 ```

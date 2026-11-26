@@ -17,16 +17,17 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 
 /* Press, and the pressed surface pops: it lives on `before:`, grows from 0.7 with an
    overshoot when the toggle is pressed and shrinks away when it is released. Its neutral
-   default follows the text colour; restyle it with `before:` classes. */
+   default follows the text colour; restyle it with `before:` classes. The press and the grow scale
+   with --kf-flourish; at 0 the surface fades in. */
 function Toggle({ className, ...props }: React.ComponentProps<typeof TogglePart>) {
   return (
     <TogglePart
       className={withClass(
         cn(
-          "relative isolate transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:active:scale-[0.94]",
+          "relative isolate transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop not-data-disabled:active:scale-[calc(1-0.06*var(--kf-flourish,1))]",
           "before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:content-['']",
           "before:bg-[color-mix(in_oklch,currentColor_9%,transparent)]",
-          "before:scale-[0.7] before:opacity-0",
+          "before:scale-[calc(1-0.3*var(--kf-flourish,1))] before:opacity-0",
           "before:[transition:scale_calc(160ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(120ms*var(--kf-speed,1))_var(--ease-house)]",
           "data-pressed:before:scale-100 data-pressed:before:opacity-100",
           "data-pressed:before:[transition:scale_calc(420ms*var(--kf-speed,1))_var(--ease-pop),opacity_calc(120ms*var(--kf-speed,1))_var(--ease-house)]",

@@ -6,6 +6,7 @@
    (style `data-status`, `data-size` and `data-orientation`).
 
    - Pop: a new attachment grows in from 80% with a blur that clears, settling with `ease-pop`.
+     The growth from below 95% and the blur scale with --kf-flourish; the fade and the gap closing stay.
    - Leave: `remove()` shrinks and fades it, then closes the gap it leaves, so the attachments
      after it slide over instead of jumping. Give the group's gap as `--attachment-gap`; in a
      column, set `--attachment-collapse-x: 0` and `--attachment-collapse-y: 1` so it closes upward.
@@ -52,9 +53,9 @@ function Attachment({ className, ...props }: React.ComponentProps<typeof Attachm
         cn(
           "group/attachment origin-center",
           "[transition:scale_calc(520ms*var(--kf-speed,1))_var(--ease-pop),translate_calc(520ms*var(--kf-speed,1))_var(--ease-spring),opacity_calc(220ms*var(--kf-speed,1))_var(--ease-house),filter_calc(300ms*var(--kf-speed,1))_var(--ease-house)]",
-          "data-starting-style:scale-[0.8] data-starting-style:translate-y-1.5 data-starting-style:opacity-0 data-starting-style:blur-[6px] data-starting-style:transition-none",
+          "data-starting-style:scale-[calc(0.95-0.15*var(--kf-flourish,1))] data-starting-style:translate-y-1.5 data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))] data-starting-style:transition-none",
           /* Leave: shrink and fade, then give its room back. */
-          "data-ending-style:scale-[0.86] data-ending-style:opacity-0 data-ending-style:blur-[4px]",
+          "data-ending-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-ending-style:opacity-0 data-ending-style:blur-[calc(4px*var(--kf-flourish,1))]",
           "data-ending-style:[margin-inline-end:calc((var(--attachment-width,0px)+var(--attachment-gap,0px))*-1*var(--attachment-collapse-x,1))]",
           "data-ending-style:[margin-block-end:calc((var(--attachment-height,0px)+var(--attachment-gap,0px))*-1*var(--attachment-collapse-y,0))]",
           "data-ending-style:[transition:scale_calc(200ms*var(--kf-speed,1))_var(--ease-house),opacity_calc(180ms*var(--kf-speed,1))_var(--ease-house),filter_calc(180ms*var(--kf-speed,1))_var(--ease-house),margin-inline-end_calc(320ms*var(--kf-speed,1))_var(--ease-house)_calc(90ms*var(--kf-speed,1)),margin-block-end_calc(320ms*var(--kf-speed,1))_var(--ease-house)_calc(90ms*var(--kf-speed,1))]",

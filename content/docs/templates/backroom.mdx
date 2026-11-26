@@ -71,7 +71,7 @@ To have a coding agent do it, and then rewrite it for your store, use **Copy for
 - **Actions** are all in `store.tsx`. Each page changes the store only through them, so swapping an action's body for a call to your API keeps every page working.
 - **Pages** are listed in `routes.tsx`. Add one there and it appears in the sidebar, the command menu and the breadcrumbs.
 - **Sign-in** goes through the `auth` object in `auth.tsx`. It is a stand-in that checks the sample team; connect it to your own auth before you go live.
-- **Look and feel** follow your theme. Colours come from your CSS variables, and `data-motion="calm"`, `"snappy"` or `"playful"` on `<html>` changes how the whole admin moves. A new shadcn project starts with a grey theme, so its charts and warnings are grey too. For the colours in this preview, add the default [preset](/docs/presets) with `npx shadcn@latest add @keyframery/preset-k0`, or make your own on [Create](/create).
+- **Look and feel** follow your theme. Colours come from your CSS variables, and it moves quietly by default, and `data-motion="springy"`, `"calm"`, `"snappy"` or `"playful"` on `<html>` changes how the whole admin moves. A new shadcn project starts with a grey theme, so its charts and warnings are grey too. For the colours in this preview, add the default [preset](/docs/presets) with `npx shadcn@latest add @keyframery/preset-k0`, or make your own on [Create](/create).
 - **Text** is set in your project's `--font-sans`. If your project has not set one yet, Backroom uses the system font until it does.
 
 ## How it is built

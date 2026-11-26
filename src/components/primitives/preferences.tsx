@@ -7,8 +7,9 @@
 
    The motion style is the preference every Keyframery component already follows. Each duration is
    written as calc(Nms * var(--kf-speed, 1)) and each easing reads --ease-house, --ease-spring or
-   --ease-pop, so one `data-motion` attribute changes how the whole set moves: calm (slower, no
-   bounce), springy (the default), snappy (fast, crisp) and playful (more spring).
+   --ease-pop, so one `data-motion` attribute changes how the whole set moves: subtle (the default:
+   quiet, no bounce, --kf-flourish 0 so only feedback moves), calm (slower, no bounce), springy,
+   snappy (fast, crisp) and playful (more spring).
 
    `motionStyle` is global (on <html>, so popups at the end of <body> follow it too) and saved in
    localStorage. Mount `MotionStyle` once to apply it. `createMotionStyle({ global: false })` makes a
@@ -21,7 +22,7 @@ import * as React from "react"
 
 export * from "@ui-sdk/react/preferences"
 
-const motionStyles = ["calm", "springy", "snappy", "playful"] as const
+const motionStyles = ["subtle", "calm", "springy", "snappy", "playful"] as const
 
 type MotionStyleValue = (typeof motionStyles)[number]
 
@@ -36,7 +37,7 @@ function createMotionStyle({
 } = {}) {
   return createPreference({
     values: motionStyles,
-    defaultValue: "springy",
+    defaultValue: "subtle",
     attribute: "data-motion",
     global,
     storage: storageKey ? createLocalStorage(storageKey) : undefined,

@@ -29,7 +29,7 @@ export function agentPrompt(site = "https://keyframery.com"): string {
     "   If the project already imports a component from @ui-sdk/react, swap that import for the primitive and leave the markup and class names alone.",
     "   Do not overwrite files in components/ui.",
     "",
-    '4. Pick a motion style for the whole app by setting data-motion on <html>: "calm", "snappy" or "playful". Leave it off for the default, springy.',
+    '4. Pick a motion style for the whole app by setting data-motion on <html>: "calm", "springy", "snappy" or "playful". Leave it off for the default, subtle: quick fades, no bounce and no flourishes.',
     "   To let people choose, install @keyframery/motion-style and render <MotionStyleSwitcher />.",
     "",
     "Rules:",

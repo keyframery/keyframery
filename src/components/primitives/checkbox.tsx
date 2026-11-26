@@ -18,14 +18,14 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
   return typeof className === "function" ? (state: S) => cn(base, className(state)) : cn(base, className)
 }
 
-/* Press: the box gives under the finger and springs back on release. */
+/* Press: the box gives under the finger and springs back on release. How far scales with --kf-flourish. */
 function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxPart>) {
   return (
     <CheckboxPart
       className={withClass(
         cn(
           "transition-[scale] duration-[calc(200ms*var(--kf-speed,1))] ease-pop motion-reduce:transition-none!",
-          "not-data-disabled:not-data-readonly:active:scale-[0.86]",
+          "not-data-disabled:not-data-readonly:active:scale-[calc(1-0.14*var(--kf-flourish,1))]",
         ),
         className,
       )}
@@ -37,7 +37,8 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
 /* The indicator pops in from 0.6 with an overshoot and shrinks away on the way out.
    Any stroke inside it draws itself once it appears, a beat after the pop: with your own
    icon (24px strokes) nothing else is needed; for paths with pathLength={1}, set
-   `[--kf-dash:1]` on the indicator. */
+   `[--kf-dash:1]` on the indicator. The pop's size change and the draw scale with --kf-flourish: at 0
+   the check fades in already drawn. */
 function CheckboxIndicator({
   className,
   ...props
@@ -47,11 +48,11 @@ function CheckboxIndicator({
       className={withClass(
         cn(
           "transition-[scale,opacity] duration-[calc(480ms*var(--kf-speed,1))] ease-pop",
-          "data-starting-style:scale-[0.5] data-starting-style:opacity-0",
-          "data-ending-style:scale-[0.6] data-ending-style:opacity-0 data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
+          "data-starting-style:scale-[calc(1-0.5*var(--kf-flourish,1))] data-starting-style:opacity-0",
+          "data-ending-style:scale-[calc(1-0.4*var(--kf-flourish,1))] data-ending-style:opacity-0 data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
           "[&_:is(path,line,polyline)]:[stroke-dasharray:var(--kf-dash,30)] [&_:is(path,line,polyline)]:[stroke-dashoffset:0]",
           "[&_:is(path,line,polyline)]:starting:[stroke-dashoffset:var(--kf-dash,30)]",
-          "[&_:is(path,line,polyline)]:[transition:stroke-dashoffset_calc(260ms*var(--kf-speed,1))_var(--ease-house)_calc(70ms*var(--kf-speed,1))]",
+          "[&_:is(path,line,polyline)]:[transition:stroke-dashoffset_calc(260ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-house)_calc(70ms*var(--kf-speed,1)*var(--kf-flourish,1))]",
           "motion-reduce:transition-none! motion-reduce:[&_:is(path,line,polyline)]:[transition:none]",
         ),
         className,

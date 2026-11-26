@@ -16,13 +16,13 @@ function withClass<S>(base: string, className: string | ((state: S) => string | 
 export * from "@ui-sdk/react/avatar"
 
 /* Moves on a spring when a group makes room for its neighbour, and dips when pressed
-   (rendered as a button or link). */
+   (rendered as a button or link). The dip scales with --kf-flourish. */
 function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarRoot>) {
   return (
     <AvatarRoot
       className={withClass(
         cn(
-          "[transition:translate_calc(460ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)] [&:is(button,a)]:active:scale-[0.92]",
+          "[transition:translate_calc(460ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(220ms*var(--kf-speed,1))_var(--ease-pop)] [&:is(button,a)]:active:scale-[calc(1-0.08*var(--kf-flourish,1))]",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -34,15 +34,16 @@ function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarRoot>
 
 /* Blur-in: the photo arrives out of a 10px blur and a 1.25 zoom, the zoom settling on a spring.
    Until it has loaded, UI SDK keeps it out of sight with its own inline style. A cached image is
-   loaded before its first paint, so `starting:` gives it the same entrance. */
+   loaded before its first paint, so `starting:` gives it the same entrance. The blur and zoom scale with
+   --kf-flourish; the fade always plays. */
 function AvatarImage({ className, ...props }: React.ComponentProps<typeof AvatarImagePart>) {
   return (
     <AvatarImagePart
       className={withClass(
         cn(
           "[transition:opacity_calc(420ms*var(--kf-speed,1))_var(--ease-house),filter_calc(560ms*var(--kf-speed,1))_var(--ease-house),scale_calc(680ms*var(--kf-speed,1))_var(--ease-spring)]",
-          "not-data-[loading-status=loaded]:scale-125 not-data-[loading-status=loaded]:blur-[10px]",
-          "starting:scale-125 starting:opacity-0 starting:blur-[10px]",
+          "not-data-[loading-status=loaded]:scale-[calc(1+0.25*var(--kf-flourish,1))] not-data-[loading-status=loaded]:blur-[calc(10px*var(--kf-flourish,1))]",
+          "starting:scale-[calc(1+0.25*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(10px*var(--kf-flourish,1))]",
           "motion-reduce:transition-none!",
         ),
         className,
@@ -54,15 +55,16 @@ function AvatarImage({ className, ...props }: React.ComponentProps<typeof Avatar
 
 /* Extra helper: overlapping avatars. The hovered one rises 4px and comes to the front; the ones
    after it step 6px right and the ones before it 6px left, so it has room. `data-hovered` on a
-   child does the same, for hover you track yourself (touch, or a scripted demo). */
+   child does the same, for hover you track yourself (touch, or a scripted demo). The rise and the step
+   aside scale with --kf-flourish. */
 function AvatarGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="avatar-group"
       className={cn(
         "isolate flex items-center *:relative",
-        "[&>*:is(:hover,[data-hovered])]:z-10 [&>*:is(:hover,[data-hovered])]:-translate-y-1",
-        "[&>*:is(:hover,[data-hovered])~*]:translate-x-1.5 [&>*:has(~*:is(:hover,[data-hovered]))]:-translate-x-1.5",
+        "[&>*:is(:hover,[data-hovered])]:z-10 [&>*:is(:hover,[data-hovered])]:-translate-y-[calc(0.25rem*var(--kf-flourish,1))]",
+        "[&>*:is(:hover,[data-hovered])~*]:translate-x-[calc(0.375rem*var(--kf-flourish,1))] [&>*:has(~*:is(:hover,[data-hovered]))]:-translate-x-[calc(0.375rem*var(--kf-flourish,1))]",
         className,
       )}
       {...props}

@@ -5,7 +5,8 @@
 
    - List: Glide, one highlight that springs from command to command (CSS anchor positioning).
    - Items: arrive one after another (Cascade), 24px from the side with a 6px blur, whenever they
-     come into the page: when the palette mounts, when a page opens, and when a search lets them back. */
+     come into the page: when the palette mounts, when a page opens, and when a search lets them back.
+     The cascade scales with --kf-flourish: at 0 the items are simply there. The highlight is feedback. */
 
 import {
   CommandGroupLabel as CommandGroupLabelPart,
@@ -25,8 +26,8 @@ export * from "@ui-sdk/react/command"
 
 /* Only opacity, translate and filter transition here, so the delay never slows a hover. */
 const arrive = cn(
-  "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1)))]",
-  "starting:translate-x-6 starting:opacity-0 starting:blur-[6px]",
+  "transition-[opacity,translate,filter] duration-[calc(460ms*var(--kf-speed,1)*var(--kf-flourish,1))] ease-spring [transition-delay:calc((min(sibling-index(),10)-1)*calc(32ms*var(--kf-speed,1))*var(--kf-flourish,1))]",
+  "starting:translate-x-[calc(1.5rem*var(--kf-flourish,1))] starting:opacity-0 starting:blur-[calc(6px*var(--kf-flourish,1))]",
   "motion-reduce:transition-none!",
 )
 

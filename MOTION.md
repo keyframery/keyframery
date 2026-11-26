@@ -190,3 +190,32 @@ Every component must follow the four motion styles (Calm, Springy, Snappy, Playf
 - **Easings:** only `ease-house`, `ease-spring` and `ease-pop` (or `var(--ease-…)` inside arbitrary values). Never write a literal `cubic-bezier` or `linear()`.
 - **Timings in JS** (`setTimeout` and similar): multiply by the speed, read once with `parseFloat(getComputedStyle(el).getPropertyValue("--kf-speed")) || 1`.
 - **Check:** `?motion=calm|snappy|playful` in the lab URL switches the style. The header has a switcher too.
+
+## Flourish and the Subtle default (version 4, 2026-11-26; overrides anything above)
+
+Feedback from a user: "the animation is too much". So the library is now quiet by default and motion is a dial.
+
+- **Five styles.** Subtle (the default, no attribute), Calm, Springy, Snappy, Playful. Springy now needs `data-motion="springy"`.
+- **Subtle** = `--kf-speed: 0.7`, both easings a plain ease-out (`cubic-bezier(0.22, 1, 0.36, 1)`, no overshoot) and `--kf-flourish: 0`. The four expressive styles set `--kf-flourish: 1`.
+- **`--kf-flourish`** is a number from 0 to 1 that scales every *flourish*. Always write it as `var(--kf-flourish,1)`, so a project without our tokens keeps today's motion.
+
+What is feedback (keep it at any flourish; this is the shadcn/ui level):
+- Popups, dialogs, drawers, toasts: fade plus a small scale (0.95 to 0.96) or a small slide (8px or less) in and out.
+- Things that move to show a new state: a tab indicator or segmented key sliding, a switch thumb travelling, accordion and collapsible heights, progress and meter fills, slider thumbs, a chart redrawing when its data changes.
+- Colour, background and focus-ring transitions on hover, press and focus.
+- Loading loops (spinners, skeleton shimmer, indeterminate progress): they mean "working", keep them.
+
+What is flourish (multiply by `var(--kf-flourish,1)` so it disappears at 0):
+- **Amplitudes.** Stretch and squash, overshoot travel, hover and press scales, nudges, shakes, extra blur, extra slide distance beyond the feedback amount, rotation. Write the *delta* times flourish:
+  `hover:scale-[1.45]` → `hover:scale-[calc(1+0.45*var(--kf-flourish,1))]`; `active:scale-[0.96]` → `active:scale-[calc(1-0.04*var(--kf-flourish,1))]`;
+  `translate-x-8` → `translate-x-[calc(2rem*var(--kf-flourish,1))]`; `blur-[6px]` → `blur-[calc(6px*var(--kf-flourish,1))]`.
+  A popup that enters from `scale-[0.85]`: keep the feedback part and scale the rest: `scale-[calc(0.95-0.10*var(--kf-flourish,1))]`.
+- **Entrances of content that is already there** (cards rising, rows cascading, bars growing on mount, lines drawing, badges popping in, stats counting up on load, separators drawing): multiply the animation's duration *and* delay by flourish, e.g. `calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))`. At 0 the element is simply there. Make sure the keyframes use `animation-fill-mode: both` (or the element's resting style equals the last frame) so a 0s animation lands on the final state.
+- **Decorative value changes:** digit rolls, number count-ups, checkmarks drawing, rating pops, OTP waves, error shakes, sparkle and ping effects. Duration (and delay) times flourish, or amplitude times flourish for shakes. The state itself (the new number, the check, the red error colour) must still show at 0.
+- **Staggers:** the delay between items times flourish.
+- **Lags and trailing edges** (Tabs' stretch): the extra duration and the delay times flourish, so at 0 both edges move together. See `src/components/primitives/tabs.tsx`, the reference conversion.
+- **JS timings** that wait for a flourish: read it like the speed, `const f = parseFloat(getComputedStyle(el).getPropertyValue("--kf-flourish")); const flourish = Number.isFinite(f) ? f : 1`, and skip or shorten the wait at 0.
+
+Never multiply a feedback duration by flourish (a popup must still fade, an indicator must still slide). Never remove `motion-reduce` classes. Overshoot needs no edit: it comes from `--ease-spring`/`--ease-pop`, which Subtle sets to a plain ease-out.
+
+Check: `?motion=subtle` and `?motion=springy` in the lab (`pnpm dev`, port 4610). In Subtle a component should feel like shadcn/ui; in Springy exactly as before this change.
