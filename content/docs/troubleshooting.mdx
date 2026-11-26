@@ -61,6 +61,8 @@ Check these in order:
 
 For UI SDK's own causes (exits on the wrong attribute, the tab indicator's first click, reduced motion that leaves popups open), see [UI SDK animations not working](/docs/guides/animations-not-working).
 
+Animating UI SDK parts with shadcn/ui's tw-animate-css classes? Entering works, but a dialog shows for one frame after it closes unless you add `data-closed:fill-mode-forwards`. The test is in [UI SDK with shadcn/ui](/blog/ui-sdk-with-shadcn).
+
 ## A button shows two spinners while pending
 
 Keyframery's Button renders its own spinner while pending. If yours already renders one, pass `pendingIndicator={null}`.

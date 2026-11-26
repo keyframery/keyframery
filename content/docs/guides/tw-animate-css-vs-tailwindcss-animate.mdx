@@ -60,4 +60,4 @@ The tw-animate-css classes in shadcn/ui examples are keyed to Radix's `data-stat
 }
 ```
 
-The full tested set (menus, dialogs, tabs, collapsible panels, reduced motion) is in [What is Vercel's UI SDK, and how do you animate it?](/blog/what-is-vercel-ui-sdk). Keyframery's [63 animated UI SDK components](/docs/components) are built the same way, so they need neither tw-animate-css nor tailwindcss-animate. If something still won't move, see [UI SDK animations not working](/docs/guides/animations-not-working).
+The full tested set (menus, dialogs, tabs, collapsible panels, reduced motion) is in [What is Vercel's UI SDK, and how do you animate it?](/blog/what-is-vercel-ui-sdk). If you keep shadcn's tw-animate-css classes on UI SDK parts, entering works, but a dialog needs `data-closed:fill-mode-forwards` to leave cleanly: see [UI SDK with shadcn/ui](/blog/ui-sdk-with-shadcn). Keyframery's [animated UI SDK components](/docs/components) are built the same way, so they need neither tw-animate-css nor tailwindcss-animate. If something still won't move, see [UI SDK animations not working](/docs/guides/animations-not-working).

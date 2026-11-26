@@ -28,6 +28,8 @@ Exit styles written on `data-closed` never play. `data-closed` describes the sta
 }
 ```
 
+We tested this pattern on menus, dialogs, tabs and collapsible panels in [What is Vercel's UI SDK, and how do you animate it?](/blog/what-is-vercel-ui-sdk). If your exits come from shadcn/ui's tw-animate-css classes instead, see [UI SDK with shadcn/ui](/blog/ui-sdk-with-shadcn).
+
 ## 2. The tab indicator jumps on the first click
 
 UI SDK's documented indicator recipe turns transitions off while `data-activation-direction` is `none`. The first selection after mount writes the `--active-tab-*` variables before that attribute changes, so the first move happens with transitions off ([#532](https://github.com/vercel-labs/ui/issues/532)). Leave out the rule that sets `transition: none` for `data-activation-direction="none"`, and the first click slides. Keyframery's animated [Tabs](/docs/components/tabs) ship without it.

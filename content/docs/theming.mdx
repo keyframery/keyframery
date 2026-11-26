@@ -35,6 +35,8 @@ The finished components are styled with the shadcn/ui colour tokens. If your app
 
 Change `--primary` and every selected key, checked box and filled bar follows. Change `--ring` and every focus ring follows.
 
+If your project also loads UI SDK's own default stylesheet (`web.css`), its dark mode follows the operating system instead of your theme switch. [UI SDK with shadcn/ui](/blog/ui-sdk-with-shadcn) lists the `--ui-*` tokens to point at shadcn's tokens so both switch together.
+
 ## 2. Your classes
 
 Every part takes `className`, merged after ours, so yours win:
