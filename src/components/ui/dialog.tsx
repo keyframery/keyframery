@@ -156,6 +156,13 @@ function DialogContent({
           "rounded-[var(--dialog-radius,18px)] bg-[var(--dialog-face,var(--popover))] text-[color:var(--dialog-ink,var(--popover-foreground))]",
           "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_24px_56px_-12px_rgb(0_0_0/0.28)]",
           "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_24px_56px_-12px_rgb(0_0_0/0.8)]",
+    /* As a sheet (presentation="sheet", or "auto" on small touch screens): UI SDK stretches it across
+       the bottom of the screen, so it drops its own width, squares its bottom edge, leaves room for the
+       home indicator and shows a grip. */
+    "data-[presentation=sheet]:m-0 data-[presentation=sheet]:w-auto! data-[presentation=sheet]:min-w-0! data-[presentation=sheet]:max-w-none! data-[presentation=sheet]:rounded-b-none",
+    "data-[presentation=sheet]:pt-6 data-[presentation=sheet]:pb-[calc(0.75rem+env(safe-area-inset-bottom))]",
+    "data-[presentation=sheet]:after:pointer-events-none data-[presentation=sheet]:after:absolute data-[presentation=sheet]:after:top-2 data-[presentation=sheet]:after:left-1/2 data-[presentation=sheet]:after:h-1 data-[presentation=sheet]:after:w-9 data-[presentation=sheet]:after:-translate-x-1/2 data-[presentation=sheet]:after:rounded-full data-[presentation=sheet]:after:bg-foreground/15 data-[presentation=sheet]:after:content-['']",
+          "data-[presentation=sheet]:max-h-[calc(100dvh-3rem)]",
         ),
         className,
       )}

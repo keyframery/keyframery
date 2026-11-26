@@ -57,6 +57,12 @@ const sheet = cn(
   "shadow-[0_0_0_1px_rgb(0_0_0/0.06),0_2px_6px_-2px_rgb(0_0_0/0.08),0_12px_32px_-8px_rgb(0_0_0/0.18)]",
   "dark:shadow-[0_0_0_1px_rgb(255_255_255/0.08),0_12px_32px_-8px_rgb(0_0_0/0.7)]",
   "before:rounded-[8px] before:bg-[var(--select-accent,var(--accent))] has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--select-accent,var(--accent))_50%,transparent)]",
+  /* As a sheet (presentation="sheet", or "auto" on small touch screens): UI SDK stretches it across
+     the bottom of the screen, so it drops its own width, squares its bottom edge, leaves room for the
+     home indicator and shows a grip. */
+  "data-[presentation=sheet]:m-0 data-[presentation=sheet]:w-auto! data-[presentation=sheet]:min-w-0! data-[presentation=sheet]:max-w-none! data-[presentation=sheet]:rounded-b-none",
+  "data-[presentation=sheet]:pt-6 data-[presentation=sheet]:pb-[calc(0.75rem+env(safe-area-inset-bottom))]",
+  "data-[presentation=sheet]:after:pointer-events-none data-[presentation=sheet]:after:absolute data-[presentation=sheet]:after:top-2 data-[presentation=sheet]:after:left-1/2 data-[presentation=sheet]:after:h-1 data-[presentation=sheet]:after:w-9 data-[presentation=sheet]:after:-translate-x-1/2 data-[presentation=sheet]:after:rounded-full data-[presentation=sheet]:after:bg-foreground/15 data-[presentation=sheet]:after:content-['']",
 )
 
 /* One row for items and the select-all row. No background of its own: the gliding highlight sits under it. */
@@ -107,12 +113,14 @@ function SearchIcon() {
   )
 }
 
+/* A popover on wide screens and a sheet from the bottom edge on small touch screens (UI SDK's
+   presentation="auto"). Pass presentation="popover" to keep it floating everywhere. */
 function Select<T = string, Multiple extends boolean | undefined = false>(
-  { speed, ...props }: SelectProps<T, Multiple> & SpeedProps,
+  { speed, presentation = "auto", ...props }: SelectProps<T, Multiple> & SpeedProps,
 ) {
   return (
     <Speed speed={speed}>
-      <SelectRoot<T, Multiple> {...(props as SelectProps<T, Multiple>)} />
+      <SelectRoot<T, Multiple> presentation={presentation} {...(props as SelectProps<T, Multiple>)} />
     </Speed>
   )
 }

@@ -40,7 +40,7 @@
     "DatePicker.closeOnSelect": "Close after choosing a date or complete range.",
     "DatePicker.dismissible": "Allow Escape and outside presses to dismiss.",
     "DatePicker.showOutsideDays": "Show adjacent-month dates.",
-    "DatePicker.presentation": "Show a popover, bottom sheet, or adapt to small touch screens.",
+    "DatePicker.presentation": "\"auto\" (the default here) is a popover on wide screens and a sheet from the bottom edge on small touch screens; \"popover\" floats everywhere; \"sheet\" always slides up.",
     "DatePickerContent.side": "Preferred side of the date field.",
     "DatePickerContent.align": "Align popup with the field.",
     "DatePickerContent.sideOffset": "Field-to-popup gap in pixels."

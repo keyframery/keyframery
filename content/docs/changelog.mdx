@@ -4,14 +4,32 @@ heading: "Changelog"
 description: "What changed in Keyframery, newest first: new components, UI SDK upgrades, templates, motion styles and fixes."
 ---
 
-## Quiet by default: the Subtle motion style
+## 3.0: Quiet by default, sheets on phones
 
 November 2026
 
-- **Keyframery is quiet by default.** The new default style, [Subtle](/docs/motion-styles), moves about as much as shadcn/ui: quick fades and slides, no bounce. Calm, Springy, Snappy and Playful are one `data-motion` attribute away, and the switcher on every page now starts at Subtle.
-- **A new token, `--kf-flourish`,** scales every flourish: stretches, pops, rolling numbers, drawing checks, shakes and entrance cascades. `0` in Subtle, `1` in the four expressive styles, and anything in between for your own style. The state itself always shows.
-- **To keep the springy motion you had,** put `data-motion="springy"` on `<html>`. It updates the next time you add a component, when the CLI refreshes the motion tokens.
-- **[Create](/create)** starts from Subtle, and existing preset codes keep the motion they were made with.
+Keyframery 3.0 is the component library for UI SDK that fits any product: calm out of the box, with the springs one attribute away, and popups that become sheets on phones.
+
+**Motion is a dial now**
+
+- **Subtle is the new default.** It moves about as much as shadcn/ui: quick fades and slides, no bounce. [Calm, Springy, Snappy and Playful](/docs/motion-styles) turn the motion up with one `data-motion` attribute, and every switcher on the site starts at Subtle.
+- **A new token, `--kf-flourish`, scales every flourish** in all 89 components: stretches, pops, press scales, rolling numbers, drawn checks, shakes and the cascades that play when content appears. It is `0` in Subtle and `1` in the four expressive styles; anything in between works for your own style. The state itself (the new number, the check, the red error) always shows.
+- **To keep the springy motion you had,** put `data-motion="springy"` on `<html>`. It looks exactly as before: we compared every component against 2.x frame by frame.
+- **[Create](/create)** starts from Subtle, and every preset code you have shared keeps the motion it was made with.
+
+**Popovers on desktop, sheets on phones**
+
+- **Popover, Menu, Select, Combobox, Autocomplete and Date Picker** now open as a sheet from the bottom of the screen on small touch screens and stay popovers everywhere else. This is UI SDK's `presentation="auto"`, now the default; pass `presentation="popover"` to keep one floating everywhere.
+- **Every popup is styled as a sheet,** Dialog included (`presentation="sheet"` or `"auto"`): full width, a grip, room for the home indicator, and for Combobox and Autocomplete the search field moves into the sheet's header.
+- **Combobox and Autocomplete** gain a Presentation control in Customize, like the others.
+
+**UI SDK 0.1.0-beta.17**
+
+- **Built and tested on UI SDK `0.1.0-beta.17`.** The registry pins it, so adding a component brings a project up to beta.17: six releases of fixes, and agents that can find a component on another tab, page or closed section.
+
+**Smaller changes**
+
+- **Segmented Control** takes `--segmented-control-item-padding`, so a control with many items fits a narrow space.
 
 ## Backroom: inventory, reviews, payouts and invoices
 

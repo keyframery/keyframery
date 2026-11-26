@@ -37,6 +37,7 @@
     "Autocomplete.required": "Require a nonempty value in form submission.",
     "AutocompleteContent.side": "Preferred popup side, subject to collisions.",
     "AutocompleteContent.align": "Align the suggestions with the field.",
-    "AutocompleteContent.sideOffset": "Space from field to popup in pixels."
+    "AutocompleteContent.sideOffset": "Space from field to popup in pixels.",
+    "Autocomplete.presentation": "\"auto\" (the default here) is a popover on wide screens and a sheet from the bottom edge on small touch screens; \"popover\" floats everywhere; \"sheet\" always slides up."
   }
 }

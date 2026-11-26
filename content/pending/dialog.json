@@ -38,7 +38,7 @@
   ],
   "propDocs": {
     "Dialog.modal": "true blocks the page; trap-focus traps focus only; false allows the page beside the dialog.",
-    "Dialog.presentation": "Dialog, bottom sheet or automatic touch adaptation.",
+    "Dialog.presentation": "\"dialog\" (the default) is centred; \"sheet\" slides up from the bottom edge; \"auto\" does that only on small touch screens.",
     "Dialog.dismissible": "Allow Escape and back gesture dismissal.",
     "Dialog.closeOnOutsidePress": "Dismiss after an outside press is released.",
     "DialogTrigger.disabled": "Prevent the trigger opening the dialog.",

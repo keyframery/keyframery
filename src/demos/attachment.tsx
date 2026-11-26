@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/attachment"
 import { Button } from "@/components/ui/button"
 
-export const meta = { name: "Attachment", group: "Chat" }
+export const meta = { name: "Attachment", group: "AI" }
 
 /* The demo plays itself: a council-tax bill is attached and pops in, its upload line fills and it
    settles as done; then the letter that was too large is removed, and the files after it close the gap. */

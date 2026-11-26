@@ -37,6 +37,7 @@
     "Combobox.required": "Require a selected city.",
     "ComboboxContent.side": "Preferred popup side.",
     "ComboboxContent.align": "Popup alignment.",
-    "ComboboxContent.sideOffset": "Popup gap in pixels."
+    "ComboboxContent.sideOffset": "Popup gap in pixels.",
+    "Combobox.presentation": "\"auto\" (the default here) is a popover on wide screens and a sheet from the bottom edge on small touch screens; \"popover\" floats everywhere; \"sheet\" always slides up."
   }
 }

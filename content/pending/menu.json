@@ -44,7 +44,7 @@
   "propDocs": {
     "Menu.loop": "Wraps arrow-key navigation at the ends of a menu.",
     "Menu.dismissible": "Allows Escape and outside interactions to dismiss the menu.",
-    "Menu.presentation": "Popover, touch sheet, or automatic presentation.",
+    "Menu.presentation": "\"auto\" (the default here) is a popover on wide screens and a sheet from the bottom edge on small touch screens; \"popover\" floats everywhere; \"sheet\" always slides up.",
     "Menu.modal": "Pointer mode consumes the outside press; true also traps focus and locks scroll; false allows outside interaction.",
     "MenuTrigger.disabled": "Prevents the trigger from opening the menu.",
     "MenuTrigger.focusableWhenDisabled": "Keeps a disabled trigger focusable with aria-disabled.",

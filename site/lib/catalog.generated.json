@@ -109,7 +109,7 @@
     {
       "slug": "attachment",
       "name": "Attachment",
-      "group": "Chat",
+      "group": "AI",
       "description": "File cards with image previews, upload progress, retry and remove actions, built on UI SDK core.",
       "sdk": null,
       "core": true,
@@ -227,7 +227,7 @@
     {
       "slug": "bubble",
       "name": "Bubble",
-      "group": "Chat",
+      "group": "AI",
       "description": "Chat bubbles that grow from their sender’s corner, with grouped messages, reply actions and delayed reactions, built on UI SDK core.",
       "sdk": null,
       "core": true,
@@ -1105,7 +1105,7 @@
     {
       "slug": "message",
       "name": "Message",
-      "group": "Chat",
+      "group": "AI",
       "description": "Sender-aware chat messages with avatars, headers and read receipts that arrive in sequence, built on UI SDK core.",
       "sdk": null,
       "core": true,
@@ -1123,7 +1123,7 @@
     {
       "slug": "message-scroller",
       "name": "Message Scroller",
-      "group": "Chat",
+      "group": "AI",
       "description": "A conversation scroller that follows new messages, preserves reading position and counts unread messages, composed from UI SDK scroll area and core.",
       "sdk": null,
       "core": true,
@@ -1935,7 +1935,7 @@
     {
       "slug": "trace",
       "name": "Trace",
-      "group": "Chat",
+      "group": "AI",
       "description": "Steps rise in one after another, a running title has a light passing through it, a finished step's tick pops in and draws itself, and a row opens to its real height with its detail cascading in.",
       "sdk": null,
       "core": true,

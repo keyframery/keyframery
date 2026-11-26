@@ -4,7 +4,7 @@ import * as React from "react"
 import { Bubble, BubbleContent } from "@/components/ui/bubble"
 import { Message, MessageAvatar, MessageContent, MessageFooter, MessageGroup, MessageHeader } from "@/components/ui/message"
 
-export const meta = { name: "Message", group: "Chat" }
+export const meta = { name: "Message", group: "AI" }
 
 /* The demo plays itself: you send the reply that is typed in, it rises in on your side, and Maya's
    answer arrives a moment later: avatar, name, bubble and time landing one after another. */

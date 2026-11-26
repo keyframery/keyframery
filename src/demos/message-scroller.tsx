@@ -13,7 +13,7 @@ import {
   MessageScrollerViewport,
 } from "@/components/ui/message-scroller"
 
-export const meta = { name: "Message Scroller", group: "Chat" }
+export const meta = { name: "Message Scroller", group: "AI" }
 
 /* The demo plays itself: the guest scrolls back up to reread the directions, the host sends photos
    and the key-box code meanwhile (the jump key rises and its count rolls), the guest jumps back down,

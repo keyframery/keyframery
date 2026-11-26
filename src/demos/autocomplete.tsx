@@ -27,6 +27,7 @@ export const controls = {
   filter: { type: "select", label: "Filter", default: "contains", options: ["contains", "startsWith", "fuzzy"], group: "Behaviour" },
   side: { type: "select", label: "Side", default: "bottom", options: ["bottom", "top", "left", "right"], group: "Behaviour" },
   align: { type: "select", label: "Align", default: "start", options: ["start", "center", "end"], group: "Behaviour" },
+  presentation: { type: "select", label: "Presentation", default: "auto", options: ["auto", "popover", "sheet"], group: "Behaviour" },
   label: { type: "text", label: "Label", default: "Find a recipe" },
   placeholder: { type: "text", label: "Placeholder", default: "Pasta, curry, something sweet…" },
   empty: { type: "text", label: "Empty", default: "No recipes match. Press Enter to search anyway." },
@@ -117,6 +118,7 @@ export default function AutocompleteDemo({
   filter = "contains",
   side = "bottom",
   align = "start",
+  presentation = "auto",
   label = "Find a recipe",
   placeholder = "Pasta, curry, something sweet…",
   empty = "No recipes match. Press Enter to search anyway.",
@@ -138,6 +140,7 @@ export default function AutocompleteDemo({
   filter?: "contains" | "startsWith" | "fuzzy"
   side?: "bottom" | "top" | "left" | "right"
   align?: "start" | "center" | "end"
+  presentation?: "auto" | "popover" | "sheet"
   label?: string
   placeholder?: string
   empty?: string
@@ -157,7 +160,7 @@ export default function AutocompleteDemo({
   } as React.CSSProperties
   return (
     <div style={{ ...theme, maxWidth: width }} className="flex w-full flex-col gap-2">
-      <Autocomplete items={recipes.slice(0, items)} emptyItems={recentGroup} openOnFocus={openOnFocus} autoHighlight={autoHighlight} disabled={disabled} readOnly={readOnly} required={required} inlineComplete={inlineComplete} loop={loop} filter={filter}>
+      <Autocomplete presentation={presentation} items={recipes.slice(0, items)} emptyItems={recentGroup} openOnFocus={openOnFocus} autoHighlight={autoHighlight} disabled={disabled} readOnly={readOnly} required={required} inlineComplete={inlineComplete} loop={loop} filter={filter}>
         <AutocompleteLabel>{label}</AutocompleteLabel>
         <AutocompleteControl>
           <SearchIcon />

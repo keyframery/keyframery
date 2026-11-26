@@ -55,6 +55,8 @@ function PopoverContent<Payload = unknown>({
             "origin-(--transform-origin) transition-[opacity,scale,translate,filter] duration-[calc(380ms*var(--kf-speed,1))] ease-spring",
             "data-[side=bottom]:[--kf-from:0_-8px] data-[side=left]:[--kf-from:8px_0] data-[side=right]:[--kf-from:-8px_0] data-[side=top]:[--kf-from:0_8px]",
             "data-starting-style:[translate:var(--kf-from,0_0)] data-starting-style:scale-[calc(0.95-0.09*var(--kf-flourish,1))] data-starting-style:opacity-0 data-starting-style:blur-[calc(6px*var(--kf-flourish,1))]",
+            /* As a sheet it slides up from the bottom edge instead, so no unfold, blur or nudge toward a trigger. */
+            "data-[presentation=sheet]:data-starting-style:scale-100 data-[presentation=sheet]:data-starting-style:blur-none data-[presentation=sheet]:data-starting-style:translate-none data-[presentation=sheet]:data-ending-style:scale-100 data-[presentation=sheet]:data-ending-style:blur-none data-[presentation=sheet]:data-ending-style:translate-none",
             "data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-ending-style:blur-[calc(2px*var(--kf-flourish,1))] data-ending-style:duration-[calc(150ms*var(--kf-speed,1))] data-ending-style:ease-house",
             "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:animate-[kf-cascade_calc(420ms*var(--kf-speed,1)*var(--kf-flourish,1))_var(--ease-spring)_backwards]",
             "[&>*:not([data-slot$=-close],[data-slot$=-arrow])]:[animation-delay:calc((calc(40ms*var(--kf-speed,1))+(min(sibling-index(),10)-1)*calc(40ms*var(--kf-speed,1)))*var(--kf-flourish,1))]",

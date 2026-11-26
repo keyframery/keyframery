@@ -14,7 +14,7 @@ export const MOVES: Record<string, string> = catalog.moves
 export type Entry = { slug: string; name: string; group: string; description: string; sdk: string | null; core: boolean; moves: [string, string][] }
 
 /* The order groups appear in, from the most used to the most specialised. */
-export const groupOrder = ["Actions", "Forms", "Menus", "Overlays", "Navigation", "Disclosure", "Display", "Feedback", "Dates", "Layout", "Media", "Data", "Motion"]
+export const groupOrder = ["Actions", "Forms", "Menus", "Overlays", "Navigation", "Disclosure", "Display", "Feedback", "Dates", "Layout", "Media", "Data", "AI", "Motion"]
 
 export const entries = catalog.entries as Entry[]
 

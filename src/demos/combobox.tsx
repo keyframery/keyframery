@@ -32,6 +32,7 @@ export const controls = {
   autoHighlight: { type: "select", label: "Auto highlight", default: "always", options: ["always", "typing", "off"], group: "Behaviour" },
   side: { type: "select", label: "Side", default: "bottom", options: ["bottom", "top", "left", "right"], group: "Behaviour" },
   align: { type: "select", label: "Align", default: "start", options: ["start", "center", "end"], group: "Behaviour" },
+  presentation: { type: "select", label: "Presentation", default: "auto", options: ["auto", "popover", "sheet"], group: "Behaviour" },
   items: { type: "slider", label: "Items", default: 9, min: 1, max: 9, step: 1 },
   label: { type: "text", label: "Label", default: "Where to next?" },
   placeholder: { type: "text", label: "Placeholder", default: "Search cities…" },
@@ -100,6 +101,7 @@ export default function ComboboxDemo({
   autoHighlight = "always",
   side = "bottom",
   align = "start",
+  presentation = "auto",
   items = 9,
   label = "Where to next?",
   placeholder = "Search cities…",
@@ -121,6 +123,7 @@ export default function ComboboxDemo({
   autoHighlight?: "always" | "typing" | "off"
   side?: "bottom" | "top" | "left" | "right"
   align?: "start" | "center" | "end"
+  presentation?: "auto" | "popover" | "sheet"
   items?: number
   label?: string
   placeholder?: string
@@ -140,7 +143,7 @@ export default function ComboboxDemo({
   } as React.CSSProperties
   return (
     <div style={{ ...theme, maxWidth: width }} className="w-full">
-      <Combobox<string, boolean> key={String(multiple)} multiple={multiple} defaultValue={multiple ? ["lisbon"] : "lisbon"} autoHighlight={autoHighlight === "always" ? "always" : autoHighlight === "typing"} disabled={disabled} readOnly={readOnly} required={required} keepQuery={keepQuery} allowCustomValue={allowCustomValue} loop={loop}>
+      <Combobox<string, boolean> key={String(multiple)} presentation={presentation} multiple={multiple} defaultValue={multiple ? ["lisbon"] : "lisbon"} autoHighlight={autoHighlight === "always" ? "always" : autoHighlight === "typing"} disabled={disabled} readOnly={readOnly} required={required} keepQuery={keepQuery} allowCustomValue={allowCustomValue} loop={loop}>
         <div className="flex flex-col gap-2">
           <ComboboxLabel>{label}</ComboboxLabel>
           <ComboboxControl>

@@ -56,6 +56,12 @@ const sheet = cn(
   "before:rounded-[var(--menu-item-radius,8px)] before:bg-[var(--menu-highlight,var(--accent))]",
   "has-[[data-destructive][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-danger,var(--destructive))_10%,transparent)]",
   "has-[[data-disabled][data-highlighted]]:before:bg-[color-mix(in_oklab,var(--menu-highlight,var(--accent))_50%,transparent)]",
+  /* As a sheet (presentation="sheet", or "auto" on small touch screens): UI SDK stretches it across
+     the bottom of the screen, so it drops its own width, squares its bottom edge, leaves room for the
+     home indicator and shows a grip. */
+  "data-[presentation=sheet]:m-0 data-[presentation=sheet]:w-auto! data-[presentation=sheet]:min-w-0! data-[presentation=sheet]:max-w-none! data-[presentation=sheet]:rounded-b-none",
+  "data-[presentation=sheet]:pt-6 data-[presentation=sheet]:pb-[calc(0.75rem+env(safe-area-inset-bottom))]",
+  "data-[presentation=sheet]:after:pointer-events-none data-[presentation=sheet]:after:absolute data-[presentation=sheet]:after:top-2 data-[presentation=sheet]:after:left-1/2 data-[presentation=sheet]:after:h-1 data-[presentation=sheet]:after:w-9 data-[presentation=sheet]:after:-translate-x-1/2 data-[presentation=sheet]:after:rounded-full data-[presentation=sheet]:after:bg-foreground/15 data-[presentation=sheet]:after:content-['']",
 )
 
 /* One row for every kind of item. No background of its own: the sheet's highlight glides under it,
@@ -124,7 +130,9 @@ function useMenuPart(kind: MenuPartKind) {
 
 /* Pass `items` to write the menu as data. Like UI SDK, the root then renders the content for you,
    unless you place a MenuContent of your own. */
-function Menu({ speed, children, ...props }: React.ComponentProps<typeof MenuRoot> & SpeedProps) {
+/* A popover on wide screens and a sheet from the bottom edge on small touch screens (UI SDK's
+   presentation="auto"). Pass presentation="popover" to keep it floating everywhere. */
+function Menu({ speed, children, presentation = "auto", ...props }: React.ComponentProps<typeof MenuRoot> & SpeedProps) {
   const { items } = props
   const [placed, setPlaced] = React.useState({ content: 0, trigger: 0, context: 0 })
   const register = React.useCallback((kind: MenuPartKind) => {
@@ -139,7 +147,7 @@ function Menu({ speed, children, ...props }: React.ComponentProps<typeof MenuRoo
   return (
     <Speed speed={speed}>
       <MenuSharedContext value={shared}>
-        <MenuRoot {...props}>
+        <MenuRoot presentation={presentation} {...props}>
           {children}
           {items && !hasContent ? <MenuSheet /> : null}
         </MenuRoot>

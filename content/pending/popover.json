@@ -43,7 +43,7 @@
   ],
   "propDocs": {
     "Popover.modal": "False leaves outside content usable; true traps focus and locks scroll; trap-focus traps focus while leaving outside content usable.",
-    "Popover.presentation": "Popover, sheet, or automatic touch presentation.",
+    "Popover.presentation": "\"auto\" (the default here) is a popover on wide screens and a sheet from the bottom edge on small touch screens; \"popover\" floats everywhere; \"sheet\" always slides up.",
     "Popover.dismissible": "Allows Escape and outside interactions to close the popup.",
     "Popover.openOnHover": "Opens after resting on the trigger, while retaining press activation.",
     "PopoverTrigger.disabled": "Prevents the trigger from opening the popup.",

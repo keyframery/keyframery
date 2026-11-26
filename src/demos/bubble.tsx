@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from "@/components/ui/bubble"
 
-export const meta = { name: "Bubble", group: "Chat" }
+export const meta = { name: "Bubble", group: "AI" }
 
 /* The demo plays itself: the client taps a quick reply, it pops in as their bubble, the chef's answer
    pops in after it, and a heart lands on the reply. Then the chat starts over. */

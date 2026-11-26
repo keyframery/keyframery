@@ -12,7 +12,7 @@ import {
   type TraceStatus,
 } from "@/components/ui/trace"
 
-export const meta = { name: "Trace", group: "Chat" }
+export const meta = { name: "Trace", group: "AI" }
 
 /* Open the failed booking, close it, then plan again: the steps cascade back in and run one by one. */
 export const play = [
