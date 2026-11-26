@@ -13,6 +13,7 @@
     "check": "tsc --noEmit && tsc --noEmit -p tsconfig.next.json && tsc --noEmit -p tsconfig.registry.json && node --test scripts/tests/*.test.mjs && node scripts/check-sdk-contracts.mjs --styled && node scripts/check-customization.mjs && node scripts/check-registry.mjs && node scripts/stamp-copy.mjs --check",
     "check:browser": "node scripts/check-demos.cjs",
     "check:weight": "node scripts/check-page-weight.mjs",
+    "check:controls": "node scripts/check-controls.mjs",
     "sdk:latest": "node scripts/check-sdk-latest.mjs"
   },
   "dependencies": {
