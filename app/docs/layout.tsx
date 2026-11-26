@@ -6,6 +6,7 @@ import { getDocsNavigation } from "@site/lib/docs-navigation"
 import { REPO } from "@site/lib/shared"
 
 import { SidebarActiveIntoView } from "./sidebar-active-into-view"
+import { StarPrompt } from "./star-prompt"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const options = baseOptions()
@@ -16,6 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <DocsLayout tree={getDocsNavigation()} {...options} nav={{ ...options.nav, children: undefined }} links={links} sidebar={{ defaultOpenLevel: 0 }}>
       <SidebarActiveIntoView />
+      <StarPrompt />
       {children}
     </DocsLayout>
   )
