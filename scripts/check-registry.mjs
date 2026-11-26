@@ -47,7 +47,9 @@ for (const slug of slugs) {
   }
   for (const match of source.matchAll(/"@\/components\/keyframery\/(?:primitives\/|core\/)?([a-z-]+)"/g)) {
     const dependency = match[1].replace(/-core$/, "")
-    if (dependency !== slug) assert.ok(item.registryDependencies.includes(`@keyframery/${dependency}`), `${slug} does not install its ${dependency} dependency`)
+    /* A helper of the component's own (core/<slug>-<name>) ships in the item itself. */
+    const shipsItself = item.files.some((file) => file.path.endsWith(`/core/${dependency}-core.ts`))
+    if (dependency !== slug && !shipsItself) assert.ok(item.registryDependencies.includes(`@keyframery/${dependency}`), `${slug} does not install its ${dependency} dependency`)
   }
 }
 const all = items.get("all").registryDependencies

@@ -1,0 +1,46 @@
+{
+  "description": "Review the changes an agent proposes to a file: a line diff computed in-house (or read from a patch), unified or side by side, changed words marked, long unchanged runs folded, and Accept or Reject on every hunk.",
+  "moves": [
+    ["Direction", "Switching unified and split, the new layout fades in from the side of its button while the switch's key slides across."],
+    ["Height", "An opened fold grows from its row to its lines, which fade in."],
+    ["Cascade", "On mount, hunks rise in one after another (flourish)."],
+    ["Roll", "The +added and −removed counts roll up to their values (flourish)."],
+    ["Draw", "Accepting a hunk swaps its buttons for a tick that draws itself; a rejected hunk steps back."],
+    ["Press", "The view switch, review buttons and copy key sink under the press."]
+  ],
+  "keyboard": [
+    ["Tab", "Moves to the view switch, the copy button, the body (so it can scroll), then each fold and review button."],
+    ["← → ↑ ↓", "Scroll the diff while the body has focus."],
+    ["Enter or Space", "Presses the focused button: switch view, open a fold, accept, reject, undo or copy."]
+  ],
+  "propDocs": {
+    "DiffViewer.before": "The file before the change. With after, the diff is computed in the browser (Myers, no package).",
+    "DiffViewer.after": "The file after the change. Also what the copy button copies.",
+    "DiffViewer.patch": "A unified diff (git diff), used when before and after are left out. Folds between its hunks show their size but can't open.",
+    "DiffViewer.filename": "The file name in the header. Read from the patch when left out.",
+    "DiffViewer.language": "Which tokenizer colours the code: \"ts\", \"tsx\", \"js\", \"jsx\", \"json\", \"css\", \"html\", \"bash\" or \"text\". Guessed from the file name by default.",
+    "DiffViewer.view": "\"unified\" or \"split\", controlled.",
+    "DiffViewer.defaultView": "The view at first, when uncontrolled. Defaults to \"unified\".",
+    "DiffViewer.onViewChange": "Called with the view someone (or an agent) switched to.",
+    "DiffViewer.splitMinWidth": "Below this width in pixels the split view shows as unified. Defaults to 640.",
+    "DiffViewer.context": "Unchanged lines kept around each change. Defaults to 3.",
+    "DiffViewer.wordDiff": "Marks the words that changed inside a changed line. Defaults to true.",
+    "DiffViewer.review": "Shows Accept and Reject on every hunk. On by default when onAccept or onReject is given.",
+    "DiffViewer.onAccept": "Called with the hunk's index and the hunk when the reviewer accepts it.",
+    "DiffViewer.onReject": "Called with the hunk's index and the hunk when the reviewer rejects it.",
+    "DiffViewer.onUndo": "Called with the hunk's index and the hunk when the reviewer takes a decision back.",
+    "DiffViewer.onCopy": "Called with the text after the copy button copied it.",
+    "DiffViewer.lineNumbers": "Shows the old and new line numbers. Defaults to true.",
+    "DiffViewer.speed": "How fast it moves: \"fast\", \"normal\", \"slow\" or a multiplier.",
+    "DiffViewerViewOption.value": "\"unified\" or \"split\"."
+  },
+  "cssVars": [
+    ["--diff-viewer-face", "Sheet", "bg-card"],
+    ["--diff-viewer-ink", "Code text", "text-card-foreground"],
+    ["--diff-viewer-added", "Added lines and words", "oklch(0.62 0.16 150)"],
+    ["--diff-viewer-removed", "Removed lines and words", "var(--destructive)"],
+    ["--diff-viewer-radius", "Sheet corners", "rounded-[14px]"],
+    ["--diff-viewer-font", "Code size", "text-[12.5px]"],
+    ["--diff-viewer-max-height", "Body height before it scrolls", "none"]
+  ]
+}

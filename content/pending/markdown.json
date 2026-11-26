@@ -1,0 +1,29 @@
+{
+  "description": "Renders an AI answer's markdown as it streams: finished blocks stay put while only the last one grows, each new block rises in, unfinished syntax reads as it will once closed, and a slim caret marks where the text is arriving.",
+  "moves": [
+    ["Steady", "Each block is drawn from its own source, so finished blocks never re-render or move while the text after them arrives."],
+    ["Rise", "A new block fades up out of a soft blur as it starts."],
+    ["Caret", "While streaming, a slim caret sits at the end of the text and pulses softly; it stays still for reduced motion."],
+    ["Cascade", "Fenced code arrives line by line in Keyframery's code block, and its copy key appears when the closing fence lands."]
+  ],
+  "keyboard": [
+    ["Tab", "Moves to the next link, then to a code block's code and its copy button."],
+    ["Enter", "Opens the focused link. Links to other sites open in a new tab."]
+  ],
+  "propDocs": {
+    "Markdown.children": "The markdown, as a string. `content` works too.",
+    "Markdown.streaming": "True while the text is still arriving: an unclosed `**`, fence, link or table row reads as it will once closed, and the caret shows.",
+    "Markdown.caret": "Show the caret while streaming. Default true.",
+    "Markdown.components": "Your own element for any tag (`p`, `h1` to `h6`, `a`, `strong`, `em`, `del`, `code`, `ul`, `ol`, `li`, `blockquote`, `hr`, `table` and its parts), and `codeBlock` for fenced code. Keep the object stable.",
+    "Markdown.className": "Classes for the root, which lays the blocks out in a column."
+  },
+  "cssVars": [
+    ["--markdown-ink", "Body text", "text-foreground"],
+    ["--markdown-muted", "Quotes, list markers and table headers", "text-muted-foreground"],
+    ["--markdown-link", "Links", "text-foreground"],
+    ["--markdown-caret", "Caret", "bg-foreground"],
+    ["--markdown-code-face", "Inline code surface", "bg-muted"],
+    ["--markdown-font", "Body size", "text-[14px]"],
+    ["--markdown-gap", "Block spacing", "gap-3"]
+  ]
+}

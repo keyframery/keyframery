@@ -1,0 +1,106 @@
+{
+  "description": "The input box of an AI chat. It grows with the message, takes files by the paperclip, a drop or a paste, opens orders, people or commands at the caret after @ and /, and its Send key turns into a spinner and then Stop while the reply comes in.",
+  "moves": [
+    [
+      "Fade",
+      "Send, the spinner and Stop cross-fade in place as the status changes; with more motion they also turn and blur through the swap and land with a pop."
+    ],
+    [
+      "Press",
+      "Send, Stop and the toolbar buttons give under the pointer and spring back on release."
+    ],
+    [
+      "Height",
+      "The row of files opens to its height when the first file arrives and closes as the last one leaves, so the text moves instead of jumping."
+    ],
+    [
+      "Pop",
+      "Each file pops in from smaller, its upload line fills along its foot, and it shrinks away when removed while the files after it close the gap."
+    ],
+    [
+      "Unfold",
+      "The suggestions unfold from the caret, their rows cascade in, and one highlight glides between them as you arrow through."
+    ],
+    [
+      "Rise",
+      "While files are dragged over the box, a drop layer fades in over it and its label rises; the box leans toward the files."
+    ],
+    [
+      "Direction",
+      "The model picker's choice rises into place, and on a phone the models open as a sheet from the bottom."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Enter",
+      "Sends the message. With submitOn=\"mod+enter\" it starts a new line instead. While suggestions are open, it inserts the highlighted one. Nothing sends while an input method is composing."
+    ],
+    [
+      "Shift+Enter",
+      "Starts a new line."
+    ],
+    [
+      "Cmd+Enter or Ctrl+Enter",
+      "Always sends."
+    ],
+    [
+      "@ or /",
+      "Opens mentions at the caret, or commands at the start of the message."
+    ],
+    [
+      "ArrowDown, ArrowUp",
+      "Move through the open suggestions; Tab or Enter inserts one, Escape closes them."
+    ],
+    [
+      "Tab",
+      "Moves from the message to attach, the model, your actions and Send."
+    ]
+  ],
+  "propDocs": {
+    "PromptComposer.status": "\"ready\", \"submitted\" (Send shows a spinner), \"streaming\" (Send becomes Stop) or \"error\" (shows errorMessage).",
+    "PromptComposer.onSubmit": "Called with { text, attachments, model } when Send is pressed, a send key is used or an agent submits. The composer empties itself afterwards.",
+    "PromptComposer.onStop": "Called when Stop is pressed while a reply is on its way.",
+    "PromptComposer.submitOn": "\"enter\" (Shift+Enter for a new line) or \"mod+enter\" (Enter for a new line). Cmd/Ctrl+Enter always sends.",
+    "PromptComposer.mentions": "Items @ suggests: { value, label, description?, icon?, group?, keywords? }. Choosing one inserts @ and its label.",
+    "PromptComposer.commands": "Items / suggests at the start of the message, in the same shape as mentions.",
+    "PromptComposer.models": "Shows a model picker: { value, label, description? }. Use model, defaultModel and onModelChange to control it.",
+    "PromptComposer.accept": "Which files can be attached, like \"image/*,.pdf\". false hides the paperclip and turns off drops and pastes.",
+    "PromptComposer.upload": "(file, { onProgress, signal }) => Promise. Each file uploads as soon as it is attached; Send waits for it.",
+    "PromptComposer.maxRows": "How many lines the message grows to before it scrolls. Default 8.",
+    "PromptComposer.counter": "\"characters\", \"tokens\" (an estimate) or \"none\". With maxLength the count reads against the limit.",
+    "PromptComposer.actions": "Your own buttons, placed after attach and the model picker.",
+    "PromptComposer.menuController": "A controller from createPromptComposerMenuController, to open @ or / from a button."
+  },
+  "cssVars": [
+    [
+      "--prompt-composer-face",
+      "Box surface",
+      "--background (dark: --card)"
+    ],
+    [
+      "--prompt-composer-ink",
+      "Message text",
+      "--foreground"
+    ],
+    [
+      "--prompt-composer-send",
+      "Send button",
+      "--primary"
+    ],
+    [
+      "--prompt-composer-radius",
+      "Box corners",
+      "18px"
+    ],
+    [
+      "--prompt-composer-font",
+      "Message size",
+      "14px"
+    ],
+    [
+      "--prompt-composer-padding",
+      "Box padding",
+      "0.5rem"
+    ]
+  ]
+}

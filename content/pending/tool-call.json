@@ -1,0 +1,40 @@
+{
+  "description": "One agent tool call as a card: the status mark, a title, the tool's name and the time it took, with the input and the output (or the error) in a body that opens. A failed call opens on its own. Agents read the name, status and summaries of the input and output, and open the card through its collapsible.",
+  "moves": [
+    ["Rise", "The card rises in when it arrives (flourish)."],
+    ["Spin", "A running call's mark turns and its title has a light passing through it; both say \"working\" and run at any flourish."],
+    ["Draw", "When the call finishes, the tick pops in and draws itself (flourish); a failed or denied mark pops in."],
+    ["Fade", "A new status label fades in; it rises into place with flourish."],
+    ["Height", "The body opens to its real height and the chevron turns."],
+    ["Cascade", "Input and output rise in one after the other as the body opens (flourish)."]
+  ],
+  "keyboard": [
+    ["Tab", "Moves to the card's header."],
+    ["Enter or Space", "Opens or closes the card."]
+  ],
+  "propDocs": {
+    "ToolCall.name": "The tool's name, like \"search_orders\". Shown in a small mono chip.",
+    "ToolCall.title": "A short human title, like \"Looked up order #1048\". It names the card for screen readers and agents.",
+    "ToolCall.status": "\"pending\", \"running\", \"approval\", \"done\" (the default), \"error\" or \"denied\".",
+    "ToolCall.input": "The call's arguments. Any value: objects show as pretty JSON in a code block.",
+    "ToolCall.output": "What the tool returned. Any value.",
+    "ToolCall.error": "Why it failed, shown in place of the output when status is \"error\".",
+    "ToolCall.duration": "How long it took, in milliseconds: 420ms, 2.4s, 1m 12s.",
+    "ToolCall.startedAt": "When a running call started (epoch ms); the card counts up from it.",
+    "ToolCall.open": "Whether the body is open. Use with onOpenChange to control it.",
+    "ToolCall.defaultOpen": "Whether the body starts open. A failed call starts open.",
+    "ToolCall.onOpenChange": "Runs when the body opens or closes; details.reason is \"status-error\" when a failure opened it, and details.source is \"agent\" when an agent did.",
+    "ToolCall.openOnError": "Open the body on its own when the call fails. On by default.",
+    "ToolCall.children": "Parts to lay the card out yourself (ToolCallTrigger, ToolCallIcon, ToolCallTitle, ToolCallName, ToolCallStatusText, ToolCallDuration, ToolCallContent, ToolCallSection, ToolCallLabel, ToolCallValue). Without children the card is built from its props."
+  },
+  "cssVars": [
+    ["--tool-call-face", "Card surface", "bg-card"],
+    ["--tool-call-ink", "Title text", "text-foreground"],
+    ["--tool-call-muted", "Name, time and labels", "text-muted-foreground"],
+    ["--tool-call-success", "Done tick", "oklch(0.62 0.16 150)"],
+    ["--tool-call-error", "Failed call", "text-destructive"],
+    ["--tool-call-radius", "Card corners", "rounded-[12px]"],
+    ["--tool-call-font", "Title size", "text-[13px]"],
+    ["--tool-call-code-height", "Tallest input or output before it scrolls", "max-h-[220px]"]
+  ]
+}

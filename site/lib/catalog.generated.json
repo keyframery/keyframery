@@ -89,6 +89,15 @@
       ]
     },
     {
+      "slug": "approval",
+      "name": "Approval",
+      "group": "AI",
+      "description": "",
+      "sdk": null,
+      "core": true,
+      "moves": []
+    },
+    {
       "slug": "aspect-ratio",
       "name": "Aspect Ratio",
       "group": "Media",
@@ -687,6 +696,15 @@
       ]
     },
     {
+      "slug": "diff-viewer",
+      "name": "Diff Viewer",
+      "group": "AI",
+      "description": "",
+      "sdk": null,
+      "core": true,
+      "moves": []
+    },
+    {
       "slug": "direction",
       "name": "Direction",
       "group": "Layout",
@@ -1029,6 +1047,15 @@
       ]
     },
     {
+      "slug": "markdown",
+      "name": "Markdown",
+      "group": "AI",
+      "description": "",
+      "sdk": null,
+      "core": true,
+      "moves": []
+    },
+    {
       "slug": "marker",
       "name": "Marker",
       "group": "Display",
@@ -1365,6 +1392,15 @@
       ]
     },
     {
+      "slug": "prompt-composer",
+      "name": "Prompt Composer",
+      "group": "AI",
+      "description": "",
+      "sdk": null,
+      "core": true,
+      "moves": []
+    },
+    {
       "slug": "questionnaire",
       "name": "Questionnaire",
       "group": "Forms",
@@ -1433,6 +1469,15 @@
           "The chosen star pops."
         ]
       ]
+    },
+    {
+      "slug": "reasoning",
+      "name": "Reasoning",
+      "group": "AI",
+      "description": "",
+      "sdk": null,
+      "core": true,
+      "moves": []
     },
     {
       "slug": "resizable",
@@ -1895,6 +1940,15 @@
           "The remove buttons press in."
         ]
       ]
+    },
+    {
+      "slug": "tool-call",
+      "name": "Tool Call",
+      "group": "AI",
+      "description": "",
+      "sdk": null,
+      "core": true,
+      "moves": []
     },
     {
       "slug": "toolbar",

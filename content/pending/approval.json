@@ -1,0 +1,96 @@
+{
+  "description": "A person says yes or no to something an AI agent wants to do. The card shows the action, the control the agent would press, details and a risk level, with Approve and Deny; once answered it closes to one line. createApprovals() wires it to UI SDK's agent bridge, whose allow callback waits for the answer. The buttons sit inside data-agent-hidden, so an agent can read the card but can never approve its own request. createApprovals' allow also refuses any step aimed inside an approval card, and while it waits UI SDK holds the waiting agent's later act and query calls.",
+  "moves": [
+    [
+      "Fade",
+      "The card fades in with a small rise when a request arrives; the extra rise and blur are flourish."
+    ],
+    [
+      "Height",
+      "Once answered, the details and buttons close and the card becomes one line."
+    ],
+    [
+      "Height",
+      "With askReason, Deny opens a reason field to its height."
+    ],
+    [
+      "Draw",
+      "The answer's tick or cross pops in and draws itself (flourish)."
+    ],
+    [
+      "Direction",
+      "\"Approved · 2s ago\" rises into the place the risk label leaves (the rise is flourish)."
+    ]
+  ],
+  "keyboard": [
+    [
+      "Tab",
+      "Moves between Always allow, Deny and Approve."
+    ],
+    [
+      "Enter or Space",
+      "Presses the focused button."
+    ],
+    [
+      "Cmd or Ctrl + Enter",
+      "In the reason field: denies with the reason."
+    ],
+    [
+      "Escape",
+      "In the reason field: back to Approve and Deny."
+    ]
+  ],
+  "propDocs": {
+    "Approval.title": "What the agent wants to do, like \"Issue a refund\".",
+    "Approval.description": "A sentence on what it changes.",
+    "Approval.target": "The control it would use, like \"Press “Delete order #1048”\".",
+    "Approval.risk": "\"low\", \"medium\" (the default) or \"high\". Changes the accent; at high risk Approve turns destructive and Deny takes the default focus.",
+    "Approval.status": "\"pending\", \"approved\" or \"denied\". Leave it out and the card keeps its own; defaultStatus sets where it starts.",
+    "Approval.onApprove": "The person approved; details.always is true when they ticked \"Always allow this action\".",
+    "Approval.onDeny": "The person denied, with the reason they typed, if any.",
+    "Approval.allowAlways": "Show the \"Always allow this action\" checkbox.",
+    "Approval.askReason": "Deny first opens an optional reason field.",
+    "Approval.autoFocus": "Focus the default button when the card arrives.",
+    "Approval.resolvedAt": "When it was answered (epoch ms), for \"Approved · 2s ago\".",
+    "Approval.request": "A request from createApprovals(): binds title, description, target, risk, status and the answer at once.",
+    "Approval.children": "Details shown above the buttons: a diff, the arguments, a summary.",
+    "createApprovals.allow": "createApprovals({ needs?, describe?, keep? }) returns { allow, pending(), requests(), subscribe(listener), approve(id, { always }), deny(id, reason), reset() }. allow has UI SDK's exact type, (step: AgentAction, { signal }) => boolean | Promise<boolean>: pass it to createAgent({ allow }) and registerTools(agent, { allow }). By default only steps on controls marked data-agent-confirm wait for a person; the rest pass. A request is denied (reason \"Cancelled\") when the step's signal aborts: the agent's turn was stopped or the bridge's timeout passed."
+  },
+  "cssVars": [
+    [
+      "--approval-face",
+      "Card surface",
+      "bg-card"
+    ],
+    [
+      "--approval-accent",
+      "Risk accent",
+      "muted-foreground / foreground / destructive by risk"
+    ],
+    [
+      "--approval-success",
+      "Approved answer",
+      "oklch(0.62 0.16 150)"
+    ],
+    [
+      "--approval-radius",
+      "Card corners",
+      "rounded-[14px]"
+    ],
+    [
+      "--approval-font",
+      "Description size",
+      "text-[13px]"
+    ],
+    [
+      "--approval-title-font",
+      "Title size",
+      "text-[14px]"
+    ],
+    [
+      "--approval-inset",
+      "Card padding",
+      "14px"
+    ]
+  ]
+}

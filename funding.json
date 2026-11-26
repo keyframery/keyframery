@@ -16,7 +16,7 @@
     {
       "guid": "keyframery",
       "name": "Keyframery",
-      "description": "Keyframery is the component library for Vercel's UI SDK: 89 free, MIT-licensed components and two page templates (a landing page and an admin dashboard). UI SDK is Vercel's library of UI behaviours: keyboard, focus, selection, accessibility and a bridge that lets AI agents read and use your interface. Keyframery is the component library on top. Every component renders UI SDK underneath and adds a finished look and motion written in plain CSS, and the shadcn CLI copies the code into your project, so it's yours. Every docs page also has a plain Markdown version so AI coding agents can read it. There is no paid tier.",
+      "description": "Keyframery is the component library for Vercel's UI SDK: 95 free, MIT-licensed components and two page templates (a landing page and an admin dashboard). UI SDK is Vercel's library of UI behaviours: keyboard, focus, selection, accessibility and a bridge that lets AI agents read and use your interface. Keyframery is the component library on top. Every component renders UI SDK underneath and adds a finished look and motion written in plain CSS, and the shadcn CLI copies the code into your project, so it's yours. Every docs page also has a plain Markdown version so AI coding agents can read it. There is no paid tier.",
       "webpageUrl": {
         "url": "https://keyframery.com",
         "wellKnown": "https://keyframery.com/.well-known/funding-manifest-urls"

@@ -1,0 +1,32 @@
+{
+  "description": "The thinking behind an AI answer, behind a disclosure: \"Thinking…\" has a light passing through it while the model works, the thinking opens on its own and closes into \"Thought for 12s\" when it ends, and it streams in as muted markdown.",
+  "moves": [
+    ["Fade", "While it thinks, a soft light passes through \"Thinking…\"; it stops for reduced motion."],
+    ["Height", "The thinking opens to its real height on its own when streaming starts, and closes when it ends unless the reader toggled it."],
+    ["Cascade", "The thinking rises in as it opens."],
+    ["Rise", "Each new paragraph or list of the thinking rises in as it streams, and the newest line stays in view."],
+    ["Spring", "The chevron turns down on a spring."]
+  ],
+  "keyboard": [
+    ["Tab", "Moves focus to the trigger."],
+    ["Enter or Space", "Shows or hides the thinking."]
+  ],
+  "propDocs": {
+    "Reasoning.streaming": "True while the model is still thinking: the trigger shimmers and the thinking shows.",
+    "Reasoning.duration": "How long it thought, in seconds. Without it, the time between `streaming` turning on and off is measured.",
+    "Reasoning.autoClose": "Close on its own when the thinking ends, unless the reader toggled it. Default true.",
+    "Reasoning.defaultOpen": "Open at first, when not streaming.",
+    "Reasoning.open": "Controlled open state. Streaming starting and ending still asks for a change through `onOpenChange`.",
+    "ReasoningTrigger.thinkingLabel": "The words while it thinks. Default \"Thinking…\".",
+    "ReasoningTrigger.doneLabel": "A function of the seconds that returns the words once it has finished. Default \"Thought for 12s\".",
+    "ReasoningContent.children": "The thinking as a markdown string (it streams with `streaming`), or your own content."
+  },
+  "cssVars": [
+    ["--reasoning-ink", "Trigger text", "text-muted-foreground"],
+    ["--reasoning-text", "Thinking text", "text-muted-foreground"],
+    ["--reasoning-font", "Thinking size", "text-[13px]"],
+    ["--reasoning-rule", "Rule beside the thinking", "border-border"],
+    ["--reasoning-indent", "Thinking indent", "ps-3.5"],
+    ["--reasoning-max-height", "Tallest the thinking gets before it scrolls", "max-h-72"]
+  ]
+}

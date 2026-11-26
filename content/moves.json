@@ -1319,6 +1319,150 @@
         "Press",
         "A step you can go to sinks a little when pressed."
       ]
+    ],
+    "approval": [
+      [
+        "Fade",
+        "The card fades in with a small rise when a request arrives; the extra rise and blur are flourish."
+      ],
+      [
+        "Height",
+        "Once answered, the details and buttons close and the card becomes one line."
+      ],
+      [
+        "Height",
+        "With askReason, Deny opens a reason field to its height."
+      ],
+      [
+        "Draw",
+        "The answer's tick or cross pops in and draws itself (flourish)."
+      ],
+      [
+        "Direction",
+        "\"Approved · 2s ago\" rises into the place the risk label leaves (the rise is flourish)."
+      ]
+    ],
+    "diff-viewer": [
+      [
+        "Direction",
+        "Switching unified and split, the new layout fades in from the side of its button while the switch's key slides across."
+      ],
+      [
+        "Height",
+        "An opened fold grows from its row to its lines, which fade in."
+      ],
+      [
+        "Cascade",
+        "On mount, hunks rise in one after another (flourish)."
+      ],
+      [
+        "Roll",
+        "The +added and −removed counts roll up to their values (flourish)."
+      ],
+      [
+        "Draw",
+        "Accepting a hunk swaps its buttons for a tick that draws itself; a rejected hunk steps back."
+      ],
+      [
+        "Press",
+        "The view switch, review buttons and copy key sink under the press."
+      ]
+    ],
+    "markdown": [
+      [
+        "Steady",
+        "Each block is drawn from its own source, so finished blocks never re-render or move while the text after them arrives."
+      ],
+      [
+        "Rise",
+        "A new block fades up out of a soft blur as it starts."
+      ],
+      [
+        "Caret",
+        "While streaming, a slim caret sits at the end of the text and pulses softly; it stays still for reduced motion."
+      ],
+      [
+        "Cascade",
+        "Fenced code arrives line by line in Keyframery's code block, and its copy key appears when the closing fence lands."
+      ]
+    ],
+    "prompt-composer": [
+      [
+        "Fade",
+        "Send, the spinner and Stop cross-fade in place as the status changes; with more motion they also turn and blur through the swap and land with a pop."
+      ],
+      [
+        "Press",
+        "Send, Stop and the toolbar buttons give under the pointer and spring back on release."
+      ],
+      [
+        "Height",
+        "The row of files opens to its height when the first file arrives and closes as the last one leaves, so the text moves instead of jumping."
+      ],
+      [
+        "Pop",
+        "Each file pops in from smaller, its upload line fills along its foot, and it shrinks away when removed while the files after it close the gap."
+      ],
+      [
+        "Unfold",
+        "The suggestions unfold from the caret, their rows cascade in, and one highlight glides between them as you arrow through."
+      ],
+      [
+        "Rise",
+        "While files are dragged over the box, a drop layer fades in over it and its label rises; the box leans toward the files."
+      ],
+      [
+        "Direction",
+        "The model picker's choice rises into place, and on a phone the models open as a sheet from the bottom."
+      ]
+    ],
+    "reasoning": [
+      [
+        "Fade",
+        "While it thinks, a soft light passes through \"Thinking…\"; it stops for reduced motion."
+      ],
+      [
+        "Height",
+        "The thinking opens to its real height on its own when streaming starts, and closes when it ends unless the reader toggled it."
+      ],
+      [
+        "Cascade",
+        "The thinking rises in as it opens."
+      ],
+      [
+        "Rise",
+        "Each new paragraph or list of the thinking rises in as it streams, and the newest line stays in view."
+      ],
+      [
+        "Spring",
+        "The chevron turns down on a spring."
+      ]
+    ],
+    "tool-call": [
+      [
+        "Rise",
+        "The card rises in when it arrives (flourish)."
+      ],
+      [
+        "Spin",
+        "A running call's mark turns and its title has a light passing through it; both say \"working\" and run at any flourish."
+      ],
+      [
+        "Draw",
+        "When the call finishes, the tick pops in and draws itself (flourish); a failed or denied mark pops in."
+      ],
+      [
+        "Fade",
+        "A new status label fades in; it rises into place with flourish."
+      ],
+      [
+        "Height",
+        "The body opens to its real height and the chevron turns."
+      ],
+      [
+        "Cascade",
+        "Input and output rise in one after the other as the body opens (flourish)."
+      ]
     ]
   }
 }

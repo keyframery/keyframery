@@ -3331,5 +3331,222 @@
       "The indicators' diameter",
       "1.75rem"
     ]
+  ],
+  "approval": [
+    [
+      "--approval-face",
+      "Card surface",
+      "bg-card"
+    ],
+    [
+      "--approval-accent",
+      "Risk accent",
+      "muted-foreground / foreground / destructive by risk"
+    ],
+    [
+      "--approval-success",
+      "Approved answer",
+      "oklch(0.62 0.16 150)"
+    ],
+    [
+      "--approval-radius",
+      "Card corners",
+      "rounded-[14px]"
+    ],
+    [
+      "--approval-font",
+      "Description size",
+      "text-[13px]"
+    ],
+    [
+      "--approval-title-font",
+      "Title size",
+      "text-[14px]"
+    ],
+    [
+      "--approval-inset",
+      "Card padding",
+      "14px"
+    ]
+  ],
+  "diff-viewer": [
+    [
+      "--diff-viewer-face",
+      "Sheet",
+      "bg-card"
+    ],
+    [
+      "--diff-viewer-ink",
+      "Code text",
+      "text-card-foreground"
+    ],
+    [
+      "--diff-viewer-added",
+      "Added lines and words",
+      "oklch(0.62 0.16 150)"
+    ],
+    [
+      "--diff-viewer-removed",
+      "Removed lines and words",
+      "var(--destructive)"
+    ],
+    [
+      "--diff-viewer-radius",
+      "Sheet corners",
+      "rounded-[14px]"
+    ],
+    [
+      "--diff-viewer-font",
+      "Code size",
+      "text-[12.5px]"
+    ],
+    [
+      "--diff-viewer-max-height",
+      "Body height before it scrolls",
+      "none"
+    ]
+  ],
+  "markdown": [
+    [
+      "--markdown-ink",
+      "Body text",
+      "text-foreground"
+    ],
+    [
+      "--markdown-muted",
+      "Quotes, list markers and table headers",
+      "text-muted-foreground"
+    ],
+    [
+      "--markdown-link",
+      "Links",
+      "text-foreground"
+    ],
+    [
+      "--markdown-caret",
+      "Caret",
+      "bg-foreground"
+    ],
+    [
+      "--markdown-code-face",
+      "Inline code surface",
+      "bg-muted"
+    ],
+    [
+      "--markdown-font",
+      "Body size",
+      "text-[14px]"
+    ],
+    [
+      "--markdown-gap",
+      "Block spacing",
+      "gap-3"
+    ]
+  ],
+  "prompt-composer": [
+    [
+      "--prompt-composer-face",
+      "Box surface",
+      "--background (dark: --card)"
+    ],
+    [
+      "--prompt-composer-ink",
+      "Message text",
+      "--foreground"
+    ],
+    [
+      "--prompt-composer-send",
+      "Send button",
+      "--primary"
+    ],
+    [
+      "--prompt-composer-radius",
+      "Box corners",
+      "18px"
+    ],
+    [
+      "--prompt-composer-font",
+      "Message size",
+      "14px"
+    ],
+    [
+      "--prompt-composer-padding",
+      "Box padding",
+      "0.5rem"
+    ]
+  ],
+  "reasoning": [
+    [
+      "--reasoning-ink",
+      "Trigger text",
+      "text-muted-foreground"
+    ],
+    [
+      "--reasoning-text",
+      "Thinking text",
+      "text-muted-foreground"
+    ],
+    [
+      "--reasoning-font",
+      "Thinking size",
+      "text-[13px]"
+    ],
+    [
+      "--reasoning-rule",
+      "Rule beside the thinking",
+      "border-border"
+    ],
+    [
+      "--reasoning-indent",
+      "Thinking indent",
+      "ps-3.5"
+    ],
+    [
+      "--reasoning-max-height",
+      "Tallest the thinking gets before it scrolls",
+      "max-h-72"
+    ]
+  ],
+  "tool-call": [
+    [
+      "--tool-call-face",
+      "Card surface",
+      "bg-card"
+    ],
+    [
+      "--tool-call-ink",
+      "Title text",
+      "text-foreground"
+    ],
+    [
+      "--tool-call-muted",
+      "Name, time and labels",
+      "text-muted-foreground"
+    ],
+    [
+      "--tool-call-success",
+      "Done tick",
+      "oklch(0.62 0.16 150)"
+    ],
+    [
+      "--tool-call-error",
+      "Failed call",
+      "text-destructive"
+    ],
+    [
+      "--tool-call-radius",
+      "Card corners",
+      "rounded-[12px]"
+    ],
+    [
+      "--tool-call-font",
+      "Title size",
+      "text-[13px]"
+    ],
+    [
+      "--tool-call-code-height",
+      "Tallest input or output before it scrolls",
+      "max-h-[220px]"
+    ]
   ]
 }

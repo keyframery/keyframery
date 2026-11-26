@@ -59,9 +59,14 @@ function npmDeps(code) {
   return deps
 }
 
-function localDeps(code, self) {
+/* A core file named `<component>-<something>.ts` that isn't a component itself is that component's own
+   helper (diff-viewer-diff.ts holds Diff Viewer's algorithm): it ships inside the component's item. */
+const helpersOf = (slug, all) =>
+  fs.readdirSync(src("components/core")).map((f) => f.replace(/\.ts$/, "")).filter((name) => name.startsWith(`${slug}-`) && !all.includes(name))
+
+function localDeps(code, self, helpers = []) {
   const deps = new Set()
-  for (const [, slug] of code.matchAll(/"@\/components\/(?:ui|primitives|core)\/([a-z-]+)"/g)) if (slug !== self) deps.add(slug)
+  for (const [, slug] of code.matchAll(/"@\/components\/(?:ui|primitives|core)\/([a-z0-9-]+)"/g)) if (slug !== self && !helpers.includes(slug)) deps.add(slug)
   return deps
 }
 
@@ -134,17 +139,20 @@ for (const slug of slugs) {
   const files = []
   const deps = new Set()
   const reg = new Set(["@keyframery/motion"])
-  /* A component UI SDK doesn't ship has a third file: its behaviour, defined on UI SDK's core. */
-  for (const [kind, rel, ext] of [
-    ["core", `components/keyframery/core/${slug}-core.ts`, "ts"],
-    ["primitives", `components/keyframery/primitives/${slug}.tsx`, "tsx"],
-    ["ui", `components/keyframery/${slug}.tsx`, "tsx"],
+  const helpers = helpersOf(slug, slugs)
+  /* A component UI SDK doesn't ship has a third file: its behaviour, defined on UI SDK's core, plus any
+     helpers of its own. */
+  for (const [kind, rel, ext, name] of [
+    ...helpers.map((h) => ["core", `components/keyframery/core/${h}-core.ts`, "ts", h]),
+    ["core", `components/keyframery/core/${slug}-core.ts`, "ts", slug],
+    ["primitives", `components/keyframery/primitives/${slug}.tsx`, "tsx", slug],
+    ["ui", `components/keyframery/${slug}.tsx`, "tsx", slug],
   ]) {
-    const file = src("components", kind, `${slug}.${ext}`)
+    const file = src("components", kind, `${name}.${ext}`)
     if (!fs.existsSync(file)) continue
     const code = fs.readFileSync(file, "utf8")
     npmDeps(code).forEach((d) => deps.add(d))
-    localDeps(code, slug).forEach((d) => reg.add(`@keyframery/${d}`))
+    localDeps(code, slug, helpers).forEach((d) => reg.add(`@keyframery/${d}`))
     fs.writeFileSync(path.join(genDir, rel), rewrite(code))
     files.push({ path: `registry/${rel}`, type: "registry:component" })
   }

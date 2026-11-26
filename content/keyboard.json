@@ -1244,5 +1244,93 @@
       "Enter / Space",
       "Goes to the focused step, if it can be reached."
     ]
+  ],
+  "approval": [
+    [
+      "Tab",
+      "Moves between Always allow, Deny and Approve."
+    ],
+    [
+      "Enter or Space",
+      "Presses the focused button."
+    ],
+    [
+      "Cmd or Ctrl + Enter",
+      "In the reason field: denies with the reason."
+    ],
+    [
+      "Escape",
+      "In the reason field: back to Approve and Deny."
+    ]
+  ],
+  "diff-viewer": [
+    [
+      "Tab",
+      "Moves to the view switch, the copy button, the body (so it can scroll), then each fold and review button."
+    ],
+    [
+      "← → ↑ ↓",
+      "Scroll the diff while the body has focus."
+    ],
+    [
+      "Enter or Space",
+      "Presses the focused button: switch view, open a fold, accept, reject, undo or copy."
+    ]
+  ],
+  "markdown": [
+    [
+      "Tab",
+      "Moves to the next link, then to a code block's code and its copy button."
+    ],
+    [
+      "Enter",
+      "Opens the focused link. Links to other sites open in a new tab."
+    ]
+  ],
+  "prompt-composer": [
+    [
+      "Enter",
+      "Sends the message. With submitOn=\"mod+enter\" it starts a new line instead. While suggestions are open, it inserts the highlighted one. Nothing sends while an input method is composing."
+    ],
+    [
+      "Shift+Enter",
+      "Starts a new line."
+    ],
+    [
+      "Cmd+Enter or Ctrl+Enter",
+      "Always sends."
+    ],
+    [
+      "@ or /",
+      "Opens mentions at the caret, or commands at the start of the message."
+    ],
+    [
+      "ArrowDown, ArrowUp",
+      "Move through the open suggestions; Tab or Enter inserts one, Escape closes them."
+    ],
+    [
+      "Tab",
+      "Moves from the message to attach, the model, your actions and Send."
+    ]
+  ],
+  "reasoning": [
+    [
+      "Tab",
+      "Moves focus to the trigger."
+    ],
+    [
+      "Enter or Space",
+      "Shows or hides the thinking."
+    ]
+  ],
+  "tool-call": [
+    [
+      "Tab",
+      "Moves to the card's header."
+    ],
+    [
+      "Enter or Space",
+      "Opens or closes the card."
+    ]
   ]
 }

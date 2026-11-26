@@ -8,7 +8,18 @@ function readAgentContent(node: Node): string {
   const style = node.ownerDocument.defaultView?.getComputedStyle(node)
   if (style?.display === "none" || style?.visibility === "hidden" || style?.visibility === "collapse") return ""
   if (node.hasAttribute("data-agent-secret")) return "[redacted]"
-  return Array.from(node.childNodes, readAgentContent).filter(Boolean).join(" ")
+  /* Inline pieces join as written ("€1,284, so"), block-level ones on their own, so a sentence with a
+     <strong> or a link inside reads as one sentence and separate blocks don't run together. */
+  let text = ""
+  let previousBlock = false
+  for (const child of Array.from(node.childNodes)) {
+    const part = readAgentContent(child)
+    if (!part) continue
+    const block = child instanceof Element && !(child.ownerDocument.defaultView?.getComputedStyle(child).display ?? "inline").startsWith("inline")
+    text += text && (block || previousBlock) ? ` ${part}` : part
+    previousBlock = block
+  }
+  return text
 }
 
 /** Keep rendered content in primitive state without adding a writable agent action. */
