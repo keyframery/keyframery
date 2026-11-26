@@ -87,16 +87,18 @@ function ImageCropperGrid({ className, ...props }: React.ComponentProps<typeof I
   )
 }
 
-/* A handle grows with a pop under the pointer, and a little more while it is dragged. Set
-   `data-hovered` to show the hover from script. */
+/* A handle grows with a pop under the pointer, and a little more while it is dragged. It sits beside
+   the selection, so it springs to its new place on the selection's curve and tracks the pointer exactly
+   during a drag. Set `data-hovered` to show the hover from script. */
 function ImageCropperHandle({ className, ...props }: React.ComponentProps<typeof ImageCropperHandlePart>) {
   return (
     <ImageCropperHandlePart
       className={withClass(
         cn(
-          "transition-[scale] duration-[calc(360ms*var(--kf-speed,1))] ease-pop",
+          "[transition:left_calc(560ms*var(--kf-speed,1))_var(--ease-spring),top_calc(560ms*var(--kf-speed,1))_var(--ease-spring),scale_calc(360ms*var(--kf-speed,1))_var(--ease-pop)]",
+          "group-data-dragging/kf-cropper:[transition:scale_calc(360ms*var(--kf-speed,1))_var(--ease-pop)]",
           "not-data-disabled:hover:scale-[1.45] data-hovered:scale-[1.45] data-dragging:scale-[1.6]",
-          "motion-reduce:transition-none!",
+          "motion-reduce:[transition:none]!",
         ),
         className,
       )}

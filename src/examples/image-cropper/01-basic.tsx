@@ -23,10 +23,11 @@ export default function ImageCropperBasic() {
           <ImageCropperImage alt="A lake between mountains" />
           <ImageCropperSelection>
             <ImageCropperGrid />
-            {handles.map((position) => (
-              <ImageCropperHandle key={position} position={position} />
-            ))}
           </ImageCropperSelection>
+          {/* Handles go beside the selection, not inside it: UI SDK places them in viewport pixels. */}
+          {handles.map((position) => (
+            <ImageCropperHandle key={position} position={position} />
+          ))}
         </ImageCropperViewport>
       </ImageCropper>
       <span className="text-[12px] text-muted-foreground tabular-nums">

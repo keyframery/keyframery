@@ -105,7 +105,8 @@ function ImageCropperGrid({ className, ...props }: React.ComponentProps<typeof I
   )
 }
 
-/* White dots on the corners and short bars on the edges, with a larger invisible grip around each. */
+/* White dots on the corners and short bars on the edges, with a larger invisible grip around each.
+   UI SDK places each handle in viewport pixels, so it goes beside the selection, not inside it. */
 function ImageCropperHandle({ className, ...props }: React.ComponentProps<typeof ImageCropperHandlePrimitive>) {
   return (
     <ImageCropperHandlePrimitive
@@ -115,10 +116,6 @@ function ImageCropperHandle({ className, ...props }: React.ComponentProps<typeof
           "shadow-[0_0_0_1px_rgb(0_0_0/0.18),0_1px_3px_rgb(0_0_0/0.35)]",
           "before:absolute before:-inset-2.5 before:content-['']",
           "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-white",
-          "data-[position=nw]:top-0 data-[position=nw]:left-0 data-[position=ne]:top-0 data-[position=ne]:left-full",
-          "data-[position=sw]:top-full data-[position=sw]:left-0 data-[position=se]:top-full data-[position=se]:left-full",
-          "data-[position=n]:top-0 data-[position=n]:left-1/2 data-[position=s]:top-full data-[position=s]:left-1/2",
-          "data-[position=w]:top-1/2 data-[position=w]:left-0 data-[position=e]:top-1/2 data-[position=e]:left-full",
           "data-[position=ne]:size-3 data-[position=nw]:size-3 data-[position=se]:size-3 data-[position=sw]:size-3",
           "data-[position=n]:h-1.5 data-[position=n]:w-5 data-[position=s]:h-1.5 data-[position=s]:w-5",
           "data-[position=e]:h-5 data-[position=e]:w-1.5 data-[position=w]:h-5 data-[position=w]:w-1.5",

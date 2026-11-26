@@ -176,18 +176,17 @@ export default function ImageCropperDemo({
       >
         <ImageCropperViewport>
           <ImageCropperImage alt="A wooden jetty on a mountain lake" />
-          <ImageCropperSelection>
-            {grid && <ImageCropperGrid />}
-            {handles.map((position) => (
-              <ImageCropperHandle
-                key={position}
-                position={position}
-                data-hovered={hovered === position || undefined}
-                onPointerEnter={() => setHovered(position)}
-                onPointerLeave={() => setHovered(null)}
-              />
-            ))}
-          </ImageCropperSelection>
+          <ImageCropperSelection>{grid && <ImageCropperGrid />}</ImageCropperSelection>
+          {/* Handles go beside the selection, not inside it: UI SDK places them in viewport pixels. */}
+          {handles.map((position) => (
+            <ImageCropperHandle
+              key={position}
+              position={position}
+              data-hovered={hovered === position || undefined}
+              onPointerEnter={() => setHovered(position)}
+              onPointerLeave={() => setHovered(null)}
+            />
+          ))}
         </ImageCropperViewport>
 
         <div className="flex items-center gap-2">
